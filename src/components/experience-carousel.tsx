@@ -1,0 +1,119 @@
+"use client";
+
+import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, FreeMode } from "swiper/modules";
+import { Trip } from "@/lib/data";
+import TravelStyleBadge from "@/components/travel-style-badge";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/free-mode";
+
+export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
+  return (
+    <div className="experience-carousel relative">
+      <Swiper
+        modules={[Navigation, Pagination, FreeMode]}
+        spaceBetween={16}
+        slidesPerView={1.15}
+        freeMode={{ enabled: true, sticky: false }}
+        navigation={{
+          nextEl: ".exp-next",
+          prevEl: ".exp-prev",
+        }}
+        pagination={{
+          el: ".exp-pagination",
+          clickable: true,
+        }}
+        breakpoints={{
+          480: { slidesPerView: 1.5, spaceBetween: 16 },
+          640: { slidesPerView: 2.2, spaceBetween: 16 },
+          1024: { slidesPerView: 3.2, spaceBetween: 20 },
+          1280: { slidesPerView: 3.8, spaceBetween: 20 },
+        }}
+        speed={600}
+        className="!overflow-visible"
+      >
+        {trips.map((trip) => (
+          <SwiperSlide key={trip.id}>
+            <Link href={`/destinations/${trip.id}`} className="group block">
+              <div
+                className="relative overflow-hidden rounded-[10px] bg-white/5 border border-white/5 hover:border-tru-pink/20 transition-all duration-300"
+                style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
+              >
+                {/* Image */}
+                <div className="relative aspect-[4/3] overflow-hidden">
+                  <img
+                    src={trip.image}
+                    alt={trip.title}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+
+                  {/* Travel style badge */}
+                  <div className="absolute top-3 left-3">
+                    <TravelStyleBadge style={trip.travelStyle} />
+                  </div>
+
+                  {/* Member badge */}
+                  {trip.memberOnly && (
+                    <div
+                      className="absolute top-3 right-3 bg-tru-pink text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading"
+                      style={{ filter: "drop-shadow(2px 2px 3px rgba(0,0,0,0.5))" }}
+                    >
+                      Members Only
+                    </div>
+                  )}
+                </div>
+
+                {/* Card info */}
+                <div className="p-4">
+                  <h3 className="text-sm font-bold text-white font-heading leading-tight group-hover:text-tru-pink transition-colors mb-2">
+                    {trip.title} &mdash; {trip.duration}
+                  </h3>
+
+                  <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-2">
+                    {trip.tagline}
+                  </p>
+
+                  <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-3 font-heading">
+                    {trip.region} &middot; {trip.destination}
+                  </p>
+
+                  <div className="flex items-baseline gap-2 pt-3 border-t border-white/10">
+                    <span className="text-gray-400 text-xs">From</span>
+                    {trip.originalPrice && (
+                      <span className="text-gray-500 text-sm line-through">
+                        &pound;{trip.originalPrice}
+                      </span>
+                    )}
+                    <span className="text-tru-green font-bold text-lg">
+                      &pound;{trip.price}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* Custom navigation arrows */}
+      <button className="exp-prev absolute top-[calc(50%-60px)] -left-2 sm:-left-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30 disabled:cursor-default">
+        <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button className="exp-next absolute top-[calc(50%-60px)] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30 disabled:cursor-default">
+        <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      {/* Pagination dots */}
+      <div className="exp-pagination flex justify-center gap-2 mt-8" />
+    </div>
+  );
+}

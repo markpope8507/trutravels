@@ -1,26 +1,189 @@
 @import "tailwindcss";
 
+/* ============================================================
+   TRUTRAVELS BRAND TOKENS
+   Primary: #FF3F99 (hot pink)
+   CTA: #6BD495 (green)
+   Text: #09213E (navy)
+   Blue: #2172D5
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --tru-pink: #FF3F99;
+  --tru-pink-light: #ff6db3;
+  --tru-pink-dark: #e6357f;
+  --tru-green: #6BD495;
+  --tru-green-light: #82e0a9;
+  --tru-green-dark: #55c080;
+  --tru-navy: #09213E;
+  --tru-blue: #2172D5;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-tru-pink: var(--tru-pink);
+  --color-tru-pink-light: var(--tru-pink-light);
+  --color-tru-pink-dark: var(--tru-pink-dark);
+  --color-tru-green: var(--tru-green);
+  --color-tru-green-light: var(--tru-green-light);
+  --color-tru-green-dark: var(--tru-green-dark);
+  --color-tru-navy: var(--tru-navy);
+  --color-tru-blue: var(--tru-blue);
+  --font-heading: var(--font-montserrat);
+  --font-body: var(--font-source-sans);
+  --font-handwriting: var(--font-caveat);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), 'Source Sans Pro', Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), 'Montserrat', Arial, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Line clamp utilities */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-fade-up { animation: fade-up 0.8s ease-out both; }
+.animate-fade-in { animation: fade-in 0.6s ease-out both; }
+.animate-slide-in-left { animation: slide-in-left 0.8s ease-out both; }
+.animate-scale-in { animation: scale-in 0.6s ease-out both; }
+.animate-ticker { animation: ticker 30s linear infinite; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+.delay-900 { animation-delay: 0.9s; }
+.delay-1000 { animation-delay: 1.0s; }
+.delay-1200 { animation-delay: 1.2s; }
+.delay-1400 { animation-delay: 1.4s; }
+.delay-1600 { animation-delay: 1.6s; }
+.delay-1800 { animation-delay: 1.8s; }
+.delay-2000 { animation-delay: 2.0s; }
+.delay-2200 { animation-delay: 2.2s; }
+.delay-2400 { animation-delay: 2.4s; }
+
+/* Horizontal scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Gradient text — TruTravels pink */
+.text-gradient {
+  background: linear-gradient(135deg, #FF3F99, #ff6db3, #FF3F99);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass effect — navy-tinted */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================================
+   SWIPER OVERRIDES — TruTravels branded carousel
+   ============================================================ */
+
+.experience-carousel .swiper-pagination-bullet,
+.usp-carousel .swiper-pagination-bullet,
+.pillar-carousel .swiper-pagination-bullet,
+.creator-carousel .swiper-pagination-bullet,
+.video-carousel .swiper-pagination-bullet,
+.drop-carousel .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  opacity: 1;
+  transition: all 0.3s;
+}
+
+.experience-carousel .swiper-pagination-bullet-active,
+.usp-carousel .swiper-pagination-bullet-active,
+.pillar-carousel .swiper-pagination-bullet-active,
+.creator-carousel .swiper-pagination-bullet-active,
+.video-carousel .swiper-pagination-bullet-active,
+.drop-carousel .swiper-pagination-bullet-active {
+  background: var(--tru-pink);
+  border-color: var(--tru-pink);
+  transform: scale(1.1);
+}
+
+.experience-carousel .swiper-button-disabled,
+.usp-carousel .swiper-button-disabled,
+.pillar-carousel .swiper-button-disabled,
+.creator-carousel .swiper-button-disabled,
+.video-carousel .swiper-button-disabled,
+.drop-carousel .swiper-button-disabled {
+  opacity: 0.2 !important;
+}
+
+/* TruTravels navy gradient overlay */
+.overlay-navy {
+  background: linear-gradient(0deg, rgba(9, 33, 62, 1) 0%, rgba(9, 33, 62, 1) 30%, rgba(9, 33, 62, 0) 45%, rgba(9, 33, 62, 0) 100%);
 }
