@@ -8,6 +8,8 @@ import FavouriteButton from "@/components/favourite-button";
 import TravelStyleInfo from "@/components/travel-style-info";
 import CollapsibleItinerary from "@/components/collapsible-itinerary";
 import TripBookingWrapper from "@/components/trip-booking-wrapper";
+import TrackTripView from "@/components/track-trip-view";
+import BackButton from "@/components/back-button";
 import TripReviews from "@/components/trip-reviews";
 import TripFaqs from "@/components/trip-faqs";
 
@@ -26,6 +28,8 @@ export default async function TripDetailPage({
 
   return (
     <>
+      <TrackTripView tripId={trip.id} />
+      <BackButton />
       <TripBookingWrapper
         price={trip.price}
         originalPrice={trip.originalPrice}

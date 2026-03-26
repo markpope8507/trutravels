@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { trips, stories, drops, videoDiaries, experienceTypes } from "@/lib/data";
 import ExperienceCarousel from "@/components/experience-carousel";
-import ExperienceTypesCarousel from "@/components/experience-types-carousel";
+import { DesignA as ExperienceTypesCarousel } from "@/components/experience-types-v2";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import DropsCarousel from "@/components/drops-carousel";
 import InspireMeWrapper from "@/components/inspire-me-wrapper";
 import DiscoveryPathways from "@/components/discovery-pathways";
+import SearchPrompt from "@/components/search-prompt";
 
 export default function HomePage() {
   const featuredStories = stories.filter((s) => !s.memberOnly).slice(0, 3);
@@ -35,13 +36,13 @@ export default function HomePage() {
           <h1 className="animate-fade-up delay-100 text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[1.05] mb-6 tracking-tight uppercase font-heading">
             Leave Ordinary<br />Behind
           </h1>
-          <p className="animate-fade-up delay-200 text-2xl sm:text-3xl mb-10 max-w-2xl mx-auto font-light italic text-tru-pink">
-            Find your extraordinary&hellip;
+          <p className="animate-fade-up delay-200 text-3xl sm:text-4xl mb-10 max-w-2xl mx-auto font-handwriting text-tru-pink">
+            Find your Extraordinary&hellip;
           </p>
-          <div className="animate-fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="animate-fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/destinations"
-              className="rounded-[10px] bg-tru-green px-8 py-3.5 text-sm font-semibold text-tru-navy hover:bg-tru-green-light transition-all duration-300 uppercase tracking-wider"
+              className="rounded-[10px] border border-white bg-transparent px-8 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-all duration-300 uppercase tracking-wider w-56 text-center"
             >
               Explore Experiences
             </Link>
@@ -113,6 +114,7 @@ export default function HomePage() {
         <div className="mt-8 text-center sm:hidden">
           <Link href="/destinations" className="text-sm text-tru-pink font-semibold uppercase tracking-wider">View all experiences &rarr;</Link>
         </div>
+
       </section>
 
       {/* ================================================================

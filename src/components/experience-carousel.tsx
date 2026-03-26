@@ -53,7 +53,7 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 
                   {/* Travel style badge */}
-                  <div className="absolute top-3 left-3">
+                  <div className="absolute bottom-1 left-1">
                     <TravelStyleBadge style={trip.travelStyle} />
                   </div>
 
@@ -82,16 +82,26 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
                     {trip.region} &middot; {trip.destination}
                   </p>
 
-                  <div className="flex items-baseline gap-2 pt-3 border-t border-white/10">
+                  <div className="flex items-center gap-2 pt-3 border-t border-white/10">
                     <span className="text-gray-400 text-xs">From</span>
                     {trip.originalPrice && (
                       <span className="text-gray-500 text-sm line-through">
                         &pound;{trip.originalPrice}
                       </span>
                     )}
-                    <span className="text-tru-green font-bold text-lg">
+                    <span className="text-white font-bold text-lg">
                       &pound;{trip.price}
                     </span>
+                    {trip.originalPrice && (
+                      <>
+                        <span className="text-red-500 text-[10px] font-bold">
+                          -{Math.round(((trip.originalPrice - trip.price) / trip.originalPrice) * 100)}%
+                        </span>
+                        <span className="bg-red-500 text-white text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ml-auto">
+                          Save &pound;{trip.originalPrice - trip.price}
+                        </span>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

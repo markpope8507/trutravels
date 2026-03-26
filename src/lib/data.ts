@@ -5,35 +5,40 @@
 
 export type TravelStyle = "classic" | "backpacker" | "flashpacker" | "multi_country" | "limited_edition";
 
-export const travelStyleConfig: Record<TravelStyle, { label: string; color: string; icon: string; description: string }> = {
+export const travelStyleConfig: Record<TravelStyle, { label: string; color: string; icon: string; logo: string; description: string }> = {
   classic: {
     label: "Classic",
     color: "#2172D5",
     icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
+    logo: "/classic-logo.png",
     description: "We've perfected the balance between culture, adventure, beaches and parties. A high level of inclusions at a low cost. Highlights, hotspots & hidden gems are crafted into each itinerary with our own TruExclusives. We stay in a variety of different accommodations such as hotels, hostels, homestays, beach huts & even boats.",
   },
   backpacker: {
     label: "Backpacker",
     color: "#6BD495",
     icon: "M20 7h-4V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v3H4a2 2 0 00-2 2v11a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM10 4h4v3h-4V4z",
+    logo: "/backpacker-logo.png",
     description: "Maximum adventure, minimum cost. Hostels, street food, local transport, and raw experiences — designed for travellers who want to stretch their budget without missing out.",
   },
   flashpacker: {
     label: "Flashpacker",
     color: "#FF3F99",
     icon: "M13 10V3L4 14h7v7l9-11h-7z",
+    logo: "/flashpacker-logo.png",
     description: "All the adventure with an upgrade. Think boutique hotels, premium experiences, and a few extra touches that make every day feel special — for those who like comfort with their chaos.",
   },
   multi_country: {
     label: "Multi Country",
     color: "#FCA501",
     icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+    logo: "/multi-country-logo.png",
     description: "Why pick one country when you can have several? Cross borders, experience contrasting cultures, and pack more into every trip with seamless multi-country itineraries.",
   },
   limited_edition: {
     label: "Limited Edition",
     color: "#FF3F99",
     icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+    logo: "/limited-edition-logo.png",
     description: "Exclusive trips that run only a handful of times. Unique routes, special events, and once-in-a-lifetime experiences you won't find anywhere else. When they're gone, they're gone.",
   },
 };
@@ -714,7 +719,7 @@ export type VideoDiary = {
 export const videoDiaries: VideoDiary[] = [
   {
     id: "v1",
-    video: "https://videos.pexels.com/video-files/4763824/4763824-sd_506_960_24fps.mp4",
+    video: "/videos/traveller-diary.mp4",
     poster: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=400&q=80",
     caption: "That moment when the boat drops you at a beach with no name and no Wi-Fi. This is what we came for.",
     author: "Sophie Chen",
@@ -725,7 +730,7 @@ export const videoDiaries: VideoDiary[] = [
   },
   {
     id: "v2",
-    video: "https://videos.pexels.com/video-files/3571264/3571264-sd_506_960_30fps.mp4",
+    video: "/videos/influencer-diary.mp4",
     poster: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400&q=80",
     caption: "Sunrise summit at Mount Batur. 15 strangers at 3am. Lifelong friends by 6am. This is TruTravels.",
     author: "Jake Morrison",
@@ -747,7 +752,7 @@ export const videoDiaries: VideoDiary[] = [
   },
   {
     id: "v4",
-    video: "https://videos.pexels.com/video-files/4328286/4328286-sd_506_960_25fps.mp4",
+    video: "/videos/creator-diary.mp4",
     poster: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80",
     caption: "Woke up on a junk boat in Ha Long Bay. Kayaked through caves before breakfast. Unreal.",
     author: "Nina Waves",

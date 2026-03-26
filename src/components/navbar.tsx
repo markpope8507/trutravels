@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
+import SearchOverlay from "@/components/search-overlay";
 
 // ============================================================
 // NAV DATA — Real TruTravels destinations & structure
@@ -97,6 +98,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -105,8 +107,13 @@ export default function Navbar() {
         setActiveMenu(null);
       }
     };
+    const handleOpenSearch = () => setSearchOpen(true);
     document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
+    window.addEventListener("open-search", handleOpenSearch);
+    return () => {
+      document.removeEventListener("click", handleClick);
+      window.removeEventListener("open-search", handleOpenSearch);
+    };
   }, []);
 
   const toggleMenu = (menu: string) => {
@@ -167,7 +174,7 @@ export default function Navbar() {
 
             {/* Right side */}
             <div className="hidden xl:flex items-center gap-2 ml-auto">
-              <button className="h-8 w-8 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition">
+              <button onClick={() => { setSearchOpen(true); closeAll(); }} className="h-8 w-8 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -197,9 +204,20 @@ export default function Navbar() {
               )}
             </div>
 
+            {/* Mobile search */}
+            <button
+              onClick={() => { setSearchOpen(true); closeAll(); }}
+              className="xl:hidden ml-auto h-8 w-8 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition"
+              aria-label="Search"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+
             {/* Mobile hamburger */}
             <button
-              className="xl:hidden ml-auto text-white"
+              className="xl:hidden text-white"
               onClick={() => { setMobileOpen(!mobileOpen); setActiveMenu(null); setMobileSubmenu(null); }}
               aria-label="Toggle menu"
             >
@@ -307,6 +325,16 @@ export default function Navbar() {
       {/* ============ MOBILE MENU ============ */}
       {mobileOpen && (
         <div className="xl:hidden bg-tru-navy/95 backdrop-blur-md mx-4 rounded-b-[20px] border border-t-0 border-white/10 px-5 pb-5 pt-2 max-h-[70vh] overflow-y-auto">
+          {/* Mobile search */}
+          <button
+            onClick={() => { setSearchOpen(true); setMobileOpen(false); }}
+            className="flex items-center gap-3 w-full text-gray-400 hover:text-white py-3 border-b border-white/10 transition"
+          >
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span className="text-sm font-semibold uppercase tracking-wider font-heading">Search</span>
+          </button>
           {[
             { label: "Destinations", key: "m-dest", items: destinations.map((r) => ({ name: r.region, href: "/destinations" })) },
             { label: "Travel Styles", key: "m-styles", items: travelStylesNav.map((s) => ({ name: s.name, href: "/destinations" })) },
@@ -349,6 +377,7 @@ export default function Navbar() {
           )}
         </div>
       )}
+      <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </nav>
   );
 }
