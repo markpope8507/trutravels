@@ -34,7 +34,7 @@ function DashboardContent() {
       {/* Quick actions */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
         {[
-          { label: "Saved Trips", value: "3", href: "/destinations", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
+          { label: "Saved Trips", value: "3", href: "/explore", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
           { label: "Exclusive Content", value: "New", href: "/member/exclusive", icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" },
           { label: "Community", value: "Active", href: "/member/community", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
           { label: "My Profile", value: "Edit", href: "/member/profile", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
@@ -66,7 +66,7 @@ function DashboardContent() {
             <p className="text-amber-400 text-sm font-semibold uppercase tracking-wider mb-1">For You</p>
             <h2 className="text-2xl font-bold text-white">Recommended Trips</h2>
           </div>
-          <Link href="/destinations" className="text-sm text-amber-400 hover:text-amber-300 transition">
+          <Link href="/explore" className="text-sm text-amber-400 hover:text-amber-300 transition">
             View all &rarr;
           </Link>
         </div>

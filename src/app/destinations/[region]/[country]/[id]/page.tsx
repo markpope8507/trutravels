@@ -13,14 +13,22 @@ import BackButton from "@/components/back-button";
 import TripReviews from "@/components/trip-reviews";
 import TripFaqs from "@/components/trip-faqs";
 
+function slugify(str: string) {
+  return str.toLowerCase().replace(/\s+/g, "-").replace(/[&]/g, "and");
+}
+
 export async function generateStaticParams() {
-  return trips.map((trip) => ({ id: trip.id }));
+  return trips.map((trip) => ({
+    region: slugify(trip.region),
+    country: slugify(trip.destination),
+    id: trip.id,
+  }));
 }
 
 export default async function TripDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ region: string; country: string; id: string }>;
 }) {
   const { id } = await params;
   const trip = trips.find((t) => t.id === id);
@@ -123,7 +131,15 @@ export default async function TripDetailPage({
             </li>
             <li><span className="text-gray-600">/</span></li>
             <li>
-              <Link href="/destinations" className="hover:text-white transition-colors">Trips</Link>
+              <Link href="/explore" className="hover:text-white transition-colors">Destinations</Link>
+            </li>
+            <li><span className="text-gray-600">/</span></li>
+            <li>
+              <Link href="/explore" className="hover:text-white transition-colors">{trip.region}</Link>
+            </li>
+            <li><span className="text-gray-600">/</span></li>
+            <li>
+              <Link href={`/destinations/country/${trip.destination.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-white transition-colors">{trip.destination}</Link>
             </li>
             <li><span className="text-gray-600">/</span></li>
             <li className="text-gray-300">{trip.title}</li>

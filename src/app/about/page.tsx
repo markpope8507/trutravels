@@ -107,7 +107,7 @@ export default function AboutPage() {
           <p className="text-gray-400 mb-8">Join the TruTravels community and start exploring.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/destinations"
+              href="/explore"
               className="rounded-[10px] bg-tru-green px-8 py-3 text-sm font-semibold text-tru-navy hover:bg-tru-green-light transition uppercase tracking-wider"
             >
               Explore Trips

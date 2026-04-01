@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, FreeMode } from "swiper/modules";
 import { Trip } from "@/lib/data";
+import { tripUrl } from "@/lib/utils";
 import TravelStyleBadge from "@/components/travel-style-badge";
 
 import "swiper/css";
@@ -17,8 +18,9 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
       <Swiper
         modules={[Navigation, Pagination, FreeMode]}
         spaceBetween={16}
-        slidesPerView={1.15}
-        freeMode={{ enabled: true, sticky: false }}
+        slidesPerView={1.2}
+        centeredSlides={true}
+        freeMode={false}
         navigation={{
           nextEl: ".exp-next",
           prevEl: ".exp-prev",
@@ -28,17 +30,17 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
           clickable: true,
         }}
         breakpoints={{
-          480: { slidesPerView: 1.5, spaceBetween: 16 },
-          640: { slidesPerView: 2.2, spaceBetween: 16 },
-          1024: { slidesPerView: 3.2, spaceBetween: 20 },
-          1280: { slidesPerView: 3.8, spaceBetween: 20 },
+          480: { slidesPerView: 1.4, centeredSlides: true },
+          640: { slidesPerView: 2.2, centeredSlides: false },
+          1024: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 },
+          1280: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 },
         }}
         speed={600}
-        className="!overflow-visible"
+        className=""
       >
         {trips.map((trip) => (
           <SwiperSlide key={trip.id}>
-            <Link href={`/destinations/${trip.id}`} className="group block">
+            <Link href={tripUrl(trip)} className="group block">
               <div
                 className="relative overflow-hidden rounded-[10px] bg-white/5 border border-white/5 hover:border-tru-pink/20 transition-all duration-300"
                 style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
@@ -78,9 +80,25 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
                     {trip.tagline}
                   </p>
 
-                  <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-3 font-heading">
+                  <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
                     {trip.region} &middot; {trip.destination}
                   </p>
+
+                  {trip.rating && (
+                    <div className="flex items-center gap-1.5 mb-3">
+                      <div className="flex gap-0.5">
+                        {[...Array(5)].map((_, i) => (
+                          <div key={i} className="h-4 w-4 bg-[#00B67A] flex items-center justify-center rounded-[2px]">
+                            <svg className="h-2.5 w-2.5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                          </div>
+                        ))}
+                      </div>
+                      <span className="text-white text-[10px] font-bold">{trip.rating}</span>
+                      <span className="text-gray-500 text-[10px]">({trip.reviewCount})</span>
+                    </div>
+                  )}
 
                   <div className="flex items-center gap-2 pt-3 border-t border-white/10">
                     <span className="text-gray-400 text-xs">From</span>

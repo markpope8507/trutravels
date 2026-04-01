@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { trips, Trip, experienceTypes, travelStyleConfig } from "@/lib/data";
+import { tripUrl } from "@/lib/utils";
 import TravelStyleBadge from "@/components/travel-style-badge";
 
 // ============================================================
@@ -184,6 +186,9 @@ function InspireMeModal({
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({});
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState<Trip[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => { setMounted(true); }, []);
 
   // Reset when closed
   useEffect(() => {
@@ -197,7 +202,7 @@ function InspireMeModal({
     }
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   const currentStep = quizSteps[step];
   const totalSteps = quizSteps.length;
@@ -249,7 +254,7 @@ function InspireMeModal({
     return answer === value;
   };
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center">
       {/* Backdrop */}
       <div
@@ -258,7 +263,7 @@ function InspireMeModal({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-2xl max-h-[90vh] mx-4 bg-tru-navy rounded-[10px] border border-white/10 overflow-hidden flex flex-col">
+      <div className="relative w-full max-w-2xl max-h-[85vh] mx-4 bg-tru-navy rounded-[10px] border border-white/10 overflow-hidden flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
           <div className="flex items-center gap-3">
@@ -317,7 +322,7 @@ function InspireMeModal({
                 {results.map((trip, i) => (
                   <Link
                     key={trip.id}
-                    href={`/destinations/${trip.id}`}
+                    href={tripUrl(trip)}
                     onClick={onClose}
                     className="group flex gap-4 bg-white/5 rounded-[10px] border border-white/5 hover:border-tru-pink/20 transition-all duration-300 overflow-hidden"
                   >
@@ -370,7 +375,7 @@ function InspireMeModal({
               {/* CTA */}
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
                 <Link
-                  href="/destinations"
+                  href="/explore"
                   onClick={onClose}
                   className="flex-1 rounded-[10px] bg-tru-green px-6 py-3 text-sm font-semibold text-tru-navy hover:bg-tru-green-light transition-all duration-300 uppercase tracking-wider text-center"
                 >
@@ -441,7 +446,8 @@ function InspireMeModal({
           )}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 

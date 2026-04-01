@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import { Trip, TravelStyle, travelStyleConfig } from "@/lib/data";
+import { tripUrl } from "@/lib/utils";
 import TravelStyleBadge from "@/components/travel-style-badge";
 
 import "swiper/css";
@@ -41,7 +42,7 @@ const sortOptions = [
    ============================================================ */
 function TripCard({ trip }: { trip: Trip }) {
   return (
-    <Link href={`/destinations/${trip.id}`} className="group block">
+    <Link href={tripUrl(trip)} className="group block">
       <div
         className="relative overflow-hidden rounded-[10px] bg-white/5 border border-white/5 hover:border-tru-pink/20 transition-all duration-300"
         style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
@@ -67,9 +68,26 @@ function TripCard({ trip }: { trip: Trip }) {
             {trip.title} &mdash; {trip.duration}
           </h3>
           <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-2">{trip.tagline}</p>
-          <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-3 font-heading">
+          <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
             {trip.region} &middot; {trip.destination}
           </p>
+
+          {trip.rating && (
+            <div className="flex items-center gap-1.5 mb-3">
+              <div className="flex gap-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <div key={i} className="h-4 w-4 bg-[#00B67A] flex items-center justify-center rounded-[2px]">
+                    <svg className="h-2.5 w-2.5 text-white" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                    </svg>
+                  </div>
+                ))}
+              </div>
+              <span className="text-white text-[10px] font-bold">{trip.rating}</span>
+              <span className="text-gray-500 text-[10px]">({trip.reviewCount})</span>
+            </div>
+          )}
+
           <div className="flex items-center gap-2 pt-3 border-t border-white/10">
             <span className="text-gray-400 text-xs">From</span>
             {trip.originalPrice && (
@@ -416,7 +434,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
     } else {
       params.set("view", v);
     }
-    router.push(`/destinations${params.toString() ? `?${params.toString()}` : ""}`, { scroll: false });
+    router.push(`/explore${params.toString() ? `?${params.toString()}` : ""}`, { scroll: false });
   };
   const [dealsSort, setDealsSort] = useState("recommended");
   const [dealsSortOpen, setDealsSortOpen] = useState(false);
@@ -531,6 +549,46 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
         </div>
       </section>
 
+      {/* Recently viewed */}
+      {recentTrips.length > 0 && (
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
+          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-4">Recently Viewed</p>
+          <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+            {recentTrips.map((trip) => (
+              <Link
+                key={trip.id}
+                href={tripUrl(trip)}
+                className="flex-shrink-0 w-72 flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-3 hover:border-white/20 hover:bg-white/10 transition-all duration-200 group"
+              >
+                <div className="h-20 w-20 rounded-lg overflow-hidden flex-shrink-0">
+                  <img src={trip.image} alt={trip.title} className="h-full w-full object-cover" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-white text-sm font-bold font-heading truncate group-hover:text-tru-pink transition-colors">{trip.title}</p>
+                  <p className="text-gray-400 text-xs mb-1.5">{trip.region} &middot; {trip.duration}</p>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    {trip.originalPrice && (
+                      <span className="text-gray-500 text-xs line-through">&pound;{trip.originalPrice}</span>
+                    )}
+                    <span className="text-white font-bold text-sm">&pound;{trip.price}</span>
+                    {trip.originalPrice && (
+                      <>
+                        <span className="text-red-500 text-[9px] font-bold">
+                          -{Math.round(((trip.originalPrice - trip.price) / trip.originalPrice) * 100)}%
+                        </span>
+                        <span className="bg-red-500 text-white text-[7px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full">
+                          Save &pound;{trip.originalPrice - trip.price}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Sticky action bar */}
       <div className="sticky top-0 z-30 bg-tru-navy/95 backdrop-blur-md border-b border-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -584,46 +642,6 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               </button>
             )}
             <button onClick={clearFilters} className="text-xs text-gray-500 hover:text-white transition ml-1">Clear all</button>
-          </div>
-        </div>
-      )}
-
-      {/* Recently viewed */}
-      {recentTrips.length > 0 && (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8 pb-2">
-          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-4">Recently Viewed</p>
-          <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:overflow-visible">
-            {recentTrips.map((trip) => (
-              <Link
-                key={trip.id}
-                href={`/destinations/${trip.id}`}
-                className="flex-shrink-0 w-72 sm:w-auto flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-3 hover:border-white/20 hover:bg-white/10 transition-all duration-200 group"
-              >
-                <div className="h-20 w-20 rounded-lg overflow-hidden flex-shrink-0">
-                  <img src={trip.image} alt={trip.title} className="h-full w-full object-cover" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-white text-sm font-bold font-heading truncate group-hover:text-tru-pink transition-colors">{trip.title}</p>
-                  <p className="text-gray-400 text-xs mb-1.5">{trip.region} &middot; {trip.duration}</p>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    {trip.originalPrice && (
-                      <span className="text-gray-500 text-xs line-through">&pound;{trip.originalPrice}</span>
-                    )}
-                    <span className="text-white font-bold text-sm">&pound;{trip.price}</span>
-                    {trip.originalPrice && (
-                      <>
-                        <span className="text-red-500 text-[9px] font-bold">
-                          -{Math.round(((trip.originalPrice - trip.price) / trip.originalPrice) * 100)}%
-                        </span>
-                        <span className="bg-red-500 text-white text-[7px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full">
-                          Save &pound;{trip.originalPrice - trip.price}
-                        </span>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       )}
@@ -693,7 +711,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                   if (dealsSort === "duration-short") return parseInt(a.duration) - parseInt(b.duration);
                   return 0;
                 }).map((trip) => (
-                  <Link key={trip.id} href={`/destinations/${trip.id}`} className="group flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-4 hover:border-tru-pink/20 hover:bg-white/10 transition-all duration-200">
+                  <Link key={trip.id} href={tripUrl(trip)} className="group flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-4 hover:border-tru-pink/20 hover:bg-white/10 transition-all duration-200">
                     <img src={trip.image} alt={trip.title} className="h-20 w-20 sm:h-24 sm:w-24 rounded-lg object-cover flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading mb-1"><span className="hidden sm:inline">{trip.region} &middot; </span>{trip.duration}</p>
@@ -751,7 +769,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                   {allDepartures.map((dep) => (
                     <Link
                       key={`${dep.trip.id}-${dep.date}`}
-                      href={`/destinations/${dep.trip.id}`}
+                      href={tripUrl(dep.trip)}
                       className="group flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-4 hover:border-tru-pink/20 hover:bg-white/10 transition-all duration-200"
                     >
                       {/* Date */}

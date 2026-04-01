@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { Trip } from "@/lib/data";
+import { tripUrl } from "@/lib/utils";
 import TravelStyleBadge from "@/components/travel-style-badge";
 
 export default function TripCard({ trip }: { trip: Trip }) {
   return (
-    <Link href={`/destinations/${trip.id}`} className="group block">
+    <Link href={tripUrl(trip)} className="group block">
       <div className="relative overflow-hidden rounded-[10px] aspect-[4/5]">
         {/* Image */}
         <img

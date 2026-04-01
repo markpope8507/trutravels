@@ -13,59 +13,59 @@ const destinations = [
   {
     region: "Asia",
     countries: [
-      { name: "Thailand", tag: "Top Seller" },
-      { name: "Indonesia", tag: "Popular" },
-      { name: "Philippines", tag: "Popular" },
-      { name: "Vietnam", tag: "Top Seller" },
-      { name: "Cambodia", tag: "" },
-      { name: "Sri Lanka", tag: "" },
-      { name: "India", tag: "" },
-      { name: "Japan", tag: "" },
-      { name: "China", tag: "New" },
+      { name: "Thailand", tag: "Top Seller", href: "/destinations/country/thailand" },
+      { name: "Indonesia", tag: "Popular", href: "/destinations/country/indonesia" },
+      { name: "Philippines", tag: "Popular", href: "/destinations/country/philippines" },
+      { name: "Vietnam", tag: "Top Seller", href: "/destinations/country/vietnam" },
+      { name: "Cambodia", tag: "", href: "/destinations/country/cambodia" },
+      { name: "Sri Lanka", tag: "", href: "/destinations/country/sri-lanka" },
+      { name: "India", tag: "", href: "/destinations/country/india" },
+      { name: "Japan", tag: "", href: "/destinations/country/japan" },
+      { name: "China", tag: "New", href: "/destinations/country/china" },
     ],
   },
   {
     region: "Latin America",
     countries: [
-      { name: "Mexico", tag: "Popular" },
-      { name: "Costa Rica", tag: "" },
-      { name: "Colombia", tag: "" },
-      { name: "Peru", tag: "" },
-      { name: "Brazil", tag: "" },
-      { name: "Belize", tag: "" },
-      { name: "Guatemala", tag: "" },
+      { name: "Mexico", tag: "Popular", href: "/destinations/country/mexico" },
+      { name: "Costa Rica", tag: "", href: "/destinations/country/costa-rica" },
+      { name: "Colombia", tag: "", href: "/destinations/country/colombia" },
+      { name: "Peru", tag: "", href: "/destinations/country/peru" },
+      { name: "Brazil", tag: "", href: "/destinations/country/brazil" },
+      { name: "Belize", tag: "", href: "/destinations/country/belize" },
+      { name: "Guatemala", tag: "", href: "/destinations/country/guatemala" },
     ],
   },
   {
     region: "Europe",
     countries: [
-      { name: "Greece", tag: "Popular" },
-      { name: "Italy", tag: "" },
-      { name: "Albania", tag: "New" },
+      { name: "Greece", tag: "Popular", href: "/destinations/country/greece" },
+      { name: "Italy", tag: "", href: "/destinations/country/italy" },
+      { name: "Albania", tag: "New", href: "/destinations/country/albania" },
       { name: "Europe By Rail", tag: "New" },
     ],
   },
   {
     region: "Africa & Middle East",
     countries: [
-      { name: "Morocco", tag: "Popular" },
-      { name: "Jordan", tag: "" },
+      { name: "Morocco", tag: "Popular", href: "/destinations/country/morocco" },
+      { name: "Jordan", tag: "", href: "/destinations/country/jordan" },
     ],
   },
   {
     region: "Oceania",
     countries: [
-      { name: "New Zealand", tag: "" },
+      { name: "New Zealand", tag: "", href: "/destinations/country/new-zealand" },
     ],
   },
 ];
 
 const travelStylesNav = [
-  { name: "Backpacker", description: "Maximum adventure, minimum spend" },
-  { name: "Classic", description: "The perfect balance of comfort and adventure" },
-  { name: "Flashpacker", description: "Adventure with an upgrade" },
-  { name: "Multi Country", description: "Cross borders, collect stamps" },
-  { name: "Limited Edition", description: "Once it's gone, it's gone" },
+  { name: "Backpacker", description: "Maximum adventure, minimum spend", logo: "/backpacker-logo.png" },
+  { name: "Classic", description: "The perfect balance of comfort and adventure", logo: "/classic-logo.png" },
+  { name: "Flashpacker", description: "Adventure with an upgrade", logo: "/flashpacker-logo.png" },
+  { name: "Multi Country", description: "Cross borders, collect stamps", logo: "/multi-country-logo.png" },
+  { name: "Limited Edition", description: "Once it's gone, it's gone", logo: "/limited-edition-logo.png" },
 ];
 
 const dealsNav = [
@@ -98,6 +98,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
+  const [mobileRegion, setMobileRegion] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
@@ -240,7 +241,7 @@ export default function Navbar() {
                       {region.countries.map((country) => (
                         <Link
                           key={country.name}
-                          href="/destinations"
+                          href={country.href || "/explore"}
                           onClick={closeAll}
                           className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition px-2 py-1 rounded-md hover:bg-white/10"
                         >
@@ -253,7 +254,7 @@ export default function Navbar() {
                         </Link>
                       ))}
                     </div>
-                    <Link href="/destinations" onClick={closeAll} className="text-[10px] font-semibold uppercase tracking-wider text-tru-pink hover:text-tru-pink-light transition mt-3 block px-2">
+                    <Link href="/explore" onClick={closeAll} className="text-[10px] font-semibold uppercase tracking-wider text-tru-pink hover:text-tru-pink-light transition mt-3 block px-2">
                       View all {region.region} &rarr;
                     </Link>
                   </div>
@@ -267,9 +268,9 @@ export default function Navbar() {
             <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-4">
               <div className="grid grid-cols-5 gap-4">
                 {travelStylesNav.map((style) => (
-                  <Link key={style.name} href="/destinations" onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200">
-                    <p className="text-sm font-bold text-white font-heading group-hover:text-tru-pink transition">{style.name}</p>
-                    <p className="text-xs text-gray-400 mt-1">{style.description}</p>
+                  <Link key={style.name} href="/explore" onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200 text-center">
+                    <img src={style.logo} alt={style.name} className="h-24 mx-auto mb-3" />
+                    <p className="text-xs text-gray-400">{style.description}</p>
                   </Link>
                 ))}
               </div>
@@ -281,7 +282,7 @@ export default function Navbar() {
             <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-4">
               <div className="grid grid-cols-3 gap-4">
                 {dealsNav.map((deal) => (
-                  <Link key={deal.name} href="/destinations" onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-green/30 hover:bg-white/5 transition-all duration-200">
+                  <Link key={deal.name} href="/explore" onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-green/30 hover:bg-white/5 transition-all duration-200">
                     <p className="text-sm font-bold text-white font-heading group-hover:text-tru-green transition">
                       <span className="mr-2">{deal.tag}</span>{deal.name}
                     </p>
@@ -335,10 +336,59 @@ export default function Navbar() {
             </svg>
             <span className="text-sm font-semibold uppercase tracking-wider font-heading">Search</span>
           </button>
+          {/* Destinations — nested collapsible */}
+          <div className="border-b border-white/10">
+            <button
+              onClick={() => { setMobileSubmenu(mobileSubmenu === "m-dest" ? null : "m-dest"); setMobileRegion(null); }}
+              className="flex items-center justify-between w-full text-gray-300 hover:text-white font-semibold uppercase tracking-wider text-sm font-heading py-3"
+            >
+              Destinations
+              <svg className={`h-4 w-4 transition-transform ${mobileSubmenu === "m-dest" ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {mobileSubmenu === "m-dest" && (
+              <div className="pb-3 pl-3 space-y-1">
+                {destinations.map((region) => (
+                  <div key={region.region}>
+                    <button
+                      onClick={() => setMobileRegion(mobileRegion === region.region ? null : region.region)}
+                      className="flex items-center justify-between w-full text-sm text-gray-400 hover:text-white py-1.5 transition"
+                    >
+                      {region.region}
+                      <svg className={`h-3 w-3 transition-transform ${mobileRegion === region.region ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                    {mobileRegion === region.region && (
+                      <div className="pl-4 pb-2 space-y-1">
+                        {region.countries.map((country) => (
+                          <Link
+                            key={country.name}
+                            href={country.href || "/explore"}
+                            onClick={closeAll}
+                            className="flex items-center gap-2 text-sm text-gray-500 hover:text-white py-1 transition"
+                          >
+                            {country.name}
+                            {country.tag && (
+                              <span className={`text-[7px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full ${tagColor(country.tag)}`}>
+                                {country.tag}
+                              </span>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Other sections */}
           {[
-            { label: "Destinations", key: "m-dest", items: destinations.map((r) => ({ name: r.region, href: "/destinations" })) },
-            { label: "Travel Styles", key: "m-styles", items: travelStylesNav.map((s) => ({ name: s.name, href: "/destinations" })) },
-            { label: "Deals", key: "m-deals", items: dealsNav.map((d) => ({ name: d.name, href: "/destinations" })) },
+            { label: "Travel Styles", key: "m-styles", items: travelStylesNav.map((s) => ({ name: s.name, href: "/explore" })) },
+            { label: "Deals", key: "m-deals", items: dealsNav.map((d) => ({ name: d.name, href: "/explore" })) },
             { label: "About Us", key: "m-about", items: aboutNav.map((a) => ({ name: a.name, href: a.href })) },
             { label: "Essentials", key: "m-essentials", items: essentialsNav.map((e) => ({ name: e.name, href: e.href })) },
           ].map((section) => (

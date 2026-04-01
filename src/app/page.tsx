@@ -41,7 +41,7 @@ export default function HomePage() {
           </p>
           <div className="animate-fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
-              href="/destinations"
+              href="/explore"
               className="rounded-[10px] border border-white bg-transparent px-8 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-all duration-300 uppercase tracking-wider w-56 text-center"
             >
               Explore Experiences
@@ -98,7 +98,7 @@ export default function HomePage() {
                 Find Your<br /><span className="text-gradient">Extraordinary</span>
               </h2>
             </div>
-            <Link href="/destinations" className="hidden sm:flex items-center gap-2 text-sm text-gray-400 hover:text-tru-pink transition group uppercase tracking-wider font-semibold">
+            <Link href="/explore" className="hidden sm:flex items-center gap-2 text-sm text-gray-400 hover:text-tru-pink transition group uppercase tracking-wider font-semibold">
               View all
               <svg className="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -112,7 +112,7 @@ export default function HomePage() {
         </div>
 
         <div className="mt-8 text-center sm:hidden">
-          <Link href="/destinations" className="text-sm text-tru-pink font-semibold uppercase tracking-wider">View all experiences &rarr;</Link>
+          <Link href="/explore" className="text-sm text-tru-pink font-semibold uppercase tracking-wider">View all experiences &rarr;</Link>
         </div>
 
       </section>

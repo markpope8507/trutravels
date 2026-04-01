@@ -78,6 +78,8 @@ export type Trip = {
   endLocation?: string;
   travelStyle: TravelStyle;
   memberOnly?: boolean;
+  rating?: number;
+  reviewCount?: number;
 };
 
 export type Story = {
@@ -149,6 +151,8 @@ export const trips: Trip[] = [
     startLocation: "Bangkok",
     endLocation: "Phuket",
     travelStyle: "classic",
+    rating: 4.9,
+    reviewCount: 305,
     image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
     video: "https://cdn.pixabay.com/video/2020/07/30/45349-445400181_large.mp4",
     tagline: "Paradise found, one island at a time",
@@ -177,168 +181,78 @@ export const trips: Trip[] = [
       { day: 14, title: "Chilled Check Out", description: "And just like that, it's over. But not really — because you've just made friends for life, filled your camera roll with bangers, and had the kind of adventure most people only dream about. We'll help you sort onward travel, swap details with the crew, and say those bittersweet goodbyes. See you on the next one.", image: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80" },
     ],
   },
+  // ============ THAILAND TOURS ============
   {
-    id: "bali-adventure",
-    title: "Bali Adventure",
-    destination: "Bali",
+    id: "thailand-experience",
+    title: "Thailand Experience",
+    destination: "Thailand",
     region: "Southeast Asia",
-    duration: "10 Days",
-    price: 799,
-    originalPrice: 999,
+    duration: "8 Days",
+    price: 487,
+    originalPrice: 695,
+    startLocation: "Bangkok",
+    endLocation: "Koh Phangan",
     travelStyle: "classic",
-    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
-    tagline: "Temples, rice terraces, and surf breaks",
-    description:
-      "Discover the island of the gods — from sacred water temples and lush rice terraces to world-class surf and legendary sunsets in Uluwatu.",
-    highlights: [
-      "Sunrise trek up Mount Batur",
-      "Surf lessons in Canggu",
-      "Tegallalang Rice Terraces",
-      "Uluwatu sunset & fire dance",
-    ],
+    rating: 4.8,
+    reviewCount: 189,
+    image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",
+    tagline: "The complete mixture of culture, adventure, beaches and parties",
+    description: "8 days of everything that makes Thailand incredible. From Bangkok's temples to Koh Phangan's beaches — culture, adventure, and good vibes packed into one week.",
+    highlights: ["Bangkok temples & street food", "Overnight train south", "Ang Thong Marine Park", "Beach parties on Koh Phangan"],
     itinerary: [
-      { day: 1, title: "Arrive in Seminyak", description: "Beach club welcome and group dinner." },
-      { day: 2, title: "Ubud", description: "Monkey Forest, rice terraces, and artisan villages." },
-      { day: 3, title: "Mount Batur Sunrise", description: "Early morning volcano trek with breakfast at the summit." },
-      { day: 4, title: "Nusa Penida Day Trip", description: "Instagram-famous cliffs and manta ray snorkelling." },
-      { day: 5, title: "Canggu", description: "Surf lessons, beach cafes, and sunset." },
-      { day: 6, title: "Gili Islands", description: "Fast boat to Gili T — turquoise paradise." },
-      { day: 7, title: "Gili Free Day", description: "Snorkel with turtles, cycle the island, or just float." },
-      { day: 8, title: "Return to Bali", description: "Head to Uluwatu for clifftop vibes." },
-      { day: 9, title: "Uluwatu", description: "Hidden beaches, fire dance at sunset temple." },
-      { day: 10, title: "Departure", description: "Final brunch and airport transfer." },
+      { day: 1, title: "Welcome to Bangkok", description: "Meet your group on Khao San Road." },
+      { day: 2, title: "Bangkok Temples", description: "Wat Pho, Grand Palace, river cruise." },
+      { day: 3, title: "Overnight Train", description: "Head south on the sleeper train." },
+      { day: 4, title: "Koh Samui", description: "Beach arrival and island vibes." },
+      { day: 5, title: "Ang Thong Marine Park", description: "Kayaking and snorkelling adventure." },
+      { day: 6, title: "Koh Phangan", description: "Chill day, optional yoga or hike." },
+      { day: 7, title: "Beach Day", description: "Free day to explore the island." },
+      { day: 8, title: "Departure", description: "Farewell and onward travel." },
     ],
   },
-  {
-    id: "vietnam-explorer",
-    title: "Vietnam Explorer",
-    destination: "Vietnam",
-    region: "Southeast Asia",
-    duration: "14 Days",
-    price: 949,
-    originalPrice: 1199,
-    travelStyle: "multi_country",
-    image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
-    tagline: "From bustling cities to misty mountains",
-    description:
-      "Journey from Hanoi's Old Quarter through the limestone towers of Ha Long Bay, along the coast to Hoi An, and into the energy of Ho Chi Minh City.",
-    highlights: [
-      "Ha Long Bay overnight cruise",
-      "Motorbike tour through Hanoi",
-      "Lantern-lit streets of Hoi An",
-      "Cu Chi Tunnels experience",
-    ],
-    itinerary: [
-      { day: 1, title: "Arrive in Hanoi", description: "Welcome street food tour." },
-      { day: 2, title: "Hanoi", description: "Old Quarter, Ho Chi Minh Mausoleum, and egg coffee." },
-      { day: 3, title: "Ha Long Bay", description: "Board the junk boat for an overnight cruise." },
-      { day: 4, title: "Ha Long Bay", description: "Kayaking, cave exploring, and swimming." },
-      { day: 5, title: "Ninh Binh", description: "Tam Coc boat ride through rice paddies." },
-      { day: 6, title: "Fly to Hue", description: "Imperial citadel and royal tombs." },
-      { day: 7, title: "Hai Van Pass", description: "Motorbike or bus over Vietnam's most scenic road." },
-      { day: 8, title: "Hoi An", description: "Ancient town, lantern making, and tailor shops." },
-      { day: 9, title: "Hoi An Free Day", description: "Beach, cooking class, or basket boat ride." },
-      { day: 10, title: "Fly to Ho Chi Minh", description: "Saigon street food and rooftop bars." },
-      { day: 11, title: "Cu Chi Tunnels", description: "History and war tunnels experience." },
-      { day: 12, title: "Mekong Delta", description: "Floating markets and river life." },
-      { day: 13, title: "Saigon Free Day", description: "Shopping, cafes, or spa day." },
-      { day: 14, title: "Departure", description: "Farewell brunch." },
-    ],
-  },
-  {
-    id: "sri-lanka-odyssey",
-    title: "Sri Lanka Odyssey",
-    destination: "Sri Lanka",
-    region: "South Asia",
-    duration: "11 Days",
-    price: 849,
-    travelStyle: "backpacker",
-    image: "https://images.unsplash.com/photo-1546708770-599a0e47a9c7?w=800&q=80",
-    tagline: "The island that has it all",
-    description:
-      "Surf epic waves, hike through tea plantations, spot elephants on safari, and explore ancient temples — all on one incredible island.",
-    highlights: [
-      "Ella train ride through tea country",
-      "Safari in Yala National Park",
-      "Surfing in Weligama",
-      "Sigiriya Rock Fortress climb",
-    ],
-    itinerary: [
-      { day: 1, title: "Arrive in Colombo", description: "Group welcome and city tour." },
-      { day: 2, title: "Sigiriya", description: "Climb the ancient rock fortress." },
-      { day: 3, title: "Dambulla & Kandy", description: "Cave temples and the Temple of the Tooth." },
-      { day: 4, title: "Ella Train", description: "One of the most scenic train rides in the world." },
-      { day: 5, title: "Ella", description: "Nine Arches Bridge, Little Adam's Peak." },
-      { day: 6, title: "Yala Safari", description: "Leopards, elephants, and crocodiles." },
-      { day: 7, title: "Mirissa", description: "Whale watching (seasonal) and beach day." },
-      { day: 8, title: "Weligama", description: "Surf lessons and stilt fishermen." },
-      { day: 9, title: "Galle", description: "Colonial fort and boutique shops." },
-      { day: 10, title: "Unawatuna", description: "Final beach day and farewell dinner." },
-      { day: 11, title: "Departure", description: "Transfer to Colombo airport." },
-    ],
-  },
-  {
-    id: "costa-rica-pura-vida",
-    title: "Costa Rica: Pura Vida",
-    destination: "Costa Rica",
-    region: "Central America",
-    duration: "10 Days",
-    price: 1099,
-    travelStyle: "flashpacker",
-    image: "https://images.unsplash.com/photo-1621451537084-482c73073a0f?w=800&q=80",
-    tagline: "Jungle, volcanoes, and pure life",
-    description:
-      "Zip-line through cloud forests, surf Pacific waves, soak in volcanic hot springs, and embrace the Pura Vida lifestyle.",
-    highlights: [
-      "Arenal volcano hot springs",
-      "Zip-lining in Monteverde",
-      "Surfing in Tamarindo",
-      "Manuel Antonio National Park",
-    ],
-    itinerary: [
-      { day: 1, title: "Arrive in San Jose", description: "Welcome dinner." },
-      { day: 2, title: "Arenal Volcano", description: "Hot springs, hanging bridges, and waterfall hike." },
-      { day: 3, title: "La Fortuna", description: "White water rafting and free time." },
-      { day: 4, title: "Monteverde", description: "Cloud forest zip-line and night walk." },
-      { day: 5, title: "Tamarindo", description: "Surf lessons and sunset." },
-      { day: 6, title: "Tamarindo Free Day", description: "Surf, snorkel, or horseback ride." },
-      { day: 7, title: "Manuel Antonio", description: "National park hike — monkeys, sloths, beaches." },
-      { day: 8, title: "Manuel Antonio", description: "Free day at the beach." },
-      { day: 9, title: "San Jose", description: "Return to the city, farewell dinner." },
-      { day: 10, title: "Departure", description: "Pura Vida forever." },
-    ],
-  },
-  {
-    id: "morocco-nomad",
-    title: "Morocco Nomad",
-    destination: "Morocco",
-    region: "Africa",
-    duration: "9 Days",
-    price: 749,
-    travelStyle: "limited_edition",
-    memberOnly: true,
-    image: "https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=800&q=80",
-    tagline: "From medinas to the Sahara",
-    description:
-      "Lose yourself in the souks of Marrakech, camp under the stars in the Sahara Desert, and explore the blue city of Chefchaouen. A member-exclusive adventure.",
-    highlights: [
-      "Sahara Desert overnight camp",
-      "Chefchaouen — the Blue City",
-      "Marrakech medina tour",
-      "Atlas Mountains day hike",
-    ],
-    itinerary: [
-      { day: 1, title: "Arrive in Marrakech", description: "Riad check-in and evening food tour." },
-      { day: 2, title: "Marrakech", description: "Souks, palaces, and Jardin Majorelle." },
-      { day: 3, title: "Atlas Mountains", description: "Day hike through Berber villages." },
-      { day: 4, title: "Sahara Desert", description: "Camel ride and overnight desert camp." },
-      { day: 5, title: "Todra Gorge", description: "Dramatic canyon and river walk." },
-      { day: 6, title: "Fes", description: "World's oldest university and leather tanneries." },
-      { day: 7, title: "Chefchaouen", description: "Wander the blue-washed streets." },
-      { day: 8, title: "Return to Marrakech", description: "Free afternoon and farewell dinner." },
-      { day: 9, title: "Departure", description: "Airport transfer." },
-    ],
-  },
+  { id: "full-moon-party-pack", title: "Full Moon Party Pack", destination: "Thailand", region: "Southeast Asia", duration: "5 Days", price: 473, originalPrice: 525, startLocation: "Koh Phangan", endLocation: "Koh Phangan", travelStyle: "backpacker", rating: 4.7, reviewCount: 312, image: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80", tagline: "The legendary beach party experience", description: "5 days of island life and the legendary Full Moon Party. Beach bars, boat trips, and the biggest party on Earth.", highlights: ["Full Moon Party", "Island boat trips", "Beach bars & nightlife", "Snorkelling"], itinerary: [{ day: 1, title: "Arrive Koh Phangan", description: "Check in and welcome drinks." }, { day: 2, title: "Island Boat Trip", description: "Snorkelling and beach hopping." }, { day: 3, title: "Free Day", description: "Beach, yoga, or explore." }, { day: 4, title: "Full Moon Party", description: "The legendary beach party." }, { day: 5, title: "Departure", description: "Recovery day and goodbyes." }] },
+  { id: "full-moon-experience", title: "Full Moon Experience", destination: "Thailand", region: "Southeast Asia", duration: "10 Days", price: 1134, originalPrice: 1260, startLocation: "Bangkok", endLocation: "Koh Phangan", travelStyle: "classic", rating: 4.8, reviewCount: 198, image: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80", tagline: "Culture meets the ultimate party", description: "10 days combining Bangkok's cultural highlights with the legendary Full Moon Party on Koh Phangan.", highlights: ["Bangkok temples", "Thai cooking class", "Full Moon Party", "Island hopping"], itinerary: [{ day: 1, title: "Bangkok", description: "Welcome dinner and city intro." }, { day: 2, title: "Bangkok Temples", description: "Cultural day in the capital." }, { day: 3, title: "Train South", description: "Overnight sleeper train." }, { day: 4, title: "Khao Sok", description: "National park and floating bungalows." }, { day: 5, title: "Koh Phangan", description: "Island arrival." }, { day: 6, title: "Boat Trip", description: "Snorkelling around the islands." }, { day: 7, title: "Free Day", description: "Beach or explore." }, { day: 8, title: "Full Moon Party", description: "The big night." }, { day: 9, title: "Recovery Day", description: "Chill on the beach." }, { day: 10, title: "Departure", description: "Farewell." }] },
+  { id: "northern-thailand-adventure", title: "Northern Thailand Adventure", destination: "Thailand", region: "Southeast Asia", duration: "14 Days", price: 986, originalPrice: 1095, startLocation: "Bangkok", endLocation: "Chiang Mai", travelStyle: "classic", rating: 4.9, reviewCount: 145, image: "https://images.unsplash.com/photo-1598935898639-81586f7d2129?w=800&q=80", tagline: "Elephants, hill tribes, and jungle ziplines", description: "14 days exploring Northern Thailand's mountains, temples, and jungle. Elephant sanctuary, hill-tribe homestay, and Chiang Mai's incredible night markets.", highlights: ["Elephant sanctuary visit", "Hill-tribe homestay", "Jungle zipline", "Chiang Mai night markets"], itinerary: [{ day: 1, title: "Bangkok", description: "Welcome dinner." }, { day: 2, title: "Bangkok", description: "Temple tour and street food." }, { day: 3, title: "Ayutthaya", description: "Ancient ruins exploration." }, { day: 4, title: "Train North", description: "Overnight to Chiang Mai." }, { day: 5, title: "Chiang Mai", description: "Temples and cooking class." }, { day: 6, title: "Elephant Sanctuary", description: "Ethical elephant experience." }, { day: 7, title: "Hill Tribe Trek", description: "Jungle trekking to hill-tribe village." }, { day: 8, title: "Hill Tribe Stay", description: "Overnight homestay." }, { day: 9, title: "Jungle Zipline", description: "Treetop adventure." }, { day: 10, title: "Chiang Rai", description: "White Temple and Golden Triangle." }, { day: 11, title: "Pai", description: "Canyon and hot springs." }, { day: 12, title: "Pai", description: "Waterfalls and free time." }, { day: 13, title: "Chiang Mai", description: "Night Bazaar and farewell." }, { day: 14, title: "Departure", description: "Goodbye Northern Thailand." }] },
+  { id: "full-moon-island-hopper", title: "Full Moon Island Hopper", destination: "Thailand", region: "Southeast Asia", duration: "16 Days", price: 1328, originalPrice: 1475, startLocation: "Bangkok", endLocation: "Phuket", travelStyle: "classic", rating: 4.8, reviewCount: 167, image: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80", tagline: "Southern beaches plus the legendary party", description: "16 days island-hopping through Southern Thailand with the Full Moon Party thrown in. The ultimate beach and party experience.", highlights: ["Full Moon Party", "Phi Phi Islands", "Koh Tao diving", "Phuket nightlife"], itinerary: [{ day: 1, title: "Bangkok", description: "Welcome." }, { day: 2, title: "Bangkok", description: "Temples." }, { day: 3, title: "Train South", description: "Overnight." }, { day: 4, title: "Khao Sok", description: "National park." }, { day: 5, title: "Koh Phangan", description: "Island arrival." }, { day: 6, title: "Boat Trip", description: "Snorkelling." }, { day: 7, title: "Free Day", description: "Beach." }, { day: 8, title: "Full Moon Party", description: "Party night." }, { day: 9, title: "Koh Tao", description: "Diving island." }, { day: 10, title: "Koh Tao", description: "Free day." }, { day: 11, title: "Travel Day", description: "To Phi Phi." }, { day: 12, title: "Phi Phi", description: "Maya Bay." }, { day: 13, title: "Phi Phi", description: "Free day." }, { day: 14, title: "Phuket", description: "Beach day." }, { day: 15, title: "Phuket", description: "Nightlife." }, { day: 16, title: "Departure", description: "Farewell." }] },
+  { id: "total-thailand", title: "Total Thailand", destination: "Thailand", region: "Southeast Asia", duration: "27 Days", price: 1505, originalPrice: 2150, startLocation: "Bangkok", endLocation: "Phuket", travelStyle: "classic", rating: 4.9, reviewCount: 89, image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", tagline: "The complete Thailand experience", description: "27 days covering every corner of Thailand. North to south, temples to beaches, cities to islands. The ultimate way to see the Land of Smiles.", highlights: ["Everything Thailand has to offer", "North and South", "Full Moon Party", "27 days of adventure"], itinerary: [{ day: 1, title: "Bangkok", description: "Welcome." }] },
+  { id: "thailand-backpacker", title: "Thailand Backpacker", destination: "Thailand", region: "Southeast Asia", duration: "10 Days", price: 417, originalPrice: 695, startLocation: "Bangkok", endLocation: "Phuket", travelStyle: "backpacker", rating: 4.7, reviewCount: 256, image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80", tagline: "Maximum adventure, minimum spend", description: "A whirlwind backpacking adventure through Thailand. Hostels, street food, local transport, and raw experiences.", highlights: ["Bangkok street food", "Island beaches", "Budget-friendly", "Local experiences"], itinerary: [{ day: 1, title: "Bangkok", description: "Welcome." }] },
+  { id: "songkran-festival", title: "Songkran Festival", destination: "Thailand", region: "Southeast Asia", duration: "7 Days", price: 595, startLocation: "Bangkok", endLocation: "Chiang Mai", travelStyle: "limited_edition", rating: 4.9, reviewCount: 45, image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80", tagline: "The world's largest water fight", description: "Thai New Year — the world's biggest and most epic water fight. 7 days of celebration, culture, and absolute chaos.", highlights: ["Songkran water fight", "Temple ceremonies", "Street parties", "Cultural immersion"], itinerary: [{ day: 1, title: "Bangkok", description: "Welcome." }] },
+  // ============ INDONESIA TOURS ============
+  { id: "bali-experience", title: "Bali Experience", destination: "Indonesia", region: "Southeast Asia", duration: "10 Days", price: 487, originalPrice: 695, startLocation: "Canggu", endLocation: "Gili Trawangan", travelStyle: "classic", rating: 4.8, reviewCount: 234, image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", tagline: "Waterfalls, surfing, temples, and beaches", description: "The essential Bali experience. Surf in Canggu, explore Ubud's temples and rice terraces, trek Mount Batur, and end on the Gili Islands.", highlights: ["Mount Batur sunrise", "Ubud temples", "Surf lessons", "Gili Islands"], itinerary: [{ day: 1, title: "Canggu", description: "Welcome." }, { day: 2, title: "Ubud", description: "Temples and rice terraces." }, { day: 3, title: "Mount Batur", description: "Sunrise trek." }, { day: 4, title: "Nusa Penida", description: "Day trip." }, { day: 5, title: "Canggu", description: "Surf day." }, { day: 6, title: "Gili Islands", description: "Fast boat across." }, { day: 7, title: "Gili Free Day", description: "Snorkel with turtles." }, { day: 8, title: "Gili Free Day", description: "Explore or relax." }, { day: 9, title: "Uluwatu", description: "Clifftop sunset." }, { day: 10, title: "Departure", description: "Farewell." }] },
+  { id: "bali-backpacker", title: "Bali Backpacker", destination: "Indonesia", region: "Southeast Asia", duration: "12 Days", price: 297, originalPrice: 495, startLocation: "Uluwatu", endLocation: "Gili Trawangan", travelStyle: "backpacker", rating: 4.7, reviewCount: 178, image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", tagline: "More Bali for your buck", description: "12 days of budget-friendly Bali. All the highlights without breaking the bank.", highlights: ["Budget-friendly", "12 days of Bali", "Gili Islands", "Surf and temples"], itinerary: [{ day: 1, title: "Uluwatu", description: "Welcome." }] },
+  { id: "komodo-island-hopper", title: "Komodo Island Hopper", destination: "Indonesia", region: "Southeast Asia", duration: "9 Days", price: 767, originalPrice: 1095, startLocation: "Lombok", endLocation: "Labuan Bajo", travelStyle: "classic", rating: 4.9, reviewCount: 98, image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", tagline: "Dragons, diving, and pristine beaches", description: "9 days sailing through Komodo National Park. Meet real-life dragons, snorkel world-class waters, and sleep on a live-aboard boat.", highlights: ["Komodo dragons", "Live-aboard sailing", "Snorkelling & diving", "Pink Beach"], itinerary: [{ day: 1, title: "Lombok", description: "Welcome." }] },
+  { id: "bali-and-beyond", title: "Bali & Beyond", destination: "Indonesia", region: "Southeast Asia", duration: "18 Days", price: 1243, originalPrice: 1775, startLocation: "Canggu", endLocation: "Labuan Bajo", travelStyle: "classic", rating: 4.8, reviewCount: 112, image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", tagline: "Bali Experience meets Komodo", description: "18 days combining the best of Bali with the epic Komodo Island Hopper. Temples, surf, dragons, and diving.", highlights: ["Bali highlights", "Komodo dragons", "18 days of adventure", "Live-aboard sailing"], itinerary: [{ day: 1, title: "Canggu", description: "Welcome." }] },
+  { id: "bali-sumatra-adventure", title: "Bali & Sumatra Adventure", destination: "Indonesia", region: "Southeast Asia", duration: "18 Days", price: 1397, originalPrice: 1995, startLocation: "Medan", endLocation: "Gili Trawangan", travelStyle: "flashpacker", rating: 4.8, reviewCount: 67, image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", tagline: "Crystal waters, culture, and adventure", description: "18 days across Sumatra and Bali. Orangutans, volcanoes, surf, and island paradise.", highlights: ["Orangutan trekking", "Lake Toba", "Bali surf", "Gili Islands"], itinerary: [{ day: 1, title: "Medan", description: "Welcome." }] },
+  { id: "sumatra-uncovered", title: "Sumatra Uncovered", destination: "Indonesia", region: "Southeast Asia", duration: "9 Days", price: 805, originalPrice: 1150, startLocation: "Medan", endLocation: "Alue Sungai Pinang", travelStyle: "classic", rating: 4.7, reviewCount: 45, image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", tagline: "Indonesia's hidden secret", description: "9 days exploring Sumatra — orangutans, river tubing, turtle conservation, and raw jungle adventure.", highlights: ["Orangutan trekking", "River tubing", "Turtle conservation", "Jungle adventure"], itinerary: [{ day: 1, title: "Medan", description: "Welcome." }] },
+  { id: "total-indonesia", title: "Total Indonesia", destination: "Indonesia", region: "Southeast Asia", duration: "26 Days", price: 1957, originalPrice: 2795, startLocation: "Medan", endLocation: "Labuan Bajo", travelStyle: "classic", rating: 4.9, reviewCount: 56, image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", tagline: "The complete Indonesia experience", description: "26 days from Sumatra to Komodo. Every highlight Indonesia has to offer in one epic trip.", highlights: ["Sumatra jungles", "Bali culture", "Komodo dragons", "26 days"], itinerary: [{ day: 1, title: "Medan", description: "Welcome." }] },
+  // ============ PHILIPPINES TOURS ============
+  { id: "philippines-east", title: "Philippines East", destination: "Philippines", region: "Southeast Asia", duration: "8 Days", price: 665, originalPrice: 950, startLocation: "Cebu City", endLocation: "Boracay Island", travelStyle: "classic", rating: 4.8, reviewCount: 134, image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", tagline: "Crystal waters, sunsets, and waterfalls", description: "8 days exploring the Philippines' eastern islands. Swim with whale sharks, chase waterfalls, and party on Boracay.", highlights: ["Whale shark swimming", "Kawasan Falls", "Boracay Island", "Island hopping"], itinerary: [{ day: 1, title: "Cebu", description: "Welcome." }] },
+  { id: "philippines-west", title: "Philippines West", destination: "Philippines", region: "Southeast Asia", duration: "10 Days", price: 717, originalPrice: 1195, startLocation: "Manila", endLocation: "Coron Town", travelStyle: "classic", rating: 4.9, reviewCount: 112, image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", tagline: "Lagoons, shipwrecks, and castaway vibes", description: "10 days exploring Palawan and Coron. Swim through hidden lagoons, snorkel over WWII shipwrecks, and live the castaway dream.", highlights: ["El Nido lagoons", "Coron shipwrecks", "Castaway experience", "Snorkelling"], itinerary: [{ day: 1, title: "Manila", description: "Welcome." }] },
+  { id: "philippines-island-hopper", title: "Philippines Island Hopper", destination: "Philippines", region: "Southeast Asia", duration: "17 Days", price: 1537, originalPrice: 2195, startLocation: "Manila", endLocation: "Boracay Island", travelStyle: "classic", rating: 4.9, reviewCount: 89, image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", tagline: "The best of East and West combined", description: "17 days combining both Philippines trips. The ultimate island-hopping experience.", highlights: ["17 days of islands", "East & West combined", "Whale sharks", "Castaway experience"], itinerary: [{ day: 1, title: "Manila", description: "Welcome." }] },
+  { id: "philippines-backpacker", title: "Philippines Backpacker", destination: "Philippines", region: "Southeast Asia", duration: "11 Days", price: 627, originalPrice: 895, startLocation: "Manila", endLocation: "Coron", travelStyle: "backpacker", rating: 4.7, reviewCount: 98, image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", tagline: "11 epic days of island hopping", description: "Budget-friendly Philippines island hopping. Beach days, snorkelling, and all-around good vibes.", highlights: ["Budget-friendly", "Island hopping", "Beach parties", "Snorkelling"], itinerary: [{ day: 1, title: "Manila", description: "Welcome." }] },
+  { id: "philippines-siargao", title: "Philippines Siargao Adventure", destination: "Philippines", region: "Southeast Asia", duration: "8 Days", price: 627, originalPrice: 895, startLocation: "Cebu", endLocation: "Siargao Island", travelStyle: "classic", rating: 4.8, reviewCount: 67, image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", tagline: "Surf, island-hop, and explore", description: "8 days on the Philippines' surf capital. Island hopping, beach days, and community experiences.", highlights: ["Surfing Siargao", "Island hopping", "Community projects", "Beach life"], itinerary: [{ day: 1, title: "Cebu", description: "Welcome." }] },
+  { id: "total-philippines", title: "Total Philippines", destination: "Philippines", region: "Southeast Asia", duration: "24 Days", price: 2167, originalPrice: 3095, startLocation: "Manila", endLocation: "Siargao Island", travelStyle: "classic", rating: 4.9, reviewCount: 45, image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", tagline: "The ultimate Philippines experience", description: "24 days exploring every incredible island the Philippines has to offer.", highlights: ["24 days", "Every island", "East & West", "Siargao surf"], itinerary: [{ day: 1, title: "Manila", description: "Welcome." }] },
+  // ============ VIETNAM TOURS ============
+  { id: "vietnam-backpacker", title: "Vietnam Backpacker", destination: "Vietnam", region: "Southeast Asia", duration: "12 Days", price: 525, originalPrice: 750, startLocation: "Hanoi", endLocation: "Ho Chi Minh City", travelStyle: "backpacker", rating: 4.7, reviewCount: 189, image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", tagline: "Highlights and hidden gems on a budget", description: "12 days packed with highlights including Lan Ha Bay cruise and lantern making in Hoi An.", highlights: ["Lan Ha Bay cruise", "Hoi An lanterns", "Street food", "Budget-friendly"], itinerary: [{ day: 1, title: "Hanoi", description: "Welcome." }] },
+  { id: "vietnam-explorer", title: "Vietnam Explorer", destination: "Vietnam", region: "Southeast Asia", duration: "13 Days", price: 875, originalPrice: 1250, startLocation: "Ho Chi Minh City", endLocation: "Hanoi", travelStyle: "classic", rating: 4.8, reviewCount: 167, image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", tagline: "From bustling cities to misty mountains", description: "13 days exploring Vietnam's highlights and hidden gems from south to north.", highlights: ["Ha Long Bay", "Hoi An", "Hai Van Pass", "Cu Chi Tunnels"], itinerary: [{ day: 1, title: "Ho Chi Minh", description: "Welcome." }] },
+  // ============ CAMBODIA TOURS ============
+  { id: "cambodia-explorer", title: "Cambodia Explorer", destination: "Cambodia", region: "Southeast Asia", duration: "11 Days", price: 613, originalPrice: 875, startLocation: "Siem Reap", endLocation: "Phnom Penh", travelStyle: "classic", rating: 4.8, reviewCount: 123, image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", tagline: "Temples, beaches, and bustling cities", description: "11 days exploring Cambodia. Visit iconic Angkor Wat, relax on stunning beaches, and explore Phnom Penh.", highlights: ["Angkor Wat", "Sihanoukville beaches", "Phnom Penh", "Floating villages"], itinerary: [{ day: 1, title: "Siem Reap", description: "Welcome." }] },
+  // ============ SRI LANKA TOURS ============
+  { id: "sri-lanka-uncovered", title: "Sri Lanka Uncovered", destination: "Sri Lanka", region: "South Asia", duration: "10 Days", price: 697, originalPrice: 995, startLocation: "Negombo", endLocation: "Unawatuna", travelStyle: "classic", rating: 4.8, reviewCount: 156, image: "https://images.unsplash.com/photo-1546708770-599a0e47a9c7?w=800&q=80", tagline: "Culture, safari, and breathtaking scenery", description: "10 days diving into Sri Lanka. Climb Sigiriya, ride the famous Ella train, and safari through Yala National Park.", highlights: ["Sigiriya Rock", "Ella Blue Train", "Yala safari", "Surf in Weligama"], itinerary: [{ day: 1, title: "Negombo", description: "Welcome." }] },
+  // ============ MEXICO TOURS ============
+  { id: "mexico-yucatan-experience", title: "Mexico Yucatán Experience", destination: "Mexico", region: "Central America", duration: "11 Days", price: 1017, originalPrice: 1695, startLocation: "Cancún", endLocation: "Playa del Carmen", travelStyle: "classic", rating: 4.8, reviewCount: 134, image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", tagline: "Hotspots and hidden gems of Yucatán", description: "11 days exploring the best of Mexico's Yucatán Peninsula. Cenotes, Mayan ruins, Caribbean beaches, and incredible food.", highlights: ["Cenote swimming", "Chichén Itzá", "Tulum ruins", "Mexican street food"], itinerary: [{ day: 1, title: "Cancún", description: "Welcome." }] },
+  { id: "mexico-yucatan-loop", title: "Mexico Yucatán Loop", destination: "Mexico", region: "Central America", duration: "7 Days", price: 767, originalPrice: 1095, startLocation: "Cancún", endLocation: "Playa del Carmen", travelStyle: "backpacker", rating: 4.7, reviewCount: 89, image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", tagline: "Beaches, ruins, and a wonder of the world", description: "7 days hitting the best of Yucatán on a budget. Cenotes, Chichén Itzá, and Caribbean coast.", highlights: ["Chichén Itzá", "Cenotes", "Caribbean beaches", "Budget-friendly"], itinerary: [{ day: 1, title: "Cancún", description: "Welcome." }] },
+  { id: "day-of-the-dead", title: "Day of the Dead Festival", destination: "Mexico", region: "Central America", duration: "6 Days", price: 895, startLocation: "Mexico City", endLocation: "Mexico City", travelStyle: "limited_edition", rating: 4.9, reviewCount: 56, image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", tagline: "Experience the magic of Day of the Dead", description: "6 days celebrating Mexico's most iconic festival. Parades, altars, face painting, and cultural immersion in Mexico City.", highlights: ["Day of the Dead parade", "Traditional altars", "Mexico City exploration", "Cultural immersion"], itinerary: [{ day: 1, title: "Mexico City", description: "Welcome." }] },
+  // ============ COSTA RICA TOURS ============
+  { id: "costa-rica-adventure", title: "Costa Rica Adventure", destination: "Costa Rica", region: "Central America", duration: "10 Days", price: 945, originalPrice: 1350, startLocation: "San José", endLocation: "Santa Teresa", travelStyle: "classic", rating: 4.9, reviewCount: 112, image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", tagline: "Jungles, volcanoes, and exotic wildlife", description: "10 days exploring Costa Rica's hotspots. Zip-lining, volcanic hot springs, wildlife safaris, and Pacific beaches.", highlights: ["Arenal hot springs", "Zip-lining", "Wildlife safari", "Pacific surf"], itinerary: [{ day: 1, title: "San José", description: "Welcome." }] },
+  // ============ GREECE TOURS ============
+  { id: "greece-island-hopper", title: "Greece Island Hopper", destination: "Greece", region: "Europe", duration: "9 Days", price: 1327, originalPrice: 1895, startLocation: "Athens", endLocation: "Santorini", travelStyle: "classic", rating: 4.9, reviewCount: 167, image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80", tagline: "Beaches, beers, and a bucket list 9 days", description: "The ultimate Greek island-hopping experience. Athens, Ios, and Santorini — history, parties, and the world's most famous sunset.", highlights: ["Santorini sunset", "Ios nightlife", "Athens Acropolis", "Island hopping"], itinerary: [{ day: 1, title: "Athens", description: "Welcome." }] },
+  // ============ MULTI-COUNTRY TOURS ============
+  { id: "cambodia-vietnam-explorer", title: "Cambodia & Vietnam Explorer", destination: "Cambodia", region: "Southeast Asia", duration: "23 Days", price: 1435, originalPrice: 2050, startLocation: "Siem Reap", endLocation: "Hanoi", travelStyle: "multi_country", rating: 4.8, reviewCount: 98, image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", tagline: "Epic scenery and unforgettable culture", description: "23 days across Cambodia and Vietnam. Angkor Wat, Ha Long Bay, Hoi An, and everything in between.", highlights: ["Angkor Wat", "Ha Long Bay", "Hoi An", "Two countries, one epic trip"], itinerary: [{ day: 1, title: "Siem Reap", description: "Welcome." }] },
+  { id: "india-sri-lanka", title: "India & Sri Lanka Uncovered", destination: "India", region: "South Asia", duration: "23 Days", price: 1677, originalPrice: 2395, startLocation: "Delhi", endLocation: "Unawatuna", travelStyle: "multi_country", rating: 4.8, reviewCount: 78, image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80", tagline: "Golden Triangle meets island paradise", description: "23 days combining India's famous Golden Triangle with Sri Lanka's beaches, temples, and train rides.", highlights: ["Taj Mahal", "Golden Triangle", "Ella train", "Sri Lanka beaches"], itinerary: [{ day: 1, title: "Delhi", description: "Welcome." }] },
+  { id: "mexico-belize-guatemala", title: "Mexico, Belize & Guatemala", destination: "Mexico", region: "Central America", duration: "18 Days", price: 1925, originalPrice: 2750, startLocation: "Cancún", endLocation: "Antigua Guatemala", travelStyle: "multi_country", rating: 4.8, reviewCount: 67, image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", tagline: "Ultimate Central American whirlwind", description: "18 days through three incredible countries. Cenotes, barrier reefs, Mayan ruins, and volcanic landscapes.", highlights: ["Three countries", "Cenotes", "Barrier reef", "Lake Atitlán"], itinerary: [{ day: 1, title: "Cancún", description: "Welcome." }] },
+  { id: "discover-asia", title: "Discover Asia", destination: "Thailand", region: "Southeast Asia", duration: "37 Days", price: 2485, originalPrice: 3550, startLocation: "Bangkok", endLocation: "Hanoi", travelStyle: "multi_country", rating: 4.9, reviewCount: 56, image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", tagline: "Thailand, Cambodia, and Vietnam in one trip", description: "37 days across three countries. Beaches, temples, street food, and life-changing adventures.", highlights: ["3 countries", "37 days", "Full Moon Party", "Ha Long Bay"], itinerary: [{ day: 1, title: "Bangkok", description: "Welcome." }] },
+  { id: "total-asia", title: "Total Asia", destination: "Thailand", region: "Southeast Asia", duration: "50 Days", price: 4185, originalPrice: 4650, startLocation: "Bangkok", endLocation: "Hanoi", travelStyle: "multi_country", rating: 5.0, reviewCount: 34, image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", tagline: "The ultimate Asian adventure", description: "50 days. Three countries. Jaw-dropping beaches, rich culture, and life-changing adventures. The ultimate way to experience Asia.", highlights: ["50 days", "3 countries", "Every highlight", "Life-changing"], itinerary: [{ day: 1, title: "Bangkok", description: "Welcome." }] },
 ];
 
 export const stories: Story[] = [
@@ -407,10 +321,10 @@ export const stories: Story[] = [
 ];
 
 export const regions = [
-  { name: "Southeast Asia", count: 3 },
-  { name: "South Asia", count: 1 },
-  { name: "Central America", count: 1 },
-  { name: "Africa", count: 1 },
+  { name: "Southeast Asia", count: 28 },
+  { name: "South Asia", count: 3 },
+  { name: "Central America", count: 5 },
+  { name: "Europe", count: 1 },
 ];
 
 // ============================================================
@@ -783,4 +697,212 @@ export const videoDiaries: VideoDiary[] = [
     avatar: "MC",
     tag: "Creator",
   },
+];
+
+// ============================================================
+// COUNTRIES — Destination landing page data
+// ============================================================
+
+export type CountryFact = {
+  icon: string;
+  label: string;
+  value: string;
+};
+
+export type BucketListItem = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  emoji: string;
+};
+
+export type ContentSeries = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  episodes: number;
+  tag: string;
+};
+
+export type PodcastEpisode = {
+  id: string;
+  title: string;
+  description: string;
+  duration: string;
+  image: string;
+};
+
+export type Country = {
+  id: string;
+  name: string;
+  region: string;
+  tagline: string;
+  description: string;
+  heroImage: string;
+  heroVideo?: string;
+  facts: CountryFact[];
+  bucketList: BucketListItem[];
+  contentSeries: ContentSeries[];
+  podcasts: PodcastEpisode[];
+  faqs: { question: string; answer: string }[];
+};
+
+export const countries: Country[] = [
+  {
+    id: "thailand",
+    name: "Thailand",
+    region: "Southeast Asia",
+    tagline: "The Land of Smiles",
+    description: "From the neon-lit streets of Bangkok to the crystal-clear waters of the Andaman Sea, Thailand has it all. Ancient temples, street food that'll blow your mind, legendary parties, and some of the most beautiful islands on the planet. There's a reason it's the number one destination for first-time travellers — and why people keep coming back.",
+    heroImage: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1920&q=80",
+    facts: [
+      { icon: "🗣️", label: "Language", value: "Thai" },
+      { icon: "💰", label: "Currency", value: "Thai Baht (THB)" },
+      { icon: "🍜", label: "National Dish", value: "Pad Thai" },
+      { icon: "🍺", label: "Local Beer", value: "Chang" },
+    ],
+    bucketList: [
+      {
+        id: "bl-1",
+        title: "Full Moon Party",
+        description: "The world's most legendary beach party on Koh Phangan. Neon paint, fire dancers, and thousands of travellers dancing barefoot on the sand until sunrise.",
+        image: "https://images.unsplash.com/photo-1504276048855-f3d1e4c69a17?w=800&q=80",
+        emoji: "🌕",
+      },
+      {
+        id: "bl-2",
+        title: "Island Hopping",
+        description: "Explore Thailand's 1,430 islands — from the iconic Phi Phi to hidden gems like Koh Lipe. Crystal water, white sand, and zero stress.",
+        image: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80",
+        emoji: "🏝️",
+      },
+      {
+        id: "bl-3",
+        title: "Temple Visits",
+        description: "From the golden spires of the Grand Palace to the ancient ruins of Ayutthaya. Thailand's 40,000+ temples are jaw-droppingly beautiful.",
+        image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80",
+        emoji: "🛕",
+      },
+      {
+        id: "bl-4",
+        title: "Thai Cooking Class",
+        description: "Learn to make pad thai, green curry, and mango sticky rice from scratch. You'll never order takeaway the same way again.",
+        image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
+        emoji: "👩‍🍳",
+      },
+      {
+        id: "bl-5",
+        title: "Floating Bungalows",
+        description: "Wake up on an emerald lake surrounded by limestone mountains in Khao Sok National Park. One of the most magical stays in the world.",
+        image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80",
+        emoji: "🛖",
+      },
+      {
+        id: "bl-6",
+        title: "Muay Thai Lesson",
+        description: "Get your hands wrapped and step into the ring for an intro to Thailand's national sport. Whether you're a natural or completely useless, it's an absolute laugh.",
+        image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+        emoji: "🥊",
+      },
+    ],
+    contentSeries: [
+      {
+        id: "cs-1",
+        title: "48 Hours in Bangkok",
+        description: "The ultimate speed-run through Thailand's chaotic, beautiful capital. Temples, street food, rooftop bars, and hidden gems.",
+        image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",
+        episodes: 4,
+        tag: "City Guide",
+      },
+      {
+        id: "cs-2",
+        title: "Thai Cooking Masterclass",
+        description: "From market to plate — learn the secrets behind Thailand's most iconic dishes with a local Bangkok family.",
+        image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
+        episodes: 3,
+        tag: "Food & Culture",
+      },
+      {
+        id: "cs-3",
+        title: "Island Hopper Diaries",
+        description: "Follow a group of TruTravellers as they hop between Thailand's most stunning islands over 14 days.",
+        image: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80",
+        episodes: 6,
+        tag: "Travel Series",
+      },
+      {
+        id: "cs-4",
+        title: "Khao Sok: Into The Wild",
+        description: "Kayaking, floating bungalows, and jungle trekking in one of the oldest rainforests on Earth.",
+        image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80",
+        episodes: 2,
+        tag: "Adventure",
+      },
+    ],
+    podcasts: [
+      {
+        id: "pod-1",
+        title: "Why Thailand is Still the Best First Trip",
+        description: "We break down why Thailand remains the #1 destination for solo travellers and first-timers.",
+        duration: "32 min",
+        image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400&q=80",
+      },
+      {
+        id: "pod-2",
+        title: "Full Moon Party: Worth the Hype?",
+        description: "Our honest take on Koh Phangan's legendary party — plus tips to make it unforgettable.",
+        duration: "28 min",
+        image: "https://images.unsplash.com/photo-1504276048855-f3d1e4c69a17?w=400&q=80",
+      },
+      {
+        id: "pod-3",
+        title: "Street Food Tour: Bangkok's Best Eats",
+        description: "A deep dive into Bangkok's street food scene with our local guide Marcus.",
+        duration: "24 min",
+        image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=400&q=80",
+      },
+    ],
+    faqs: [
+      { question: "When is the best time to visit Thailand?", answer: "The best time to visit is between November and March when it's cooler and drier. However, Thailand is amazing year-round — the 'rainy season' (June–October) usually means a quick downpour in the afternoon followed by sunshine." },
+      { question: "Do I need a visa to visit Thailand?", answer: "Most nationalities get 30–60 days visa-free on arrival. You'll need to register for a Digital Arrival Card online within 3 days of arrival. Check the latest requirements for your nationality before travelling." },
+      { question: "Is Thailand safe for solo travellers?", answer: "Absolutely. Thailand is one of the safest countries in Southeast Asia for solo travellers. It's well set up for tourism, locals are incredibly friendly, and roughly 65% of our TruTravellers come solo!" },
+      { question: "How much spending money do I need?", answer: "Thailand is great value. Budget around £15–25 per day for food, drinks, and extras on top of your trip cost. Street food meals cost £1–2, beers £1–3, and activities like diving are much cheaper than back home." },
+      { question: "What vaccinations do I need?", answer: "No vaccinations are legally required, but we recommend being up to date on Hepatitis A, Typhoid, and Tetanus. Consult your GP or a travel clinic at least 6 weeks before departure." },
+      { question: "Can I use ATMs in Thailand?", answer: "Yes, ATMs are everywhere — even on small islands. They accept international cards but charge a 220 THB (~£5) fee per withdrawal. We recommend withdrawing larger amounts less frequently." },
+      { question: "Is Thailand LGBTQ+ friendly?", answer: "Thailand is one of the most LGBTQ+ friendly countries in Asia. Bangkok has a vibrant scene, and you'll find acceptance across the country. Same-sex marriage was legalised in 2024." },
+      { question: "What's the food like if I have dietary requirements?", answer: "Thai food is incredibly diverse and accommodating. Vegetarian and vegan options are widely available. Just let us know when you book and we'll make sure everything is sorted." },
+    ],
+  },
+  {
+    id: "indonesia", name: "Indonesia", region: "Southeast Asia", tagline: "Island of the Gods",
+    description: "From the rice terraces of Ubud to the volcanic peaks of Mount Batur, Indonesia is a world of its own. Surf epic waves in Canggu, dive with manta rays in Komodo, and lose yourself in Bali's spiritual magic.",
+    heroImage: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1920&q=80",
+    facts: [{ icon: "🗣️", label: "Language", value: "Bahasa Indonesia" }, { icon: "💰", label: "Currency", value: "Indonesian Rupiah" }, { icon: "🍜", label: "National Dish", value: "Nasi Goreng" }, { icon: "🍺", label: "Local Beer", value: "Bintang" }],
+    bucketList: [{ id: "bl-i1", title: "Sunrise at Mount Batur", description: "Trek through darkness to watch sunrise over Bali's active volcano.", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", emoji: "🌋" }, { id: "bl-i2", title: "Surf in Canggu", description: "Learn to surf on Bali's hippest beach, then refuel with smoothie bowls.", image: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&q=80", emoji: "🏄" }, { id: "bl-i3", title: "Komodo National Park", description: "Come face to face with real-life dragons and snorkel world-class waters.", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", emoji: "🐉" }, { id: "bl-i4", title: "Tegallalang Rice Terraces", description: "Walk through the iconic cascading rice paddies of Ubud.", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", emoji: "🌾" }],
+    contentSeries: [{ id: "cs-i1", title: "Bali Beyond the Beach", description: "Discover Bali's spiritual side — temples, ceremonies, and healing.", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", episodes: 4, tag: "Culture" }],
+    podcasts: [{ id: "pod-i1", title: "Bali: Hype vs Reality", description: "Is Bali still worth it? Our honest take.", duration: "29 min", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&q=80" }],
+    faqs: [{ question: "Do I need a visa?", answer: "Most nationalities can get a 30-day Visa on Arrival for ~$35 USD, extendable for another 30 days." }, { question: "Is Bali safe?", answer: "Very safe for tourists. Keep valuables secure but violent crime is extremely rare." }],
+  },
+  { id: "philippines", name: "Philippines", region: "Southeast Asia", tagline: "7,000 Islands of Paradise", description: "White sand beaches, crystal lagoons, and the friendliest people on Earth. Swim with whale sharks, island-hop through paradise, and fall in love with Filipino culture.", heroImage: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Filipino & English" }, { icon: "💰", label: "Currency", value: "Philippine Peso" }, { icon: "🍜", label: "National Dish", value: "Adobo" }, { icon: "🍺", label: "Local Beer", value: "San Miguel" }], bucketList: [{ id: "bl-p1", title: "Swim with Whale Sharks", description: "Get in the water with the world's largest fish — truly humbling.", image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80", emoji: "🐋" }, { id: "bl-p2", title: "El Nido Island Hopping", description: "Lagoons, hidden beaches, and limestone cliffs — Palawan's crown jewel.", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", emoji: "🏝️" }], contentSeries: [], podcasts: [], faqs: [{ question: "Is English widely spoken?", answer: "Yes! English is an official language and widely spoken throughout." }] },
+  { id: "vietnam", name: "Vietnam", region: "Southeast Asia", tagline: "The Hidden Gem of Asia", description: "Cruise through Ha Long Bay, ride the Hai Van Pass, and eat your body weight in pho. Vietnam is a sensory overload in the best possible way.", heroImage: "https://images.unsplash.com/photo-1528127269322-539801943592?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Vietnamese" }, { icon: "💰", label: "Currency", value: "Vietnamese Dong" }, { icon: "🍜", label: "National Dish", value: "Pho" }, { icon: "🍺", label: "Local Beer", value: "Bia Hoi" }], bucketList: [{ id: "bl-v1", title: "Ha Long Bay Cruise", description: "Overnight junk boat surrounded by 1,600 limestone islands.", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", emoji: "⛵" }, { id: "bl-v2", title: "Hoi An Lanterns", description: "Ancient town lit by thousands of colourful lanterns. Magic after dark.", image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", emoji: "🏮" }], contentSeries: [{ id: "cs-v1", title: "Vietnam North to South", description: "The ultimate road trip from Hanoi to Ho Chi Minh City.", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", episodes: 6, tag: "Travel Series" }], podcasts: [{ id: "pod-v1", title: "Vietnam: Street Food Capital", description: "Why Vietnam has the best street food in the world.", duration: "31 min", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=400&q=80" }], faqs: [{ question: "Do I need a visa?", answer: "Most nationalities need an e-visa (~$25 USD, 3-5 working days)." }] },
+  { id: "cambodia", name: "Cambodia", region: "Southeast Asia", tagline: "Temples, History & Heart", description: "Home to Angkor Wat, Cambodia is a country of ancient wonders, warm-hearted people, and incredible resilience.", heroImage: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Khmer" }, { icon: "💰", label: "Currency", value: "Riel / USD" }, { icon: "🍜", label: "National Dish", value: "Fish Amok" }, { icon: "🍺", label: "Local Beer", value: "Angkor Beer" }], bucketList: [{ id: "bl-c1", title: "Angkor Wat at Sunrise", description: "Watch the sun rise behind the world's largest religious monument.", image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", emoji: "🛕" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Yes, e-visa online or visa on arrival (~$30 USD)." }] },
+  { id: "sri-lanka", name: "Sri Lanka", region: "South Asia", tagline: "The Teardrop of India", description: "Tea plantations, ancient temples, epic surf, and the world's most scenic train ride. Sri Lanka packs an unbelievable amount into one small island.", heroImage: "https://images.unsplash.com/photo-1546708770-599a0e47a9c7?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Sinhala & Tamil" }, { icon: "💰", label: "Currency", value: "Sri Lankan Rupee" }, { icon: "🍜", label: "National Dish", value: "Rice & Curry" }, { icon: "🍺", label: "Local Beer", value: "Lion Lager" }], bucketList: [{ id: "bl-sl1", title: "Ella Train Ride", description: "Seven hours of tea plantations, waterfalls, and hanging out the door.", image: "https://images.unsplash.com/photo-1546708770-599a0e47a9c7?w=800&q=80", emoji: "🚂" }, { id: "bl-sl2", title: "Sigiriya Rock", description: "Climb 1,200 steps to the top of this ancient fortress.", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", emoji: "🏰" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Yes, you need an ETA which can be applied for online." }] },
+  { id: "india", name: "India", region: "South Asia", tagline: "A Billion Stories", description: "From the Taj Mahal to Kerala's backwaters, from Rajasthan's colourful cities to the Himalayas — every corner is an adventure.", heroImage: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Hindi & English" }, { icon: "💰", label: "Currency", value: "Indian Rupee" }, { icon: "🍜", label: "National Dish", value: "Biryani" }, { icon: "🍺", label: "Local Beer", value: "Kingfisher" }], bucketList: [{ id: "bl-in1", title: "Taj Mahal at Sunrise", description: "The world's most beautiful building, glowing golden in morning light.", image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80", emoji: "🕌" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Yes, most nationalities need an e-visa. Apply at least 4 days before." }] },
+  { id: "japan", name: "Japan", region: "Southeast Asia", tagline: "Where Ancient Meets Future", description: "Bullet trains, cherry blossoms, neon cities, and ancient temples. Japan is like nowhere else on Earth.", heroImage: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Japanese" }, { icon: "💰", label: "Currency", value: "Japanese Yen" }, { icon: "🍜", label: "National Dish", value: "Ramen" }, { icon: "🍺", label: "Local Beer", value: "Asahi" }], bucketList: [{ id: "bl-j1", title: "Cherry Blossom Season", description: "Hanami under the sakura trees — Japan's most magical time of year.", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80", emoji: "🌸" }], contentSeries: [], podcasts: [], faqs: [{ question: "Is Japan expensive?", answer: "It can be done on a budget. Street food and convenience stores keep costs down. Budget £30-50/day." }] },
+  { id: "china", name: "China", region: "Southeast Asia", tagline: "The Middle Kingdom", description: "The Great Wall, Terracotta Warriors, and megacities that feel like the future. Vast, ancient, and endlessly fascinating.", heroImage: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Mandarin" }, { icon: "💰", label: "Currency", value: "Chinese Yuan" }, { icon: "🍜", label: "National Dish", value: "Kung Pao Chicken" }, { icon: "🍺", label: "Local Beer", value: "Tsingtao" }], bucketList: [{ id: "bl-ch1", title: "The Great Wall", description: "Walk along one of the greatest man-made structures ever built.", image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80", emoji: "🏯" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Yes, most nationalities need a visa. Some cities offer transit visa-free stays of 72-144 hours." }] },
+  { id: "mexico", name: "Mexico", region: "Central America", tagline: "Colour, Culture & Chaos", description: "Tacos, tequila, and turquoise cenotes. Ancient Mayan ruins, vibrant street art, and some of the best food on the planet.", heroImage: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Spanish" }, { icon: "💰", label: "Currency", value: "Mexican Peso" }, { icon: "🍜", label: "National Dish", value: "Tacos" }, { icon: "🍺", label: "Local Beer", value: "Corona" }], bucketList: [{ id: "bl-m1", title: "Cenote Swimming", description: "Crystal-clear underground sinkholes — Mexico's natural swimming pools.", image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", emoji: "💎" }, { id: "bl-m2", title: "Chichén Itzá", description: "One of the New Seven Wonders of the World.", image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", emoji: "🏛️" }], contentSeries: [{ id: "cs-m1", title: "Mexico City in 48 Hours", description: "Street food, museums, and mezcal.", image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", episodes: 3, tag: "City Guide" }], podcasts: [{ id: "pod-m1", title: "Mexico Beyond Cancún", description: "Why Mexico has so much more to offer.", duration: "27 min", image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=400&q=80" }], faqs: [{ question: "Do I need a visa?", answer: "Most nationalities get 180 days visa-free." }] },
+  { id: "costa-rica", name: "Costa Rica", region: "Central America", tagline: "Pura Vida", description: "Rainforests, volcanoes, and two coastlines. The ultimate adventure playground — zip-line, surf, and spot sloths in the wild.", heroImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Spanish" }, { icon: "💰", label: "Currency", value: "Colón (CRC)" }, { icon: "🍜", label: "National Dish", value: "Gallo Pinto" }, { icon: "🍺", label: "Local Beer", value: "Imperial" }], bucketList: [{ id: "bl-cr1", title: "White Water Rafting", description: "Class III-IV rapids through the jungle — pure adrenaline.", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", emoji: "🚣" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Most nationalities get 90 days visa-free." }] },
+  { id: "colombia", name: "Colombia", region: "Central America", tagline: "The Real Magic", description: "Vibrant cities, Caribbean beaches, coffee country, and the warmest people. South America's most exciting destination.", heroImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Spanish" }, { icon: "💰", label: "Currency", value: "Colombian Peso" }, { icon: "🍜", label: "National Dish", value: "Bandeja Paisa" }, { icon: "🍺", label: "Local Beer", value: "Aguila" }], bucketList: [{ id: "bl-co1", title: "Lost City Trek", description: "4-day jungle trek to an ancient city older than Machu Picchu.", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", emoji: "🌿" }], contentSeries: [], podcasts: [], faqs: [{ question: "Is Colombia safe?", answer: "Tourist areas are safe. It's now one of the most visited countries in South America." }] },
+  { id: "peru", name: "Peru", region: "Central America", tagline: "Land of the Incas", description: "Machu Picchu, the Amazon, and the world's best ceviche. Bucket-list travel at its finest.", heroImage: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Spanish & Quechua" }, { icon: "💰", label: "Currency", value: "Peruvian Sol" }, { icon: "🍜", label: "National Dish", value: "Ceviche" }, { icon: "🍺", label: "Local Beer", value: "Cusqueña" }], bucketList: [{ id: "bl-pe1", title: "Machu Picchu", description: "The Lost City of the Incas — one of the most awe-inspiring places on Earth.", image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80", emoji: "🏔️" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Most nationalities get 90-183 days visa-free." }] },
+  { id: "brazil", name: "Brazil", region: "Central America", tagline: "Rhythm & Soul", description: "Carnival, Copacabana, and the Amazon. Larger than life — vibrant, loud, and absolutely intoxicating.", heroImage: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Portuguese" }, { icon: "💰", label: "Currency", value: "Brazilian Real" }, { icon: "🍜", label: "National Dish", value: "Feijoada" }, { icon: "🍺", label: "Local Beer", value: "Brahma" }], bucketList: [{ id: "bl-br1", title: "Christ the Redeemer", description: "Stand beneath one of the world's most iconic statues with panoramic Rio views.", image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80", emoji: "✝️" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Many nationalities now get visa-free entry for up to 90 days." }] },
+  { id: "belize", name: "Belize", region: "Central America", tagline: "Unbelizeable", description: "Caribbean meets jungle. Snorkel the world's second-largest barrier reef, explore Mayan ruins, and tube through caves.", heroImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "English" }, { icon: "💰", label: "Currency", value: "Belize Dollar" }, { icon: "🍜", label: "National Dish", value: "Rice & Beans" }, { icon: "🍺", label: "Local Beer", value: "Belikin" }], bucketList: [{ id: "bl-bz1", title: "The Great Blue Hole", description: "Dive or fly over one of the most famous natural wonders.", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", emoji: "🕳️" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Most nationalities get 30 days visa-free." }] },
+  { id: "guatemala", name: "Guatemala", region: "Central America", tagline: "Heart of the Mayan World", description: "Volcanoes, colonial cities, and one of the most beautiful lakes in the world. Central America's cultural heartland.", heroImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Spanish" }, { icon: "💰", label: "Currency", value: "Quetzal (GTQ)" }, { icon: "🍜", label: "National Dish", value: "Pepián" }, { icon: "🍺", label: "Local Beer", value: "Gallo" }], bucketList: [{ id: "bl-gt1", title: "Lake Atitlán", description: "A volcanic lake surrounded by Mayan villages — the most beautiful lake in the world.", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", emoji: "🌊" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Most nationalities get 90 days visa-free (CA-4 agreement)." }] },
+  { id: "greece", name: "Greece", region: "Europe", tagline: "Where Myths Come Alive", description: "Whitewashed villages, turquoise waters, and 6,000 years of history. The ultimate Mediterranean escape.", heroImage: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Greek" }, { icon: "💰", label: "Currency", value: "Euro (EUR)" }, { icon: "🍜", label: "National Dish", value: "Moussaka" }, { icon: "🍺", label: "Local Beer", value: "Mythos" }], bucketList: [{ id: "bl-gr1", title: "Santorini Sunset", description: "Watch the sun sink into the Aegean from Oia — the world's most famous sunset.", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80", emoji: "🌅" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "EU/UK/US/Aus/NZ nationals visit visa-free for up to 90 days." }] },
+  { id: "italy", name: "Italy", region: "Europe", tagline: "La Dolce Vita", description: "Pizza in Naples, gondolas in Venice, the Colosseum in Rome. A feast for every sense.", heroImage: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Italian" }, { icon: "💰", label: "Currency", value: "Euro (EUR)" }, { icon: "🍜", label: "National Dish", value: "Pasta" }, { icon: "🍺", label: "Local Beer", value: "Peroni" }], bucketList: [{ id: "bl-it1", title: "Amalfi Coast", description: "The world's most dramatic coastline — cliffs, lemon groves, and crystal water.", image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=800&q=80", emoji: "🍋" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "EU/UK/US/Aus/NZ nationals visit visa-free for up to 90 days." }] },
+  { id: "albania", name: "Albania", region: "Europe", tagline: "Europe's Best Kept Secret", description: "Stunning beaches, ancient castles, and prices that'll make you do a double-take. The Albanian Riviera rivals Greece at a fraction of the cost.", heroImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Albanian" }, { icon: "💰", label: "Currency", value: "Albanian Lek" }, { icon: "🍜", label: "National Dish", value: "Tavë Kosi" }, { icon: "🍺", label: "Local Beer", value: "Korça" }], bucketList: [{ id: "bl-al1", title: "Albanian Riviera", description: "Pristine beaches without the crowds or the price tag.", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", emoji: "🏖️" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Most nationalities visit visa-free for up to 90 days." }] },
+  { id: "morocco", name: "Morocco", region: "Africa", tagline: "Gateway to Africa", description: "Sahara sunsets, bustling souks, and mint tea on rooftops. North Africa's most accessible adventure.", heroImage: "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Arabic & French" }, { icon: "💰", label: "Currency", value: "Moroccan Dirham" }, { icon: "🍜", label: "National Dish", value: "Tagine" }, { icon: "🍺", label: "Local Beer", value: "Casablanca" }], bucketList: [{ id: "bl-mo1", title: "Sahara Desert Camp", description: "Sleep under a billion stars — an experience that changes your perspective.", image: "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=800&q=80", emoji: "🏜️" }], contentSeries: [{ id: "cs-mo1", title: "Marrakech to Sahara", description: "4 days from the medina to the desert.", image: "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=800&q=80", episodes: 4, tag: "Adventure" }], podcasts: [{ id: "pod-mo1", title: "Morocco: Beyond the Souks", description: "Why Morocco is so much more than Marrakech.", duration: "25 min", image: "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=400&q=80" }], faqs: [{ question: "Do I need a visa?", answer: "Most nationalities get 90 days visa-free." }] },
+  { id: "jordan", name: "Jordan", region: "Africa", tagline: "Ancient Wonders", description: "Petra, the Dead Sea, and Wadi Rum. Biblical landscapes and ancient wonders you won't believe are real.", heroImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Arabic" }, { icon: "💰", label: "Currency", value: "Jordanian Dinar" }, { icon: "🍜", label: "National Dish", value: "Mansaf" }, { icon: "🍺", label: "Local Beer", value: "Carakale" }], bucketList: [{ id: "bl-jo1", title: "Petra", description: "Walk through the Siq and emerge in front of the Treasury. Indiana Jones vibes.", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", emoji: "🏛️" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Most nationalities get visa on arrival. The Jordan Pass includes visa + Petra entry." }] },
+  { id: "new-zealand", name: "New Zealand", region: "Oceania", tagline: "Adventure Capital", description: "Bungee jumping, glacier hiking, and Lord of the Rings landscapes. The ultimate adventure destination.", heroImage: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "English & Māori" }, { icon: "💰", label: "Currency", value: "NZ Dollar" }, { icon: "🍜", label: "National Dish", value: "Hangi" }, { icon: "🍺", label: "Local Beer", value: "Steinlager" }], bucketList: [{ id: "bl-nz1", title: "Milford Sound", description: "Cruise through dramatic fiords — waterfalls, rainforest, and dolphins.", image: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=800&q=80", emoji: "🏔️" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "UK/EU/US/Aus citizens visit visa-free. You need an NZeTA applied for online." }] },
 ];

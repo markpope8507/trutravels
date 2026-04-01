@@ -39,6 +39,12 @@
 
 body {
   background: var(--background);
+  background-color: #060d18;
+  background-image:
+    radial-gradient(ellipse at 10% 20%, rgba(255, 63, 153, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 90% 10%, rgba(33, 114, 213, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 40% 80%, rgba(107, 212, 149, 0.06) 0%, transparent 40%);
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-body), 'Source Sans Pro', Arial, Helvetica, sans-serif;
   overflow-x: hidden;

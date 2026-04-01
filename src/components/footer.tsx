@@ -20,7 +20,7 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-bold text-white mb-3 uppercase tracking-wider font-heading">Explore</h4>
             <div className="space-y-2 text-sm">
-              <Link href="/destinations" className="block hover:text-tru-pink transition">Destinations</Link>
+              <Link href="/explore" className="block hover:text-tru-pink transition">Destinations</Link>
               <Link href="/stories" className="block hover:text-tru-pink transition">Stories</Link>
               <Link href="/about" className="block hover:text-tru-pink transition">About Us</Link>
             </div>

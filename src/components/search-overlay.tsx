@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { trips, stories } from "@/lib/data";
+import { tripUrl } from "@/lib/utils";
 
 type SearchItem = {
   title: string;
@@ -15,7 +16,7 @@ type SearchItem = {
 const searchIndex: SearchItem[] = [
   // Pages
   { title: "Home", href: "/", category: "Page" },
-  { title: "All Trips", href: "/destinations", category: "Page" },
+  { title: "All Trips", href: "/explore", category: "Page" },
   { title: "About Us", href: "/about", category: "Page" },
   { title: "Stories & Blog", href: "/stories", category: "Page" },
   { title: "Log In", href: "/login", category: "Page" },
@@ -25,7 +26,7 @@ const searchIndex: SearchItem[] = [
   // Trips
   ...trips.map((t) => ({
     title: t.title,
-    href: `/destinations/${t.id}`,
+    href: tripUrl(t),
     category: "Trip",
     subtitle: `${t.destination} · ${t.duration} · From £${t.price}`,
   })),
@@ -35,14 +36,14 @@ const searchIndex: SearchItem[] = [
     "Mexico", "Costa Rica", "Colombia", "Peru", "Brazil", "Belize", "Guatemala",
     "Greece", "Italy", "Albania", "Morocco", "Jordan", "New Zealand"].map((c) => ({
     title: c,
-    href: "/destinations",
+    href: "/explore",
     category: "Destination",
   })),
 
   // Travel Styles
   ...["Backpacker", "Classic", "Flashpacker", "Multi Country", "Limited Edition"].map((s) => ({
     title: `${s} Trips`,
-    href: "/destinations",
+    href: "/explore",
     category: "Travel Style",
   })),
 
@@ -55,8 +56,8 @@ const searchIndex: SearchItem[] = [
   })),
 
   // Deals
-  { title: "Flash Sale", href: "/destinations", category: "Deal", subtitle: "Save up to 30% on 2026 departures" },
-  { title: "Last-Minute Deals", href: "/destinations", category: "Deal", subtitle: "Trips leaving within 30 days" },
+  { title: "Flash Sale", href: "/explore", category: "Deal", subtitle: "Save up to 30% on 2026 departures" },
+  { title: "Last-Minute Deals", href: "/explore", category: "Deal", subtitle: "Trips leaving within 30 days" },
 ];
 
 const categoryColors: Record<string, string> = {

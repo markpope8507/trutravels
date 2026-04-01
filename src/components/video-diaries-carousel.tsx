@@ -192,10 +192,10 @@ function FullScreenViewer({
       </div>
 
       {/* Layout: main video + next preview peeking on right */}
-      <div className="h-full flex items-stretch">
+      <div className="h-full flex items-stretch justify-center">
         {/* Main active video */}
         <div
-          className={`relative flex-1 w-full sm:max-w-md sm:mx-0 sm:ml-auto sm:mr-4 transition-transform duration-300 ease-out ${
+          className={`relative w-full sm:max-w-md sm:mr-4 transition-transform duration-300 ease-out ${
             transitioning === "left" ? "-translate-x-full opacity-0" : transitioning === "right" ? "translate-x-full opacity-0" : "translate-x-0 opacity-100"
           }`}
           onClick={togglePlay}
