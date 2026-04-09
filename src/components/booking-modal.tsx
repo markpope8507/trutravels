@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useAuth } from "@/lib/auth-context";
+import Link from "next/link";
 
 type Departure = {
   date: string;
@@ -55,15 +57,20 @@ export default function BookingModal({
   departures,
   depositPrice,
 }: BookingModalProps) {
+  const { isLoggedIn } = useAuth();
   const [selected, setSelected] = useState<Departure | null>(null);
+  const [notifySignedUp, setNotifySignedUp] = useState(false);
   const [travellers, setTravellers] = useState(1);
   const [step, setStep] = useState<"dates" | "confirm">("dates");
+  const [selectedYear, setSelectedYear] = useState(2026);
 
   useEffect(() => {
     if (!isOpen) {
       setSelected(null);
       setTravellers(1);
       setStep("dates");
+      setSelectedYear(2026);
+      setNotifySignedUp(false);
     }
   }, [isOpen]);
 
@@ -114,6 +121,23 @@ export default function BookingModal({
         <div className="flex-1 overflow-y-auto">
           {step === "dates" ? (
             <div className="p-6">
+              {/* Year tabs */}
+              <div className="flex gap-2 mb-6">
+                {[2026, 2027].map((year) => (
+                  <button
+                    key={year}
+                    onClick={() => setSelectedYear(year)}
+                    className={`rounded-full px-5 py-2 text-sm font-semibold font-heading uppercase tracking-wider transition-all duration-200 ${
+                      selectedYear === year
+                        ? "bg-tru-pink text-white"
+                        : "border border-white/15 text-gray-400 hover:border-white/30 hover:text-white"
+                    }`}
+                  >
+                    {year}
+                  </button>
+                ))}
+              </div>
+
               {/* Legend */}
               <div className="flex flex-wrap gap-4 mb-6">
                 {Object.entries(statusConfig).map(([key, val]) => (
@@ -135,8 +159,57 @@ export default function BookingModal({
               </div>
 
               {/* Departure list grouped by month */}
-              <div className="space-y-6">
-                {Object.entries(grouped).map(([month, deps]) => (
+              {(() => {
+                const yearDeps = Object.entries(grouped)
+                  .filter(([, deps]) => deps.some((d) => new Date(d.date).getFullYear() === selectedYear))
+                  .map(([month, deps]) => ({ month, deps: deps.filter((d) => new Date(d.date).getFullYear() === selectedYear) }));
+
+                if (yearDeps.length === 0) {
+                  return (
+                    <div className="text-center py-12">
+                      <svg className="h-12 w-12 text-gray-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
+                      </svg>
+                      <p className="text-white font-semibold text-sm mb-2">{selectedYear} dates coming soon</p>
+                      <p className="text-gray-400 text-xs mb-6 max-w-xs mx-auto">
+                        Dates for {selectedYear} haven&apos;t been released yet. Be the first to know when they drop.
+                      </p>
+                      {notifySignedUp ? (
+                        <div className="flex items-center justify-center gap-2 text-tru-green text-sm font-semibold">
+                          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                          You&apos;ll be notified!
+                        </div>
+                      ) : isLoggedIn ? (
+                        <button
+                          onClick={() => setNotifySignedUp(true)}
+                          className="rounded-[10px] bg-tru-pink px-6 py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 uppercase tracking-wider font-heading"
+                        >
+                          Notify Me
+                        </button>
+                      ) : (
+                        <div className="space-y-3">
+                          <Link
+                            href="/signup"
+                            onClick={onClose}
+                            className="block rounded-[10px] bg-tru-pink px-6 py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 uppercase tracking-wider font-heading text-center"
+                          >
+                            Sign Up to Get Notified
+                          </Link>
+                          <p className="text-gray-500 text-xs">
+                            Already have an account?{" "}
+                            <Link href="/login" onClick={onClose} className="text-tru-pink hover:text-tru-pink-light transition">Log in</Link>
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
+                return (
+                  <div className="space-y-6">
+                    {yearDeps.map(({ month, deps }) => (
                   <div key={month}>
                     <h3 className="text-white font-semibold text-sm mb-3 font-heading uppercase tracking-wider">{month}</h3>
                     <div className="space-y-2">
@@ -183,7 +256,9 @@ export default function BookingModal({
                     </div>
                   </div>
                 ))}
-              </div>
+                  </div>
+                );
+              })()}
             </div>
           ) : selected ? (
             /* Confirm step */

@@ -34,7 +34,7 @@ export default function HomePage() {
             <img src="/logo-white.png" alt="TruTravels" className="h-16 sm:h-20" />
           </div>
           <h1 className="animate-fade-up delay-100 text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[1.05] mb-6 tracking-tight uppercase font-heading">
-            Leave Ordinary<br />Behind
+            Leave <span className="font-light">Ordinary</span><br />Behind
           </h1>
           <p className="animate-fade-up delay-200 text-3xl sm:text-4xl mb-10 max-w-2xl mx-auto font-handwriting text-tru-pink">
             Find your Extraordinary&hellip;
@@ -108,7 +108,21 @@ export default function HomePage() {
         </div>
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <ExperienceCarousel trips={trips} />
+          <ExperienceCarousel trips={(() => {
+            const featured = [
+              "thailand-island-hopper",
+              "bali-experience",
+              "philippines-island-hopper",
+              "vietnam-explorer",
+              "cambodia-explorer",
+              "sri-lanka-uncovered",
+              "mexico-yucatan-experience",
+              "costa-rica-adventure",
+              "greece-island-hopper",
+              "discover-asia",
+            ];
+            return featured.map((id) => trips.find((t) => t.id === id)).filter(Boolean) as typeof trips;
+          })()} />
         </div>
 
         <div className="mt-8 text-center sm:hidden">

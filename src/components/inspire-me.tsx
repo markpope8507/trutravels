@@ -346,8 +346,9 @@ function InspireMeModal({
                       <div className="flex items-center gap-2 mb-1">
                         <TravelStyleBadge style={trip.travelStyle} size="small" />
                       </div>
-                      <h3 className="text-white font-bold font-heading text-sm group-hover:text-tru-pink transition-colors mb-1">
-                        {trip.title} &mdash; {trip.duration}
+                      <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading mb-0.5">{trip.duration}</p>
+                      <h3 className="text-white font-black font-heading text-sm group-hover:text-tru-pink transition-colors mb-1 uppercase">
+                        {trip.title}
                       </h3>
                       <p className="text-gray-400 text-xs line-clamp-2 mb-2">
                         {trip.tagline}

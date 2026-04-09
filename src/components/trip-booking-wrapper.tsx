@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TripStickyNav from "@/components/trip-sticky-nav";
 import BookingModal from "@/components/booking-modal";
 
@@ -32,6 +32,12 @@ export default function TripBookingWrapper({
   depositPrice: number;
 }) {
   const [bookingOpen, setBookingOpen] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setBookingOpen(true);
+    window.addEventListener("open-booking", handler);
+    return () => window.removeEventListener("open-booking", handler);
+  }, []);
 
   return (
     <>

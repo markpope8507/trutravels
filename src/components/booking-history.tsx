@@ -1,0 +1,934 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+
+const mockBookings = [
+  {
+    id: "b1",
+    tripId: "thailand-island-hopper",
+    tripTitle: "Thailand Island Hopper",
+    travelStyle: "classic" as const,
+    duration: "14 Days",
+    description: "From the neon buzz of Bangkok to the crystal waters of the Andaman Sea. Explore hidden lagoons, sleep under stars on the beach, and discover why Thailand is every traveller's first love.",
+    image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
+    departureDate: "2026-04-12",
+    endDate: "2026-04-25",
+    startLocation: "Bangkok",
+    endLocation: "Phuket",
+    status: "upcoming" as const,
+    goodToGo: {
+      flightDetails: true,
+      travelInsurance: true,
+      dietaryRequirements: true,
+      emergencyContact: true,
+      passportDetails: true,
+      digitalArrivalCard: true,
+    },
+    extras: {
+      preNightHotel: false,
+      airportTransfer: false,
+    },
+    flight: {
+      airline: "Thai Airways",
+      flightNo: "TG917",
+      departs: "London Heathrow (LHR) Sat 11 Apr 2026 at 21:30",
+      arrives: "Bangkok Suvarnabhumi (BKK) Sun 12 Apr 2026 at 15:30",
+    },
+    transfer: {
+      type: "Airport arrival transfer",
+      pickupTime: "Sun 12 Apr 2026 at 15:30",
+      flightNo: "TG917",
+    },
+    insurance: {
+      policyNo: "TRV-2026-88421",
+      provider: "World Nomads",
+      type: "Explorer Plan",
+    },
+    pricePaid: 736,
+    depositPaid: 150,
+    balanceDue: 0,
+    balanceDueDate: "",
+    paymentsMade: 736,
+    travellers: 1,
+    bookingRef: "TRU-2026-04871",
+    tourLeader: "Tommy",
+  },
+  {
+    id: "b2",
+    tripId: "vietnam-explorer",
+    tripTitle: "Vietnam Explorer",
+    travelStyle: "classic" as const,
+    duration: "13 Days",
+    description: "13 days exploring Vietnam's highlights and hidden gems from south to north.",
+    image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
+    departureDate: "2026-07-05",
+    endDate: "2026-07-17",
+    startLocation: "Ho Chi Minh City",
+    endLocation: "Hanoi",
+    status: "upcoming" as const,
+    goodToGo: {
+      flightDetails: false,
+      travelInsurance: false,
+      dietaryRequirements: false,
+      emergencyContact: false,
+      passportDetails: false,
+      digitalArrivalCard: false,
+    },
+    extras: { preNightHotel: false, airportTransfer: false },
+    pricePaid: 875,
+    depositPaid: 875,
+    paymentsMade: 875,
+    balanceDue: 0,
+    balanceDueDate: "",
+    travellers: 1,
+    bookingRef: "TRU-2026-05912",
+    tourLeader: "TBC",
+  },
+  {
+    id: "b3",
+    tripId: "costa-rica-adventure",
+    tripTitle: "Costa Rica Adventure",
+    travelStyle: "classic" as const,
+    duration: "10 Days",
+    description: "10 days exploring Costa Rica's hotspots. Zip-lining, volcanic hot springs, wildlife safaris, and Pacific beaches.",
+    image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
+    departureDate: "2026-11-12",
+    endDate: "2026-11-21",
+    startLocation: "San José",
+    endLocation: "Santa Teresa",
+    status: "upcoming" as const,
+    goodToGo: {
+      flightDetails: false,
+      travelInsurance: false,
+      dietaryRequirements: false,
+      emergencyContact: false,
+      passportDetails: false,
+      digitalArrivalCard: false,
+    },
+    extras: { preNightHotel: false, airportTransfer: false },
+    pricePaid: 945,
+    depositPaid: 150,
+    paymentsMade: 150,
+    balanceDue: 795,
+    balanceDueDate: "2026-09-12",
+    travellers: 2,
+    bookingRef: "TRU-2026-07341",
+    tourLeader: "TBC",
+  },
+  {
+    id: "b4",
+    tripId: "bali-experience",
+    tripTitle: "Bali Experience",
+    travelStyle: "classic" as const,
+    duration: "10 Days",
+    description: "The essential Bali experience. Surf, temples, rice terraces, and the Gili Islands.",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+    departureDate: "2025-09-15",
+    endDate: "2025-09-24",
+    startLocation: "Canggu",
+    endLocation: "Gili Trawangan",
+    status: "completed" as const,
+    pricePaid: 487,
+    depositPaid: 487,
+    paymentsMade: 487,
+    balanceDue: 0,
+    balanceDueDate: "",
+    travellers: 2,
+    bookingRef: "TRU-2025-03214",
+    tourLeader: "Milin",
+    reviewLeft: false,
+    feedbackCompleted: false,
+  },
+];
+
+function BookingTimeline({ booking }: { booking: typeof mockBookings[0] }) {
+  const isUpcoming = booking.status === "upcoming";
+  const isPaid = booking.balanceDue === 0;
+  const goodToGoTotal = booking.goodToGo ? Object.keys(booking.goodToGo).length : 0;
+  const goodToGoDone = booking.goodToGo ? Object.values(booking.goodToGo).filter(Boolean).length : 0;
+  const isGoodToGo = goodToGoDone === goodToGoTotal && goodToGoTotal > 0;
+
+  const steps = [
+    { label: "Confirmed", done: true },
+    { label: "Paid in Full", done: isPaid },
+    { label: "Good to Go", done: isGoodToGo },
+  ];
+
+  return (
+    <div className="w-full">
+      <div className="flex items-start w-full">
+        {steps.map((step, i) => (
+          <div key={step.label} className="flex-1 flex flex-col items-center relative">
+            {/* Connector line */}
+            {i > 0 && (
+              <div className={`absolute top-3.5 right-1/2 w-full h-0.5 ${steps[i - 1].done && step.done ? "bg-tru-green" : "bg-white/10"}`} />
+            )}
+            {/* Circle */}
+            <div className={`relative z-10 h-7 w-7 rounded-full flex items-center justify-center ${step.done ? "bg-tru-green" : "bg-[#1a2538]"}`}>
+              {step.done ? (
+                <svg className="h-4 w-4 text-tru-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+              ) : (
+                <span className="text-gray-500 text-[10px] font-bold">{i + 1}</span>
+              )}
+            </div>
+            {/* Label */}
+            <p className={`text-[9px] mt-1.5 font-semibold uppercase tracking-wider text-center ${step.done ? "text-tru-green" : "text-gray-500"}`}>{step.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BookingHistory() {
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [manageTab, setManageTab] = useState("overview");
+  const [editing, setEditing] = useState(false);
+  const [videoReviewOpen, setVideoReviewOpen] = useState<string | null>(null);
+  const [recording, setRecording] = useState(false);
+  const [recorded, setRecorded] = useState(false);
+  const [formData, setFormData] = useState({
+    flightAirline: "",
+    flightNo: "",
+    flightDeparts: "",
+    flightArrives: "",
+    insuranceProvider: "",
+    insuranceType: "",
+    insurancePolicyNo: "",
+    passportName: "",
+    passportNumber: "",
+    passportExpiry: "",
+    emergencyName: "",
+    emergencyPhone: "",
+    emergencyRelationship: "",
+    dietary: "",
+    arrivalCard: "",
+  });
+
+  const handleExpand = (id: string) => {
+    if (expandedId === id) {
+      setExpandedId(null);
+    } else {
+      setExpandedId(id);
+      setManageTab("overview");
+      setEditing(false);
+    }
+  };
+
+  const startEditing = (booking: typeof mockBookings[0]) => {
+    setFormData({
+      flightAirline: booking.flight?.airline || "",
+      flightNo: booking.flight?.flightNo || "",
+      flightDeparts: booking.flight?.departs || "",
+      flightArrives: booking.flight?.arrives || "",
+      insuranceProvider: booking.insurance?.provider || "",
+      insuranceType: booking.insurance?.type || "",
+      insurancePolicyNo: booking.insurance?.policyNo || "",
+      passportName: "",
+      passportNumber: "",
+      passportExpiry: "",
+      emergencyName: "Sarah Traveller",
+      emergencyPhone: "+44 7700 900123",
+      emergencyRelationship: "Mother",
+      dietary: "No allergies · Vegetarian",
+      arrivalCard: "",
+    });
+    setEditing(true);
+  };
+
+  const handleSave = () => {
+    setEditing(false);
+  };
+
+  const updateField = (key: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const statusStyles = {
+    upcoming: { label: "CONFIRMED", color: "text-tru-green" },
+    completed: { label: "Completed", color: "bg-gray-500 text-white" },
+    cancelled: { label: "Cancelled", color: "bg-red-500 text-white" },
+  };
+
+  function formatDate(dateStr: string) {
+    if (!dateStr) return "";
+    return new Date(dateStr).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  }
+
+  function daysUntil(dateStr: string) {
+    const diff = Math.ceil((new Date(dateStr).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+    return diff > 0 ? diff : 0;
+  }
+
+  return (
+    <section className="mb-12">
+      <div className="space-y-6">
+        {mockBookings.map((booking) => {
+          const status = statusStyles[booking.status];
+          const isExpanded = expandedId === booking.id;
+          const isUpcoming = booking.status === "upcoming";
+
+          return (
+            <div key={booking.id} className="rounded-[10px] border border-white/10 bg-white/5 overflow-hidden">
+              {/* Card header — tour card style */}
+              <div className="flex flex-col sm:flex-row">
+                {/* Image */}
+                <div className="relative sm:w-64 sm:flex-shrink-0">
+                  <img src={booking.image} alt={booking.tripTitle} className="w-full h-40 sm:absolute sm:inset-0 sm:h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  {/* Bottom-left: date + countdown */}
+                  <div className="absolute bottom-3 left-3 right-3">
+                    <p className="text-white text-lg font-black font-heading leading-none">{new Date(booking.departureDate).getDate()} {new Date(booking.departureDate).toLocaleDateString("en-GB", { month: "short" })} {new Date(booking.departureDate).getFullYear()}</p>
+                    {isUpcoming && (
+                      <p className="text-tru-green text-[10px] font-bold mt-1">{daysUntil(booking.departureDate)} days to go</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Info */}
+                <div className="flex-1 p-4 sm:p-5 sm:min-h-[220px] flex flex-col">
+                  <div className="flex items-start justify-between mb-3">
+                    <div>
+                      <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading mb-0.5">{booking.duration}</p>
+                      <h3 className="text-base sm:text-lg font-black text-white uppercase font-heading">{booking.tripTitle}</h3>
+                      <div className="flex items-center gap-2 mt-1 text-gray-400 text-xs">
+                        <svg className="h-3 w-3 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        {booking.startLocation} &rarr; {booking.endLocation}
+                      </div>
+                      <p className="text-white text-xs font-semibold mt-1">{booking.bookingRef}</p>
+                    </div>
+                    <div className="text-right flex-shrink-0 ml-4 hidden sm:block">
+                      <p className="text-white font-black text-xl font-heading">&pound;{booking.pricePaid}</p>
+                      {booking.balanceDue > 0 && (
+                        <div>
+                          <p className="text-tru-pink text-xs font-semibold">&pound;{booking.balanceDue} due in {daysUntil(booking.balanceDueDate)} days</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Timeline */}
+                  {isUpcoming && <BookingTimeline booking={booking} />}
+
+                  {/* Completed trip CTAs */}
+                  {booking.status === "completed" && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {!booking.feedbackCompleted && (
+                        <span className="flex items-center gap-1.5 rounded-full border border-tru-pink/30 bg-tru-pink/10 px-3 py-1 text-[10px] font-semibold text-tru-pink">
+                          <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                          Feedback needed
+                        </span>
+                      )}
+                      {!booking.reviewLeft && (
+                        <span className="flex items-center gap-1.5 rounded-full border border-tru-green/30 bg-tru-green/10 px-3 py-1 text-[10px] font-semibold text-tru-green">
+                          <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
+                          Leave an online review
+                        </span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Manage + Action buttons */}
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-auto pt-4">
+                    {booking.status !== "completed" && (
+                      <button
+                        onClick={() => handleExpand(booking.id)}
+                        className="rounded-[10px] border border-white/20 px-5 py-2.5 text-[10px] font-semibold text-white hover:border-white/40 hover:bg-white/5 transition uppercase tracking-wider font-heading flex items-center justify-center gap-2"
+                      >
+                        {isExpanded ? "Close" : "Manage Booking"}
+                        <svg className={`h-3.5 w-3.5 transition-transform ${isExpanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                      </button>
+                    )}
+                    {booking.status === "completed" && <div />}
+                    {isUpcoming && booking.balanceDue > 0 && (
+                      <button className="rounded-[10px] bg-tru-pink px-5 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading text-center">
+                        Make a Payment
+                      </button>
+                    )}
+                    {isUpcoming && booking.balanceDue === 0 && (
+                      <Link href={`/member/trip-hub/${booking.id}`} className="rounded-[10px] bg-gradient-to-r from-tru-green to-tru-blue px-5 py-2.5 text-[10px] font-bold text-white hover:opacity-90 transition uppercase tracking-wider font-heading text-center flex items-center justify-center gap-1.5">
+                        🔑 Enter Trip Hub
+                      </Link>
+                    )}
+                    {booking.status === "completed" && (
+                      <button
+                        onClick={() => { setVideoReviewOpen(booking.id); setRecording(false); setRecorded(false); }}
+                        className="rounded-[10px] bg-gradient-to-r from-tru-pink to-tru-blue px-5 py-2.5 text-[10px] font-semibold text-white hover:opacity-90 transition uppercase tracking-wider font-heading flex items-center justify-center gap-2"
+                      >
+                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                        Leave a Video Review
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Expanded — tabbed interface */}
+              <div className={`transition-all duration-300 ease-out overflow-hidden ${isExpanded ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                {/* Tabs */}
+                <div className="border-t border-b border-white/5 flex">
+                  {[
+                    { id: "overview", label: "Overview" },
+                    ...(isUpcoming && booking.goodToGo ? [{ id: "goodtogo", label: "Good to Go" }] : []),
+                    ...(isUpcoming ? [{ id: "addons", label: "Add-Ons" }] : []),
+                    ...(isUpcoming ? [{ id: "access", label: "🔑 Trip Hub" }] : []),
+                    ...(booking.status === "completed" ? [{ id: "feedback", label: "Feedback" }] : []),
+                  ].map((tab) => (
+                    <button
+                      key={tab.id}
+                      onClick={() => setManageTab(tab.id)}
+                      className={`flex-1 py-3 px-1 text-[10px] font-semibold uppercase tracking-wide font-heading transition-all border-b-2 text-center whitespace-nowrap ${
+                        manageTab === tab.id ? "text-tru-pink border-tru-pink" : "text-gray-500 border-transparent hover:text-white"
+                      }`}
+                    >
+                      {tab.label}
+                      {tab.id === "goodtogo" && booking.goodToGo && (() => {
+                        const done = Object.values(booking.goodToGo).filter(Boolean).length;
+                        const total = Object.keys(booking.goodToGo).length;
+                        return done < total ? <span className="ml-1.5 bg-tru-pink text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full">{done}/{total}</span> : <span className="ml-1.5 text-tru-green">✓</span>;
+                      })()}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="px-4 pb-5 pt-4">
+                  {/* OVERVIEW TAB */}
+                  {manageTab === "overview" && (
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="rounded-[10px] bg-white/5 p-3">
+                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Passenger</p>
+                          <p className="text-white text-sm font-semibold">Alex Traveller</p>
+                        </div>
+                        <div className="rounded-[10px] bg-white/5 p-3">
+                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Email</p>
+                          <p className="text-white text-sm font-semibold">alex@trutravels.com</p>
+                        </div>
+                        <div className="rounded-[10px] bg-white/5 p-3">
+                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Booking Ref</p>
+                          <p className="text-white text-sm font-semibold">{booking.bookingRef}</p>
+                        </div>
+                        <div className="rounded-[10px] bg-white/5 p-3">
+                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Tour Leader</p>
+                          <p className="text-white text-sm font-semibold">{booking.tourLeader}</p>
+                        </div>
+                        <div className="rounded-[10px] bg-white/5 p-3">
+                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Travellers</p>
+                          <p className="text-white text-sm font-semibold">{booking.travellers} PAX</p>
+                        </div>
+                        <div className="rounded-[10px] bg-white/5 p-3">
+                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Tour</p>
+                          <p className="text-white text-sm font-semibold">{booking.tripTitle}</p>
+                        </div>
+                        <div className="rounded-[10px] bg-white/5 p-3">
+                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Departs</p>
+                          <p className="text-white text-sm font-semibold">{formatDate(booking.departureDate)}</p>
+                        </div>
+                        <div className="rounded-[10px] bg-white/5 p-3">
+                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Returns</p>
+                          <p className="text-white text-sm font-semibold">{formatDate(booking.endDate)}</p>
+                        </div>
+                        <div className="rounded-[10px] bg-white/5 p-3">
+                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Total Price</p>
+                          <p className="text-white text-sm font-semibold">&pound;{booking.pricePaid}</p>
+                        </div>
+                        <div className="rounded-[10px] bg-white/5 p-3">
+                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Paid</p>
+                          <p className="text-tru-green text-sm font-semibold">&pound;{booking.paymentsMade || booking.depositPaid}</p>
+                        </div>
+                      </div>
+
+                      {/* Apply travel credit */}
+                      {isUpcoming && booking.balanceDue > 0 && (
+                        <div className="rounded-[10px] border border-tru-green/20 bg-tru-green/5 p-4 flex items-center gap-4 mt-2">
+                          <div className="h-10 w-10 rounded-full bg-tru-green/20 flex items-center justify-center flex-shrink-0">
+                            <svg className="h-5 w-5 text-tru-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-white text-sm font-semibold">You have &pound;50 travel credit</p>
+                            <p className="text-gray-400 text-xs">Apply towards your remaining balance of &pound;{booking.balanceDue}</p>
+                          </div>
+                          <button className="rounded-[10px] bg-tru-green px-4 py-2.5 text-[10px] font-semibold text-tru-navy hover:bg-tru-green-light transition uppercase tracking-wider font-heading flex-shrink-0">
+                            Apply Credit
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Booking actions */}
+                      {isUpcoming && (
+                        <div className="flex gap-3 mt-4">
+                          <button className="flex-1 rounded-[10px] border border-white/20 py-2.5 text-xs text-white hover:border-white/40 hover:bg-white/5 transition text-center font-heading uppercase tracking-wider">
+                            Request Date Change
+                          </button>
+                          <button className="flex-1 rounded-[10px] border border-red-500/30 py-2.5 text-xs text-red-400 hover:border-red-500/50 hover:bg-red-500/10 transition text-center font-heading uppercase tracking-wider">
+                            Request Cancellation
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Payment History */}
+                      <div className="mt-6">
+                        <p className="text-white font-bold text-sm font-heading uppercase tracking-wider mb-3">Payment History</p>
+                        <div className="rounded-[10px] border border-white/10 bg-white/5 overflow-hidden">
+                          <div className="hidden sm:grid sm:grid-cols-4 gap-2 px-4 py-2 border-b border-white/5 text-[9px] text-gray-500 uppercase tracking-wider font-heading">
+                            <span>Date</span>
+                            <span>Amount</span>
+                            <span>Reference</span>
+                            <span className="text-right">Balance After</span>
+                          </div>
+                          {[
+                            { date: "12 Jan 2026", amount: 150, ref: "PAY-04871-001", balance: 586 },
+                            ...(booking.paymentsMade && booking.paymentsMade > 150 ? [{ date: "15 Feb 2026", amount: booking.paymentsMade - 150, ref: `PAY-${booking.bookingRef.split("-")[2]}-002`, balance: booking.pricePaid - booking.paymentsMade }] : []),
+                          ].map((payment, i) => (
+                            <div key={i} className="grid grid-cols-2 sm:grid-cols-4 gap-2 px-4 py-3 border-b border-white/5 last:border-0">
+                              <div>
+                                <p className="text-gray-500 text-[9px] uppercase sm:hidden">Date</p>
+                                <p className="text-white text-xs">{payment.date}</p>
+                              </div>
+                              <div>
+                                <p className="text-gray-500 text-[9px] uppercase sm:hidden">Amount</p>
+                                <p className="text-tru-green text-xs font-semibold">&pound;{payment.amount}</p>
+                              </div>
+                              <div>
+                                <p className="text-gray-500 text-[9px] uppercase sm:hidden">Reference</p>
+                                <p className="text-gray-300 text-xs">{payment.ref}</p>
+                              </div>
+                              <div className="sm:text-right">
+                                <p className="text-gray-500 text-[9px] uppercase sm:hidden">Balance</p>
+                                <p className={`text-xs font-semibold ${payment.balance > 0 ? "text-tru-pink" : "text-tru-green"}`}>&pound;{payment.balance}</p>
+                              </div>
+                            </div>
+                          ))}
+                          {/* Total row */}
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 px-4 py-3 bg-white/5">
+                            <p className="text-white text-xs font-bold sm:col-span-1">Total Paid</p>
+                            <p className="text-tru-green text-xs font-bold">&pound;{booking.paymentsMade || booking.depositPaid}</p>
+                            <p className="text-gray-500 text-xs sm:hidden">Remaining</p>
+                            <p className="hidden sm:block" />
+                            <p className={`text-xs font-bold sm:text-right ${booking.balanceDue > 0 ? "text-tru-pink" : "text-tru-green"}`}>
+                              {booking.balanceDue > 0 ? `£${booking.balanceDue} remaining` : "Paid in full ✓"}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* GOOD TO GO TAB */}
+                  {manageTab === "goodtogo" && isUpcoming && booking.goodToGo && (() => {
+                    const items = [
+                      { key: "flightDetails", label: "Flight Details", detail: booking.flight ? `${booking.flight.airline} · ${booking.flight.flightNo}\nDeparts: ${booking.flight.departs}\nArrives: ${booking.flight.arrives}` : null },
+                      { key: "travelInsurance", label: "Travel Insurance", detail: booking.insurance ? `Provider: ${booking.insurance.provider}\nPlan: ${booking.insurance.type}\nPolicy No: ${booking.insurance.policyNo}` : null },
+                      { key: "passportDetails", label: "Passport Details", detail: null },
+                      { key: "emergencyContact", label: "Emergency Contact", detail: "Sarah Traveller · +44 7700 900123 · Mother" },
+                      { key: "dietaryRequirements", label: "Dietary Requirements", detail: "No allergies · Vegetarian" },
+                      { key: "digitalArrivalCard", label: "Digital Arrival Card", detail: null },
+                    ];
+                    const completed = items.filter((item) => (booking.goodToGo as any)[item.key]).length;
+                    const total = items.length;
+
+                    if (editing) {
+                      const inputClass = "w-full bg-white/5 border border-white/10 rounded-[10px] px-3 py-2 text-xs text-white placeholder:text-gray-600 focus:outline-none focus:border-tru-pink/50 transition";
+                      return (
+                        <div className="space-y-5">
+                          <div className="flex items-center justify-between">
+                            <p className="text-white font-bold text-sm font-heading uppercase tracking-wider">Edit Good to Go</p>
+                            <button onClick={() => setEditing(false)} className="text-gray-500 text-[10px] hover:text-white transition">Cancel</button>
+                          </div>
+
+                          {/* Flight Details */}
+                          <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 space-y-3">
+                            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading">Flight Details</p>
+                            <div className="grid grid-cols-2 gap-3">
+                              <input className={inputClass} placeholder="Airline" value={formData.flightAirline} onChange={(e) => updateField("flightAirline", e.target.value)} />
+                              <input className={inputClass} placeholder="Flight No." value={formData.flightNo} onChange={(e) => updateField("flightNo", e.target.value)} />
+                            </div>
+                            <input className={inputClass} placeholder="Departs from (e.g. London Heathrow, Sat 11 Apr at 21:30)" value={formData.flightDeparts} onChange={(e) => updateField("flightDeparts", e.target.value)} />
+                            <input className={inputClass} placeholder="Arrives at (e.g. Bangkok BKK, Sun 12 Apr at 15:30)" value={formData.flightArrives} onChange={(e) => updateField("flightArrives", e.target.value)} />
+                          </div>
+
+                          {/* Travel Insurance */}
+                          <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 space-y-3">
+                            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading">Travel Insurance</p>
+                            <div className="grid grid-cols-2 gap-3">
+                              <input className={inputClass} placeholder="Provider" value={formData.insuranceProvider} onChange={(e) => updateField("insuranceProvider", e.target.value)} />
+                              <input className={inputClass} placeholder="Plan type" value={formData.insuranceType} onChange={(e) => updateField("insuranceType", e.target.value)} />
+                            </div>
+                            <input className={inputClass} placeholder="Policy number" value={formData.insurancePolicyNo} onChange={(e) => updateField("insurancePolicyNo", e.target.value)} />
+                          </div>
+
+                          {/* Passport */}
+                          <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 space-y-3">
+                            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading">Passport Details</p>
+                            <input className={inputClass} placeholder="Full name (as on passport)" value={formData.passportName} onChange={(e) => updateField("passportName", e.target.value)} />
+                            <div className="grid grid-cols-2 gap-3">
+                              <input className={inputClass} placeholder="Passport number" value={formData.passportNumber} onChange={(e) => updateField("passportNumber", e.target.value)} />
+                              <input className={inputClass} placeholder="Expiry date" value={formData.passportExpiry} onChange={(e) => updateField("passportExpiry", e.target.value)} />
+                            </div>
+                          </div>
+
+                          {/* Emergency Contact */}
+                          <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 space-y-3">
+                            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading">Emergency Contact</p>
+                            <input className={inputClass} placeholder="Full name" value={formData.emergencyName} onChange={(e) => updateField("emergencyName", e.target.value)} />
+                            <div className="grid grid-cols-2 gap-3">
+                              <input className={inputClass} placeholder="Phone number" value={formData.emergencyPhone} onChange={(e) => updateField("emergencyPhone", e.target.value)} />
+                              <input className={inputClass} placeholder="Relationship" value={formData.emergencyRelationship} onChange={(e) => updateField("emergencyRelationship", e.target.value)} />
+                            </div>
+                          </div>
+
+                          {/* Dietary */}
+                          <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 space-y-3">
+                            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading">Dietary Requirements</p>
+                            <input className={inputClass} placeholder="Allergies, dietary preferences etc." value={formData.dietary} onChange={(e) => updateField("dietary", e.target.value)} />
+                          </div>
+
+                          {/* Digital Arrival Card */}
+                          <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 space-y-3">
+                            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading">Digital Arrival Card</p>
+                            <input className={inputClass} placeholder="Confirmation number or reference" value={formData.arrivalCard} onChange={(e) => updateField("arrivalCard", e.target.value)} />
+                          </div>
+
+                          {/* Save */}
+                          <div className="flex gap-3">
+                            <button onClick={() => setEditing(false)} className="flex-1 rounded-[10px] border border-white/20 py-2.5 text-xs text-white hover:border-white/40 transition text-center font-heading uppercase tracking-wider">Cancel</button>
+                            <button onClick={handleSave} className="flex-1 rounded-[10px] bg-tru-green py-2.5 text-xs font-semibold text-tru-navy hover:bg-tru-green-light transition text-center font-heading uppercase tracking-wider">Save All</button>
+                          </div>
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${completed === total ? "bg-tru-green text-tru-navy" : "bg-tru-pink text-white"}`}>{completed}/{total} complete</span>
+                            <div className="w-24 h-1.5 rounded-full bg-white/10 overflow-hidden">
+                              <div className="h-full rounded-full transition-all duration-500" style={{ width: `${(completed / total) * 100}%`, background: completed === total ? "#6BD495" : "#FF3F99" }} />
+                            </div>
+                          </div>
+                          <button onClick={() => startEditing(booking)} className="rounded-[10px] border border-white/20 px-4 py-2 text-[10px] font-semibold text-white hover:border-white/40 hover:bg-white/5 transition uppercase tracking-wider font-heading flex items-center gap-1.5">
+                            <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                            Edit
+                          </button>
+                        </div>
+                        <div className="rounded-[10px] border border-white/10 bg-white/5 divide-y divide-white/5 overflow-hidden">
+                          {items.map((item) => {
+                            const done = (booking.goodToGo as any)[item.key];
+                            return (
+                              <div key={item.key} className="px-4 py-3 flex items-center gap-3">
+                                <div className={`h-6 w-6 rounded-full flex items-center justify-center flex-shrink-0 ${done ? "bg-tru-green/20" : "bg-white/10"}`}>
+                                  {done ? <svg className="h-3.5 w-3.5 text-tru-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg> : <svg className="h-3.5 w-3.5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className={`text-xs font-semibold ${done ? "text-tru-green" : "text-white"}`}>{item.label}</p>
+                                  {done && item.detail ? (
+                                    <div className="text-gray-300 text-[10px] mt-0.5">
+                                      {item.detail.split("\n").map((line, li) => <p key={li}>{line}</p>)}
+                                    </div>
+                                  ) : !done && (
+                                    <p className="text-tru-pink text-[10px] font-semibold">Incomplete</p>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+                  {/* ADD-ONS TAB */}
+                  {manageTab === "addons" && isUpcoming && (
+                    <div className="space-y-3">
+                      <p className="text-gray-400 text-xs mb-2">Enhance your trip with optional extras. Add before you go and we&apos;ll have everything sorted when you arrive.</p>
+
+                      {/* Pre-Night Hotel */}
+                      <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
+                        <div className="h-12 w-12 rounded-[10px] bg-tru-blue/20 flex items-center justify-center flex-shrink-0">
+                          <svg className="h-6 w-6 text-tru-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-white text-sm font-semibold">Pre-Night Hotel</p>
+                          <p className="text-gray-400 text-xs">Arrive a day early and stay at our start hotel in {booking.startLocation}. Beat the jet lag and be fresh for Day 1.</p>
+                        </div>
+                        {booking.extras?.preNightHotel ? (
+                          <span className="text-tru-green text-xs font-bold uppercase tracking-wider flex-shrink-0">Booked ✓</span>
+                        ) : (
+                          <button className="rounded-[10px] bg-tru-pink px-4 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading flex-shrink-0">Add</button>
+                        )}
+                      </div>
+
+                      {/* Post-Night Hotel */}
+                      <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
+                        <div className="h-12 w-12 rounded-[10px] bg-tru-green/20 flex items-center justify-center flex-shrink-0">
+                          <svg className="h-6 w-6 text-tru-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-white text-sm font-semibold">Post-Night Hotel</p>
+                          <p className="text-gray-400 text-xs">Not ready to leave? Stay an extra night at our end hotel in {booking.endLocation} before heading home.</p>
+                        </div>
+                        <button className="rounded-[10px] bg-tru-pink px-4 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading flex-shrink-0">Add</button>
+                      </div>
+
+                      {/* My Own Room */}
+                      <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
+                        <div className="h-12 w-12 rounded-[10px] bg-tru-pink/20 flex items-center justify-center flex-shrink-0">
+                          <svg className="h-6 w-6 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" /></svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-white text-sm font-semibold">My Own Room Upgrade</p>
+                          <p className="text-gray-400 text-xs">Upgrade from twin-share to your own private room throughout the trip. Subject to availability.</p>
+                        </div>
+                        <button className="rounded-[10px] bg-tru-pink px-4 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading flex-shrink-0">Add</button>
+                      </div>
+
+                      {/* Airport Transfer - Arrival */}
+                      <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
+                        <div className="h-12 w-12 rounded-[10px] bg-tru-blue/20 flex items-center justify-center flex-shrink-0">
+                          <svg className="h-6 w-6 text-tru-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H6.375m11.25 0h3.375c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 00-.879-2.121l-3.496-3.496A2.999 2.999 0 0014.25 8.25H6.375c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125z" /></svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-white text-sm font-semibold">Airport Arrival Transfer</p>
+                          <p className="text-gray-400 text-xs">We&apos;ll pick you up from {booking.startLocation} airport and take you straight to the hotel. No stress, no scams.</p>
+                        </div>
+                        {booking.extras?.airportTransfer ? (
+                          <span className="text-tru-green text-xs font-bold uppercase tracking-wider flex-shrink-0">Booked ✓</span>
+                        ) : (
+                          <button className="rounded-[10px] bg-tru-pink px-4 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading flex-shrink-0">Add</button>
+                        )}
+                      </div>
+
+                      {/* Airport Transfer - Departure */}
+                      <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
+                        <div className="h-12 w-12 rounded-[10px] bg-tru-blue/20 flex items-center justify-center flex-shrink-0">
+                          <svg className="h-6 w-6 text-tru-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H6.375m11.25 0h3.375c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 00-.879-2.121l-3.496-3.496A2.999 2.999 0 0014.25 8.25H6.375c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125z" /></svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-white text-sm font-semibold">Airport Departure Transfer</p>
+                          <p className="text-gray-400 text-xs">Transfer from your end hotel in {booking.endLocation} to the airport on your last day.</p>
+                        </div>
+                        <button className="rounded-[10px] bg-tru-pink px-4 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading flex-shrink-0">Add</button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ACCESS TAB */}
+                  {manageTab === "access" && isUpcoming && (
+                    <div>
+                      {booking.balanceDue > 0 ? (
+                        /* Not paid in full — locked */
+                        <div className="relative rounded-[10px] border border-white/10 overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-br from-tru-pink/5 via-transparent to-tru-blue/5" />
+                          <div className="relative text-center py-12 px-6">
+                            <div className="h-20 w-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-5">
+                              <svg className="h-10 w-10 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                              </svg>
+                            </div>
+                            <p className="text-2xl font-black text-white uppercase font-heading tracking-tight mb-2">Your Trip Hub</p>
+                            <p className="text-lg font-handwriting text-tru-pink mb-4">Unlock the full experience&hellip;</p>
+                            <p className="text-gray-400 text-sm max-w-md mx-auto mb-6 leading-relaxed">
+                              Once you&apos;ve paid in full, you&apos;ll unlock exclusive access to your personal trip hub — a welcome video from your tour leader, group chat with your fellow travellers, pre-departure notes, packing guides, and more.
+                            </p>
+                            <div className="flex items-center justify-center gap-6 mb-8 text-gray-500">
+                              <div className="flex flex-col items-center gap-1.5">
+                                <div className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center">
+                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                                </div>
+                                <span className="text-[9px] uppercase tracking-wider">Video</span>
+                              </div>
+                              <div className="flex flex-col items-center gap-1.5">
+                                <div className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center">
+                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                                </div>
+                                <span className="text-[9px] uppercase tracking-wider">Chat</span>
+                              </div>
+                              <div className="flex flex-col items-center gap-1.5">
+                                <div className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center">
+                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                                </div>
+                                <span className="text-[9px] uppercase tracking-wider">Notes</span>
+                              </div>
+                              <div className="flex flex-col items-center gap-1.5">
+                                <div className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center">
+                                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
+                                </div>
+                                <span className="text-[9px] uppercase tracking-wider">Group</span>
+                              </div>
+                            </div>
+                            <div className="inline-block rounded-[10px] border border-tru-pink/30 bg-tru-pink/10 px-5 py-2 mb-5">
+                              <p className="text-tru-pink text-sm font-bold">&pound;{booking.balanceDue} to unlock</p>
+                            </div>
+                            <br />
+                            <button className="rounded-[10px] bg-tru-pink px-8 py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 uppercase tracking-wider font-heading">
+                              Make a Payment
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        /* Paid in full — unlocked */
+                        <div className="relative rounded-[10px] border border-tru-green/20 overflow-hidden">
+                          <div className="absolute inset-0 bg-gradient-to-br from-tru-green/5 via-transparent to-tru-pink/5" />
+                          <div className="relative p-6">
+                            <div className="flex items-center gap-3 mb-4">
+                              <div className="h-10 w-10 rounded-full bg-tru-green/20 flex items-center justify-center">
+                                <svg className="h-5 w-5 text-tru-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                                </svg>
+                              </div>
+                              <div>
+                                <p className="text-white font-black text-base font-heading uppercase">Your Trip Hub</p>
+                                <p className="text-tru-green text-xs font-semibold">Unlocked &middot; Exclusive Access</p>
+                              </div>
+                            </div>
+
+                            <p className="text-gray-300 text-sm leading-relaxed mb-5">
+                              Your personal trip hub is ready. Everything you need before you go — meet your tour leader, connect with your group, and get prepped for the adventure of a lifetime.
+                            </p>
+
+                            <div className="grid grid-cols-2 gap-3 mb-5">
+                              <div className="rounded-[10px] border border-tru-pink/20 bg-tru-pink/5 p-4 text-center hover:bg-tru-pink/10 transition cursor-pointer">
+                                <svg className="h-6 w-6 text-tru-pink mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                                <p className="text-white text-xs font-bold">Welcome Video</p>
+                                <p className="text-gray-500 text-[9px] mt-0.5">From your tour leader</p>
+                              </div>
+                              <div className="rounded-[10px] border border-tru-blue/20 bg-tru-blue/5 p-4 text-center hover:bg-tru-blue/10 transition cursor-pointer">
+                                <svg className="h-6 w-6 text-tru-blue mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                                <p className="text-white text-xs font-bold">Group Chat</p>
+                                <p className="text-gray-500 text-[9px] mt-0.5">Meet your group</p>
+                              </div>
+                              <div className="rounded-[10px] border border-tru-green/20 bg-tru-green/5 p-4 text-center hover:bg-tru-green/10 transition cursor-pointer">
+                                <svg className="h-6 w-6 text-tru-green mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                                <p className="text-white text-xs font-bold">Trip Notes</p>
+                                <p className="text-gray-500 text-[9px] mt-0.5">Packing &amp; prep</p>
+                              </div>
+                              <div className="rounded-[10px] border border-tru-blue/20 bg-tru-blue/5 p-4 text-center hover:bg-tru-blue/10 transition cursor-pointer">
+                                <svg className="h-6 w-6 text-tru-blue mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>
+                                <p className="text-white text-xs font-bold">Your Group</p>
+                                <p className="text-gray-500 text-[9px] mt-0.5">See who&apos;s coming</p>
+                              </div>
+                            </div>
+
+                            <Link href={`/member/trip-hub/${booking.id}`} className="block w-full rounded-[10px] bg-gradient-to-r from-tru-green to-tru-blue py-3.5 text-sm font-bold text-white hover:opacity-90 transition-all duration-300 uppercase tracking-wider font-heading text-center">
+                              Enter Your Trip Hub &rarr;
+                            </Link>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* FEEDBACK TAB */}
+                  {manageTab === "feedback" && booking.status === "completed" && (
+                    <div className="space-y-4">
+                      {!booking.feedbackCompleted && (
+                        <div className="rounded-[10px] border border-tru-pink/30 bg-tru-blue/5 p-5 text-center">
+                          <svg className="h-10 w-10 text-tru-blue mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                          <p className="text-white font-semibold text-sm mb-1">Feedback form incomplete</p>
+                          <p className="text-gray-400 text-xs mb-4">Help us improve by sharing your experience</p>
+                          <button className="rounded-[10px] bg-tru-pink px-6 py-2.5 text-xs font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading">Complete Feedback</button>
+                        </div>
+                      )}
+                      {!booking.reviewLeft && (
+                        <div className="rounded-[10px] border border-tru-green/30 bg-tru-green/5 p-5 text-center">
+                          <svg className="h-10 w-10 text-tru-green mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>
+                          <p className="text-white font-semibold text-sm mb-1">Leave a review</p>
+                          <p className="text-gray-400 text-xs mb-4">Loved your trip? Help others decide</p>
+                          <button className="rounded-[10px] bg-tru-green px-6 py-2.5 text-xs font-semibold text-tru-navy hover:bg-tru-green-light transition uppercase tracking-wider font-heading">Write a Review</button>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Video Review Modal */}
+      {videoReviewOpen && (() => {
+        const reviewBooking = mockBookings.find((b) => b.id === videoReviewOpen);
+        return (
+          <div className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setVideoReviewOpen(null)}>
+            <div className="w-full max-w-md rounded-[10px] border border-white/10 bg-tru-navy overflow-hidden animate-scale-in" onClick={(e) => e.stopPropagation()}>
+              {/* Header */}
+              <div className="relative bg-gradient-to-r from-tru-pink/20 to-tru-blue/20 px-6 pt-6 pb-5">
+                <button onClick={() => setVideoReviewOpen(null)} className="absolute top-4 right-4 h-8 w-8 rounded-full bg-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/20 transition">
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-tru-pink to-tru-blue flex items-center justify-center mb-4">
+                  <svg className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                </div>
+                <h3 className="text-white text-lg font-black font-heading uppercase tracking-wide">Share Your Experience</h3>
+                <p className="text-gray-300 text-sm mt-1">{reviewBooking?.tripTitle}</p>
+              </div>
+
+              {/* Body */}
+              <div className="px-6 py-5 space-y-4">
+                {!recording && !recorded && (
+                  <>
+                    <p className="text-gray-300 text-sm leading-relaxed">
+                      Record a <span className="text-white font-semibold">10-20 second video</span> sharing your favourite moment, what surprised you, or why someone should book this trip. Your review will inspire future travellers on the trip page!
+                    </p>
+
+                    <div className="rounded-[10px] bg-white/5 border border-white/10 p-4 space-y-3">
+                      <p className="text-white text-xs font-bold font-heading uppercase tracking-wider">Tips for a great review</p>
+                      <div className="space-y-2">
+                        {[
+                          { icon: "🎯", text: "Keep it short — 10-20 seconds is perfect" },
+                          { icon: "😊", text: "Be yourself — authentic beats polished" },
+                          { icon: "🌟", text: "Share a highlight or favourite moment" },
+                          { icon: "💡", text: "Film vertically for best results" },
+                        ].map((tip) => (
+                          <div key={tip.text} className="flex items-start gap-2">
+                            <span className="text-sm flex-shrink-0">{tip.icon}</span>
+                            <p className="text-gray-400 text-xs">{tip.text}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <label className="w-full rounded-[10px] bg-gradient-to-r from-tru-pink to-tru-blue py-3.5 text-sm font-bold text-white hover:opacity-90 transition uppercase tracking-wider font-heading flex items-center justify-center gap-2 cursor-pointer">
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
+                      Upload Video
+                      <input
+                        type="file"
+                        accept="video/*"
+                        className="hidden"
+                        onChange={() => { setRecording(false); setRecorded(true); }}
+                      />
+                    </label>
+                  </>
+                )}
+
+                {recorded && (
+                  <div className="text-center space-y-4">
+                    <div className="h-20 w-20 rounded-full bg-tru-green/20 flex items-center justify-center mx-auto">
+                      <svg className="h-10 w-10 text-tru-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    </div>
+                    <div>
+                      <p className="text-white text-lg font-bold font-heading uppercase">Video Submitted!</p>
+                      <p className="text-gray-400 text-sm mt-1">Thanks for sharing your experience. Your review will appear on the {reviewBooking?.tripTitle} page once approved.</p>
+                    </div>
+                    <button
+                      onClick={() => setVideoReviewOpen(null)}
+                      className="w-full rounded-[10px] border border-white/20 py-3 text-sm font-semibold text-white hover:border-white/40 hover:bg-white/5 transition uppercase tracking-wider font-heading"
+                    >
+                      Done
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+    </section>
+  );
+}
+
+export { mockBookings };
+export default BookingHistory;

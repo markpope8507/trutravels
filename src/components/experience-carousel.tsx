@@ -72,10 +72,20 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
 
                 {/* Card info */}
                 <div className="p-4">
-                  <h3 className="text-sm font-bold text-white font-heading leading-tight group-hover:text-tru-pink transition-colors mb-2">
-                    {trip.title} &mdash; {trip.duration}
+                  <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading mb-1">{trip.duration}</p>
+                  <h3 className="text-sm font-black text-white font-heading leading-tight group-hover:text-tru-pink transition-colors mb-2 uppercase">
+                    {trip.title}
                   </h3>
 
+                  {trip.startLocation && trip.endLocation && (
+                    <p className="text-gray-400 text-[10px] mb-2 flex items-center gap-1.5">
+                      <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      {trip.startLocation} &rarr; {trip.endLocation}
+                    </p>
+                  )}
                   <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-2">
                     {trip.tagline}
                   </p>
@@ -101,21 +111,20 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
                   )}
 
                   <div className="flex items-center gap-2 pt-3 border-t border-white/10">
-                    <span className="text-gray-400 text-xs">From</span>
                     {trip.originalPrice && (
-                      <span className="text-gray-500 text-sm line-through">
+                      <span className="text-gray-500 text-base line-through">
                         &pound;{trip.originalPrice}
                       </span>
                     )}
-                    <span className="text-white font-bold text-lg">
+                    <span className="text-white font-bold text-2xl font-heading">
                       &pound;{trip.price}
                     </span>
                     {trip.originalPrice && (
                       <>
-                        <span className="text-red-500 text-[10px] font-bold">
+                        <span className="text-red-500 text-sm font-bold">
                           -{Math.round(((trip.originalPrice - trip.price) / trip.originalPrice) * 100)}%
                         </span>
-                        <span className="bg-red-500 text-white text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ml-auto">
+                        <span className="bg-red-500 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full ml-auto">
                           Save &pound;{trip.originalPrice - trip.price}
                         </span>
                       </>

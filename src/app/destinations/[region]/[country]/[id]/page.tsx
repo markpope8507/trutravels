@@ -7,11 +7,15 @@ import ShareButtons from "@/components/share-buttons";
 import FavouriteButton from "@/components/favourite-button";
 import TravelStyleInfo from "@/components/travel-style-info";
 import CollapsibleItinerary from "@/components/collapsible-itinerary";
+import AccommodationCarousel from "@/components/accommodation-carousel";
+import MapViewer from "@/components/map-viewer";
 import TripBookingWrapper from "@/components/trip-booking-wrapper";
 import TrackTripView from "@/components/track-trip-view";
 import BackButton from "@/components/back-button";
+import HeroBookButton from "@/components/hero-book-button";
 import TripReviews from "@/components/trip-reviews";
 import TripFaqs from "@/components/trip-faqs";
+import RelatedTrips from "@/components/related-trips";
 
 function slugify(str: string) {
   return str.toLowerCase().replace(/\s+/g, "-").replace(/[&]/g, "and");
@@ -77,15 +81,14 @@ export default async function TripDetailPage({
               Members Only
             </span>
           )}
-          <p className="animate-fade-up text-tru-pink text-sm font-semibold uppercase tracking-wider mb-2">
-            {trip.region} &middot; {trip.duration}
+          <p className="animate-fade-up text-tru-pink text-lg sm:text-xl font-black uppercase tracking-wider mb-0 font-heading">
+            {trip.duration}
           </p>
           <h1 className="animate-fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-2 uppercase font-heading">
             {trip.title}
           </h1>
-          <p className="animate-fade-up delay-200 text-gray-300 text-lg max-w-2xl mb-3">{trip.tagline}</p>
           {trip.startLocation && trip.endLocation && (
-            <p className="animate-fade-up delay-200 text-white text-sm mb-4 flex items-center gap-2">
+            <p className="animate-fade-up delay-200 text-white text-sm mb-3 flex items-center gap-2">
               <svg className="h-4 w-4 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -93,6 +96,7 @@ export default async function TripDetailPage({
               {trip.startLocation} &rarr; {trip.endLocation}
             </p>
           )}
+          <p className="animate-fade-up delay-200 text-gray-300 text-lg max-w-2xl mb-4">{trip.tagline}</p>
           <div className="animate-fade-up delay-300 flex items-center gap-3 mb-5">
             {trip.originalPrice && (
               <span className="text-gray-400 text-xl sm:text-2xl line-through">
@@ -111,6 +115,7 @@ export default async function TripDetailPage({
           <div className="animate-fade-up delay-300 flex items-center gap-3">
             <ShareButtons title={trip.title} />
             <FavouriteButton tripId={trip.id} />
+            <HeroBookButton />
           </div>
         </div>
 
@@ -127,10 +132,6 @@ export default async function TripDetailPage({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
           <ol className="flex items-center gap-2 text-xs text-gray-400">
             <li>
-              <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            </li>
-            <li><span className="text-gray-600">/</span></li>
-            <li>
               <Link href="/explore" className="hover:text-white transition-colors">Destinations</Link>
             </li>
             <li><span className="text-gray-600">/</span></li>
@@ -141,16 +142,14 @@ export default async function TripDetailPage({
             <li>
               <Link href={`/destinations/country/${trip.destination.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-white transition-colors">{trip.destination}</Link>
             </li>
-            <li><span className="text-gray-600">/</span></li>
-            <li className="text-gray-300">{trip.title}</li>
           </ol>
         </div>
       </nav>
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <div>
+        <div className="lg:grid lg:grid-cols-3 lg:gap-10">
           {/* Main content */}
-          <div>
+          <div className="lg:col-span-2">
             {/* Overview */}
             <section id="overview" className="mb-12">
               <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-4">Overview</h2>
@@ -248,17 +247,23 @@ export default async function TripDetailPage({
               <CollapsibleItinerary days={trip.itinerary} />
             </section>
 
-            {/* Map */}
-            <section id="map" className="mb-12">
-              <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-4">Map</h2>
-              <div className="rounded-[10px] border border-white/10 bg-white/5 overflow-hidden">
-                <img
-                  src="https://cdn.trutravels.com/images/thailand-island-hopper-2023.png"
-                  alt={`${trip.title} route map`}
-                  className="w-full h-auto"
-                />
-              </div>
-            </section>
+            {/* Map (mobile only) */}
+            <div className="lg:hidden">
+              <section id="map" className="mb-12">
+                <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-4">Map</h2>
+                <MapViewer src="https://cdn.trutravels.com/images/thailand-island-hopper-2023.png" alt={`${trip.title} route map`} />
+              </section>
+            </div>
+
+            {/* Where You'll Stay (mobile only) */}
+            <div className="lg:hidden">
+              {trip.accommodation && trip.accommodation.length > 0 && (
+                <section id="accommodation" className="mb-12">
+                  <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-6">Where You&apos;ll Stay</h2>
+                  <AccommodationCarousel items={trip.accommodation} />
+                </section>
+              )}
+            </div>
 
             {/* Reviews */}
             <section id="reviews" className="mb-12">
@@ -273,8 +278,29 @@ export default async function TripDetailPage({
             </section>
           </div>
 
+          {/* Sidebar — desktop only */}
+          <div className="hidden lg:block">
+            <div className="sticky top-24 space-y-8">
+              {/* Map */}
+              <section id="map">
+                <h3 className="text-lg font-black text-white uppercase font-heading tracking-wide mb-3">Map</h3>
+                <MapViewer src="https://cdn.trutravels.com/images/thailand-island-hopper-2023.png" alt={`${trip.title} route map`} />
+              </section>
+
+              {/* Where You'll Stay */}
+              {trip.accommodation && trip.accommodation.length > 0 && (
+                <section id="accommodation">
+                  <h3 className="text-lg font-black text-white uppercase font-heading tracking-wide mb-3">Where You&apos;ll Stay</h3>
+                  <AccommodationCarousel items={trip.accommodation} />
+                </section>
+              )}
+            </div>
+          </div>
+
         </div>
       </div>
+
+      <RelatedTrips trips={trips} currentTripId={trip.id} />
     </>
   );
 }

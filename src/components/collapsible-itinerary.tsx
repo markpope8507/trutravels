@@ -57,22 +57,24 @@ export default function CollapsibleItinerary({ days }: { days: ItineraryDay[] })
                 isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
               } overflow-hidden`}
             >
-              <div className="px-4 pb-5">
-                {/* Image */}
-                {day.image && (
-                  <div className="rounded-lg overflow-hidden mb-4">
-                    <img
-                      src={day.image}
-                      alt={day.title}
-                      className="w-full h-48 sm:h-56 object-cover"
-                    />
-                  </div>
-                )}
+              <div className="px-4 sm:pl-[72px] pb-5">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5">
+                  {/* Image */}
+                  {day.image && (
+                    <div className="rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-48 sm:h-36 sm:flex-shrink-0">
+                      <img
+                        src={day.image}
+                        alt={day.title}
+                        className="w-full h-48 sm:h-full object-cover"
+                      />
+                    </div>
+                  )}
 
-                {/* Body text */}
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  {day.description}
-                </p>
+                  {/* Body text */}
+                  <p className="text-gray-300 text-sm leading-relaxed sm:flex-1">
+                    {day.description}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

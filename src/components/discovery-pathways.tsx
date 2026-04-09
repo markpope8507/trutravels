@@ -63,11 +63,11 @@ function LifeMomentsModal({
 }
 
 const travelStyles = [
-  { label: "Backpacker", emoji: "🎒", description: "Hostels, night buses, street food — maximum adventure, minimum spend.", color: "#6BD495", href: "/explore" },
-  { label: "Classic", emoji: "⭐", description: "The perfect balance of comfort and adventure. Our most popular style.", color: "#2172D5", href: "/explore" },
-  { label: "Flashpacker", emoji: "⚡", description: "Boutique stays, premium experiences — all the adventure, none of the roughing it.", color: "#FF3F99", href: "/explore" },
-  { label: "Multi Country", emoji: "🌍", description: "Cross borders, collect stamps, and see how the world changes.", color: "#FCA501", href: "/explore" },
-  { label: "Limited Edition", emoji: "🔒", description: "Exclusive routes and one-off experiences. Once it's gone, it's gone.", color: "#FF3F99", href: "/explore" },
+  { label: "Backpacker", logo: "/backpacker-logo.png", description: "Hostels, night buses, street food — maximum adventure, minimum spend.", color: "#6BD495", href: "/travel-styles/backpacker" },
+  { label: "Classic", logo: "/classic-logo.png", description: "The perfect balance of comfort and adventure. Our most popular style.", color: "#2172D5", href: "/travel-styles/classic" },
+  { label: "Flashpacker", logo: "/flashpacker-logo.png", description: "Boutique stays, premium experiences — all the adventure, none of the roughing it.", color: "#FF3F99", href: "/travel-styles/flashpacker" },
+  { label: "Multi Country", logo: "/multi-country-logo.png", description: "Cross borders, collect stamps, and see how the world changes.", color: "#FCA501", href: "/travel-styles/multi-country" },
+  { label: "Limited Edition", logo: "/limited-edition-logo.png", description: "Exclusive routes and one-off experiences. Once it's gone, it's gone.", color: "#FF3F99", href: "/travel-styles/limited-edition" },
 ];
 
 function TravelStylesModal({
@@ -107,7 +107,7 @@ function TravelStylesModal({
               onMouseEnter={(e) => (e.currentTarget.style.borderColor = style.color + "66")}
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)")}
             >
-              <span className="text-lg mt-0.5">{style.emoji}</span>
+              <img src={style.logo} alt={style.label} className="h-16 w-auto flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <span className="text-sm font-semibold text-white uppercase tracking-wider font-heading block">{style.label}</span>
                 <span className="text-gray-400 text-xs leading-snug block mt-0.5">{style.description}</span>

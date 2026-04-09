@@ -61,11 +61,11 @@ const destinations = [
 ];
 
 const travelStylesNav = [
-  { name: "Backpacker", description: "Maximum adventure, minimum spend", logo: "/backpacker-logo.png" },
-  { name: "Classic", description: "The perfect balance of comfort and adventure", logo: "/classic-logo.png" },
-  { name: "Flashpacker", description: "Adventure with an upgrade", logo: "/flashpacker-logo.png" },
-  { name: "Multi Country", description: "Cross borders, collect stamps", logo: "/multi-country-logo.png" },
-  { name: "Limited Edition", description: "Once it's gone, it's gone", logo: "/limited-edition-logo.png" },
+  { name: "Backpacker", description: "Maximum adventure, minimum spend", logo: "/backpacker-logo.png", href: "/travel-styles/backpacker" },
+  { name: "Classic", description: "The perfect balance of comfort and adventure", logo: "/classic-logo.png", href: "/travel-styles/classic" },
+  { name: "Flashpacker", description: "Adventure with an upgrade", logo: "/flashpacker-logo.png", href: "/travel-styles/flashpacker" },
+  { name: "Multi Country", description: "Cross borders, collect stamps", logo: "/multi-country-logo.png", href: "/travel-styles/multi-country" },
+  { name: "Limited Edition", description: "Once it's gone, it's gone", logo: "/limited-edition-logo.png", href: "/travel-styles/limited-edition" },
 ];
 
 const dealsNav = [
@@ -268,7 +268,7 @@ export default function Navbar() {
             <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-4">
               <div className="grid grid-cols-5 gap-4">
                 {travelStylesNav.map((style) => (
-                  <Link key={style.name} href="/explore" onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200 text-center">
+                  <Link key={style.name} href={style.href} onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200 text-center">
                     <img src={style.logo} alt={style.name} className="h-24 mx-auto mb-3" />
                     <p className="text-xs text-gray-400">{style.description}</p>
                   </Link>
@@ -387,7 +387,7 @@ export default function Navbar() {
 
           {/* Other sections */}
           {[
-            { label: "Travel Styles", key: "m-styles", items: travelStylesNav.map((s) => ({ name: s.name, href: "/explore" })) },
+            { label: "Travel Styles", key: "m-styles", items: travelStylesNav.map((s) => ({ name: s.name, href: s.href })) },
             { label: "Deals", key: "m-deals", items: dealsNav.map((d) => ({ name: d.name, href: "/explore" })) },
             { label: "About Us", key: "m-about", items: aboutNav.map((a) => ({ name: a.name, href: a.href })) },
             { label: "Essentials", key: "m-essentials", items: essentialsNav.map((e) => ({ name: e.name, href: e.href })) },

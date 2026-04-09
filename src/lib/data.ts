@@ -76,6 +76,7 @@ export type Trip = {
   depositPrice?: number;
   startLocation?: string;
   endLocation?: string;
+  accommodation?: { title: string; description: string; image: string }[];
   travelStyle: TravelStyle;
   memberOnly?: boolean;
   rating?: number;
@@ -148,6 +149,28 @@ export const trips: Trip[] = [
       { date: "2026-12-20", price: 899, status: "available" },
     ],
     depositPrice: 150,
+    accommodation: [
+      {
+        title: "Bangkok Hotel",
+        description: "Start your trip in a comfortable hotel right in the heart of Bangkok, walking distance from Khao San Road and the city's best street food. Twin-share rooms with AC and hot showers.",
+        image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80",
+      },
+      {
+        title: "Khao Sok Floating Bungalows",
+        description: "One of the most magical stays on the trip. Wake up on an emerald lake surrounded by towering limestone mountains. Basic but beautiful — hammocks, wooden decks, and water all around you.",
+        image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80",
+      },
+      {
+        title: "Bottle Beach Bungalows",
+        description: "Rustic beach bungalows right on the sand at one of the most secluded beaches in Thailand. Fall asleep to the sound of waves and wake up to stunning views. Only accessible by boat.",
+        image: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80",
+      },
+      {
+        title: "Koh Tao Beach Resort",
+        description: "Your home base on the diving capital of Thailand. Simple, clean rooms steps from Sairee Beach — the island's best strip of sand, restaurants, and beach bars.",
+        image: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80",
+      },
+    ],
     startLocation: "Bangkok",
     endLocation: "Phuket",
     travelStyle: "classic",

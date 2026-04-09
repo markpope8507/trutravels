@@ -82,15 +82,15 @@ export default function TripStickyNav({
         <div className="flex items-center justify-between h-12 border-b border-white/5">
           <div className="flex items-center gap-3">
             {originalPrice && (
-              <span className="text-gray-400 text-sm line-through">
+              <span className="text-gray-400 text-sm sm:text-base line-through">
                 &pound;{originalPrice}
               </span>
             )}
-            <span className="text-white font-bold text-lg font-heading">
+            <span className="text-white font-bold text-2xl sm:text-4xl font-heading">
               &pound;{price}
             </span>
             {originalPrice && (
-              <span className="bg-red-500 text-white text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full">
+              <span className="bg-red-500 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
                 Save &pound;{originalPrice - price}
               </span>
             )}
