@@ -22,7 +22,7 @@ export default function DashboardPage() {
 }
 
 function DashboardContent() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [showBenefits, setShowBenefits] = useState(false);
   const recommendedTrips = trips.slice(0, 8);
   const exclusiveStories = stories.filter((s) => s.memberOnly);
@@ -40,7 +40,7 @@ function DashboardContent() {
               <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
             </div>
           </Link>
-          <div>
+          <div className="flex-1">
             <h1 className="text-3xl sm:text-4xl font-black text-white uppercase font-heading tracking-tight mb-0.5">
               Hey, {user?.name?.split(" ")[0]}
             </h1>
@@ -48,6 +48,13 @@ function DashboardContent() {
               Member since {user?.memberSince}
             </p>
           </div>
+          <button
+            onClick={logout}
+            className="flex sm:hidden items-center gap-1.5 text-white text-xs hover:text-tru-pink transition self-center"
+          >
+            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+            Log Out
+          </button>
         </div>
 
         {/* VIP Status + Travel Credit */}
@@ -114,7 +121,7 @@ function DashboardContent() {
             <div className="flex items-center justify-between mt-3">
               <div className="flex items-center gap-2">
                 <span className="text-tru-green text-2xl font-black font-heading">42</span>
-                <span className="text-gray-400 text-xs">days travelled</span>
+                <span className="text-white text-xs">Days travelled</span>
               </div>
               <button
                 onClick={() => setShowBenefits(!showBenefits)}
@@ -155,8 +162,8 @@ function DashboardContent() {
             <div className="sm:flex-1 flex sm:flex-col items-center sm:justify-center gap-2 sm:gap-0">
               <p className="text-tru-green text-2xl sm:text-4xl font-black font-heading sm:mb-1">&pound;50</p>
               <div className="sm:text-center">
-                <p className="text-gray-400 text-[10px] sm:text-xs sm:mb-1">Available credit</p>
-                <p className="text-gray-600 text-[10px]">Expires: 31 Dec 2026</p>
+                <p className="text-white text-xs">Available credit<span className="text-gray-500 ml-2 sm:hidden">Expires 31 Dec 2026</span></p>
+                <p className="text-gray-500 text-xs hidden sm:block mt-1">Expires 31 Dec 2026</p>
               </div>
             </div>
           </div>
@@ -167,8 +174,8 @@ function DashboardContent() {
       {/* Quick actions */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-12">
         {[
-          { label: "Saved Trips", value: "3", href: "/member/saved", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
           { label: "My Bookings", value: mockBookings.length.toString(), href: "/member/bookings", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" },
+          { label: "Saved Trips", value: "3", href: "/member/saved", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
           { label: "Community", value: "Active", href: "/member/community", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
           { label: "My Profile", value: "Edit", href: "/member/profile", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
         ].map((action) => (

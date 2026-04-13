@@ -169,7 +169,7 @@ export default function Navbar() {
                 Essentials
               </button>
               <Link href="/stories" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll}>
-                Blog
+                Stories
               </Link>
             </div>
 
@@ -414,7 +414,7 @@ export default function Navbar() {
             </div>
           ))}
           <Link href="/stories" onClick={closeAll} className="block text-gray-300 hover:text-white font-semibold uppercase tracking-wider text-sm font-heading py-3 border-b border-white/10">
-            Blog
+            Stories
           </Link>
           {isLoggedIn ? (
             <Link href="/member/dashboard" onClick={closeAll} className="block text-tru-pink font-semibold uppercase tracking-wider text-sm font-heading py-3">

@@ -3,8 +3,13 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, FreeMode } from "swiper/modules";
 import { useAuth } from "@/lib/auth-context";
 import MemberGate from "@/components/member-gate";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/free-mode";
 
 const mockHubs: Record<string, any> = {};
 
@@ -19,20 +24,20 @@ mockHubs["b1"] = {
   image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1920&q=80",
   countries: ["Thailand"],
   tourLeader: {
-    name: "Tommy",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+    name: "Orty",
+    image: "/images/orty-thumbnail.png",
     bio: "Born and raised in Chiang Mai. Been leading TruTravels trips for 3 years. I know every hidden beach, the best street food stalls, and exactly where to watch the sunset. Can't wait to show you my Thailand.",
-    video: "/videos/traveller-diary.mp4",
+    video: "/videos/orty-welcome.MOV",
   },
   travelGroup: [
-    { name: "Alex T.", avatar: "AT", trip: "Thailand Island Hopper", days: "12-25 Apr", color: "#FF3F99", flag: "🇬🇧", age: "25-29", tripCount: 2 },
-    { name: "Sophie C.", avatar: "SC", trip: "Thailand Island Hopper", days: "12-25 Apr", color: "#6BD495", flag: "🇬🇧", age: "20-24", tripCount: 1, travellingWith: "Jake M." },
-    { name: "Jake M.", avatar: "JM", trip: "Thailand Island Hopper", days: "12-25 Apr", color: "#FCA501", flag: "🇦🇺", age: "25-29", tripCount: 1, travellingWith: "Sophie C." },
-    { name: "Priya K.", avatar: "PK", trip: "Thailand Island Hopper", days: "12-25 Apr", color: "#2172D5", flag: "🇮🇳", age: "25-29", tripCount: 1 },
-    { name: "Marcus R.", avatar: "MR", trip: "Total Thailand", days: "5 Apr-1 May", color: "#FF3F99", flag: "🇺🇸", age: "30-34", tripCount: 3, travellingWith: "Chloe W." },
-    { name: "Chloe W.", avatar: "CW", trip: "Total Thailand", days: "5 Apr-1 May", color: "#6BD495", flag: "🇬🇧", age: "20-24", tripCount: 1, travellingWith: "Marcus R." },
-    { name: "Tom A.", avatar: "TA", trip: "Full Moon Island Hopper", days: "10-25 Apr", color: "#FCA501", flag: "🇨🇦", age: "25-29", tripCount: 2 },
-    { name: "Nina W.", avatar: "NW", trip: "Discover Asia", days: "1 Apr-7 May", color: "#2172D5", flag: "🇩🇪", age: "25-29", tripCount: 4 },
+    { name: "Alex T.", avatar: "AT", trip: "Thailand Island Hopper", days: "12-25 Apr", color: "#FF3F99", flag: "🇬🇧", age: "25-29", sex: "Male", tripCount: 2 },
+    { name: "Sophie C.", avatar: "SC", trip: "Thailand Island Hopper", days: "12-25 Apr", color: "#6BD495", flag: "🇬🇧", age: "20-24", sex: "Female", tripCount: 1, travellingWith: "Jake M." },
+    { name: "Jake M.", avatar: "JM", trip: "Thailand Island Hopper", days: "12-25 Apr", color: "#FCA501", flag: "🇦🇺", age: "25-29", sex: "Male", tripCount: 1, travellingWith: "Sophie C." },
+    { name: "Priya K.", avatar: "PK", trip: "Thailand Island Hopper", days: "12-25 Apr", color: "#2172D5", flag: "🇮🇳", age: "25-29", sex: "Female", tripCount: 1 },
+    { name: "Marcus R.", avatar: "MR", trip: "Total Thailand", days: "5 Apr-1 May", color: "#FF3F99", flag: "🇺🇸", age: "30-34", sex: "Male", tripCount: 3, travellingWith: "Chloe W." },
+    { name: "Chloe W.", avatar: "CW", trip: "Total Thailand", days: "5 Apr-1 May", color: "#6BD495", flag: "🇬🇧", age: "20-24", sex: "Female", tripCount: 1, travellingWith: "Marcus R." },
+    { name: "Tom A.", avatar: "TA", trip: "Full Moon Island Hopper", days: "10-25 Apr", color: "#FCA501", flag: "🇨🇦", age: "25-29", sex: "Male", tripCount: 2 },
+    { name: "Nina W.", avatar: "NW", trip: "Discover Asia", days: "1 Apr-7 May", color: "#2172D5", flag: "🇩🇪", age: "25-29", sex: "Female", tripCount: 4 },
   ],
   chatMessages: [
     { from: "Tru.D", avatar: "✨", color: "#FF3F99", text: "Hey everyone! Welcome to your Thailand Island Hopper group chat 🎉 I'm Tru.D — your AI travel assistant. Tag me anytime with @Tru.D and I can help with anything about your trip!", time: "3 days ago", isBot: true },
@@ -81,6 +86,14 @@ mockHubs["b1"] = {
     { day: 13, title: "Phuket", location: "Phuket" },
     { day: 14, title: "Check Out", location: "Phuket" },
   ],
+  videoReviews: [
+    { id: "vr1", poster: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=400&q=80", name: "Jess W.", flag: "🇬🇧", caption: "Khao Sok was genuinely magical. Waking up on the floating bungalows — unreal.", date: "Mar 2026", tripCount: "1st Trip" },
+    { id: "vr2", poster: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=400&q=80", name: "Ryan K.", flag: "🇦🇺", caption: "Bottle Beach is something else. The fire show at night was the highlight of my whole trip.", date: "Feb 2026", tripCount: "2nd Trip" },
+    { id: "vr3", poster: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400&q=80", name: "Amara D.", flag: "🇺🇸", caption: "Maya Bay in real life hits different. I cried. Not even embarrassed about it.", date: "Jan 2026", tripCount: "1st Trip" },
+    { id: "vr4", poster: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=400&q=80", name: "Tom H.", flag: "🇬🇧", caption: "Best two weeks of my life, no exaggeration. Already booked Vietnam for July.", date: "Dec 2025", tripCount: "1st Trip" },
+    { id: "vr5", poster: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=400&q=80", name: "Mia C.", flag: "🇨🇦", caption: "I came solo and left with 15 new mates. The group vibe is unmatched.", date: "Nov 2025", tripCount: "3rd Trip" },
+    { id: "vr6", poster: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80", name: "Luca B.", flag: "🇮🇹", caption: "Koh Tao diving was incredible. Crystal clear water and the group was so fun.", date: "Oct 2025", tripCount: "1st Trip" },
+  ],
 };
 
 mockHubs["b2"] = {
@@ -95,11 +108,11 @@ mockHubs["b2"] = {
   countries: ["Vietnam"],
   tourLeader: null,
   travelGroup: [
-    { name: "Alex T.", avatar: "AT", trip: "Vietnam Explorer", days: "5-17 Jul", color: "#FF3F99", flag: "🇬🇧", age: "25-29", tripCount: 2 },
-    { name: "Liam O.", avatar: "LO", trip: "Vietnam Explorer", days: "5-17 Jul", color: "#2172D5", flag: "🇮🇪", age: "25-29", tripCount: 1, travellingWith: "Emma S." },
-    { name: "Emma S.", avatar: "ES", trip: "Vietnam Explorer", days: "5-17 Jul", color: "#6BD495", flag: "🇬🇧", age: "20-24", tripCount: 1, travellingWith: "Liam O." },
-    { name: "Mei L.", avatar: "ML", trip: "Vietnam Explorer", days: "5-17 Jul", color: "#FCA501", flag: "🇸🇬", age: "25-29", tripCount: 1 },
-    { name: "Yuki T.", avatar: "YT", trip: "Cambodia & Vietnam Explorer", days: "22 Jun-17 Jul", color: "#FCA501", flag: "🇯🇵", age: "25-29", tripCount: 3 },
+    { name: "Alex T.", avatar: "AT", trip: "Vietnam Explorer", days: "5-17 Jul", color: "#FF3F99", flag: "🇬🇧", age: "25-29", sex: "Male", tripCount: 2 },
+    { name: "Liam O.", avatar: "LO", trip: "Vietnam Explorer", days: "5-17 Jul", color: "#2172D5", flag: "🇮🇪", age: "25-29", sex: "Male", tripCount: 1, travellingWith: "Emma S." },
+    { name: "Emma S.", avatar: "ES", trip: "Vietnam Explorer", days: "5-17 Jul", color: "#6BD495", flag: "🇬🇧", age: "20-24", sex: "Female", tripCount: 1, travellingWith: "Liam O." },
+    { name: "Mei L.", avatar: "ML", trip: "Vietnam Explorer", days: "5-17 Jul", color: "#FCA501", flag: "🇸🇬", age: "25-29", sex: "Female", tripCount: 1 },
+    { name: "Yuki T.", avatar: "YT", trip: "Cambodia & Vietnam Explorer", days: "22 Jun-17 Jul", color: "#FCA501", flag: "🇯🇵", age: "25-29", sex: "Female", tripCount: 3 },
   ],
   chatMessages: [
     { from: "Tru.D", avatar: "✨", color: "#FF3F99", text: "Hey everyone! Welcome to your Vietnam Explorer group chat 🎉 I'm Tru.D — your AI travel assistant. Your tour leader hasn't been assigned yet but I'm here to answer any questions in the meantime!", time: "1 day ago", isBot: true },
@@ -142,6 +155,12 @@ mockHubs["b2"] = {
     { day: 11, title: "Ha Long Bay Cruise", location: "Ha Long Bay" },
     { day: 12, title: "Ha Long Bay", location: "Ha Long Bay" },
     { day: 13, title: "Departure", location: "Hanoi" },
+  ],
+  videoReviews: [
+    { id: "vr1", poster: "https://images.unsplash.com/photo-1528127269322-539801943592?w=400&q=80", name: "Chloe R.", flag: "🇬🇧", caption: "Ha Long Bay on the cruise was a dream. Woke up surrounded by limestone towers in the mist.", date: "Feb 2026", tripCount: "1st Trip" },
+    { id: "vr2", poster: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=400&q=80", name: "Dan S.", flag: "🇮🇪", caption: "Hoi An is pure magic. The lanterns, the food, the tailors — I could have stayed a week.", date: "Jan 2026", tripCount: "2nd Trip" },
+    { id: "vr3", poster: "https://images.unsplash.com/photo-1557750255-c76072a7aad1?w=400&q=80", name: "Priya M.", flag: "🇮🇳", caption: "The Hai Van Pass on motorbikes was the most exhilarating thing I've ever done.", date: "Dec 2025", tripCount: "1st Trip" },
+    { id: "vr4", poster: "https://images.unsplash.com/photo-1555921015-5532091f6026?w=400&q=80", name: "Jake T.", flag: "🇺🇸", caption: "Street food in Hanoi is next level. Egg coffee changed my life. Not joking.", date: "Nov 2025", tripCount: "1st Trip" },
   ],
 };
 
@@ -527,7 +546,7 @@ function TripHubContent({ bookingId }: { bookingId: string }) {
                           </span>
                         </div>
                         <div className="flex items-center justify-between mt-0.5">
-                          <p className="text-gray-400 text-xs">Age {m.age}</p>
+                          <p className="text-gray-400 text-xs">{m.sex} · Age {m.age}</p>
                           <p className="text-gray-500 text-xs">{m.days}</p>
                         </div>
                         {(m as any).travellingWith && (
@@ -647,6 +666,64 @@ function TripHubContent({ bookingId }: { bookingId: string }) {
             <p className="text-gray-500 text-xs italic">Remember: tipping is always optional and should reflect your experience. Never feel pressured.</p>
           </div>
         </section>
+
+        {/* VIDEO REVIEWS */}
+        {hub.videoReviews && hub.videoReviews.length > 0 && (
+          <section id="reviews">
+            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">Real Stories</p>
+            <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-2">Traveller Reviews</h2>
+            <p className="text-gray-400 text-sm mb-6">Hear from people who&apos;ve done this trip. Unfiltered, unscripted, real.</p>
+            <Swiper
+              modules={[Navigation, FreeMode]}
+              spaceBetween={12}
+              slidesPerView={2.3}
+              freeMode
+              navigation
+              breakpoints={{
+                640: { slidesPerView: 3.3 },
+                1024: { slidesPerView: 4.5 },
+              }}
+              className="video-carousel"
+            >
+              {hub.videoReviews.map((review: any) => (
+                <SwiperSlide key={review.id}>
+                  <div className="group relative overflow-hidden rounded-[10px] cursor-pointer">
+                    <div className="relative aspect-[9/16] overflow-hidden bg-black">
+                      <img
+                        src={review.poster}
+                        alt={review.name}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/30 pointer-events-none" />
+
+                      {/* Play icon */}
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                          <svg className="h-5 w-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                        </div>
+                      </div>
+
+                      {/* Top — trip count badge */}
+                      <div className="absolute top-3 left-3 pointer-events-none">
+                        <span className="text-[8px] font-bold uppercase tracking-wider text-white px-2 py-0.5 rounded-full bg-tru-pink font-heading">{review.tripCount}</span>
+                      </div>
+
+                      {/* Bottom — name, flag, caption */}
+                      <div className="absolute bottom-0 left-0 right-0 p-3 pointer-events-none">
+                        <div className="flex items-center gap-1.5 mb-1.5">
+                          <p className="text-white text-xs font-bold">{review.name}</p>
+                          <span className="text-sm">{review.flag}</span>
+                        </div>
+                        <p className="text-gray-300 text-[10px] leading-snug line-clamp-3">{review.caption}</p>
+                        <p className="text-gray-500 text-[9px] mt-1.5">{review.date}</p>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </section>
+        )}
 
         {/* FAQS */}
         <section id="faqs">

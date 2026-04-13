@@ -23,11 +23,11 @@ const mockBookings = [
       dietaryRequirements: true,
       emergencyContact: true,
       passportDetails: true,
-      digitalArrivalCard: true,
+      visaCheck: true,
     },
     extras: {
-      preNightHotel: false,
-      airportTransfer: false,
+      preNightHotel: true,
+      airportTransfer: true,
     },
     flight: {
       airline: "Thai Airways",
@@ -45,14 +45,16 @@ const mockBookings = [
       provider: "World Nomads",
       type: "Explorer Plan",
     },
-    pricePaid: 736,
-    depositPaid: 150,
+    pricePaid: 1727,
+    depositPaid: 300,
     balanceDue: 0,
     balanceDueDate: "",
-    paymentsMade: 736,
-    travellers: 1,
+    paymentsMade: 1727,
+    travellers: 2,
+    passengers: ["Alex Traveller", "Sarah Traveller"],
     bookingRef: "TRU-2026-04871",
     tourLeader: "Tommy",
+    promo: { code: "BLACKFRIDAY", discount: 150, originalPrice: 1877 },
   },
   {
     id: "b2",
@@ -73,7 +75,7 @@ const mockBookings = [
       dietaryRequirements: false,
       emergencyContact: false,
       passportDetails: false,
-      digitalArrivalCard: false,
+      visaCheck: false,
     },
     extras: { preNightHotel: false, airportTransfer: false },
     pricePaid: 875,
@@ -104,7 +106,7 @@ const mockBookings = [
       dietaryRequirements: false,
       emergencyContact: false,
       passportDetails: false,
-      digitalArrivalCard: false,
+      visaCheck: false,
     },
     extras: { preNightHotel: false, airportTransfer: false },
     pricePaid: 945,
@@ -139,6 +141,37 @@ const mockBookings = [
     tourLeader: "Milin",
     reviewLeft: false,
     feedbackCompleted: false,
+  },
+  {
+    id: "b5",
+    tripId: "jordan-explorer",
+    tripTitle: "Jordan Explorer",
+    travelStyle: "classic" as const,
+    duration: "8 Days",
+    description: "From the ancient city of Petra to floating in the Dead Sea and camping under the stars in Wadi Rum.",
+    image: "https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=800&q=80",
+    departureDate: "2026-06-20",
+    endDate: "2026-06-27",
+    startLocation: "Amman",
+    endLocation: "Aqaba",
+    status: "cancelled" as const,
+    pricePaid: 695,
+    depositPaid: 200,
+    paymentsMade: 695,
+    balanceDue: 0,
+    balanceDueDate: "",
+    travellers: 1,
+    bookingRef: "TRU-2026-06183",
+    tourLeader: "TBC",
+    cancellation: {
+      dateBooked: "3 Jan 2026",
+      dateCancelled: "18 Mar 2026",
+      reason: "Change of personal circumstances",
+      refundAmount: 495,
+      nonRefundableDeposit: 200,
+      refundStatus: "Refunded",
+      refundDate: "25 Mar 2026",
+    },
   },
 ];
 
@@ -270,13 +303,21 @@ function BookingHistory() {
           const isUpcoming = booking.status === "upcoming";
 
           return (
-            <div key={booking.id} className="rounded-[10px] border border-white/10 bg-white/5 overflow-hidden">
+            <div key={booking.id} className={`rounded-[10px] border overflow-hidden ${booking.status === "cancelled" ? "border-red-500/30 bg-white/[0.02]" : "border-white/10 bg-white/5"}`}>
               {/* Card header — tour card style */}
               <div className="flex flex-col sm:flex-row">
                 {/* Image */}
                 <div className="relative sm:w-64 sm:flex-shrink-0">
                   <img src={booking.image} alt={booking.tripTitle} className="w-full h-40 sm:absolute sm:inset-0 sm:h-full object-cover" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  {booking.status === "cancelled" && (
+                    <>
+                      <div className="absolute inset-0 bg-black/40" />
+                      <div className="absolute top-3 left-3 z-10">
+                        <span className="bg-red-500 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">Cancelled</span>
+                      </div>
+                    </>
+                  )}
                   {/* Bottom-left: date + countdown */}
                   <div className="absolute bottom-3 left-3 right-3">
                     <p className="text-white text-lg font-black font-heading leading-none">{new Date(booking.departureDate).getDate()} {new Date(booking.departureDate).toLocaleDateString("en-GB", { month: "short" })} {new Date(booking.departureDate).getFullYear()}</p>
@@ -331,12 +372,21 @@ function BookingHistory() {
 
                   {/* Manage + Action buttons */}
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-auto pt-4">
-                    {booking.status !== "completed" && (
+                    {booking.status !== "completed" && booking.status !== "cancelled" && (
                       <button
                         onClick={() => handleExpand(booking.id)}
                         className="rounded-[10px] border border-white/20 px-5 py-2.5 text-[10px] font-semibold text-white hover:border-white/40 hover:bg-white/5 transition uppercase tracking-wider font-heading flex items-center justify-center gap-2"
                       >
                         {isExpanded ? "Close" : "Manage Booking"}
+                        <svg className={`h-3.5 w-3.5 transition-transform ${isExpanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                      </button>
+                    )}
+                    {booking.status === "cancelled" && (
+                      <button
+                        onClick={() => handleExpand(booking.id)}
+                        className="rounded-[10px] border border-red-500/30 px-5 py-2.5 text-[10px] font-semibold text-red-400 hover:border-red-500/50 hover:bg-red-500/10 transition uppercase tracking-wider font-heading flex items-center justify-center gap-2"
+                      >
+                        {isExpanded ? "Close" : "View Details"}
                         <svg className={`h-3.5 w-3.5 transition-transform ${isExpanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                       </button>
                     )}
@@ -364,7 +414,115 @@ function BookingHistory() {
                 </div>
               </div>
 
+              {/* Expanded — cancelled overview */}
+              {booking.status === "cancelled" && (booking as any).cancellation && (
+                <div className={`transition-all duration-300 ease-out overflow-hidden ${isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"}`}>
+                  <div className="border-t border-red-500/20 px-4 pb-5 pt-4 space-y-4">
+                    <div className="rounded-[10px] border border-red-500/20 bg-red-500/5 p-4 flex items-start gap-3">
+                      <div className="h-10 w-10 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                        <svg className="h-5 w-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                      </div>
+                      <div>
+                        <p className="text-white text-sm font-bold">Booking Cancelled</p>
+                        <p className="text-gray-400 text-xs mt-0.5">This booking has been cancelled and a refund has been processed minus the non-refundable deposit.</p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="rounded-[10px] bg-white/5 p-3">
+                        <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Date Booked</p>
+                        <p className="text-white text-sm font-semibold">{(booking as any).cancellation.dateBooked}</p>
+                      </div>
+                      <div className="rounded-[10px] bg-white/5 p-3">
+                        <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Date Cancelled</p>
+                        <p className="text-red-400 text-sm font-semibold">{(booking as any).cancellation.dateCancelled}</p>
+                      </div>
+                      <div className="rounded-[10px] bg-white/5 p-3 col-span-2">
+                        <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Reason</p>
+                        <p className="text-white text-sm font-semibold">{(booking as any).cancellation.reason}</p>
+                      </div>
+                    </div>
+
+                    <div className="rounded-[10px] border border-white/10 bg-white/5 overflow-hidden">
+                      <p className="text-white font-bold text-sm font-heading uppercase tracking-wider px-4 py-3 border-b border-white/5">Refund Summary</p>
+                      <div className="divide-y divide-white/5">
+                        <div className="flex items-center justify-between px-4 py-3">
+                          <p className="text-gray-400 text-xs">Total Paid</p>
+                          <p className="text-white text-xs font-semibold">&pound;{booking.paymentsMade}</p>
+                        </div>
+                        <div className="flex items-center justify-between px-4 py-3">
+                          <p className="text-gray-400 text-xs">Non-refundable Deposit</p>
+                          <p className="text-red-400 text-xs font-semibold">-&pound;{(booking as any).cancellation.nonRefundableDeposit}</p>
+                        </div>
+                        <div className="flex items-center justify-between px-4 py-3 bg-tru-green/5">
+                          <p className="text-white text-xs font-bold">Refund Amount</p>
+                          <p className="text-tru-green text-xs font-bold">&pound;{(booking as any).cancellation.refundAmount}</p>
+                        </div>
+                      </div>
+                      <div className="px-4 py-3 border-t border-white/5 flex items-center justify-between">
+                        <p className="text-gray-500 text-xs">Refund Status</p>
+                        <div className="flex items-center gap-2">
+                          <span className="h-2 w-2 rounded-full bg-tru-green" />
+                          <p className="text-tru-green text-xs font-semibold">{(booking as any).cancellation.refundStatus} &middot; {(booking as any).cancellation.refundDate}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Payment History */}
+                    <div>
+                      <p className="text-white font-bold text-sm font-heading uppercase tracking-wider mb-3">Payment History</p>
+                      <div className="rounded-[10px] border border-white/10 bg-white/5 overflow-hidden">
+                        <div className="hidden sm:grid sm:grid-cols-5 gap-2 px-4 py-2 border-b border-white/5 text-[9px] text-gray-500 uppercase tracking-wider font-heading">
+                          <span>Date</span>
+                          <span>Description</span>
+                          <span>Reference</span>
+                          <span>Amount</span>
+                          <span className="text-right">Balance</span>
+                        </div>
+                        {[
+                          { date: (booking as any).cancellation.dateBooked, desc: "Deposit payment", ref: "2504891", amount: `£${(booking as any).cancellation.nonRefundableDeposit}`, amountColor: "text-tru-green", balance: `£${booking.pricePaid - (booking as any).cancellation.nonRefundableDeposit}` },
+                          { date: "20 Jan 2026", desc: "Balance payment", ref: "2511247", amount: `£${booking.pricePaid - (booking as any).cancellation.nonRefundableDeposit}`, amountColor: "text-tru-green", balance: "£0" },
+                          { date: (booking as any).cancellation.dateCancelled, desc: "Booking cancelled", ref: "2538102", amount: "—", amountColor: "text-red-400", balance: "£0" },
+                          { date: (booking as any).cancellation.refundDate, desc: "Refund processed", ref: "2542679", amount: `+£${(booking as any).cancellation.refundAmount}`, amountColor: "text-tru-green", balance: "£0" },
+                        ].map((row, i) => (
+                          <div key={i} className={`grid grid-cols-2 sm:grid-cols-5 gap-2 px-4 py-3 border-b border-white/5 last:border-0 ${row.desc === "Booking cancelled" ? "bg-red-500/5" : row.desc === "Refund processed" ? "bg-tru-green/5" : ""}`}>
+                            <div>
+                              <p className="text-gray-500 text-[9px] uppercase sm:hidden">Date</p>
+                              <p className="text-white text-xs">{row.date}</p>
+                            </div>
+                            <div>
+                              <p className="text-gray-500 text-[9px] uppercase sm:hidden">Description</p>
+                              <p className={`text-xs font-semibold ${row.desc === "Booking cancelled" ? "text-red-400" : "text-gray-300"}`}>{row.desc}</p>
+                            </div>
+                            <div>
+                              <p className="text-gray-500 text-[9px] uppercase sm:hidden">Reference</p>
+                              <p className="text-gray-400 text-xs">{row.ref}</p>
+                            </div>
+                            <div>
+                              <p className="text-gray-500 text-[9px] uppercase sm:hidden">Amount</p>
+                              <p className={`text-xs font-semibold ${row.amountColor}`}>{row.amount}</p>
+                            </div>
+                            <div className="sm:text-right">
+                              <p className="text-gray-500 text-[9px] uppercase sm:hidden">Balance</p>
+                              <p className="text-gray-400 text-xs">{row.balance}</p>
+                            </div>
+                          </div>
+                        ))}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 px-4 py-3 bg-white/5">
+                          <p className="text-white text-xs font-bold">Net Result</p>
+                          <p className="text-gray-300 text-xs font-semibold">Non-refundable deposit</p>
+                          <p className="text-red-400 text-xs font-bold">-&pound;{(booking as any).cancellation.nonRefundableDeposit}</p>
+                          <p className="text-tru-green text-xs font-bold sm:text-right">&pound;{(booking as any).cancellation.refundAmount} refunded</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              )}
+
               {/* Expanded — tabbed interface */}
+              {booking.status !== "cancelled" && (
               <div className={`transition-all duration-300 ease-out overflow-hidden ${isExpanded ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0"}`}>
                 {/* Tabs */}
                 <div className="border-t border-b border-white/5 flex">
@@ -395,53 +553,79 @@ function BookingHistory() {
                 <div className="px-4 pb-5 pt-4">
                   {/* OVERVIEW TAB */}
                   {manageTab === "overview" && (
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="rounded-[10px] bg-white/5 p-3">
-                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Passenger</p>
-                          <p className="text-white text-sm font-semibold">Alex Traveller</p>
-                        </div>
-                        <div className="rounded-[10px] bg-white/5 p-3">
-                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Email</p>
-                          <p className="text-white text-sm font-semibold">alex@trutravels.com</p>
-                        </div>
-                        <div className="rounded-[10px] bg-white/5 p-3">
-                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Booking Ref</p>
+                    <div className="space-y-5">
+                      {/* Booking Overview */}
+                      <div className="rounded-[10px] border border-white/10 bg-white/5 divide-y divide-white/5 overflow-hidden">
+                        <div className="px-4 py-3">
+                          <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Booking Ref</p>
                           <p className="text-white text-sm font-semibold">{booking.bookingRef}</p>
                         </div>
-                        <div className="rounded-[10px] bg-white/5 p-3">
-                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Tour Leader</p>
-                          <p className="text-white text-sm font-semibold">{booking.tourLeader}</p>
+                        <div className="px-4 py-3">
+                          <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Date Booked</p>
+                          <p className="text-white text-sm font-semibold">{(booking as any).cancellation?.dateBooked || "12 Jan 2026"}</p>
                         </div>
-                        <div className="rounded-[10px] bg-white/5 p-3">
-                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Travellers</p>
-                          <p className="text-white text-sm font-semibold">{booking.travellers} PAX</p>
+                        <div className="px-4 py-3">
+                          <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Tour</p>
+                          <p className="text-white text-sm font-semibold">{booking.tripTitle} &middot; {booking.duration}</p>
                         </div>
-                        <div className="rounded-[10px] bg-white/5 p-3">
-                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Tour</p>
-                          <p className="text-white text-sm font-semibold">{booking.tripTitle}</p>
+                        <div className="grid grid-cols-2 divide-x divide-white/5">
+                          <div className="px-4 py-3">
+                            <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Start</p>
+                            <p className="text-white text-sm font-semibold">{formatDate(booking.departureDate)}</p>
+                            <p className="text-gray-500 text-[10px]">{booking.startLocation}</p>
+                          </div>
+                          <div className="px-4 py-3">
+                            <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">End</p>
+                            <p className="text-white text-sm font-semibold">{formatDate(booking.endDate)}</p>
+                            <p className="text-gray-500 text-[10px]">{booking.endLocation}</p>
+                          </div>
                         </div>
-                        <div className="rounded-[10px] bg-white/5 p-3">
-                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Departs</p>
-                          <p className="text-white text-sm font-semibold">{formatDate(booking.departureDate)}</p>
+
+                        {/* Passengers */}
+                        {((booking as any).passengers || ["Alex Traveller"]).map((name: string, pi: number) => {
+                          const emails = ["alex@trutravels.com", "sarah@trutravels.com"];
+                          return (
+                            <div key={pi} className="grid grid-cols-2 divide-x divide-white/5">
+                              <div className="px-4 py-3">
+                                <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">{booking.travellers > 1 ? `Passenger ${pi + 1}` : "Passenger"}</p>
+                                <p className="text-white text-sm font-semibold">{name}</p>
+                              </div>
+                              <div className="px-4 py-3">
+                                <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Email</p>
+                                <p className="text-white text-sm font-semibold">{emails[pi] || `pax${pi + 1}@email.com`}</p>
+                              </div>
+                            </div>
+                          );
+                        })}
+
+                        <div className="grid grid-cols-3 divide-x divide-white/5">
+                          <div className="px-4 py-3">
+                            <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Total Price</p>
+                            <p className="text-white text-sm font-semibold">&pound;{booking.pricePaid}</p>
+                          </div>
+                          <div className="px-4 py-3">
+                            <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Paid</p>
+                            <p className="text-tru-green text-sm font-semibold">&pound;{booking.paymentsMade || booking.depositPaid}</p>
+                          </div>
+                          <div className="px-4 py-3">
+                            <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Balance</p>
+                            <p className={`text-sm font-semibold ${booking.balanceDue > 0 ? "text-tru-pink" : "text-tru-green"}`}>
+                              {booking.balanceDue > 0 ? `£${booking.balanceDue}` : "£0 ✓"}
+                            </p>
+                          </div>
                         </div>
-                        <div className="rounded-[10px] bg-white/5 p-3">
-                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Returns</p>
-                          <p className="text-white text-sm font-semibold">{formatDate(booking.endDate)}</p>
-                        </div>
-                        <div className="rounded-[10px] bg-white/5 p-3">
-                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Total Price</p>
-                          <p className="text-white text-sm font-semibold">&pound;{booking.pricePaid}</p>
-                        </div>
-                        <div className="rounded-[10px] bg-white/5 p-3">
-                          <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Paid</p>
-                          <p className="text-tru-green text-sm font-semibold">&pound;{booking.paymentsMade || booking.depositPaid}</p>
-                        </div>
+
+                        {(booking as any).promo && (
+                          <div className="px-4 py-3 bg-tru-green/5 flex items-center gap-2">
+                            <svg className="h-4 w-4 text-tru-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" /></svg>
+                            <p className="text-tru-green text-xs font-semibold">{(booking as any).promo.code} &middot; -&pound;{(booking as any).promo.discount} off <span className="text-gray-500 font-normal line-through">&pound;{(booking as any).promo.originalPrice}</span></p>
+                          </div>
+                        )}
                       </div>
 
                       {/* Apply travel credit */}
                       {isUpcoming && booking.balanceDue > 0 && (
-                        <div className="rounded-[10px] border border-tru-green/20 bg-tru-green/5 p-4 flex items-center gap-4 mt-2">
+                        <div className="rounded-[10px] border border-tru-green/20 bg-tru-green/5 p-4 flex items-center gap-4">
                           <div className="h-10 w-10 rounded-full bg-tru-green/20 flex items-center justify-center flex-shrink-0">
                             <svg className="h-5 w-5 text-tru-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                           </div>
@@ -457,13 +641,68 @@ function BookingHistory() {
 
                       {/* Booking actions */}
                       {isUpcoming && (
-                        <div className="flex gap-3 mt-4">
-                          <button className="flex-1 rounded-[10px] border border-white/20 py-2.5 text-xs text-white hover:border-white/40 hover:bg-white/5 transition text-center font-heading uppercase tracking-wider">
-                            Request Date Change
+                        <div className="rounded-[10px] border border-white/10 bg-white/5 divide-y divide-white/5 overflow-hidden">
+                          <button className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-white/5 transition text-left group">
+                            <div className="h-9 w-9 rounded-full bg-tru-blue/20 flex items-center justify-center flex-shrink-0">
+                              <svg className="h-4 w-4 text-tru-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-white text-sm font-semibold group-hover:text-tru-blue transition">Request Date Change</p>
+                              <p className="text-gray-500 text-[10px]">Move your trip to a different departure date</p>
+                            </div>
+                            <svg className="h-4 w-4 text-gray-500 group-hover:text-white transition flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
                           </button>
-                          <button className="flex-1 rounded-[10px] border border-red-500/30 py-2.5 text-xs text-red-400 hover:border-red-500/50 hover:bg-red-500/10 transition text-center font-heading uppercase tracking-wider">
-                            Request Cancellation
+                          <button className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-red-500/5 transition text-left group">
+                            <div className="h-9 w-9 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
+                              <svg className="h-4 w-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-white text-sm font-semibold group-hover:text-red-400 transition">Request Cancellation</p>
+                              <p className="text-gray-500 text-[10px]">Cancel your booking &middot; £{booking.depositPaid} non-refundable deposit applies</p>
+                            </div>
+                            <svg className="h-4 w-4 text-gray-500 group-hover:text-red-400 transition flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
                           </button>
+                        </div>
+                      )}
+
+                      {/* Booked Extras */}
+                      {(booking.extras?.preNightHotel || booking.extras?.airportTransfer) && (
+                        <div className="mt-4">
+                          <p className="text-white font-bold text-sm font-heading uppercase tracking-wider mb-3">Booked Extras</p>
+                          <div className="space-y-2">
+                            {booking.extras?.preNightHotel && (
+                              <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
+                                <div className="h-10 w-10 rounded-[10px] bg-tru-blue/20 flex items-center justify-center flex-shrink-0">
+                                  <svg className="h-5 w-5 text-tru-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-white text-sm font-semibold">Pre-Night Hotel</p>
+                                  <p className="text-gray-400 text-xs">NapPark Hostel, {booking.startLocation} &middot; <span className="text-white">{booking.travellers > 1 ? "Twin Room" : "Single Room"}</span> &middot; {booking.travellers} PAX</p>
+                                  <p className="text-gray-500 text-[10px]">Check-in: 11 Apr 2026 &middot; Booked 28 Jan 2026</p>
+                                </div>
+                                <div className="text-right flex-shrink-0">
+                                  <p className="text-white text-sm font-semibold">&pound;45</p>
+                                  <span className="text-tru-green text-[9px] font-bold uppercase">Booked</span>
+                                </div>
+                              </div>
+                            )}
+                            {booking.extras?.airportTransfer && (
+                              <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
+                                <div className="h-10 w-10 rounded-[10px] bg-tru-blue/20 flex items-center justify-center flex-shrink-0">
+                                  <svg className="h-5 w-5 text-tru-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H6.375m11.25 0h3.375c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 00-.879-2.121l-3.496-3.496A2.999 2.999 0 0014.25 8.25H6.375c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125z" /></svg>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-white text-sm font-semibold">Airport Arrival Transfer</p>
+                                  <p className="text-gray-400 text-xs">Pickup from {booking.startLocation} airport to NapPark Hostel</p>
+                                  <p className="text-gray-500 text-[10px]">Flight TG917 &middot; Arriving 12 Apr 2026 at 15:30 &middot; Booked 3 Feb 2026</p>
+                                </div>
+                                <div className="text-right flex-shrink-0">
+                                  <p className="text-white text-sm font-semibold">&pound;60</p>
+                                  <span className="text-tru-green text-[9px] font-bold uppercase">Booked</span>
+                                </div>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       )}
 
@@ -471,20 +710,27 @@ function BookingHistory() {
                       <div className="mt-6">
                         <p className="text-white font-bold text-sm font-heading uppercase tracking-wider mb-3">Payment History</p>
                         <div className="rounded-[10px] border border-white/10 bg-white/5 overflow-hidden">
-                          <div className="hidden sm:grid sm:grid-cols-4 gap-2 px-4 py-2 border-b border-white/5 text-[9px] text-gray-500 uppercase tracking-wider font-heading">
+                          <div className="hidden sm:grid sm:grid-cols-5 gap-2 px-4 py-2 border-b border-white/5 text-[9px] text-gray-500 uppercase tracking-wider font-heading">
                             <span>Date</span>
+                            <span>Description</span>
                             <span>Amount</span>
                             <span>Reference</span>
                             <span className="text-right">Balance After</span>
                           </div>
                           {[
-                            { date: "12 Jan 2026", amount: 150, ref: "PAY-04871-001", balance: 586 },
-                            ...(booking.paymentsMade && booking.paymentsMade > 150 ? [{ date: "15 Feb 2026", amount: booking.paymentsMade - 150, ref: `PAY-${booking.bookingRef.split("-")[2]}-002`, balance: booking.pricePaid - booking.paymentsMade }] : []),
+                            { date: "12 Jan 2026", amount: booking.depositPaid, ref: "PAY-04871-001", balance: booking.pricePaid - booking.depositPaid, desc: `Deposit (${booking.travellers} PAX)` },
+                            ...(booking.extras?.preNightHotel ? [{ date: "28 Jan 2026", amount: 45, ref: `PAY-${booking.bookingRef.split("-")[2]}-002`, balance: booking.pricePaid - booking.depositPaid - 45, desc: "Pre-Night Hotel" }] : []),
+                            ...(booking.extras?.airportTransfer ? [{ date: "3 Feb 2026", amount: 60, ref: `PAY-${booking.bookingRef.split("-")[2]}-003`, balance: booking.pricePaid - booking.depositPaid - (booking.extras?.preNightHotel ? 45 : 0) - 60, desc: "Airport Transfer" }] : []),
+                            ...(booking.paymentsMade && booking.paymentsMade > booking.depositPaid ? [{ date: "15 Feb 2026", amount: booking.pricePaid - booking.depositPaid - (booking.extras?.preNightHotel ? 45 : 0) - (booking.extras?.airportTransfer ? 60 : 0), ref: `PAY-${booking.bookingRef.split("-")[2]}-004`, balance: 0, desc: "Final Balance" }] : []),
                           ].map((payment, i) => (
-                            <div key={i} className="grid grid-cols-2 sm:grid-cols-4 gap-2 px-4 py-3 border-b border-white/5 last:border-0">
+                            <div key={i} className="grid grid-cols-2 sm:grid-cols-5 gap-2 px-4 py-3 border-b border-white/5 last:border-0">
                               <div>
                                 <p className="text-gray-500 text-[9px] uppercase sm:hidden">Date</p>
                                 <p className="text-white text-xs">{payment.date}</p>
+                              </div>
+                              <div>
+                                <p className="text-gray-500 text-[9px] uppercase sm:hidden">Description</p>
+                                <p className="text-gray-300 text-xs">{(payment as any).desc || "Payment"}</p>
                               </div>
                               <div>
                                 <p className="text-gray-500 text-[9px] uppercase sm:hidden">Amount</p>
@@ -501,10 +747,10 @@ function BookingHistory() {
                             </div>
                           ))}
                           {/* Total row */}
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 px-4 py-3 bg-white/5">
-                            <p className="text-white text-xs font-bold sm:col-span-1">Total Paid</p>
+                          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 px-4 py-3 bg-white/5">
+                            <p className="text-white text-xs font-bold">Total Paid</p>
+                            <p className="hidden sm:block" />
                             <p className="text-tru-green text-xs font-bold">&pound;{booking.paymentsMade || booking.depositPaid}</p>
-                            <p className="text-gray-500 text-xs sm:hidden">Remaining</p>
                             <p className="hidden sm:block" />
                             <p className={`text-xs font-bold sm:text-right ${booking.balanceDue > 0 ? "text-tru-pink" : "text-tru-green"}`}>
                               {booking.balanceDue > 0 ? `£${booking.balanceDue} remaining` : "Paid in full ✓"}
@@ -523,7 +769,7 @@ function BookingHistory() {
                       { key: "passportDetails", label: "Passport Details", detail: null },
                       { key: "emergencyContact", label: "Emergency Contact", detail: "Sarah Traveller · +44 7700 900123 · Mother" },
                       { key: "dietaryRequirements", label: "Dietary Requirements", detail: "No allergies · Vegetarian" },
-                      { key: "digitalArrivalCard", label: "Digital Arrival Card", detail: null },
+                      { key: "visaCheck", label: "Visa & Entry Requirements", detail: null },
                     ];
                     const completed = items.filter((item) => (booking.goodToGo as any)[item.key]).length;
                     const total = items.length;
@@ -584,10 +830,19 @@ function BookingHistory() {
                             <input className={inputClass} placeholder="Allergies, dietary preferences etc." value={formData.dietary} onChange={(e) => updateField("dietary", e.target.value)} />
                           </div>
 
-                          {/* Digital Arrival Card */}
+                          {/* Visa & Entry Requirements */}
                           <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 space-y-3">
-                            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading">Digital Arrival Card</p>
-                            <input className={inputClass} placeholder="Confirmation number or reference" value={formData.arrivalCard} onChange={(e) => updateField("arrivalCard", e.target.value)} />
+                            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading">Visa &amp; Entry Requirements</p>
+                            <p className="text-gray-400 text-xs leading-relaxed">Check your visa requirements for this destination using the Sherpa travel tool below.</p>
+                            <div id="sherpa-trip-element" className="rounded-[10px] overflow-hidden bg-white min-h-[300px]">
+                              <iframe
+                                src="https://apply.joinsherpa.com/travel-restrictions?affiliateId=trutravels&language=en-US"
+                                className="w-full min-h-[400px] border-0"
+                                title="Visa & Entry Requirements"
+                                allow="camera; microphone"
+                              />
+                            </div>
+                            <p className="text-gray-600 text-[10px] italic">Powered by Sherpa. This portal should be used for information purposes only and is not associated with TruTravels.</p>
                           </div>
 
                           {/* Save */}
@@ -653,11 +908,14 @@ function BookingHistory() {
                           <p className="text-white text-sm font-semibold">Pre-Night Hotel</p>
                           <p className="text-gray-400 text-xs">Arrive a day early and stay at our start hotel in {booking.startLocation}. Beat the jet lag and be fresh for Day 1.</p>
                         </div>
-                        {booking.extras?.preNightHotel ? (
-                          <span className="text-tru-green text-xs font-bold uppercase tracking-wider flex-shrink-0">Booked ✓</span>
-                        ) : (
-                          <button className="rounded-[10px] bg-tru-pink px-4 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading flex-shrink-0">Add</button>
-                        )}
+                        <div className="flex-shrink-0 text-right">
+                          <p className="text-white text-sm font-semibold">&pound;45</p>
+                          {booking.extras?.preNightHotel ? (
+                            <span className="text-tru-green text-[9px] font-bold uppercase">Booked ✓</span>
+                          ) : (
+                            <button className="rounded-[10px] bg-tru-pink px-4 py-2 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading mt-1">Add</button>
+                          )}
+                        </div>
                       </div>
 
                       {/* Post-Night Hotel */}
@@ -669,7 +927,10 @@ function BookingHistory() {
                           <p className="text-white text-sm font-semibold">Post-Night Hotel</p>
                           <p className="text-gray-400 text-xs">Not ready to leave? Stay an extra night at our end hotel in {booking.endLocation} before heading home.</p>
                         </div>
-                        <button className="rounded-[10px] bg-tru-pink px-4 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading flex-shrink-0">Add</button>
+                        <div className="flex-shrink-0 text-right">
+                          <p className="text-white text-sm font-semibold">&pound;45</p>
+                          <button className="rounded-[10px] bg-tru-pink px-4 py-2 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading mt-1">Add</button>
+                        </div>
                       </div>
 
                       {/* My Own Room */}
@@ -681,7 +942,10 @@ function BookingHistory() {
                           <p className="text-white text-sm font-semibold">My Own Room Upgrade</p>
                           <p className="text-gray-400 text-xs">Upgrade from twin-share to your own private room throughout the trip. Subject to availability.</p>
                         </div>
-                        <button className="rounded-[10px] bg-tru-pink px-4 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading flex-shrink-0">Add</button>
+                        <div className="flex-shrink-0 text-right">
+                          <p className="text-white text-sm font-semibold">POA</p>
+                          <button className="rounded-[10px] bg-tru-pink px-4 py-2 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading mt-1">Enquire</button>
+                        </div>
                       </div>
 
                       {/* Airport Transfer - Arrival */}
@@ -693,11 +957,14 @@ function BookingHistory() {
                           <p className="text-white text-sm font-semibold">Airport Arrival Transfer</p>
                           <p className="text-gray-400 text-xs">We&apos;ll pick you up from {booking.startLocation} airport and take you straight to the hotel. No stress, no scams.</p>
                         </div>
-                        {booking.extras?.airportTransfer ? (
-                          <span className="text-tru-green text-xs font-bold uppercase tracking-wider flex-shrink-0">Booked ✓</span>
-                        ) : (
-                          <button className="rounded-[10px] bg-tru-pink px-4 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading flex-shrink-0">Add</button>
-                        )}
+                        <div className="flex-shrink-0 text-right">
+                          <p className="text-white text-sm font-semibold">&pound;60</p>
+                          {booking.extras?.airportTransfer ? (
+                            <span className="text-tru-green text-[9px] font-bold uppercase">Booked ✓</span>
+                          ) : (
+                            <button className="rounded-[10px] bg-tru-pink px-4 py-2 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading mt-1">Add</button>
+                          )}
+                        </div>
                       </div>
 
                       {/* Airport Transfer - Departure */}
@@ -709,7 +976,10 @@ function BookingHistory() {
                           <p className="text-white text-sm font-semibold">Airport Departure Transfer</p>
                           <p className="text-gray-400 text-xs">Transfer from your end hotel in {booking.endLocation} to the airport on your last day.</p>
                         </div>
-                        <button className="rounded-[10px] bg-tru-pink px-4 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading flex-shrink-0">Add</button>
+                        <div className="flex-shrink-0 text-right">
+                          <p className="text-white text-sm font-semibold">&pound;60</p>
+                          <button className="rounded-[10px] bg-tru-pink px-4 py-2 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading mt-1">Add</button>
+                        </div>
                       </div>
                     </div>
                   )}
@@ -843,6 +1113,7 @@ function BookingHistory() {
                   )}
                 </div>
               </div>
+              )}
             </div>
           );
         })}
