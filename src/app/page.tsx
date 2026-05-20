@@ -25,7 +25,7 @@ export default function HomePage() {
           poster="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80"
           className="absolute inset-0 h-full w-full object-cover scale-105"
         >
-          <source src="/videos/hero.mp4" type="video/mp4" />
+          <source src="https://videos.pexels.com/video-files/4763824/4763824-uhd_2560_1440_24fps.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-tru-navy/60 via-tru-navy/50 to-tru-navy" />
 
