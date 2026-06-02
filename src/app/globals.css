@@ -187,23 +187,35 @@ html, body {
 }
 
 /* Hero slider pagination — branded circles, pink active */
-.hero-pagination .swiper-pagination-bullet {
+.hero-slider .swiper-pagination {
+  position: absolute;
+  bottom: 96px !important;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-slider .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   opacity: 1;
-  margin: 0;
+  margin: 0 !important;
   transition: all 0.3s;
   cursor: pointer;
 }
 
-.hero-pagination .swiper-pagination-bullet:hover {
-  border-color: rgba(255, 255, 255, 0.9);
+.hero-slider .swiper-pagination-bullet:hover {
+  border-color: rgba(255, 255, 255, 1);
 }
 
-.hero-pagination .swiper-pagination-bullet-active {
+.hero-slider .swiper-pagination-bullet-active {
   background: var(--tru-pink);
   border-color: var(--tru-pink);
   transform: scale(1.1);

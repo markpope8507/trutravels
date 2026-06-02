@@ -15,9 +15,9 @@ type Slide = {
   eyebrow?: string;
   headline: React.ReactNode;
   tagline: string;
-  taglineColor: string; // tailwind text-* class
+  taglineColor: string;
   cta:
-    | { kind: "default" } // Explore Experiences + Inspire Me
+    | { kind: "default" }
     | { kind: "single"; label: string; href: string };
 };
 
@@ -86,81 +86,23 @@ export default function HeroSlider() {
     <section className="hero-slider relative h-screen overflow-hidden">
       <Swiper
         modules={[Autoplay, Pagination]}
+        slidesPerView={1}
+        spaceBetween={0}
         autoplay={{ delay: 7000, disableOnInteraction: false }}
         loop
-        pagination={{ el: ".hero-pagination", clickable: true }}
+        pagination={{ clickable: true }}
         speed={900}
-        className="h-full"
+        className="h-full w-full"
       >
         {slides.map((s) => (
-          <SwiperSlide key={s.id}>
-            <div className="relative h-full w-full">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster={s.poster}
-                className="absolute inset-0 h-full w-full object-cover scale-105"
-              >
-                <source src={s.video} type="video/mp4" />
-              </video>
-              <div className="absolute inset-0 bg-gradient-to-b from-tru-navy/60 via-tru-navy/50 to-tru-navy" />
-
-              <div className="relative z-10 flex h-full items-center justify-center px-4">
-                <div className="text-center max-w-4xl">
-                  <div className="mb-6 flex justify-center">
-                    <img
-                      src="/logo-white.png"
-                      alt="TruTravels"
-                      className="h-16 sm:h-20"
-                    />
-                  </div>
-                  {s.eyebrow && (
-                    <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.3em] text-tru-pink font-heading mb-4">
-                      {s.eyebrow}
-                    </p>
-                  )}
-                  <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[1.05] mb-6 tracking-tight uppercase font-heading">
-                    {s.headline}
-                  </h1>
-                  <p
-                    className={`text-3xl sm:text-4xl mb-10 max-w-2xl mx-auto font-handwriting ${s.taglineColor}`}
-                  >
-                    {s.tagline}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    {s.cta.kind === "default" ? (
-                      <>
-                        <Link
-                          href="/explore"
-                          className="rounded-[10px] border border-white bg-transparent px-8 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-all duration-300 uppercase tracking-wider w-56 text-center"
-                        >
-                          Explore Experiences
-                        </Link>
-                        <InspireMeWrapper />
-                      </>
-                    ) : (
-                      <Link
-                        href={s.cta.href}
-                        className="rounded-[10px] bg-tru-pink px-10 py-4 text-base font-bold text-white hover:bg-tru-pink-light transition-all duration-300 uppercase tracking-wider text-center shadow-lg shadow-tru-pink/30"
-                      >
-                        {s.cta.label}
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
+          <SwiperSlide key={s.id} className="!h-full">
+            <SlideContent slide={s} />
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {/* Pagination dots — below the CTA buttons */}
-      <div className="hero-pagination absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3" />
-
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
         <div className="flex flex-col items-center gap-2">
           <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-heading">
             Scroll
@@ -169,5 +111,68 @@ export default function HeroSlider() {
         </div>
       </div>
     </section>
+  );
+}
+
+function SlideContent({ slide: s }: { slide: Slide }) {
+  return (
+    <div className="relative h-full w-full">
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster={s.poster}
+        className="absolute inset-0 h-full w-full object-cover"
+      >
+        <source src={s.video} type="video/mp4" />
+      </video>
+      <div className="absolute inset-0 bg-gradient-to-b from-tru-navy/60 via-tru-navy/50 to-tru-navy" />
+
+      <div className="relative z-10 flex h-full items-center justify-center px-4">
+        <div className="text-center max-w-4xl">
+          <div className="mb-6 flex justify-center">
+            <img
+              src="/logo-white.png"
+              alt="TruTravels"
+              className="h-16 sm:h-20"
+            />
+          </div>
+          {s.eyebrow && (
+            <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.3em] text-tru-pink font-heading mb-4">
+              {s.eyebrow}
+            </p>
+          )}
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[1.05] mb-6 tracking-tight uppercase font-heading">
+            {s.headline}
+          </h1>
+          <p
+            className={`text-3xl sm:text-4xl mb-10 max-w-2xl mx-auto font-handwriting ${s.taglineColor}`}
+          >
+            {s.tagline}
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {s.cta.kind === "default" ? (
+              <>
+                <Link
+                  href="/explore"
+                  className="rounded-[10px] border border-white bg-transparent px-8 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-all duration-300 uppercase tracking-wider w-56 text-center"
+                >
+                  Explore Experiences
+                </Link>
+                <InspireMeWrapper />
+              </>
+            ) : (
+              <Link
+                href={s.cta.href}
+                className="rounded-[10px] bg-tru-pink px-10 py-4 text-base font-bold text-white hover:bg-tru-pink-light transition-all duration-300 uppercase tracking-wider text-center shadow-lg shadow-tru-pink/30"
+              >
+                {s.cta.label}
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
