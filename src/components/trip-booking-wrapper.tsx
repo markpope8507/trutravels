@@ -15,7 +15,9 @@ type Departure = {
 export default function TripBookingWrapper({
   price,
   originalPrice,
+  tripId,
   tripTitle,
+  tripImage,
   duration,
   startLocation,
   endLocation,
@@ -24,7 +26,9 @@ export default function TripBookingWrapper({
 }: {
   price: number;
   originalPrice?: number;
+  tripId: string;
   tripTitle: string;
+  tripImage: string;
   duration: string;
   startLocation?: string;
   endLocation?: string;
@@ -49,7 +53,9 @@ export default function TripBookingWrapper({
       <BookingModal
         isOpen={bookingOpen}
         onClose={() => setBookingOpen(false)}
+        tripId={tripId}
         tripTitle={tripTitle}
+        tripImage={tripImage}
         duration={duration}
         startLocation={startLocation}
         endLocation={endLocation}

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
+import { useCart } from "@/lib/cart-context";
 import Link from "next/link";
 
 type Departure = {
@@ -15,7 +16,9 @@ type Departure = {
 type BookingModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  tripId: string;
   tripTitle: string;
+  tripImage: string;
   duration: string;
   startLocation?: string;
   endLocation?: string;
@@ -27,7 +30,7 @@ const statusConfig = {
   available: { label: "Available", color: "bg-tru-green", dot: "bg-tru-green" },
   "almost-full": { label: "Almost Full", color: "bg-amber-500", dot: "bg-amber-500" },
   full: { label: "Full", color: "bg-gray-500", dot: "bg-gray-500" },
-  discount: { label: "On Sale", color: "bg-tru-pink", dot: "bg-tru-pink" },
+  discount: { label: "On Sale", color: "bg-red-600", dot: "bg-red-600" },
 };
 
 function formatDate(dateStr: string) {
@@ -50,7 +53,9 @@ function getMonthYear(dateStr: string) {
 export default function BookingModal({
   isOpen,
   onClose,
+  tripId,
   tripTitle,
+  tripImage,
   duration,
   startLocation,
   endLocation,
@@ -58,6 +63,7 @@ export default function BookingModal({
   depositPrice,
 }: BookingModalProps) {
   const { isLoggedIn } = useAuth();
+  const { addItem, openDrawer } = useCart();
   const [selected, setSelected] = useState<Departure | null>(null);
   const [notifySignedUp, setNotifySignedUp] = useState(false);
   const [travellers, setTravellers] = useState(1);
@@ -244,7 +250,7 @@ export default function BookingModal({
                                 {dep.originalPrice && dep.originalPrice !== dep.price && (
                                   <span className="text-gray-500 text-xs line-through">&pound;{dep.originalPrice}</span>
                                 )}
-                                <span className={`font-bold text-sm ${dep.status === "discount" ? "text-tru-pink" : "text-white"}`}>
+                                <span className={`font-bold text-sm ${dep.status === "discount" ? "text-red-500" : "text-white"}`}>
                                   &pound;{dep.price}
                                 </span>
                               </div>
@@ -275,7 +281,7 @@ export default function BookingModal({
                 <div className="flex items-center justify-between mb-4">
                   <p className="text-white font-bold text-sm">{formatDate(selected.date)}</p>
                   {selected.discount && (
-                    <span className="text-[9px] font-bold uppercase tracking-wider text-white bg-tru-pink px-2 py-0.5 rounded-full">
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-white bg-red-600 px-2 py-0.5 rounded-full">
                       {selected.discount}
                     </span>
                   )}
@@ -336,8 +342,8 @@ export default function BookingModal({
                 </div>
                 {selected.originalPrice && selected.originalPrice !== selected.price && (
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-tru-pink">You save</span>
-                    <span className="text-tru-pink font-semibold">
+                    <span className="text-red-400">You save</span>
+                    <span className="text-red-400 font-semibold">
                       &pound;{(selected.originalPrice - selected.price) * travellers}
                     </span>
                   </div>
@@ -355,14 +361,43 @@ export default function BookingModal({
           ) : null}
         </div>
 
-        {/* Footer CTA */}
+        {/* Footer CTAs */}
         {step === "confirm" && selected && (
           <div className="px-6 py-4 border-t border-white/10">
-            <button className="w-full rounded-[10px] bg-tru-green px-6 py-3.5 text-sm font-semibold text-tru-navy hover:bg-tru-green-light transition-all duration-300 uppercase tracking-wider font-heading">
-              Book Now &middot; &pound;{totalDeposit} Deposit
-            </button>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                onClick={() => {
+                  addItem({
+                    tripId,
+                    tripTitle,
+                    image: tripImage,
+                    date: selected.date,
+                    duration,
+                    travellers,
+                    pricePerPerson: selected.price,
+                    originalPricePerPerson: selected.originalPrice,
+                    depositPerPerson: depositPrice,
+                  });
+                  onClose();
+                  openDrawer();
+                }}
+                className="rounded-[10px] border border-white/20 bg-white/5 px-4 py-3.5 text-sm font-semibold text-white hover:border-white/40 hover:bg-white/10 transition-all duration-200 uppercase tracking-wider font-heading"
+              >
+                Add To Cart
+              </button>
+              <button
+                className="rounded-[10px] px-4 py-3.5 text-sm font-bold uppercase tracking-wider font-heading transition-all duration-200 border"
+                style={{
+                  backgroundColor: "#FFD814",
+                  borderColor: "#FCD200",
+                  color: "#0F1111",
+                }}
+              >
+                Book Now
+              </button>
+            </div>
             <p className="text-gray-500 text-[10px] text-center mt-2">
-              Free date change up to 60 days before departure
+              Deposit &pound;{totalDeposit} &middot; Free date change up to 60 days before departure
             </p>
           </div>
         )}

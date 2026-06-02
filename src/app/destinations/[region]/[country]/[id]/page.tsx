@@ -50,7 +50,9 @@ export default async function TripDetailPage({
       <TripBookingWrapper
         price={trip.price}
         originalPrice={trip.originalPrice}
+        tripId={trip.id}
         tripTitle={trip.title}
+        tripImage={trip.image}
         duration={trip.duration}
         startLocation={trip.startLocation}
         endLocation={trip.endLocation}
