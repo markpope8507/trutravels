@@ -257,7 +257,7 @@ export default function BookingModal({
                                 {dep.originalPrice && dep.originalPrice !== dep.price && (
                                   <span className="text-gray-500 text-xs line-through">&pound;{dep.originalPrice}</span>
                                 )}
-                                <span className={`font-bold text-sm ${dep.status === "discount" ? "text-tru-pink" : "text-white"}`}>
+                                <span className="font-bold text-sm text-white">
                                   &pound;{dep.price}
                                 </span>
                               </div>
