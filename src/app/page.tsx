@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { trips, stories, drops, videoDiaries, experienceTypes } from "@/lib/data";
+import { trips, stories, drops, videoDiaries, experienceTypes, storyPodcasts } from "@/lib/data";
 import HeroSlider from "@/components/hero-slider";
 import ExperienceCarousel from "@/components/experience-carousel";
 import { DesignA as ExperienceTypesCarousel } from "@/components/experience-types-v2";
@@ -9,7 +9,11 @@ import DiscoveryPathways from "@/components/discovery-pathways";
 import SearchPrompt from "@/components/search-prompt";
 
 export default function HomePage() {
-  const featuredStories = stories.filter((s) => !s.memberOnly).slice(0, 3);
+  const featuredStory = [...stories]
+    .filter((s) => !s.memberOnly)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+  const featuredVideo = videoDiaries[0];
+  const featuredPodcast = storyPodcasts[0];
 
   return (
     <>
@@ -169,15 +173,23 @@ export default function HomePage() {
       </section>
 
       {/* ================================================================
-          6. STORIES — Editorial content
+          6. STORIES — Watch · Read · Listen
           ================================================================ */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24">
-        <div className="flex items-end justify-between mb-12">
+        <div className="flex items-end justify-between mb-12 flex-wrap gap-6">
           <div>
             <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Stories</p>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading">From The Road</h2>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[0.95]">
+              Watch. <span className="text-tru-green">Read.</span> <span className="text-tru-blue">Listen.</span>
+            </h2>
+            <p className="text-gray-400 mt-4 max-w-lg text-sm sm:text-base">
+              Stories from the road in every format. Diaries to lose an afternoon in, long-reads for the train, podcasts for the plane.
+            </p>
           </div>
-          <Link href="/stories" className="hidden sm:flex items-center gap-2 text-sm text-gray-400 hover:text-tru-pink transition group uppercase tracking-wider font-semibold">
+          <Link
+            href="/stories"
+            className="hidden sm:flex items-center gap-2 text-sm text-gray-400 hover:text-tru-pink transition group uppercase tracking-wider font-semibold font-heading"
+          >
             All stories
             <svg className="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -186,46 +198,104 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Featured story — large */}
-          <div className="md:col-span-2 group relative overflow-hidden rounded-[10px] aspect-[16/9]">
+          {/* WATCH — featured video diary */}
+          <Link
+            href="/stories#watch"
+            className="group relative overflow-hidden rounded-[10px] aspect-[4/5] block"
+          >
             <img
-              src={featuredStories[0].image}
-              alt={featuredStories[0].title}
+              src={featuredVideo.poster}
+              alt={featuredVideo.caption}
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/90 via-tru-navy/30 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-              <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
-                {featuredStories[0].category} &middot; {featuredStories[0].author}
-              </p>
-              <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 group-hover:text-tru-pink transition-colors uppercase font-heading">
-                {featuredStories[0].title}
-              </h3>
-              <p className="text-gray-300 text-sm max-w-lg">{featuredStories[0].excerpt}</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/40 to-tru-navy/20" />
+            <div className="absolute top-4 left-4">
+              <span className="inline-flex items-center gap-1.5 bg-tru-green text-tru-navy text-[10px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full font-heading">
+                <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                Watch
+              </span>
             </div>
-          </div>
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="h-16 w-16 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-tru-green/30 group-hover:scale-110 transition-all duration-300">
+                <svg className="h-7 w-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+              </div>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <p className="text-tru-green text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
+                Video Diaries &middot; {featuredVideo.location}
+              </p>
+              <h3 className="text-xl font-black text-white group-hover:text-tru-green transition uppercase font-heading leading-tight">
+                {featuredVideo.author}
+              </h3>
+              <p className="text-gray-300 text-sm line-clamp-2 mt-2">{featuredVideo.caption}</p>
+            </div>
+          </Link>
 
-          {/* Stacked stories */}
-          <div className="flex flex-col gap-6">
-            {featuredStories.slice(1).map((story) => (
-              <article key={story.id} className="group flex-1">
-                <div className="relative overflow-hidden rounded-[10px] aspect-[3/2] mb-3">
-                  <img
-                    src={story.image}
-                    alt={story.title}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                </div>
-                <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-1 font-heading">
-                  {story.category}
-                </p>
-                <h3 className="text-base font-bold text-white group-hover:text-tru-pink transition mb-1 font-heading">
-                  {story.title}
-                </h3>
-                <p className="text-gray-500 text-xs">By {story.author}</p>
-              </article>
-            ))}
-          </div>
+          {/* READ — featured story */}
+          <Link
+            href="/stories#read"
+            className="group relative overflow-hidden rounded-[10px] aspect-[4/5] block"
+          >
+            <img
+              src={featuredStory.image}
+              alt={featuredStory.title}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/40 to-tru-navy/20" />
+            <div className="absolute top-4 left-4">
+              <span className="inline-flex items-center gap-1.5 bg-tru-pink text-white text-[10px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full font-heading">
+                <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                Read
+              </span>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
+                {featuredStory.category} &middot; {featuredStory.readTime} min read
+              </p>
+              <h3 className="text-xl font-black text-white group-hover:text-tru-pink transition uppercase font-heading leading-tight">
+                {featuredStory.title}
+              </h3>
+              <p className="text-gray-300 text-sm line-clamp-2 mt-2">{featuredStory.excerpt}</p>
+            </div>
+          </Link>
+
+          {/* LISTEN — featured podcast episode */}
+          <Link
+            href="/stories#listen"
+            className="group relative overflow-hidden rounded-[10px] aspect-[4/5] block"
+          >
+            <img
+              src={featuredPodcast.image}
+              alt={featuredPodcast.title}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/40 to-tru-navy/20" />
+            <div className="absolute top-4 left-4">
+              <span className="inline-flex items-center gap-1.5 bg-tru-blue text-white text-[10px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full font-heading">
+                <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
+                Listen
+              </span>
+            </div>
+            <div className="absolute top-4 right-4">
+              <span className="bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading">
+                {featuredPodcast.duration}
+              </span>
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="h-16 w-16 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-tru-blue/30 group-hover:scale-110 transition-all duration-300">
+                <svg className="h-7 w-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+              </div>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <p className="text-tru-blue text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
+                Episode {featuredPodcast.episode} &middot; {featuredPodcast.host}
+              </p>
+              <h3 className="text-xl font-black text-white group-hover:text-tru-blue transition uppercase font-heading leading-tight">
+                {featuredPodcast.title}
+              </h3>
+              <p className="text-gray-300 text-sm line-clamp-2 mt-2">{featuredPodcast.description}</p>
+            </div>
+          </Link>
         </div>
       </section>
 

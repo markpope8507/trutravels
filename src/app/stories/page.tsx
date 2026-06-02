@@ -732,6 +732,7 @@ function PillarHeader({
   accent: "tru-pink" | "tru-green" | "tru-blue";
   icon: React.ReactNode;
 }) {
+  const anchorId = pillar.toLowerCase();
   const accentText: Record<typeof accent, string> = {
     "tru-pink": "text-tru-pink",
     "tru-green": "text-tru-green",
@@ -743,7 +744,7 @@ function PillarHeader({
     "tru-blue": "border-tru-blue/30",
   };
   return (
-    <section className="pt-24 pb-12 border-t border-white/5">
+    <section id={anchorId} className="pt-24 pb-12 border-t border-white/5 scroll-mt-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-8 flex-wrap">
           <div className="flex-1 min-w-0 max-w-2xl">
