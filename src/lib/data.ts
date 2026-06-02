@@ -122,6 +122,26 @@ export const storyLifeMoments = [
   "Sabbatical",
 ] as const;
 
+export const storyLifeMomentEmojis: Record<string, string> = {
+  "Gap Year": "🌍",
+  "First Big Trip": "🎒",
+  "Career Break": "🌴",
+  "Quarter-Life Reset": "🔄",
+  "Post-Uni": "🎓",
+  "Sabbatical": "🧘",
+};
+
+export const storyTopicEmojis: Record<string, string> = {
+  "Adventure": "🏔️",
+  "Food & Culture": "🍜",
+  "Solo Travel": "🚶",
+  "Wellness": "🧘",
+  "Sustainability": "🌱",
+  "Nightlife": "🌃",
+  "Budget Tips": "💸",
+  "Local Stories": "📍",
+};
+
 export const storyTypes: { value: StoryType; label: string }[] = [
   { value: "story", label: "Stories" },
   { value: "guide", label: "Guides" },

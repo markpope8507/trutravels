@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
@@ -12,6 +12,8 @@ import {
   videoDiaries,
   storyTopics,
   storyLifeMoments,
+  storyLifeMomentEmojis,
+  storyTopicEmojis,
   storyTypes,
   storyContentSeries,
   storyPodcasts,
@@ -40,6 +42,7 @@ export default function StoriesPage() {
   const [topic, setTopic] = useState("");
   const [lifeMoment, setLifeMoment] = useState("");
   const [sort, setSort] = useState<"latest" | "oldest">("latest");
+  const [showFilters, setShowFilters] = useState(false);
 
   const sorted = useMemo(
     () =>
@@ -75,8 +78,20 @@ export default function StoriesPage() {
     [rest, activeType, destination, topic, lifeMoment, query],
   );
 
-  const hasActiveFilters =
-    activeType !== "all" || destination || topic || lifeMoment || query.trim();
+  const activeFilterCount =
+    (activeType !== "all" ? 1 : 0) +
+    (destination ? 1 : 0) +
+    (topic ? 1 : 0) +
+    (lifeMoment ? 1 : 0);
+  const hasActiveFilters = activeFilterCount > 0 || query.trim().length > 0;
+
+  const destinationCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const d of allDestinations) {
+      counts[d] = rest.filter((s) => s.destinations.includes(d)).length;
+    }
+    return counts;
+  }, [rest]);
 
   const clearAll = () => {
     setActiveType("all");
@@ -285,102 +300,79 @@ export default function StoriesPage() {
             </p>
           </div>
 
-          {/* Search */}
-          <div className="relative mb-6">
-            <svg
-              className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search stories, guides, destinations…"
-              className="w-full bg-white/5 border border-white/10 rounded-[10px] pl-12 pr-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
-            />
-          </div>
-
-          {/* Filter dropdowns */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
-            <FilterSelect
-              label="Destination"
-              value={destination}
-              onChange={setDestination}
-              options={allDestinations}
-            />
-            <FilterSelect
-              label="Topic"
-              value={topic}
-              onChange={setTopic}
-              options={storyTopics as unknown as string[]}
-            />
-            <FilterSelect
-              label="Life Moment"
-              value={lifeMoment}
-              onChange={setLifeMoment}
-              options={storyLifeMoments as unknown as string[]}
-            />
-          </div>
-
-          {/* Type tabs + sort + clear */}
-          <div className="flex flex-wrap items-center gap-3 mb-8">
-            <button
-              onClick={() => setActiveType("all")}
-              className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-heading transition ${
-                activeType === "all"
-                  ? "bg-tru-pink text-white"
-                  : "bg-white/5 text-gray-400 hover:text-white"
-              }`}
-            >
-              All
-            </button>
-            {storyTypes.map((t) => (
-              <button
-                key={t.value}
-                onClick={() => setActiveType(t.value)}
-                className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-heading transition ${
-                  activeType === t.value
-                    ? "bg-tru-pink text-white"
-                    : "bg-white/5 text-gray-400 hover:text-white"
-                }`}
+          {/* Search + Filter button */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-6">
+            <div className="relative flex-1">
+              <svg
+                className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
               >
-                {t.label}
-              </button>
-            ))}
-            <div className="ml-auto flex items-center gap-3">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search stories, guides, destinations…"
+                className="w-full bg-white/5 border border-white/10 rounded-[10px] pl-12 pr-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
+              />
+            </div>
+            <button
+              onClick={() => setShowFilters(true)}
+              className="flex items-center justify-center gap-2 rounded-[10px] border border-white/15 hover:border-tru-pink/50 bg-white/5 px-5 py-3.5 text-sm font-bold uppercase tracking-wider text-white font-heading transition relative"
+            >
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 4h18M6 12h12M10 20h4"
+                />
+              </svg>
+              Filters
+              {activeFilterCount > 0 && (
+                <span className="bg-tru-pink text-white text-[10px] font-bold rounded-full h-5 min-w-[20px] px-1.5 flex items-center justify-center">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
+          </div>
+
+          {/* Results count + sort */}
+          <div className="flex items-center justify-between gap-3 mb-6 flex-wrap">
+            <p className="text-sm text-gray-500">
+              Showing {filtered.length} of {rest.length}{" "}
+              {filtered.length === 1 ? "story" : "stories"}
               {hasActiveFilters && (
                 <button
                   onClick={clearAll}
-                  className="text-xs text-gray-400 hover:text-tru-pink uppercase tracking-wider font-semibold transition"
+                  className="ml-3 text-tru-pink hover:text-tru-pink-light text-xs font-semibold uppercase tracking-wider transition"
                 >
                   Clear all
                 </button>
               )}
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value as "latest" | "oldest")}
-                className="bg-white/5 border border-white/10 rounded-[10px] px-3 py-2 text-xs text-gray-300 font-semibold uppercase tracking-wider focus:outline-none focus:border-tru-pink/50 cursor-pointer"
-              >
-                <option value="latest">Latest first</option>
-                <option value="oldest">Oldest first</option>
-              </select>
-            </div>
+            </p>
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as "latest" | "oldest")}
+              className="bg-white/5 border border-white/10 rounded-[10px] px-3 py-2 text-xs text-gray-300 font-semibold uppercase tracking-wider focus:outline-none focus:border-tru-pink/50 cursor-pointer"
+            >
+              <option value="latest">Latest first</option>
+              <option value="oldest">Oldest first</option>
+            </select>
           </div>
-
-          {/* Results count */}
-          <p className="text-sm text-gray-500 mb-6">
-            Showing {filtered.length} of {rest.length}{" "}
-            {filtered.length === 1 ? "story" : "stories"}
-          </p>
 
           {/* Grid */}
           {filtered.length > 0 ? (
@@ -472,7 +464,253 @@ export default function StoriesPage() {
           </div>
         </div>
       </section>
+
+      <StoriesFilterDrawer
+        isOpen={showFilters}
+        onClose={() => setShowFilters(false)}
+        destinations={allDestinations}
+        destinationCounts={destinationCounts}
+        activeType={activeType}
+        setActiveType={setActiveType}
+        destination={destination}
+        setDestination={setDestination}
+        topic={topic}
+        setTopic={setTopic}
+        lifeMoment={lifeMoment}
+        setLifeMoment={setLifeMoment}
+        filteredCount={filtered.length}
+        onClear={clearAll}
+      />
     </>
+  );
+}
+
+/* ============================================================
+   FILTER DRAWER — slide-in from the left, sticky footer
+   ============================================================ */
+function StoriesFilterDrawer({
+  isOpen,
+  onClose,
+  destinations,
+  destinationCounts,
+  activeType,
+  setActiveType,
+  destination,
+  setDestination,
+  topic,
+  setTopic,
+  lifeMoment,
+  setLifeMoment,
+  filteredCount,
+  onClear,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  destinations: string[];
+  destinationCounts: Record<string, number>;
+  activeType: StoryType | "all";
+  setActiveType: (v: StoryType | "all") => void;
+  destination: string;
+  setDestination: (v: string) => void;
+  topic: string;
+  setTopic: (v: string) => void;
+  lifeMoment: string;
+  setLifeMoment: (v: string) => void;
+  filteredCount: number;
+  onClear: () => void;
+}) {
+  const [closing, setClosing] = useState(false);
+
+  const handleClose = () => {
+    setClosing(true);
+    setTimeout(() => {
+      setClosing(false);
+      onClose();
+    }, 300);
+  };
+
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex justify-start">
+      <div
+        className={`absolute inset-0 bg-black/60 backdrop-blur-sm sm:block hidden transition-opacity duration-300 ${
+          closing ? "opacity-0" : "opacity-100"
+        }`}
+        onClick={handleClose}
+      />
+      <div
+        className={`relative w-full sm:w-[420px] lg:w-[480px] bg-tru-navy flex flex-col h-full shadow-2xl shadow-black/50 transition-transform duration-300 ease-out ${
+          closing ? "-translate-x-full" : "animate-slide-in-left"
+        }`}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+          <h2 className="text-white font-black text-lg uppercase font-heading tracking-wider">
+            Filters
+          </h2>
+          <button
+            onClick={handleClose}
+            className="text-gray-400 hover:text-white transition"
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Scrollable content */}
+        <div className="flex-1 overflow-y-auto px-6 py-6 space-y-8">
+          {/* Content Type */}
+          <div>
+            <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">
+              Content Type
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <ChipButton
+                active={activeType === "all"}
+                onClick={() => setActiveType("all")}
+              >
+                All
+              </ChipButton>
+              {storyTypes.map((t) => (
+                <ChipButton
+                  key={t.value}
+                  active={activeType === t.value}
+                  onClick={() => setActiveType(t.value)}
+                >
+                  {t.label}
+                </ChipButton>
+              ))}
+            </div>
+          </div>
+
+          {/* Destination */}
+          <div>
+            <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">
+              Destination
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {destinations.map((d) => (
+                <ChipButton
+                  key={d}
+                  active={destination === d}
+                  onClick={() => setDestination(destination === d ? "" : d)}
+                >
+                  {d}
+                  <span
+                    className={`ml-1 ${
+                      destination === d ? "text-white/70" : "text-gray-500"
+                    }`}
+                  >
+                    ({destinationCounts[d] ?? 0})
+                  </span>
+                </ChipButton>
+              ))}
+            </div>
+          </div>
+
+          {/* Topic */}
+          <div>
+            <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">
+              Topic
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {storyTopics.map((t) => (
+                <ChipButton
+                  key={t}
+                  active={topic === t}
+                  onClick={() => setTopic(topic === t ? "" : t)}
+                >
+                  <span>{storyTopicEmojis[t]}</span>
+                  <span className="font-heading text-[11px] font-semibold uppercase tracking-wider">
+                    {t}
+                  </span>
+                </ChipButton>
+              ))}
+            </div>
+          </div>
+
+          {/* Life Moment */}
+          <div>
+            <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">
+              Life Moment
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {storyLifeMoments.map((m) => (
+                <ChipButton
+                  key={m}
+                  active={lifeMoment === m}
+                  onClick={() => setLifeMoment(lifeMoment === m ? "" : m)}
+                >
+                  <span>{storyLifeMomentEmojis[m]}</span>
+                  <span className="font-heading text-[11px] font-semibold uppercase tracking-wider">
+                    {m}
+                  </span>
+                </ChipButton>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="px-6 py-4 border-t border-white/10 flex items-center gap-3">
+          <button
+            onClick={onClear}
+            className="flex-1 rounded-[10px] border border-white/20 py-3 text-sm text-white hover:border-white/40 transition text-center font-heading uppercase tracking-wider"
+          >
+            Clear All
+          </button>
+          <button
+            onClick={handleClose}
+            className="flex-1 rounded-[10px] bg-tru-pink py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 text-center font-heading uppercase tracking-wider"
+          >
+            Show {filteredCount} Stor{filteredCount === 1 ? "y" : "ies"}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ChipButton({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`rounded-full px-4 py-2 text-sm transition-all duration-200 flex items-center gap-2 ${
+        active
+          ? "bg-tru-pink text-white"
+          : "border border-white/15 text-gray-300 hover:border-white/30 hover:text-white"
+      }`}
+    >
+      {children}
+    </button>
   );
 }
 
@@ -634,50 +872,6 @@ function ListenIcon() {
       <path d="M90 96 q -6 -8 0 -16" opacity="0.7" />
       <path d="M82 102 q -12 -14 0 -28" opacity="0.5" />
     </svg>
-  );
-}
-
-function FilterSelect({
-  label,
-  value,
-  onChange,
-  options,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  options: string[];
-}) {
-  return (
-    <div className="relative">
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className={`w-full appearance-none bg-white/5 border border-white/10 rounded-[10px] px-4 py-3 text-sm focus:outline-none focus:border-tru-pink/50 transition cursor-pointer ${
-          value ? "text-white" : "text-gray-500"
-        }`}
-      >
-        <option value="">{label}: Any</option>
-        {options.map((o) => (
-          <option key={o} value={o}>
-            {o}
-          </option>
-        ))}
-      </select>
-      <svg
-        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M19 9l-7 7-7-7"
-        />
-      </svg>
-    </div>
   );
 }
 
