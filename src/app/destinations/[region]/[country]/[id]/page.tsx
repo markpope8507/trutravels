@@ -332,21 +332,35 @@ export default async function TripDetailPage({
               {/* Pricing card */}
               <section id="booking">
                 <div className="bg-white/[0.06] border border-white/15 rounded-[16px] p-6">
-                  <div className="flex items-baseline gap-2 mb-1">
-                    <span className="text-[10px] text-gray-400 uppercase tracking-wider font-heading">From</span>
-                    {trip.originalPrice && (
-                      <span className="text-gray-500 text-sm line-through">&pound;{trip.originalPrice}</span>
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <span className="text-[10px] text-gray-400 uppercase tracking-wider font-heading">From</span>
+                        {trip.originalPrice && (
+                          <span className="text-gray-500 text-sm line-through">&pound;{trip.originalPrice}</span>
+                        )}
+                      </div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-white text-4xl font-black font-heading leading-none">&pound;{trip.price}</span>
+                        <span className="text-gray-400 text-sm">/ person</span>
+                      </div>
+                    </div>
+                    {discountPct > 0 && (
+                      <div className="flex flex-col items-center flex-shrink-0">
+                        <div
+                          className="h-16 w-16 rounded-full bg-red-600 text-white flex flex-col items-center justify-center font-heading shadow-xl ring-2 ring-red-500/40"
+                          style={{ transform: "rotate(-10deg)" }}
+                        >
+                          <span className="text-[8px] font-black uppercase tracking-[0.18em] leading-none mb-0.5 opacity-90">Save</span>
+                          <span className="text-xl font-black leading-none">{discountPct}%</span>
+                          <span className="text-[9px] font-black uppercase tracking-[0.2em] leading-none mt-0.5">Off</span>
+                        </div>
+                        <p className="text-red-400 text-[11px] font-bold uppercase tracking-wider font-heading mt-2 whitespace-nowrap">
+                          Save &pound;{(trip.originalPrice ?? 0) - trip.price}
+                        </p>
+                      </div>
                     )}
                   </div>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-white text-4xl font-black font-heading leading-none">&pound;{trip.price}</span>
-                    <span className="text-gray-400 text-sm">/ person</span>
-                  </div>
-                  {discountPct > 0 && (
-                    <span className="inline-block bg-red-600 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full font-heading mt-3">
-                      Save {discountPct}% &middot; &pound;{(trip.originalPrice ?? 0) - trip.price}
-                    </span>
-                  )}
 
                   <div className="grid grid-cols-2 gap-4 mt-5 pt-4 border-t border-white/10">
                     <div>
