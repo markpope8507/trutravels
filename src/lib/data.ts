@@ -62,7 +62,7 @@ export type Trip = {
     transport?: string;
     meals?: string;
     leader?: string;
-    activities: { name: string; experienceType?: string }[];
+    activities: { name: string; experienceType?: string; day?: number }[];
     truExclusive?: { name: string; description: string };
     extras?: string[];
   };
@@ -164,17 +164,17 @@ export const trips: Trip[] = [
       meals: "4 breakfasts, 4 lunches, 1 dinner",
       leader: "Professional tour leader throughout",
       activities: [
-        { name: "Bangkok river cruise & temple visits", experienceType: "local-lens" },
-        { name: "Khao Sok National Park exploration", experienceType: "unplugged" },
-        { name: "Floating bungalows stay", experienceType: "tru-ly-unique" },
-        { name: "Phi Phi Islands boat trip", experienceType: "bucket-list" },
-        { name: "Traditional Thai massage", experienceType: "unplugged" },
-        { name: "Overnight train journey", experienceType: "local-lens" },
-        { name: "Boat trip & snorkelling around Koh Phangan", experienceType: "bucket-list" },
-        { name: "Bottle Beach viewpoint hike", experienceType: "rise-up" },
-        { name: "Muay Thai lesson", experienceType: "rise-up" },
-        { name: "Koh Tao & Koh Nang Yuan day trip", experienceType: "bucket-list" },
-        { name: "Phuket nightlife" },
+        { name: "Bangkok river cruise & temple visits", experienceType: "local-lens", day: 2 },
+        { name: "Traditional Thai massage", experienceType: "unplugged", day: 3 },
+        { name: "Overnight train journey", experienceType: "local-lens", day: 3 },
+        { name: "Khao Sok National Park exploration", experienceType: "unplugged", day: 4 },
+        { name: "Floating bungalows stay", experienceType: "tru-ly-unique", day: 4 },
+        { name: "Bottle Beach viewpoint hike", experienceType: "rise-up", day: 6 },
+        { name: "Muay Thai lesson", experienceType: "rise-up", day: 6 },
+        { name: "Boat trip & snorkelling around Koh Phangan", experienceType: "bucket-list", day: 7 },
+        { name: "Koh Tao & Koh Nang Yuan day trip", experienceType: "bucket-list", day: 9 },
+        { name: "Phi Phi Islands boat trip", experienceType: "bucket-list", day: 12 },
+        { name: "Phuket nightlife", day: 13 },
       ],
       truExclusive: {
         name: "Bottle Beach Experience",

@@ -6,6 +6,7 @@ import { experienceTypes } from "@/lib/data";
 type Activity = {
   name: string;
   experienceType?: string;
+  day?: number;
 };
 
 type TruExclusive = {
@@ -122,6 +123,11 @@ export default function ActivitiesTabs({
                 </svg>
               </div>
               <span className="text-gray-200 text-sm flex-1">{activity.name}</span>
+              {activity.day && (
+                <span className="text-gray-500 text-[11px] font-semibold uppercase tracking-wider font-heading flex-shrink-0">
+                  Day {activity.day}
+                </span>
+              )}
             </div>
           );
         })}
