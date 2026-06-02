@@ -8,6 +8,7 @@ import { Navigation, FreeMode } from "swiper/modules";
 import { Trip, TravelStyle, travelStyleConfig } from "@/lib/data";
 import { tripUrl } from "@/lib/utils";
 import TripCard from "@/components/trip-card";
+import TravelStyleBadge from "@/components/travel-style-badge";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -527,16 +528,21 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-end gap-2 px-3 pb-3 pt-1 border-t border-white/5">
-                    {trip.originalPrice && (
-                      <span className="text-gray-500 text-[11px] line-through">&pound;{trip.originalPrice}</span>
-                    )}
-                    <span className="text-white text-base font-black font-heading">&pound;{trip.price}</span>
-                    {savings > 0 && (
-                      <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading ml-1">
-                        Save &pound;{savings}
-                      </span>
-                    )}
+                  <div className="flex items-center justify-between gap-2 px-3 pb-3 pt-1 border-t border-white/5">
+                    <div className="flex-shrink-0 -mb-1">
+                      <TravelStyleBadge style={trip.travelStyle} size="small" />
+                    </div>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      {trip.originalPrice && (
+                        <span className="text-gray-500 text-[11px] line-through">&pound;{trip.originalPrice}</span>
+                      )}
+                      <span className="text-white text-base font-black font-heading">&pound;{trip.price}</span>
+                      {savings > 0 && (
+                        <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading ml-1">
+                          Save &pound;{savings}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </Link>
               );
