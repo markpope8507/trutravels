@@ -42,15 +42,17 @@ export default function TripPricingCard({
               </span>
             )}
           </div>
-          <div className="flex items-baseline gap-2">
+          <div className="flex items-baseline gap-2 flex-wrap">
             <span className="text-white text-4xl font-black font-heading leading-none">
               &pound;{price}
             </span>
             <span className="text-gray-400 text-sm">/ person</span>
+            {discountPct === 0 && (
+              <span className="text-gray-400 text-xs">
+                &middot; Just <span className="text-white font-bold">&pound;{perDay}</span> per day
+              </span>
+            )}
           </div>
-          <p className="text-gray-400 text-xs mt-2">
-            Just <span className="text-white font-bold">&pound;{perDay}</span> per day
-          </p>
         </div>
         {discountPct > 0 && (
           <div className="flex flex-col items-center flex-shrink-0">
