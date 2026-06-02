@@ -36,14 +36,21 @@ export default function TripStickyNav({
 
   useEffect(() => {
     const handleScroll = () => {
-      const hero = document.getElementById("trip-hero");
-      if (!hero) return;
-      const heroBottom = hero.offsetTop + hero.offsetHeight;
-      setVisible(window.scrollY > heroBottom);
+      const isDesktop = window.innerWidth >= 1024;
+      const gate =
+        (!isDesktop && document.getElementById("mobile-pricing")) ||
+        document.getElementById("trip-hero");
+      if (!gate) return;
+      const gateBottom = gate.offsetTop + gate.offsetHeight;
+      setVisible(window.scrollY > gateBottom);
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
   }, []);
 
   useEffect(() => {
