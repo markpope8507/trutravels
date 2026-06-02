@@ -30,7 +30,6 @@ export default function ActivitiesTabs({
     activities.map((a) => a.experienceType).filter(Boolean) as string[],
   );
   const tabs = [
-    { id: "all", label: "All", emoji: "", color: "#ffffff" },
     ...experienceTypes
       .filter((e) => presentIds.has(e.id))
       .map((e) => ({
@@ -39,6 +38,7 @@ export default function ActivitiesTabs({
         emoji: e.emoji,
         color: e.color,
       })),
+    { id: "all", label: "All", emoji: "", color: "#ffffff" },
   ];
 
   const [activeTab, setActiveTab] = useState("all");
