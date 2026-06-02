@@ -26,7 +26,7 @@ const quizSteps: QuizStep[] = [
     subtitle: "Pick the region that excites you most.",
     type: "single",
     options: [
-      { label: "Southeast Asia", value: "Southeast Asia", emoji: "🌴" },
+      { label: "Asia", value: "Asia", emoji: "🌴" },
       { label: "South Asia", value: "South Asia", emoji: "🐘" },
       { label: "Central America", value: "Central America", emoji: "🌋" },
       { label: "Africa", value: "Africa", emoji: "🏜️" },

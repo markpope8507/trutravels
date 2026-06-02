@@ -58,7 +58,7 @@ const slides: Slide[] = [
     cta: {
       kind: "single",
       label: "Let's Go!",
-      href: "/destinations/southeast-asia/thailand",
+      href: "/destinations/asia/thailand",
     },
   },
   {
