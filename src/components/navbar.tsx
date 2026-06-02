@@ -10,53 +10,53 @@ import SearchOverlay from "@/components/search-overlay";
 // NAV DATA — Real TruTravels destinations & structure
 // ============================================================
 
-const destinations = [
+const destinations: { region: string; countries: { name: string; flag: string; tag: string; href?: string; nickname: string; image: string }[] }[] = [
   {
     region: "Asia",
     countries: [
-      { name: "Thailand", flag: "🇹🇭", tag: "Top Seller", href: "/destinations/country/thailand" },
-      { name: "Indonesia", flag: "🇮🇩", tag: "Popular", href: "/destinations/country/indonesia" },
-      { name: "Philippines", flag: "🇵🇭", tag: "Popular", href: "/destinations/country/philippines" },
-      { name: "Vietnam", flag: "🇻🇳", tag: "Top Seller", href: "/destinations/country/vietnam" },
-      { name: "Cambodia", flag: "🇰🇭", tag: "", href: "/destinations/country/cambodia" },
-      { name: "Sri Lanka", flag: "🇱🇰", tag: "", href: "/destinations/country/sri-lanka" },
-      { name: "India", flag: "🇮🇳", tag: "", href: "/destinations/country/india" },
-      { name: "Japan", flag: "🇯🇵", tag: "", href: "/destinations/country/japan" },
-      { name: "China", flag: "🇨🇳", tag: "New", href: "/destinations/country/china" },
+      { name: "Thailand", flag: "🇹🇭", tag: "Top Seller", href: "/destinations/country/thailand", nickname: "The Land of Smiles", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80" },
+      { name: "Indonesia", flag: "🇮🇩", tag: "Popular", href: "/destinations/country/indonesia", nickname: "Emerald of the Equator", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80" },
+      { name: "Philippines", flag: "🇵🇭", tag: "Popular", href: "/destinations/country/philippines", nickname: "Pearl of the Orient Seas", image: "https://images.unsplash.com/photo-1518509562904-e7ef99cddc85?w=800&q=80" },
+      { name: "Vietnam", flag: "🇻🇳", tag: "Top Seller", href: "/destinations/country/vietnam", nickname: "Land of the Ascending Dragon", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80" },
+      { name: "Cambodia", flag: "🇰🇭", tag: "", href: "/destinations/country/cambodia", nickname: "Kingdom of Wonder", image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80" },
+      { name: "Sri Lanka", flag: "🇱🇰", tag: "", href: "/destinations/country/sri-lanka", nickname: "Pearl of the Indian Ocean", image: "https://images.unsplash.com/photo-1586500036706-41963de24d8b?w=800&q=80" },
+      { name: "India", flag: "🇮🇳", tag: "", href: "/destinations/country/india", nickname: "Land of a Thousand Cultures", image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80" },
+      { name: "Japan", flag: "🇯🇵", tag: "", href: "/destinations/country/japan", nickname: "Land of the Rising Sun", image: "https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=800&q=80" },
+      { name: "China", flag: "🇨🇳", tag: "New", href: "/destinations/country/china", nickname: "The Middle Kingdom", image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80" },
     ],
   },
   {
     region: "Latin America",
     countries: [
-      { name: "Mexico", flag: "🇲🇽", tag: "Popular", href: "/destinations/country/mexico" },
-      { name: "Costa Rica", flag: "🇨🇷", tag: "", href: "/destinations/country/costa-rica" },
-      { name: "Colombia", flag: "🇨🇴", tag: "", href: "/destinations/country/colombia" },
-      { name: "Peru", flag: "🇵🇪", tag: "", href: "/destinations/country/peru" },
-      { name: "Brazil", flag: "🇧🇷", tag: "", href: "/destinations/country/brazil" },
-      { name: "Belize", flag: "🇧🇿", tag: "", href: "/destinations/country/belize" },
-      { name: "Guatemala", flag: "🇬🇹", tag: "", href: "/destinations/country/guatemala" },
+      { name: "Mexico", flag: "🇲🇽", tag: "Popular", href: "/destinations/country/mexico", nickname: "Land of Colour", image: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80" },
+      { name: "Costa Rica", flag: "🇨🇷", tag: "", href: "/destinations/country/costa-rica", nickname: "Pura Vida", image: "https://images.unsplash.com/photo-1518002054494-3a6f17be46eb?w=800&q=80" },
+      { name: "Colombia", flag: "🇨🇴", tag: "", href: "/destinations/country/colombia", nickname: "Land of Magical Realism", image: "https://images.unsplash.com/photo-1568632234157-ce7aecd3f87a?w=800&q=80" },
+      { name: "Peru", flag: "🇵🇪", tag: "", href: "/destinations/country/peru", nickname: "Land of the Incas", image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80" },
+      { name: "Brazil", flag: "🇧🇷", tag: "", href: "/destinations/country/brazil", nickname: "Land of Carnival", image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80" },
+      { name: "Belize", flag: "🇧🇿", tag: "", href: "/destinations/country/belize", nickname: "Jewel of the Caribbean", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" },
+      { name: "Guatemala", flag: "🇬🇹", tag: "", href: "/destinations/country/guatemala", nickname: "Land of Eternal Spring", image: "https://images.unsplash.com/photo-1546902214-b8aef72c8a7c?w=800&q=80" },
     ],
   },
   {
     region: "Europe",
     countries: [
-      { name: "Greece", flag: "🇬🇷", tag: "Popular", href: "/destinations/country/greece" },
-      { name: "Italy", flag: "🇮🇹", tag: "", href: "/destinations/country/italy" },
-      { name: "Albania", flag: "🇦🇱", tag: "New", href: "/destinations/country/albania" },
-      { name: "Europe By Rail", flag: "🚆", tag: "New" },
+      { name: "Greece", flag: "🇬🇷", tag: "Popular", href: "/destinations/country/greece", nickname: "Cradle of Civilization", image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" },
+      { name: "Italy", flag: "🇮🇹", tag: "", href: "/destinations/country/italy", nickname: "Il Bel Paese", image: "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80" },
+      { name: "Albania", flag: "🇦🇱", tag: "New", href: "/destinations/country/albania", nickname: "Land of the Eagles", image: "https://images.unsplash.com/photo-1581791534671-da08e4c3e44e?w=800&q=80" },
+      { name: "Europe By Rail", flag: "🚆", tag: "New", nickname: "Borderless Europe", image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=800&q=80" },
     ],
   },
   {
     region: "Africa & Middle East",
     countries: [
-      { name: "Morocco", flag: "🇲🇦", tag: "Popular", href: "/destinations/country/morocco" },
-      { name: "Jordan", flag: "🇯🇴", tag: "", href: "/destinations/country/jordan" },
+      { name: "Morocco", flag: "🇲🇦", tag: "Popular", href: "/destinations/country/morocco", nickname: "Gateway to Africa", image: "https://images.unsplash.com/photo-1539020140153-e8c237112f4f?w=800&q=80" },
+      { name: "Jordan", flag: "🇯🇴", tag: "", href: "/destinations/country/jordan", nickname: "Cradle of Petra", image: "https://images.unsplash.com/photo-1565017228812-91c98e6aaef8?w=800&q=80" },
     ],
   },
   {
     region: "Oceania",
     countries: [
-      { name: "New Zealand", flag: "🇳🇿", tag: "", href: "/destinations/country/new-zealand" },
+      { name: "New Zealand", flag: "🇳🇿", tag: "", href: "/destinations/country/new-zealand", nickname: "Land of the Long White Cloud", image: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=800&q=80" },
     ],
   },
 ];
@@ -109,17 +109,35 @@ const menuPromos: Record<string, MenuPromo> = {
 };
 
 const travelStylesNav = [
-  { name: "Backpacker", description: "Maximum adventure, minimum spend", logo: "/backpacker-logo.png", href: "/travel-styles/backpacker" },
-  { name: "Classic", description: "The perfect balance of comfort and adventure", logo: "/classic-logo.png", href: "/travel-styles/classic" },
-  { name: "Flashpacker", description: "Adventure with an upgrade", logo: "/flashpacker-logo.png", href: "/travel-styles/flashpacker" },
-  { name: "Multi Country", description: "Cross borders, collect stamps", logo: "/multi-country-logo.png", href: "/travel-styles/multi-country" },
-  { name: "Limited Edition", description: "Once it's gone, it's gone", logo: "/limited-edition-logo.png", href: "/travel-styles/limited-edition" },
+  { name: "Backpacker", description: "Maximum adventure, minimum spend.", logo: "/backpacker-logo.png", href: "/travel-styles/backpacker", image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&q=80" },
+  { name: "Classic", description: "The perfect balance of comfort and adventure.", logo: "/classic-logo.png", href: "/travel-styles/classic", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" },
+  { name: "Flashpacker", description: "Adventure with an upgrade.", logo: "/flashpacker-logo.png", href: "/travel-styles/flashpacker", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" },
+  { name: "Multi Country", description: "Cross borders, collect stamps.", logo: "/multi-country-logo.png", href: "/travel-styles/multi-country", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" },
+  { name: "Limited Edition", description: "Once it's gone, it's gone.", logo: "/limited-edition-logo.png", href: "/travel-styles/limited-edition", image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80" },
 ];
 
 const dealsNav = [
-  { name: "Flash Sale", description: "Save up to 30% on 2026 departures", tag: "🔥" },
-  { name: "Last-Minute Deals", description: "Trips leaving within 30 days", tag: "⏱️" },
-  { name: "All Deals", description: "Browse every deal we've got", tag: "🎉" },
+  {
+    name: "Explore",
+    eyebrow: "Start Here",
+    description: "Most Popular, Perfect First, and Best Value picks.",
+    href: "/explore#explore",
+    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80",
+  },
+  {
+    name: "Deals",
+    eyebrow: "Limited Time",
+    description: "Sale departures and the biggest savings on right now.",
+    href: "/explore#deals",
+    image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=800&q=80",
+  },
+  {
+    name: "By Departure",
+    eyebrow: "Leaving Soon",
+    description: "Sorted by the next trips leaving — find one that fits.",
+    href: "/explore#departures",
+    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80",
+  },
 ];
 
 const aboutNav: {
@@ -127,37 +145,45 @@ const aboutNav: {
   href: string;
   description: string;
   image: string;
-  accent: "tru-pink" | "tru-green" | "tru-blue";
 }[] = [
   {
     name: "Our Story",
-    href: "/about",
-    description: "How TruTravels started and where we're going.",
+    href: "/about/our-story",
+    description: "How TruTravels started — straight from the founders.",
     image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80",
-    accent: "tru-pink",
   },
   {
-    name: "Led By Locals",
+    name: "Our Values",
+    href: "/about/our-values",
+    description: "What we stand for and how we travel.",
+    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80",
+  },
+  {
+    name: "Our Impact",
+    href: "/about/our-impact",
+    description: "Local guides, Planeterra projects, real change.",
+    image: "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=600&q=80",
+  },
+  {
+    name: "Our Community",
     href: "/about",
-    description: "Meet the trip leaders who make it real.",
+    description: "The travellers, leaders, and creators in our world.",
     image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=600&q=80",
-    accent: "tru-green",
   },
   {
-    name: "Stories & Blog",
-    href: "/stories",
-    description: "Watch, read, listen — from the road.",
+    name: "Our Brand",
+    href: "/about/our-brand",
+    description: "Logo, voice, and the look of TruTravels.",
     image: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=600&q=80",
-    accent: "tru-blue",
   },
 ];
 
 const essentialsNav = [
-  { name: "FAQs", href: "/about", description: "Everything you need to know" },
-  { name: "Travel Insurance", href: "/about", description: "Stay covered on the road" },
-  { name: "Visa & Passports", href: "/about", description: "Entry requirements by country" },
-  { name: "Booking Conditions", href: "/about", description: "Terms and conditions" },
-  { name: "Contact Us", href: "/about", description: "Get in touch with the team" },
+  { name: "FAQs", href: "/about", description: "Everything you need to know.", image: "https://images.unsplash.com/photo-1455894127589-22f75500213a?w=800&q=80" },
+  { name: "Travel Insurance", href: "/about", description: "Stay covered on the road.", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" },
+  { name: "Visa & Passports", href: "/about", description: "Entry requirements by country.", image: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=800&q=80" },
+  { name: "Booking Conditions", href: "/about", description: "Terms and conditions.", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" },
+  { name: "Contact Us", href: "/about", description: "Get in touch with the team.", image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80" },
 ];
 
 // ============================================================
@@ -172,7 +198,12 @@ export default function Navbar() {
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
   const [mobileRegion, setMobileRegion] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<{ name: string; description: string; image: string; href: string; eyebrow: string } | null>(null);
   const navRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    setHoveredItem(null);
+  }, [activeMenu]);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -193,13 +224,6 @@ export default function Navbar() {
     setActiveMenu(activeMenu === menu ? null : menu);
   };
 
-  const tagColor = (tag: string) => {
-    if (tag === "Top Seller") return "bg-tru-green text-tru-navy";
-    if (tag === "Popular") return "bg-tru-pink text-white";
-    if (tag === "New") return "bg-tru-blue text-white";
-    return "";
-  };
-
   const closeAll = () => {
     setActiveMenu(null);
     setMobileOpen(false);
@@ -216,37 +240,40 @@ export default function Navbar() {
   return (
     <nav ref={navRef} className="absolute top-0 left-0 right-0 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
-        <div className={`transition-all duration-300 ${activeMenu ? "rounded-t-[20px] rounded-b-none" : "rounded-full"} bg-tru-navy/95 backdrop-blur-md border border-white/10`}>
+        <div
+          className={`transition-all duration-300 ${activeMenu ? "rounded-[20px]" : "rounded-full"} bg-tru-navy/95 backdrop-blur-md border border-white/10 overflow-hidden`}
+          onMouseLeave={() => setActiveMenu(null)}
+        >
           <div className="flex items-center h-14 px-5">
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0 mr-4" onClick={closeAll}>
+            <Link href="/" className="flex-shrink-0 mr-4" onClick={closeAll} onMouseEnter={() => setActiveMenu(null)}>
               <img src="/logo-white.png" alt="TruTravels" className="h-9" />
             </Link>
 
             {/* Desktop nav */}
             <div className="hidden xl:flex items-center gap-0.5 flex-1">
-              <button onClick={() => toggleMenu("destinations")} className={navLinkClass("destinations")}>
+              <button onMouseEnter={() => setActiveMenu("destinations")} onClick={() => toggleMenu("destinations")} className={navLinkClass("destinations")}>
                 Destinations
               </button>
-              <button onClick={() => toggleMenu("styles")} className={navLinkClass("styles")}>
+              <button onMouseEnter={() => setActiveMenu("styles")} onClick={() => toggleMenu("styles")} className={navLinkClass("styles")}>
                 Travel Styles
               </button>
-              <button onClick={() => toggleMenu("deals")} className={navLinkClass("deals")}>
+              <button onMouseEnter={() => setActiveMenu("deals")} onClick={() => toggleMenu("deals")} className={navLinkClass("deals")}>
                 Deals
               </button>
-              <button onClick={() => toggleMenu("about")} className={navLinkClass("about")}>
+              <button onMouseEnter={() => setActiveMenu("about")} onClick={() => toggleMenu("about")} className={navLinkClass("about")}>
                 About Us
               </button>
-              <button onClick={() => toggleMenu("essentials")} className={navLinkClass("essentials")}>
+              <button onMouseEnter={() => setActiveMenu("essentials")} onClick={() => toggleMenu("essentials")} className={navLinkClass("essentials")}>
                 Essentials
               </button>
-              <Link href="/stories" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll}>
+              <Link href="/stories" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll} onMouseEnter={() => setActiveMenu(null)}>
                 Stories
               </Link>
             </div>
 
             {/* Right side */}
-            <div className="hidden xl:flex items-center gap-2 ml-auto">
+            <div className="hidden xl:flex items-center gap-2 ml-auto" onMouseEnter={() => setActiveMenu(null)}>
               <button onClick={() => { setSearchOpen(true); closeAll(); }} className="h-8 w-8 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -330,15 +357,18 @@ export default function Navbar() {
                             key={country.name}
                             href={country.href || "/explore"}
                             onClick={closeAll}
+                            onMouseEnter={() =>
+                              setHoveredItem({
+                                name: country.name,
+                                description: country.nickname,
+                                image: country.image,
+                                href: country.href || "/explore",
+                                eyebrow: region.region,
+                              })
+                            }
                             className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition px-2 py-1.5 rounded-md hover:bg-white/10"
                           >
-                            <span className="text-base leading-none flex-shrink-0">{country.flag}</span>
                             <span className="flex-1 truncate">{country.name}</span>
-                            {country.tag && (
-                              <span className={`text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full ${tagColor(country.tag)}`}>
-                                {country.tag}
-                              </span>
-                            )}
                           </Link>
                         ))}
                       </div>
@@ -349,7 +379,11 @@ export default function Navbar() {
                   ))}
                 </div>
                 <div className="col-span-3">
-                  <PromoTile promo={menuPromos.destinations} onClick={closeAll} />
+                  {hoveredItem ? (
+                    <ItemPromo item={hoveredItem} onClick={closeAll} />
+                  ) : (
+                    <PromoTile promo={menuPromos.destinations} onClick={closeAll} />
+                  )}
                 </div>
               </div>
             </div>
@@ -361,14 +395,36 @@ export default function Navbar() {
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-9 grid grid-cols-5 gap-3">
                   {travelStylesNav.map((style) => (
-                    <Link key={style.name} href={style.href} onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200 text-center">
-                      <img src={style.logo} alt={style.name} className="h-20 mx-auto mb-3" />
-                      <p className="text-xs text-gray-400 leading-snug">{style.description}</p>
+                    <Link
+                      key={style.name}
+                      href={style.href}
+                      onClick={closeAll}
+                      onMouseEnter={() =>
+                        setHoveredItem({
+                          name: style.name,
+                          description: style.description,
+                          image: style.image,
+                          href: style.href,
+                          eyebrow: "Travel Style",
+                        })
+                      }
+                      className="block group rounded-md p-3 hover:bg-white/5 transition"
+                    >
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
+                        {style.name}
+                      </p>
+                      <p className="text-xs text-gray-300 leading-snug group-hover:text-white transition">
+                        {style.description}
+                      </p>
                     </Link>
                   ))}
                 </div>
                 <div className="col-span-3">
-                  <PromoTile promo={menuPromos.styles} onClick={closeAll} />
+                  {hoveredItem ? (
+                    <ItemPromo item={hoveredItem} onClick={closeAll} />
+                  ) : (
+                    <PromoTile promo={menuPromos.styles} onClick={closeAll} />
+                  )}
                 </div>
               </div>
             </div>
@@ -380,16 +436,36 @@ export default function Navbar() {
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-9 grid grid-cols-3 gap-4">
                   {dealsNav.map((deal) => (
-                    <Link key={deal.name} href="/explore" onClick={closeAll} className="group rounded-[10px] border border-white/10 p-5 hover:border-tru-green/30 hover:bg-white/5 transition-all duration-200">
-                      <p className="text-sm font-bold text-white font-heading group-hover:text-tru-green transition">
-                        <span className="mr-2 text-base">{deal.tag}</span>{deal.name}
+                    <Link
+                      key={deal.name}
+                      href={deal.href}
+                      onClick={closeAll}
+                      onMouseEnter={() =>
+                        setHoveredItem({
+                          name: deal.name,
+                          description: deal.description,
+                          image: deal.image,
+                          href: deal.href,
+                          eyebrow: deal.eyebrow,
+                        })
+                      }
+                      className="block group rounded-md p-3 hover:bg-white/5 transition"
+                    >
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
+                        {deal.name}
                       </p>
-                      <p className="text-xs text-gray-400 mt-1">{deal.description}</p>
+                      <p className="text-xs text-gray-300 leading-snug group-hover:text-white transition">
+                        {deal.description}
+                      </p>
                     </Link>
                   ))}
                 </div>
                 <div className="col-span-3">
-                  <PromoTile promo={menuPromos.deals} onClick={closeAll} />
+                  {hoveredItem ? (
+                    <ItemPromo item={hoveredItem} onClick={closeAll} />
+                  ) : (
+                    <PromoTile promo={menuPromos.deals} onClick={closeAll} />
+                  )}
                 </div>
               </div>
             </div>
@@ -399,33 +475,38 @@ export default function Navbar() {
           {activeMenu === "about" && (
             <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
               <div className="grid grid-cols-12 gap-4">
-                <div className="col-span-9 grid grid-cols-3 gap-4">
+                <div className="col-span-9 grid grid-cols-5 gap-3">
                   {aboutNav.map((item) => (
                     <Link
                       key={item.name}
                       href={item.href}
                       onClick={closeAll}
-                      className="group relative overflow-hidden rounded-[10px] aspect-[5/3] block"
+                      onMouseEnter={() =>
+                        setHoveredItem({
+                          name: item.name,
+                          description: item.description,
+                          image: item.image,
+                          href: item.href,
+                          eyebrow: "About TruTravels",
+                        })
+                      }
+                      className="block group rounded-md p-3 hover:bg-white/5 transition"
                     >
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/40 to-transparent" />
-                      <div className="absolute bottom-0 left-0 right-0 p-4">
-                        <p
-                          className={`text-xs font-black uppercase tracking-[0.18em] mb-1 font-heading text-${item.accent}`}
-                        >
-                          {item.name}
-                        </p>
-                        <p className="text-[11px] text-gray-200 leading-snug">{item.description}</p>
-                      </div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
+                        {item.name}
+                      </p>
+                      <p className="text-xs text-gray-300 leading-snug group-hover:text-white transition">
+                        {item.description}
+                      </p>
                     </Link>
                   ))}
                 </div>
                 <div className="col-span-3">
-                  <PromoTile promo={menuPromos.about} onClick={closeAll} />
+                  {hoveredItem ? (
+                    <ItemPromo item={hoveredItem} onClick={closeAll} />
+                  ) : (
+                    <PromoTile promo={menuPromos.about} onClick={closeAll} />
+                  )}
                 </div>
               </div>
             </div>
@@ -437,14 +518,36 @@ export default function Navbar() {
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-9 grid grid-cols-5 gap-3">
                   {essentialsNav.map((item) => (
-                    <Link key={item.name} href={item.href} onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200">
-                      <p className="text-sm font-bold text-white font-heading group-hover:text-tru-pink transition">{item.name}</p>
-                      <p className="text-xs text-gray-400 mt-1 leading-snug">{item.description}</p>
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={closeAll}
+                      onMouseEnter={() =>
+                        setHoveredItem({
+                          name: item.name,
+                          description: item.description,
+                          image: item.image,
+                          href: item.href,
+                          eyebrow: "Essentials",
+                        })
+                      }
+                      className="block group rounded-md p-3 hover:bg-white/5 transition"
+                    >
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
+                        {item.name}
+                      </p>
+                      <p className="text-xs text-gray-300 leading-snug group-hover:text-white transition">
+                        {item.description}
+                      </p>
                     </Link>
                   ))}
                 </div>
                 <div className="col-span-3">
-                  <PromoTile promo={menuPromos.essentials} onClick={closeAll} />
+                  {hoveredItem ? (
+                    <ItemPromo item={hoveredItem} onClick={closeAll} />
+                  ) : (
+                    <PromoTile promo={menuPromos.essentials} onClick={closeAll} />
+                  )}
                 </div>
               </div>
             </div>
@@ -499,11 +602,6 @@ export default function Navbar() {
                             className="flex items-center gap-2 text-sm text-gray-500 hover:text-white py-1 transition"
                           >
                             {country.name}
-                            {country.tag && (
-                              <span className={`text-[7px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full ${tagColor(country.tag)}`}>
-                                {country.tag}
-                              </span>
-                            )}
                           </Link>
                         ))}
                       </div>
@@ -517,7 +615,7 @@ export default function Navbar() {
           {/* Other sections */}
           {[
             { label: "Travel Styles", key: "m-styles", items: travelStylesNav.map((s) => ({ name: s.name, href: s.href })) },
-            { label: "Deals", key: "m-deals", items: dealsNav.map((d) => ({ name: d.name, href: "/explore" })) },
+            { label: "Deals", key: "m-deals", items: dealsNav.map((d) => ({ name: d.name, href: d.href })) },
             { label: "About Us", key: "m-about", items: aboutNav.map((a) => ({ name: a.name, href: a.href })) },
             { label: "Essentials", key: "m-essentials", items: essentialsNav.map((e) => ({ name: e.name, href: e.href })) },
           ].map((section) => (
@@ -569,7 +667,7 @@ function PromoTile({ promo, onClick }: { promo: MenuPromo; onClick: () => void }
     <Link
       href={promo.href}
       onClick={onClick}
-      className="group relative overflow-hidden rounded-[10px] aspect-[4/3] block h-full"
+      className="group relative overflow-hidden rounded-[10px] block h-full min-h-[200px]"
     >
       <img
         src={promo.image}
@@ -585,6 +683,38 @@ function PromoTile({ promo, onClick }: { promo: MenuPromo; onClick: () => void }
           {promo.title}
         </p>
         <p className="text-[11px] text-gray-200 leading-snug">{promo.description}</p>
+      </div>
+    </Link>
+  );
+}
+
+function ItemPromo({
+  item,
+  onClick,
+}: {
+  item: { name: string; description: string; image: string; href: string; eyebrow: string };
+  onClick: () => void;
+}) {
+  return (
+    <Link
+      href={item.href}
+      onClick={onClick}
+      className="group relative overflow-hidden rounded-[10px] block h-full min-h-[200px]"
+    >
+      <img
+        src={item.image}
+        alt={item.name}
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/50 to-tru-navy/20" />
+      <div className="absolute bottom-0 left-0 right-0 p-4">
+        <p className="text-[9px] font-black uppercase tracking-[0.22em] text-tru-pink font-heading mb-1">
+          {item.eyebrow}
+        </p>
+        <p className="text-2xl font-black uppercase text-white font-heading leading-[0.95] mb-1 group-hover:text-tru-pink transition-colors">
+          {item.name}
+        </p>
+        <p className="text-[11px] text-gray-200 italic leading-snug">{item.description}</p>
       </div>
     </Link>
   );
