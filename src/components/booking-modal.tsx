@@ -241,7 +241,14 @@ export default function BookingModal({
                                 <p className="text-white text-sm font-medium">{formatDate(dep.date)}</p>
                                 <p className="text-gray-400 text-[11px]">
                                   {config.label}
-                                  {dep.discount && <span className="text-tru-pink ml-1.5">&middot; {dep.discount}</span>}
+                                  {dep.discount && (
+                                    <span className="text-tru-pink ml-1.5">
+                                      &middot; {dep.discount}
+                                      {dep.originalPrice && dep.originalPrice !== dep.price && (
+                                        <> &middot; Save &pound;{dep.originalPrice - dep.price}</>
+                                      )}
+                                    </span>
+                                  )}
                                 </p>
                               </div>
                             </div>
@@ -255,11 +262,6 @@ export default function BookingModal({
                                 </span>
                               </div>
                               <p className="text-gray-500 text-[10px]">per person</p>
-                              {dep.originalPrice && dep.originalPrice !== dep.price && (
-                                <p className="text-tru-pink text-[10px] font-semibold mt-0.5">
-                                  Save &pound;{dep.originalPrice - dep.price}
-                                </p>
-                              )}
                             </div>
                           </button>
                         );
