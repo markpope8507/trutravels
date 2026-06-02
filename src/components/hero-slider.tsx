@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, EffectFade } from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import InspireMeWrapper from "@/components/inspire-me-wrapper";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/effect-fade";
+import "swiper/css/navigation";
 
 type Slide = {
   id: string;
@@ -17,6 +17,9 @@ type Slide = {
   headline: React.ReactNode;
   tagline: string;
   taglineColor: string; // tailwind text-* class
+  cta:
+    | { kind: "default" } // Explore Experiences + Inspire Me
+    | { kind: "single"; label: string; href: string };
 };
 
 const slides: Slide[] = [
@@ -35,6 +38,7 @@ const slides: Slide[] = [
     ),
     tagline: "Find your Extraordinary…",
     taglineColor: "text-tru-pink",
+    cta: { kind: "default" },
   },
   {
     id: "thailand-summer-sale",
@@ -52,6 +56,11 @@ const slides: Slide[] = [
     ),
     tagline: "Beaches, parties, full moons — at our best prices.",
     taglineColor: "text-tru-pink",
+    cta: {
+      kind: "single",
+      label: "Let's Go!",
+      href: "/destinations/southeast-asia/thailand",
+    },
   },
   {
     id: "rio-carnival-2027",
@@ -69,6 +78,7 @@ const slides: Slide[] = [
     ),
     tagline: "Be first in line when it goes live.",
     taglineColor: "text-tru-green",
+    cta: { kind: "single", label: "Sign Me Up!", href: "/signup" },
   },
 ];
 
@@ -76,12 +86,11 @@ export default function HeroSlider() {
   return (
     <section className="hero-slider relative h-screen overflow-hidden">
       <Swiper
-        modules={[Autoplay, Pagination, EffectFade]}
-        effect="fade"
-        fadeEffect={{ crossFade: true }}
+        modules={[Autoplay, Pagination, Navigation]}
         autoplay={{ delay: 7000, disableOnInteraction: false }}
         loop
         pagination={{ el: ".hero-pagination", clickable: true }}
+        navigation={{ nextEl: ".hero-next", prevEl: ".hero-prev" }}
         speed={900}
         className="h-full"
       >
@@ -123,13 +132,24 @@ export default function HeroSlider() {
                     {s.tagline}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <Link
-                      href="/explore"
-                      className="rounded-[10px] border border-white bg-transparent px-8 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-all duration-300 uppercase tracking-wider w-56 text-center"
-                    >
-                      Explore Experiences
-                    </Link>
-                    <InspireMeWrapper />
+                    {s.cta.kind === "default" ? (
+                      <>
+                        <Link
+                          href="/explore"
+                          className="rounded-[10px] border border-white bg-transparent px-8 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-all duration-300 uppercase tracking-wider w-56 text-center"
+                        >
+                          Explore Experiences
+                        </Link>
+                        <InspireMeWrapper />
+                      </>
+                    ) : (
+                      <Link
+                        href={s.cta.href}
+                        className="rounded-[10px] bg-tru-pink px-10 py-4 text-base font-bold text-white hover:bg-tru-pink-light transition-all duration-300 uppercase tracking-wider text-center shadow-lg shadow-tru-pink/30"
+                      >
+                        {s.cta.label}
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
@@ -137,6 +157,24 @@ export default function HeroSlider() {
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* Navigation arrows */}
+      <button
+        className="hero-prev absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-tru-pink hover:border-tru-pink transition-colors"
+        aria-label="Previous slide"
+      >
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button
+        className="hero-next absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 h-12 w-12 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-tru-pink hover:border-tru-pink transition-colors"
+        aria-label="Next slide"
+      >
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
 
       {/* Pagination dots */}
       <div className="hero-pagination absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex gap-3" />
