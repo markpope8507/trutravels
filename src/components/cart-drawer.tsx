@@ -148,7 +148,7 @@ export default function CartDrawer() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-white text-sm font-black uppercase font-heading leading-snug truncate">
+                      <p className="text-white text-sm font-black uppercase font-heading leading-snug line-clamp-2">
                         {item.tripTitle}
                       </p>
                       {item.startLocation && item.endLocation && (

@@ -506,7 +506,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                       <img src={trip.image} alt={trip.title} className="h-full w-full object-cover" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-white text-sm font-black uppercase font-heading leading-snug truncate group-hover:text-tru-pink transition-colors">
+                      <p className="text-white text-sm font-black uppercase font-heading leading-snug line-clamp-2 group-hover:text-tru-pink transition-colors">
                         {trip.title}
                       </p>
                       {trip.startLocation && trip.endLocation && (
