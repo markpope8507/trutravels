@@ -188,11 +188,11 @@ html, body {
 
 /* Hero slider pagination — branded circles, pink active */
 .hero-pagination .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: transparent;
-  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   opacity: 1;
   margin: 0;
   transition: all 0.3s;
