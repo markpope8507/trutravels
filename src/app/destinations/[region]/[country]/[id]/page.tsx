@@ -306,7 +306,7 @@ export default async function TripDetailPage({
             {/* Itinerary */}
             <section id="itinerary" className="mb-12">
               <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-6">Itinerary</h2>
-              <CollapsibleItinerary days={trip.itinerary} />
+              <CollapsibleItinerary days={trip.itinerary} activities={trip.inclusions?.activities} />
             </section>
 
             {/* Map (mobile only) */}

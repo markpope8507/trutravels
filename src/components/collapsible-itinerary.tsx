@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { experienceTypes } from "@/lib/data";
 
 type ItineraryDay = {
   day: number;
@@ -9,7 +10,19 @@ type ItineraryDay = {
   image?: string;
 };
 
-export default function CollapsibleItinerary({ days }: { days: ItineraryDay[] }) {
+type Activity = {
+  name: string;
+  experienceType?: string;
+  day?: number;
+};
+
+export default function CollapsibleItinerary({
+  days,
+  activities = [],
+}: {
+  days: ItineraryDay[];
+  activities?: Activity[];
+}) {
   const [openDay, setOpenDay] = useState<number | null>(1);
 
   const toggle = (day: number) => {
@@ -20,6 +33,12 @@ export default function CollapsibleItinerary({ days }: { days: ItineraryDay[] })
     <div className="space-y-3">
       {days.map((day) => {
         const isOpen = openDay === day.day;
+        const dayTypeIds = new Set(
+          activities
+            .filter((a) => a.day === day.day && a.experienceType)
+            .map((a) => a.experienceType as string),
+        );
+        const dayExpTypes = experienceTypes.filter((e) => dayTypeIds.has(e.id));
         return (
           <div
             key={day.day}
@@ -75,6 +94,26 @@ export default function CollapsibleItinerary({ days }: { days: ItineraryDay[] })
                     {day.description}
                   </p>
                 </div>
+
+                {/* Experience-type pills for this day */}
+                {dayExpTypes.length > 0 && (
+                  <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center gap-2">
+                    {dayExpTypes.map((e) => (
+                      <span
+                        key={e.id}
+                        className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider font-heading"
+                        style={{
+                          background: `${e.color}20`,
+                          border: `1px solid ${e.color}50`,
+                          color: e.color,
+                        }}
+                      >
+                        <span className="text-sm leading-none">{e.emoji}</span>
+                        {e.name}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
