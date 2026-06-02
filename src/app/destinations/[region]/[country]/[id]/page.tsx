@@ -85,8 +85,8 @@ export default async function TripDetailPage({
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-24 w-full">
           {/* Top row — travel style badge + member chip */}
-          <div className="animate-fade-up flex items-center gap-3 mb-4">
-            <TravelStyleBadge style={trip.travelStyle} size="small" />
+          <div className="animate-fade-up flex items-center gap-4 mb-4">
+            <TravelStyleBadge style={trip.travelStyle} />
             {trip.memberOnly && (
               <span className="bg-amber-400 text-black text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading">
                 Members Only
@@ -96,7 +96,7 @@ export default async function TripDetailPage({
 
           {/* Title + Price row */}
           <div className="animate-fade-up delay-100 flex items-end justify-between gap-6 flex-wrap mb-3">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white uppercase font-heading leading-[0.95]">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white uppercase font-heading leading-[1.05]">
               {trip.title}
             </h1>
             <div className="flex items-end gap-3 flex-shrink-0 relative">
