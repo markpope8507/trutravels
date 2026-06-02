@@ -39,7 +39,7 @@ const slides: Slide[] = [
   {
     id: "thailand-summer-sale",
     video:
-      "https://videos.pexels.com/video-files/3015510/3015510-uhd_2560_1440_24fps.mp4",
+      "https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4",
     poster:
       "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1920&q=80",
     eyebrow: "Limited Time · Up To 40% Off",
@@ -56,7 +56,7 @@ const slides: Slide[] = [
   {
     id: "rio-carnival-2027",
     video:
-      "https://videos.pexels.com/video-files/5752729/5752729-uhd_2560_1440_25fps.mp4",
+      "https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4",
     poster:
       "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1920&q=80",
     eyebrow: "Limited Edition · Sign Up For The Launch Date",
