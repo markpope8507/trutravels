@@ -49,6 +49,38 @@ export default function ActivitiesTabs({
 
   return (
     <div>
+      {/* Intro explainer — what the tabs are and why we use them */}
+      <div className="rounded-[12px] border border-white/10 bg-white/[0.04] p-5 mb-5">
+        <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.22em] mb-2 font-heading">
+          The Tru Approach
+        </p>
+        <h3 className="text-white font-black uppercase font-heading text-lg sm:text-xl mb-3 leading-tight">
+          5 Experience Types &middot; 1 Intentional Journey
+        </h3>
+        <p className="text-gray-300 text-sm leading-relaxed mb-4">
+          Every Tru trip is intentionally designed around five core experience types — each one plays a role in shaping your journey. Tap <span className="text-white font-semibold">All</span> for the full activity list, or pick a type below to see how it shows up on this adventure.
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+          {experienceTypes.map((e) => (
+            <button
+              key={e.id}
+              type="button"
+              onClick={() => setActiveTab(e.id)}
+              className="rounded-[10px] border bg-white/5 px-3 py-2.5 text-center hover:bg-white/10 transition-colors"
+              style={{ borderColor: `${e.color}40` }}
+            >
+              <p className="text-base leading-none">{e.emoji}</p>
+              <p
+                className="text-[10px] font-bold uppercase tracking-wider font-heading mt-1.5"
+                style={{ color: e.color }}
+              >
+                {e.name}
+              </p>
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Tabs */}
       <div className="flex flex-wrap gap-2 mb-4">
         {tabs.map((tab) => (
