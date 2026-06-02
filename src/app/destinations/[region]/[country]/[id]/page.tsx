@@ -1,6 +1,5 @@
 import { trips, getTripExperienceCounts } from "@/lib/data";
 import TravelStylePill from "@/components/travel-style-pill";
-import TravelStyleBadge from "@/components/travel-style-badge";
 import ActivitiesTabs from "@/components/activities-tabs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -84,19 +83,15 @@ export default async function TripDetailPage({
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/70 to-transparent" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-24 w-full">
-          {/* Top row — travel style badge + member chip */}
-          <div className="animate-fade-up flex items-center gap-4 mb-4">
-            <TravelStyleBadge style={trip.travelStyle} />
-            {trip.memberOnly && (
-              <span className="bg-amber-400 text-black text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading">
-                Members Only
-              </span>
-            )}
-          </div>
+          {trip.memberOnly && (
+            <span className="animate-fade-up inline-block bg-amber-400 text-black text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading mb-4">
+              Members Only
+            </span>
+          )}
 
           {/* Title + Price row */}
           <div className="animate-fade-up delay-100 flex items-end justify-between gap-6 flex-wrap mb-3">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white uppercase font-heading leading-[1.05]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white uppercase font-heading leading-[0.95]">
               {trip.title}
             </h1>
             <div className="flex items-end gap-3 flex-shrink-0 relative">
