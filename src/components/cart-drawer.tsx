@@ -128,18 +128,39 @@ export default function CartDrawer() {
             </div>
           ) : (
             <div className="space-y-4">
-              {items.map((item) => (
+              {items.map((item) => {
+                const discountPct = item.originalPricePerPerson
+                  ? Math.round(
+                      ((item.originalPricePerPerson - item.pricePerPerson) /
+                        item.originalPricePerPerson) *
+                        100,
+                    )
+                  : 0;
+                const lineSave = item.originalPricePerPerson
+                  ? (item.originalPricePerPerson - item.pricePerPerson) *
+                    item.travellers
+                  : 0;
+
+                return (
                 <div
                   key={item.id}
                   className="rounded-[12px] border border-white/10 bg-white/[0.04] overflow-hidden"
                 >
-                  <div className="flex gap-3 p-3">
-                    <div className="h-20 w-20 rounded-[8px] overflow-hidden flex-shrink-0">
+                  <div className="flex gap-3 p-3 relative">
+                    <div className="relative h-20 w-20 rounded-[8px] overflow-hidden flex-shrink-0">
                       <img
                         src={item.image}
                         alt={item.tripTitle}
                         className="h-full w-full object-cover"
                       />
+                      {discountPct > 0 && (
+                        <div
+                          className="absolute -top-1.5 -right-1.5 h-9 w-9 rounded-full bg-red-600 text-white flex flex-col items-center justify-center font-heading shadow-lg ring-2 ring-red-500/40"
+                          style={{ transform: "rotate(-10deg)" }}
+                        >
+                          <span className="text-[10px] font-black leading-none">−{discountPct}%</span>
+                        </div>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm font-bold font-heading leading-snug truncate">
@@ -193,18 +214,26 @@ export default function CartDrawer() {
                       </button>
                     </div>
                     <div className="text-right">
-                      <p className="text-white text-sm font-bold font-heading">
-                        &pound;{item.pricePerPerson * item.travellers}
-                      </p>
-                      {item.originalPricePerPerson && (
-                        <p className="text-gray-500 text-[10px] line-through">
-                          &pound;{item.originalPricePerPerson * item.travellers}
+                      <div className="flex items-baseline gap-2 justify-end">
+                        {item.originalPricePerPerson && (
+                          <span className="text-gray-500 text-[11px] line-through">
+                            &pound;{item.originalPricePerPerson * item.travellers}
+                          </span>
+                        )}
+                        <p className="text-white text-base font-black font-heading">
+                          &pound;{item.pricePerPerson * item.travellers}
+                        </p>
+                      </div>
+                      {lineSave > 0 && (
+                        <p className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading mt-0.5">
+                          Save &pound;{lineSave}
                         </p>
                       )}
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
@@ -214,8 +243,8 @@ export default function CartDrawer() {
           <div className="border-t border-white/10 px-6 py-5 space-y-3 bg-white/[0.02]">
             {totalSavings > 0 && (
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-400">You save</span>
-                <span className="text-white font-bold">&pound;{totalSavings}</span>
+                <span className="text-tru-pink">You save</span>
+                <span className="text-tru-pink font-bold">&pound;{totalSavings}</span>
               </div>
             )}
             <div className="flex items-center justify-between text-sm">
@@ -226,7 +255,7 @@ export default function CartDrawer() {
             </div>
             <div className="flex items-center justify-between text-xs">
               <span className="text-gray-400">Or deposit today</span>
-              <span className="text-tru-green font-bold">&pound;{totalDeposit}</span>
+              <span className="text-white font-bold">&pound;{totalDeposit}</span>
             </div>
             <button
               className="w-full rounded-[10px] py-3.5 text-sm font-bold uppercase tracking-wider font-heading transition-all duration-200 border mt-2"
