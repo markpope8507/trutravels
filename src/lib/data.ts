@@ -231,8 +231,7 @@ export const trips: Trip[] = [
     travelStyle: "classic",
     rating: 4.9,
     reviewCount: 305,
-    image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
-    video: "https://cdn.pixabay.com/video/2020/07/30/45349-445400181_large.mp4",
+    image: "/images/thailand-island-hopper-hero.jpg",
     tagline: "Paradise found, one island at a time",
     description:
       "From the neon buzz of Bangkok to the crystal waters of the Andaman Sea. Explore hidden lagoons, sleep under stars on the beach, and discover why Thailand is every traveller's first love.",
