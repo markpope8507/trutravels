@@ -736,6 +736,73 @@ export const drops: Drop[] = [
 // Using free Pexels travel videos as placeholders
 // ============================================================
 
+// Featured content series for the Stories landing page (Watch & Learn)
+export type StoryContentSeries = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  episodes: number;
+  tag: string;
+};
+
+export const storyContentSeries: StoryContentSeries[] = [
+  {
+    id: "scs-bangkok-48",
+    title: "48 Hours in Bangkok",
+    description:
+      "The ultimate speed-run through Thailand's chaotic, beautiful capital. Temples, street food, rooftop bars, and more.",
+    image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",
+    episodes: 6,
+    tag: "City Guide",
+  },
+  {
+    id: "scs-thai-cooking",
+    title: "Thai Cooking Masterclass",
+    description:
+      "From market to plate — learn the secrets behind Thailand's most iconic dishes with a local Bangkok family.",
+    image: "https://images.unsplash.com/photo-1559847844-5315695dadae?w=800&q=80",
+    episodes: 8,
+    tag: "Food & Culture",
+  },
+  {
+    id: "scs-island-hopper",
+    title: "Island Hopper Diaries",
+    description:
+      "Follow a group of TruTravellers as they hop between Thailand's most stunning islands over 14 days.",
+    image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
+    episodes: 6,
+    tag: "Travel Series",
+  },
+  {
+    id: "scs-khao-sok",
+    title: "Khao Sok: Into The Wild",
+    description:
+      "Kayaking, floating bungalows, and the oldest rainforests on Earth. A four-part adventure in Thailand's hidden interior.",
+    image: "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800&q=80",
+    episodes: 4,
+    tag: "Adventure",
+  },
+  {
+    id: "scs-bali-beyond",
+    title: "Bali Beyond the Beach",
+    description:
+      "Discover Bali's spiritual side — temples, ceremonies, and the healing rituals only locals know.",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+    episodes: 5,
+    tag: "Culture",
+  },
+  {
+    id: "scs-vietnam-n2s",
+    title: "Vietnam North to South",
+    description:
+      "The ultimate road trip from Hanoi to Ho Chi Minh City — every stop, every meal, every detour.",
+    image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
+    episodes: 8,
+    tag: "Travel Series",
+  },
+];
+
 export type VideoDiary = {
   id: string;
   video: string;

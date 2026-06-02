@@ -2,12 +2,18 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, FreeMode } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/free-mode";
 import {
   stories,
   videoDiaries,
   storyTopics,
   storyLifeMoments,
   storyTypes,
+  storyContentSeries,
   type Story,
   type StoryType,
 } from "@/lib/data";
@@ -126,6 +132,104 @@ export default function StoriesPage() {
 
         <div className="mx-auto max-w-7xl pl-4 sm:pl-6 lg:pl-8 overflow-hidden">
           <VideoDiariesCarousel diaries={videoDiaries} />
+        </div>
+      </section>
+
+      {/* CONTENT SERIES */}
+      <section className="py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">
+            Watch &amp; Learn
+          </p>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading">
+            Content Series
+          </h2>
+          <p className="text-gray-400 mt-4 max-w-lg">
+            Deep-dive video series. Hit play and disappear for an afternoon.
+          </p>
+        </div>
+
+        <div className="mx-auto max-w-7xl pl-4 sm:pl-6 lg:pl-8 overflow-hidden">
+          <div className="content-series-carousel relative">
+            <Swiper
+              modules={[Navigation, FreeMode]}
+              spaceBetween={16}
+              slidesPerView={1.2}
+              freeMode={{ enabled: true, sticky: false }}
+              navigation={{
+                nextEl: ".cs-next",
+                prevEl: ".cs-prev",
+              }}
+              breakpoints={{
+                480: { slidesPerView: 1.8 },
+                640: { slidesPerView: 2.5 },
+                1024: { slidesPerView: 3.2, spaceBetween: 20 },
+                1280: { slidesPerView: 3.7, spaceBetween: 20 },
+              }}
+              speed={600}
+              className="!overflow-visible"
+            >
+              {storyContentSeries.map((s) => (
+                <SwiperSlide key={s.id}>
+                  <div className="group rounded-[10px] border border-white/10 bg-white/5 overflow-hidden hover:border-tru-pink/30 transition-all duration-300 cursor-pointer">
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      <img
+                        src={s.image}
+                        alt={s.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      <span className="absolute top-3 left-3 bg-tru-pink text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading">
+                        {s.tag}
+                      </span>
+                      <span className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                        {s.episodes} episodes
+                      </span>
+                    </div>
+                    <div className="p-5">
+                      <h3 className="text-white text-base font-bold font-heading group-hover:text-tru-pink transition-colors mb-1.5">
+                        {s.title}
+                      </h3>
+                      <p className="text-gray-400 text-sm line-clamp-2">
+                        {s.description}
+                      </p>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            <button className="cs-prev absolute top-[28%] -left-2 sm:-left-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
+              <svg
+                className="h-4 w-4 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <button className="cs-next absolute top-[28%] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
+              <svg
+                className="h-4 w-4 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
 
