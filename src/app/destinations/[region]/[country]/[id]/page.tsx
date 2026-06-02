@@ -11,8 +11,7 @@ import AccommodationCarousel from "@/components/accommodation-carousel";
 import MapViewer from "@/components/map-viewer";
 import TripBookingWrapper from "@/components/trip-booking-wrapper";
 import TrackTripView from "@/components/track-trip-view";
-import BackButton from "@/components/back-button";
-import HeroBookButton from "@/components/hero-book-button";
+import SnapshotBookButton from "@/components/snapshot-book-button";
 import TripReviews from "@/components/trip-reviews";
 import TripFaqs from "@/components/trip-faqs";
 import RelatedTrips from "@/components/related-trips";
@@ -48,7 +47,6 @@ export default async function TripDetailPage({
   return (
     <>
       <TrackTripView tripId={trip.id} />
-      <BackButton />
       <TripBookingWrapper
         price={trip.price}
         originalPrice={trip.originalPrice}
@@ -89,32 +87,10 @@ export default async function TripDetailPage({
             </span>
           )}
 
-          {/* Title + Price row */}
-          <div className="animate-fade-up delay-100 flex items-end justify-between gap-6 flex-wrap mb-3">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white uppercase font-heading leading-[0.95]">
-              {trip.title}
-            </h1>
-            <div className="flex items-end gap-3 flex-shrink-0 relative">
-              {trip.originalPrice && (
-                <span className="text-gray-400 text-xl sm:text-2xl line-through">
-                  &pound;{trip.originalPrice}
-                </span>
-              )}
-              <span className="text-white text-3xl sm:text-5xl font-black font-heading leading-none">
-                &pound;{trip.price}
-              </span>
-              {discountPct > 0 && (
-                <div
-                  className="ml-2 h-20 w-20 rounded-full bg-red-600 text-white flex flex-col items-center justify-center font-heading shadow-xl ring-2 ring-red-500/40 flex-shrink-0"
-                  style={{ transform: "rotate(-10deg)" }}
-                >
-                  <span className="text-[9px] font-black uppercase tracking-[0.18em] leading-none mb-0.5 opacity-90">Save</span>
-                  <span className="text-2xl font-black leading-none">{discountPct}%</span>
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] leading-none mt-0.5">Off</span>
-                </div>
-              )}
-            </div>
-          </div>
+          {/* Title */}
+          <h1 className="animate-fade-up delay-100 text-4xl sm:text-5xl lg:text-6xl font-black text-white uppercase font-heading leading-[0.95] mb-3">
+            {trip.title}
+          </h1>
 
           {/* Start → End */}
           {trip.startLocation && trip.endLocation && (
@@ -175,11 +151,10 @@ export default async function TripDetailPage({
             )}
           </div>
 
-          {/* Action buttons */}
-          <div className="animate-fade-up delay-300 flex items-center gap-3">
+          {/* Share / Favourite — booking and price live in the snapshot section below */}
+          <div className="animate-fade-up delay-300 flex items-center gap-2">
             <ShareButtons title={trip.title} />
             <FavouriteButton tripId={trip.id} />
-            <HeroBookButton />
           </div>
         </div>
 
@@ -193,7 +168,7 @@ export default async function TripDetailPage({
 
       {/* Breadcrumbs */}
       <nav className="border-b border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 flex-wrap">
           <ol className="flex items-center gap-2 text-xs text-gray-400">
             <li>
               <Link href="/explore" className="hover:text-white transition-colors">Destinations</Link>
@@ -207,6 +182,15 @@ export default async function TripDetailPage({
               <Link href={`/destinations/country/${trip.destination.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-white transition-colors">{trip.destination}</Link>
             </li>
           </ol>
+          <Link
+            href={`/destinations/country/${trip.destination.toLowerCase().replace(/\s+/g, "-")}`}
+            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-tru-pink transition-colors uppercase tracking-wider font-semibold font-heading"
+          >
+            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            All {trip.destination} Trips
+          </Link>
         </div>
       </nav>
 
@@ -345,6 +329,51 @@ export default async function TripDetailPage({
           {/* Sidebar — desktop only */}
           <div className="hidden lg:block">
             <div className="sticky top-24 space-y-8">
+              {/* Pricing card */}
+              <section id="booking">
+                <div className="bg-white/[0.06] border border-white/15 rounded-[16px] p-6">
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-[10px] text-gray-400 uppercase tracking-wider font-heading">From</span>
+                    {trip.originalPrice && (
+                      <span className="text-gray-500 text-sm line-through">&pound;{trip.originalPrice}</span>
+                    )}
+                  </div>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-white text-4xl font-black font-heading leading-none">&pound;{trip.price}</span>
+                    <span className="text-gray-400 text-sm">/ person</span>
+                  </div>
+                  {discountPct > 0 && (
+                    <span className="inline-block bg-red-600 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full font-heading mt-3">
+                      Save {discountPct}% &middot; &pound;{(trip.originalPrice ?? 0) - trip.price}
+                    </span>
+                  )}
+
+                  <div className="grid grid-cols-2 gap-4 mt-5 pt-4 border-t border-white/10">
+                    <div>
+                      <p className="text-[10px] text-gray-400 uppercase tracking-wider font-heading mb-1">Next Departure</p>
+                      <p className="text-white text-sm font-semibold">
+                        {trip.departures?.[0]
+                          ? new Date(trip.departures[0].date).toLocaleDateString("en-GB", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            })
+                          : "Multiple dates"}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-gray-400 uppercase tracking-wider font-heading mb-1">Duration</p>
+                      <p className="text-white text-sm font-semibold">{trip.duration}</p>
+                    </div>
+                  </div>
+
+                  <SnapshotBookButton />
+                  <p className="text-center text-[10px] text-gray-500 mt-2 uppercase tracking-wider font-heading">
+                    &pound;{trip.depositPrice ?? 150} deposit secures your spot
+                  </p>
+                </div>
+              </section>
+
               {/* Map */}
               <section id="map">
                 <h3 className="text-lg font-black text-white uppercase font-heading tracking-wide mb-3">Map</h3>
@@ -368,3 +397,4 @@ export default async function TripDetailPage({
     </>
   );
 }
+
