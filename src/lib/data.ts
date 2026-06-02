@@ -62,7 +62,7 @@ export type Trip = {
     transport?: string;
     meals?: string;
     leader?: string;
-    activities: { name: string; experienceType?: string; day?: number }[];
+    activities: { name: string; experienceType?: string; day?: number; image?: string; description?: string }[];
     truExclusive?: { name: string; description: string };
     extras?: string[];
   };
@@ -164,17 +164,93 @@ export const trips: Trip[] = [
       meals: "4 breakfasts, 4 lunches, 1 dinner",
       leader: "Professional tour leader throughout",
       activities: [
-        { name: "Bangkok river cruise & temple visits", experienceType: "local-lens", day: 2 },
-        { name: "Traditional Thai massage", experienceType: "unplugged", day: 3 },
-        { name: "Overnight train journey", experienceType: "local-lens", day: 3 },
-        { name: "Khao Sok National Park exploration", experienceType: "unplugged", day: 4 },
-        { name: "Floating bungalows stay", experienceType: "tru-ly-unique", day: 4 },
-        { name: "Bottle Beach viewpoint hike", experienceType: "rise-up", day: 6 },
-        { name: "Muay Thai lesson", experienceType: "rise-up", day: 6 },
-        { name: "Boat trip & snorkelling around Koh Phangan", experienceType: "bucket-list", day: 7 },
-        { name: "Koh Tao & Koh Nang Yuan day trip", experienceType: "bucket-list", day: 9 },
-        { name: "Phi Phi Islands boat trip", experienceType: "bucket-list", day: 12 },
-        { name: "Phuket nightlife", day: 13 },
+        {
+          name: "Bangkok river cruise & temple visits",
+          experienceType: "local-lens",
+          day: 2,
+          image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80",
+          description:
+            "Glide through Bangkok's back canals along the Chao Phraya River, then visit Wat Arun glowing in the morning light and the reclining Buddha at Wat Pho.",
+        },
+        {
+          name: "Traditional Thai massage",
+          experienceType: "unplugged",
+          day: 3,
+          image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80",
+          description:
+            "You've earned it — a proper traditional Thai massage to loosen up before the overnight train south.",
+        },
+        {
+          name: "Overnight train journey",
+          experienceType: "local-lens",
+          day: 3,
+          image: "https://images.unsplash.com/photo-1541185934-01b600ea069c?w=800&q=80",
+          description:
+            "Sleeper carriages, the swaying rhythm of the rails, and Thailand's countryside slipping past your window through the night.",
+        },
+        {
+          name: "Khao Sok National Park exploration",
+          experienceType: "unplugged",
+          day: 4,
+          image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80",
+          description:
+            "Emerald lakes, towering limestone karsts, and a kayak across some of the bluest water on Earth — one of Thailand's best-kept secrets.",
+        },
+        {
+          name: "Floating bungalows stay",
+          experienceType: "tru-ly-unique",
+          day: 4,
+          image: "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800&q=80",
+          description:
+            "Sleep on wooden bungalows tethered to a hidden lake. Hammocks over the water, jungle on three sides, and zero Wi-Fi.",
+        },
+        {
+          name: "Bottle Beach viewpoint hike",
+          experienceType: "rise-up",
+          day: 6,
+          image: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80",
+          description:
+            "Trek up to the lookout above one of Thailand's most secluded beaches for jaw-dropping panoramas across the coast.",
+        },
+        {
+          name: "Muay Thai lesson",
+          experienceType: "rise-up",
+          day: 6,
+          image: "https://images.unsplash.com/photo-1504276048855-f3d1e4c69a17?w=800&q=80",
+          description:
+            "Wrap your hands, learn the kicks, and get a taste of Thailand's national sport. Useless or natural — it's a laugh either way.",
+        },
+        {
+          name: "Boat trip & snorkelling around Koh Phangan",
+          experienceType: "bucket-list",
+          day: 7,
+          image: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80",
+          description:
+            "Hop a longtail to secret coves, snorkel over coral gardens, and chase the sunset back to shore. Lunch on the boat.",
+        },
+        {
+          name: "Koh Tao & Koh Nang Yuan day trip",
+          experienceType: "bucket-list",
+          day: 9,
+          image: "https://images.unsplash.com/photo-1546500840-ae38253aba9b?w=800&q=80",
+          description:
+            "The three tiny islands joined by a white sandbar that own your Instagram feed. Snorkel in some of the clearest water you'll ever see.",
+        },
+        {
+          name: "Phi Phi Islands boat trip",
+          experienceType: "bucket-list",
+          day: 12,
+          image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
+          description:
+            "Maya Bay (yes, *The Beach*), Monkey Beach, Viking Cave — limestone cliffs and lunch on deck in one perfect day at sea.",
+        },
+        {
+          name: "Phuket nightlife",
+          day: 13,
+          image: "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=800&q=80",
+          description:
+            "A proper farewell night in Patong — Bangla Road, beach bars, neon, and one last group photo before the goodbyes.",
+        },
       ],
       truExclusive: {
         name: "Bottle Beach Experience",

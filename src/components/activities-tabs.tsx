@@ -7,6 +7,8 @@ type Activity = {
   name: string;
   experienceType?: string;
   day?: number;
+  image?: string;
+  description?: string;
 };
 
 type TruExclusive = {
@@ -37,6 +39,7 @@ export default function ActivitiesTabs({
   ];
 
   const [activeTab, setActiveTab] = useState("all");
+  const [openActivity, setOpenActivity] = useState<string | null>(null);
 
   const filtered =
     activeTab === "all"
@@ -106,27 +109,96 @@ export default function ActivitiesTabs({
         </div>
       )}
 
-      {/* Activity list */}
+      {/* Activity list — collapsible rows */}
       <div className="space-y-1.5">
         {filtered.map((activity) => {
-          const expType = activity.experienceType
-            ? experienceTypes.find((e) => e.id === activity.experienceType)
-            : null;
+          const isOpen = openActivity === activity.name;
+          const isExpandable = Boolean(activity.image || activity.description);
           return (
             <div
               key={activity.name}
-              className="flex items-center gap-3 rounded-[10px] border border-white/5 bg-white/5 px-4 py-3"
+              className="rounded-[10px] border border-white/5 bg-white/5 overflow-hidden"
             >
-              <div className="h-6 w-6 rounded-full bg-tru-green/20 flex items-center justify-center flex-shrink-0">
-                <svg className="h-3 w-3 text-tru-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <span className="text-gray-200 text-sm flex-1">{activity.name}</span>
-              {activity.day && (
-                <span className="text-gray-500 text-[11px] font-semibold uppercase tracking-wider font-heading flex-shrink-0">
-                  Day {activity.day}
-                </span>
+              <button
+                type="button"
+                onClick={() =>
+                  isExpandable
+                    ? setOpenActivity(isOpen ? null : activity.name)
+                    : undefined
+                }
+                disabled={!isExpandable}
+                className={`w-full flex items-center gap-3 px-4 py-3 text-left ${
+                  isExpandable ? "hover:bg-white/[0.04] transition-colors" : ""
+                }`}
+                aria-expanded={isExpandable ? isOpen : undefined}
+              >
+                <div className="h-6 w-6 rounded-full bg-tru-green/20 flex items-center justify-center flex-shrink-0">
+                  <svg
+                    className="h-3 w-3 text-tru-green"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={3}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <span className="text-gray-200 text-sm flex-1">{activity.name}</span>
+                {isExpandable && (
+                  <svg
+                    className={`h-4 w-4 text-gray-400 flex-shrink-0 transition-transform duration-200 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                )}
+              </button>
+
+              {isExpandable && (
+                <div
+                  className={`transition-all duration-300 ease-out overflow-hidden ${
+                    isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                >
+                  <div className="px-4 sm:pl-[52px] pb-4">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:gap-4">
+                      {activity.image && (
+                        <div className="rounded-lg overflow-hidden mb-3 sm:mb-0 sm:w-44 sm:h-28 sm:flex-shrink-0">
+                          <img
+                            src={activity.image}
+                            alt={activity.name}
+                            className="w-full h-40 sm:h-full object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="sm:flex-1">
+                        {activity.day && (
+                          <p className="text-gray-500 text-[10px] font-semibold uppercase tracking-wider font-heading mb-1">
+                            Day {activity.day}
+                          </p>
+                        )}
+                        {activity.description && (
+                          <p className="text-gray-300 text-sm leading-relaxed">
+                            {activity.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               )}
             </div>
           );
