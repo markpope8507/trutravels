@@ -80,11 +80,15 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
                       <TravelStyleBadge style={trip.travelStyle} />
                     </div>
 
-                    {/* Discount badge — circular, top right */}
+                    {/* Discount badge — sticker, top right */}
                     {discountPct > 0 && (
-                      <div className="absolute top-3 right-3 h-14 w-14 rounded-full bg-orange-500 text-white flex flex-col items-center justify-center font-heading shadow-lg">
-                        <span className="text-[10px] font-bold leading-none">-{discountPct}%</span>
-                        <span className="text-[8px] font-bold uppercase tracking-wider leading-none mt-0.5">Off</span>
+                      <div
+                        className="absolute top-3 right-3 h-20 w-20 rounded-full bg-red-600 text-white flex flex-col items-center justify-center font-heading shadow-xl ring-2 ring-red-500/40"
+                        style={{ transform: "rotate(-10deg)" }}
+                      >
+                        <span className="text-[9px] font-black uppercase tracking-[0.18em] leading-none mb-0.5 opacity-90">Save</span>
+                        <span className="text-2xl font-black leading-none">{discountPct}%</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] leading-none mt-0.5">Off</span>
                       </div>
                     )}
 
