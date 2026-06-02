@@ -735,30 +735,54 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                   if (dealsSort === "price-high") return b.price - a.price;
                   if (dealsSort === "duration-short") return parseInt(a.duration) - parseInt(b.duration);
                   return 0;
-                }).map((trip) => (
-                  <Link key={trip.id} href={tripUrl(trip)} className="group flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-4 hover:border-tru-pink/20 hover:bg-white/10 transition-all duration-200">
-                    <img src={trip.image} alt={trip.title} className="h-20 w-20 sm:h-24 sm:w-24 rounded-lg object-cover flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading mb-1"><span className="hidden sm:inline">{trip.region} &middot; </span>{trip.duration}</p>
-                      <p className="text-white text-sm sm:text-base font-bold font-heading group-hover:text-tru-pink transition-colors line-clamp-2">{trip.title}</p>
-                      <p className="text-gray-400 text-xs mt-1 hidden sm:block">{trip.tagline}</p>
-                    </div>
-                    <div className="text-right flex-shrink-0">
-                      {trip.originalPrice && (
-                        <span className="bg-red-500 text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full inline-block mb-1.5">
-                          Save &pound;{trip.originalPrice - trip.price}
-                        </span>
-                      )}
-                      <div className="flex items-baseline gap-2 justify-end">
-                        {trip.originalPrice && (
-                          <span className="text-gray-500 text-sm line-through">&pound;{trip.originalPrice}</span>
-                        )}
-                        <span className="text-white font-bold text-lg">&pound;{trip.price}</span>
+                }).map((trip) => {
+                  const savings = trip.originalPrice ? trip.originalPrice - trip.price : 0;
+                  return (
+                    <Link
+                      key={trip.id}
+                      href={tripUrl(trip)}
+                      className="group block rounded-[12px] border border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.08] transition-all duration-200 overflow-hidden"
+                    >
+                      <div className="flex gap-3 p-3">
+                        <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-[8px] overflow-hidden flex-shrink-0">
+                          <img src={trip.image} alt={trip.title} className="h-full w-full object-cover" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-white text-sm sm:text-base font-black uppercase font-heading leading-snug line-clamp-2 group-hover:text-tru-pink transition-colors">
+                            {trip.title}
+                          </p>
+                          {trip.startLocation && trip.endLocation && (
+                            <p className="text-gray-300 text-[11px] mt-1 flex items-center gap-1.5 truncate">
+                              <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                              </svg>
+                              {trip.startLocation} &mdash; {trip.endLocation}
+                            </p>
+                          )}
+                          <p className="text-gray-300 text-[11px] mt-0.5 flex items-center gap-1.5">
+                            <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <circle cx="12" cy="12" r="9" />
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 2" />
+                            </svg>
+                            {trip.duration}
+                          </p>
+                        </div>
                       </div>
-                      <p className="text-gray-500 text-[10px]">per person</p>
-                    </div>
-                  </Link>
-                ))}
+                      <div className="flex items-center justify-end gap-2 px-3 pb-3 pt-1 border-t border-white/5">
+                        {trip.originalPrice && (
+                          <span className="text-gray-500 text-[11px] line-through">&pound;{trip.originalPrice}</span>
+                        )}
+                        <span className="text-white text-base font-black font-heading">&pound;{trip.price}</span>
+                        {savings > 0 && (
+                          <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading ml-1">
+                            Save &pound;{savings}
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
               ) : (
                 <p className="text-gray-400 text-sm">No deals available right now. Check back soon!</p>
@@ -793,58 +817,72 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
 
               return allDepartures.length > 0 ? (
                 <div className="space-y-3">
-                  {allDepartures.map((dep) => (
-                    <Link
-                      key={`${dep.trip.id}-${dep.date}`}
-                      href={tripUrl(dep.trip)}
-                      className="group flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-4 hover:border-tru-pink/20 hover:bg-white/10 transition-all duration-200"
-                    >
-                      {/* Date */}
-                      <div className="flex-shrink-0 w-16 sm:w-20 text-center">
-                        <p className="text-white text-lg sm:text-xl font-black font-heading leading-none">
-                          {new Date(dep.date).getDate()}
-                        </p>
-                        <p className="text-gray-400 text-[10px] uppercase font-heading tracking-wider">
-                          {new Date(dep.date).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}
-                        </p>
-                      </div>
-
-                      <div className="w-px h-12 bg-white/10 flex-shrink-0" />
-
-                      {/* Trip info */}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading mb-1">
-                          {dep.trip.duration}
-                        </p>
-                        <p className="text-white text-sm font-bold font-heading group-hover:text-tru-pink transition-colors truncate">
-                          {dep.trip.title}
-                        </p>
-                        <div className="flex items-center gap-2 mt-1">
-                          <div className={`h-2 w-2 rounded-full ${statusDot[dep.status] || "bg-tru-green"}`} />
-                          <span className="text-gray-400 text-[10px] uppercase tracking-wider">
-                            {dep.status === "almost-full" ? "Almost Full" : dep.status === "discount" ? "On Sale" : "Available"}
-                          </span>
-                          {dep.discount && <span className="text-red-500 text-[10px] font-bold">{dep.discount}</span>}
+                  {allDepartures.map((dep) => {
+                    const savings = dep.originalPrice && dep.originalPrice !== dep.price ? dep.originalPrice - dep.price : 0;
+                    const statusLabel = dep.status === "almost-full" ? "Almost Full" : dep.status === "discount" ? "On Sale" : "Available";
+                    return (
+                      <Link
+                        key={`${dep.trip.id}-${dep.date}`}
+                        href={tripUrl(dep.trip)}
+                        className="group block rounded-[12px] border border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.08] transition-all duration-200 overflow-hidden"
+                      >
+                        <div className="flex items-center gap-4 p-3">
+                          <div className="flex-shrink-0 w-14 text-center">
+                            <p className="text-white text-2xl font-black font-heading leading-none">
+                              {new Date(dep.date).getDate()}
+                            </p>
+                            <p className="text-gray-400 text-[10px] uppercase font-heading tracking-wider mt-1">
+                              {new Date(dep.date).toLocaleDateString("en-GB", { month: "short" })}
+                            </p>
+                            <p className="text-gray-500 text-[10px]">
+                              {new Date(dep.date).getFullYear()}
+                            </p>
+                          </div>
+                          <div className="w-px h-14 bg-white/10 flex-shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-white text-sm sm:text-base font-black uppercase font-heading leading-snug line-clamp-2 group-hover:text-tru-pink transition-colors">
+                              {dep.trip.title}
+                            </p>
+                            {dep.trip.startLocation && dep.trip.endLocation && (
+                              <p className="text-gray-300 text-[11px] mt-1 flex items-center gap-1.5 truncate">
+                                <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                {dep.trip.startLocation} &mdash; {dep.trip.endLocation}
+                              </p>
+                            )}
+                            <p className="text-gray-300 text-[11px] mt-0.5 flex items-center gap-1.5">
+                              <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <circle cx="12" cy="12" r="9" />
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 2" />
+                              </svg>
+                              {dep.trip.duration}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-
-                      {/* Price */}
-                      <div className="text-right flex-shrink-0">
-                        {dep.originalPrice && dep.originalPrice !== dep.price && (
-                          <span className="bg-red-500 text-white text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full inline-block mb-1">
-                            Save &pound;{dep.originalPrice - dep.price}
-                          </span>
-                        )}
-                        <div className="flex items-baseline gap-2 justify-end">
-                          {dep.originalPrice && dep.originalPrice !== dep.price && (
-                            <span className="text-gray-500 text-sm line-through">&pound;{dep.originalPrice}</span>
-                          )}
-                          <span className="font-bold text-lg text-white">&pound;{dep.price}</span>
+                        <div className="flex items-center justify-between gap-2 px-3 pb-3 pt-1 border-t border-white/5">
+                          <div className="flex items-center gap-1.5">
+                            <div className={`h-2 w-2 rounded-full ${statusDot[dep.status] || "bg-tru-green"}`} />
+                            <span className="text-gray-400 text-[10px] uppercase tracking-wider font-heading">
+                              {statusLabel}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {dep.originalPrice && dep.originalPrice !== dep.price && (
+                              <span className="text-gray-500 text-[11px] line-through">&pound;{dep.originalPrice}</span>
+                            )}
+                            <span className="text-white text-base font-black font-heading">&pound;{dep.price}</span>
+                            {savings > 0 && (
+                              <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading ml-1">
+                                Save &pound;{savings}
+                              </span>
+                            )}
+                          </div>
                         </div>
-                        <p className="text-gray-500 text-[10px]">per person</p>
-                      </div>
-                    </Link>
-                  ))}
+                      </Link>
+                    );
+                  })}
                 </div>
               ) : (
                 <p className="text-gray-400 text-sm">No upcoming departures. Check back soon!</p>
