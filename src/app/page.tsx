@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { trips, stories, drops, videoDiaries, experienceTypes } from "@/lib/data";
+import HeroSlider from "@/components/hero-slider";
 import ExperienceCarousel from "@/components/experience-carousel";
 import { DesignA as ExperienceTypesCarousel } from "@/components/experience-types-v2";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import DropsCarousel from "@/components/drops-carousel";
-import InspireMeWrapper from "@/components/inspire-me-wrapper";
 import DiscoveryPathways from "@/components/discovery-pathways";
 import SearchPrompt from "@/components/search-prompt";
 
@@ -14,49 +14,9 @@ export default function HomePage() {
   return (
     <>
       {/* ================================================================
-          1. HERO — Clean cinematic headline over looping video
+          1. HERO SLIDER — Three rotating video slides with shared CTAs
           ================================================================ */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80"
-          className="absolute inset-0 h-full w-full object-cover scale-105"
-        >
-          <source src="https://videos.pexels.com/video-files/4763824/4763824-uhd_2560_1440_24fps.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-tru-navy/60 via-tru-navy/50 to-tru-navy" />
-
-        <div className="relative z-10 text-center px-4 max-w-4xl">
-          <div className="animate-fade-up mb-6 flex justify-center">
-            <img src="/logo-white.png" alt="TruTravels" className="h-16 sm:h-20" />
-          </div>
-          <h1 className="animate-fade-up delay-100 text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[1.05] mb-6 tracking-tight uppercase font-heading">
-            Leave <span className="font-light">Ordinary</span><br />Behind
-          </h1>
-          <p className="animate-fade-up delay-200 text-3xl sm:text-4xl mb-10 max-w-2xl mx-auto font-handwriting text-tru-pink">
-            Find your Extraordinary&hellip;
-          </p>
-          <div className="animate-fade-up delay-300 flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link
-              href="/explore"
-              className="rounded-[10px] border border-white bg-transparent px-8 py-3.5 text-sm font-semibold text-white hover:bg-white/10 transition-all duration-300 uppercase tracking-wider w-56 text-center"
-            >
-              Explore Experiences
-            </Link>
-            <InspireMeWrapper />
-          </div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-fade-in delay-700">
-          <div className="flex flex-col items-center gap-2">
-            <p className="text-[10px] uppercase tracking-[0.2em] text-gray-400 font-heading">Scroll</p>
-            <div className="w-px h-8 bg-gradient-to-b from-tru-pink to-transparent" />
-          </div>
-        </div>
-      </section>
+      <HeroSlider />
 
       {/* ================================================================
           TICKER — Brand manifesto strip in hot pink
