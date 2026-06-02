@@ -15,6 +15,10 @@ const tagColors: Record<string, string> = {
   Traveller: "#6BD495",
   Creator: "#FF3F99",
   Influencer: "#2172D5",
+  Partner: "#F5A623",
+  Guide: "#14B8A6",
+  Community: "#A855F7",
+  Planeterra: "#D4AF37",
 };
 
 /* ============================================================

@@ -83,6 +83,8 @@ export type Trip = {
   reviewCount?: number;
 };
 
+export type StoryType = "story" | "guide" | "tips" | "exclusive";
+
 export type Story = {
   id: string;
   title: string;
@@ -92,7 +94,40 @@ export type Story = {
   date: string;
   category: string;
   memberOnly?: boolean;
+  type: StoryType;
+  topics: string[];
+  lifeMoments: string[];
+  destinations: string[];
+  readTime: number;
 };
+
+// Filter taxonomies used on the Stories landing page
+export const storyTopics = [
+  "Adventure",
+  "Food & Culture",
+  "Solo Travel",
+  "Wellness",
+  "Sustainability",
+  "Nightlife",
+  "Budget Tips",
+  "Local Stories",
+] as const;
+
+export const storyLifeMoments = [
+  "Gap Year",
+  "First Big Trip",
+  "Career Break",
+  "Quarter-Life Reset",
+  "Post-Uni",
+  "Sabbatical",
+] as const;
+
+export const storyTypes: { value: StoryType; label: string }[] = [
+  { value: "story", label: "Stories" },
+  { value: "guide", label: "Guides" },
+  { value: "tips", label: "Tips" },
+  { value: "exclusive", label: "Member Exclusive" },
+];
 
 export const trips: Trip[] = [
   {
@@ -288,6 +323,11 @@ export const stories: Story[] = [
     author: "Sophie Chen",
     date: "2025-12-15",
     category: "Travel Stories",
+    type: "story",
+    topics: ["Solo Travel", "Local Stories"],
+    lifeMoments: ["Career Break", "Quarter-Life Reset"],
+    destinations: ["Southeast Asia", "Thailand"],
+    readTime: 7,
   },
   {
     id: "hidden-gems-of-bali",
@@ -298,6 +338,11 @@ export const stories: Story[] = [
     author: "Jake Morrison",
     date: "2025-11-28",
     category: "Destination Guides",
+    type: "guide",
+    topics: ["Adventure", "Local Stories", "Food & Culture"],
+    lifeMoments: ["Gap Year", "First Big Trip"],
+    destinations: ["Southeast Asia", "Indonesia", "Bali"],
+    readTime: 9,
   },
   {
     id: "solo-female-travel-tips",
@@ -308,6 +353,11 @@ export const stories: Story[] = [
     author: "Priya Kapoor",
     date: "2025-11-10",
     category: "Travel Tips",
+    type: "tips",
+    topics: ["Solo Travel", "Wellness"],
+    lifeMoments: ["First Big Trip", "Post-Uni"],
+    destinations: ["Southeast Asia"],
+    readTime: 6,
   },
   {
     id: "best-hostels-in-thailand",
@@ -318,6 +368,11 @@ export const stories: Story[] = [
     author: "Tom Ashworth",
     date: "2025-10-22",
     category: "Destination Guides",
+    type: "guide",
+    topics: ["Budget Tips", "Nightlife"],
+    lifeMoments: ["Gap Year", "First Big Trip", "Post-Uni"],
+    destinations: ["Southeast Asia", "Thailand"],
+    readTime: 8,
   },
   {
     id: "member-secret-itinerary-vietnam",
@@ -329,6 +384,11 @@ export const stories: Story[] = [
     date: "2025-10-05",
     category: "Member Exclusive",
     memberOnly: true,
+    type: "exclusive",
+    topics: ["Local Stories", "Food & Culture", "Adventure"],
+    lifeMoments: ["Sabbatical", "Career Break"],
+    destinations: ["Southeast Asia", "Vietnam"],
+    readTime: 12,
   },
   {
     id: "member-packing-guide",
@@ -340,6 +400,41 @@ export const stories: Story[] = [
     date: "2025-09-18",
     category: "Member Exclusive",
     memberOnly: true,
+    type: "exclusive",
+    topics: ["Budget Tips"],
+    lifeMoments: ["First Big Trip", "Gap Year"],
+    destinations: ["Southeast Asia"],
+    readTime: 5,
+  },
+  {
+    id: "planeterra-elephant-sanctuary",
+    title: "Inside Our Planeterra Project: A Day at the Elephant Sanctuary",
+    excerpt:
+      "How one Chiang Mai sanctuary is rewriting the rules of ethical tourism — and what it's like to spend a day there.",
+    image: "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=800&q=80",
+    author: "TruTravels Team",
+    date: "2025-09-02",
+    category: "Sustainability",
+    type: "story",
+    topics: ["Sustainability", "Local Stories"],
+    lifeMoments: ["Sabbatical", "First Big Trip"],
+    destinations: ["Southeast Asia", "Thailand"],
+    readTime: 8,
+  },
+  {
+    id: "wellness-reset-bali",
+    title: "A Two-Week Wellness Reset in Ubud",
+    excerpt:
+      "Yoga at sunrise, rice-paddy walks, and the cleanest food of your life. Here's how to do Ubud properly.",
+    image: "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800&q=80",
+    author: "Nina Waves",
+    date: "2025-08-20",
+    category: "Wellness",
+    type: "guide",
+    topics: ["Wellness", "Food & Culture"],
+    lifeMoments: ["Quarter-Life Reset", "Sabbatical", "Career Break"],
+    destinations: ["Southeast Asia", "Indonesia", "Bali"],
+    readTime: 10,
   },
 ];
 
@@ -650,7 +745,7 @@ export type VideoDiary = {
   handle: string;
   location: string;
   avatar: string;
-  tag: "Traveller" | "Creator" | "Influencer";
+  tag: "Traveller" | "Creator" | "Influencer" | "Partner" | "Guide" | "Community" | "Planeterra";
 };
 
 export const videoDiaries: VideoDiary[] = [
@@ -719,6 +814,50 @@ export const videoDiaries: VideoDiary[] = [
     location: "Bangkok, Thailand",
     avatar: "MC",
     tag: "Creator",
+  },
+  {
+    id: "v7",
+    video: "https://videos.pexels.com/video-files/4108807/4108807-sd_506_960_25fps.mp4",
+    poster: "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=400&q=80",
+    caption: "Spent the day at our Planeterra elephant sanctuary partner. No riding, no chains — just elephants being elephants.",
+    author: "Tru Crew",
+    handle: "@trutravels",
+    location: "Chiang Mai, Thailand",
+    avatar: "TC",
+    tag: "Planeterra",
+  },
+  {
+    id: "v8",
+    video: "https://videos.pexels.com/video-files/5077165/5077165-sd_360_640_25fps.mp4",
+    poster: "https://images.unsplash.com/photo-1528127269322-539801943592?w=400&q=80",
+    caption: "Meet Orty — your trip leader for Thailand. Born in Bangkok, knows every back-alley noodle stall worth its salt.",
+    author: "Orty",
+    handle: "@ortyleads",
+    location: "Bangkok, Thailand",
+    avatar: "OR",
+    tag: "Guide",
+  },
+  {
+    id: "v9",
+    video: "https://videos.pexels.com/video-files/2169307/2169307-sd_540_960_25fps.mp4",
+    poster: "https://images.unsplash.com/photo-1529390079861-591de354faf5?w=400&q=80",
+    caption: "Our homestay partner in Ella has been hosting Tru travellers for 7 years. The breakfasts alone are worth the trip.",
+    author: "Kamala Hewavitharana",
+    handle: "@kamalahomestay",
+    location: "Ella, Sri Lanka",
+    avatar: "KH",
+    tag: "Partner",
+  },
+  {
+    id: "v10",
+    video: "https://videos.pexels.com/video-files/4763824/4763824-sd_360_640_25fps.mp4",
+    poster: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=400&q=80",
+    caption: "The Tru Crew reunion in Lisbon. 14 countries, 23 humans, one rooftop. This is what stays after the trip ends.",
+    author: "Tru Community",
+    handle: "@trutravels",
+    location: "Lisbon, Portugal",
+    avatar: "TC",
+    tag: "Community",
   },
 ];
 
