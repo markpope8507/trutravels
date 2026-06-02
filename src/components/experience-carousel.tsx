@@ -64,7 +64,7 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
             <SwiperSlide key={trip.id}>
               <Link href={tripUrl(trip)} className="group block h-full">
                 <div
-                  className="relative overflow-hidden rounded-[10px] bg-white/5 border border-white/5 hover:border-tru-pink/20 transition-all duration-300 h-full flex flex-col"
+                  className="relative overflow-hidden rounded-[10px] bg-white/[0.08] border border-white/10 hover:border-tru-pink/30 transition-all duration-300 h-full flex flex-col"
                   style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
                 >
                   {/* Image */}
