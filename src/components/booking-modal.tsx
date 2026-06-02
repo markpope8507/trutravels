@@ -30,7 +30,7 @@ const statusConfig = {
   available: { label: "Available", color: "bg-tru-green", dot: "bg-tru-green" },
   "almost-full": { label: "Almost Full", color: "bg-amber-500", dot: "bg-amber-500" },
   full: { label: "Full", color: "bg-gray-500", dot: "bg-gray-500" },
-  discount: { label: "On Sale", color: "bg-red-600", dot: "bg-red-600" },
+  discount: { label: "On Sale", color: "bg-tru-pink", dot: "bg-tru-pink" },
 };
 
 function formatDate(dateStr: string) {
@@ -246,15 +246,20 @@ export default function BookingModal({
                               </div>
                             </div>
                             <div className="text-right">
-                              <div className="flex items-center gap-2">
+                              <div className="flex items-center gap-2 justify-end">
                                 {dep.originalPrice && dep.originalPrice !== dep.price && (
                                   <span className="text-gray-500 text-xs line-through">&pound;{dep.originalPrice}</span>
                                 )}
-                                <span className={`font-bold text-sm ${dep.status === "discount" ? "text-red-500" : "text-white"}`}>
+                                <span className={`font-bold text-sm ${dep.status === "discount" ? "text-tru-pink" : "text-white"}`}>
                                   &pound;{dep.price}
                                 </span>
                               </div>
                               <p className="text-gray-500 text-[10px]">per person</p>
+                              {dep.originalPrice && dep.originalPrice !== dep.price && (
+                                <p className="text-tru-pink text-[10px] font-semibold mt-0.5">
+                                  Save &pound;{dep.originalPrice - dep.price}
+                                </p>
+                              )}
                             </div>
                           </button>
                         );
@@ -281,7 +286,7 @@ export default function BookingModal({
                 <div className="flex items-center justify-between mb-4">
                   <p className="text-white font-bold text-sm">{formatDate(selected.date)}</p>
                   {selected.discount && (
-                    <span className="text-[9px] font-bold uppercase tracking-wider text-white bg-red-600 px-2 py-0.5 rounded-full">
+                    <span className="text-[9px] font-bold uppercase tracking-wider text-white bg-tru-pink px-2 py-0.5 rounded-full">
                       {selected.discount}
                     </span>
                   )}
@@ -342,8 +347,8 @@ export default function BookingModal({
                 </div>
                 {selected.originalPrice && selected.originalPrice !== selected.price && (
                   <div className="flex items-center justify-between text-sm">
-                    <span className="text-red-400">You save</span>
-                    <span className="text-red-400 font-semibold">
+                    <span className="text-tru-pink">You save</span>
+                    <span className="text-tru-pink font-semibold">
                       &pound;{(selected.originalPrice - selected.price) * travellers}
                     </span>
                   </div>
