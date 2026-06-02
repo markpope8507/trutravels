@@ -803,6 +803,80 @@ export const storyContentSeries: StoryContentSeries[] = [
   },
 ];
 
+// Top-level podcasts for the Stories landing page (Listen section)
+export type StoryPodcastEpisode = {
+  id: string;
+  title: string;
+  description: string;
+  duration: string;
+  image: string;
+  episode: number;
+  host: string;
+};
+
+export const storyPodcasts: StoryPodcastEpisode[] = [
+  {
+    id: "sp-01",
+    title: "Why Travel Changes You (And Why That's a Good Thing)",
+    description:
+      "We sit down with three TruTravellers and one neuroscientist to unpack what really happens to your brain on the road.",
+    duration: "42 min",
+    image: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=800&q=80",
+    episode: 12,
+    host: "Sophie Chen",
+  },
+  {
+    id: "sp-02",
+    title: "The Real Cost of a Gap Year",
+    description:
+      "Honest money talk with people who quit jobs, sold flats, and lived to tell the tale.",
+    duration: "35 min",
+    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80",
+    episode: 11,
+    host: "Tom Ashworth",
+  },
+  {
+    id: "sp-03",
+    title: "Local Lens: Bangkok Through Orty's Eyes",
+    description:
+      "Our Thailand trip leader takes us through the Bangkok he loves — the noodle stall corners, the late-night markets, the soi nobody tells you about.",
+    duration: "28 min",
+    image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",
+    episode: 10,
+    host: "Orty",
+  },
+  {
+    id: "sp-04",
+    title: "Solo Travel: The Stuff Nobody Tells You",
+    description:
+      "Five women who travelled solo across Asia, Latin America, and Europe share what worked, what didn't, and what they'd do differently.",
+    duration: "47 min",
+    image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80",
+    episode: 9,
+    host: "Priya Kapoor",
+  },
+  {
+    id: "sp-05",
+    title: "Inside Planeterra: Tourism That Actually Helps",
+    description:
+      "How a 25-year-old non-profit is rewriting the rules of community-led tourism, one project at a time.",
+    duration: "39 min",
+    image: "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=800&q=80",
+    episode: 8,
+    host: "Tru Crew",
+  },
+  {
+    id: "sp-06",
+    title: "Hostels Are Cool Again (And This Is Why)",
+    description:
+      "The hostel renaissance — design, community, and why a £15 dorm bed might give you a better time than the £200 suite next door.",
+    duration: "31 min",
+    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
+    episode: 7,
+    host: "Jake Morrison",
+  },
+];
+
 export type VideoDiary = {
   id: string;
   video: string;

@@ -14,6 +14,7 @@ import {
   storyLifeMoments,
   storyTypes,
   storyContentSeries,
+  storyPodcasts,
   type Story,
   type StoryType,
 } from "@/lib/data";
@@ -114,41 +115,49 @@ export default function StoriesPage() {
         </div>
       </section>
 
-      {/* COMMUNITY CAROUSEL */}
-      <section className="py-24 bg-gradient-to-b from-transparent via-tru-pink/[0.03] to-transparent">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Video Diaries</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading">
-                Moments From Our<br className="hidden sm:block" /> <span className="text-tru-pink">Community</span>
-              </h2>
-              <p className="text-gray-400 mt-4 max-w-lg">
-                Diaries from travellers, guides, partners, and the Planeterra projects we support. Real moments, on the road, in their own words.
-              </p>
-            </div>
-          </div>
-        </div>
+      {/* =========================================================
+          WATCH — video diaries + content series
+          ========================================================= */}
+      <PillarHeader
+        pillar="Watch"
+        eyebrow="Press Play"
+        title="Stories You Can Watch"
+        description="Diaries from the road and deep-dive video series. Get comfortable — these are the ones you'll want to disappear into."
+        accent="tru-green"
+        icon={<WatchIcon />}
+      />
 
+      {/* Sub-section: Video Diaries */}
+      <section className="pb-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8">
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">
+            Video Diaries
+          </p>
+          <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight uppercase font-heading">
+            Moments From Our <span className="text-tru-pink">Community</span>
+          </h3>
+          <p className="text-gray-400 mt-3 max-w-lg text-sm sm:text-base">
+            Travellers, guides, partners, and the Planeterra projects we support — in their own words.
+          </p>
+        </div>
         <div className="mx-auto max-w-7xl pl-4 sm:pl-6 lg:pl-8 overflow-hidden">
           <VideoDiariesCarousel diaries={videoDiaries} />
         </div>
       </section>
 
-      {/* CONTENT SERIES */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
+      {/* Sub-section: Content Series */}
+      <section className="pb-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8">
           <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">
-            Watch &amp; Learn
-          </p>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading">
             Content Series
-          </h2>
-          <p className="text-gray-400 mt-4 max-w-lg">
-            Deep-dive video series. Hit play and disappear for an afternoon.
+          </p>
+          <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight uppercase font-heading">
+            Watch &amp; <span className="text-tru-pink">Learn</span>
+          </h3>
+          <p className="text-gray-400 mt-3 max-w-lg text-sm sm:text-base">
+            Multi-episode dives into places, dishes, and adventures we couldn&apos;t fit into a single video.
           </p>
         </div>
-
         <div className="mx-auto max-w-7xl pl-4 sm:pl-6 lg:pl-8 overflow-hidden">
           <div className="content-series-carousel relative">
             <Swiper
@@ -233,32 +242,44 @@ export default function StoriesPage() {
         </div>
       </section>
 
-      {/* FEATURED STORY */}
+      {/* =========================================================
+          READ — featured story + browse grid
+          ========================================================= */}
+      <PillarHeader
+        pillar="Read"
+        eyebrow="Long Form"
+        title="Stories Worth Reading"
+        description="Honest, in-depth pieces from the road. Travellers, guides, and our team — sharing the moments that stayed with them."
+        accent="tru-pink"
+        icon={<ReadIcon />}
+      />
+
+      {/* Featured */}
       {featured && (
-        <section className="py-20 lg:py-24 border-t border-white/5">
+        <section className="pb-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">
               Featured
             </p>
-            <h2 className="text-3xl sm:text-4xl font-black text-white uppercase font-heading tracking-tight mb-10">
+            <h3 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-tight mb-10">
               The Latest Story
-            </h2>
+            </h3>
             <FeaturedCard story={featured} isLoggedIn={isLoggedIn} />
           </div>
         </section>
       )}
 
-      {/* BROWSE */}
-      <section className="py-20 lg:py-24 border-t border-white/5">
+      {/* Browse */}
+      <section className="pb-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
             <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">
               Browse
             </p>
-            <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight mb-4 leading-[0.95]">
+            <h3 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-tight mb-4">
               Find Your Next Read
-            </h2>
-            <p className="text-gray-400 max-w-xl">
+            </h3>
+            <p className="text-gray-400 max-w-xl text-sm sm:text-base">
               Search by destination, topic, or where you are in life. There&apos;s
               a story here for every chapter of the journey.
             </p>
@@ -387,7 +408,232 @@ export default function StoriesPage() {
           )}
         </div>
       </section>
+
+      {/* =========================================================
+          LISTEN — podcast episodes
+          ========================================================= */}
+      <PillarHeader
+        pillar="Listen"
+        eyebrow="Hit Play"
+        title="Stories For Your Ears"
+        description="The TruTravels podcast. Long-form conversations with travellers, guides, and the people building the best stuff on the road."
+        accent="tru-blue"
+        icon={<ListenIcon />}
+      />
+
+      <section className="pb-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="space-y-3">
+            {storyPodcasts.map((ep) => (
+              <div
+                key={ep.id}
+                className="flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-4 sm:p-5 hover:border-tru-blue/40 hover:bg-white/10 transition-all duration-200 cursor-pointer group"
+              >
+                <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-[10px] overflow-hidden flex-shrink-0">
+                  <img
+                    src={ep.image}
+                    alt={ep.title}
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/20 transition-colors">
+                    <svg
+                      className="h-7 w-7 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-tru-blue text-[10px] font-bold uppercase tracking-wider font-heading mb-1">
+                    Ep. {ep.episode} &middot; {ep.host}
+                  </p>
+                  <p className="text-white text-sm sm:text-base font-bold font-heading group-hover:text-tru-blue transition-colors truncate">
+                    {ep.title}
+                  </p>
+                  <p className="text-gray-400 text-xs sm:text-sm line-clamp-1 mt-0.5">
+                    {ep.description}
+                  </p>
+                </div>
+                <span className="text-gray-500 text-xs sm:text-sm flex-shrink-0 font-semibold">
+                  {ep.duration}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <a
+              href="#"
+              className="inline-flex items-center gap-2 text-tru-blue hover:text-tru-blue/80 text-sm font-bold uppercase tracking-wider font-heading transition"
+            >
+              Subscribe on Spotify &amp; Apple Podcasts &rarr;
+            </a>
+          </div>
+        </div>
+      </section>
     </>
+  );
+}
+
+/* ============================================================
+   PILLAR HEADER — big section divider for WATCH / READ / LISTEN
+   ============================================================ */
+function PillarHeader({
+  pillar,
+  eyebrow,
+  title,
+  description,
+  accent,
+  icon,
+}: {
+  pillar: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  accent: "tru-pink" | "tru-green" | "tru-blue";
+  icon: React.ReactNode;
+}) {
+  const accentText: Record<typeof accent, string> = {
+    "tru-pink": "text-tru-pink",
+    "tru-green": "text-tru-green",
+    "tru-blue": "text-tru-blue",
+  };
+  const accentBorder: Record<typeof accent, string> = {
+    "tru-pink": "border-tru-pink/30",
+    "tru-green": "border-tru-green/30",
+    "tru-blue": "border-tru-blue/30",
+  };
+  return (
+    <section className="pt-24 pb-12 border-t border-white/5">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-8 flex-wrap">
+          <div className="flex-1 min-w-0 max-w-2xl">
+            <div className="flex items-center gap-3 mb-3">
+              <span
+                className={`h-px w-10 ${accentBorder[accent]} border-t-2`}
+              />
+              <p
+                className={`${accentText[accent]} text-[11px] font-bold uppercase tracking-[0.3em] font-heading`}
+              >
+                {pillar} &middot; {eyebrow}
+              </p>
+            </div>
+            <h2 className="text-4xl sm:text-6xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
+              {title.split(" ").slice(0, -1).join(" ")}{" "}
+              <span className={accentText[accent]}>
+                {title.split(" ").slice(-1)}
+              </span>
+            </h2>
+            <p className="text-gray-400 mt-5 text-sm sm:text-base max-w-xl">
+              {description}
+            </p>
+          </div>
+          <div
+            className={`${accentText[accent]} hidden md:block flex-shrink-0`}
+          >
+            {icon}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   LIFESTYLE SVG ICONS — playful line-art for each pillar
+   ============================================================ */
+function WatchIcon() {
+  return (
+    <svg
+      width="140"
+      height="120"
+      viewBox="0 0 140 120"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {/* TV body */}
+      <rect x="10" y="18" width="120" height="78" rx="10" />
+      {/* Screen inside */}
+      <rect x="20" y="28" width="100" height="58" rx="4" opacity="0.4" />
+      {/* Play triangle */}
+      <path d="M60 47 L60 67 L82 57 Z" fill="currentColor" stroke="none" />
+      {/* Antennae */}
+      <line x1="50" y1="6" x2="62" y2="18" />
+      <line x1="90" y1="6" x2="78" y2="18" />
+      {/* Stand */}
+      <line x1="48" y1="108" x2="92" y2="108" />
+      <line x1="60" y1="96" x2="56" y2="108" />
+      <line x1="80" y1="96" x2="84" y2="108" />
+    </svg>
+  );
+}
+
+function ReadIcon() {
+  return (
+    <svg
+      width="140"
+      height="120"
+      viewBox="0 0 140 120"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {/* Open book spine */}
+      <line x1="70" y1="24" x2="70" y2="104" />
+      {/* Left page */}
+      <path d="M70 24 Q 50 18 18 24 L 18 100 Q 50 94 70 100 Z" />
+      {/* Right page */}
+      <path d="M70 24 Q 90 18 122 24 L 122 100 Q 90 94 70 100 Z" />
+      {/* Lines on pages */}
+      <line x1="28" y1="40" x2="58" y2="38" opacity="0.6" />
+      <line x1="28" y1="52" x2="58" y2="50" opacity="0.6" />
+      <line x1="28" y1="64" x2="50" y2="62" opacity="0.6" />
+      <line x1="82" y1="38" x2="112" y2="40" opacity="0.6" />
+      <line x1="82" y1="50" x2="112" y2="52" opacity="0.6" />
+      <line x1="82" y1="62" x2="104" y2="64" opacity="0.6" />
+      {/* Bookmark */}
+      <path
+        d="M95 22 L95 56 L102 50 L109 56 L109 22"
+        fill="currentColor"
+        stroke="none"
+        opacity="0.85"
+      />
+    </svg>
+  );
+}
+
+function ListenIcon() {
+  return (
+    <svg
+      width="140"
+      height="120"
+      viewBox="0 0 140 120"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {/* Headphone arc */}
+      <path d="M22 70 V 56 C 22 30, 44 12, 70 12 C 96 12, 118 30, 118 56 V 70" />
+      {/* Left ear cup */}
+      <rect x="14" y="68" width="22" height="34" rx="6" />
+      <line x1="20" y1="76" x2="20" y2="94" opacity="0.6" />
+      {/* Right ear cup */}
+      <rect x="104" y="68" width="22" height="34" rx="6" />
+      <line x1="120" y1="76" x2="120" y2="94" opacity="0.6" />
+      {/* Sound waves */}
+      <path d="M50 96 q 6 -8 0 -16" opacity="0.7" />
+      <path d="M58 102 q 12 -14 0 -28" opacity="0.5" />
+      <path d="M90 96 q -6 -8 0 -16" opacity="0.7" />
+      <path d="M82 102 q -12 -14 0 -28" opacity="0.5" />
+    </svg>
   );
 }
 
