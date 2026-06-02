@@ -454,24 +454,34 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
         onClear={clearFilters}
       />
 
-      {/* Hero */}
-      <section id="explore-hero" className="relative pt-28 pb-12 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-tru-pink/10 via-transparent to-transparent" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Explore</p>
-            <h1 className="text-4xl sm:text-6xl font-black text-white uppercase font-heading tracking-tight mb-4">
-              Find Your <span className="text-gradient">Trip</span>
+      {/* Hero — image with right-aligned overlay, same language as Stories page */}
+      <section id="explore-hero" className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80"
+          alt="Mountains and open road"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-tru-navy/30 via-tru-navy/50 to-tru-navy/95" />
+
+        <div className="relative z-10 w-full mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-end">
+          <div className="max-w-xl text-right">
+            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] mb-5 font-heading">
+              Explore
+            </p>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white uppercase font-heading leading-[0.95] mb-6">
+              Find Your<br />
+              <span className="text-tru-pink">Trip</span>
             </h1>
-            <p className="text-gray-400 max-w-xl mx-auto mb-8">
+            <div className="ml-auto h-px w-16 bg-tru-pink mb-6" />
+            <p className="text-gray-200 text-base sm:text-lg italic leading-relaxed font-light max-w-md ml-auto mb-8">
               Handcrafted group adventures for 18&ndash;35s. Filter by destination, travel style, or the moment in life that brought you here.
             </p>
             <button
               onClick={() => setShowFilters(true)}
-              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
+              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ml-auto ${
                 activeFilterCount > 0
-                  ? "border-tru-pink bg-tru-pink/10 text-tru-pink"
-                  : "border-white/30 text-white hover:border-white/50 hover:bg-white/5"
+                  ? "border-tru-pink bg-tru-pink/20 text-white"
+                  : "border-white/40 text-white hover:border-white hover:bg-white/10"
               }`}
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -632,6 +642,14 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
         {/* Discover */}
         {view === "discover" && activeFilterCount === 0 && (
           <div>
+            <ExploreSectionHeader
+              eyebrow="Discover · Hand-Picked"
+              title="Find Your Trip"
+              titleAccent="Trip"
+              description="Trips curated by the Tru crew — what's trending, perfect first adventures, and unbeatable value. All three flavours, one page."
+              accent="tru-pink"
+              icon={<CompassIcon />}
+            />
             <TripCarouselSection id="trending" label="Trending Now" title="Most Popular Trips" labelColor="#FF3F99" trips={trendingTrips} />
             <TripCarouselSection id="first-timer" label="New to Tru?" title="Perfect First Trips" labelColor="#6BD495" trips={firstTimerTrips} />
             <TripCarouselSection id="budget" label="Ballin' on a Budget" title="Best Value Trips" labelColor="#FCA501" trips={budgetTrips} />
@@ -668,20 +686,25 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
         {/* Deals */}
         {view === "deals" && (
           <div>
-            <div className="flex items-end justify-between mb-8">
-              <div>
-                <p className="text-red-500 text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">Limited Time</p>
-                <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide">Deals &amp; Discounts</h2>
-              </div>
-              <button
-                onClick={() => setDealsSortOpen(true)}
-                className="h-9 w-9 rounded-full border border-white/20 flex items-center justify-center text-gray-300 hover:border-white/40 hover:text-white transition"
-              >
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                </svg>
-              </button>
-            </div>
+            <ExploreSectionHeader
+              eyebrow="Deals · Limited Time"
+              title="Best Prices On The Road"
+              titleAccent="Road"
+              description="Sale departures, last-minute discounts, and trips with the biggest savings on right now. Gone when they're gone."
+              accent="tru-pink"
+              icon={<TagIcon />}
+              action={
+                <button
+                  onClick={() => setDealsSortOpen(true)}
+                  className="h-9 w-9 rounded-full border border-white/20 flex items-center justify-center text-gray-300 hover:border-white/40 hover:text-white transition"
+                  aria-label="Sort deals"
+                >
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                  </svg>
+                </button>
+              }
+            />
             {dealsTrips.length > 0 ? (
               <div className="space-y-3">
                 {[...dealsTrips].sort((a, b) => {
@@ -724,10 +747,14 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
         {/* By Date */}
         {view === "departures" && (
           <div>
-            <div className="mb-8">
-              <p className="text-tru-blue text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">Next Available</p>
-              <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide">Closest Departures</h2>
-            </div>
+            <ExploreSectionHeader
+              eyebrow="Departures · Next Available"
+              title="Bags Packed, Ready To Go"
+              titleAccent="Go"
+              description="Sorted by the next trips leaving. Whatever's free in your calendar, there's probably one that fits."
+              accent="tru-blue"
+              icon={<CalendarIcon />}
+            />
             {(() => {
               const allDepartures = trips
                 .filter((t) => t.departures && t.departures.length > 0)
@@ -867,5 +894,114 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
         </div>
       </div>
     </div>
+  );
+}
+
+/* ============================================================
+   EXPLORE SECTION HEADER — pillar-style header for each view
+   ============================================================ */
+function ExploreSectionHeader({
+  eyebrow,
+  title,
+  titleAccent,
+  description,
+  accent,
+  icon,
+  action,
+}: {
+  eyebrow: string;
+  title: string;
+  titleAccent: string;
+  description: string;
+  accent: "tru-pink" | "tru-green" | "tru-blue";
+  icon: React.ReactNode;
+  action?: React.ReactNode;
+}) {
+  const accentText: Record<typeof accent, string> = {
+    "tru-pink": "text-tru-pink",
+    "tru-green": "text-tru-green",
+    "tru-blue": "text-tru-blue",
+  };
+  const accentBorder: Record<typeof accent, string> = {
+    "tru-pink": "border-tru-pink/40",
+    "tru-green": "border-tru-green/40",
+    "tru-blue": "border-tru-blue/40",
+  };
+  const lead = title.endsWith(titleAccent)
+    ? title.slice(0, title.length - titleAccent.length).trimEnd()
+    : title;
+  return (
+    <div className="mb-10 flex items-center justify-between gap-8 flex-wrap">
+      <div className="flex-1 min-w-0 max-w-2xl">
+        <div className="flex items-center gap-3 mb-3">
+          <span className={`h-px w-10 ${accentBorder[accent]} border-t-2`} />
+          <p className={`${accentText[accent]} text-[11px] font-bold uppercase tracking-[0.3em] font-heading`}>
+            {eyebrow}
+          </p>
+        </div>
+        <h2 className="text-4xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
+          {lead}{lead && <> </>}
+          <span className={accentText[accent]}>{titleAccent}</span>
+        </h2>
+        <p className="text-gray-400 mt-4 text-sm sm:text-base max-w-xl">{description}</p>
+      </div>
+      <div className="flex items-center gap-4 flex-shrink-0">
+        {action}
+        <div className={`${accentText[accent]} hidden md:block`}>{icon}</div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   PLAYFUL LINE-ART ICONS for the section headers
+   ============================================================ */
+function CompassIcon() {
+  return (
+    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="50" cy="50" r="42" />
+      <circle cx="50" cy="50" r="34" opacity="0.4" />
+      <path d="M50 22 L57 50 L50 78 L43 50 Z" fill="currentColor" stroke="none" />
+      <circle cx="50" cy="50" r="3" fill="currentColor" stroke="none" />
+      <line x1="50" y1="6" x2="50" y2="12" />
+      <line x1="50" y1="88" x2="50" y2="94" />
+      <line x1="6" y1="50" x2="12" y2="50" />
+      <line x1="88" y1="50" x2="94" y2="50" />
+    </svg>
+  );
+}
+
+function TagIcon() {
+  return (
+    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      {/* Tag body */}
+      <path d="M14 14 L52 14 L86 48 L52 82 L14 44 Z" />
+      {/* Hole */}
+      <circle cx="28" cy="28" r="6" />
+      {/* % sign */}
+      <circle cx="42" cy="42" r="5" />
+      <circle cx="62" cy="62" r="5" />
+      <line x1="38" y1="66" x2="66" y2="38" />
+      {/* String */}
+      <path d="M28 28 L8 8" opacity="0.6" />
+    </svg>
+  );
+}
+
+function CalendarIcon() {
+  return (
+    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="12" y="20" width="76" height="68" rx="6" />
+      <line x1="12" y1="38" x2="88" y2="38" />
+      <line x1="30" y1="10" x2="30" y2="26" />
+      <line x1="70" y1="10" x2="70" y2="26" />
+      {/* Dots in cells */}
+      <circle cx="30" cy="54" r="2.5" fill="currentColor" stroke="none" opacity="0.45" />
+      <circle cx="50" cy="54" r="2.5" fill="currentColor" stroke="none" opacity="0.45" />
+      <circle cx="70" cy="54" r="2.5" fill="currentColor" stroke="none" opacity="0.45" />
+      <circle cx="30" cy="70" r="2.5" fill="currentColor" stroke="none" opacity="0.45" />
+      {/* Highlighted day */}
+      <rect x="58" y="62" width="16" height="16" rx="3" fill="currentColor" stroke="none" opacity="0.85" />
+    </svg>
   );
 }
