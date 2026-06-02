@@ -203,7 +203,7 @@ export const trips: Trip[] = [
       { date: "2026-12-06", price: 899, status: "full" },
       { date: "2026-12-20", price: 899, status: "available" },
     ],
-    depositPrice: 150,
+    depositPrice: 200,
     accommodation: [
       {
         title: "Bangkok Hotel",

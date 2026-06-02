@@ -55,7 +55,7 @@ export default async function TripDetailPage({
         startLocation={trip.startLocation}
         endLocation={trip.endLocation}
         departures={trip.departures || []}
-        depositPrice={trip.depositPrice || 150}
+        depositPrice={trip.depositPrice || 200}
       />
 
       {/* Hero */}
@@ -355,7 +355,7 @@ export default async function TripDetailPage({
                           <span className="text-xl font-black leading-none">{discountPct}%</span>
                           <span className="text-[9px] font-black uppercase tracking-[0.2em] leading-none mt-0.5">Off</span>
                         </div>
-                        <p className="text-red-400 text-[11px] font-bold uppercase tracking-wider font-heading mt-2 whitespace-nowrap">
+                        <p className="text-white text-[11px] font-bold uppercase tracking-wider font-heading mt-2 whitespace-nowrap">
                           Save &pound;{(trip.originalPrice ?? 0) - trip.price}
                         </p>
                       </div>
@@ -383,7 +383,7 @@ export default async function TripDetailPage({
 
                   <SnapshotBookButton />
                   <p className="text-center text-[10px] text-gray-500 mt-2 uppercase tracking-wider font-heading">
-                    &pound;{trip.depositPrice ?? 150} deposit secures your spot
+                    &pound;{trip.depositPrice ?? 200} deposit secures your spot
                   </p>
                 </div>
               </section>
