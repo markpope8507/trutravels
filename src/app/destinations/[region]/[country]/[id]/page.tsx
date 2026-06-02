@@ -69,7 +69,7 @@ export default async function TripDetailPage({
             loop
             playsInline
             poster={trip.image}
-            className="absolute inset-0 h-full w-full object-cover object-left sm:object-center scale-105"
+            className="absolute inset-0 h-full w-full object-cover object-[40%_50%] sm:object-center scale-105"
           >
             <source src={trip.video} type="video/mp4" />
           </video>
@@ -77,7 +77,7 @@ export default async function TripDetailPage({
           <img
             src={trip.image}
             alt={trip.title}
-            className="absolute inset-0 h-full w-full object-cover object-left sm:object-center"
+            className="absolute inset-0 h-full w-full object-cover object-[40%_50%] sm:object-center"
           />
         )}
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/70 to-transparent" />
