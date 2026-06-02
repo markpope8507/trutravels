@@ -38,7 +38,7 @@ function ExclusiveContent() {
                   <span className="inline-block bg-amber-400 text-black text-xs font-bold px-3 py-1 rounded-full mb-2">
                     Members Only
                   </span>
-                  <h3 className="text-2xl font-bold text-white mb-1">{trip.title}</h3>
+                  <h3 className="text-2xl font-black uppercase font-heading text-white mb-1">{trip.title}</h3>
                   <p className="text-gray-300 text-sm mb-2">{trip.tagline}</p>
                   <p className="text-amber-400 font-semibold">{trip.duration} &middot; From &pound;{trip.price}</p>
                 </div>

@@ -238,7 +238,7 @@ function UpcomingDepartures({ countryTrips }: { countryTrips: Trip[] }) {
           <div className="w-px h-10 bg-white/10 flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading mb-0.5">{dep.trip.duration}</p>
-            <p className="text-white text-sm font-bold font-heading group-hover:text-tru-pink transition-colors truncate">{dep.trip.title}</p>
+            <p className="text-white text-sm font-black uppercase font-heading group-hover:text-tru-pink transition-colors truncate">{dep.trip.title}</p>
             <div className="flex items-center gap-2 mt-1">
               <div className={`h-2 w-2 rounded-full ${statusDot[dep.status] || "bg-tru-green"}`} />
               <span className="text-gray-400 text-[10px]">{dep.status === "almost-full" ? "Almost Full" : dep.status === "discount" ? "On Sale" : "Available"}</span>

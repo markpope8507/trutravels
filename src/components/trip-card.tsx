@@ -100,7 +100,7 @@ export default function TripCard({
           <div className="p-5 flex flex-col flex-1">
             {/* Title + Price */}
             <div className="flex items-baseline justify-between gap-3 mb-1.5">
-              <h3 className="text-base font-bold text-white font-heading leading-tight group-hover:text-tru-pink transition-colors">
+              <h3 className="text-base font-black text-white uppercase font-heading leading-tight group-hover:text-tru-pink transition-colors">
                 {trip.title}
               </h3>
               <div className="flex items-baseline gap-1.5 flex-shrink-0">
