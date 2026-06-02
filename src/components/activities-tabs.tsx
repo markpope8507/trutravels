@@ -61,7 +61,7 @@ export default function ActivitiesTabs({
         5 Experience Types &middot; 1 Intentional Journey
       </p>
       <p className="text-gray-300 leading-relaxed mb-6">
-        Every Tru trip is intentionally designed around five core experience types — each one plays a role in shaping your journey. Tap <span className="text-white font-semibold">All</span> for the full activity list, or pick a type below to see how it shows up on this adventure.
+        Every Tru trip is intentionally designed around five core experience types — each one plays a role in shaping your journey. Pick a type below to see how it shows up on this adventure.
       </p>
 
       {/* Tabs */}
