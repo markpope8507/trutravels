@@ -737,6 +737,8 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                   return 0;
                 }).map((trip) => {
                   const savings = trip.originalPrice ? trip.originalPrice - trip.price : 0;
+                  const days = parseInt(trip.duration, 10) || 1;
+                  const perDay = Math.round(trip.price / days);
                   return (
                     <Link
                       key={trip.id}
@@ -769,13 +771,16 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-center justify-end gap-2 px-3 pb-3 pt-1 border-t border-white/5">
+                      <div className="flex items-end justify-end gap-3 px-3 pb-3 pt-1 border-t border-white/5">
+                        <p className="text-gray-400 text-[10px] mb-1">
+                          Just <span className="text-white font-bold">&pound;{perDay}</span> per day
+                        </p>
                         {trip.originalPrice && (
                           <span className="text-gray-500 text-[11px] line-through">&pound;{trip.originalPrice}</span>
                         )}
                         <span className="text-white text-base font-black font-heading">&pound;{trip.price}</span>
                         {savings > 0 && (
-                          <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading ml-1">
+                          <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading mb-1 ml-1">
                             Save &pound;{savings}
                           </span>
                         )}
@@ -820,6 +825,8 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                   {allDepartures.map((dep) => {
                     const savings = dep.originalPrice && dep.originalPrice !== dep.price ? dep.originalPrice - dep.price : 0;
                     const statusLabel = dep.status === "almost-full" ? "Almost Full" : dep.status === "discount" ? "On Sale" : "Available";
+                    const days = parseInt(dep.trip.duration, 10) || 1;
+                    const perDay = Math.round(dep.price / days);
                     return (
                       <Link
                         key={`${dep.trip.id}-${dep.date}`}
@@ -861,20 +868,23 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                             </p>
                           </div>
                         </div>
-                        <div className="flex items-center justify-between gap-2 px-3 pb-3 pt-1 border-t border-white/5">
-                          <div className="flex items-center gap-1.5">
+                        <div className="flex items-end justify-between gap-2 px-3 pb-3 pt-1 border-t border-white/5">
+                          <div className="flex items-center gap-1.5 mb-1">
                             <div className={`h-2 w-2 rounded-full ${statusDot[dep.status] || "bg-tru-green"}`} />
                             <span className="text-gray-400 text-[10px] uppercase tracking-wider font-heading">
                               {statusLabel}
                             </span>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-end gap-3">
+                            <p className="text-gray-400 text-[10px] mb-1">
+                              Just <span className="text-white font-bold">&pound;{perDay}</span> per day
+                            </p>
                             {dep.originalPrice && dep.originalPrice !== dep.price && (
-                              <span className="text-gray-500 text-[11px] line-through">&pound;{dep.originalPrice}</span>
+                              <span className="text-gray-500 text-[11px] line-through mb-1">&pound;{dep.originalPrice}</span>
                             )}
                             <span className="text-white text-base font-black font-heading">&pound;{dep.price}</span>
                             {savings > 0 && (
-                              <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading ml-1">
+                              <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading mb-1 ml-1">
                                 Save &pound;{savings}
                               </span>
                             )}
