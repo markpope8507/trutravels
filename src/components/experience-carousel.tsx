@@ -238,7 +238,7 @@ function ExperienceTypesDisclosure({
         className="w-full flex items-center justify-between text-left text-[11px] font-bold uppercase tracking-wider font-heading text-gray-300 hover:text-white transition-colors"
       >
         <span>
-          {open ? "Hide" : "View"} Experience Types &middot;{" "}
+          TRU Experience Types &middot;{" "}
           <span className="text-gray-500 font-semibold normal-case tracking-normal">
             {totalActivities} activities
           </span>
