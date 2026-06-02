@@ -498,10 +498,17 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
         </div>
       </section>
 
-      {/* Recently viewed */}
+      {/* Recently viewed — overlaps the bottom of the hero on a dark backdrop */}
       {recentTrips.length > 0 && (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
-          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-4">Recently Viewed</p>
+        <div className="relative -mt-24 z-10 bg-tru-navy/95 backdrop-blur-sm border-t border-white/10 pt-8 pb-6 mx-auto max-w-7xl rounded-t-[20px] px-4 sm:px-6 lg:px-8">
+          <div className="mb-5">
+            <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.22em] font-heading mb-1">
+              Pick Up Where You Left Off
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
+              Recently <span className="text-tru-pink">Viewed</span>
+            </h2>
+          </div>
           <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
             {recentTrips.map((trip) => {
               const savings = trip.originalPrice ? trip.originalPrice - trip.price : 0;
