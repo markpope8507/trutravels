@@ -102,18 +102,15 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
                   {/* Card body */}
                   <div className="p-5 flex flex-col flex-1">
                     {/* Title + Price */}
-                    <div className="flex items-start justify-between gap-3 mb-1.5">
+                    <div className="flex items-baseline justify-between gap-3 mb-1.5">
                       <h3 className="text-base font-bold text-white font-heading leading-tight group-hover:text-tru-pink transition-colors">
                         {trip.title}
                       </h3>
-                      <div className="text-right flex-shrink-0">
-                        <span className="block text-[10px] text-gray-400 uppercase tracking-wider font-heading">From</span>
-                        <div className="flex items-baseline gap-1.5 justify-end">
-                          {trip.originalPrice && (
-                            <span className="text-gray-500 text-xs line-through">&pound;{trip.originalPrice}</span>
-                          )}
-                          <span className="text-tru-green font-bold text-lg font-heading">&pound;{trip.price}</span>
-                        </div>
+                      <div className="flex items-baseline gap-1.5 flex-shrink-0">
+                        {trip.originalPrice && (
+                          <span className="text-gray-500 text-xs line-through">&pound;{trip.originalPrice}</span>
+                        )}
+                        <span className="text-tru-green font-bold text-lg font-heading">&pound;{trip.price}</span>
                       </div>
                     </div>
 
