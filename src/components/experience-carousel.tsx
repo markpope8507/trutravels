@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, FreeMode } from "swiper/modules";
@@ -179,20 +180,9 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
                       )}
                     </div>
 
-                    {/* Experience type pills */}
+                    {/* Experience type disclosure */}
                     {expCounts.length > 0 && (
-                      <div className="mt-auto pt-3 border-t border-white/10 flex flex-wrap gap-1.5">
-                        {expCounts.map((e) => (
-                          <span
-                            key={e.id}
-                            className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider font-heading text-white"
-                            style={{ background: `${e.color}25`, border: `1px solid ${e.color}50` }}
-                          >
-                            <span className="text-white" style={{ color: e.color }}>{e.count}</span>
-                            <span className="text-gray-200">{e.name}</span>
-                          </span>
-                        ))}
-                      </div>
+                      <ExperienceTypesDisclosure expCounts={expCounts} />
                     )}
                   </div>
                 </div>
@@ -216,6 +206,76 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
 
       {/* Pagination dots */}
       <div className="exp-pagination flex justify-center gap-2 mt-8" />
+    </div>
+  );
+}
+
+/* ============================================================
+   EXPERIENCE TYPES DISCLOSURE — toggle reveals coloured pills
+   ============================================================ */
+function ExperienceTypesDisclosure({
+  expCounts,
+}: {
+  expCounts: { id: string; name: string; color: string; count: number }[];
+}) {
+  const [open, setOpen] = useState(false);
+  const totalActivities = expCounts.reduce((sum, e) => sum + e.count, 0);
+
+  return (
+    <div className="mt-auto pt-3 border-t border-white/10">
+      <button
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setOpen((v) => !v);
+        }}
+        aria-expanded={open}
+        className="w-full flex items-center justify-between text-left text-[11px] font-bold uppercase tracking-wider font-heading text-gray-300 hover:text-white transition-colors"
+      >
+        <span>
+          {open ? "Hide" : "View"} Experience Types &middot;{" "}
+          <span className="text-gray-500 font-semibold normal-case tracking-normal">
+            {expCounts.length} types &middot; {totalActivities} activities
+          </span>
+        </span>
+        <svg
+          className={`h-4 w-4 transition-transform ${open ? "rotate-180" : ""}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M19 9l-7 7-7-7"
+          />
+        </svg>
+      </button>
+      <div
+        className={`grid transition-all duration-300 ease-out ${
+          open ? "grid-rows-[1fr] opacity-100 mt-3" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="flex flex-wrap gap-1.5">
+            {expCounts.map((e) => (
+              <span
+                key={e.id}
+                className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider font-heading"
+                style={{
+                  background: `${e.color}25`,
+                  border: `1px solid ${e.color}50`,
+                }}
+              >
+                <span style={{ color: e.color }}>{e.count}</span>
+                <span className="text-gray-200">{e.name}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
