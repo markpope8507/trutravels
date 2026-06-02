@@ -488,27 +488,9 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               <span className="text-tru-pink">Trip</span>
             </h1>
             <div className="ml-auto h-px w-16 bg-tru-pink mb-6" />
-            <p className="text-gray-200 text-base sm:text-lg italic leading-relaxed font-light max-w-md ml-auto mb-8">
+            <p className="text-gray-200 text-base sm:text-lg italic leading-relaxed font-light max-w-md ml-auto">
               Handcrafted group adventures for 18&ndash;35s. Filter by destination, travel style, or the moment in life that brought you here.
             </p>
-            <button
-              onClick={() => setShowFilters(true)}
-              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
-                activeFilterCount > 0
-                  ? "border-tru-pink bg-tru-pink/20 text-white"
-                  : "border-white/40 text-white hover:border-white hover:bg-white/10"
-              }`}
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-              </svg>
-              Filter
-              {activeFilterCount > 0 && (
-                <span className="bg-tru-pink text-white text-[9px] font-bold h-5 w-5 rounded-full flex items-center justify-center">
-                  {activeFilterCount}
-                </span>
-              )}
-            </button>
           </div>
         </div>
       </section>
@@ -580,20 +562,40 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
       {/* Anchor pill bar — scrolls to each section */}
       <div id="explore-bar" className="bg-tru-navy/95 backdrop-blur-md border-b border-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center h-14 gap-2 overflow-x-auto scrollbar-hide">
-            {sectionPills.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => scrollToSection(s.id)}
-                className={`flex-shrink-0 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
-                  activeSection === s.id
-                    ? "bg-tru-pink text-white"
-                    : "text-gray-400 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                {s.label}
-              </button>
-            ))}
+          <div className="flex items-center h-14 gap-2">
+            <div className="flex items-center gap-2 flex-1 overflow-x-auto scrollbar-hide">
+              {sectionPills.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => scrollToSection(s.id)}
+                  className={`flex-shrink-0 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
+                    activeSection === s.id
+                      ? "bg-tru-pink text-white"
+                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowFilters(true)}
+              className={`flex-shrink-0 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
+                activeFilterCount > 0
+                  ? "border-tru-pink bg-tru-pink/15 text-white"
+                  : "border-white/20 text-gray-300 hover:border-white/40 hover:text-white"
+              }`}
+            >
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              Filter
+              {activeFilterCount > 0 && (
+                <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
           </div>
         </div>
       </div>
@@ -771,19 +773,21 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                           </p>
                         </div>
                       </div>
-                      <div className="flex items-end justify-end gap-3 px-3 pb-3 pt-1 border-t border-white/5">
-                        <p className="text-gray-400 text-[10px] mb-1">
-                          Just <span className="text-white font-bold">&pound;{perDay}</span> per day
+                      <div className="flex items-end justify-between gap-3 px-3 pb-3 pt-1 border-t border-white/5">
+                        <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider font-heading mb-1">
+                          Just <span className="text-white">&pound;{perDay}</span> per day
                         </p>
-                        {trip.originalPrice && (
-                          <span className="text-gray-500 text-[11px] line-through">&pound;{trip.originalPrice}</span>
-                        )}
-                        <span className="text-white text-base font-black font-heading">&pound;{trip.price}</span>
-                        {savings > 0 && (
-                          <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading mb-1 ml-1">
-                            Save &pound;{savings}
-                          </span>
-                        )}
+                        <div className="flex items-end gap-3">
+                          {trip.originalPrice && (
+                            <span className="text-gray-500 text-[11px] line-through mb-1">&pound;{trip.originalPrice}</span>
+                          )}
+                          <span className="text-white text-base font-black font-heading">&pound;{trip.price}</span>
+                          {savings > 0 && (
+                            <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading mb-1 ml-1">
+                              Save &pound;{savings}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </Link>
                   );
@@ -866,19 +870,17 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                               </svg>
                               {dep.trip.duration}
                             </p>
+                            <p className="text-gray-300 text-[11px] mt-0.5 flex items-center gap-1.5">
+                              <span className={`h-2 w-2 rounded-full flex-shrink-0 ${statusDot[dep.status] || "bg-tru-green"}`} />
+                              {statusLabel}
+                            </p>
                           </div>
                         </div>
-                        <div className="flex items-end justify-between gap-2 px-3 pb-3 pt-1 border-t border-white/5">
-                          <div className="flex items-center gap-1.5 mb-1">
-                            <div className={`h-2 w-2 rounded-full ${statusDot[dep.status] || "bg-tru-green"}`} />
-                            <span className="text-gray-400 text-[10px] uppercase tracking-wider font-heading">
-                              {statusLabel}
-                            </span>
-                          </div>
+                        <div className="flex items-end justify-between gap-3 px-3 pb-3 pt-1 border-t border-white/5">
+                          <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider font-heading mb-1">
+                            Just <span className="text-white">&pound;{perDay}</span> per day
+                          </p>
                           <div className="flex items-end gap-3">
-                            <p className="text-gray-400 text-[10px] mb-1">
-                              Just <span className="text-white font-bold">&pound;{perDay}</span> per day
-                            </p>
                             {dep.originalPrice && dep.originalPrice !== dep.price && (
                               <span className="text-gray-500 text-[11px] line-through mb-1">&pound;{dep.originalPrice}</span>
                             )}
