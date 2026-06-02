@@ -54,7 +54,7 @@ const slides: Slide[] = [
       </>
     ),
     tagline: "Beaches, parties, full moons — at our best prices.",
-    taglineColor: "text-tru-pink",
+    taglineColor: "text-white",
     cta: {
       kind: "single",
       label: "Let's Go!",
@@ -76,7 +76,7 @@ const slides: Slide[] = [
       </>
     ),
     tagline: "Be first in line when it goes live.",
-    taglineColor: "text-tru-green",
+    taglineColor: "text-white",
     cta: { kind: "single", label: "Sign Me Up!", href: "/signup" },
   },
 ];
