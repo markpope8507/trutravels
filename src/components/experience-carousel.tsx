@@ -115,7 +115,7 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
                         {trip.originalPrice && (
                           <span className="text-gray-500 text-xs line-through">&pound;{trip.originalPrice}</span>
                         )}
-                        <span className="text-tru-green font-bold text-lg font-heading">&pound;{trip.price}</span>
+                        <span className="text-white font-bold text-lg font-heading">&pound;{trip.price}</span>
                       </div>
                     </div>
 
