@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import InspireMeWrapper from "@/components/inspire-me-wrapper";
 
 import "swiper/css";
 import "swiper/css/pagination";
-import "swiper/css/navigation";
 
 type Slide = {
   id: string;
@@ -86,11 +85,10 @@ export default function HeroSlider() {
   return (
     <section className="hero-slider relative h-screen overflow-hidden">
       <Swiper
-        modules={[Autoplay, Pagination, Navigation]}
+        modules={[Autoplay, Pagination]}
         autoplay={{ delay: 7000, disableOnInteraction: false }}
         loop
         pagination={{ el: ".hero-pagination", clickable: true }}
-        navigation={{ nextEl: ".hero-next", prevEl: ".hero-prev" }}
         speed={900}
         className="h-full"
       >
@@ -158,26 +156,8 @@ export default function HeroSlider() {
         ))}
       </Swiper>
 
-      {/* Navigation cluster — arrows flank pagination dots, below the buttons */}
-      <div className="absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-5">
-        <button
-          className="hero-prev h-10 w-10 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-tru-pink hover:border-tru-pink transition-colors"
-          aria-label="Previous slide"
-        >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <div className="hero-pagination flex items-center gap-3" />
-        <button
-          className="hero-next h-10 w-10 rounded-full bg-black/30 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-tru-pink hover:border-tru-pink transition-colors"
-          aria-label="Next slide"
-        >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
+      {/* Pagination dots — below the CTA buttons */}
+      <div className="hero-pagination absolute bottom-24 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3" />
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
