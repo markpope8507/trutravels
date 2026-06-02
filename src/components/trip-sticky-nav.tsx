@@ -82,10 +82,10 @@ export default function TripStickyNav({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Line 1: Tour title (left) | Savings → Price → Check Dates (right) */}
         <div className="flex items-center justify-between gap-4 h-14 border-b border-white/5">
-          <p className="text-white font-black text-base sm:text-lg uppercase font-heading tracking-tight truncate min-w-0">
+          <p className="hidden sm:block text-white font-black text-base sm:text-lg uppercase font-heading tracking-tight truncate min-w-0">
             {tripTitle}
           </p>
-          <div className="flex items-center gap-4 flex-shrink-0">
+          <div className="flex items-center gap-4 flex-shrink-0 ml-auto">
           {originalPrice && originalPrice !== price && (
             <span className="text-white text-[11px] font-bold uppercase tracking-wider font-heading whitespace-nowrap hidden sm:inline">
               Save &pound;{originalPrice - price}
