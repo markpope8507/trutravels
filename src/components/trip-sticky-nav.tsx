@@ -78,28 +78,26 @@ export default function TripStickyNav({
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Line 1: Price + Check Dates */}
-        <div className="flex items-center justify-between gap-3 h-14 border-b border-white/5">
-          <div className="flex items-center gap-3 min-w-0">
-            <div className="flex items-baseline gap-2 flex-shrink-0">
-              <span className="text-[10px] text-gray-400 uppercase tracking-wider font-heading hidden sm:inline">
-                From
-              </span>
-              {originalPrice && (
-                <span className="text-gray-500 text-xs sm:text-sm line-through">
-                  &pound;{originalPrice}
-                </span>
-              )}
-              <span className="text-white font-black text-2xl sm:text-3xl font-heading leading-none">
-                &pound;{price}
-              </span>
-              <span className="text-gray-400 text-[11px] hidden sm:inline">/ person</span>
-            </div>
-            {originalPrice && originalPrice !== price && (
-              <span className="text-tru-pink text-[11px] font-bold uppercase tracking-wider font-heading whitespace-nowrap hidden sm:inline">
-                &middot; Save &pound;{originalPrice - price}
+        {/* Line 1: Savings → Price → Check Dates (all right-aligned) */}
+        <div className="flex items-center justify-end gap-4 h-14 border-b border-white/5">
+          {originalPrice && originalPrice !== price && (
+            <span className="text-white text-[11px] font-bold uppercase tracking-wider font-heading whitespace-nowrap hidden sm:inline">
+              Save &pound;{originalPrice - price}
+            </span>
+          )}
+          <div className="flex items-baseline gap-2 flex-shrink-0">
+            <span className="text-[10px] text-gray-400 uppercase tracking-wider font-heading hidden sm:inline">
+              From
+            </span>
+            {originalPrice && (
+              <span className="text-gray-500 text-xs sm:text-sm line-through">
+                &pound;{originalPrice}
               </span>
             )}
+            <span className="text-white font-black text-2xl sm:text-3xl font-heading leading-none">
+              &pound;{price}
+            </span>
+            <span className="text-gray-400 text-[11px] hidden sm:inline">/ person</span>
           </div>
           <button
             onClick={onBookNow}
