@@ -23,19 +23,22 @@ export default function ActivitiesTabs({
   activities: Activity[];
   truExclusive?: TruExclusive;
 }) {
-  // Build tabs from experience types present in activities + "All"
-  const expTypeIds = [...new Set(activities.map((a) => a.experienceType).filter(Boolean))] as string[];
+  // Build tabs in the canonical experience-type order (local-lens, rise-up,
+  // bucket-list, tru-ly-unique, unplugged), only including types that are
+  // actually present in this trip's activities.
+  const presentIds = new Set(
+    activities.map((a) => a.experienceType).filter(Boolean) as string[],
+  );
   const tabs = [
     { id: "all", label: "All", emoji: "", color: "#ffffff" },
-    ...expTypeIds.map((id) => {
-      const exp = experienceTypes.find((e) => e.id === id);
-      return {
-        id,
-        label: exp?.name || id,
-        emoji: exp?.emoji || "",
-        color: exp?.color || "#ffffff",
-      };
-    }),
+    ...experienceTypes
+      .filter((e) => presentIds.has(e.id))
+      .map((e) => ({
+        id: e.id,
+        label: e.name,
+        emoji: e.emoji,
+        color: e.color,
+      })),
   ];
 
   const [activeTab, setActiveTab] = useState("all");
