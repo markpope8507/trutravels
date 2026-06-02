@@ -41,8 +41,10 @@ export default function TripStickyNav({
         (!isDesktop && document.getElementById("mobile-pricing")) ||
         document.getElementById("trip-hero");
       if (!gate) return;
-      const gateBottom = gate.offsetTop + gate.offsetHeight;
-      setVisible(window.scrollY > gateBottom);
+      // Show sticky only once the bottom of the gate element has fully scrolled
+      // past the top of the viewport.
+      const rect = gate.getBoundingClientRect();
+      setVisible(rect.bottom <= 0);
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
