@@ -380,6 +380,8 @@ export default function BookingModal({
                     image: tripImage,
                     date: selected.date,
                     duration,
+                    startLocation,
+                    endLocation,
                     travellers,
                     pricePerPerson: selected.price,
                     originalPricePerPerson: selected.originalPrice,

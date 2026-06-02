@@ -151,7 +151,16 @@ export default function CartDrawer() {
                       <p className="text-white text-sm font-bold font-heading leading-snug truncate">
                         {item.tripTitle}
                       </p>
-                      <p className="text-gray-300 text-[11px] mt-1 flex items-center gap-1.5">
+                      {item.startLocation && item.endLocation && (
+                        <p className="text-gray-300 text-[11px] mt-1 flex items-center gap-1.5 truncate">
+                          <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          {item.startLocation} &mdash; {item.endLocation}
+                        </p>
+                      )}
+                      <p className="text-gray-300 text-[11px] mt-0.5 flex items-center gap-1.5">
                         <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <rect x="3" y="4" width="18" height="18" rx="2" />
                           <line x1="16" y1="2" x2="16" y2="6" />

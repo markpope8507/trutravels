@@ -17,6 +17,8 @@ export type CartItem = {
   image: string;
   date: string;
   duration: string;
+  startLocation?: string;
+  endLocation?: string;
   travellers: number;
   pricePerPerson: number;
   originalPricePerPerson?: number;
