@@ -53,6 +53,11 @@ export default function TripPricingCard({
               </span>
             )}
           </div>
+          {discountPct > 0 && (
+            <p className="text-gray-400 text-xs mt-2">
+              Just <span className="text-white font-bold">&pound;{perDay}</span> per day
+            </p>
+          )}
         </div>
         {discountPct > 0 && (
           <div className="flex flex-col items-center flex-shrink-0">
