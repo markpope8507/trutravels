@@ -493,37 +493,54 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
           <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-4">Recently Viewed</p>
           <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
-            {recentTrips.map((trip) => (
-              <Link
-                key={trip.id}
-                href={tripUrl(trip)}
-                className="flex-shrink-0 w-72 flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-3 hover:border-white/20 hover:bg-white/10 transition-all duration-200 group"
-              >
-                <div className="h-20 w-20 rounded-lg overflow-hidden flex-shrink-0">
-                  <img src={trip.image} alt={trip.title} className="h-full w-full object-cover" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-white text-sm font-bold font-heading truncate group-hover:text-tru-pink transition-colors">{trip.title}</p>
-                  <p className="text-gray-400 text-xs mb-1.5">{trip.region} &middot; {trip.duration}</p>
-                  <div className="flex items-center gap-2 flex-wrap">
+            {recentTrips.map((trip) => {
+              const savings = trip.originalPrice ? trip.originalPrice - trip.price : 0;
+              return (
+                <Link
+                  key={trip.id}
+                  href={tripUrl(trip)}
+                  className="flex-shrink-0 w-80 rounded-[12px] border border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.08] transition-all duration-200 group overflow-hidden"
+                >
+                  <div className="flex gap-3 p-3">
+                    <div className="h-20 w-20 rounded-[8px] overflow-hidden flex-shrink-0">
+                      <img src={trip.image} alt={trip.title} className="h-full w-full object-cover" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-white text-sm font-black uppercase font-heading leading-snug truncate group-hover:text-tru-pink transition-colors">
+                        {trip.title}
+                      </p>
+                      {trip.startLocation && trip.endLocation && (
+                        <p className="text-gray-300 text-[11px] mt-1 flex items-center gap-1.5 truncate">
+                          <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          {trip.startLocation} &mdash; {trip.endLocation}
+                        </p>
+                      )}
+                      <p className="text-gray-300 text-[11px] mt-0.5 flex items-center gap-1.5">
+                        <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <circle cx="12" cy="12" r="9" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 2" />
+                        </svg>
+                        {trip.duration}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-end gap-2 px-3 pb-3 pt-1 border-t border-white/5">
                     {trip.originalPrice && (
-                      <span className="text-gray-500 text-xs line-through">&pound;{trip.originalPrice}</span>
+                      <span className="text-gray-500 text-[11px] line-through">&pound;{trip.originalPrice}</span>
                     )}
-                    <span className="text-white font-bold text-sm">&pound;{trip.price}</span>
-                    {trip.originalPrice && (
-                      <>
-                        <span className="text-red-500 text-[9px] font-bold">
-                          -{Math.round(((trip.originalPrice - trip.price) / trip.originalPrice) * 100)}%
-                        </span>
-                        <span className="bg-red-500 text-white text-[7px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full">
-                          Save &pound;{trip.originalPrice - trip.price}
-                        </span>
-                      </>
+                    <span className="text-white text-base font-black font-heading">&pound;{trip.price}</span>
+                    {savings > 0 && (
+                      <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading ml-1">
+                        Save &pound;{savings}
+                      </span>
                     )}
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}
