@@ -234,7 +234,7 @@ export const trips: Trip[] = [
     image: "/images/thailand-island-hopper-hero.jpg",
     tagline: "Paradise found, one island at a time",
     description:
-      "From the neon buzz of Bangkok to the crystal waters of the Andaman Sea. Explore hidden lagoons, sleep under stars on the beach, and discover why Thailand is every traveller's first love.",
+      "Floating bungalows on crystal clear lakes, mountains, jungle, white sand beaches, tropical islands, boats and beach parties are some of the things you will experience on your journey through some of our favourite spots in the world. Khao Sok National Park, Koh Phangan, Bottle Beach, Koh Tao, and Phi Phi are on everyone's island-hopping bucket list. This is the perfect trip for those looking for the best of the South of Thailand!",
     highlights: [
       "Full Moon Party on Koh Phangan",
       "Kayaking through Ang Thong Marine Park",
