@@ -88,9 +88,12 @@ export default function HeroSlider() {
         modules={[Autoplay, Pagination]}
         slidesPerView={1}
         spaceBetween={0}
-        autoplay={{ delay: 7000, disableOnInteraction: false }}
+        autoplay={{ delay: 7000, disableOnInteraction: false, pauseOnMouseEnter: true }}
         loop
+        loopAdditionalSlides={1}
         pagination={{ clickable: true }}
+        grabCursor
+        allowTouchMove
         speed={900}
         className="h-full w-full"
       >
