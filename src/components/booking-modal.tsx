@@ -156,10 +156,10 @@ export default function BookingModal({
 
               {/* USPs */}
               <div className="flex flex-wrap gap-3 mb-6">
-                <span className="text-[11px] text-tru-green bg-tru-green/10 border border-tru-green/20 rounded-full px-3 py-1 font-semibold">
+                <span className="text-[11px] text-white bg-white/[0.06] border border-white/15 rounded-full px-3 py-1 font-semibold">
                   Deposit from &pound;{depositPrice}
                 </span>
-                <span className="text-[11px] text-tru-pink bg-tru-pink/10 border border-tru-pink/20 rounded-full px-3 py-1 font-semibold">
+                <span className="text-[11px] text-white bg-white/[0.06] border border-white/15 rounded-full px-3 py-1 font-semibold">
                   Free date change up to 60 days
                 </span>
               </div>
