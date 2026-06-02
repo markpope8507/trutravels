@@ -8,6 +8,9 @@ type ItineraryDay = {
   title: string;
   description: string;
   image?: string;
+  location?: string;
+  transport?: string;
+  meals?: string[];
 };
 
 type Activity = {
@@ -33,10 +36,11 @@ export default function CollapsibleItinerary({
     <div className="space-y-3">
       {days.map((day) => {
         const isOpen = openDay === day.day;
+        const dayActivities = activities.filter((a) => a.day === day.day);
         const dayTypeIds = new Set(
-          activities
-            .filter((a) => a.day === day.day && a.experienceType)
-            .map((a) => a.experienceType as string),
+          dayActivities
+            .map((a) => a.experienceType)
+            .filter(Boolean) as string[],
         );
         const dayExpTypes = experienceTypes.filter((e) => dayTypeIds.has(e.id));
         return (
@@ -95,9 +99,64 @@ export default function CollapsibleItinerary({
                   </p>
                 </div>
 
+                {/* What's included today — icon rows for location, transport, activities, meals */}
+                {(day.location ||
+                  day.transport ||
+                  day.meals?.length ||
+                  dayActivities.length > 0) && (
+                  <div className="mt-4 pt-4 border-t border-white/10 space-y-2">
+                    {day.location && (
+                      <DayIncludedRow
+                        icon={
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                        }
+                        label={day.location}
+                      />
+                    )}
+                    {day.transport && (
+                      <DayIncludedRow
+                        icon={
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <rect x="4" y="4" width="16" height="14" rx="2" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16M8 18v2m8-2v2" />
+                            <circle cx="8" cy="15" r="0.5" fill="currentColor" />
+                            <circle cx="16" cy="15" r="0.5" fill="currentColor" />
+                          </svg>
+                        }
+                        label={day.transport}
+                      />
+                    )}
+                    {dayActivities.map((a) => (
+                      <DayIncludedRow
+                        key={a.name}
+                        icon={
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        }
+                        label={a.name}
+                      />
+                    ))}
+                    {day.meals?.map((m) => (
+                      <DayIncludedRow
+                        key={m}
+                        icon={
+                          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 11h18M5 11V5a1 1 0 011-1h12a1 1 0 011 1v6M5 11l-1 8a1 1 0 001 1h14a1 1 0 001-1l-1-8" />
+                          </svg>
+                        }
+                        label={m}
+                      />
+                    ))}
+                  </div>
+                )}
+
                 {/* Experience-type pills for this day */}
                 {dayExpTypes.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center gap-2">
+                  <div className="mt-4 flex flex-wrap items-center gap-2">
                     {dayExpTypes.map((e) => (
                       <span
                         key={e.id}
@@ -119,6 +178,15 @@ export default function CollapsibleItinerary({
           </div>
         );
       })}
+    </div>
+  );
+}
+
+function DayIncludedRow({ icon, label }: { icon: React.ReactNode; label: string }) {
+  return (
+    <div className="flex items-center gap-2.5 text-sm text-gray-300">
+      <span className="text-tru-pink flex-shrink-0">{icon}</span>
+      <span>{label}</span>
     </div>
   );
 }
