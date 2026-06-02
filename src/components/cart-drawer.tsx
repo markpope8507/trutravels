@@ -129,13 +129,6 @@ export default function CartDrawer() {
           ) : (
             <div className="space-y-4">
               {items.map((item) => {
-                const discountPct = item.originalPricePerPerson
-                  ? Math.round(
-                      ((item.originalPricePerPerson - item.pricePerPerson) /
-                        item.originalPricePerPerson) *
-                        100,
-                    )
-                  : 0;
                 const lineSave = item.originalPricePerPerson
                   ? (item.originalPricePerPerson - item.pricePerPerson) *
                     item.travellers
@@ -146,30 +139,34 @@ export default function CartDrawer() {
                   key={item.id}
                   className="rounded-[12px] border border-white/10 bg-white/[0.04] overflow-hidden"
                 >
-                  <div className="flex gap-3 p-3 relative">
-                    <div className="relative h-20 w-20 rounded-[8px] overflow-hidden flex-shrink-0">
+                  <div className="flex gap-3 p-3">
+                    <div className="h-20 w-20 rounded-[8px] overflow-hidden flex-shrink-0">
                       <img
                         src={item.image}
                         alt={item.tripTitle}
                         className="h-full w-full object-cover"
                       />
-                      {discountPct > 0 && (
-                        <div
-                          className="absolute -top-1.5 -right-1.5 h-9 w-9 rounded-full bg-red-600 text-white flex flex-col items-center justify-center font-heading shadow-lg ring-2 ring-red-500/40"
-                          style={{ transform: "rotate(-10deg)" }}
-                        >
-                          <span className="text-[10px] font-black leading-none">−{discountPct}%</span>
-                        </div>
-                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-white text-sm font-bold font-heading leading-snug truncate">
                         {item.tripTitle}
                       </p>
-                      <p className="text-gray-400 text-[11px] mt-0.5">
+                      <p className="text-gray-300 text-[11px] mt-1 flex items-center gap-1.5">
+                        <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <rect x="3" y="4" width="18" height="18" rx="2" />
+                          <line x1="16" y1="2" x2="16" y2="6" />
+                          <line x1="8" y1="2" x2="8" y2="6" />
+                          <line x1="3" y1="10" x2="21" y2="10" />
+                        </svg>
                         {formatDate(item.date)}
                       </p>
-                      <p className="text-gray-500 text-[11px]">{item.duration}</p>
+                      <p className="text-gray-300 text-[11px] mt-0.5 flex items-center gap-1.5">
+                        <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <circle cx="12" cy="12" r="9" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 2" />
+                        </svg>
+                        {item.duration}
+                      </p>
                     </div>
                     <button
                       onClick={() => removeItem(item.id)}
