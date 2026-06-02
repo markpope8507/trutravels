@@ -25,6 +25,8 @@ export default function TripPricingCard({
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
     : 0;
   const savings = originalPrice ? originalPrice - price : 0;
+  const days = parseInt(duration, 10) || 1;
+  const perDay = Math.round(price / days);
 
   return (
     <div className="bg-white/[0.06] border border-white/15 rounded-[16px] p-6">
@@ -46,6 +48,9 @@ export default function TripPricingCard({
             </span>
             <span className="text-gray-400 text-sm">/ person</span>
           </div>
+          <p className="text-gray-400 text-xs mt-2">
+            Just <span className="text-white font-bold">&pound;{perDay}</span> per day
+          </p>
         </div>
         {discountPct > 0 && (
           <div className="flex flex-col items-center flex-shrink-0">
