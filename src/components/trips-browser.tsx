@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
@@ -43,7 +42,7 @@ const sortOptions = [
 function TripCarouselSection({ label, title, labelColor, trips: sectionTrips, id }: { label: string; title: string; labelColor: string; trips: Trip[]; id: string }) {
   if (sectionTrips.length === 0) return null;
   return (
-    <section className="mb-16">
+    <section id={id} className="mb-16 scroll-mt-20">
       <div className="flex items-end justify-between mb-6">
         <div>
           <p className={`text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1`} style={{ color: labelColor }}>{label}</p>
@@ -348,23 +347,10 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000]);
   const [sort, setSort] = useState("recommended");
   const [showFilters, setShowFilters] = useState(false);
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const viewParam = searchParams.get("view") as "discover" | "deals" | "departures" | null;
-  const view = viewParam === "deals" || viewParam === "departures" ? viewParam : "discover";
-
-  const setView = (v: "discover" | "deals" | "departures") => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (v === "discover") {
-      params.delete("view");
-    } else {
-      params.set("view", v);
-    }
-    router.push(`/explore${params.toString() ? `?${params.toString()}` : ""}`, { scroll: false });
-  };
   const [dealsSort, setDealsSort] = useState("recommended");
   const [dealsSortOpen, setDealsSortOpen] = useState(false);
   const [navSticky, setNavSticky] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("explore");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -377,6 +363,35 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Scroll-spy: highlight the active pill based on which top-level section is in view
+  useEffect(() => {
+    const ids = ["explore", "deals", "departures"];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+            break;
+          }
+        }
+      },
+      { rootMargin: "-30% 0px -55% 0px" },
+    );
+    for (const id of ids) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const offset = 80;
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+  };
 
   const dealsSortOptions = [
     { id: "recommended", label: "Recommended" },
@@ -425,10 +440,10 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
   const dealsTrips = trips.filter((t) => t.originalPrice);
   const departureTrips = [...trips].sort(() => Math.random() - 0.5); // mock closest departures
 
-  const viewButtons = [
-    { id: "discover" as const, label: "Explore", icon: "M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
-    { id: "deals" as const, label: "Deals", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
-    { id: "departures" as const, label: "By Date", icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" },
+  const sectionPills = [
+    { id: "explore", label: "Explore" },
+    { id: "deals", label: "Deals" },
+    { id: "departures", label: "By Date" },
   ];
 
   return (
@@ -478,7 +493,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
             </p>
             <button
               onClick={() => setShowFilters(true)}
-              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ml-auto ${
+              className={`inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
                 activeFilterCount > 0
                   ? "border-tru-pink bg-tru-pink/20 text-white"
                   : "border-white/40 text-white hover:border-white hover:bg-white/10"
@@ -562,50 +577,64 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
         </div>
       )}
 
-      {/* Action bar - normal flow, duplicated as fixed when scrolled */}
+      {/* Anchor pill bar — scrolls to each section */}
       <div id="explore-bar" className="bg-tru-navy/95 backdrop-blur-md border-b border-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center h-14 gap-2 overflow-x-auto scrollbar-hide">
-            {viewButtons.map((btn) => (
+            {sectionPills.map((s) => (
               <button
-                key={btn.id}
-                onClick={() => setView(btn.id)}
-                className={`flex-shrink-0 flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
-                  view === btn.id
-                    ? "bg-white/15 text-white"
+                key={s.id}
+                onClick={() => scrollToSection(s.id)}
+                className={`flex-shrink-0 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
+                  activeSection === s.id
+                    ? "bg-tru-pink text-white"
                     : "text-gray-400 hover:text-white hover:bg-white/5"
                 }`}
               >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d={btn.icon} />
-                </svg>
-                {btn.label}
+                {s.label}
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Fixed duplicate when scrolled past */}
+      {/* Sticky duplicate when scrolled past */}
       <div className={`fixed top-0 left-0 right-0 z-[60] bg-tru-navy/95 backdrop-blur-md border-b border-white/10 transition-all duration-300 ${navSticky ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center h-14 gap-2 overflow-x-auto scrollbar-hide">
-            {viewButtons.map((btn) => (
-              <button
-                key={btn.id}
-                onClick={() => setView(btn.id)}
-                className={`flex-shrink-0 flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
-                  view === btn.id
-                    ? "bg-white/15 text-white"
-                    : "text-gray-400 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d={btn.icon} />
-                </svg>
-                {btn.label}
-              </button>
-            ))}
+          <div className="flex items-center h-14 gap-2">
+            <div className="flex items-center gap-2 flex-1 overflow-x-auto scrollbar-hide">
+              {sectionPills.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => scrollToSection(s.id)}
+                  className={`flex-shrink-0 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
+                    activeSection === s.id
+                      ? "bg-tru-pink text-white"
+                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setShowFilters(true)}
+              className={`flex-shrink-0 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
+                activeFilterCount > 0
+                  ? "border-tru-pink bg-tru-pink/15 text-white"
+                  : "border-white/20 text-gray-300 hover:border-white/40 hover:text-white"
+              }`}
+            >
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              Filter
+              {activeFilterCount > 0 && (
+                <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
           </div>
         </div>
       </div>
@@ -645,26 +674,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
 
       {/* Content */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-
-        {/* Discover */}
-        {view === "discover" && activeFilterCount === 0 && (
-          <div>
-            <ExploreSectionHeader
-              eyebrow="Discover · Hand-Picked"
-              title="Find Your Trip"
-              titleAccent="Trip"
-              description="Trips curated by the Tru crew — what's trending, perfect first adventures, and unbeatable value. All three flavours, one page."
-              accent="tru-pink"
-              icon={<CompassIcon />}
-            />
-            <TripCarouselSection id="trending" label="Trending Now" title="Most Popular Trips" labelColor="#FF3F99" trips={trendingTrips} />
-            <TripCarouselSection id="first-timer" label="New to Tru?" title="Perfect First Trips" labelColor="#6BD495" trips={firstTimerTrips} />
-            <TripCarouselSection id="budget" label="Ballin' on a Budget" title="Best Value Trips" labelColor="#FCA501" trips={budgetTrips} />
-          </div>
-        )}
-
-        {/* Discover with filters active */}
-        {view === "discover" && activeFilterCount > 0 && (
+        {activeFilterCount > 0 ? (
           <div>
             <div className="mb-8">
               <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide">
@@ -688,31 +698,36 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               </div>
             )}
           </div>
-        )}
+        ) : (
+          <>
+            <section id="explore" className="scroll-mt-20">
+              <TripCarouselSection id="trending" label="Trending Now" title="Most Popular Trips" labelColor="#FF3F99" trips={trendingTrips} />
+              <TripCarouselSection id="first-timer" label="New to Tru?" title="Perfect First Trips" labelColor="#6BD495" trips={firstTimerTrips} />
+              <TripCarouselSection id="budget" label="Ballin' on a Budget" title="Best Value Trips" labelColor="#FCA501" trips={budgetTrips} />
+            </section>
 
-        {/* Deals */}
-        {view === "deals" && (
-          <div>
-            <ExploreSectionHeader
-              eyebrow="Deals · Limited Time"
-              title="Best Prices On The Road"
-              titleAccent="Road"
-              description="Sale departures, last-minute discounts, and trips with the biggest savings on right now. Gone when they're gone."
-              accent="tru-pink"
-              icon={<TagIcon />}
-              action={
-                <button
-                  onClick={() => setDealsSortOpen(true)}
-                  className="h-9 w-9 rounded-full border border-white/20 flex items-center justify-center text-gray-300 hover:border-white/40 hover:text-white transition"
-                  aria-label="Sort deals"
-                >
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                  </svg>
-                </button>
-              }
-            />
-            {dealsTrips.length > 0 ? (
+            {/* Deals */}
+            <section id="deals" className="mb-16 scroll-mt-20">
+              <ExploreSectionHeader
+                eyebrow="Deals · Limited Time"
+                title="Best Prices On The Road"
+                titleAccent="Road"
+                description="Sale departures, last-minute discounts, and trips with the biggest savings on right now. Gone when they're gone."
+                accent="tru-pink"
+                icon={<TagIcon />}
+                action={
+                  <button
+                    onClick={() => setDealsSortOpen(true)}
+                    className="h-9 w-9 rounded-full border border-white/20 flex items-center justify-center text-gray-300 hover:border-white/40 hover:text-white transition"
+                    aria-label="Sort deals"
+                  >
+                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
+                    </svg>
+                  </button>
+                }
+              />
+              {dealsTrips.length > 0 ? (
               <div className="space-y-3">
                 {[...dealsTrips].sort((a, b) => {
                   if (dealsSort === "highest-discount") return ((b.originalPrice || 0) - b.price) - ((a.originalPrice || 0) - a.price);
@@ -745,23 +760,21 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                   </Link>
                 ))}
               </div>
-            ) : (
-              <p className="text-gray-400 text-sm">No deals available right now. Check back soon!</p>
-            )}
-          </div>
-        )}
+              ) : (
+                <p className="text-gray-400 text-sm">No deals available right now. Check back soon!</p>
+              )}
+            </section>
 
-        {/* By Date */}
-        {view === "departures" && (
-          <div>
-            <ExploreSectionHeader
-              eyebrow="Departures · Next Available"
-              title="Bags Packed, Ready To Go"
-              titleAccent="Go"
-              description="Sorted by the next trips leaving. Whatever's free in your calendar, there's probably one that fits."
-              accent="tru-blue"
-              icon={<CalendarIcon />}
-            />
+            {/* By Date */}
+            <section id="departures" className="mb-16 scroll-mt-20">
+              <ExploreSectionHeader
+                eyebrow="Departures · Next Available"
+                title="Bags Packed, Ready To Go"
+                titleAccent="Go"
+                description="Sorted by the next trips leaving. Whatever's free in your calendar, there's probably one that fits."
+                accent="tru-blue"
+                icon={<CalendarIcon />}
+              />
             {(() => {
               const allDepartures = trips
                 .filter((t) => t.departures && t.departures.length > 0)
@@ -837,9 +850,9 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                 <p className="text-gray-400 text-sm">No upcoming departures. Check back soon!</p>
               );
             })()}
-          </div>
+            </section>
+          </>
         )}
-
       </div>
 
       {/* Deals sort modal */}
