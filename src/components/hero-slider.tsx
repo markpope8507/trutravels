@@ -64,7 +64,7 @@ const slides: Slide[] = [
   {
     id: "rio-carnival-2027",
     video:
-      "https://videos.pexels.com/video-files/3209828/3209828-uhd_2560_1440_25fps.mp4",
+      "https://videos.pexels.com/video-files/3209178/3209178-uhd_2560_1440_25fps.mp4",
     poster:
       "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1920&q=80",
     eyebrow: "Limited Edition · Sign Up For The Launch Date",
@@ -90,7 +90,6 @@ export default function HeroSlider() {
         spaceBetween={0}
         autoplay={{ delay: 7000, disableOnInteraction: false, pauseOnMouseEnter: true }}
         loop
-        loopAdditionalSlides={1}
         pagination={{ clickable: true }}
         grabCursor
         allowTouchMove
