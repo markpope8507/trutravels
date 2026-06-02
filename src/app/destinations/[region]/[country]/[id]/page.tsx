@@ -270,10 +270,7 @@ export default async function TripDetailPage({
                   {/* Activities with experience tabs */}
                   <div>
                     <h3 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-4">Included Activities</h3>
-                    <ActivitiesTabs
-                      activities={trip.inclusions.activities}
-                      truExclusive={trip.inclusions.truExclusive}
-                    />
+                    <ActivitiesTabs activities={trip.inclusions.activities} />
                   </div>
 
                   {/* Extras */}

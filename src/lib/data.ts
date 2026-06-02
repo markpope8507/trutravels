@@ -213,6 +213,14 @@ export const trips: Trip[] = [
             "Sleep on wooden bungalows tethered to a hidden lake. Hammocks over the water, jungle on three sides, and zero Wi-Fi.",
         },
         {
+          name: "Bottle Beach Experience",
+          experienceType: "tru-ly-unique",
+          day: 5,
+          image: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80",
+          description:
+            "A secluded beach stay only we can pull off — private fire show, cocktails on the sand, and a bonfire dinner under the stars. You won't find this anywhere else.",
+        },
+        {
           name: "Bottle Beach viewpoint hike",
           experienceType: "rise-up",
           day: 6,

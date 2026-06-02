@@ -11,17 +11,10 @@ type Activity = {
   description?: string;
 };
 
-type TruExclusive = {
-  name: string;
-  description: string;
-};
-
 export default function ActivitiesTabs({
   activities,
-  truExclusive,
 }: {
   activities: Activity[];
-  truExclusive?: TruExclusive;
 }) {
   // Build tabs in the canonical experience-type order (local-lens, rise-up,
   // bucket-list, tru-ly-unique, unplugged), only including types that are
@@ -50,9 +43,6 @@ export default function ActivitiesTabs({
       : activities.filter((a) => a.experienceType === activeTab);
 
   const activeExp = activeTab !== "all" ? experienceTypes.find((e) => e.id === activeTab) : null;
-
-  // Show tru-ly unique tab content with truExclusive detail
-  const isTrulyUnique = activeTab === "tru-ly-unique";
 
   return (
     <div>
@@ -99,18 +89,6 @@ export default function ActivitiesTabs({
         </div>
       )}
 
-      {/* TruExclusive highlight when on tru-ly-unique tab */}
-      {isTrulyUnique && truExclusive && (
-        <div
-          className="rounded-[10px] border border-tru-green/30 bg-tru-green/5 p-5 mb-4"
-        >
-          <p className="text-[10px] text-tru-green font-bold uppercase tracking-wider font-heading mb-1">
-            Tru-ly Unique Experience
-          </p>
-          <p className="text-white font-semibold text-sm mb-2">{truExclusive.name}</p>
-          <p className="text-gray-300 text-sm leading-relaxed">{truExclusive.description}</p>
-        </div>
-      )}
 
       {/* Activity list — collapsible rows */}
       <div className="space-y-1.5">
