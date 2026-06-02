@@ -182,7 +182,10 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
 
                     {/* Experience type disclosure */}
                     {expCounts.length > 0 && (
-                      <ExperienceTypesDisclosure expCounts={expCounts} />
+                      <ExperienceTypesDisclosure
+                        expCounts={expCounts}
+                        totalActivities={activitiesCount}
+                      />
                     )}
                   </div>
                 </div>
@@ -215,11 +218,12 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
    ============================================================ */
 function ExperienceTypesDisclosure({
   expCounts,
+  totalActivities,
 }: {
   expCounts: { id: string; name: string; color: string; count: number }[];
+  totalActivities: number;
 }) {
   const [open, setOpen] = useState(false);
-  const totalActivities = expCounts.reduce((sum, e) => sum + e.count, 0);
 
   return (
     <div className="mt-auto pt-3 border-t border-white/10">
@@ -236,7 +240,7 @@ function ExperienceTypesDisclosure({
         <span>
           {open ? "Hide" : "View"} Experience Types &middot;{" "}
           <span className="text-gray-500 font-semibold normal-case tracking-normal">
-            {expCounts.length} types &middot; {totalActivities} activities
+            {totalActivities} activities
           </span>
         </span>
         <svg
