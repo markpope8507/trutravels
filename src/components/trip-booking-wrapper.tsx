@@ -48,6 +48,7 @@ export default function TripBookingWrapper({
       <TripStickyNav
         price={price}
         originalPrice={originalPrice}
+        tripTitle={tripTitle}
         onBookNow={() => setBookingOpen(true)}
       />
       <BookingModal

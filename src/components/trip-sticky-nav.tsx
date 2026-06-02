@@ -23,10 +23,12 @@ const allSections = [
 export default function TripStickyNav({
   price,
   originalPrice,
+  tripTitle,
   onBookNow,
 }: {
   price: number;
   originalPrice?: number;
+  tripTitle: string;
   onBookNow: () => void;
 }) {
   const [visible, setVisible] = useState(false);
@@ -78,8 +80,12 @@ export default function TripStickyNav({
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Line 1: Savings → Price → Check Dates (all right-aligned) */}
-        <div className="flex items-center justify-end gap-4 h-14 border-b border-white/5">
+        {/* Line 1: Tour title (left) | Savings → Price → Check Dates (right) */}
+        <div className="flex items-center justify-between gap-4 h-14 border-b border-white/5">
+          <p className="text-white font-black text-base sm:text-lg uppercase font-heading tracking-tight truncate min-w-0">
+            {tripTitle}
+          </p>
+          <div className="flex items-center gap-4 flex-shrink-0">
           {originalPrice && originalPrice !== price && (
             <span className="text-white text-[11px] font-bold uppercase tracking-wider font-heading whitespace-nowrap hidden sm:inline">
               Save &pound;{originalPrice - price}
@@ -110,6 +116,7 @@ export default function TripStickyNav({
           >
             Check Dates &rarr;
           </button>
+          </div>
         </div>
 
         {/* Line 2: Section shortcuts */}
