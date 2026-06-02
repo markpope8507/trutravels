@@ -13,52 +13,99 @@ const destinations = [
   {
     region: "Asia",
     countries: [
-      { name: "Thailand", tag: "Top Seller", href: "/destinations/country/thailand" },
-      { name: "Indonesia", tag: "Popular", href: "/destinations/country/indonesia" },
-      { name: "Philippines", tag: "Popular", href: "/destinations/country/philippines" },
-      { name: "Vietnam", tag: "Top Seller", href: "/destinations/country/vietnam" },
-      { name: "Cambodia", tag: "", href: "/destinations/country/cambodia" },
-      { name: "Sri Lanka", tag: "", href: "/destinations/country/sri-lanka" },
-      { name: "India", tag: "", href: "/destinations/country/india" },
-      { name: "Japan", tag: "", href: "/destinations/country/japan" },
-      { name: "China", tag: "New", href: "/destinations/country/china" },
+      { name: "Thailand", flag: "🇹🇭", tag: "Top Seller", href: "/destinations/country/thailand" },
+      { name: "Indonesia", flag: "🇮🇩", tag: "Popular", href: "/destinations/country/indonesia" },
+      { name: "Philippines", flag: "🇵🇭", tag: "Popular", href: "/destinations/country/philippines" },
+      { name: "Vietnam", flag: "🇻🇳", tag: "Top Seller", href: "/destinations/country/vietnam" },
+      { name: "Cambodia", flag: "🇰🇭", tag: "", href: "/destinations/country/cambodia" },
+      { name: "Sri Lanka", flag: "🇱🇰", tag: "", href: "/destinations/country/sri-lanka" },
+      { name: "India", flag: "🇮🇳", tag: "", href: "/destinations/country/india" },
+      { name: "Japan", flag: "🇯🇵", tag: "", href: "/destinations/country/japan" },
+      { name: "China", flag: "🇨🇳", tag: "New", href: "/destinations/country/china" },
     ],
   },
   {
     region: "Latin America",
     countries: [
-      { name: "Mexico", tag: "Popular", href: "/destinations/country/mexico" },
-      { name: "Costa Rica", tag: "", href: "/destinations/country/costa-rica" },
-      { name: "Colombia", tag: "", href: "/destinations/country/colombia" },
-      { name: "Peru", tag: "", href: "/destinations/country/peru" },
-      { name: "Brazil", tag: "", href: "/destinations/country/brazil" },
-      { name: "Belize", tag: "", href: "/destinations/country/belize" },
-      { name: "Guatemala", tag: "", href: "/destinations/country/guatemala" },
+      { name: "Mexico", flag: "🇲🇽", tag: "Popular", href: "/destinations/country/mexico" },
+      { name: "Costa Rica", flag: "🇨🇷", tag: "", href: "/destinations/country/costa-rica" },
+      { name: "Colombia", flag: "🇨🇴", tag: "", href: "/destinations/country/colombia" },
+      { name: "Peru", flag: "🇵🇪", tag: "", href: "/destinations/country/peru" },
+      { name: "Brazil", flag: "🇧🇷", tag: "", href: "/destinations/country/brazil" },
+      { name: "Belize", flag: "🇧🇿", tag: "", href: "/destinations/country/belize" },
+      { name: "Guatemala", flag: "🇬🇹", tag: "", href: "/destinations/country/guatemala" },
     ],
   },
   {
     region: "Europe",
     countries: [
-      { name: "Greece", tag: "Popular", href: "/destinations/country/greece" },
-      { name: "Italy", tag: "", href: "/destinations/country/italy" },
-      { name: "Albania", tag: "New", href: "/destinations/country/albania" },
-      { name: "Europe By Rail", tag: "New" },
+      { name: "Greece", flag: "🇬🇷", tag: "Popular", href: "/destinations/country/greece" },
+      { name: "Italy", flag: "🇮🇹", tag: "", href: "/destinations/country/italy" },
+      { name: "Albania", flag: "🇦🇱", tag: "New", href: "/destinations/country/albania" },
+      { name: "Europe By Rail", flag: "🚆", tag: "New" },
     ],
   },
   {
     region: "Africa & Middle East",
     countries: [
-      { name: "Morocco", tag: "Popular", href: "/destinations/country/morocco" },
-      { name: "Jordan", tag: "", href: "/destinations/country/jordan" },
+      { name: "Morocco", flag: "🇲🇦", tag: "Popular", href: "/destinations/country/morocco" },
+      { name: "Jordan", flag: "🇯🇴", tag: "", href: "/destinations/country/jordan" },
     ],
   },
   {
     region: "Oceania",
     countries: [
-      { name: "New Zealand", tag: "", href: "/destinations/country/new-zealand" },
+      { name: "New Zealand", flag: "🇳🇿", tag: "", href: "/destinations/country/new-zealand" },
     ],
   },
 ];
+
+// Image-led promo tile shown on the right of each desktop mega menu
+type MenuPromo = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  image: string;
+};
+
+const menuPromos: Record<string, MenuPromo> = {
+  destinations: {
+    eyebrow: "New Trip Alert",
+    title: "Rio Carnival 2027",
+    description: "Limited edition launch — sign up for early access.",
+    href: "/signup",
+    image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80",
+  },
+  styles: {
+    eyebrow: "Featured Style",
+    title: "Limited Edition",
+    description: "Songkran, Day of the Dead, Rio Carnival — gone in a flash.",
+    href: "/travel-styles/limited-edition",
+    image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80",
+  },
+  deals: {
+    eyebrow: "Deal Of The Month",
+    title: "Thailand Summer Sale",
+    description: "Up to 40% off — beaches, parties, full moons.",
+    href: "/destinations/country/thailand",
+    image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",
+  },
+  about: {
+    eyebrow: "Make Travel Matter",
+    title: "Our Impact",
+    description: "Planeterra projects, local guides, and community-first travel.",
+    href: "/about",
+    image: "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=800&q=80",
+  },
+  essentials: {
+    eyebrow: "Need A Hand?",
+    title: "Talk To A Human",
+    description: "Real people, real advice — 9am to 9pm GMT.",
+    href: "/about",
+    image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80",
+  },
+};
 
 const travelStylesNav = [
   { name: "Backpacker", description: "Maximum adventure, minimum spend", logo: "/backpacker-logo.png", href: "/travel-styles/backpacker" },
@@ -74,11 +121,34 @@ const dealsNav = [
   { name: "All Deals", description: "Browse every deal we've got", tag: "🎉" },
 ];
 
-const aboutNav = [
-  { name: "Our Story", href: "/about", description: "How TruTravels started and where we're going" },
-  { name: "Our Impact", href: "/about", description: "Our People & Planet Promise" },
-  { name: "Led By Locals", href: "/about", description: "Meet the people who make it real" },
-  { name: "Stories & Blog", href: "/stories", description: "Real stories from the road" },
+const aboutNav: {
+  name: string;
+  href: string;
+  description: string;
+  image: string;
+  accent: "tru-pink" | "tru-green" | "tru-blue";
+}[] = [
+  {
+    name: "Our Story",
+    href: "/about",
+    description: "How TruTravels started and where we're going.",
+    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80",
+    accent: "tru-pink",
+  },
+  {
+    name: "Led By Locals",
+    href: "/about",
+    description: "Meet the trip leaders who make it real.",
+    image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=600&q=80",
+    accent: "tru-green",
+  },
+  {
+    name: "Stories & Blog",
+    href: "/stories",
+    description: "Watch, read, listen — from the road.",
+    image: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=600&q=80",
+    accent: "tru-blue",
+  },
 ];
 
 const essentialsNav = [
@@ -230,93 +300,136 @@ export default function Navbar() {
 
           {/* ============ DESTINATIONS MEGA MENU ============ */}
           {activeMenu === "destinations" && (
-            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-4">
-              <div className="grid grid-cols-5 gap-6">
-                {destinations.map((region) => (
-                  <div key={region.region}>
-                    <p className="text-xs font-bold uppercase tracking-wider text-tru-pink font-heading mb-3">
-                      {region.region}
-                    </p>
-                    <div className="space-y-1">
-                      {region.countries.map((country) => (
-                        <Link
-                          key={country.name}
-                          href={country.href || "/explore"}
-                          onClick={closeAll}
-                          className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition px-2 py-1 rounded-md hover:bg-white/10"
-                        >
-                          {country.name}
-                          {country.tag && (
-                            <span className={`text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full ${tagColor(country.tag)}`}>
-                              {country.tag}
-                            </span>
-                          )}
-                        </Link>
-                      ))}
+            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
+              <div className="grid grid-cols-12 gap-6">
+                <div className="col-span-9 grid grid-cols-5 gap-6">
+                  {destinations.map((region) => (
+                    <div key={region.region}>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-tru-pink font-heading mb-3">
+                        {region.region}
+                      </p>
+                      <div className="space-y-0.5">
+                        {region.countries.map((country) => (
+                          <Link
+                            key={country.name}
+                            href={country.href || "/explore"}
+                            onClick={closeAll}
+                            className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition px-2 py-1.5 rounded-md hover:bg-white/10"
+                          >
+                            <span className="text-base leading-none flex-shrink-0">{country.flag}</span>
+                            <span className="flex-1 truncate">{country.name}</span>
+                            {country.tag && (
+                              <span className={`text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full ${tagColor(country.tag)}`}>
+                                {country.tag}
+                              </span>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                      <Link href="/explore" onClick={closeAll} className="text-[10px] font-semibold uppercase tracking-wider text-tru-pink hover:text-tru-pink-light transition mt-3 block px-2">
+                        View all &rarr;
+                      </Link>
                     </div>
-                    <Link href="/explore" onClick={closeAll} className="text-[10px] font-semibold uppercase tracking-wider text-tru-pink hover:text-tru-pink-light transition mt-3 block px-2">
-                      View all {region.region} &rarr;
-                    </Link>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <div className="col-span-3">
+                  <PromoTile promo={menuPromos.destinations} onClick={closeAll} />
+                </div>
               </div>
             </div>
           )}
 
           {/* ============ TRAVEL STYLES MEGA MENU ============ */}
           {activeMenu === "styles" && (
-            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-4">
-              <div className="grid grid-cols-5 gap-4">
-                {travelStylesNav.map((style) => (
-                  <Link key={style.name} href={style.href} onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200 text-center">
-                    <img src={style.logo} alt={style.name} className="h-24 mx-auto mb-3" />
-                    <p className="text-xs text-gray-400">{style.description}</p>
-                  </Link>
-                ))}
+            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
+              <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-9 grid grid-cols-5 gap-3">
+                  {travelStylesNav.map((style) => (
+                    <Link key={style.name} href={style.href} onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200 text-center">
+                      <img src={style.logo} alt={style.name} className="h-20 mx-auto mb-3" />
+                      <p className="text-xs text-gray-400 leading-snug">{style.description}</p>
+                    </Link>
+                  ))}
+                </div>
+                <div className="col-span-3">
+                  <PromoTile promo={menuPromos.styles} onClick={closeAll} />
+                </div>
               </div>
             </div>
           )}
 
           {/* ============ DEALS MEGA MENU ============ */}
           {activeMenu === "deals" && (
-            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-4">
-              <div className="grid grid-cols-3 gap-4">
-                {dealsNav.map((deal) => (
-                  <Link key={deal.name} href="/explore" onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-green/30 hover:bg-white/5 transition-all duration-200">
-                    <p className="text-sm font-bold text-white font-heading group-hover:text-tru-green transition">
-                      <span className="mr-2">{deal.tag}</span>{deal.name}
-                    </p>
-                    <p className="text-xs text-gray-400 mt-1">{deal.description}</p>
-                  </Link>
-                ))}
+            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
+              <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-9 grid grid-cols-3 gap-4">
+                  {dealsNav.map((deal) => (
+                    <Link key={deal.name} href="/explore" onClick={closeAll} className="group rounded-[10px] border border-white/10 p-5 hover:border-tru-green/30 hover:bg-white/5 transition-all duration-200">
+                      <p className="text-sm font-bold text-white font-heading group-hover:text-tru-green transition">
+                        <span className="mr-2 text-base">{deal.tag}</span>{deal.name}
+                      </p>
+                      <p className="text-xs text-gray-400 mt-1">{deal.description}</p>
+                    </Link>
+                  ))}
+                </div>
+                <div className="col-span-3">
+                  <PromoTile promo={menuPromos.deals} onClick={closeAll} />
+                </div>
               </div>
             </div>
           )}
 
           {/* ============ ABOUT MEGA MENU ============ */}
           {activeMenu === "about" && (
-            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-4">
-              <div className="grid grid-cols-4 gap-4">
-                {aboutNav.map((item) => (
-                  <Link key={item.name} href={item.href} onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200">
-                    <p className="text-sm font-bold text-white font-heading group-hover:text-tru-pink transition">{item.name}</p>
-                    <p className="text-xs text-gray-400 mt-1">{item.description}</p>
-                  </Link>
-                ))}
+            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
+              <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-9 grid grid-cols-3 gap-4">
+                  {aboutNav.map((item) => (
+                    <Link
+                      key={item.name}
+                      href={item.href}
+                      onClick={closeAll}
+                      className="group relative overflow-hidden rounded-[10px] aspect-[5/3] block"
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/40 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <p
+                          className={`text-xs font-black uppercase tracking-[0.18em] mb-1 font-heading text-${item.accent}`}
+                        >
+                          {item.name}
+                        </p>
+                        <p className="text-[11px] text-gray-200 leading-snug">{item.description}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <div className="col-span-3">
+                  <PromoTile promo={menuPromos.about} onClick={closeAll} />
+                </div>
               </div>
             </div>
           )}
 
           {/* ============ ESSENTIALS MEGA MENU ============ */}
           {activeMenu === "essentials" && (
-            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-4">
-              <div className="grid grid-cols-5 gap-4">
-                {essentialsNav.map((item) => (
-                  <Link key={item.name} href={item.href} onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200">
-                    <p className="text-sm font-bold text-white font-heading group-hover:text-tru-pink transition">{item.name}</p>
-                    <p className="text-xs text-gray-400 mt-1">{item.description}</p>
-                  </Link>
-                ))}
+            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
+              <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-9 grid grid-cols-5 gap-3">
+                  {essentialsNav.map((item) => (
+                    <Link key={item.name} href={item.href} onClick={closeAll} className="group rounded-[10px] border border-white/10 p-4 hover:border-tru-pink/30 hover:bg-white/5 transition-all duration-200">
+                      <p className="text-sm font-bold text-white font-heading group-hover:text-tru-pink transition">{item.name}</p>
+                      <p className="text-xs text-gray-400 mt-1 leading-snug">{item.description}</p>
+                    </Link>
+                  ))}
+                </div>
+                <div className="col-span-3">
+                  <PromoTile promo={menuPromos.essentials} onClick={closeAll} />
+                </div>
               </div>
             </div>
           )}
@@ -429,5 +542,34 @@ export default function Navbar() {
       )}
       <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </nav>
+  );
+}
+
+/* ============================================================
+   PROMO TILE — image-led card on the right of every mega menu
+   ============================================================ */
+function PromoTile({ promo, onClick }: { promo: MenuPromo; onClick: () => void }) {
+  return (
+    <Link
+      href={promo.href}
+      onClick={onClick}
+      className="group relative overflow-hidden rounded-[10px] aspect-[4/3] block h-full"
+    >
+      <img
+        src={promo.image}
+        alt={promo.title}
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/45 to-tru-navy/15" />
+      <div className="absolute bottom-0 left-0 right-0 p-4">
+        <p className="text-[9px] font-black uppercase tracking-[0.22em] text-tru-pink font-heading mb-1">
+          {promo.eyebrow}
+        </p>
+        <p className="text-base font-black uppercase text-white font-heading leading-tight mb-1 group-hover:text-tru-pink transition-colors">
+          {promo.title}
+        </p>
+        <p className="text-[11px] text-gray-200 leading-snug">{promo.description}</p>
+      </div>
+    </Link>
   );
 }
