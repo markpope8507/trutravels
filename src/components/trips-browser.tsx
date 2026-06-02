@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import { Trip, TravelStyle, travelStyleConfig } from "@/lib/data";
 import { tripUrl } from "@/lib/utils";
-import TravelStyleBadge from "@/components/travel-style-badge";
+import TripCard from "@/components/trip-card";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -36,90 +36,6 @@ const sortOptions = [
   { id: "duration-short", label: "Duration: Shortest" },
   { id: "duration-long", label: "Duration: Longest" },
 ];
-
-/* ============================================================
-   TRIP CARD
-   ============================================================ */
-function TripCard({ trip }: { trip: Trip }) {
-  return (
-    <Link href={tripUrl(trip)} className="group block">
-      <div
-        className="relative overflow-hidden rounded-[10px] bg-white/5 border border-white/5 hover:border-tru-pink/20 transition-all duration-300"
-        style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
-      >
-        <div className="relative aspect-[4/3] overflow-hidden">
-          <img
-            src={trip.image}
-            alt={trip.title}
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-          <div className="absolute bottom-1 left-1">
-            <TravelStyleBadge style={trip.travelStyle} />
-          </div>
-          {trip.memberOnly && (
-            <div className="absolute top-3 right-3 bg-tru-pink text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading" style={{ filter: "drop-shadow(2px 2px 3px rgba(0,0,0,0.5))" }}>
-              Members Only
-            </div>
-          )}
-        </div>
-        <div className="p-4">
-          <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading mb-1">{trip.duration}</p>
-          <h3 className="text-sm font-black text-white font-heading leading-tight group-hover:text-tru-pink transition-colors mb-2 uppercase">
-            {trip.title}
-          </h3>
-          {trip.startLocation && trip.endLocation && (
-            <p className="text-gray-400 text-[10px] mb-2 flex items-center gap-1.5">
-              <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              {trip.startLocation} &rarr; {trip.endLocation}
-            </p>
-          )}
-          <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-2">{trip.tagline}</p>
-          <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
-            {trip.region} &middot; {trip.destination}
-          </p>
-
-          {trip.rating && (
-            <div className="flex items-center gap-1.5 mb-3">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <div key={i} className="h-4 w-4 bg-[#00B67A] flex items-center justify-center rounded-[2px]">
-                    <svg className="h-2.5 w-2.5 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                    </svg>
-                  </div>
-                ))}
-              </div>
-              <span className="text-white text-[10px] font-bold">{trip.rating}</span>
-              <span className="text-gray-500 text-[10px]">({trip.reviewCount})</span>
-            </div>
-          )}
-
-          <div className="flex items-center gap-2 pt-3 border-t border-white/10">
-            <span className="text-gray-400 text-xs">From</span>
-            {trip.originalPrice && (
-              <span className="text-gray-500 text-sm line-through">&pound;{trip.originalPrice}</span>
-            )}
-            <span className="text-white font-bold text-lg">&pound;{trip.price}</span>
-            {trip.originalPrice && (
-              <>
-                <span className="text-red-500 text-[10px] font-bold">
-                  -{Math.round(((trip.originalPrice - trip.price) / trip.originalPrice) * 100)}%
-                </span>
-                <span className="bg-red-500 text-white text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ml-auto">
-                  Save &pound;{trip.originalPrice - trip.price}
-                </span>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-}
 
 /* ============================================================
    TRIP CAROUSEL SECTION

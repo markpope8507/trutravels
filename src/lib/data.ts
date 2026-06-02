@@ -823,6 +823,70 @@ export const storyContentSeries: StoryContentSeries[] = [
   },
 ];
 
+// ============================================================
+// EXPERIENCE TYPE BREAKDOWN — used on tour cards
+// ============================================================
+// Classify a free-text activity/highlight into one of the 5 TRU experience types
+// using deterministic keyword rules. Falls back to "local-lens" if nothing matches.
+const EXP_KEYWORDS: Record<string, RegExp> = {
+  "tru-ly-unique": /\b(exclusive|private|vip|hidden|secret|special|floating|live[- ]?aboard|sleeper|behind[- ]the[- ]scene|members?[- ]only|insider)\b/i,
+  "bucket-list": /\b(angkor|ha\s?long|taj|full\s?moon|machu|sigiriya|chichen|wonder|santorini|maya bay|inca|sunrise|sunset|iconic|legendary|world[- ]famous|epic)\b/i,
+  "rise-up": /\b(hike|trek|climb|surf|raft|summit|zip ?line|zipline|dive|kayak|cycle|bike|adventure|adrenalin|paddle|abseil|canyon|jungle trek|water fight|festival)\b/i,
+  "unplugged": /\b(massage|beach|relax|yoga|hot spring|wellness|free day|chill|sail|cruise|hammock|spa|swim|snorkel|island|lagoon|recovery|sunbathing)\b/i,
+  "local-lens": /\b(local|family|cook|village|market|artisan|homestay|culture|tradition|temple|street food|ceremony|community|tribe|cooking class|tea|night market|tribe|bazaar)\b/i,
+};
+
+const EXP_PRIORITY = ["tru-ly-unique", "bucket-list", "rise-up", "unplugged", "local-lens"] as const;
+
+function classifyExperience(text: string): string {
+  for (const id of EXP_PRIORITY) {
+    if (EXP_KEYWORDS[id].test(text)) return id;
+  }
+  return "local-lens";
+}
+
+export type TripExperienceCount = {
+  id: string;
+  name: string;
+  color: string;
+  count: number;
+};
+
+export function getTripExperienceCounts(trip: Trip): {
+  total: number;
+  byType: TripExperienceCount[];
+} {
+  const explicit = trip.inclusions?.activities ?? [];
+  const counts: Record<string, number> = {};
+
+  // Prefer explicit data when at least one activity has an experienceType
+  if (explicit.length > 0 && explicit.some((a) => a.experienceType)) {
+    for (const a of explicit) {
+      if (a.experienceType) counts[a.experienceType] = (counts[a.experienceType] ?? 0) + 1;
+    }
+    return {
+      total: explicit.length,
+      byType: experienceTypes
+        .filter((e) => counts[e.id])
+        .map((e) => ({ id: e.id, name: e.name, color: e.color, count: counts[e.id] })),
+    };
+  }
+
+  // Fallback: classify highlights into experience types
+  const highlights = trip.highlights ?? [];
+  for (const h of highlights) {
+    const id = classifyExperience(h);
+    counts[id] = (counts[id] ?? 0) + 1;
+  }
+
+  return {
+    total: highlights.length,
+    byType: experienceTypes
+      .filter((e) => counts[e.id])
+      .map((e) => ({ id: e.id, name: e.name, color: e.color, count: counts[e.id] })),
+  };
+}
+
 // Top-level podcasts for the Stories landing page (Listen section)
 export type StoryPodcastEpisode = {
   id: string;

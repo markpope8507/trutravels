@@ -5,64 +5,13 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import { trips, Trip } from "@/lib/data";
-import { tripUrl } from "@/lib/utils";
-import { useAuth } from "@/lib/auth-context";
 import MemberGate from "@/components/member-gate";
-import TravelStyleBadge from "@/components/travel-style-badge";
+import TripCard from "@/components/trip-card";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/free-mode";
 
-function TripCard({ trip, onRemove }: { trip: Trip; onRemove?: (id: string) => void }) {
-  return (
-    <div className="relative">
-      {onRemove && (
-        <button
-          onClick={(e) => { e.preventDefault(); onRemove(trip.id); }}
-          className="absolute top-3 right-3 z-10 h-8 w-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white hover:bg-red-500 transition"
-        >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      )}
-      <Link href={tripUrl(trip)} className="group block">
-        <div className="rounded-[10px] bg-white/5 border border-white/5 hover:border-tru-pink/20 transition-all duration-300 overflow-hidden" style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}>
-          <div className="relative aspect-[4/3] overflow-hidden">
-            <img src={trip.image} alt={trip.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-            <div className="absolute bottom-1 left-1"><TravelStyleBadge style={trip.travelStyle} /></div>
-          </div>
-          <div className="p-4">
-            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading mb-1">{trip.duration}</p>
-            <h3 className="text-sm font-black text-white font-heading leading-tight group-hover:text-tru-pink transition-colors mb-2 uppercase">{trip.title}</h3>
-            {trip.startLocation && trip.endLocation && (
-              <p className="text-gray-400 text-[10px] mb-2 flex items-center gap-1.5">
-                <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                {trip.startLocation} &rarr; {trip.endLocation}
-              </p>
-            )}
-            <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-2">{trip.tagline}</p>
-            <div className="flex items-center gap-2 pt-3 border-t border-white/10">
-              {trip.originalPrice && <span className="text-gray-500 text-base line-through">&pound;{trip.originalPrice}</span>}
-              <span className="text-white font-bold text-2xl font-heading">&pound;{trip.price}</span>
-              {trip.originalPrice && (
-                <>
-                  <span className="text-red-500 text-sm font-bold">-{Math.round(((trip.originalPrice - trip.price) / trip.originalPrice) * 100)}%</span>
-                  <span className="bg-red-500 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full ml-auto">Save &pound;{trip.originalPrice - trip.price}</span>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      </Link>
-    </div>
-  );
-}
 
 function SavedContent() {
   const [savedIds, setSavedIds] = useState<string[]>([]);
