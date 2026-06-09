@@ -14,49 +14,49 @@ const destinations: { region: string; countries: { name: string; flag: string; t
   {
     region: "Asia",
     countries: [
-      { name: "Thailand", flag: "🇹🇭", tag: "Top Seller", href: "/destinations/country/thailand", nickname: "The Land of Smiles", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80" },
-      { name: "Indonesia", flag: "🇮🇩", tag: "Popular", href: "/destinations/country/indonesia", nickname: "Emerald of the Equator", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80" },
-      { name: "Philippines", flag: "🇵🇭", tag: "Popular", href: "/destinations/country/philippines", nickname: "Pearl of the Orient Seas", image: "https://images.unsplash.com/photo-1518509562904-e7ef99cddc85?w=800&q=80" },
-      { name: "Vietnam", flag: "🇻🇳", tag: "Top Seller", href: "/destinations/country/vietnam", nickname: "Land of the Ascending Dragon", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80" },
-      { name: "Cambodia", flag: "🇰🇭", tag: "", href: "/destinations/country/cambodia", nickname: "Kingdom of Wonder", image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80" },
-      { name: "Sri Lanka", flag: "🇱🇰", tag: "", href: "/destinations/country/sri-lanka", nickname: "Pearl of the Indian Ocean", image: "https://images.unsplash.com/photo-1586500036706-41963de24d8b?w=800&q=80" },
-      { name: "India", flag: "🇮🇳", tag: "", href: "/destinations/country/india", nickname: "Land of a Thousand Cultures", image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80" },
-      { name: "Japan", flag: "🇯🇵", tag: "", href: "/destinations/country/japan", nickname: "Land of the Rising Sun", image: "https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=800&q=80" },
-      { name: "China", flag: "🇨🇳", tag: "New", href: "/destinations/country/china", nickname: "The Middle Kingdom", image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80" },
+      { name: "Thailand", flag: "🇹🇭", tag: "Top Seller", href: "/destinations/asia/thailand", nickname: "The Land of Smiles", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80" },
+      { name: "Indonesia", flag: "🇮🇩", tag: "Popular", href: "/destinations/asia/indonesia", nickname: "Emerald of the Equator", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80" },
+      { name: "Philippines", flag: "🇵🇭", tag: "Popular", href: "/destinations/asia/philippines", nickname: "Pearl of the Orient Seas", image: "https://images.unsplash.com/photo-1518509562904-e7ef99cddc85?w=800&q=80" },
+      { name: "Vietnam", flag: "🇻🇳", tag: "Top Seller", href: "/destinations/asia/vietnam", nickname: "Land of the Ascending Dragon", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80" },
+      { name: "Cambodia", flag: "🇰🇭", tag: "", href: "/destinations/asia/cambodia", nickname: "Kingdom of Wonder", image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80" },
+      { name: "Sri Lanka", flag: "🇱🇰", tag: "", href: "/destinations/asia/sri-lanka", nickname: "Pearl of the Indian Ocean", image: "https://images.unsplash.com/photo-1586500036706-41963de24d8b?w=800&q=80" },
+      { name: "India", flag: "🇮🇳", tag: "", href: "/destinations/asia/india", nickname: "Land of a Thousand Cultures", image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80" },
+      { name: "Japan", flag: "🇯🇵", tag: "", href: "/destinations/asia/japan", nickname: "Land of the Rising Sun", image: "https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=800&q=80" },
+      { name: "China", flag: "🇨🇳", tag: "New", href: "/destinations/asia/china", nickname: "The Middle Kingdom", image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80" },
     ],
   },
   {
     region: "Latin America",
     countries: [
-      { name: "Mexico", flag: "🇲🇽", tag: "Popular", href: "/destinations/country/mexico", nickname: "Land of Colour", image: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80" },
-      { name: "Costa Rica", flag: "🇨🇷", tag: "", href: "/destinations/country/costa-rica", nickname: "Pura Vida", image: "https://images.unsplash.com/photo-1518002054494-3a6f17be46eb?w=800&q=80" },
-      { name: "Colombia", flag: "🇨🇴", tag: "", href: "/destinations/country/colombia", nickname: "Land of Magical Realism", image: "https://images.unsplash.com/photo-1568632234157-ce7aecd3f87a?w=800&q=80" },
-      { name: "Peru", flag: "🇵🇪", tag: "", href: "/destinations/country/peru", nickname: "Land of the Incas", image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80" },
-      { name: "Brazil", flag: "🇧🇷", tag: "", href: "/destinations/country/brazil", nickname: "Land of Carnival", image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80" },
-      { name: "Belize", flag: "🇧🇿", tag: "", href: "/destinations/country/belize", nickname: "Jewel of the Caribbean", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" },
-      { name: "Guatemala", flag: "🇬🇹", tag: "", href: "/destinations/country/guatemala", nickname: "Land of Eternal Spring", image: "https://images.unsplash.com/photo-1546902214-b8aef72c8a7c?w=800&q=80" },
+      { name: "Mexico", flag: "🇲🇽", tag: "Popular", href: "/destinations/latin-america/mexico", nickname: "Land of Colour", image: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80" },
+      { name: "Costa Rica", flag: "🇨🇷", tag: "", href: "/destinations/latin-america/costa-rica", nickname: "Pura Vida", image: "https://images.unsplash.com/photo-1518002054494-3a6f17be46eb?w=800&q=80" },
+      { name: "Colombia", flag: "🇨🇴", tag: "", href: "/destinations/latin-america/colombia", nickname: "Land of Magical Realism", image: "https://images.unsplash.com/photo-1568632234157-ce7aecd3f87a?w=800&q=80" },
+      { name: "Peru", flag: "🇵🇪", tag: "", href: "/destinations/latin-america/peru", nickname: "Land of the Incas", image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80" },
+      { name: "Brazil", flag: "🇧🇷", tag: "", href: "/destinations/latin-america/brazil", nickname: "Land of Carnival", image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80" },
+      { name: "Belize", flag: "🇧🇿", tag: "", href: "/destinations/latin-america/belize", nickname: "Jewel of the Caribbean", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" },
+      { name: "Guatemala", flag: "🇬🇹", tag: "", href: "/destinations/latin-america/guatemala", nickname: "Land of Eternal Spring", image: "https://images.unsplash.com/photo-1546902214-b8aef72c8a7c?w=800&q=80" },
     ],
   },
   {
     region: "Europe",
     countries: [
-      { name: "Greece", flag: "🇬🇷", tag: "Popular", href: "/destinations/country/greece", nickname: "Cradle of Civilization", image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" },
-      { name: "Italy", flag: "🇮🇹", tag: "", href: "/destinations/country/italy", nickname: "Il Bel Paese", image: "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80" },
-      { name: "Albania", flag: "🇦🇱", tag: "New", href: "/destinations/country/albania", nickname: "Land of the Eagles", image: "https://images.unsplash.com/photo-1581791534671-da08e4c3e44e?w=800&q=80" },
+      { name: "Greece", flag: "🇬🇷", tag: "Popular", href: "/destinations/europe/greece", nickname: "Cradle of Civilization", image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" },
+      { name: "Italy", flag: "🇮🇹", tag: "", href: "/destinations/europe/italy", nickname: "Il Bel Paese", image: "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80" },
+      { name: "Albania", flag: "🇦🇱", tag: "New", href: "/destinations/europe/albania", nickname: "Land of the Eagles", image: "https://images.unsplash.com/photo-1581791534671-da08e4c3e44e?w=800&q=80" },
       { name: "Europe By Rail", flag: "🚆", tag: "New", nickname: "Borderless Europe", image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=800&q=80" },
     ],
   },
   {
     region: "Africa & Middle East",
     countries: [
-      { name: "Morocco", flag: "🇲🇦", tag: "Popular", href: "/destinations/country/morocco", nickname: "Gateway to Africa", image: "https://images.unsplash.com/photo-1539020140153-e8c237112f4f?w=800&q=80" },
-      { name: "Jordan", flag: "🇯🇴", tag: "", href: "/destinations/country/jordan", nickname: "Cradle of Petra", image: "https://images.unsplash.com/photo-1565017228812-91c98e6aaef8?w=800&q=80" },
+      { name: "Morocco", flag: "🇲🇦", tag: "Popular", href: "/destinations/africa-and-middle-east/morocco", nickname: "Gateway to Africa", image: "https://images.unsplash.com/photo-1539020140153-e8c237112f4f?w=800&q=80" },
+      { name: "Jordan", flag: "🇯🇴", tag: "", href: "/destinations/africa-and-middle-east/jordan", nickname: "Cradle of Petra", image: "https://images.unsplash.com/photo-1565017228812-91c98e6aaef8?w=800&q=80" },
     ],
   },
   {
     region: "Oceania",
     countries: [
-      { name: "New Zealand", flag: "🇳🇿", tag: "", href: "/destinations/country/new-zealand", nickname: "Land of the Long White Cloud", image: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=800&q=80" },
+      { name: "New Zealand", flag: "🇳🇿", tag: "", href: "/destinations/oceania/new-zealand", nickname: "Land of the Long White Cloud", image: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=800&q=80" },
     ],
   },
 ];
@@ -89,7 +89,7 @@ const menuPromos: Record<string, MenuPromo> = {
     eyebrow: "Deal Of The Month",
     title: "Thailand Summer Sale",
     description: "Up to 40% off — beaches, parties, full moons.",
-    href: "/destinations/country/thailand",
+    href: "/destinations/asia/thailand",
     image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",
   },
   about: {
@@ -310,7 +310,7 @@ export default function Navbar() {
               ) : (
                 <Link
                   href="/login"
-                  className="ml-1 rounded-full bg-tru-green px-4 py-1.5 text-[10px] font-semibold text-tru-navy hover:bg-tru-green-light transition uppercase tracking-wider font-heading"
+                  className="ml-1 rounded-full bg-yellow-400 px-4 py-1.5 text-[10px] font-semibold text-tru-navy hover:bg-yellow-300 transition uppercase tracking-wider font-heading"
                   onClick={closeAll}
                 >
                   Join / Log in
@@ -648,7 +648,7 @@ export default function Navbar() {
               Dashboard
             </Link>
           ) : (
-            <Link href="/login" onClick={closeAll} className="block rounded-full bg-tru-green px-5 py-2.5 text-center text-sm font-semibold text-tru-navy mt-3">
+            <Link href="/login" onClick={closeAll} className="block rounded-full bg-yellow-400 px-5 py-2.5 text-center text-sm font-semibold text-tru-navy mt-3">
               Join / Log in
             </Link>
           )}

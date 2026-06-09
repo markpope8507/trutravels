@@ -3,6 +3,7 @@ import TravelStylePill from "@/components/travel-style-pill";
 import ActivitiesTabs from "@/components/activities-tabs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { slugify } from "@/lib/utils";
 import ShareButtons from "@/components/share-buttons";
 import FavouriteButton from "@/components/favourite-button";
 import TravelStyleInfo from "@/components/travel-style-info";
@@ -15,10 +16,6 @@ import TripPricingCard from "@/components/trip-pricing-card";
 import TripReviews from "@/components/trip-reviews";
 import TripFaqs from "@/components/trip-faqs";
 import RelatedTrips from "@/components/related-trips";
-
-function slugify(str: string) {
-  return str.toLowerCase().replace(/\s+/g, "-").replace(/[&]/g, "and");
-}
 
 export async function generateStaticParams() {
   return trips.map((trip) => ({
@@ -181,11 +178,11 @@ export default async function TripDetailPage({
             </li>
             <li><span className="text-gray-600">/</span></li>
             <li>
-              <Link href={`/destinations/country/${trip.destination.toLowerCase().replace(/\s+/g, "-")}`} className="hover:text-white transition-colors">{trip.destination}</Link>
+              <Link href={`/destinations/${slugify(trip.region)}/${slugify(trip.destination)}`} className="hover:text-white transition-colors">{trip.destination}</Link>
             </li>
           </ol>
           <Link
-            href={`/destinations/country/${trip.destination.toLowerCase().replace(/\s+/g, "-")}`}
+            href={`/destinations/${slugify(trip.region)}/${slugify(trip.destination)}`}
             className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-tru-pink transition-colors uppercase tracking-wider font-semibold font-heading"
           >
             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

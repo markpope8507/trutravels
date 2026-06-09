@@ -441,15 +441,15 @@ export default function CountryPage({ country }: { country: Country }) {
             speed={600}
           >
             {[
-              { name: "Indonesia", slug: "indonesia", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", tagline: "Island of the Gods" },
-              { name: "Vietnam", slug: "vietnam", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", tagline: "The Hidden Gem of Asia" },
-              { name: "Sri Lanka", slug: "sri-lanka", image: "https://images.unsplash.com/photo-1546708770-599a0e47a9c7?w=800&q=80", tagline: "The Teardrop of India" },
-              { name: "Philippines", slug: "philippines", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", tagline: "7,000 Islands of Paradise" },
-              { name: "Cambodia", slug: "cambodia", image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", tagline: "Temples, History & Heart" },
-              { name: "Mexico", slug: "mexico", image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", tagline: "Colour, Culture & Chaos" },
+              { name: "Indonesia", slug: "indonesia", region: "asia", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", tagline: "Island of the Gods" },
+              { name: "Vietnam", slug: "vietnam", region: "asia", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", tagline: "The Hidden Gem of Asia" },
+              { name: "Sri Lanka", slug: "sri-lanka", region: "asia", image: "https://images.unsplash.com/photo-1546708770-599a0e47a9c7?w=800&q=80", tagline: "The Teardrop of India" },
+              { name: "Philippines", slug: "philippines", region: "asia", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", tagline: "7,000 Islands of Paradise" },
+              { name: "Cambodia", slug: "cambodia", region: "asia", image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", tagline: "Temples, History & Heart" },
+              { name: "Mexico", slug: "mexico", region: "latin-america", image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", tagline: "Colour, Culture & Chaos" },
             ].filter((c) => c.name !== country.name).map((c) => (
               <SwiperSlide key={c.slug}>
-                <Link href={`/destinations/country/${c.slug}`} className="group block">
+                <Link href={`/destinations/${c.region}/${c.slug}`} className="group block">
                   <div className="relative overflow-hidden rounded-[10px] aspect-[3/4]">
                     <img src={c.image} alt={c.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
