@@ -28,7 +28,7 @@ type Slide = {
 const slides: Slide[] = [
   {
     id: "leave-ordinary",
-    video: "/videos/hero-15-second.mp4",
+    video: "https://zfxhmfjtkhpuo90l.public.blob.vercel-storage.com/hero-15-second.mp4",
     poster:
       "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80",
     headline: (
@@ -44,7 +44,7 @@ const slides: Slide[] = [
   },
   {
     id: "jess-uuu",
-    video: "/videos/jess-uuu-clip.mp4",
+    video: "https://zfxhmfjtkhpuo90l.public.blob.vercel-storage.com/jess-uuu-clip.mp4",
     poster:
       "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1920&q=80",
     mobileBare: true,
@@ -54,7 +54,7 @@ const slides: Slide[] = [
     id: "thailand-summer-sale",
     video:
       "https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4",
-    mobileVideo: "/videos/bali-this-is-your-sign.mp4",
+    mobileVideo: "https://zfxhmfjtkhpuo90l.public.blob.vercel-storage.com/bali-this-is-your-sign.mp4",
     poster:
       "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=1920&q=80",
     eyebrow: "Limited Time · Up To 40% Off",
