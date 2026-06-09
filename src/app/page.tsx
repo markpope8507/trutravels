@@ -25,26 +25,26 @@ export default function HomePage() {
       {/* ================================================================
           TICKER — Brand manifesto strip in hot pink
           ================================================================ */}
-      <section className="bg-tru-pink py-3 overflow-hidden">
+      <section className="bg-tru-navy py-3 overflow-hidden border-y border-white/10">
         <div className="animate-ticker flex whitespace-nowrap">
           {[...Array(2)].map((_, i) => (
-            <span key={i} className="flex items-center gap-8 text-white text-xs font-bold uppercase tracking-[0.2em] mx-4 font-heading">
+            <span key={i} className="flex items-center gap-8 text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mx-4 font-heading">
               <span>Leave Ordinary Behind</span>
-              <span className="text-white/40">/</span>
+              <span className="text-tru-pink/40">/</span>
               <span>Find Your Extraordinary</span>
-              <span className="text-white/40">/</span>
+              <span className="text-tru-pink/40">/</span>
               <span>Chase Sunsets Not Schedules</span>
-              <span className="text-white/40">/</span>
+              <span className="text-tru-pink/40">/</span>
               <span>Strangers Who Become Family</span>
-              <span className="text-white/40">/</span>
+              <span className="text-tru-pink/40">/</span>
               <span>Step Into The Unknown</span>
-              <span className="text-white/40">/</span>
+              <span className="text-tru-pink/40">/</span>
               <span>Connect Deeply</span>
-              <span className="text-white/40">/</span>
+              <span className="text-tru-pink/40">/</span>
               <span>Make Every Journey Count</span>
-              <span className="text-white/40">/</span>
+              <span className="text-tru-pink/40">/</span>
               <span>We Don&apos;t Do Average</span>
-              <span className="text-white/40">/</span>
+              <span className="text-tru-pink/40">/</span>
             </span>
           ))}
         </div>
@@ -144,8 +144,12 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <VideoDiariesCarousel diaries={videoDiaries} />
+        <div className="mx-auto max-w-7xl pl-4 sm:pl-6 lg:pl-8 overflow-hidden">
+          <VideoDiariesCarousel
+            diaries={videoDiaries.filter((v) =>
+              ["v1", "v4", "v7", "v8", "v9", "v10"].includes(v.id),
+            )}
+          />
         </div>
       </section>
 

@@ -19,6 +19,7 @@ type Slide = {
   cta:
     | { kind: "default" }
     | { kind: "single"; label: string; href: string };
+  mobileBare?: boolean;
 };
 
 const slides: Slide[] = [
@@ -60,6 +61,7 @@ const slides: Slide[] = [
       label: "Let's Go!",
       href: "/destinations/asia/thailand",
     },
+    mobileBare: true,
   },
   {
     id: "rio-carnival-2027",
@@ -129,9 +131,17 @@ function SlideContent({ slide: s }: { slide: Slide }) {
       >
         <source src={s.video} type="video/mp4" />
       </video>
-      <div className="absolute inset-0 bg-gradient-to-b from-tru-navy/60 via-tru-navy/50 to-tru-navy" />
+      <div
+        className={`absolute inset-0 bg-gradient-to-b from-tru-navy/60 via-tru-navy/50 to-tru-navy ${
+          s.mobileBare ? "hidden sm:block" : ""
+        }`}
+      />
 
-      <div className="relative z-10 flex h-full items-center justify-center px-4">
+      <div
+        className={`relative z-10 h-full items-center justify-center px-4 ${
+          s.mobileBare ? "hidden sm:flex" : "flex"
+        }`}
+      >
         <div className="text-center max-w-4xl">
           <div className="mb-6 flex justify-center">
             <img
