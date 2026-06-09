@@ -7,6 +7,7 @@ import { Navigation, FreeMode } from "swiper/modules";
 import { Trip, TravelStyle, travelStyleConfig } from "@/lib/data";
 import { tripUrl } from "@/lib/utils";
 import TripCard from "@/components/trip-card";
+import TripCarouselSection from "@/components/trip-carousel-section";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -39,47 +40,6 @@ const sortOptions = [
 /* ============================================================
    TRIP CAROUSEL SECTION
    ============================================================ */
-function TripCarouselSection({ label, title, labelColor, trips: sectionTrips, id }: { label: string; title: string; labelColor: string; trips: Trip[]; id: string }) {
-  if (sectionTrips.length === 0) return null;
-  return (
-    <section id={id} className="mb-16 scroll-mt-20">
-      <div className="flex items-end justify-between mb-6">
-        <div>
-          <p className={`text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1`} style={{ color: labelColor }}>{label}</p>
-          <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide">{title}</h2>
-        </div>
-      </div>
-      <div className={`${id}-carousel relative`}>
-        <Swiper
-          modules={[Navigation, FreeMode]}
-          spaceBetween={16}
-          slidesPerView={1.15}
-          freeMode={{ enabled: true, sticky: false }}
-          navigation={{ nextEl: `.${id}-next`, prevEl: `.${id}-prev` }}
-          breakpoints={{
-            480: { slidesPerView: 1.5 },
-            640: { slidesPerView: 2.2, spaceBetween: 16 },
-            1024: { slidesPerView: 3, spaceBetween: 20 },
-            1280: { slidesPerView: 3.2, spaceBetween: 20 },
-          }}
-          speed={600}
-        >
-          {sectionTrips.map((trip) => (
-            <SwiperSlide key={trip.id}>
-              <TripCard trip={trip} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <button className={`${id}-prev absolute top-[calc(50%-40px)] -left-2 sm:-left-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30 disabled:cursor-default`}>
-          <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-        </button>
-        <button className={`${id}-next absolute top-[calc(50%-40px)] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30 disabled:cursor-default`}>
-          <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-        </button>
-      </div>
-    </section>
-  );
-}
 
 /* ============================================================
    FULL-SCREEN FILTER OVERLAY
@@ -393,6 +353,27 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
     window.scrollTo({ top, behavior: "smooth" });
   };
 
+  // Route any incoming URL hash (e.g. /explore#deals from the home-page modal)
+  // through the same scroll logic the in-page pill bar uses, so the landing
+  // position matches exactly.
+  useEffect(() => {
+    const goToHash = () => {
+      const hash = window.location.hash.slice(1);
+      if (!hash) return;
+      // Wait a tick for the section to be in the DOM, then scroll.
+      requestAnimationFrame(() => {
+        const el = document.getElementById(hash);
+        if (!el) return;
+        const offset = 80;
+        const top = el.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: "smooth" });
+      });
+    };
+    goToHash();
+    window.addEventListener("hashchange", goToHash);
+    return () => window.removeEventListener("hashchange", goToHash);
+  }, []);
+
   const dealsSortOptions = [
     { id: "recommended", label: "Recommended" },
     { id: "highest-discount", label: "Highest Discount" },
@@ -513,7 +494,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                 <Link
                   key={trip.id}
                   href={tripUrl(trip)}
-                  className="flex-shrink-0 w-80 rounded-[12px] border border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.08] transition-all duration-200 group overflow-hidden"
+                  className="flex-shrink-0 w-80 rounded-[12px] border border-white/10 bg-tru-navy hover:border-white/20 hover:bg-[#0d2a4e] transition-all duration-200 group overflow-hidden"
                 >
                   <div className="flex gap-3 p-3">
                     <div className="h-20 w-20 rounded-[8px] overflow-hidden flex-shrink-0">
@@ -675,8 +656,8 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
       )}
 
       {/* Content */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-        {activeFilterCount > 0 ? (
+      {activeFilterCount > 0 ? (
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
           <div>
             <div className="mb-8">
               <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide">
@@ -700,16 +681,25 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               </div>
             )}
           </div>
-        ) : (
-          <>
-            <section id="explore" className="scroll-mt-20">
-              <TripCarouselSection id="trending" label="Trending Now" title="Most Popular Trips" labelColor="#FF3F99" trips={trendingTrips} />
-              <TripCarouselSection id="first-timer" label="New to Tru?" title="Perfect First Trips" labelColor="#6BD495" trips={firstTimerTrips} />
-              <TripCarouselSection id="budget" label="Ballin' on a Budget" title="Best Value Trips" labelColor="#FCA501" trips={budgetTrips} />
+        </div>
+      ) : (
+        <div className="py-12">
+            <section id="explore" className="relative scroll-mt-20 overflow-hidden">
+              <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[600px] opacity-[0.07] brightness-0 invert" />
+              <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-1/3 w-[220px] sm:w-[340px] lg:w-[480px] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 -bottom-10 w-[220px] sm:w-[340px] lg:w-[480px] opacity-[0.06] brightness-0 invert" />
+              <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <TripCarouselSection id="trending" label="Trending Now" title="Most Popular Trips" labelColor="#FF3F99" trips={trendingTrips} />
+                <TripCarouselSection id="first-timer" label="New to Tru?" title="Perfect First Trips" labelColor="#6BD495" trips={firstTimerTrips} />
+                <TripCarouselSection id="budget" label="Ballin' on a Budget" title="Best Value Trips" labelColor="#FCA501" trips={budgetTrips} />
+              </div>
             </section>
 
             {/* Deals */}
-            <section id="deals" className="mb-16 scroll-mt-20">
+            <section id="deals" className="relative mb-16 scroll-mt-20 overflow-hidden">
+              <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-6 w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.07] brightness-0 invert" />
+              <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -bottom-10 w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.07] brightness-0 invert" />
+              <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <ExploreSectionHeader
                 eyebrow="Deals · Limited Time"
                 title="Best Prices On The Road"
@@ -739,19 +729,38 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                   return 0;
                 }).map((trip) => {
                   const savings = trip.originalPrice ? trip.originalPrice - trip.price : 0;
+                  const discountPct = trip.originalPrice
+                    ? Math.round(((trip.originalPrice - trip.price) / trip.originalPrice) * 100)
+                    : 0;
                   const days = parseInt(trip.duration, 10) || 1;
                   const perDay = Math.round(trip.price / days);
                   return (
                     <Link
                       key={trip.id}
                       href={tripUrl(trip)}
-                      className="group block rounded-[12px] border border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.08] transition-all duration-200 overflow-hidden"
+                      className="group relative block rounded-[12px] border border-white/10 bg-tru-navy hover:border-white/20 hover:bg-[#0d2a4e] transition-all duration-200 overflow-hidden"
                     >
+                      {discountPct > 0 && (
+                        <div
+                          className="absolute top-2 right-2 z-10 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-red-600 text-white flex flex-col items-center justify-center font-heading shadow-lg ring-2 ring-red-500/40"
+                          style={{ transform: "rotate(-10deg)" }}
+                        >
+                          <span className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.15em] leading-none opacity-90">
+                            Save
+                          </span>
+                          <span className="text-sm sm:text-base font-black leading-none">
+                            {discountPct}%
+                          </span>
+                          <span className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.18em] leading-none">
+                            Off
+                          </span>
+                        </div>
+                      )}
                       <div className="flex gap-3 p-3">
                         <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-[8px] overflow-hidden flex-shrink-0">
                           <img src={trip.image} alt={trip.title} className="h-full w-full object-cover" />
                         </div>
-                        <div className="min-w-0 flex-1">
+                        <div className={`min-w-0 flex-1 ${discountPct > 0 ? "pr-14 sm:pr-16" : ""}`}>
                           <p className="text-white text-sm sm:text-base font-black uppercase font-heading leading-snug line-clamp-2 group-hover:text-tru-pink transition-colors">
                             {trip.title}
                           </p>
@@ -796,10 +805,14 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               ) : (
                 <p className="text-gray-400 text-sm">No deals available right now. Check back soon!</p>
               )}
+              </div>
             </section>
 
             {/* By Date */}
-            <section id="departures" className="mb-16 scroll-mt-20">
+            <section id="departures" className="relative mb-16 scroll-mt-20 overflow-hidden">
+              <img src="/bg-assets/komodo-dragon.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[280px] sm:w-[440px] lg:w-[640px] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-12 sm:-left-20 lg:-left-24 -bottom-8 w-[200px] sm:w-[320px] lg:w-[440px] opacity-[0.07] brightness-0 invert" />
+              <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <ExploreSectionHeader
                 eyebrow="Departures · Next Available"
                 title="Bags Packed, Ready To Go"
@@ -835,7 +848,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                       <Link
                         key={`${dep.trip.id}-${dep.date}`}
                         href={tripUrl(dep.trip)}
-                        className="group block rounded-[12px] border border-white/10 bg-white/[0.04] hover:border-white/20 hover:bg-white/[0.08] transition-all duration-200 overflow-hidden"
+                        className="group block rounded-[12px] border border-white/10 bg-tru-navy hover:border-white/20 hover:bg-[#0d2a4e] transition-all duration-200 overflow-hidden"
                       >
                         <div className="flex items-center gap-4 p-3">
                           <div className="flex-shrink-0 w-14 text-center">
@@ -900,10 +913,10 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                 <p className="text-gray-400 text-sm">No upcoming departures. Check back soon!</p>
               );
             })()}
+              </div>
             </section>
-          </>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Deals sort modal */}
       {dealsSortOpen && (

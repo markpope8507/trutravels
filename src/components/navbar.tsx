@@ -343,12 +343,17 @@ export default function Navbar() {
 
           {/* ============ DESTINATIONS MEGA MENU ============ */}
           {activeMenu === "destinations" && (
-            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
-              <div className="grid grid-cols-12 gap-6">
+            <div className="relative hidden xl:block border-t border-white/10 px-5 pb-6 pt-5 overflow-hidden">
+              <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -top-6 right-[28%] w-32 rotate-[-8deg] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-6 left-[20%] w-28 rotate-[12deg] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/brazil.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -top-8 -left-6 w-28 -rotate-[10deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute top-1/2 -translate-y-1/2 left-[42%] w-32 rotate-[6deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-8 right-[40%] w-28 rotate-[-12deg] opacity-[0.05] brightness-0 invert" />
+              <div className="relative grid grid-cols-12 gap-6">
                 <div className="col-span-9 grid grid-cols-5 gap-6">
                   {destinations.map((region) => (
                     <div key={region.region}>
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-tru-pink font-heading mb-3">
+                      <p className="text-xs font-black uppercase tracking-[0.18em] text-tru-pink font-heading mb-3">
                         {region.region}
                       </p>
                       <div className="space-y-0.5">
@@ -391,8 +396,13 @@ export default function Navbar() {
 
           {/* ============ TRAVEL STYLES MEGA MENU ============ */}
           {activeMenu === "styles" && (
-            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
-              <div className="grid grid-cols-12 gap-4">
+            <div className="relative hidden xl:block border-t border-white/10 px-5 pb-6 pt-5 overflow-hidden">
+              <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -top-8 right-[20%] w-32 rotate-[10deg] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/komodo-dragon.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-10 left-[18%] w-40 -rotate-[6deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -top-6 -left-4 w-28 -rotate-[14deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute top-1/3 left-[44%] w-24 rotate-[8deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-6 right-[38%] w-32 rotate-[10deg] opacity-[0.05] brightness-0 invert" />
+              <div className="relative grid grid-cols-12 gap-4">
                 <div className="col-span-9 grid grid-cols-5 gap-3">
                   {travelStylesNav.map((style) => (
                     <Link
@@ -410,7 +420,7 @@ export default function Navbar() {
                       }
                       className="block group rounded-md p-3 hover:bg-white/5 transition"
                     >
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
+                      <p className="text-xs font-black uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
                         {style.name}
                       </p>
                       <p className="text-xs text-gray-300 leading-snug group-hover:text-white transition">
@@ -432,8 +442,13 @@ export default function Navbar() {
 
           {/* ============ DEALS MEGA MENU ============ */}
           {activeMenu === "deals" && (
-            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
-              <div className="grid grid-cols-12 gap-4">
+            <div className="relative hidden xl:block border-t border-white/10 px-5 pb-6 pt-5 overflow-hidden">
+              <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -top-6 left-[22%] w-28 -rotate-[10deg] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-8 right-[28%] w-36 rotate-[8deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/tru-logo.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -top-4 right-[42%] w-20 rotate-[12deg] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-4 left-[8%] w-28 -rotate-[8deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute top-1/3 -left-4 w-24 rotate-[14deg] opacity-[0.05] brightness-0 invert" />
+              <div className="relative grid grid-cols-12 gap-4">
                 <div className="col-span-9 grid grid-cols-3 gap-4">
                   {dealsNav.map((deal) => (
                     <Link
@@ -451,7 +466,7 @@ export default function Navbar() {
                       }
                       className="block group rounded-md p-3 hover:bg-white/5 transition"
                     >
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
+                      <p className="text-xs font-black uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
                         {deal.name}
                       </p>
                       <p className="text-xs text-gray-300 leading-snug group-hover:text-white transition">
@@ -473,8 +488,13 @@ export default function Navbar() {
 
           {/* ============ ABOUT MEGA MENU ============ */}
           {activeMenu === "about" && (
-            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
-              <div className="grid grid-cols-12 gap-4">
+            <div className="relative hidden xl:block border-t border-white/10 px-5 pb-6 pt-5 overflow-hidden">
+              <img src="/bg-assets/tru-logo.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -top-6 left-[28%] w-24 -rotate-[12deg] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/eyes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-6 right-[26%] w-28 rotate-[10deg] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -top-8 -left-6 w-32 rotate-[10deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/community.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute top-1/2 -translate-y-1/2 left-[44%] w-28 -rotate-[6deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/brazil.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-8 left-[12%] w-28 -rotate-[8deg] opacity-[0.05] brightness-0 invert" />
+              <div className="relative grid grid-cols-12 gap-4">
                 <div className="col-span-9 grid grid-cols-5 gap-3">
                   {aboutNav.map((item) => (
                     <Link
@@ -492,7 +512,7 @@ export default function Navbar() {
                       }
                       className="block group rounded-md p-3 hover:bg-white/5 transition"
                     >
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
+                      <p className="text-xs font-black uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
                         {item.name}
                       </p>
                       <p className="text-xs text-gray-300 leading-snug group-hover:text-white transition">
@@ -514,8 +534,13 @@ export default function Navbar() {
 
           {/* ============ ESSENTIALS MEGA MENU ============ */}
           {activeMenu === "essentials" && (
-            <div className="hidden xl:block border-t border-white/10 px-5 pb-6 pt-5">
-              <div className="grid grid-cols-12 gap-4">
+            <div className="relative hidden xl:block border-t border-white/10 px-5 pb-6 pt-5 overflow-hidden">
+              <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -top-8 right-[22%] w-28 rotate-[12deg] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/community.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-8 left-[22%] w-32 -rotate-[8deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/eyes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -top-6 -left-4 w-28 -rotate-[10deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute top-1/2 -translate-y-1/2 left-[46%] w-24 rotate-[6deg] opacity-[0.05] brightness-0 invert" />
+              <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-6 right-[42%] w-28 rotate-[12deg] opacity-[0.05] brightness-0 invert" />
+              <div className="relative grid grid-cols-12 gap-4">
                 <div className="col-span-9 grid grid-cols-5 gap-3">
                   {essentialsNav.map((item) => (
                     <Link
@@ -533,7 +558,7 @@ export default function Navbar() {
                       }
                       className="block group rounded-md p-3 hover:bg-white/5 transition"
                     >
-                      <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
+                      <p className="text-xs font-black uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
                         {item.name}
                       </p>
                       <p className="text-xs text-gray-300 leading-snug group-hover:text-white transition">

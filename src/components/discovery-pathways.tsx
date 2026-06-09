@@ -5,12 +5,12 @@ import Link from "next/link";
 import { InspireMeModal } from "@/components/inspire-me";
 
 const lifeMoments = [
-  { label: "Career Break", emoji: "💼", href: "/explore" },
-  { label: "Solo Soul Searcher", emoji: "🧭", href: "/explore" },
-  { label: "Just Left Uni", emoji: "🎓", href: "/explore" },
-  { label: "Work Break Recharge", emoji: "🔋", href: "/explore" },
-  { label: "Turning 30", emoji: "🎂", href: "/explore" },
-  { label: "Gap Year", emoji: "🌍", href: "/explore" },
+  { label: "Looking To Challenge Myself", emoji: "🏔️", href: "/life-moments/looking-to-challenge-myself" },
+  { label: "Solo Soul Searcher", emoji: "🧭", href: "/life-moments/solo-soul-searcher" },
+  { label: "Just Left Uni", emoji: "🎓", href: "/life-moments/just-left-uni" },
+  { label: "Work Break Recharge", emoji: "🔋", href: "/life-moments/work-break-recharge" },
+  { label: "Turning 30", emoji: "🎂", href: "/life-moments/turning-30" },
+  { label: "Gap Year", emoji: "🌍", href: "/life-moments/gap-year" },
 ];
 
 function LifeMomentsModal({
@@ -124,10 +124,10 @@ function TravelStylesModal({
 }
 
 const lastMinuteDeals = [
-  { label: "Within 30 Days", emoji: "⏱️", description: "Trips departing in the next 30 days. Spontaneous wins.", href: "/explore" },
-  { label: "Up to 20% Off", emoji: "🔥", description: "Great savings on selected departures.", href: "/explore" },
-  { label: "Up to 40% Off", emoji: "💥", description: "Our biggest discounts. Limited availability.", href: "/explore" },
-  { label: "All Deals", emoji: "🎉", description: "Browse every deal we've got right now.", href: "/explore" },
+  { label: "Within 30 Days", emoji: "⏱️", description: "Trips departing in the next 30 days. Spontaneous wins.", href: "/explore#departures" },
+  { label: "Up to 20% Off", emoji: "🔥", description: "Great savings on selected departures.", href: "/explore#deals" },
+  { label: "Up to 40% Off", emoji: "💥", description: "Our biggest discounts. Limited availability.", href: "/explore#deals" },
+  { label: "All Deals", emoji: "🎉", description: "Browse every deal we've got right now.", href: "/explore#deals" },
 ];
 
 function LastMinuteModal({
@@ -190,13 +190,39 @@ export default function DiscoveryPathways() {
   const [lastMinuteOpen, setLastMinuteOpen] = useState(false);
 
   return (
-    <div className="relative bg-gradient-to-b from-tru-navy/80 via-tru-navy to-tru-navy/80 border-y border-white/5 py-12 overflow-hidden">
-    {/* Noise texture */}
-    <div className="absolute inset-0 opacity-[0.07] pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E\")" }} />
+    <div className="relative py-16 sm:py-20 overflow-hidden">
+    {/* Navy panel that fades to transparent at top + bottom (no hard seam) */}
+    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-tru-navy to-transparent pointer-events-none" />
+    {/* Sticker montage — SVG icons scattered around the edges as a playful background */}
+    <div className="absolute inset-0 pointer-events-none select-none overflow-hidden" aria-hidden="true">
+      {/* Top edge */}
+      <img src="/bg-assets/tru-logo.svg" className="absolute top-4 sm:top-8 left-6 sm:left-1/4 lg:left-1/3 w-24 sm:w-32 lg:w-40 rotate-[-12deg] opacity-[0.12] brightness-0 invert" alt="" />
+      <img src="/bg-assets/mask.svg" className="absolute top-4 sm:top-8 right-6 sm:right-1/4 lg:right-1/3 w-24 sm:w-32 lg:w-40 rotate-[14deg] opacity-[0.12] brightness-0 invert" alt="" />
+      <img src="/bg-assets/komodo-dragon.svg" className="hidden sm:block absolute top-4 -right-8 lg:right-10 w-36 lg:w-52 rotate-[10deg] opacity-[0.10] brightness-0 invert" alt="" />
+      {/* Middle accents */}
+      <img src="/bg-assets/lantern.svg" className="absolute top-1/2 -translate-y-1/2 -left-6 sm:-left-2 lg:left-6 w-16 sm:w-24 lg:w-32 -rotate-[14deg] opacity-[0.12] brightness-0 invert" alt="" />
+      <img src="/bg-assets/peru-bird.svg" className="absolute top-1/2 -translate-y-1/2 -right-6 sm:-right-2 lg:right-6 w-20 sm:w-28 lg:w-36 rotate-[20deg] opacity-[0.12] brightness-0 invert" alt="" />
+      <img src="/bg-assets/bali-flower.svg" className="hidden lg:block absolute top-[28%] left-[18%] w-28 -rotate-[6deg] opacity-[0.10] brightness-0 invert" alt="" />
+      <img src="/bg-assets/eyes.svg" className="hidden md:block absolute top-1/2 -translate-y-1/2 right-[12%] w-24 rotate-[8deg] opacity-[0.10] brightness-0 invert lg:top-[28%] lg:right-[18%] lg:translate-y-0 lg:w-32" alt="" />
+      {/* Bottom edge */}
+      <img src="/bg-assets/ramen.svg" className="absolute -bottom-4 left-8 sm:left-1/4 lg:left-1/3 w-20 sm:w-28 lg:w-36 -rotate-[8deg] opacity-[0.12] brightness-0 invert" alt="" />
+      <img src="/bg-assets/good-vibes.svg" className="hidden sm:block absolute -bottom-6 right-8 lg:right-1/4 w-32 lg:w-44 rotate-[12deg] opacity-[0.10] brightness-0 invert" alt="" />
+      <img src="/bg-assets/brazil.svg" className="hidden lg:block absolute -bottom-8 left-[16%] w-32 -rotate-[10deg] opacity-[0.10] brightness-0 invert" alt="" />
+      <img src="/bg-assets/community.svg" className="hidden md:block lg:hidden absolute -bottom-4 right-1/2 translate-x-1/2 w-32 rotate-[6deg] opacity-[0.10] brightness-0 invert" alt="" />
+      <img src="/bg-assets/sun.svg" className="absolute bottom-2 -right-4 sm:right-2 lg:right-4 w-14 sm:w-20 lg:w-24 rotate-[-8deg] opacity-[0.14] brightness-0 invert" alt="" />
+    </div>
     <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <p className="text-center text-2xl sm:text-3xl lg:text-4xl font-handwriting text-gray-400 mb-8">
-        Search in the way that makes sense for you&hellip;
-      </p>
+      <div className="text-center mb-10">
+        <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] mb-3 font-heading">
+          Your Way
+        </p>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
+          Pick Your <span className="text-tru-pink">Path</span>
+        </h2>
+        <p className="mt-4 text-base sm:text-lg font-handwriting text-gray-300">
+          however you want to search&hellip;
+        </p>
+      </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-3xl mx-auto">
         <button
           onClick={() => setLastMinuteOpen(true)}
