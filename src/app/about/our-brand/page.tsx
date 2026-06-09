@@ -65,13 +65,10 @@ export default function OurBrandPage() {
               Our Brand
             </p>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white uppercase font-heading leading-[0.95] mb-6">
-              Leave Ordinary<br />Behind
+              Leave <span className="font-light">Ordinary</span><br />Behind
             </h1>
             <div className="ml-auto h-px w-16 bg-tru-pink mb-6" />
-            <p className="text-gray-200 text-base sm:text-lg italic leading-relaxed font-light max-w-md ml-auto mb-3">
-              &ldquo;We weren&apos;t made for the ordinary.&rdquo;
-            </p>
-            <p className="text-white text-3xl sm:text-4xl font-handwriting leading-tight">
+            <p className="text-tru-pink text-3xl sm:text-4xl font-handwriting leading-tight">
               Find Your Extraordinary…
             </p>
           </div>
@@ -84,7 +81,7 @@ export default function OurBrandPage() {
       <section className="pt-24 pb-24 border-t border-white/5">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
           <p className="text-2xl sm:text-3xl text-white font-black uppercase font-heading leading-tight">
-            We weren&apos;t made for the ordinary.
+            We weren&apos;t made for the <span className="font-light">ordinary</span>.
           </p>
 
           <p>
@@ -107,7 +104,7 @@ export default function OurBrandPage() {
           </p>
 
           <p className="border-l-2 border-tru-pink pl-6 my-8 text-4xl sm:text-5xl font-black uppercase font-heading leading-[0.95]">
-            <span className="block text-white">Leave Ordinary</span>
+            <span className="block text-white">Leave <span className="font-light">Ordinary</span></span>
             <span className="block text-tru-pink">Behind.</span>
           </p>
 
