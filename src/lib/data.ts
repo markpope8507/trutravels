@@ -324,6 +324,7 @@ export const trips: Trip[] = [
     rating: 4.9,
     reviewCount: 305,
     image: "/images/thailand-island-hopper-hero.jpg",
+    video: "https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4",
     tagline: "Paradise found, one island at a time",
     description:
       "Floating bungalows on crystal clear lakes, mountains, jungle, white sand beaches, tropical islands, boats and beach parties are some of the things you will experience on your journey through some of our favourite spots in the world. Khao Sok National Park, Koh Phangan, Bottle Beach, Koh Tao, and Phi Phi are on everyone's island-hopping bucket list. This is the perfect trip for those looking for the best of the South of Thailand!",

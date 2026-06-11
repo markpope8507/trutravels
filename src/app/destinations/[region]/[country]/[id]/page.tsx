@@ -1,4 +1,4 @@
-import { trips, getTripExperienceCounts } from "@/lib/data";
+import { trips, getTripExperienceCounts, videoDiaries } from "@/lib/data";
 import TravelStylePill from "@/components/travel-style-pill";
 import ActivitiesTabs from "@/components/activities-tabs";
 import Link from "next/link";
@@ -16,6 +16,9 @@ import TripPricingCard from "@/components/trip-pricing-card";
 import TripReviews from "@/components/trip-reviews";
 import TripFaqs from "@/components/trip-faqs";
 import RelatedTrips from "@/components/related-trips";
+import TripVideoPlayer from "@/components/trip-video-player";
+import VideoDiariesCarousel from "@/components/video-diaries-carousel";
+import BackToTop from "@/components/back-to-top";
 
 export async function generateStaticParams() {
   return trips.map((trip) => ({
@@ -41,6 +44,14 @@ export default async function TripDetailPage({
     ? Math.round(((trip.originalPrice - trip.price) / trip.originalPrice) * 100)
     : 0;
 
+  const customerDiaries = videoDiaries.filter((v) =>
+    ["Traveller", "Creator", "Influencer", "Community"].includes(v.tag),
+  );
+  const destinationDiaries = customerDiaries.filter((v) =>
+    v.location.toLowerCase().includes(trip.destination.toLowerCase()),
+  );
+  const diariesToShow = destinationDiaries.length >= 3 ? destinationDiaries : customerDiaries;
+
   return (
     <>
       <TrackTripView tripId={trip.id} />
@@ -59,24 +70,11 @@ export default async function TripDetailPage({
 
       {/* Hero */}
       <section id="trip-hero" className="relative h-screen flex items-end overflow-hidden">
-        {trip.video ? (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster={trip.image}
-            className="absolute inset-0 h-full w-full object-cover object-[40%_50%] sm:object-center scale-105"
-          >
-            <source src={trip.video} type="video/mp4" />
-          </video>
-        ) : (
-          <img
-            src={trip.image}
-            alt={trip.title}
-            className="absolute inset-0 h-full w-full object-cover object-[40%_50%] sm:object-center"
-          />
-        )}
+        <img
+          src={trip.image}
+          alt={trip.title}
+          className="absolute inset-0 h-full w-full object-cover object-[40%_50%] sm:object-center"
+        />
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/70 to-transparent" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-24 w-full">
@@ -193,21 +191,25 @@ export default async function TripDetailPage({
         </div>
       </nav>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      {/* Full-width container with background watermarks bleeding to viewport edges */}
+      <div className="relative overflow-hidden">
+        <img src="/bg-assets/tru-logo.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-10 sm:-right-16 lg:-right-20 top-[2%] w-[180px] sm:w-[280px] lg:w-[380px] opacity-[0.07] brightness-0 invert" />
+        <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[12%] w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 top-[22%] w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[33%] w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 top-[44%] w-[220px] sm:w-[340px] lg:w-[480px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-12 sm:-left-20 lg:-left-24 top-[55%] w-[200px] sm:w-[320px] lg:w-[440px] opacity-[0.07] brightness-0 invert" />
+        <img src="/bg-assets/komodo-dragon.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-14 sm:-right-24 lg:-right-32 top-[64%] w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/eyes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-12 sm:-left-20 lg:-left-24 top-[74%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 top-[84%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-12 sm:-left-20 lg:-left-24 top-[92%] w-[200px] sm:w-[320px] lg:w-[420px] opacity-[0.06] brightness-0 invert" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 pb-16 lg:pt-16">
         <div className="lg:grid lg:grid-cols-3 lg:gap-10">
           {/* Main content */}
           <div className="lg:col-span-2">
-            {/* Overview */}
-            <section id="overview" className="mb-12">
-              <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-4">Overview</h2>
-              <p className="text-gray-300 leading-relaxed mb-6">{trip.description}</p>
-
-              {/* Travel Style */}
-              <TravelStylePill style={trip.travelStyle} />
-            </section>
-
-            {/* Mobile-only pricing card — sits between Overview and Inclusions on mobile;
-                sticky nav kicks in after this scrolls out of view. */}
+            {/* Mobile-only pricing card — sits above the Overview on mobile so the
+                sticky nav kicks in immediately once the user scrolls past it. */}
             <section id="mobile-pricing" className="lg:hidden mb-12">
               <TripPricingCard
                 price={trip.price}
@@ -216,6 +218,22 @@ export default async function TripDetailPage({
                 departures={trip.departures}
                 depositPrice={trip.depositPrice ?? 200}
               />
+            </section>
+
+            {/* Overview */}
+            <section id="overview" className="mb-12">
+              <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-4">Overview</h2>
+              <p className="text-gray-300 leading-relaxed mb-6">{trip.description}</p>
+
+              {/* Trip video — opens full screen on click */}
+              {trip.video && (
+                <div className="mb-6">
+                  <TripVideoPlayer video={trip.video} poster={trip.image} title={trip.title} />
+                </div>
+              )}
+
+              {/* Travel Style */}
+              <TravelStylePill style={trip.travelStyle} />
             </section>
 
             {/* Inclusions */}
@@ -297,6 +315,24 @@ export default async function TripDetailPage({
               )}
             </section>
 
+            {/* Real customer moments — UGC video carousel */}
+            {diariesToShow.length > 0 && (
+              <section id="real-moments" className="mb-12">
+                <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
+                  Diaries · From The Road
+                </p>
+                <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-tight mb-3 leading-[0.95]">
+                  Real Moments <span className="text-tru-pink">From Tour</span>
+                </h2>
+                <p className="text-gray-400 mt-3 max-w-lg text-sm sm:text-base mb-6">
+                  Clips from past travellers — the activities, the people, the bits that make the trip. Tap to play.
+                </p>
+                <div className="-mr-4 sm:-mr-6 lg:mr-0 lg:w-[152%] overflow-hidden">
+                  <VideoDiariesCarousel diaries={diariesToShow} />
+                </div>
+              </section>
+            )}
+
             {/* Itinerary */}
             <section id="itinerary" className="mb-12">
               <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-6">Itinerary</h2>
@@ -366,8 +402,11 @@ export default async function TripDetailPage({
 
         </div>
       </div>
+      </div>
 
       <RelatedTrips trips={trips} currentTripId={trip.id} />
+
+      <BackToTop />
     </>
   );
 }
