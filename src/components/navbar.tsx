@@ -118,24 +118,24 @@ const travelStylesNav = [
 
 const dealsNav = [
   {
-    name: "Explore",
+    name: "Browse Trips",
     eyebrow: "Start Here",
     description: "Most Popular, Perfect First, and Best Value picks.",
-    href: "/explore#explore",
+    href: "/explore",
     image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80",
   },
   {
     name: "Deals",
     eyebrow: "Limited Time",
     description: "Sale departures and the biggest savings on right now.",
-    href: "/explore#deals",
+    href: "/deals#deals",
     image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=800&q=80",
   },
   {
     name: "By Departure",
     eyebrow: "Leaving Soon",
     description: "Sorted by the next trips leaving — find one that fits.",
-    href: "/explore#departures",
+    href: "/deals#departures",
     image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80",
   },
 ];
@@ -252,6 +252,9 @@ export default function Navbar() {
 
             {/* Desktop nav */}
             <div className="hidden xl:flex items-center gap-0.5 flex-1">
+              <Link href="/explore" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll} onMouseEnter={() => setActiveMenu(null)}>
+                Explore
+              </Link>
               <button onMouseEnter={() => setActiveMenu("destinations")} onClick={() => toggleMenu("destinations")} className={navLinkClass("destinations")}>
                 Destinations
               </button>
@@ -593,6 +596,9 @@ export default function Navbar() {
             </svg>
             <span className="text-sm font-semibold uppercase tracking-wider font-heading">Search</span>
           </button>
+          <Link href="/explore" onClick={closeAll} className="block text-gray-300 hover:text-white font-semibold uppercase tracking-wider text-sm font-heading py-3 border-b border-white/10">
+            Explore
+          </Link>
           {/* Destinations — nested collapsible */}
           <div className="border-b border-white/10">
             <button

@@ -8,6 +8,7 @@ import { Trip, TravelStyle, travelStyleConfig } from "@/lib/data";
 import { tripUrl } from "@/lib/utils";
 import TripCard from "@/components/trip-card";
 import TripCarouselSection from "@/components/trip-carousel-section";
+import { LIFE_MOMENTS } from "@/lib/life-moments";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -307,8 +308,6 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000]);
   const [sort, setSort] = useState("recommended");
   const [showFilters, setShowFilters] = useState(false);
-  const [dealsSort, setDealsSort] = useState("recommended");
-  const [dealsSortOpen, setDealsSortOpen] = useState(false);
   const [navSticky, setNavSticky] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("explore");
 
@@ -324,9 +323,9 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Scroll-spy: highlight the active pill based on which top-level section is in view
+  // Scroll-spy: highlight the active pill based on which section is in view
   useEffect(() => {
-    const ids = ["explore", "deals", "departures"];
+    const ids = ["trending", "first-timer", "budget", "life-moments"];
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -374,14 +373,6 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
     return () => window.removeEventListener("hashchange", goToHash);
   }, []);
 
-  const dealsSortOptions = [
-    { id: "recommended", label: "Recommended" },
-    { id: "highest-discount", label: "Highest Discount" },
-    { id: "price-low", label: "Price: Low to High" },
-    { id: "price-high", label: "Price: High to Low" },
-    { id: "duration-short", label: "Duration: Shortest" },
-  ];
-
   useEffect(() => {
     const min = Math.min(...trips.map((t) => t.price));
     const max = Math.max(...trips.map((t) => t.price));
@@ -418,13 +409,12 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
   const trendingTrips = trips.filter((t) => t.originalPrice); // on sale = trending
   const budgetTrips = [...trips].sort((a, b) => a.price - b.price).slice(0, 3);
   const firstTimerTrips = trips.filter((t) => t.travelStyle === "classic" || t.travelStyle === "backpacker");
-  const dealsTrips = trips.filter((t) => t.originalPrice);
-  const departureTrips = [...trips].sort(() => Math.random() - 0.5); // mock closest departures
 
   const sectionPills = [
-    { id: "explore", label: "Explore" },
-    { id: "deals", label: "Deals" },
-    { id: "departures", label: "By Date" },
+    { id: "trending", label: "Most Popular" },
+    { id: "first-timer", label: "First Trips" },
+    { id: "budget", label: "Best Value" },
+    { id: "life-moments", label: "Life Moments" },
   ];
 
   return (
@@ -544,12 +534,12 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
       <div id="explore-bar" className="bg-tru-navy/95 backdrop-blur-md border-b border-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-14 gap-2">
-            <div className="flex items-center gap-2 flex-1 overflow-x-auto scrollbar-hide">
+            <div className="flex items-center gap-2 flex-1 min-w-0 overflow-x-auto scrollbar-hide">
               {sectionPills.map((s) => (
                 <button
                   key={s.id}
                   onClick={() => scrollToSection(s.id)}
-                  className={`flex-shrink-0 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
+                  className={`flex-shrink-0 whitespace-nowrap rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
                     activeSection === s.id
                       ? "bg-tru-pink text-white"
                       : "text-gray-400 hover:text-white hover:bg-white/5"
@@ -561,7 +551,8 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
             </div>
             <button
               onClick={() => setShowFilters(true)}
-              className={`flex-shrink-0 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
+              aria-label="Filter trips"
+              className={`relative flex-shrink-0 inline-flex items-center justify-center gap-1.5 rounded-full h-9 w-9 sm:w-auto sm:h-auto sm:px-4 sm:py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
                 activeFilterCount > 0
                   ? "border-tru-pink bg-tru-pink/15 text-white"
                   : "border-white/20 text-gray-300 hover:border-white/40 hover:text-white"
@@ -570,9 +561,9 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
               </svg>
-              Filter
+              <span className="hidden sm:inline">Filter</span>
               {activeFilterCount > 0 && (
-                <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 sm:static bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
                   {activeFilterCount}
                 </span>
               )}
@@ -585,12 +576,12 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
       <div className={`fixed top-0 left-0 right-0 z-[60] bg-tru-navy/95 backdrop-blur-md border-b border-white/10 transition-all duration-300 ${navSticky ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-14 gap-2">
-            <div className="flex items-center gap-2 flex-1 overflow-x-auto scrollbar-hide">
+            <div className="flex items-center gap-2 flex-1 min-w-0 overflow-x-auto scrollbar-hide">
               {sectionPills.map((s) => (
                 <button
                   key={s.id}
                   onClick={() => scrollToSection(s.id)}
-                  className={`flex-shrink-0 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
+                  className={`flex-shrink-0 whitespace-nowrap rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
                     activeSection === s.id
                       ? "bg-tru-pink text-white"
                       : "text-gray-400 hover:text-white hover:bg-white/5"
@@ -602,7 +593,8 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
             </div>
             <button
               onClick={() => setShowFilters(true)}
-              className={`flex-shrink-0 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
+              aria-label="Filter trips"
+              className={`relative flex-shrink-0 inline-flex items-center justify-center gap-1.5 rounded-full h-9 w-9 sm:w-auto sm:h-auto sm:px-4 sm:py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
                 activeFilterCount > 0
                   ? "border-tru-pink bg-tru-pink/15 text-white"
                   : "border-white/20 text-gray-300 hover:border-white/40 hover:text-white"
@@ -611,9 +603,9 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
               </svg>
-              Filter
+              <span className="hidden sm:inline">Filter</span>
               {activeFilterCount > 0 && (
-                <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 sm:static bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
                   {activeFilterCount}
                 </span>
               )}
@@ -695,264 +687,47 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               </div>
             </section>
 
-            {/* Deals */}
-            <section id="deals" className="relative mb-16 scroll-mt-20 overflow-hidden">
-              <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-6 w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.07] brightness-0 invert" />
-              <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -bottom-10 w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.07] brightness-0 invert" />
+            {/* Life Moments */}
+            <section id="life-moments" className="relative mb-16 scroll-mt-20 overflow-hidden">
+              <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 -top-8 w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.06] brightness-0 invert" />
+              <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 -bottom-10 w-[200px] sm:w-[320px] lg:w-[440px] opacity-[0.07] brightness-0 invert" />
               <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <ExploreSectionHeader
-                eyebrow="Deals · Limited Time"
-                title="Best Prices On The Road"
-                titleAccent="Road"
-                description="Sale departures, last-minute discounts, and trips with the biggest savings on right now. Gone when they're gone."
-                accent="tru-pink"
-                icon={<TagIcon />}
-                action={
-                  <button
-                    onClick={() => setDealsSortOpen(true)}
-                    className="h-9 w-9 rounded-full border border-white/20 flex items-center justify-center text-gray-300 hover:border-white/40 hover:text-white transition"
-                    aria-label="Sort deals"
-                  >
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-                    </svg>
-                  </button>
-                }
-              />
-              {dealsTrips.length > 0 ? (
-              <div className="space-y-3">
-                {[...dealsTrips].sort((a, b) => {
-                  if (dealsSort === "highest-discount") return ((b.originalPrice || 0) - b.price) - ((a.originalPrice || 0) - a.price);
-                  if (dealsSort === "price-low") return a.price - b.price;
-                  if (dealsSort === "price-high") return b.price - a.price;
-                  if (dealsSort === "duration-short") return parseInt(a.duration) - parseInt(b.duration);
-                  return 0;
-                }).map((trip) => {
-                  const savings = trip.originalPrice ? trip.originalPrice - trip.price : 0;
-                  const discountPct = trip.originalPrice
-                    ? Math.round(((trip.originalPrice - trip.price) / trip.originalPrice) * 100)
-                    : 0;
-                  const days = parseInt(trip.duration, 10) || 1;
-                  const perDay = Math.round(trip.price / days);
-                  return (
+                <div className="mb-10 max-w-2xl">
+                  <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
+                    Life Moments &middot; Find Your Fit
+                  </p>
+                  <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
+                    Travel Through Every <span className="text-tru-pink">Chapter</span>
+                  </h2>
+                  <p className="text-gray-300 mt-5 text-base sm:text-lg leading-relaxed">
+                    Different stage of life, different kind of trip. Just left uni and chasing your first taste of freedom? Burnt out and need a recharge? Turning thirty and after something more? Pick the moment you&apos;re in — we&apos;ll show you the routes built for it.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {LIFE_MOMENTS.map((moment) => (
                     <Link
-                      key={trip.id}
-                      href={tripUrl(trip)}
-                      className="group relative block rounded-[12px] border border-white/10 bg-tru-navy hover:border-white/20 hover:bg-[#0d2a4e] transition-all duration-200 overflow-hidden"
+                      key={moment.slug}
+                      href={moment.href}
+                      className="group relative overflow-hidden rounded-[10px] aspect-[5/3] block"
                     >
-                      {discountPct > 0 && (
-                        <div
-                          className="absolute top-2 right-2 z-10 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-red-600 text-white flex flex-col items-center justify-center font-heading shadow-lg ring-2 ring-red-500/40"
-                          style={{ transform: "rotate(-10deg)" }}
-                        >
-                          <span className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.15em] leading-none opacity-90">
-                            Save
-                          </span>
-                          <span className="text-sm sm:text-base font-black leading-none">
-                            {discountPct}%
-                          </span>
-                          <span className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.18em] leading-none">
-                            Off
-                          </span>
-                        </div>
-                      )}
-                      <div className="flex gap-3 p-3">
-                        <div className="h-20 w-20 sm:h-24 sm:w-24 rounded-[8px] overflow-hidden flex-shrink-0">
-                          <img src={trip.image} alt={trip.title} className="h-full w-full object-cover" />
-                        </div>
-                        <div className={`min-w-0 flex-1 ${discountPct > 0 ? "pr-14 sm:pr-16" : ""}`}>
-                          <p className="text-white text-sm sm:text-base font-black uppercase font-heading leading-snug line-clamp-2 group-hover:text-tru-pink transition-colors">
-                            {trip.title}
-                          </p>
-                          {trip.startLocation && trip.endLocation && (
-                            <p className="text-gray-300 text-[11px] mt-1 flex items-center gap-1.5 truncate">
-                              <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                              </svg>
-                              {trip.startLocation} &mdash; {trip.endLocation}
-                            </p>
-                          )}
-                          <p className="text-gray-300 text-[11px] mt-0.5 flex items-center gap-1.5">
-                            <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                              <circle cx="12" cy="12" r="9" />
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 2" />
-                            </svg>
-                            {trip.duration}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-end justify-between gap-3 px-3 pb-3 pt-1 border-t border-white/5">
-                        <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider font-heading mb-1">
-                          Just <span className="text-white">&pound;{perDay}</span> per day
-                        </p>
-                        <div className="flex items-end gap-3">
-                          {trip.originalPrice && (
-                            <span className="text-gray-500 text-[11px] line-through mb-1">&pound;{trip.originalPrice}</span>
-                          )}
-                          <span className="text-white text-base font-black font-heading">&pound;{trip.price}</span>
-                          {savings > 0 && (
-                            <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading mb-1 ml-1">
-                              Save &pound;{savings}
-                            </span>
-                          )}
-                        </div>
+                      <img
+                        src={moment.image}
+                        alt={moment.name}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/50 to-tru-navy/15" />
+                      <div className="absolute bottom-0 left-0 right-0 p-5">
+                        <span className="text-xl mb-2 block">{moment.emoji}</span>
+                        <h3 className="text-xl sm:text-2xl font-black uppercase text-white font-heading leading-tight mb-2 group-hover:text-tru-pink transition-colors">
+                          {moment.name}
+                        </h3>
+                        <p className="text-[12px] text-gray-200 leading-snug">{moment.description}</p>
                       </div>
                     </Link>
-                  );
-                })}
-              </div>
-              ) : (
-                <p className="text-gray-400 text-sm">No deals available right now. Check back soon!</p>
-              )}
-              </div>
-            </section>
-
-            {/* By Date */}
-            <section id="departures" className="relative mb-16 scroll-mt-20 overflow-hidden">
-              <img src="/bg-assets/komodo-dragon.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[280px] sm:w-[440px] lg:w-[640px] opacity-[0.06] brightness-0 invert" />
-              <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-12 sm:-left-20 lg:-left-24 -bottom-8 w-[200px] sm:w-[320px] lg:w-[440px] opacity-[0.07] brightness-0 invert" />
-              <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <ExploreSectionHeader
-                eyebrow="Departures · Next Available"
-                title="Bags Packed, Ready To Go"
-                titleAccent="Go"
-                description="Sorted by the next trips leaving. Whatever's free in your calendar, there's probably one that fits."
-                accent="tru-blue"
-                icon={<CalendarIcon />}
-              />
-            {(() => {
-              const allDepartures = trips
-                .filter((t) => t.departures && t.departures.length > 0)
-                .flatMap((t) =>
-                  (t.departures || [])
-                    .filter((d) => d.status !== "full")
-                    .map((d) => ({ ...d, trip: t }))
-                )
-                .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-              const statusDot: Record<string, string> = {
-                available: "bg-tru-green",
-                "almost-full": "bg-amber-500",
-                discount: "bg-tru-pink",
-              };
-
-              return allDepartures.length > 0 ? (
-                <div className="space-y-3">
-                  {allDepartures.map((dep) => {
-                    const savings = dep.originalPrice && dep.originalPrice !== dep.price ? dep.originalPrice - dep.price : 0;
-                    const statusLabel = dep.status === "almost-full" ? "Almost Full" : dep.status === "discount" ? "On Sale" : "Available";
-                    const days = parseInt(dep.trip.duration, 10) || 1;
-                    const perDay = Math.round(dep.price / days);
-                    return (
-                      <Link
-                        key={`${dep.trip.id}-${dep.date}`}
-                        href={tripUrl(dep.trip)}
-                        className="group block rounded-[12px] border border-white/10 bg-tru-navy hover:border-white/20 hover:bg-[#0d2a4e] transition-all duration-200 overflow-hidden"
-                      >
-                        <div className="flex items-center gap-4 p-3">
-                          <div className="flex-shrink-0 w-14 text-center">
-                            <p className="text-white text-2xl font-black font-heading leading-none">
-                              {new Date(dep.date).getDate()}
-                            </p>
-                            <p className="text-gray-400 text-[10px] uppercase font-heading tracking-wider mt-1">
-                              {new Date(dep.date).toLocaleDateString("en-GB", { month: "short" })}
-                            </p>
-                            <p className="text-gray-500 text-[10px]">
-                              {new Date(dep.date).getFullYear()}
-                            </p>
-                          </div>
-                          <div className="w-px h-14 bg-white/10 flex-shrink-0" />
-                          <div className="flex-1 min-w-0">
-                            <p className="text-white text-sm sm:text-base font-black uppercase font-heading leading-snug line-clamp-2 group-hover:text-tru-pink transition-colors">
-                              {dep.trip.title}
-                            </p>
-                            {dep.trip.startLocation && dep.trip.endLocation && (
-                              <p className="text-gray-300 text-[11px] mt-1 flex items-center gap-1.5 truncate">
-                                <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                                {dep.trip.startLocation} &mdash; {dep.trip.endLocation}
-                              </p>
-                            )}
-                            <p className="text-gray-300 text-[11px] mt-0.5 flex items-center gap-1.5">
-                              <svg className="h-3 w-3 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <circle cx="12" cy="12" r="9" />
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 7v5l3 2" />
-                              </svg>
-                              {dep.trip.duration}
-                            </p>
-                            <p className="text-gray-300 text-[11px] mt-0.5 flex items-center gap-1.5">
-                              <span className={`h-2 w-2 rounded-full flex-shrink-0 ${statusDot[dep.status] || "bg-tru-green"}`} />
-                              {statusLabel}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-end justify-between gap-3 px-3 pb-3 pt-1 border-t border-white/5">
-                          <p className="text-gray-400 text-[10px] font-semibold uppercase tracking-wider font-heading mb-1">
-                            Just <span className="text-white">&pound;{perDay}</span> per day
-                          </p>
-                          <div className="flex items-end gap-3">
-                            {dep.originalPrice && dep.originalPrice !== dep.price && (
-                              <span className="text-gray-500 text-[11px] line-through mb-1">&pound;{dep.originalPrice}</span>
-                            )}
-                            <span className="text-white text-base font-black font-heading">&pound;{dep.price}</span>
-                            {savings > 0 && (
-                              <span className="text-tru-pink text-[10px] font-semibold uppercase tracking-wider font-heading mb-1 ml-1">
-                                Save &pound;{savings}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </Link>
-                    );
-                  })}
+                  ))}
                 </div>
-              ) : (
-                <p className="text-gray-400 text-sm">No upcoming departures. Check back soon!</p>
-              );
-            })()}
               </div>
             </section>
-        </div>
-      )}
-
-      {/* Deals sort modal */}
-      {dealsSortOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setDealsSortOpen(false)} />
-          <div className="relative w-72 rounded-[10px] border border-white/10 bg-tru-navy shadow-xl shadow-black/40 p-6 z-10 animate-fade-in">
-            <button
-              onClick={() => setDealsSortOpen(false)}
-              className="absolute top-3 right-3 text-gray-400 hover:text-white transition"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            <p className="text-white text-base font-semibold mb-4">Sort By</p>
-            <div className="space-y-1">
-              {dealsSortOptions.map((opt) => (
-                <button
-                  key={opt.id}
-                  onClick={() => { setDealsSort(opt.id); setDealsSortOpen(false); }}
-                  className={`w-full text-left rounded-[10px] px-4 py-3 text-sm transition-all duration-200 flex items-center justify-between ${
-                    dealsSort === opt.id
-                      ? "bg-white/10 text-white"
-                      : "text-gray-400 hover:bg-white/5 hover:text-white"
-                  }`}
-                >
-                  {opt.label}
-                  {dealsSort === opt.id && (
-                    <svg className="h-4 w-4 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
         </div>
       )}
 
@@ -980,111 +755,3 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
   );
 }
 
-/* ============================================================
-   EXPLORE SECTION HEADER — pillar-style header for each view
-   ============================================================ */
-function ExploreSectionHeader({
-  eyebrow,
-  title,
-  titleAccent,
-  description,
-  accent,
-  icon,
-  action,
-}: {
-  eyebrow: string;
-  title: string;
-  titleAccent: string;
-  description: string;
-  accent: "tru-pink" | "tru-green" | "tru-blue";
-  icon: React.ReactNode;
-  action?: React.ReactNode;
-}) {
-  const accentText: Record<typeof accent, string> = {
-    "tru-pink": "text-tru-pink",
-    "tru-green": "text-tru-green",
-    "tru-blue": "text-tru-blue",
-  };
-  const accentBorder: Record<typeof accent, string> = {
-    "tru-pink": "border-tru-pink/40",
-    "tru-green": "border-tru-green/40",
-    "tru-blue": "border-tru-blue/40",
-  };
-  const lead = title.endsWith(titleAccent)
-    ? title.slice(0, title.length - titleAccent.length).trimEnd()
-    : title;
-  return (
-    <div className="mb-10 flex items-center justify-between gap-8 flex-wrap">
-      <div className="flex-1 min-w-0 max-w-2xl">
-        <div className="flex items-center gap-3 mb-3">
-          <span className={`h-px w-10 ${accentBorder[accent]} border-t-2`} />
-          <p className={`${accentText[accent]} text-[11px] font-bold uppercase tracking-[0.3em] font-heading`}>
-            {eyebrow}
-          </p>
-        </div>
-        <h2 className="text-4xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
-          {lead}{lead && <> </>}
-          <span className={accentText[accent]}>{titleAccent}</span>
-        </h2>
-        <p className="text-gray-400 mt-4 text-sm sm:text-base max-w-xl">{description}</p>
-      </div>
-      <div className="flex items-center gap-4 flex-shrink-0">
-        {action}
-        <div className={`${accentText[accent]} hidden md:block`}>{icon}</div>
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   PLAYFUL LINE-ART ICONS for the section headers
-   ============================================================ */
-function CompassIcon() {
-  return (
-    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="50" cy="50" r="42" />
-      <circle cx="50" cy="50" r="34" opacity="0.4" />
-      <path d="M50 22 L57 50 L50 78 L43 50 Z" fill="currentColor" stroke="none" />
-      <circle cx="50" cy="50" r="3" fill="currentColor" stroke="none" />
-      <line x1="50" y1="6" x2="50" y2="12" />
-      <line x1="50" y1="88" x2="50" y2="94" />
-      <line x1="6" y1="50" x2="12" y2="50" />
-      <line x1="88" y1="50" x2="94" y2="50" />
-    </svg>
-  );
-}
-
-function TagIcon() {
-  return (
-    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Tag body */}
-      <path d="M14 14 L52 14 L86 48 L52 82 L14 44 Z" />
-      {/* Hole */}
-      <circle cx="28" cy="28" r="6" />
-      {/* % sign */}
-      <circle cx="42" cy="42" r="5" />
-      <circle cx="62" cy="62" r="5" />
-      <line x1="38" y1="66" x2="66" y2="38" />
-      {/* String */}
-      <path d="M28 28 L8 8" opacity="0.6" />
-    </svg>
-  );
-}
-
-function CalendarIcon() {
-  return (
-    <svg width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="12" y="20" width="76" height="68" rx="6" />
-      <line x1="12" y1="38" x2="88" y2="38" />
-      <line x1="30" y1="10" x2="30" y2="26" />
-      <line x1="70" y1="10" x2="70" y2="26" />
-      {/* Dots in cells */}
-      <circle cx="30" cy="54" r="2.5" fill="currentColor" stroke="none" opacity="0.45" />
-      <circle cx="50" cy="54" r="2.5" fill="currentColor" stroke="none" opacity="0.45" />
-      <circle cx="70" cy="54" r="2.5" fill="currentColor" stroke="none" opacity="0.45" />
-      <circle cx="30" cy="70" r="2.5" fill="currentColor" stroke="none" opacity="0.45" />
-      {/* Highlighted day */}
-      <rect x="58" y="62" width="16" height="16" rx="3" fill="currentColor" stroke="none" opacity="0.85" />
-    </svg>
-  );
-}
