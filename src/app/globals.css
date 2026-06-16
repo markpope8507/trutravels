@@ -47,7 +47,7 @@ body {
   background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-body), 'Source Sans Pro', Arial, Helvetica, sans-serif;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 html, body {

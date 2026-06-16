@@ -12,8 +12,8 @@ export default function DealsPage() {
       {/* HERO */}
       <section className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=80"
-          alt="Tropical beach at sunset — pack and go"
+          src="/images/deals-hero.jpg"
+          alt="TruTravels deals — pack and go"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-tru-navy/30 via-tru-navy/50 to-tru-navy/95" />
@@ -35,7 +35,7 @@ export default function DealsPage() {
       </section>
 
       {/* Deals + departures content */}
-      <div className="pt-20 pb-12 border-t border-white/5">
+      <div className="pb-12">
         <DealsBrowser />
       </div>
     </>

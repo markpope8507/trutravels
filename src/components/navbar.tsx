@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { useCart } from "@/lib/cart-context";
 import SearchOverlay from "@/components/search-overlay";
+import { LIFE_MOMENTS } from "@/lib/life-moments";
 
 // ============================================================
 // NAV DATA — Real TruTravels destinations & structure
@@ -128,15 +129,8 @@ const dealsNav = [
     name: "Deals",
     eyebrow: "Limited Time",
     description: "Sale departures and the biggest savings on right now.",
-    href: "/deals#deals",
+    href: "/deals",
     image: "https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=800&q=80",
-  },
-  {
-    name: "By Departure",
-    eyebrow: "Leaving Soon",
-    description: "Sorted by the next trips leaving — find one that fits.",
-    href: "/deals#departures",
-    image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80",
   },
 ];
 
@@ -255,14 +249,14 @@ export default function Navbar() {
               <Link href="/explore" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll} onMouseEnter={() => setActiveMenu(null)}>
                 Explore
               </Link>
+              <Link href="/deals" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll} onMouseEnter={() => setActiveMenu(null)}>
+                Deals
+              </Link>
               <button onMouseEnter={() => setActiveMenu("destinations")} onClick={() => toggleMenu("destinations")} className={navLinkClass("destinations")}>
                 Destinations
               </button>
               <button onMouseEnter={() => setActiveMenu("styles")} onClick={() => toggleMenu("styles")} className={navLinkClass("styles")}>
                 Travel Styles
-              </button>
-              <button onMouseEnter={() => setActiveMenu("deals")} onClick={() => toggleMenu("deals")} className={navLinkClass("deals")}>
-                Deals
               </button>
               <button onMouseEnter={() => setActiveMenu("about")} onClick={() => toggleMenu("about")} className={navLinkClass("about")}>
                 About Us
@@ -406,31 +400,63 @@ export default function Navbar() {
               <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute top-1/3 left-[44%] w-24 rotate-[8deg] opacity-[0.05] brightness-0 invert" />
               <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-6 right-[38%] w-32 rotate-[10deg] opacity-[0.05] brightness-0 invert" />
               <div className="relative grid grid-cols-12 gap-4">
-                <div className="col-span-9 grid grid-cols-5 gap-3">
-                  {travelStylesNav.map((style) => (
-                    <Link
-                      key={style.name}
-                      href={style.href}
-                      onClick={closeAll}
-                      onMouseEnter={() =>
-                        setHoveredItem({
-                          name: style.name,
-                          description: style.description,
-                          image: style.image,
-                          href: style.href,
-                          eyebrow: "Travel Style",
-                        })
-                      }
-                      className="block group rounded-md p-3 hover:bg-white/5 transition"
-                    >
-                      <p className="text-xs font-black uppercase tracking-[0.18em] text-tru-pink font-heading mb-1.5 group-hover:text-tru-pink-light transition">
-                        {style.name}
-                      </p>
-                      <p className="text-xs text-gray-300 leading-snug group-hover:text-white transition">
-                        {style.description}
-                      </p>
+                <div className="col-span-9 grid grid-cols-2 gap-8">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-tru-pink font-heading mb-3">
+                      Travel Styles
+                    </p>
+                    <div className="space-y-0.5">
+                      {travelStylesNav.map((style) => (
+                        <Link
+                          key={style.name}
+                          href={style.href}
+                          onClick={closeAll}
+                          onMouseEnter={() =>
+                            setHoveredItem({
+                              name: style.name,
+                              description: style.description,
+                              image: style.image,
+                              href: style.href,
+                              eyebrow: "Travel Style",
+                            })
+                          }
+                          className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition px-2 py-1.5 rounded-md hover:bg-white/10"
+                        >
+                          <span className="flex-1 truncate">{style.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                    <Link href="/explore" onClick={closeAll} className="text-[10px] font-semibold uppercase tracking-wider text-tru-pink hover:text-tru-pink-light transition mt-3 block px-2">
+                      View all &rarr;
                     </Link>
-                  ))}
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-tru-pink font-heading mb-3">
+                      Life Moments
+                    </p>
+                    <div className="space-y-0.5">
+                      {LIFE_MOMENTS.map((moment) => (
+                        <Link
+                          key={moment.slug}
+                          href={moment.href}
+                          onClick={closeAll}
+                          onMouseEnter={() =>
+                            setHoveredItem({
+                              name: moment.name,
+                              description: moment.description,
+                              image: moment.image,
+                              href: moment.href,
+                              eyebrow: "Life Moment",
+                            })
+                          }
+                          className="flex items-center gap-2 text-sm text-gray-300 hover:text-white transition px-2 py-1.5 rounded-md hover:bg-white/10"
+                        >
+                          <span className="flex-1 truncate">{moment.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </div>
                 <div className="col-span-3">
                   {hoveredItem ? (
@@ -599,6 +625,9 @@ export default function Navbar() {
           <Link href="/explore" onClick={closeAll} className="block text-gray-300 hover:text-white font-semibold uppercase tracking-wider text-sm font-heading py-3 border-b border-white/10">
             Explore
           </Link>
+          <Link href="/deals" onClick={closeAll} className="block text-gray-300 hover:text-white font-semibold uppercase tracking-wider text-sm font-heading py-3 border-b border-white/10">
+            Deals
+          </Link>
           {/* Destinations — nested collapsible */}
           <div className="border-b border-white/10">
             <button
@@ -645,10 +674,16 @@ export default function Navbar() {
 
           {/* Other sections */}
           {[
-            { label: "Travel Styles", key: "m-styles", items: travelStylesNav.map((s) => ({ name: s.name, href: s.href })) },
-            { label: "Deals", key: "m-deals", items: dealsNav.map((d) => ({ name: d.name, href: d.href })) },
-            { label: "About Us", key: "m-about", items: aboutNav.map((a) => ({ name: a.name, href: a.href })) },
-            { label: "Essentials", key: "m-essentials", items: essentialsNav.map((e) => ({ name: e.name, href: e.href })) },
+            {
+              label: "Travel Styles",
+              key: "m-styles",
+              items: [
+                ...travelStylesNav.map((s) => ({ name: s.name, href: s.href, group: "Travel Styles" })),
+                ...LIFE_MOMENTS.map((m) => ({ name: m.name, href: m.href, group: "Life Moments" })),
+              ],
+            },
+            { label: "About Us", key: "m-about", items: aboutNav.map((a) => ({ name: a.name, href: a.href, group: undefined })) },
+            { label: "Essentials", key: "m-essentials", items: essentialsNav.map((e) => ({ name: e.name, href: e.href, group: undefined })) },
           ].map((section) => (
             <div key={section.key} className="border-b border-white/10">
               <button
@@ -662,11 +697,22 @@ export default function Navbar() {
               </button>
               {mobileSubmenu === section.key && (
                 <div className="pb-3 pl-3 space-y-1">
-                  {section.items.map((item) => (
-                    <Link key={item.name} href={item.href} onClick={closeAll} className="block text-sm text-gray-400 hover:text-white py-1.5 transition">
-                      {item.name}
-                    </Link>
-                  ))}
+                  {section.items.map((item, idx) => {
+                    const prevGroup = idx > 0 ? section.items[idx - 1].group : undefined;
+                    const showGroupHeading = item.group && item.group !== prevGroup;
+                    return (
+                      <div key={item.name}>
+                        {showGroupHeading && (
+                          <p className={`text-[10px] font-bold uppercase tracking-[0.25em] font-heading pt-2 pb-1 ${item.group === "Life Moments" ? "text-tru-blue" : "text-tru-pink"}`}>
+                            {item.group}
+                          </p>
+                        )}
+                        <Link href={item.href} onClick={closeAll} className="block text-sm text-gray-400 hover:text-white py-1.5 transition">
+                          {item.name}
+                        </Link>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>

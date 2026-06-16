@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import { Country, Trip, Story, VideoDiary, trips as allTrips, stories as allStories, videoDiaries as allVideoDiaries } from "@/lib/data";
 import TripCard from "@/components/trip-card";
+import DealCard from "@/components/deal-card";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -217,43 +218,16 @@ function CommunityVideos({ videos }: { videos: VideoDiary[] }) {
 }
 
 function UpcomingDepartures({ countryTrips }: { countryTrips: Trip[] }) {
-  const departures = countryTrips
-    .filter((t) => t.departures && t.departures.length > 0)
-    .flatMap((t) => (t.departures || []).filter((d) => d.status !== "full").map((d) => ({ ...d, trip: t })))
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-    .slice(0, 6);
+  const tripsWithUpcoming = countryTrips.filter((t) =>
+    (t.departures || []).some((d) => d.status !== "full" && new Date(d.date) >= new Date()),
+  );
 
-  if (departures.length === 0) return null;
-
-  const statusDot: Record<string, string> = { available: "bg-tru-green", "almost-full": "bg-amber-500", discount: "bg-tru-pink" };
+  if (tripsWithUpcoming.length === 0) return null;
 
   return (
-    <div className="space-y-3">
-      {departures.map((dep) => (
-        <Link key={`${dep.trip.id}-${dep.date}`} href={`/explore/${dep.trip.id}`} className="group flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-4 hover:border-tru-pink/20 hover:bg-white/10 transition-all duration-200">
-          <div className="flex-shrink-0 w-14 text-center">
-            <p className="text-white text-xl font-black font-heading leading-none">{new Date(dep.date).getDate()}</p>
-            <p className="text-gray-400 text-[10px] uppercase font-heading tracking-wider">{new Date(dep.date).toLocaleDateString("en-GB", { month: "short" })}</p>
-          </div>
-          <div className="w-px h-10 bg-white/10 flex-shrink-0" />
-          <div className="flex-1 min-w-0">
-            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading mb-0.5">{dep.trip.duration}</p>
-            <p className="text-white text-sm font-black uppercase font-heading group-hover:text-tru-pink transition-colors truncate">{dep.trip.title}</p>
-            <div className="flex items-center gap-2 mt-1">
-              <div className={`h-2 w-2 rounded-full ${statusDot[dep.status] || "bg-tru-green"}`} />
-              <span className="text-gray-400 text-[10px]">{dep.status === "almost-full" ? "Almost Full" : dep.status === "discount" ? "On Sale" : "Available"}</span>
-            </div>
-          </div>
-          <div className="text-right flex-shrink-0">
-            {dep.originalPrice && dep.originalPrice !== dep.price && (
-              <span className="bg-red-500 text-white text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full inline-block mb-1">Save &pound;{dep.originalPrice - dep.price}</span>
-            )}
-            <div className="flex items-baseline gap-2 justify-end">
-              {dep.originalPrice && dep.originalPrice !== dep.price && <span className="text-gray-500 text-sm line-through">&pound;{dep.originalPrice}</span>}
-              <span className="font-bold text-lg text-white">&pound;{dep.price}</span>
-            </div>
-          </div>
-        </Link>
+    <div className="space-y-5">
+      {tripsWithUpcoming.map((trip) => (
+        <DealCard key={trip.id} trip={trip} mode="all" />
       ))}
     </div>
   );

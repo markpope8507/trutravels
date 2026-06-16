@@ -443,8 +443,8 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
       {/* Hero — image with right-aligned overlay, same language as Stories page */}
       <section id="explore-hero" className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80"
-          alt="Mountains and open road"
+          src="/images/explore-hero.jpg"
+          alt="TruTravels explore — find your trip"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-tru-navy/30 via-tru-navy/50 to-tru-navy/95" />
@@ -533,16 +533,56 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
       {/* Anchor pill bar — scrolls to each section */}
       <div id="explore-bar" className="bg-tru-navy/95 backdrop-blur-md border-b border-white/10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-14 gap-2">
-            <div className="flex items-center gap-2 flex-1 min-w-0 overflow-x-auto scrollbar-hide">
+          {/* MOBILE: two-row stack — filter on top, section pills below */}
+          <div className="sm:hidden">
+            <div className="flex items-center justify-end h-11 border-b border-white/5">
+              <button
+                onClick={() => setShowFilters(true)}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
+                  activeFilterCount > 0
+                    ? "border-tru-pink bg-tru-pink/15 text-white"
+                    : "border-white/20 text-gray-300"
+                }`}
+              >
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                Filter
+                {activeFilterCount > 0 && (
+                  <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </button>
+            </div>
+            <div className="flex items-stretch h-10">
               {sectionPills.map((s) => (
                 <button
                   key={s.id}
                   onClick={() => scrollToSection(s.id)}
-                  className={`flex-shrink-0 whitespace-nowrap rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
+                  className={`flex-1 text-center py-2 text-[10px] font-semibold uppercase tracking-wider font-heading whitespace-nowrap transition-all duration-200 ${
                     activeSection === s.id
-                      ? "bg-tru-pink text-white"
-                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                      ? "text-tru-pink border-b-2 border-tru-pink"
+                      : "text-gray-400 border-b-2 border-transparent"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* DESKTOP: single-row underline tabs + filter on the right */}
+          <div className="hidden sm:flex items-stretch h-14 gap-6">
+            <div className="flex items-stretch gap-6 flex-1 min-w-0 overflow-x-auto scrollbar-hide">
+              {sectionPills.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => scrollToSection(s.id)}
+                  className={`flex-shrink-0 whitespace-nowrap px-1 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border-b-2 ${
+                    activeSection === s.id
+                      ? "text-tru-pink border-tru-pink"
+                      : "text-gray-400 hover:text-white border-transparent"
                   }`}
                 >
                   {s.label}
@@ -551,8 +591,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
             </div>
             <button
               onClick={() => setShowFilters(true)}
-              aria-label="Filter trips"
-              className={`relative flex-shrink-0 inline-flex items-center justify-center gap-1.5 rounded-full h-9 w-9 sm:w-auto sm:h-auto sm:px-4 sm:py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
+              className={`flex-shrink-0 self-center inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
                 activeFilterCount > 0
                   ? "border-tru-pink bg-tru-pink/15 text-white"
                   : "border-white/20 text-gray-300 hover:border-white/40 hover:text-white"
@@ -561,9 +600,9 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
               </svg>
-              <span className="hidden sm:inline">Filter</span>
+              Filter
               {activeFilterCount > 0 && (
-                <span className="absolute -top-1 -right-1 sm:static bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
+                <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
                   {activeFilterCount}
                 </span>
               )}
@@ -575,16 +614,56 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
       {/* Sticky duplicate when scrolled past */}
       <div className={`fixed top-0 left-0 right-0 z-[60] bg-tru-navy/95 backdrop-blur-md border-b border-white/10 transition-all duration-300 ${navSticky ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}`}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-14 gap-2">
-            <div className="flex items-center gap-2 flex-1 min-w-0 overflow-x-auto scrollbar-hide">
+          {/* MOBILE: two-row stack */}
+          <div className="sm:hidden">
+            <div className="flex items-center justify-end h-11 border-b border-white/5">
+              <button
+                onClick={() => setShowFilters(true)}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
+                  activeFilterCount > 0
+                    ? "border-tru-pink bg-tru-pink/15 text-white"
+                    : "border-white/20 text-gray-300"
+                }`}
+              >
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                Filter
+                {activeFilterCount > 0 && (
+                  <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </button>
+            </div>
+            <div className="flex items-stretch h-10">
               {sectionPills.map((s) => (
                 <button
                   key={s.id}
                   onClick={() => scrollToSection(s.id)}
-                  className={`flex-shrink-0 whitespace-nowrap rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
+                  className={`flex-1 text-center py-2 text-[10px] font-semibold uppercase tracking-wider font-heading whitespace-nowrap transition-all duration-200 ${
                     activeSection === s.id
-                      ? "bg-tru-pink text-white"
-                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                      ? "text-tru-pink border-b-2 border-tru-pink"
+                      : "text-gray-400 border-b-2 border-transparent"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* DESKTOP: single-row underline tabs + filter on the right */}
+          <div className="hidden sm:flex items-stretch h-14 gap-6">
+            <div className="flex items-stretch gap-6 flex-1 min-w-0 overflow-x-auto scrollbar-hide">
+              {sectionPills.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => scrollToSection(s.id)}
+                  className={`flex-shrink-0 whitespace-nowrap px-1 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border-b-2 ${
+                    activeSection === s.id
+                      ? "text-tru-pink border-tru-pink"
+                      : "text-gray-400 hover:text-white border-transparent"
                   }`}
                 >
                   {s.label}
@@ -593,8 +672,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
             </div>
             <button
               onClick={() => setShowFilters(true)}
-              aria-label="Filter trips"
-              className={`relative flex-shrink-0 inline-flex items-center justify-center gap-1.5 rounded-full h-9 w-9 sm:w-auto sm:h-auto sm:px-4 sm:py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
+              className={`flex-shrink-0 self-center inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
                 activeFilterCount > 0
                   ? "border-tru-pink bg-tru-pink/15 text-white"
                   : "border-white/20 text-gray-300 hover:border-white/40 hover:text-white"
@@ -603,9 +681,9 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
               </svg>
-              <span className="hidden sm:inline">Filter</span>
+              Filter
               {activeFilterCount > 0 && (
-                <span className="absolute -top-1 -right-1 sm:static bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
+                <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
                   {activeFilterCount}
                 </span>
               )}

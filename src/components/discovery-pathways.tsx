@@ -124,7 +124,7 @@ function TravelStylesModal({
 }
 
 const lastMinuteDeals = [
-  { label: "Within 30 Days", emoji: "⏱️", description: "Trips departing in the next 30 days. Spontaneous wins.", href: "/deals#departures" },
+  { label: "Within 30 Days", emoji: "⏱️", description: "Trips departing in the next 30 days. Spontaneous wins.", href: "/deals" },
   { label: "Up to 20% Off", emoji: "🔥", description: "Great savings on selected departures.", href: "/deals#deals" },
   { label: "Up to 40% Off", emoji: "💥", description: "Our biggest discounts. Limited availability.", href: "/deals#deals" },
   { label: "All Deals", emoji: "🎉", description: "Browse every deal we've got right now.", href: "/deals" },

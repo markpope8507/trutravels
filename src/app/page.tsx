@@ -135,6 +135,23 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <ExperienceTypesCarousel types={experienceTypes} />
         </div>
+
+        {/* What's Included CTA */}
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16 text-center">
+          <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mb-6">
+            Every trip includes all accommodation and transport, activities, some meals, and an awesome TRU leader who feels more like a friend who happens to know the way. Local legends, all of them.
+          </p>
+          <Link
+            href="/whats-included"
+            className="inline-flex items-center gap-2 rounded-full bg-tru-pink hover:bg-tru-pink-light text-white px-6 py-3 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200"
+          >
+            See What&apos;s Included
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </div>
+
       </section>
 
       {/* ================================================================
@@ -456,6 +473,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
     </>
   );
 }
