@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { stories, storyArticles } from "@/lib/data";
+import { stories } from "@/lib/data";
 
 export default function RelatedStories({
   region,
@@ -31,11 +31,10 @@ export default function RelatedStories({
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {related.map((story) => {
-          const href = storyArticles[story.id] ? `/stories/${story.id}` : `/stories#${story.id}`;
           return (
             <Link
               key={story.id}
-              href={href}
+              href={`/stories#${story.id}`}
               className="group block rounded-[12px] overflow-hidden border border-white/10 bg-white/5 hover:border-white/20 transition-all duration-200"
             >
               <div className="aspect-[16/10] overflow-hidden">
