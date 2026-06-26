@@ -46,7 +46,7 @@ export const LIFE_MOMENTS: LifeMoment[] = [
     emoji: "🎂",
     description: "Stamps collected. Now collect the stories.",
     href: "/life-moments/turning-30",
-    image: "https://images.unsplash.com/photo-1539020140153-e8c237112f4f?w=800&q=80",
+    image: "https://cdn.trutravels.com/africa/morocco-images/morocco-uncovered-day-3-road-trip-viewpoint.jpg",
   },
   {
     slug: "looking-to-challenge-myself",

@@ -417,7 +417,7 @@ export default function CountryPage({ country }: { country: Country }) {
             {[
               { name: "Indonesia", slug: "indonesia", region: "asia", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", tagline: "Island of the Gods" },
               { name: "Vietnam", slug: "vietnam", region: "asia", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", tagline: "The Hidden Gem of Asia" },
-              { name: "Sri Lanka", slug: "sri-lanka", region: "asia", image: "https://images.unsplash.com/photo-1546708770-599a0e47a9c7?w=800&q=80", tagline: "The Teardrop of India" },
+              { name: "Sri Lanka", slug: "sri-lanka", region: "asia", image: "https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?w=800&q=80", tagline: "The Teardrop of India" },
               { name: "Philippines", slug: "philippines", region: "asia", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", tagline: "7,000 Islands of Paradise" },
               { name: "Cambodia", slug: "cambodia", region: "asia", image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", tagline: "Temples, History & Heart" },
               { name: "Mexico", slug: "mexico", region: "latin-america", image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", tagline: "Colour, Culture & Chaos" },

@@ -39,7 +39,7 @@ const communityEnterprises = [
     location: "Delhi, India",
     description:
       "A street-children support organisation that gives our travellers a chance to meet, learn from and contribute to the kids they look after.",
-    image: "https://images.unsplash.com/photo-1545506348-3aa01dfb8b1c?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80",
   },
   {
     name: "Jarvis's Jungle Trek",
@@ -53,7 +53,7 @@ const communityEnterprises = [
     location: "Rural Cambodia",
     description:
       "A countryside homestay with Hul and his family. You sleep in his home, eat at his table, and learn what daily life actually looks like in rural Cambodia.",
-    image: "https://images.unsplash.com/photo-1599708153386-62bf3c39c5d6?w=800&q=80",
+    image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80",
   },
 ];
 

@@ -89,6 +89,8 @@ export type Trip = {
   memberOnly?: boolean;
   rating?: number;
   reviewCount?: number;
+  /** Override link target for the trip card (e.g. an external product page). */
+  bookingUrl?: string;
 };
 
 export type StoryType = "story" | "guide" | "tips" | "exclusive";
@@ -108,6 +110,153 @@ export type Story = {
   destinations: string[];
   readTime: number;
 };
+
+// Long-form article content for stories that have a full detail page.
+// Keyed by Story.id — a story without an entry here links to its anchor only.
+export type ArticleSection = {
+  /** e.g. "1. Great Barrier Reef" */
+  heading: string;
+  /** small kicker above the heading, e.g. the country */
+  kicker?: string;
+  /** body paragraphs */
+  body: string[];
+  image?: string;
+  imageAlt?: string;
+};
+
+export type ArticleContent = {
+  storyId: string;
+  /** big standfirst paragraph(s) under the hero */
+  intro: string[];
+  sections: ArticleSection[];
+  cta?: { heading: string; body: string; label: string; href: string };
+  /** ids into `unescoTours` — renders a tour carousel at the foot of the article */
+  tourIds?: string[];
+};
+
+// Tours we sell that include a UNESCO World Heritage Site — surfaced as a
+// carousel inside relevant articles. These are full Trip objects so they render
+// with the standard TripCard used across the site; the carousel overrides the
+// card link to /explore as they don't have dedicated detail pages yet.
+export const unescoTours: Trip[] = [
+  {
+    id: "jordan-uncovered",
+    title: "Jordan Uncovered",
+    destination: "Jordan",
+    region: "Middle East",
+    duration: "9 Days",
+    price: 1149,
+    originalPrice: 1299,
+    image: "https://cdn.trutravels.com/jordan-tours/jordan-uncovered-desert-petra-walking-tour.jpg",
+    bookingUrl: "https://www.trutravels.com/our-trips/jordan/9-day-jordan-uncovered",
+    tagline: "Walk through the Siq to the Treasury at Petra, sleep under the stars in Wadi Rum, and float in the Dead Sea.",
+    description: "From the rose-red city of Petra to the Martian sands of Wadi Rum, this is Jordan's greatest hits with a crew of like-minded travellers.",
+    travelStyle: "classic",
+    startLocation: "Amman",
+    endLocation: "Amman",
+    rating: 4.9,
+    reviewCount: 142,
+    highlights: ["Petra (UNESCO)", "Wadi Rum desert camp", "Float in the Dead Sea", "Jerash Roman ruins"],
+    itinerary: [],
+  },
+  {
+    id: "ancient-egypt",
+    title: "Ancient Egypt",
+    destination: "Egypt",
+    region: "Africa",
+    duration: "9 Days",
+    price: 999,
+    image: "https://cdn.trutravels.com/ancient-egypt/trutravels-cairo-pyramids.jpg",
+    bookingUrl: "https://www.trutravels.com/our-trips/egypt/9-day-ancient-egypt-pyramids-deserts",
+    tagline: "Stand before the Pyramids of Giza, cruise the Nile, and explore the temples of Luxor.",
+    description: "Pyramids, pharaohs and a Nile cruise — 5,000 years of history packed into nine unforgettable days.",
+    travelStyle: "classic",
+    startLocation: "Cairo",
+    endLocation: "Cairo",
+    rating: 4.8,
+    reviewCount: 117,
+    highlights: ["Pyramids of Giza (UNESCO)", "Nile felucca cruise", "Valley of the Kings", "Karnak Temple"],
+    itinerary: [],
+  },
+  {
+    id: "wonders-of-china",
+    title: "Wonders of China",
+    destination: "China",
+    region: "Asia",
+    duration: "13 Days",
+    price: 1799,
+    originalPrice: 1999,
+    image: "https://cdn.trutravels.com/china-images/china-zhangjiajie-day-9-1.jpg",
+    bookingUrl: "https://www.trutravels.com/our-trips/china/13-day-wonders-of-china",
+    tagline: "Meet the Terracotta Warriors in Xi'an, hike the Great Wall, and wander the peaks of Zhangjiajie.",
+    description: "Ancient wonders meet futuristic skylines on an epic two-week journey across China.",
+    travelStyle: "multi_country",
+    startLocation: "Beijing",
+    endLocation: "Shanghai",
+    rating: 4.9,
+    reviewCount: 88,
+    highlights: ["Terracotta Warriors (UNESCO)", "Great Wall of China", "Zhangjiajie peaks", "Shanghai's Bund"],
+    itinerary: [],
+  },
+  {
+    id: "morocco-uncovered",
+    title: "Morocco Uncovered",
+    destination: "Morocco",
+    region: "Africa",
+    duration: "9 Days",
+    price: 849,
+    image: "https://cdn.trutravels.com/morocco-images/morocco-uncovered-desert-group-picture.jpg",
+    bookingUrl: "https://www.trutravels.com/our-trips/morocco/9-day-morocco-uncovered",
+    tagline: "Get lost in the Medina of Marrakesh, ride camels into the Sahara, and sleep in a desert camp.",
+    description: "Souks, sand dunes and mint tea — the full Moroccan adventure from Marrakesh to the Sahara.",
+    travelStyle: "backpacker",
+    startLocation: "Marrakesh",
+    endLocation: "Marrakesh",
+    rating: 4.8,
+    reviewCount: 203,
+    highlights: ["Medina of Marrakesh (UNESCO)", "Sahara desert camp", "Atlas Mountains", "Aït Benhaddou"],
+    itinerary: [],
+  },
+  {
+    id: "peru-inca-adventure",
+    title: "Peru Inca Adventure",
+    destination: "Peru",
+    region: "South America",
+    duration: "10 Days",
+    price: 1599,
+    image: "https://cdn.trutravels.com/images/peru-trek-3.jpg",
+    bookingUrl: "https://www.trutravels.com/our-trips/peru/10-day-peru-inca-adventure",
+    tagline: "Explore the Inca capital of Cuzco, trek the Andes, and watch the sun rise over Machu Picchu.",
+    description: "Trek the Andes and stand atop Machu Picchu at sunrise on the ultimate South American bucket-list trip.",
+    travelStyle: "flashpacker",
+    startLocation: "Lima",
+    endLocation: "Cuzco",
+    rating: 4.9,
+    reviewCount: 164,
+    highlights: ["City of Cuzco (UNESCO)", "Machu Picchu", "Sacred Valley", "Rainbow Mountain"],
+    itinerary: [],
+  },
+  {
+    id: "komodo-island-hopper",
+    title: "Komodo Island Hopper",
+    destination: "Indonesia",
+    region: "Asia",
+    duration: "9 Days",
+    price: 799,
+    originalPrice: 949,
+    image: "https://cdn.trutravels.com/images/komodo-island-hopper.png",
+    bookingUrl: "https://www.trutravels.com/our-trips/indonesia/9-day-komodo-island-hopper",
+    tagline: "Spot Komodo dragons, swim off pink-sand beaches, and dive some of the best reefs on Earth.",
+    description: "Island-hop through Indonesia's wild east — dragons, pink beaches and world-class diving.",
+    travelStyle: "backpacker",
+    startLocation: "Lombok",
+    endLocation: "Flores",
+    rating: 4.8,
+    reviewCount: 96,
+    highlights: ["Komodo National Park (UNESCO)", "Pink Beach", "Manta ray snorkelling", "Padar Island viewpoint"],
+    itinerary: [],
+  },
+];
 
 // Filter taxonomies used on the Stories landing page
 export const storyTopics = [
@@ -232,7 +381,7 @@ export const trips: Trip[] = [
           name: "Muay Thai lesson",
           experienceType: "rise-up",
           day: 6,
-          image: "https://images.unsplash.com/photo-1504276048855-f3d1e4c69a17?w=800&q=80",
+          image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
           description:
             "Wrap your hands, learn the kicks, and get a taste of Thailand's national sport. Useless or natural — it's a laugh either way.",
         },
@@ -356,7 +505,7 @@ export const trips: Trip[] = [
         transport: "Ferry to Koh Phangan + longtail to Bottle Beach",
         meals: ["1x Breakfast", "1x Dinner"],
       },
-      { day: 6, title: "Morning Chill & Muay Thai", description: "No alarms today. Sleep in, soak up the beach vibes, or hike up to the Bottle Beach viewpoint for jaw-dropping views across the coast. In the afternoon, get your hands wrapped for an intro lesson in Muay Thai — Thailand's national sport. Whether you're a natural or completely useless, it's an absolute laugh.", image: "https://images.unsplash.com/photo-1504276048855-f3d1e4c69a17?w=800&q=80",
+      { day: 6, title: "Morning Chill & Muay Thai", description: "No alarms today. Sleep in, soak up the beach vibes, or hike up to the Bottle Beach viewpoint for jaw-dropping views across the coast. In the afternoon, get your hands wrapped for an intro lesson in Muay Thai — Thailand's national sport. Whether you're a natural or completely useless, it's an absolute laugh.", image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
         location: "Bottle Beach Bungalows",
         meals: ["1x Breakfast"],
       },
@@ -468,6 +617,96 @@ export const trips: Trip[] = [
 ];
 
 export const stories: Story[] = [
+  {
+    id: "top-unesco-world-heritage-sites",
+    title: "Top UNESCO World Heritage Sites You Need to Visit",
+    excerpt:
+      "From the Great Barrier Reef to the Treasury at Petra — 10 of the most jaw-dropping UNESCO World Heritage Sites on the planet, and how to add them to your bucket list.",
+    image: "https://cdn.trutravels.com/jordan-tours/jordan-uncovered-desert-petra-walking-tour.jpg",
+    author: "Sophie",
+    date: "2026-06-13",
+    category: "Destination Guides",
+    type: "guide",
+    topics: ["Adventure", "Food & Culture", "Local Stories"],
+    lifeMoments: ["First Big Trip", "Gap Year"],
+    destinations: ["Asia", "Indonesia", "Africa", "Morocco"],
+    readTime: 4,
+  },
+  {
+    id: "is-it-safe-to-visit-south-korea",
+    title: "Is It Safe to Visit South Korea?",
+    excerpt:
+      "K-pop, neon-lit streets and some of the safest cities on Earth. Here's everything you need to know about staying safe in South Korea — and why it's perfect for first-time travellers.",
+    image: "https://cdn.trutravels.com/south-korea/seoul-exploring-day-1.jpg",
+    author: "Sophie",
+    date: "2026-06-09",
+    category: "Travel Tips",
+    type: "tips",
+    topics: ["Solo Travel", "Food & Culture"],
+    lifeMoments: ["First Big Trip", "Post-Uni"],
+    destinations: ["Asia", "South Korea"],
+    readTime: 5,
+  },
+  {
+    id: "top-5-places-to-visit-in-thailand",
+    title: "Top 5 Places to Visit in Thailand",
+    excerpt:
+      "Turquoise water, jungle hideaways and full moon parties. These are the five Thailand spots you cannot miss — and how to string them together into the ultimate island-hopping trip.",
+    image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
+    author: "Sophie",
+    date: "2026-06-05",
+    category: "Destination Guides",
+    type: "guide",
+    topics: ["Adventure", "Nightlife", "Food & Culture"],
+    lifeMoments: ["Gap Year", "First Big Trip"],
+    destinations: ["Asia", "Thailand"],
+    readTime: 5,
+  },
+  {
+    id: "top-5-things-to-do-in-indonesia",
+    title: "Top 5 Things to Do in Indonesia",
+    excerpt:
+      "Beyond Bali lie 17,000 islands of volcanoes, jungle and pink-sand beaches. Here are five unmissable Indonesian experiences — from cooking with locals to sunrise on Mount Batur.",
+    image: "https://cdn.trutravels.com/indonesia-images/surfing-lesson-bali.jpg",
+    author: "Sophie",
+    date: "2026-06-03",
+    category: "Destination Guides",
+    type: "guide",
+    topics: ["Adventure", "Food & Culture", "Sustainability"],
+    lifeMoments: ["Gap Year", "First Big Trip"],
+    destinations: ["Asia", "Indonesia", "Bali"],
+    readTime: 4,
+  },
+  {
+    id: "best-places-to-travel-in-august",
+    title: "Best Places to Travel in August",
+    excerpt:
+      "Dry-season Bali, the jungles of Northern Thailand and Greek island-hopping under the summer sun. Where to point your compass for the best month of the year.",
+    image: "https://cdn.trutravels.com/greece/greece-island-hopper-026.jpg",
+    author: "TruTravels Team",
+    date: "2026-06-02",
+    category: "Destination Guides",
+    type: "guide",
+    topics: ["Adventure", "Nightlife"],
+    lifeMoments: ["Gap Year", "First Big Trip", "Career Break"],
+    destinations: ["Asia", "Indonesia", "Bali", "Thailand", "Europe"],
+    readTime: 4,
+  },
+  {
+    id: "top-6-places-to-visit-in-morocco",
+    title: "Top 6 Places to Visit in Morocco",
+    excerpt:
+      "Marrakech medinas, the blue streets of Chefchaouen, the dunes of the Sahara and the peaks of the High Atlas. Six unmissable Moroccan stops for culture and adventure.",
+    image: "https://cdn.trutravels.com/morocco-images/morocco-uncovered-marrakech-jardin-group-picture.jpg",
+    author: "Sophie",
+    date: "2026-05-20",
+    category: "Destination Guides",
+    type: "guide",
+    topics: ["Adventure", "Food & Culture", "Local Stories"],
+    lifeMoments: ["First Big Trip", "Gap Year"],
+    destinations: ["Africa", "Morocco"],
+    readTime: 4,
+  },
   {
     id: "why-i-quit-my-job-to-travel",
     title: "Why I Quit My Job to Travel Southeast Asia",
@@ -591,6 +830,444 @@ export const stories: Story[] = [
     readTime: 10,
   },
 ];
+
+export const storyArticles: Record<string, ArticleContent> = {
+  "top-unesco-world-heritage-sites": {
+    storyId: "top-unesco-world-heritage-sites",
+    intro: [
+      "Here at TruTravels, we have a serious soft spot for epic views, rich history, and jaw-dropping natural wonders. So it's no surprise that UNESCO World Heritage Sites sit right at the top of our bucket list — these are the places the whole world has agreed are worth protecting forever.",
+      "Whether you're into ancient cities, wild islands, or underwater magic, here are 10 of the most incredible UNESCO sites on the planet — and where they fit into your next adventure.",
+    ],
+    sections: [
+      {
+        kicker: "Australia",
+        heading: "1. Great Barrier Reef",
+        body: [
+          "Stretching over 2,300 km along Australia's east coast, the Great Barrier Reef is the largest coral reef system on Earth — so big it's actually visible from space. It's home to thousands of species of fish, turtles, and coral, making it one of the most biodiverse places on the planet.",
+          "Snorkelling or diving here is a genuine once-in-a-lifetime experience — the kind of thing you'll be telling people about for years.",
+        ],
+        image: "https://cdn.trutravels.com/images/great-barrier-reef-2.jpg",
+        imageAlt: "Snorkelling the Great Barrier Reef, Australia",
+      },
+      {
+        kicker: "Argentina & Brazil",
+        heading: "2. Iguazú National Park",
+        body: [
+          "Home to the largest waterfall system in the world, Iguazú stretches for nearly 2 miles along the border between Argentina and Brazil. You can get incredibly close to the falls from both sides — close enough to feel the spray and hear the roar.",
+          "It's raw, powerful nature at its absolute finest, surrounded by lush subtropical rainforest teeming with wildlife.",
+        ],
+      },
+      {
+        kicker: "Egypt",
+        heading: "3. Wadi al-Hitan (Valley of the Whales)",
+        body: [
+          "Around 150km southwest of Cairo lies one of the most fascinating fossil sites on Earth. Wadi al-Hitan contains over 1,000 fossil skeletons of ancient four-legged whales — evidence of how these creatures evolved from land animals into the ocean giants we know today.",
+          "Walking through this desert valley is like stepping into a prehistoric time capsule.",
+        ],
+        image: "https://cdn.trutravels.com/ancient-egypt/trutravels-cairo-pyramids.jpg",
+        imageAlt: "Pyramids near Cairo, Egypt",
+      },
+      {
+        kicker: "China",
+        heading: "4. Terracotta Warriors, Xi'an",
+        body: [
+          "Discovered by farmers in 1974, the Terracotta Army was buried over 2,000 years ago to guard the tomb of China's first emperor. There are thousands of life-sized soldiers, each one with unique facial features, armour, and expressions.",
+          "Standing in front of them in person is genuinely humbling — one of the most extraordinary archaeological finds in human history.",
+        ],
+        image: "https://cdn.trutravels.com/china-images/china-zhangjiajie-day-9-1.jpg",
+        imageAlt: "Dramatic landscapes of China",
+      },
+      {
+        kicker: "Jordan",
+        heading: "5. Petra",
+        body: [
+          "One of the world's most iconic archaeological sites, Petra is a vast city carved directly into rose-coloured rock. The famous Treasury is just the beginning — beyond it lie tombs, temples, and ancient streets hidden deep in the Jordanian desert.",
+          "Arriving through the narrow Siq canyon and watching the Treasury slowly reveal itself is a moment you'll never forget.",
+        ],
+        image: "https://cdn.trutravels.com/jordan-tours/jordan-uncovered-desert-petra-walking-tour.jpg",
+        imageAlt: "Walking tour through the desert to Petra, Jordan",
+      },
+      {
+        kicker: "Morocco",
+        heading: "6. Medina of Marrakesh",
+        body: [
+          "A maze of souks, palaces, and buzzing squares, the Medina of Marrakesh is a feast for the senses. Think colourful textiles, handcrafted lanterns, the smell of spices, and the sound of street performers filling the air.",
+          "Get gloriously lost in the alleyways — it's part of the magic.",
+        ],
+        image: "https://cdn.trutravels.com/africa/morocco-images/morocco-uncovered-day-2-marrakech-markets-exploring.jpg",
+        imageAlt: "Exploring the markets of Marrakesh, Morocco",
+      },
+      {
+        kicker: "Peru",
+        heading: "7. City of Cuzco",
+        body: [
+          "Once the capital of the Inca Empire, Cuzco is a high-altitude city where Incan stone foundations meet Spanish colonial architecture. It's the gateway to Machu Picchu, but the city itself is well worth slowing down for.",
+          "Wander the cobbled streets, browse the markets, and soak up the blend of cultures that makes this place so special.",
+        ],
+        image: "https://cdn.trutravels.com/images/cusco-markets.jpg",
+        imageAlt: "Markets in Cuzco, Peru",
+      },
+      {
+        kicker: "Morocco",
+        heading: "8. Rabat",
+        body: [
+          "Morocco's capital blends ancient heritage with a modern, laid-back vibe. Highlights include the beautiful Kasbah of the Udayas, with its blue-and-white streets, ornate gardens, and views out over the Atlantic.",
+          "It's a calmer, more relaxed side of Morocco — the perfect counterpoint to the chaos of Marrakesh.",
+        ],
+        image: "https://cdn.trutravels.com/africa/morocco-images/morocco-uncovered-day-3-road-trip-viewpoint.jpg",
+        imageAlt: "Road-trip viewpoint in Morocco",
+      },
+      {
+        kicker: "Indonesia",
+        heading: "9. Komodo National Park",
+        body: [
+          "Famous as the home of the legendary Komodo dragons, this national park is also one of the most beautiful corners of Indonesia. Think pink-sand beaches, dramatic islands, and some of the best diving and snorkelling anywhere on Earth.",
+          "Above and below the water, Komodo is pure adventure.",
+        ],
+        image: "https://cdn.trutravels.com/indonesia/pink-beach-komodo-islands.jpg",
+        imageAlt: "Pink-sand beach in the Komodo Islands, Indonesia",
+      },
+      {
+        kicker: "Albania",
+        heading: "10. Historic Centres of Berat & Gjirokastër",
+        body: [
+          "One of Europe's most underrated destinations, Albania is home to two stunning Ottoman-era towns. Gjirokastër, recognised by UNESCO in 2005, is known for its dramatic hillside architecture and stone-roofed houses.",
+          "Berat — the 'city of a thousand windows' — features rare, beautifully preserved Ottoman-style homes stacked up the hillside. Both feel wonderfully untouched by mass tourism.",
+        ],
+        image: "https://cdn.trutravels.com/albania/kayaking-1.jpeg",
+        imageAlt: "Kayaking in Albania",
+      },
+    ],
+    cta: {
+      heading: "Ready to tick a few off the list?",
+      body: "From ancient cities to wild islands, our group adventures are built to get you to the world's most unforgettable places — with a crew of like-minded travellers by your side.",
+      label: "Explore our trips",
+      href: "/explore",
+    },
+    tourIds: [
+      "jordan-uncovered",
+      "ancient-egypt",
+      "wonders-of-china",
+      "morocco-uncovered",
+      "peru-inca-adventure",
+      "komodo-island-hopper",
+    ],
+  },
+
+  "is-it-safe-to-visit-south-korea": {
+    storyId: "is-it-safe-to-visit-south-korea",
+    intro: [
+      "K-pop blaring, neon streets, street food on every corner and a culture that's taken over the world — it's no wonder South Korea is on everyone's list right now. But before you book that flight to Seoul, there's one big question: is South Korea actually safe to visit?",
+      "The short answer? Absolutely. Millions of travellers visit every year — solo backpackers, gap-year travellers, digital nomads, families, everyone. Here's everything you need to know to travel smart and make the most of it.",
+    ],
+    sections: [
+      {
+        kicker: "The Big Question",
+        heading: "So, Is South Korea Safe?",
+        body: [
+          "South Korea consistently ranks among the safest countries on the planet. It's got world-class infrastructure, some of the best tech on Earth, efficient law enforcement and a deep cultural emphasis on public safety and respect.",
+          "Crime rates are exceptionally low, public transport is spotless and reliable, and CCTV is everywhere. As a traveller, you'll likely feel safer walking around Seoul at night than in most Western cities.",
+        ],
+        image: "https://cdn.trutravels.com/south-korea/seoul-day-4.jpg",
+        imageAlt: "Exploring the streets of Seoul, South Korea",
+      },
+      {
+        kicker: "Travel Smart",
+        heading: "How to Stay Safe in South Korea",
+        body: [
+          "Ride the subway with confidence — Seoul's metro is one of the safest, most efficient transport systems on Earth. Grab a T-money card at the airport and you'll breeze through transport and shops alike.",
+          "Keep valuables low-key, pick up a local SIM or e-SIM so you've always got maps, and download the apps locals live by — KakaoTalk for messaging, Naver for navigation, and Coupang for everything else.",
+          "Base yourself in well-connected neighbourhoods like Myeongdong, Gangnam, Hongdae, Insadong or Jongno-gu in Seoul, or Haeundae Beach in Busan, and follow local etiquette on the subway and in public.",
+        ],
+        image: "https://cdn.trutravels.com/south-korea/south-korea-seoul-day-2.jpg",
+        imageAlt: "Seoul cityscape, South Korea",
+      },
+      {
+        kicker: "Good to Know",
+        heading: "A Few More Tips",
+        body: [
+          "Get comprehensive travel insurance before you go, and save the emergency numbers: 112 for police, 119 for medical and fire. Tap water is safe to drink, ATMs are everywhere, and tipping isn't expected.",
+          "Show respect at temples and in social settings — a little cultural awareness goes a long way — and don't be shy about meeting other travellers through hostels and group activities.",
+        ],
+        image: "https://cdn.trutravels.com/south-korea/dmz-day-4.jpg",
+        imageAlt: "Visiting the DMZ, South Korea",
+      },
+      {
+        kicker: "The Easy Way",
+        heading: "Why a Group Tour Makes It Simple",
+        body: [
+          "If it's your first time in Asia, a group tour takes all the stress out of it. No endless planning, no figuring out transport in a language you don't speak — just a local expert who knows the country inside out, accommodation and activities sorted, and a ready-made crew to share it all with.",
+          "From the buzz of Seoul to the beaches of Busan, you'll see the best of South Korea without the hassle.",
+        ],
+        image: "https://cdn.trutravels.com/south-korea/haeundae-beach-day-8-1.jpg",
+        imageAlt: "Haeundae Beach in Busan, South Korea",
+      },
+    ],
+    cta: {
+      heading: "Ready to see Seoul for yourself?",
+      body: "From the neon of Seoul to the beaches of Busan and beyond, travel South Korea the easy way — with a local guide and a crew of like-minded travellers.",
+      label: "Explore our trips",
+      href: "/explore",
+    },
+  },
+
+  "top-5-places-to-visit-in-thailand": {
+    storyId: "top-5-places-to-visit-in-thailand",
+    intro: [
+      "Stunning beaches, vibrant nightlife and landscapes that'll leave you speechless — Thailand really does have it all. It's the number one destination for first-time travellers, and once you've been, you'll understand exactly why.",
+      "These are the five places you simply cannot miss — string them together and you've got the ultimate island-hopping adventure through the Land of Smiles.",
+    ],
+    sections: [
+      {
+        kicker: "A Tropical Dream",
+        heading: "1. Phi Phi Islands",
+        body: [
+          "Turquoise water, towering limestone cliffs and white-sand beaches — the Phi Phi Islands are the postcard version of Thailand made real. Phi Phi Don and Phi Phi Leh are the headline acts, blending lush jungle with impossibly clear water.",
+          "Snorkel hidden lagoons, cruise past Maya Bay (yes, the one from 'The Beach'), and grab that iconic long-tail boat photo while you're at it.",
+        ],
+        image: "https://cdn.trutravels.com/images/thailandbottlebeach.jpeg",
+        imageAlt: "Beach in the Phi Phi Islands, Thailand",
+      },
+      {
+        kicker: "Jungle Vibes",
+        heading: "2. Khao Sok National Park",
+        body: [
+          "Trade the coast for the jungle. Khao Sok is all emerald lakes, towering limestone karsts and floating bungalows that feel straight out of a movie.",
+          "Kayak across the lake, trek through ancient rainforest and wake up to mist rolling over the water. It's a nature lover's paradise and the perfect change of pace from the beaches.",
+        ],
+        image: "https://cdn.trutravels.com/blog/khao-sok-southern-thailand-blog.jpg",
+        imageAlt: "Khao Sok National Park, Thailand",
+      },
+      {
+        kicker: "Diver's Paradise",
+        heading: "3. Koh Tao",
+        body: [
+          "Known as 'Turtle Island', Koh Tao is one of the cheapest and best places on Earth to learn to dive. Vibrant coral, warm water and marine life everywhere make it a dream for first-timers and pros alike.",
+          "Not into diving? Snorkel the bays, hike to a viewpoint, and feast your way through the island's brilliant street food.",
+        ],
+        image: "https://cdn.trutravels.com/thailand/girls-koh-nang-yuan.jpg",
+        imageAlt: "Koh Nang Yuan near Koh Tao, Thailand",
+      },
+      {
+        kicker: "Full Moon Central",
+        heading: "4. Koh Phangan",
+        body: [
+          "Famous the world over for its monthly Full Moon Party, Koh Phangan throws one of the best nights out on the planet — thousands of travellers dancing on the beach under a full moon.",
+          "But there's more to it than the party. By day, find quiet coves, jungle viewpoints and some of the most laid-back beach vibes in Thailand.",
+        ],
+        image: "https://cdn.trutravels.com/images/thailandbeachbarkohphangan.jpg",
+        imageAlt: "Beach bar on Koh Phangan, Thailand",
+      },
+      {
+        kicker: "The Big Daddy",
+        heading: "5. Phuket",
+        body: [
+          "Thailand's largest island is so much more than the nightlife of Patong. Visit the Big Buddha, wander the colourful Old Town, and use Phuket as your launchpad for island excursions and water sports.",
+          "Action or relaxation, Phuket does both — the perfect place to start or finish your Thai adventure.",
+        ],
+        image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
+        imageAlt: "Group in the sea in Thailand",
+      },
+    ],
+    cta: {
+      heading: "Ready to find your Thailand?",
+      body: "Phi Phi, Khao Sok, Koh Tao and more — our group adventures link the best of Thailand together so all you have to do is show up and enjoy it.",
+      label: "Explore our trips",
+      href: "/explore",
+    },
+    tourIds: ["thailand-island-hopper", "thailand-experience"],
+  },
+
+  "top-5-things-to-do-in-indonesia": {
+    storyId: "top-5-things-to-do-in-indonesia",
+    intro: [
+      "Tropical islands, epic volcanoes, incredible wildlife, vibrant culture, world-famous beaches and some of the friendliest people you'll ever meet — Indonesia is a backpacker's dream.",
+      "Whether you're planning a Bali trip or going deeper into the archipelago, here are five experiences that should be right at the top of your list.",
+    ],
+    sections: [
+      {
+        kicker: "Beyond Bali",
+        heading: "1. Explore the Lesser-Known Islands",
+        body: [
+          "Bali gets all the fame, but Indonesia is made up of more than 17,000 islands. Sumatra is the one to watch — wild jungle, untouched landscapes and some of the warmest communities you'll meet.",
+          "Trek to see orangutans in the wild, go river tubing through the rainforest, and travel responsibly with experiences like turtle conservation and community homestays.",
+        ],
+        image: "https://cdn.trutravels.com/images/sumatra-trek-1.jpg",
+        imageAlt: "Jungle trek in Sumatra, Indonesia",
+      },
+      {
+        kicker: "Island Time",
+        heading: "2. Visit Gili Trawangan",
+        body: [
+          "Just off the coast of Lombok, Gili T is the perfect mix of laid-back days and legendary nights. There are no cars or motorbikes here — get around by bike, on foot or by horse and cart.",
+          "Snorkel with turtles, sail into the sunset, then dive into one of the island's famous beach parties.",
+        ],
+        image: "https://cdn.trutravels.com/indonesia-images-itinerary/snorkelling-gili-t-bali.jpg",
+        imageAlt: "Snorkelling near Gili Trawangan, Indonesia",
+      },
+      {
+        kicker: "Eat Like a Local",
+        heading: "3. Learn to Cook Indonesian Food",
+        body: [
+          "One of the best ways to connect with Balinese culture is through its food. Join a local family in Ubud for a cooking class that starts at the market, learning the spices and ingredients that make the cuisine sing.",
+          "Tour the rice paddies, then cook up a feast back at the family home. It's authentic, hands-on, and you'll leave with recipes for life.",
+        ],
+        image: "https://cdn.trutravels.com/images/bali-ubud-cookingclass6.jpg",
+        imageAlt: "Cooking class in Ubud, Bali",
+      },
+      {
+        kicker: "TruTravels Exclusive",
+        heading: "4. Discover Moyo Island",
+        body: [
+          "A genuine hidden gem and a TruTravels exclusive, Moyo Island is the kind of place most travellers never reach — waterfalls, jungle and undeveloped beaches with barely another soul around.",
+          "Swim beneath the falls, feast on locally prepared food, and soak up an island that still feels completely untouched.",
+        ],
+        image: "https://cdn.trutravels.com/images/sumatra-homestay-2.jpg",
+        imageAlt: "Homestay in Indonesia",
+      },
+      {
+        kicker: "Sunrise Mission",
+        heading: "5. Hike Mount Batur for Sunrise",
+        body: [
+          "Set the alarm for 2am — trust us, it's worth it. The hike up Mount Batur gets you to the summit just before dawn, where you'll watch the sun rise over the volcanic landscape with a hot breakfast in hand.",
+          "Pack a hoodie for the early chill, and get your camera ready for one of the best views in Bali.",
+        ],
+        image: "https://cdn.trutravels.com/bali-tours/bali-experience-10-days-kuta-surfing-1.jpg",
+        imageAlt: "Surfing in Bali, Indonesia",
+      },
+    ],
+    cta: {
+      heading: "Ready for your Indonesian adventure?",
+      body: "From Bali's beaches to the wild east of Komodo, our small-group trips get you under the skin of Indonesia — with a local crew who know it best.",
+      label: "Explore our trips",
+      href: "/explore",
+    },
+    tourIds: ["komodo-island-hopper"],
+  },
+
+  "best-places-to-travel-in-august": {
+    storyId: "best-places-to-travel-in-august",
+    intro: [
+      "August might just be the best month of the year. Long days, warm nights and a whole world that's fully switched into summer mode.",
+      "Whether you're chasing dry-season sun in Southeast Asia or beach bars and ancient ruins in Europe, here are three places to point your compass this August.",
+    ],
+    sections: [
+      {
+        kicker: "Indonesia",
+        heading: "Bali, Baby",
+        body: [
+          "August is peak dry season in Bali — high temperatures, blue skies and the island at its absolute best. Start your mornings with a surf lesson in Canggu, spend afternoons chasing waterfalls and rice terraces around Ubud, and hop over to the Gili Islands for some proper island time.",
+          "As Southeast Asia's biggest hub, Bali is easy to reach and impossible not to love — whether you're a first-time backpacker or back for more.",
+        ],
+        image: "https://cdn.trutravels.com/bali-tours/bali-experience-10-days-ubud-2.jpg",
+        imageAlt: "Rice terraces near Ubud, Bali",
+      },
+      {
+        kicker: "Thailand",
+        heading: "Northern Thailand",
+        body: [
+          "To really get Thailand, you've got to head north. Beyond the famous islands lies a world of misty jungle, hill-tribe villages and laid-back mountain towns.",
+          "Stay overnight with a hill tribe, zipline through the canopy, spend a day caring for rescued elephants near Chiang Mai, then go bamboo rafting and soak in natural hot springs. It's a completely different side of the country.",
+        ],
+        image: "https://cdn.trutravels.com/images/northernthailandviews.jpg",
+        imageAlt: "Views over Northern Thailand",
+      },
+      {
+        kicker: "Europe",
+        heading: "Greece",
+        body: [
+          "Glorious days, balmy nights and some of the best island-hopping on the planet — Greece in August is hard to beat. Temperatures push into the late 30s, so it's beach weather all the way.",
+          "Bounce between Mykonos, Santorini, Ios and beyond. Sail hidden coves, picnic with a bottle of prosecco at sunset, and explore ancient Athens between the parties.",
+        ],
+        image: "https://cdn.trutravels.com/greece/greece-island-hopper-017.jpg",
+        imageAlt: "Greek island-hopping in summer",
+      },
+    ],
+    cta: {
+      heading: "Where will you go this August?",
+      body: "Bali, Northern Thailand, the Greek islands and beyond — find your crew and make this the summer you actually go.",
+      label: "Explore our trips",
+      href: "/explore",
+    },
+  },
+
+  "top-6-places-to-visit-in-morocco": {
+    storyId: "top-6-places-to-visit-in-morocco",
+    intro: [
+      "A land where adventure and relaxation collide — Morocco is colour, chaos and calm all rolled into one. From buzzing medinas to silent desert dunes, it packs more into one trip than almost anywhere on Earth.",
+      "Whether you're here for culture, adventure or mountain treks, these are the six places that should be on every Moroccan itinerary.",
+    ],
+    sections: [
+      {
+        kicker: "The Red City",
+        heading: "1. Marrakech",
+        body: [
+          "Marrakech is Morocco at full volume — chaotic streets, endless souks and architecture that stops you in your tracks. Lose yourself in the medina, haggle for treasures, and watch the madness of Jemaa el-Fnaa unfold at sunset.",
+          "Don't miss the serene Bahia Palace and the cobalt-blue gardens of Jardin Majorelle for a breather from the buzz.",
+        ],
+        image: "https://cdn.trutravels.com/morocco-images/morocco-uncovered-marrakech-jardin-group-picture.jpg",
+        imageAlt: "Jardin Majorelle in Marrakech, Morocco",
+      },
+      {
+        kicker: "The Valley",
+        heading: "2. Boumalne Dades",
+        body: [
+          "A perfect stop along the Route of 1,000 Kasbahs, Boumalne Dades sits among red-rock landscapes and High Atlas views. Ancient kasbahs, dramatic cliffs and Berber villages set the scene.",
+          "Hike up to the Dades Gorge at sunrise to watch the rock shift through shades of red and gold.",
+        ],
+        image: "https://cdn.trutravels.com/images/boumalne-dades-accommodation.png",
+        imageAlt: "Boumalne Dades, Morocco",
+      },
+      {
+        kicker: "Adventure Junkies",
+        heading: "3. Todra Gorge",
+        body: [
+          "Towering red cliffs and a crystal-clear river make Todra Gorge a magnet for rock climbers and trekkers. The canyon walls soar hundreds of metres straight up — seriously dramatic stuff.",
+          "Not a climber? Hike the gorge floor, take a dip in the river, and seek out the quieter trails for a bit of magic away from the crowds.",
+        ],
+        image: "https://cdn.trutravels.com/images/morocco-13.png",
+        imageAlt: "Todra Gorge, Morocco",
+      },
+      {
+        kicker: "The Sahara",
+        heading: "4. Merzouga",
+        body: [
+          "This is the gateway to the Sahara, and the reason many people come to Morocco in the first place. Ride a camel across golden dunes, camp out under a blanket of stars, and get a taste of nomadic Berber life.",
+          "Set your alarm for sunrise over the dunes — it's a moment you'll never forget.",
+        ],
+        image: "https://cdn.trutravels.com/morocco-images/morocco-uncovered-desert-group-picture.jpg",
+        imageAlt: "Camel trek in the Sahara near Merzouga, Morocco",
+      },
+      {
+        kicker: "The Blue Pearl",
+        heading: "5. Chefchaouen",
+        body: [
+          "Tucked into the Rif Mountains, Chefchaouen is the famous blue city — every street, wall and doorway painted in shades of cobalt and sky.",
+          "Wander the medina, hike into the surrounding hills, find hidden waterfalls and browse local crafts. It's a calm, dreamy contrast to Morocco's busier cities.",
+        ],
+        image: "https://cdn.trutravels.com/morocco-north/chefchaouen-morocco.jpg",
+        imageAlt: "The blue streets of Chefchaouen, Morocco",
+      },
+      {
+        kicker: "Mountain Refuge",
+        heading: "6. Imlil",
+        body: [
+          "A tiny mountain village high in the Atlas, Imlil is the launchpad for treks up Mount Toubkal — North Africa's highest peak. Even if you're not summiting, the shorter walks through valleys, walnut groves and terraced hillsides are stunning.",
+          "Come in spring and you'll catch almond blossoms set against snow-capped peaks.",
+        ],
+        image: "https://cdn.trutravels.com/images/imlil-atlas-mountains-accommodation2.png",
+        imageAlt: "Imlil in the Atlas Mountains, Morocco",
+      },
+    ],
+    cta: {
+      heading: "Ready to take on Morocco?",
+      body: "Medinas, mountains and the magic of the Sahara — our Morocco adventures pack it all in, with a local crew to show you the real thing.",
+      label: "Explore our trips",
+      href: "/explore",
+    },
+    tourIds: ["morocco-uncovered"],
+  },
+};
 
 export const regions = [
   { name: "Asia", count: 28 },
@@ -1289,7 +1966,7 @@ export const countries: Country[] = [
         id: "bl-1",
         title: "Full Moon Party",
         description: "The world's most legendary beach party on Koh Phangan. Neon paint, fire dancers, and thousands of travellers dancing barefoot on the sand until sunrise.",
-        image: "https://images.unsplash.com/photo-1504276048855-f3d1e4c69a17?w=800&q=80",
+        image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
         emoji: "🌕",
       },
       {
@@ -1375,7 +2052,7 @@ export const countries: Country[] = [
         title: "Full Moon Party: Worth the Hype?",
         description: "Our honest take on Koh Phangan's legendary party — plus tips to make it unforgettable.",
         duration: "28 min",
-        image: "https://images.unsplash.com/photo-1504276048855-f3d1e4c69a17?w=400&q=80",
+        image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
       },
       {
         id: "pod-3",
@@ -1409,7 +2086,7 @@ export const countries: Country[] = [
   { id: "philippines", name: "Philippines", region: "Asia", tagline: "7,000 Islands of Paradise", description: "White sand beaches, crystal lagoons, and the friendliest people on Earth. Swim with whale sharks, island-hop through paradise, and fall in love with Filipino culture.", heroImage: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Filipino & English" }, { icon: "💰", label: "Currency", value: "Philippine Peso" }, { icon: "🍜", label: "National Dish", value: "Adobo" }, { icon: "🍺", label: "Local Beer", value: "San Miguel" }], bucketList: [{ id: "bl-p1", title: "Swim with Whale Sharks", description: "Get in the water with the world's largest fish — truly humbling.", image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80", emoji: "🐋" }, { id: "bl-p2", title: "El Nido Island Hopping", description: "Lagoons, hidden beaches, and limestone cliffs — Palawan's crown jewel.", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80", emoji: "🏝️" }], contentSeries: [], podcasts: [], faqs: [{ question: "Is English widely spoken?", answer: "Yes! English is an official language and widely spoken throughout." }] },
   { id: "vietnam", name: "Vietnam", region: "Asia", tagline: "The Hidden Gem of Asia", description: "Cruise through Ha Long Bay, ride the Hai Van Pass, and eat your body weight in pho. Vietnam is a sensory overload in the best possible way.", heroImage: "https://images.unsplash.com/photo-1528127269322-539801943592?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Vietnamese" }, { icon: "💰", label: "Currency", value: "Vietnamese Dong" }, { icon: "🍜", label: "National Dish", value: "Pho" }, { icon: "🍺", label: "Local Beer", value: "Bia Hoi" }], bucketList: [{ id: "bl-v1", title: "Ha Long Bay Cruise", description: "Overnight junk boat surrounded by 1,600 limestone islands.", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", emoji: "⛵" }, { id: "bl-v2", title: "Hoi An Lanterns", description: "Ancient town lit by thousands of colourful lanterns. Magic after dark.", image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", emoji: "🏮" }], contentSeries: [{ id: "cs-v1", title: "Vietnam North to South", description: "The ultimate road trip from Hanoi to Ho Chi Minh City.", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", episodes: 6, tag: "Travel Series" }], podcasts: [{ id: "pod-v1", title: "Vietnam: Street Food Capital", description: "Why Vietnam has the best street food in the world.", duration: "31 min", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=400&q=80" }], faqs: [{ question: "Do I need a visa?", answer: "Most nationalities need an e-visa (~$25 USD, 3-5 working days)." }] },
   { id: "cambodia", name: "Cambodia", region: "Asia", tagline: "Temples, History & Heart", description: "Home to Angkor Wat, Cambodia is a country of ancient wonders, warm-hearted people, and incredible resilience.", heroImage: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Khmer" }, { icon: "💰", label: "Currency", value: "Riel / USD" }, { icon: "🍜", label: "National Dish", value: "Fish Amok" }, { icon: "🍺", label: "Local Beer", value: "Angkor Beer" }], bucketList: [{ id: "bl-c1", title: "Angkor Wat at Sunrise", description: "Watch the sun rise behind the world's largest religious monument.", image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", emoji: "🛕" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Yes, e-visa online or visa on arrival (~$30 USD)." }] },
-  { id: "sri-lanka", name: "Sri Lanka", region: "South Asia", tagline: "The Teardrop of India", description: "Tea plantations, ancient temples, epic surf, and the world's most scenic train ride. Sri Lanka packs an unbelievable amount into one small island.", heroImage: "https://images.unsplash.com/photo-1612862862126-865765df2ded?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Sinhala & Tamil" }, { icon: "💰", label: "Currency", value: "Sri Lankan Rupee" }, { icon: "🍜", label: "National Dish", value: "Rice & Curry" }, { icon: "🍺", label: "Local Beer", value: "Lion Lager" }], bucketList: [{ id: "bl-sl1", title: "Ella Train Ride", description: "Seven hours of tea plantations, waterfalls, and hanging out the door.", image: "https://images.unsplash.com/photo-1546708770-599a0e47a9c7?w=800&q=80", emoji: "🚂" }, { id: "bl-sl2", title: "Sigiriya Rock", description: "Climb 1,200 steps to the top of this ancient fortress.", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", emoji: "🏰" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Yes, you need an ETA which can be applied for online." }] },
+  { id: "sri-lanka", name: "Sri Lanka", region: "South Asia", tagline: "The Teardrop of India", description: "Tea plantations, ancient temples, epic surf, and the world's most scenic train ride. Sri Lanka packs an unbelievable amount into one small island.", heroImage: "https://images.unsplash.com/photo-1612862862126-865765df2ded?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Sinhala & Tamil" }, { icon: "💰", label: "Currency", value: "Sri Lankan Rupee" }, { icon: "🍜", label: "National Dish", value: "Rice & Curry" }, { icon: "🍺", label: "Local Beer", value: "Lion Lager" }], bucketList: [{ id: "bl-sl1", title: "Ella Train Ride", description: "Seven hours of tea plantations, waterfalls, and hanging out the door.", image: "https://images.unsplash.com/photo-1566296314736-6eaac1ca0cb9?w=800&q=80", emoji: "🚂" }, { id: "bl-sl2", title: "Sigiriya Rock", description: "Climb 1,200 steps to the top of this ancient fortress.", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", emoji: "🏰" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Yes, you need an ETA which can be applied for online." }] },
   { id: "india", name: "India", region: "South Asia", tagline: "A Billion Stories", description: "From the Taj Mahal to Kerala's backwaters, from Rajasthan's colourful cities to the Himalayas — every corner is an adventure.", heroImage: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Hindi & English" }, { icon: "💰", label: "Currency", value: "Indian Rupee" }, { icon: "🍜", label: "National Dish", value: "Biryani" }, { icon: "🍺", label: "Local Beer", value: "Kingfisher" }], bucketList: [{ id: "bl-in1", title: "Taj Mahal at Sunrise", description: "The world's most beautiful building, glowing golden in morning light.", image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80", emoji: "🕌" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Yes, most nationalities need an e-visa. Apply at least 4 days before." }] },
   { id: "japan", name: "Japan", region: "Asia", tagline: "Where Ancient Meets Future", description: "Bullet trains, cherry blossoms, neon cities, and ancient temples. Japan is like nowhere else on Earth.", heroImage: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Japanese" }, { icon: "💰", label: "Currency", value: "Japanese Yen" }, { icon: "🍜", label: "National Dish", value: "Ramen" }, { icon: "🍺", label: "Local Beer", value: "Asahi" }], bucketList: [{ id: "bl-j1", title: "Cherry Blossom Season", description: "Hanami under the sakura trees — Japan's most magical time of year.", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80", emoji: "🌸" }], contentSeries: [], podcasts: [], faqs: [{ question: "Is Japan expensive?", answer: "It can be done on a budget. Street food and convenience stores keep costs down. Budget £30-50/day." }] },
   { id: "china", name: "China", region: "Asia", tagline: "The Middle Kingdom", description: "The Great Wall, Terracotta Warriors, and megacities that feel like the future. Vast, ancient, and endlessly fascinating.", heroImage: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=1920&q=80", facts: [{ icon: "🗣️", label: "Language", value: "Mandarin" }, { icon: "💰", label: "Currency", value: "Chinese Yuan" }, { icon: "🍜", label: "National Dish", value: "Kung Pao Chicken" }, { icon: "🍺", label: "Local Beer", value: "Tsingtao" }], bucketList: [{ id: "bl-ch1", title: "The Great Wall", description: "Walk along one of the greatest man-made structures ever built.", image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80", emoji: "🏯" }], contentSeries: [], podcasts: [], faqs: [{ question: "Do I need a visa?", answer: "Yes, most nationalities need a visa. Some cities offer transit visa-free stays of 72-144 hours." }] },

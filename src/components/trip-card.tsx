@@ -10,10 +10,12 @@ export default function TripCard({
   trip,
   onRemove,
   nextDeparture,
+  href,
 }: {
   trip: Trip;
   onRemove?: (id: string) => void;
   nextDeparture?: string;
+  href?: string;
 }) {
   const expData = getTripExperienceCounts(trip);
   const placesCount = trip.highlights?.length ?? 0;
@@ -52,7 +54,7 @@ export default function TripCard({
         </button>
       )}
 
-      <Link href={tripUrl(trip)} className="group block h-full">
+      <Link href={href ?? tripUrl(trip)} className="group block h-full">
         <div
           className="relative overflow-hidden rounded-[10px] bg-tru-navy border border-white/10 hover:border-tru-pink/30 transition-all duration-300 h-full flex flex-col"
           style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}

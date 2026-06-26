@@ -17,7 +17,7 @@ const destinations: { region: string; countries: { name: string; flag: string; t
     countries: [
       { name: "Thailand", flag: "🇹🇭", tag: "Top Seller", href: "/destinations/asia/thailand", nickname: "The Land of Smiles", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80" },
       { name: "Indonesia", flag: "🇮🇩", tag: "Popular", href: "/destinations/asia/indonesia", nickname: "Emerald of the Equator", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80" },
-      { name: "Philippines", flag: "🇵🇭", tag: "Popular", href: "/destinations/asia/philippines", nickname: "Pearl of the Orient Seas", image: "https://images.unsplash.com/photo-1518509562904-e7ef99cddc85?w=800&q=80" },
+      { name: "Philippines", flag: "🇵🇭", tag: "Popular", href: "/destinations/asia/philippines", nickname: "Pearl of the Orient Seas", image: "https://cdn.trutravels.com/images/philippines.jpg" },
       { name: "Vietnam", flag: "🇻🇳", tag: "Top Seller", href: "/destinations/asia/vietnam", nickname: "Land of the Ascending Dragon", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80" },
       { name: "Cambodia", flag: "🇰🇭", tag: "", href: "/destinations/asia/cambodia", nickname: "Kingdom of Wonder", image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80" },
       { name: "Sri Lanka", flag: "🇱🇰", tag: "", href: "/destinations/asia/sri-lanka", nickname: "Pearl of the Indian Ocean", image: "https://images.unsplash.com/photo-1586500036706-41963de24d8b?w=800&q=80" },
@@ -30,12 +30,12 @@ const destinations: { region: string; countries: { name: string; flag: string; t
     region: "Latin America",
     countries: [
       { name: "Mexico", flag: "🇲🇽", tag: "Popular", href: "/destinations/latin-america/mexico", nickname: "Land of Colour", image: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80" },
-      { name: "Costa Rica", flag: "🇨🇷", tag: "", href: "/destinations/latin-america/costa-rica", nickname: "Pura Vida", image: "https://images.unsplash.com/photo-1518002054494-3a6f17be46eb?w=800&q=80" },
-      { name: "Colombia", flag: "🇨🇴", tag: "", href: "/destinations/latin-america/colombia", nickname: "Land of Magical Realism", image: "https://images.unsplash.com/photo-1568632234157-ce7aecd3f87a?w=800&q=80" },
+      { name: "Costa Rica", flag: "🇨🇷", tag: "", href: "/destinations/latin-america/costa-rica", nickname: "Pura Vida", image: "https://cdn.trutravels.com/images/costarica.jpg" },
+      { name: "Colombia", flag: "🇨🇴", tag: "", href: "/destinations/latin-america/colombia", nickname: "Land of Magical Realism", image: "https://cdn.trutravels.com/images/colombia-view.jpg" },
       { name: "Peru", flag: "🇵🇪", tag: "", href: "/destinations/latin-america/peru", nickname: "Land of the Incas", image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80" },
       { name: "Brazil", flag: "🇧🇷", tag: "", href: "/destinations/latin-america/brazil", nickname: "Land of Carnival", image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80" },
       { name: "Belize", flag: "🇧🇿", tag: "", href: "/destinations/latin-america/belize", nickname: "Jewel of the Caribbean", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" },
-      { name: "Guatemala", flag: "🇬🇹", tag: "", href: "/destinations/latin-america/guatemala", nickname: "Land of Eternal Spring", image: "https://images.unsplash.com/photo-1546902214-b8aef72c8a7c?w=800&q=80" },
+      { name: "Guatemala", flag: "🇬🇹", tag: "", href: "/destinations/latin-america/guatemala", nickname: "Land of Eternal Spring", image: "https://cdn.trutravels.com/images/mexico-guatemala-belize3.png" },
     ],
   },
   {
@@ -43,15 +43,15 @@ const destinations: { region: string; countries: { name: string; flag: string; t
     countries: [
       { name: "Greece", flag: "🇬🇷", tag: "Popular", href: "/destinations/europe/greece", nickname: "Cradle of Civilization", image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" },
       { name: "Italy", flag: "🇮🇹", tag: "", href: "/destinations/europe/italy", nickname: "Il Bel Paese", image: "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80" },
-      { name: "Albania", flag: "🇦🇱", tag: "New", href: "/destinations/europe/albania", nickname: "Land of the Eagles", image: "https://images.unsplash.com/photo-1581791534671-da08e4c3e44e?w=800&q=80" },
+      { name: "Albania", flag: "🇦🇱", tag: "New", href: "/destinations/europe/albania", nickname: "Land of the Eagles", image: "https://cdn.trutravels.com/albania/kayaking-1.jpeg" },
       { name: "Europe By Rail", flag: "🚆", tag: "New", nickname: "Borderless Europe", image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=800&q=80" },
     ],
   },
   {
     region: "Africa & Middle East",
     countries: [
-      { name: "Morocco", flag: "🇲🇦", tag: "Popular", href: "/destinations/africa-and-middle-east/morocco", nickname: "Gateway to Africa", image: "https://images.unsplash.com/photo-1539020140153-e8c237112f4f?w=800&q=80" },
-      { name: "Jordan", flag: "🇯🇴", tag: "", href: "/destinations/africa-and-middle-east/jordan", nickname: "Cradle of Petra", image: "https://images.unsplash.com/photo-1565017228812-91c98e6aaef8?w=800&q=80" },
+      { name: "Morocco", flag: "🇲🇦", tag: "Popular", href: "/destinations/africa-and-middle-east/morocco", nickname: "Gateway to Africa", image: "https://cdn.trutravels.com/morocco-images/morocco-uncovered-marrakech-jardin-group-picture.jpg" },
+      { name: "Jordan", flag: "🇯🇴", tag: "", href: "/destinations/africa-and-middle-east/jordan", nickname: "Cradle of Petra", image: "https://cdn.trutravels.com/jordan-tours/jordan-uncovered-desert-petra-walking-tour.jpg" },
     ],
   },
   {
@@ -426,9 +426,6 @@ export default function Navbar() {
                         </Link>
                       ))}
                     </div>
-                    <Link href="/explore" onClick={closeAll} className="text-[10px] font-semibold uppercase tracking-wider text-tru-pink hover:text-tru-pink-light transition mt-3 block px-2">
-                      View all &rarr;
-                    </Link>
                   </div>
 
                   <div>

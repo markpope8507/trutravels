@@ -275,7 +275,7 @@ function DashboardContent() {
         <div className="space-y-3">
           {[
             { id: "ep1", title: "Why Thailand is Still the Best First Trip", description: "We break down why Thailand remains the #1 destination for solo travellers and first-timers.", duration: "32 min", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400&q=80" },
-            { id: "ep2", title: "Full Moon Party: Worth the Hype?", description: "Our honest take on Koh Phangan's legendary party — plus tips to make it unforgettable.", duration: "28 min", image: "https://images.unsplash.com/photo-1504276048855-f3d1e4c69a17?w=400&q=80" },
+            { id: "ep2", title: "Full Moon Party: Worth the Hype?", description: "Our honest take on Koh Phangan's legendary party — plus tips to make it unforgettable.", duration: "28 min", image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg" },
             { id: "ep3", title: "How to Travel Solo for the First Time", description: "Everything you need to know about your first solo trip — from packing to making friends on day one.", duration: "35 min", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&q=80" },
             { id: "ep4", title: "Bali: Hype vs Reality", description: "Is Bali still worth it in 2026? We give you the real talk.", duration: "29 min", image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&q=80" },
           ].map((ep) => (

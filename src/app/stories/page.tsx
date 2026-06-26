@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/free-mode";
 import {
   stories,
+  storyArticles,
   videoDiaries,
   storyTopics,
   storyLifeMoments,
@@ -884,63 +885,71 @@ function FeaturedCard({
   isLoggedIn: boolean;
 }) {
   const isLocked = !!story.memberOnly && !isLoggedIn;
+  const hasArticle = !!storyArticles[story.id];
+  const readHref = isLocked
+    ? "/signup"
+    : hasArticle
+      ? `/stories/${story.id}`
+      : `/stories#${story.id}`;
   return (
-    <article className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-      <div className="lg:col-span-7 relative overflow-hidden rounded-[10px] aspect-[16/10]">
-        <img
-          src={story.image}
-          alt={story.title}
-          className={`absolute inset-0 h-full w-full object-cover ${
-            isLocked ? "blur-[3px]" : ""
-          }`}
-        />
-        {story.memberOnly && (
-          <span className="absolute top-4 right-4 bg-amber-400 text-black text-[10px] font-bold uppercase tracking-wider font-heading px-3 py-1 rounded-full">
-            Exclusive
-          </span>
-        )}
-        {isLocked && (
-          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-            <div className="text-center">
-              <svg
-                className="h-10 w-10 text-amber-400 mx-auto mb-2"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
-              <p className="text-white text-sm font-semibold">Members Only</p>
+    <article>
+      <Link
+        href={readHref}
+        className="group grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+      >
+        <div className="lg:col-span-7 relative overflow-hidden rounded-[10px] aspect-[16/10]">
+          <img
+            src={story.image}
+            alt={story.title}
+            className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+              isLocked ? "blur-[3px]" : ""
+            }`}
+          />
+          {story.memberOnly && (
+            <span className="absolute top-4 right-4 bg-amber-400 text-black text-[10px] font-bold uppercase tracking-wider font-heading px-3 py-1 rounded-full">
+              Exclusive
+            </span>
+          )}
+          {isLocked && (
+            <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+              <div className="text-center">
+                <svg
+                  className="h-10 w-10 text-amber-400 mx-auto mb-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+                <p className="text-white text-sm font-semibold">Members Only</p>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
-      <div className="lg:col-span-5">
-        <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">
-          {story.category} &middot; {story.readTime} min read
-        </p>
-        <h3 className="text-3xl sm:text-4xl font-black text-white uppercase font-heading leading-tight mb-4">
-          {story.title}
-        </h3>
-        <p className="text-gray-300 leading-relaxed mb-6">{story.excerpt}</p>
-        <div className="flex items-center justify-between flex-wrap gap-3">
-          <p className="text-sm text-gray-400">
-            <span className="text-white font-semibold">{story.author}</span>{" "}
-            &middot; {formatDate(story.date)}
-          </p>
-          <Link
-            href={isLocked ? "/signup" : `/stories#${story.id}`}
-            className="text-sm text-tru-pink font-semibold uppercase tracking-wider hover:text-tru-pink-light transition"
-          >
-            {isLocked ? "Join to read" : "Read story"} &rarr;
-          </Link>
+          )}
         </div>
-      </div>
+        <div className="lg:col-span-5">
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">
+            {story.category} &middot; {story.readTime} min read
+          </p>
+          <h3 className="text-3xl sm:text-4xl font-black text-white uppercase font-heading leading-tight mb-4 group-hover:text-tru-pink transition-colors">
+            {story.title}
+          </h3>
+          <p className="text-gray-300 leading-relaxed mb-6">{story.excerpt}</p>
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <p className="text-sm text-gray-400">
+              <span className="text-white font-semibold">{story.author}</span>{" "}
+              &middot; {formatDate(story.date)}
+            </p>
+            <span className="text-sm text-tru-pink font-semibold uppercase tracking-wider group-hover:text-tru-pink-light transition">
+              {isLocked ? "Join to read" : "Read story"} &rarr;
+            </span>
+          </div>
+        </div>
+      </Link>
     </article>
   );
 }
@@ -953,8 +962,14 @@ function StoryCard({
   isLoggedIn: boolean;
 }) {
   const isLocked = !!story.memberOnly && !isLoggedIn;
+  const hasArticle = !!storyArticles[story.id];
+  const cardHref = isLocked
+    ? "/signup"
+    : hasArticle
+      ? `/stories/${story.id}`
+      : `/stories#${story.id}`;
   return (
-    <article className="group relative">
+    <Link href={cardHref} className="group relative block">
       <div className="relative overflow-hidden rounded-[10px] aspect-[3/2] mb-4">
         <img
           src={story.image}
@@ -1003,13 +1018,10 @@ function StoryCard({
         {story.author} &middot; {formatDate(story.date)}
       </p>
       {isLocked && (
-        <Link
-          href="/signup"
-          className="inline-block mt-3 text-sm text-tru-pink hover:text-tru-pink-light transition font-semibold uppercase tracking-wider"
-        >
+        <span className="inline-block mt-3 text-sm text-tru-pink group-hover:text-tru-pink-light transition font-semibold uppercase tracking-wider">
           Join to unlock &rarr;
-        </Link>
+        </span>
       )}
-    </article>
+    </Link>
   );
 }
