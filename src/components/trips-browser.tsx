@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
-import { Trip, TravelStyle, travelStyleConfig } from "@/lib/data";
+import { Trip } from "@/lib/data";
 import { tripUrl } from "@/lib/utils";
-import TripCard from "@/components/trip-card";
 import TripCarouselSection from "@/components/trip-carousel-section";
 import { LIFE_MOMENTS } from "@/lib/life-moments";
 
@@ -14,300 +13,27 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/free-mode";
 
-const lifeMoments = [
-  { id: "solo", label: "Solo Adventure", emoji: "🎒" },
-  { id: "mates", label: "With Mates", emoji: "👯" },
-  { id: "birthday", label: "Birthday Trip", emoji: "🎂" },
-  { id: "gap-year", label: "Gap Year", emoji: "🌏" },
-  { id: "career-break", label: "Career Break", emoji: "💼" },
-  { id: "fresh-start", label: "Fresh Start", emoji: "🌅" },
-];
-
-const durationOptions = [
-  { id: "any", label: "Any" },
-  { id: "short", label: "Under 10 days" },
-  { id: "medium", label: "10–14 days" },
-  { id: "long", label: "15+ days" },
-];
-
-const sortOptions = [
-  { id: "recommended", label: "Recommended" },
-  { id: "price-low", label: "Price: Low to High" },
-  { id: "price-high", label: "Price: High to Low" },
-  { id: "duration-short", label: "Duration: Shortest" },
-  { id: "duration-long", label: "Duration: Longest" },
-];
-
-/* ============================================================
-   TRIP CAROUSEL SECTION
-   ============================================================ */
-
-/* ============================================================
-   FULL-SCREEN FILTER OVERLAY
-   ============================================================ */
-function FilterOverlay({
-  isOpen,
-  onClose,
-  regions,
-  trips,
-  activeRegion,
-  setActiveRegion,
-  activeStyle,
-  setActiveStyle,
-  activeMoment,
-  setActiveMoment,
-  activeDuration,
-  setActiveDuration,
-  priceRange,
-  setPriceRange,
-  sort,
-  setSort,
-  filteredCount,
-  onClear,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  regions: { name: string; count: number }[];
-  trips: Trip[];
-  activeRegion: string | null;
-  setActiveRegion: (v: string | null) => void;
-  activeStyle: TravelStyle | null;
-  setActiveStyle: (v: TravelStyle | null) => void;
-  activeMoment: string | null;
-  setActiveMoment: (v: string | null) => void;
-  activeDuration: string;
-  setActiveDuration: (v: string) => void;
-  priceRange: [number, number];
-  setPriceRange: (v: [number, number]) => void;
-  sort: string;
-  setSort: (v: string) => void;
-  filteredCount: number;
-  onClear: () => void;
-}) {
-  const travelStyles = Object.entries(travelStyleConfig) as [TravelStyle, typeof travelStyleConfig[TravelStyle]][];
-  const [closing, setClosing] = useState(false);
-
-  const minPrice = Math.min(...trips.map((t) => t.price));
-  const maxPrice = Math.max(...trips.map((t) => t.price));
-
-  const handleClose = () => {
-    setClosing(true);
-    setTimeout(() => {
-      setClosing(false);
-      onClose();
-    }, 300);
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => { document.body.style.overflow = ""; };
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-[100] flex justify-start">
-      <div className={`absolute inset-0 bg-black/60 backdrop-blur-sm sm:block hidden transition-opacity duration-300 ${closing ? "opacity-0" : "opacity-100"}`} onClick={handleClose} />
-      <div className={`relative w-full sm:w-[420px] lg:w-[480px] bg-tru-navy flex flex-col h-full shadow-2xl shadow-black/50 transition-transform duration-300 ease-out ${closing ? "-translate-x-full" : "animate-slide-in-left"}`}>
-      {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
-        <h2 className="text-white font-black text-lg uppercase font-heading tracking-wider">Filters</h2>
-        <button onClick={handleClose} className="text-gray-400 hover:text-white transition">
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto px-6 py-6 space-y-8">
-        {/* Destination */}
-        <div>
-          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">Destination</p>
-          <div className="flex flex-wrap gap-2">
-            {regions.map((r) => (
-              <button
-                key={r.name}
-                onClick={() => setActiveRegion(activeRegion === r.name ? null : r.name)}
-                className={`rounded-full px-4 py-2 text-sm transition-all duration-200 ${
-                  activeRegion === r.name
-                    ? "bg-tru-pink text-white"
-                    : "border border-white/15 text-gray-300 hover:border-white/30 hover:text-white"
-                }`}
-              >
-                {r.name} <span className="text-gray-500 ml-1">({r.count})</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Travel Style */}
-        <div>
-          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">Travel Style</p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {travelStyles.map(([key, config]) => (
-              <button
-                key={key}
-                onClick={() => setActiveStyle(activeStyle === key ? null : key)}
-                className={`rounded-[10px] p-4 transition-all duration-200 flex items-center justify-center ${
-                  activeStyle === key
-                    ? "border-2 bg-white/10"
-                    : "border border-white/10 bg-white/5 hover:border-white/20"
-                }`}
-                style={activeStyle === key ? { borderColor: config.color, background: `${config.color}15` } : undefined}
-              >
-                <img
-                  src={config.logo}
-                  alt={config.label}
-                  className="h-16 w-auto max-w-full"
-                />
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Life Moment */}
-        <div>
-          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">Life Moment</p>
-          <div className="flex flex-wrap gap-2">
-            {lifeMoments.map((m) => (
-              <button
-                key={m.id}
-                onClick={() => setActiveMoment(activeMoment === m.id ? null : m.id)}
-                className={`rounded-full px-4 py-2 text-sm transition-all duration-200 flex items-center gap-2 ${
-                  activeMoment === m.id
-                    ? "bg-tru-pink text-white"
-                    : "border border-white/15 text-gray-300 hover:border-white/30 hover:text-white"
-                }`}
-              >
-                <span>{m.emoji}</span>
-                <span className="font-heading text-[11px] font-semibold uppercase tracking-wider">{m.label}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Duration */}
-        <div>
-          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">Duration</p>
-          <div className="flex flex-wrap gap-2">
-            {durationOptions.map((d) => (
-              <button
-                key={d.id}
-                onClick={() => setActiveDuration(d.id)}
-                className={`rounded-full px-4 py-2 text-sm transition-all duration-200 ${
-                  activeDuration === d.id
-                    ? "bg-tru-pink text-white"
-                    : "border border-white/15 text-gray-300 hover:border-white/30 hover:text-white"
-                }`}
-              >
-                {d.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Price Range */}
-        <div>
-          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">
-            Price Range <span className="text-gray-400 ml-2">&pound;{priceRange[0]} – &pound;{priceRange[1]}</span>
-          </p>
-          <div className="space-y-3">
-            <div className="flex items-center gap-4">
-              <span className="text-gray-500 text-xs w-12">Min</span>
-              <input
-                type="range"
-                min={minPrice}
-                max={maxPrice}
-                value={priceRange[0]}
-                onChange={(e) => setPriceRange([Math.min(Number(e.target.value), priceRange[1]), priceRange[1]])}
-                className="flex-1 accent-tru-pink"
-              />
-            </div>
-            <div className="flex items-center gap-4">
-              <span className="text-gray-500 text-xs w-12">Max</span>
-              <input
-                type="range"
-                min={minPrice}
-                max={maxPrice}
-                value={priceRange[1]}
-                onChange={(e) => setPriceRange([priceRange[0], Math.max(Number(e.target.value), priceRange[0])])}
-                className="flex-1 accent-tru-pink"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Sort */}
-        <div>
-          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">Sort By</p>
-          <div className="space-y-1">
-            {sortOptions.map((opt) => (
-              <button
-                key={opt.id}
-                onClick={() => setSort(opt.id)}
-                className={`w-full text-left rounded-[10px] px-4 py-3 text-sm transition-all duration-200 ${
-                  sort === opt.id
-                    ? "bg-white/10 text-white"
-                    : "text-gray-400 hover:bg-white/5 hover:text-white"
-                }`}
-              >
-                {opt.label}
-                {sort === opt.id && (
-                  <svg className="inline h-4 w-4 ml-2 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                )}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="px-6 py-4 border-t border-white/10 flex items-center gap-3">
-        <button
-          onClick={onClear}
-          className="flex-1 rounded-[10px] border border-white/20 py-3 text-sm text-white hover:border-white/40 transition text-center font-heading uppercase tracking-wider"
-        >
-          Clear All
-        </button>
-        <button
-          onClick={handleClose}
-          className="flex-1 rounded-[10px] bg-tru-pink py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 text-center font-heading uppercase tracking-wider"
-        >
-          Show {filteredCount} Trip{filteredCount !== 1 ? "s" : ""}
-        </button>
-      </div>
-    </div>
-    </div>
-  );
+// Re-read the recent list whenever another tab updates it.
+function subscribeRecent(callback: () => void) {
+  window.addEventListener("storage", callback);
+  return () => window.removeEventListener("storage", callback);
 }
 
 /* ============================================================
    MAIN BROWSER
    ============================================================ */
-export default function TripsBrowser({ trips, regions }: { trips: Trip[]; regions: { name: string; count: number }[] }) {
-  const [recentIds, setRecentIds] = useState<string[]>([]);
-
-  useEffect(() => {
-    const recent: string[] = JSON.parse(localStorage.getItem("trutravels-recent") || "[]");
-    setRecentIds(recent);
-  }, []);
+export default function TripsBrowser({ trips }: { trips: Trip[] }) {
+  // Read "recently viewed" from localStorage via useSyncExternalStore: hydration-safe
+  // (the server snapshot is an empty list) and no setState-in-effect.
+  const recentRaw = useSyncExternalStore(
+    subscribeRecent,
+    () => localStorage.getItem("trutravels-recent") ?? "[]",
+    () => "[]",
+  );
+  const recentIds: string[] = JSON.parse(recentRaw);
 
   const recentTrips = recentIds.map((id) => trips.find((t) => t.id === id)).filter(Boolean) as Trip[];
 
-  const [activeRegion, setActiveRegion] = useState<string | null>(null);
-  const [activeStyle, setActiveStyle] = useState<TravelStyle | null>(null);
-  const [activeMoment, setActiveMoment] = useState<string | null>(null);
-  const [activeDuration, setActiveDuration] = useState("any");
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 2000]);
-  const [sort, setSort] = useState("recommended");
-  const [showFilters, setShowFilters] = useState(false);
   const [navSticky, setNavSticky] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("explore");
 
@@ -373,37 +99,7 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
     return () => window.removeEventListener("hashchange", goToHash);
   }, []);
 
-  useEffect(() => {
-    const min = Math.min(...trips.map((t) => t.price));
-    const max = Math.max(...trips.map((t) => t.price));
-    setPriceRange([min, max]);
-  }, [trips]);
 
-  const filtered = useMemo(() => {
-    let result = [...trips];
-    if (activeRegion) result = result.filter((t) => t.region === activeRegion);
-    if (activeStyle) result = result.filter((t) => t.travelStyle === activeStyle);
-    if (activeDuration === "short") result = result.filter((t) => parseInt(t.duration) < 10);
-    if (activeDuration === "medium") result = result.filter((t) => { const d = parseInt(t.duration); return d >= 10 && d <= 14; });
-    if (activeDuration === "long") result = result.filter((t) => parseInt(t.duration) >= 15);
-    result = result.filter((t) => t.price >= priceRange[0] && t.price <= priceRange[1]);
-    if (sort === "price-low") result.sort((a, b) => a.price - b.price);
-    if (sort === "price-high") result.sort((a, b) => b.price - a.price);
-    if (sort === "duration-short") result.sort((a, b) => parseInt(a.duration) - parseInt(b.duration));
-    if (sort === "duration-long") result.sort((a, b) => parseInt(b.duration) - parseInt(a.duration));
-    return result;
-  }, [trips, activeRegion, activeStyle, activeDuration, priceRange, sort]);
-
-  const activeFilterCount = [activeRegion, activeStyle, activeMoment, activeDuration !== "any" ? activeDuration : null].filter(Boolean).length;
-
-  const clearFilters = () => {
-    setActiveRegion(null);
-    setActiveStyle(null);
-    setActiveMoment(null);
-    setActiveDuration("any");
-    setPriceRange([Math.min(...trips.map((t) => t.price)), Math.max(...trips.map((t) => t.price))]);
-    setSort("recommended");
-  };
 
   // Curated sections
   const trendingTrips = trips.filter((t) => t.originalPrice); // on sale = trending
@@ -419,26 +115,6 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
 
   return (
     <div>
-      <FilterOverlay
-        isOpen={showFilters}
-        onClose={() => setShowFilters(false)}
-        regions={regions}
-        trips={trips}
-        activeRegion={activeRegion}
-        setActiveRegion={setActiveRegion}
-        activeStyle={activeStyle}
-        setActiveStyle={setActiveStyle}
-        activeMoment={activeMoment}
-        setActiveMoment={setActiveMoment}
-        activeDuration={activeDuration}
-        setActiveDuration={setActiveDuration}
-        priceRange={priceRange}
-        setPriceRange={setPriceRange}
-        sort={sort}
-        setSort={setSort}
-        filteredCount={filtered.length}
-        onClear={clearFilters}
-      />
 
       {/* Hero — image with right-aligned overlay, same language as Stories page */}
       <section id="explore-hero" className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
@@ -477,14 +153,23 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               Recently <span className="text-tru-pink">Viewed</span>
             </h2>
           </div>
-          <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="recent-carousel relative">
+          <Swiper
+            modules={[Navigation, FreeMode]}
+            spaceBetween={16}
+            slidesPerView="auto"
+            grabCursor
+            freeMode={{ enabled: true, sticky: false }}
+            navigation={{ nextEl: ".recent-next", prevEl: ".recent-prev" }}
+            className="!pb-2"
+          >
             {recentTrips.map((trip) => {
               const savings = trip.originalPrice ? trip.originalPrice - trip.price : 0;
               return (
+                <SwiperSlide key={trip.id} className="!w-80">
                 <Link
-                  key={trip.id}
                   href={tripUrl(trip)}
-                  className="flex-shrink-0 w-80 rounded-[12px] border border-white/10 bg-tru-navy hover:border-white/20 hover:bg-[#0d2a4e] transition-all duration-200 group overflow-hidden"
+                  className="block w-full rounded-[12px] border border-white/10 bg-tru-navy hover:border-white/20 hover:bg-[#0d2a4e] transition-all duration-200 group overflow-hidden"
                 >
                   <div className="flex gap-3 p-3">
                     <div className="h-20 w-20 rounded-[8px] overflow-hidden flex-shrink-0">
@@ -524,8 +209,27 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                     )}
                   </div>
                 </Link>
+                </SwiperSlide>
               );
             })}
+          </Swiper>
+
+          <button
+            className="recent-prev absolute top-[calc(50%-12px)] -left-2 sm:-left-4 z-10 h-9 w-9 rounded-full bg-tru-navy border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-0 disabled:cursor-default"
+            aria-label="Previous"
+          >
+            <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button
+            className="recent-next absolute top-[calc(50%-12px)] -right-2 sm:-right-4 z-10 h-9 w-9 rounded-full bg-tru-navy border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-0 disabled:cursor-default"
+            aria-label="Next"
+          >
+            <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
           </div>
         </div>
       )}
@@ -536,24 +240,15 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
           {/* MOBILE: two-row stack — filter on top, section pills below */}
           <div className="sm:hidden">
             <div className="flex items-center justify-end h-11 border-b border-white/5">
-              <button
-                onClick={() => setShowFilters(true)}
-                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
-                  activeFilterCount > 0
-                    ? "border-tru-pink bg-tru-pink/15 text-white"
-                    : "border-white/20 text-gray-300"
-                }`}
+              <Link
+                href="/explore/all-trips"
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border border-tru-pink bg-tru-pink/15 text-white hover:bg-tru-pink"
               >
                 <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-                Filter
-                {activeFilterCount > 0 && (
-                  <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
-                    {activeFilterCount}
-                  </span>
-                )}
-              </button>
+                Browse All Trips
+              </Link>
             </div>
             <div className="flex items-stretch h-10">
               {sectionPills.map((s) => (
@@ -589,24 +284,15 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                 </button>
               ))}
             </div>
-            <button
-              onClick={() => setShowFilters(true)}
-              className={`flex-shrink-0 self-center inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
-                activeFilterCount > 0
-                  ? "border-tru-pink bg-tru-pink/15 text-white"
-                  : "border-white/20 text-gray-300 hover:border-white/40 hover:text-white"
-              }`}
+            <Link
+              href="/explore/all-trips"
+              className="flex-shrink-0 self-center inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border border-tru-pink bg-tru-pink text-white hover:bg-tru-pink-light"
             >
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
-              Filter
-              {activeFilterCount > 0 && (
-                <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
-                  {activeFilterCount}
-                </span>
-              )}
-            </button>
+              Browse All Trips
+            </Link>
           </div>
         </div>
       </div>
@@ -617,24 +303,15 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
           {/* MOBILE: two-row stack */}
           <div className="sm:hidden">
             <div className="flex items-center justify-end h-11 border-b border-white/5">
-              <button
-                onClick={() => setShowFilters(true)}
-                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
-                  activeFilterCount > 0
-                    ? "border-tru-pink bg-tru-pink/15 text-white"
-                    : "border-white/20 text-gray-300"
-                }`}
+              <Link
+                href="/explore/all-trips"
+                className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border border-tru-pink bg-tru-pink/15 text-white hover:bg-tru-pink"
               >
                 <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-                Filter
-                {activeFilterCount > 0 && (
-                  <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
-                    {activeFilterCount}
-                  </span>
-                )}
-              </button>
+                Browse All Trips
+              </Link>
             </div>
             <div className="flex items-stretch h-10">
               {sectionPills.map((s) => (
@@ -670,89 +347,21 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
                 </button>
               ))}
             </div>
-            <button
-              onClick={() => setShowFilters(true)}
-              className={`flex-shrink-0 self-center inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border ${
-                activeFilterCount > 0
-                  ? "border-tru-pink bg-tru-pink/15 text-white"
-                  : "border-white/20 text-gray-300 hover:border-white/40 hover:text-white"
-              }`}
+            <Link
+              href="/explore/all-trips"
+              className="flex-shrink-0 self-center inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 border border-tru-pink bg-tru-pink text-white hover:bg-tru-pink-light"
             >
               <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
-              Filter
-              {activeFilterCount > 0 && (
-                <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
-                  {activeFilterCount}
-                </span>
-              )}
-            </button>
+              Browse All Trips
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Active filter chips */}
-      {activeFilterCount > 0 && (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
-          <div className="flex flex-wrap items-center gap-2">
-            {activeRegion && (
-              <button onClick={() => setActiveRegion(null)} className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-xs text-white hover:bg-white/15 transition">
-                {activeRegion}
-                <svg className="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-              </button>
-            )}
-            {activeStyle && (
-              <button onClick={() => setActiveStyle(null)} className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs text-white hover:opacity-80 transition" style={{ background: travelStyleConfig[activeStyle].color }}>
-                {travelStyleConfig[activeStyle].label}
-                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-              </button>
-            )}
-            {activeMoment && (
-              <button onClick={() => setActiveMoment(null)} className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-xs text-white hover:bg-white/15 transition">
-                {lifeMoments.find((m) => m.id === activeMoment)?.label}
-                <svg className="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-              </button>
-            )}
-            {activeDuration !== "any" && (
-              <button onClick={() => setActiveDuration("any")} className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-xs text-white hover:bg-white/15 transition">
-                {durationOptions.find((d) => d.id === activeDuration)?.label}
-                <svg className="h-3 w-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-              </button>
-            )}
-            <button onClick={clearFilters} className="text-xs text-gray-500 hover:text-white transition ml-1">Clear all</button>
-          </div>
-        </div>
-      )}
 
       {/* Content */}
-      {activeFilterCount > 0 ? (
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <div>
-            <div className="mb-8">
-              <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide">
-                Filtered Trips
-                <span className="text-gray-500 text-sm font-normal ml-3">{filtered.length} trips</span>
-              </h2>
-            </div>
-            {filtered.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
-                {filtered.map((trip) => (
-                  <TripCard key={trip.id} trip={trip} />
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-20">
-                <p className="text-2xl font-black text-white uppercase font-heading mb-3">No trips found</p>
-                <p className="text-gray-400 text-sm mb-6">Try adjusting your filters.</p>
-                <button onClick={clearFilters} className="rounded-[10px] bg-tru-pink px-6 py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 uppercase tracking-wider">
-                  Clear Filters
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      ) : (
         <div className="py-12">
             <section id="explore" className="relative scroll-mt-20 overflow-hidden">
               <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[600px] opacity-[0.07] brightness-0 invert" />
@@ -807,7 +416,6 @@ export default function TripsBrowser({ trips, regions }: { trips: Trip[]; region
               </div>
             </section>
         </div>
-      )}
 
       {/* Inspire Me CTA */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">

@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { trips, regions } from "@/lib/data";
+import { trips } from "@/lib/data";
 import TripsBrowser from "@/components/trips-browser";
 
 export const metadata = {
@@ -10,7 +10,7 @@ export const metadata = {
 export default function DestinationsPage() {
   return (
     <Suspense>
-      <TripsBrowser trips={trips} regions={regions} />
+      <TripsBrowser trips={trips} />
     </Suspense>
   );
 }

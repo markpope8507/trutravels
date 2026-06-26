@@ -16,9 +16,8 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
       <Swiper
         modules={[Navigation, Pagination, FreeMode]}
         spaceBetween={16}
-        slidesPerView={1.2}
-        centeredSlides={true}
-        freeMode={false}
+        slidesPerView={1.15}
+        freeMode={{ enabled: true, sticky: false }}
         navigation={{
           nextEl: ".exp-next",
           prevEl: ".exp-prev",
@@ -28,15 +27,15 @@ export default function ExperienceCarousel({ trips }: { trips: Trip[] }) {
           clickable: true,
         }}
         breakpoints={{
-          480: { slidesPerView: 1.4, centeredSlides: true },
-          640: { slidesPerView: 2.2, centeredSlides: false },
-          1024: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 },
-          1280: { slidesPerView: 3, centeredSlides: false, spaceBetween: 20 },
+          480: { slidesPerView: 1.5 },
+          640: { slidesPerView: 2.2, spaceBetween: 16 },
+          1024: { slidesPerView: 3, spaceBetween: 20 },
+          1280: { slidesPerView: 3.2, spaceBetween: 20 },
         }}
         speed={600}
         className=""
       >
-        {trips.map((trip) => (
+        {trips.slice(0, 6).map((trip) => (
           <SwiperSlide key={trip.id} className="!h-auto">
             <TripCard trip={trip} />
           </SwiperSlide>

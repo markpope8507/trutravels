@@ -1,12 +1,13 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, FreeMode } from "swiper/modules";
+import { Navigation, Pagination, FreeMode } from "swiper/modules";
 import { Trip } from "@/lib/data";
 import TripCard from "@/components/trip-card";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 import "swiper/css/free-mode";
 
 export default function TripCarouselSection({
@@ -23,6 +24,7 @@ export default function TripCarouselSection({
   id: string;
 }) {
   if (sectionTrips.length === 0) return null;
+  const visibleTrips = sectionTrips.slice(0, 6);
   return (
     <section id={id} className="mb-16 scroll-mt-20">
       <div className="flex items-end justify-between mb-6">
@@ -33,13 +35,14 @@ export default function TripCarouselSection({
           <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide">{title}</h2>
         </div>
       </div>
-      <div className={`${id}-carousel relative`}>
+      <div className={`${id}-carousel trip-carousel relative`}>
         <Swiper
-          modules={[Navigation, FreeMode]}
+          modules={[Navigation, Pagination, FreeMode]}
           spaceBetween={16}
           slidesPerView={1.15}
           freeMode={{ enabled: true, sticky: false }}
           navigation={{ nextEl: `.${id}-next`, prevEl: `.${id}-prev` }}
+          pagination={{ el: `.${id}-pagination`, clickable: true }}
           breakpoints={{
             480: { slidesPerView: 1.5 },
             640: { slidesPerView: 2.2, spaceBetween: 16 },
@@ -48,7 +51,7 @@ export default function TripCarouselSection({
           }}
           speed={600}
         >
-          {sectionTrips.map((trip) => (
+          {visibleTrips.map((trip) => (
             <SwiperSlide key={trip.id}>
               <TripCard trip={trip} />
             </SwiperSlide>
@@ -64,6 +67,7 @@ export default function TripCarouselSection({
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
           </svg>
         </button>
+        <div className={`${id}-pagination flex justify-center gap-2 mt-8`} />
       </div>
     </section>
   );

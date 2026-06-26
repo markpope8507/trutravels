@@ -7,6 +7,7 @@ import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import DropsCarousel from "@/components/drops-carousel";
 import DiscoveryPathways from "@/components/discovery-pathways";
 import SearchPrompt from "@/components/search-prompt";
+import JoinCommunity from "@/components/join-community";
 
 export default function HomePage() {
   const featuredStory = [...stories]
@@ -134,6 +135,60 @@ export default function HomePage() {
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <ExperienceTypesCarousel types={experienceTypes} />
+        </div>
+
+        {/* Why Choose Our Tours — the Tru difference */}
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16">
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading text-center">The Tru Difference</p>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading mb-10 text-center">
+            Why Choose <span className="text-gradient">Our Trips?</span>
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+            {/* Small Group Adventures */}
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <svg className="h-9 w-9 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-1a4 4 0 0 0-4-4h-1m-4 5H2v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1Zm-2-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6-1a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                </svg>
+                <h3 className="text-white font-black uppercase font-heading text-sm leading-tight">Small Group Adventures</h3>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed">Our groups stay between 10&ndash;20 in size, so every experience feels personal.</p>
+            </div>
+
+            {/* Local Guides & Experiences */}
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <svg className="h-9 w-9 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657 13.414 20.9a2 2 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0Z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+                <h3 className="text-white font-black uppercase font-heading text-sm leading-tight">Local Legends</h3>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed">Who better to show you around than someone who calls it home?</p>
+            </div>
+
+            {/* Logistics Locked In */}
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <svg className="h-9 w-9 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <h3 className="text-white font-black uppercase font-heading text-sm leading-tight">Logistics Locked In</h3>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed">Zero stress, maximum adventure. Every detail is sorted before you even pack your bag.</p>
+            </div>
+
+            {/* Community & Connection */}
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <svg className="h-9 w-9 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                </svg>
+                <h3 className="text-white font-black uppercase font-heading text-sm leading-tight">Community &amp; Connection</h3>
+              </div>
+              <p className="text-gray-400 text-sm leading-relaxed">A shared adventure creates bonds that stick long after the trip ends.</p>
+            </div>
+          </div>
         </div>
 
         {/* What's Included CTA */}
@@ -380,27 +435,14 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Left — copy */}
             <div>
-              <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-4 font-heading">Membership</p>
+              <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-4 font-heading">Join Our Community</p>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6 uppercase font-heading">
                 This Is More<br />Than A Trip<br />Company
               </h2>
               <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-md">
                 TruTravels is a community. A lifestyle. A way of seeing the world differently. Membership is free — and it unlocks everything.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/signup"
-                  className="rounded-[10px] bg-tru-green px-8 py-3.5 text-sm font-semibold text-tru-navy hover:bg-tru-green-light transition-all duration-300 text-center uppercase tracking-wider"
-                >
-                  Join Free Today
-                </Link>
-                <Link
-                  href="/login"
-                  className="rounded-[10px] border border-tru-pink px-8 py-3.5 text-sm font-semibold text-tru-pink hover:bg-tru-pink hover:text-white transition-all duration-300 text-center uppercase tracking-wider"
-                >
-                  Already a member? Log in
-                </Link>
-              </div>
+              <JoinCommunity />
             </div>
 
             {/* Right — member perks */}

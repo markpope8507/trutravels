@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 
 const FOOTER_COLUMNS = [
   {
@@ -97,6 +97,13 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   const [openMobile, setOpenMobile] = useState<string | null>(null);
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e: FormEvent) => {
+    e.preventDefault();
+    setSubscribed(true);
+  };
 
   return (
     <footer className="relative bg-tru-navy text-gray-400 border-t border-white/10 overflow-clip">
@@ -225,6 +232,52 @@ export default function Footer() {
                   );
                 })}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mailing list signup — below the nav dropdowns on mobile, inline row on desktop */}
+        <div className="py-8 border-b border-white/10">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 lg:gap-8">
+            {/* Heading (left on desktop) */}
+            <div className="w-full lg:max-w-sm">
+              <p className="text-white text-sm font-bold font-heading uppercase tracking-wide mb-1">Join the mailing list</p>
+              <p className="text-gray-400 text-xs leading-relaxed">
+                Trips, deals and stories &mdash; no account needed. Unsubscribe anytime.
+              </p>
+            </div>
+
+            {/* Form, with the account note sitting beneath it */}
+            <div className="w-full lg:flex-1 lg:max-w-md">
+              {subscribed ? (
+                <p className="flex items-center gap-2 text-sm text-tru-pink font-semibold">
+                  <svg className="h-4 w-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                  You&apos;re on the list!
+                </p>
+              ) : (
+                <form onSubmit={handleSubscribe} className="flex gap-2">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your@email.com"
+                    aria-label="Email address"
+                    className="flex-1 rounded-full bg-white/5 border border-white/15 px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
+                  />
+                  <button
+                    type="submit"
+                    className="rounded-full bg-tru-pink hover:bg-tru-pink-light text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200 whitespace-nowrap"
+                  >
+                    Sign Up
+                  </button>
+                </form>
+              )}
+              <p className="text-gray-500 text-xs leading-relaxed mt-3">
+                Want the full experience? <Link href="/signup" className="text-gray-300 hover:text-tru-pink underline transition">Create an account</Link> for saved trips, member deals and more.
+              </p>
             </div>
           </div>
         </div>

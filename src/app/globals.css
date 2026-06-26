@@ -171,7 +171,8 @@ html, body {
 .pillar-carousel .swiper-pagination-bullet,
 .creator-carousel .swiper-pagination-bullet,
 .video-carousel .swiper-pagination-bullet,
-.drop-carousel .swiper-pagination-bullet {
+.drop-carousel .swiper-pagination-bullet,
+.trip-carousel .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -186,7 +187,8 @@ html, body {
 .pillar-carousel .swiper-pagination-bullet-active,
 .creator-carousel .swiper-pagination-bullet-active,
 .video-carousel .swiper-pagination-bullet-active,
-.drop-carousel .swiper-pagination-bullet-active {
+.drop-carousel .swiper-pagination-bullet-active,
+.trip-carousel .swiper-pagination-bullet-active {
   background: var(--tru-pink);
   border-color: var(--tru-pink);
   transform: scale(1.1);
