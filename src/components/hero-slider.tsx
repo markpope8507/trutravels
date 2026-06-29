@@ -77,7 +77,7 @@ const slides: Slide[] = [
   {
     id: "rio-carnival-2027",
     video:
-      "https://videos.pexels.com/video-files/5752729/5752729-uhd_2560_1440_30fps.mp4",
+      "https://videos.pexels.com/video-files/36218992/15359210_2560_1440_24fps.mp4",
     poster:
       "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1920&q=80",
     eyebrow: "Limited Edition · Sign Up For The Launch Date",
