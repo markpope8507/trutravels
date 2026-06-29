@@ -73,6 +73,20 @@ export default function StoriesPage() {
     };
   }, [showFilters]);
 
+  // Slide in the fixed filter/sort bar once the in-flow bar scrolls out of view
+  // (mobile) — same behaviour as the tour & explore sticky menus.
+  const [navSticky, setNavSticky] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      const bar = document.getElementById("stories-bar");
+      if (!bar) return;
+      setNavSticky(bar.getBoundingClientRect().bottom < 0);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const sorted = useMemo(
     () =>
       [...stories].sort((a, b) =>
@@ -140,6 +154,28 @@ export default function StoriesPage() {
     `flex items-center gap-3 cursor-pointer rounded-[8px] px-3 py-2 transition ${
       checked ? "bg-tru-pink/15 text-white" : "text-gray-300 hover:bg-white/5 hover:text-white"
     }`;
+
+  const mobileFilterBar = (
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center gap-3">
+      <button
+        onClick={() => setShowFilters(true)}
+        className="flex-1 inline-flex items-center justify-center gap-2 rounded-[10px] border border-white/15 hover:border-tru-pink/50 bg-white/5 px-4 py-3 text-sm font-bold uppercase tracking-wider text-white font-heading transition"
+      >
+        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M6 12h12M10 20h4" />
+        </svg>
+        Filters
+        {activeFilterCount > 0 && (
+          <span className="bg-tru-pink text-white text-[10px] font-bold rounded-full h-5 min-w-[20px] px-1.5 flex items-center justify-center">
+            {activeFilterCount}
+          </span>
+        )}
+      </button>
+      <div className="flex-1">
+        <SortMenu value={sort} onChange={(v) => setSort(v as "latest" | "oldest")} options={SORT_OPTIONS} />
+      </div>
+    </div>
+  );
 
   const FilterPanel = (
     <div className="space-y-4">
@@ -437,27 +473,9 @@ export default function StoriesPage() {
       />
 
       <div className="relative">
-        {/* Mobile sticky filter + sort bar (above the featured story) */}
-        <div className="lg:hidden sticky top-0 z-40 bg-tru-navy/95 backdrop-blur-md border-y border-white/10">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center gap-3">
-            <button
-              onClick={() => setShowFilters(true)}
-              className="flex-1 inline-flex items-center justify-center gap-2 rounded-[10px] border border-white/15 hover:border-tru-pink/50 bg-white/5 px-4 py-3 text-sm font-bold uppercase tracking-wider text-white font-heading transition"
-            >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M6 12h12M10 20h4" />
-              </svg>
-              Filters
-              {activeFilterCount > 0 && (
-                <span className="bg-tru-pink text-white text-[10px] font-bold rounded-full h-5 min-w-[20px] px-1.5 flex items-center justify-center">
-                  {activeFilterCount}
-                </span>
-              )}
-            </button>
-            <div className="flex-1">
-              <SortMenu value={sort} onChange={(v) => setSort(v as "latest" | "oldest")} options={SORT_OPTIONS} />
-            </div>
-          </div>
+        {/* Mobile filter + sort bar — above the featured story (in flow) */}
+        <div id="stories-bar" className="lg:hidden bg-tru-navy/95 backdrop-blur-md border-y border-white/10">
+          {mobileFilterBar}
         </div>
 
       {/* Featured */}
@@ -663,6 +681,15 @@ export default function StoriesPage() {
           </div>
         </div>
       )}
+
+      {/* Sticky duplicate — slides in once the in-flow bar scrolls past (mobile) */}
+      <div
+        className={`lg:hidden fixed top-0 left-0 right-0 z-[60] bg-tru-navy/95 backdrop-blur-md border-b border-white/10 transition-all duration-300 ${
+          navSticky ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
+        }`}
+      >
+        {mobileFilterBar}
+      </div>
     </>
   );
 }
