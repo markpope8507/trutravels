@@ -155,13 +155,13 @@ export default function StoriesPage() {
       checked ? "bg-tru-pink/15 text-white" : "text-gray-300 hover:bg-white/5 hover:text-white"
     }`;
 
-  const mobileFilterBar = (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center gap-3">
+  const filterSortButtons = (
+    <>
       <button
         onClick={() => setShowFilters(true)}
-        className="flex-1 inline-flex items-center justify-center gap-2 rounded-[10px] border border-white/15 hover:border-tru-pink/50 bg-white/5 px-4 py-3 text-sm font-bold uppercase tracking-wider text-white font-heading transition"
+        className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-white/20 hover:border-tru-pink/50 bg-white/5 px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white font-heading transition"
       >
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M6 12h12M10 20h4" />
         </svg>
         Filters
@@ -174,7 +174,7 @@ export default function StoriesPage() {
       <div className="flex-1">
         <SortMenu value={sort} onChange={(v) => setSort(v as "latest" | "oldest")} options={SORT_OPTIONS} />
       </div>
-    </div>
+    </>
   );
 
   const FilterPanel = (
@@ -472,12 +472,6 @@ export default function StoriesPage() {
         icon={<ReadIcon />}
       />
 
-      <div className="relative">
-        {/* Mobile filter + sort bar — above the featured story (in flow) */}
-        <div id="stories-bar" className="lg:hidden bg-tru-navy/95 backdrop-blur-md border-y border-white/10">
-          {mobileFilterBar}
-        </div>
-
       {/* Featured */}
       {featured && (
         <section className="pb-20">
@@ -554,6 +548,11 @@ export default function StoriesPage() {
                 </div>
               </div>
 
+              {/* Mobile filter + sort (in flow, beneath the search bar) */}
+              <div id="stories-bar" className="lg:hidden flex items-center gap-3 mb-6">
+                {filterSortButtons}
+              </div>
+
               {/* Count */}
               <p className="text-sm text-gray-500 mb-6">
                 Showing {filtered.length} of {rest.length}{" "}
@@ -590,7 +589,6 @@ export default function StoriesPage() {
           </div>
         </div>
       </section>
-      </div>
 
       {/* =========================================================
           LISTEN — podcast episodes
@@ -688,7 +686,9 @@ export default function StoriesPage() {
           navSticky ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
         }`}
       >
-        {mobileFilterBar}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center gap-3">
+          {filterSortButtons}
+        </div>
       </div>
     </>
   );
