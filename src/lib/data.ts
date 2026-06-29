@@ -629,7 +629,7 @@ export const stories: Story[] = [
     type: "guide",
     topics: ["Adventure", "Food & Culture", "Local Stories"],
     lifeMoments: ["First Big Trip", "Gap Year"],
-    destinations: ["Asia", "Indonesia", "Africa", "Morocco"],
+    destinations: ["Asia", "Indonesia", "Africa", "Morocco", "Jordan"],
     readTime: 4,
   },
   {
@@ -689,7 +689,7 @@ export const stories: Story[] = [
     type: "guide",
     topics: ["Adventure", "Nightlife"],
     lifeMoments: ["Gap Year", "First Big Trip", "Career Break"],
-    destinations: ["Asia", "Indonesia", "Bali", "Thailand", "Europe"],
+    destinations: ["Asia", "Indonesia", "Bali", "Thailand", "Europe", "Greece"],
     readTime: 4,
   },
   {

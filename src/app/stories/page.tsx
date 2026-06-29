@@ -21,7 +21,6 @@ import {
 import { useAuth } from "@/lib/auth-context";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import FilterSection from "@/components/filter-section";
-import SortMenu from "@/components/sort-menu";
 
 // Region → countries taxonomy for the nested Destination filter (mirrors the
 // site's destination structure). Tagging will populate these against stories.
@@ -41,11 +40,6 @@ const TOPIC_OPTIONS: { id: string; label: string }[] = [
 
 const countryStoryCount = (country: string) =>
   stories.filter((s) => s.destinations.includes(country)).length;
-
-const SORT_OPTIONS = [
-  { value: "latest", label: "Latest" },
-  { value: "oldest", label: "Oldest" },
-];
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-GB", {
@@ -155,11 +149,23 @@ export default function StoriesPage() {
       checked ? "bg-tru-pink/15 text-white" : "text-gray-300 hover:bg-white/5 hover:text-white"
     }`;
 
-  const filterSortButtons = (
-    <>
+  const mobileBarContent = (
+    <div className="flex items-center gap-3">
+      <div className="relative flex-1">
+        <svg className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search stories…"
+          className="w-full bg-white/5 border border-white/15 rounded-full pl-10 pr-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
+        />
+      </div>
       <button
         onClick={() => setShowFilters(true)}
-        className="flex-1 inline-flex items-center justify-center gap-2 rounded-full border border-white/20 hover:border-tru-pink/50 bg-white/5 px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white font-heading transition"
+        className="flex-shrink-0 inline-flex items-center gap-2 rounded-full border border-white/20 hover:border-tru-pink/50 bg-white/5 px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white font-heading transition"
       >
         <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M6 12h12M10 20h4" />
@@ -171,14 +177,29 @@ export default function StoriesPage() {
           </span>
         )}
       </button>
-      <div className="flex-1">
-        <SortMenu value={sort} onChange={(v) => setSort(v as "latest" | "oldest")} options={SORT_OPTIONS} />
-      </div>
-    </>
+    </div>
   );
 
   const FilterPanel = (
     <div className="space-y-4">
+      {/* Sort By — matches the Deals filter */}
+      <div>
+        <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-2">Sort By</p>
+        <div className="relative">
+          <select
+            value={sort}
+            onChange={(e) => setSort(e.target.value as "latest" | "oldest")}
+            className="w-full appearance-none bg-tru-navy border border-white/15 rounded-[10px] px-3 py-2.5 text-sm text-white font-semibold focus:outline-none focus:border-tru-pink/50 cursor-pointer"
+          >
+            <option value="latest">Latest</option>
+            <option value="oldest">Oldest</option>
+          </select>
+          <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+
       {/* Topics — content types + editorial topics, combined */}
       <FilterSection
         title="Topics"
@@ -213,8 +234,10 @@ export default function StoriesPage() {
       >
         <div className="space-y-1">
           {STORY_REGIONS.map(({ region, countries }) => {
+            const visibleCountries = countries.filter((c) => countryStoryCount(c) > 0);
+            if (visibleCountries.length === 0) return null;
             const regionOpen = openRegions.has(region);
-            const regionCount = countries.filter((c) => selectedCountries.has(c)).length;
+            const regionCount = visibleCountries.filter((c) => selectedCountries.has(c)).length;
             return (
               <div key={region}>
                 <button
@@ -242,7 +265,7 @@ export default function StoriesPage() {
                 </button>
                 {regionOpen && (
                   <div className="mt-1 space-y-1.5">
-                    {countries.map((c) => {
+                    {visibleCountries.map((c) => {
                       const checked = selectedCountries.has(c);
                       return (
                         <label key={c} className={rowClass(checked)}>
@@ -529,28 +552,23 @@ export default function StoriesPage() {
 
             {/* Results */}
             <div className="min-w-0">
-              {/* Search + sort (desktop — mobile uses the sticky bar above) */}
-              <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <div className="relative flex-1">
-                  <svg className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                  <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search stories, guides, destinations…"
-                    className="w-full bg-white/5 border border-white/10 rounded-[10px] pl-12 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
-                  />
-                </div>
-                <div className="hidden lg:block w-40">
-                  <SortMenu value={sort} onChange={(v) => setSort(v as "latest" | "oldest")} options={SORT_OPTIONS} />
-                </div>
+              {/* Mobile: search + filters (in flow; gate for the sticky duplicate) */}
+              <div id="stories-bar" className="lg:hidden mb-6">
+                {mobileBarContent}
               </div>
 
-              {/* Mobile filter + sort (in flow, beneath the search bar) */}
-              <div id="stories-bar" className="lg:hidden flex items-center gap-3 mb-6">
-                {filterSortButtons}
+              {/* Desktop: search (sort + filters live in the sidebar) */}
+              <div className="relative hidden lg:block mb-6">
+                <svg className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search stories, guides, destinations…"
+                  className="w-full bg-white/5 border border-white/10 rounded-[10px] pl-12 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
+                />
               </div>
 
               {/* Count */}
@@ -686,8 +704,8 @@ export default function StoriesPage() {
           navSticky ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"
         }`}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center gap-3">
-          {filterSortButtons}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3">
+          {mobileBarContent}
         </div>
       </div>
     </>
