@@ -13,20 +13,33 @@ import {
   videoDiaries,
   storyTopics,
   storyLifeMoments,
-  storyLifeMomentEmojis,
-  storyTopicEmojis,
   storyTypes,
   storyContentSeries,
   storyPodcasts,
   type Story,
-  type StoryType,
 } from "@/lib/data";
 import { useAuth } from "@/lib/auth-context";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
+import FilterSection from "@/components/filter-section";
 
-const allDestinations = Array.from(
-  new Set(stories.flatMap((s) => s.destinations)),
-).sort();
+// Region → countries taxonomy for the nested Destination filter (mirrors the
+// site's destination structure). Tagging will populate these against stories.
+const STORY_REGIONS: { region: string; countries: string[] }[] = [
+  { region: "Asia", countries: ["Thailand", "Indonesia", "Vietnam", "Philippines", "Cambodia", "Sri Lanka", "India", "Japan", "China", "South Korea"] },
+  { region: "Latin America", countries: ["Mexico", "Costa Rica", "Colombia", "Peru", "Brazil", "Belize", "Guatemala"] },
+  { region: "Europe", countries: ["Greece", "Italy", "Albania"] },
+  { region: "Africa & Middle East", countries: ["Morocco", "Jordan"] },
+  { region: "Oceania", countries: ["New Zealand"] },
+];
+
+// Combined "Topics" facet = content types + editorial topics.
+const TOPIC_OPTIONS: { id: string; label: string }[] = [
+  ...storyTypes.map((t) => ({ id: t.value as string, label: t.label })),
+  ...storyTopics.map((t) => ({ id: t, label: t })),
+];
+
+const countryStoryCount = (country: string) =>
+  stories.filter((s) => s.destinations.includes(country)).length;
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-GB", {
@@ -38,12 +51,21 @@ const formatDate = (iso: string) =>
 export default function StoriesPage() {
   const { isLoggedIn } = useAuth();
   const [query, setQuery] = useState("");
-  const [activeType, setActiveType] = useState<StoryType | "all">("all");
-  const [destination, setDestination] = useState("");
-  const [topic, setTopic] = useState("");
-  const [lifeMoment, setLifeMoment] = useState("");
+  const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
+  const [selectedCountries, setSelectedCountries] = useState<Set<string>>(new Set());
+  const [selectedMoments, setSelectedMoments] = useState<Set<string>>(new Set());
   const [sort, setSort] = useState<"latest" | "oldest">("latest");
   const [showFilters, setShowFilters] = useState(false);
+  const [openSections, setOpenSections] = useState<Set<string>>(new Set(["topics"]));
+  const [openRegions, setOpenRegions] = useState<Set<string>>(new Set());
+
+  // Lock background scroll while the mobile filter drawer is open.
+  useEffect(() => {
+    document.body.style.overflow = showFilters ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showFilters]);
 
   const sorted = useMemo(
     () =>
@@ -61,10 +83,15 @@ export default function StoriesPage() {
   const filtered = useMemo(
     () =>
       rest.filter((s) => {
-        if (activeType !== "all" && s.type !== activeType) return false;
-        if (destination && !s.destinations.includes(destination)) return false;
-        if (topic && !s.topics.includes(topic)) return false;
-        if (lifeMoment && !s.lifeMoments.includes(lifeMoment)) return false;
+        if (
+          selectedTags.size &&
+          !(selectedTags.has(s.type) || s.topics.some((t) => selectedTags.has(t)))
+        )
+          return false;
+        if (selectedCountries.size && !s.destinations.some((d) => selectedCountries.has(d)))
+          return false;
+        if (selectedMoments.size && !s.lifeMoments.some((m) => selectedMoments.has(m)))
+          return false;
         if (query.trim()) {
           const q = query.toLowerCase();
           if (
@@ -76,31 +103,164 @@ export default function StoriesPage() {
         }
         return true;
       }),
-    [rest, activeType, destination, topic, lifeMoment, query],
+    [rest, selectedTags, selectedCountries, selectedMoments, query],
   );
 
-  const activeFilterCount =
-    (activeType !== "all" ? 1 : 0) +
-    (destination ? 1 : 0) +
-    (topic ? 1 : 0) +
-    (lifeMoment ? 1 : 0);
+  const activeFilterCount = selectedTags.size + selectedCountries.size + selectedMoments.size;
   const hasActiveFilters = activeFilterCount > 0 || query.trim().length > 0;
 
-  const destinationCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    for (const d of allDestinations) {
-      counts[d] = rest.filter((s) => s.destinations.includes(d)).length;
-    }
-    return counts;
-  }, [rest]);
+  const makeToggle =
+    (setter: React.Dispatch<React.SetStateAction<Set<string>>>) => (value: string) =>
+      setter((prev) => {
+        const next = new Set(prev);
+        if (next.has(value)) next.delete(value);
+        else next.add(value);
+        return next;
+      });
+  const toggleTag = makeToggle(setSelectedTags);
+  const toggleCountry = makeToggle(setSelectedCountries);
+  const toggleMoment = makeToggle(setSelectedMoments);
+  const toggleSection = makeToggle(setOpenSections);
+  const toggleRegion = makeToggle(setOpenRegions);
 
   const clearAll = () => {
-    setActiveType("all");
-    setDestination("");
-    setTopic("");
-    setLifeMoment("");
+    setSelectedTags(new Set());
+    setSelectedCountries(new Set());
+    setSelectedMoments(new Set());
     setQuery("");
   };
+
+  const rowClass = (checked: boolean) =>
+    `flex items-center gap-3 cursor-pointer rounded-[8px] px-3 py-2 transition ${
+      checked ? "bg-tru-pink/15 text-white" : "text-gray-300 hover:bg-white/5 hover:text-white"
+    }`;
+
+  const FilterPanel = (
+    <div className="space-y-4">
+      {/* Topics — content types + editorial topics, combined */}
+      <FilterSection
+        title="Topics"
+        count={selectedTags.size}
+        open={openSections.has("topics")}
+        onToggle={() => toggleSection("topics")}
+      >
+        <div className="space-y-1.5">
+          {TOPIC_OPTIONS.map((opt) => {
+            const checked = selectedTags.has(opt.id);
+            return (
+              <label key={opt.id} className={rowClass(checked)}>
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => toggleTag(opt.id)}
+                  className="h-4 w-4 accent-tru-pink rounded"
+                />
+                <span className="text-sm">{opt.label}</span>
+              </label>
+            );
+          })}
+        </div>
+      </FilterSection>
+
+      {/* Destination — region → countries (nested) */}
+      <FilterSection
+        title="Destination"
+        count={selectedCountries.size}
+        open={openSections.has("destination")}
+        onToggle={() => toggleSection("destination")}
+      >
+        <div className="space-y-1">
+          {STORY_REGIONS.map(({ region, countries }) => {
+            const regionOpen = openRegions.has(region);
+            const regionCount = countries.filter((c) => selectedCountries.has(c)).length;
+            return (
+              <div key={region}>
+                <button
+                  type="button"
+                  onClick={() => toggleRegion(region)}
+                  className="w-full flex items-center justify-between gap-2 rounded-[8px] px-3 py-2 text-gray-200 hover:bg-white/5 hover:text-white transition"
+                >
+                  <span className="flex items-center gap-2 text-sm">
+                    {region}
+                    {regionCount > 0 && (
+                      <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center">
+                        {regionCount}
+                      </span>
+                    )}
+                  </span>
+                  <svg
+                    className={`h-3.5 w-3.5 text-gray-400 transition-transform ${regionOpen ? "rotate-180" : ""}`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {regionOpen && (
+                  <div className="ml-3 mt-1 pl-3 border-l border-white/10 space-y-1.5">
+                    {countries.map((c) => {
+                      const checked = selectedCountries.has(c);
+                      return (
+                        <label key={c} className={rowClass(checked)}>
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() => toggleCountry(c)}
+                            className="h-4 w-4 accent-tru-pink rounded"
+                          />
+                          <span className="text-sm flex-1">{c}</span>
+                          <span className="text-xs text-gray-500">{countryStoryCount(c)}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </FilterSection>
+
+      {/* Life Moments */}
+      <FilterSection
+        title="Life Moments"
+        count={selectedMoments.size}
+        open={openSections.has("moment")}
+        onToggle={() => toggleSection("moment")}
+      >
+        <div className="space-y-1.5">
+          {storyLifeMoments.map((m) => {
+            const checked = selectedMoments.has(m);
+            return (
+              <label key={m} className={rowClass(checked)}>
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => toggleMoment(m)}
+                  className="h-4 w-4 accent-tru-pink rounded"
+                />
+                <span className="text-sm">{m}</span>
+              </label>
+            );
+          })}
+        </div>
+      </FilterSection>
+
+      {activeFilterCount > 0 && (
+        <>
+          <div className="h-px bg-white/10" />
+          <button
+            onClick={clearAll}
+            className="w-full inline-flex items-center justify-center gap-2 rounded-[10px] border border-white/20 py-2.5 text-xs font-bold text-white hover:border-tru-pink hover:text-tru-pink transition uppercase tracking-wider font-heading"
+          >
+            Clear Filters ({activeFilterCount})
+          </button>
+        </>
+      )}
+    </div>
+  );
 
   return (
     <>
@@ -301,104 +461,109 @@ export default function StoriesPage() {
             </p>
           </div>
 
-          {/* Search + Filter button */}
-          <div className="flex flex-col sm:flex-row gap-3 mb-6">
-            <div className="relative flex-1">
-              <svg
-                className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search stories, guides, destinations…"
-                className="w-full bg-white/5 border border-white/10 rounded-[10px] pl-12 pr-4 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
-              />
-            </div>
-            <button
-              onClick={() => setShowFilters(true)}
-              className="flex items-center justify-center gap-2 rounded-[10px] border border-white/15 hover:border-tru-pink/50 bg-white/5 px-5 py-3.5 text-sm font-bold uppercase tracking-wider text-white font-heading transition relative"
-            >
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3 4h18M6 12h12M10 20h4"
-                />
-              </svg>
-              Filters
-              {activeFilterCount > 0 && (
-                <span className="bg-tru-pink text-white text-[10px] font-bold rounded-full h-5 min-w-[20px] px-1.5 flex items-center justify-center">
-                  {activeFilterCount}
-                </span>
-              )}
-            </button>
-          </div>
+          {/* Sidebar + results */}
+          <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8">
+            {/* Desktop sidebar */}
+            <aside className="hidden lg:block">
+              <div className="sticky top-24 rounded-[12px] border border-white/10 bg-tru-navy/60 backdrop-blur-sm p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-white text-sm font-black uppercase font-heading tracking-wider">Filters</p>
+                  {activeFilterCount > 0 && (
+                    <button
+                      onClick={clearAll}
+                      className="text-tru-pink text-[11px] font-bold uppercase tracking-wider font-heading hover:text-tru-pink-light transition"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+                <p className="text-gray-400 text-xs mb-5">
+                  <span className="text-white font-bold">{filtered.length}</span>{" "}
+                  {filtered.length === 1 ? "story" : "stories"}
+                </p>
+                {FilterPanel}
+              </div>
+            </aside>
 
-          {/* Results count + sort */}
-          <div className="flex items-center justify-between gap-3 mb-6 flex-wrap">
-            <p className="text-sm text-gray-500">
-              Showing {filtered.length} of {rest.length}{" "}
-              {filtered.length === 1 ? "story" : "stories"}
-              {hasActiveFilters && (
+            {/* Results */}
+            <div className="min-w-0">
+              {/* Search + mobile filter + sort */}
+              <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                <div className="relative flex-1">
+                  <svg className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search stories, guides, destinations…"
+                    className="w-full bg-white/5 border border-white/10 rounded-[10px] pl-12 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
+                  />
+                </div>
                 <button
-                  onClick={clearAll}
-                  className="ml-3 text-tru-pink hover:text-tru-pink-light text-xs font-semibold uppercase tracking-wider transition"
+                  onClick={() => setShowFilters(true)}
+                  className="lg:hidden flex items-center justify-center gap-2 rounded-[10px] border border-white/15 hover:border-tru-pink/50 bg-white/5 px-5 py-3 text-sm font-bold uppercase tracking-wider text-white font-heading transition"
                 >
-                  Clear all
+                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M6 12h12M10 20h4" />
+                  </svg>
+                  Filters
+                  {activeFilterCount > 0 && (
+                    <span className="bg-tru-pink text-white text-[10px] font-bold rounded-full h-5 min-w-[20px] px-1.5 flex items-center justify-center">
+                      {activeFilterCount}
+                    </span>
+                  )}
                 </button>
-              )}
-            </p>
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value as "latest" | "oldest")}
-              className="bg-white/5 border border-white/10 rounded-[10px] px-3 py-2 text-xs text-gray-300 font-semibold uppercase tracking-wider focus:outline-none focus:border-tru-pink/50 cursor-pointer"
-            >
-              <option value="latest">Latest first</option>
-              <option value="oldest">Oldest first</option>
-            </select>
-          </div>
+                <div className="relative">
+                  <select
+                    value={sort}
+                    onChange={(e) => setSort(e.target.value as "latest" | "oldest")}
+                    className="h-full w-full appearance-none bg-white/5 border border-white/10 rounded-[10px] pl-3 pr-9 py-3 text-xs text-gray-300 font-semibold uppercase tracking-wider focus:outline-none focus:border-tru-pink/50 cursor-pointer"
+                  >
+                    <option value="latest">Latest first</option>
+                    <option value="oldest">Oldest first</option>
+                  </select>
+                  <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </div>
 
-          {/* Grid */}
-          {filtered.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filtered.map((story) => (
-                <StoryCard
-                  key={story.id}
-                  story={story}
-                  isLoggedIn={isLoggedIn}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-[10px] border border-dashed border-white/10 py-20 text-center">
-              <p className="text-gray-400 mb-4">
-                No stories match those filters yet.
+              {/* Count */}
+              <p className="text-sm text-gray-500 mb-6">
+                Showing {filtered.length} of {rest.length}{" "}
+                {filtered.length === 1 ? "story" : "stories"}
+                {hasActiveFilters && (
+                  <button
+                    onClick={clearAll}
+                    className="ml-3 text-tru-pink hover:text-tru-pink-light text-xs font-semibold uppercase tracking-wider transition"
+                  >
+                    Clear all
+                  </button>
+                )}
               </p>
-              <button
-                onClick={clearAll}
-                className="text-tru-pink hover:text-tru-pink-light text-sm font-semibold uppercase tracking-wider transition"
-              >
-                Reset filters
-              </button>
+
+              {/* Grid */}
+              {filtered.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  {filtered.map((story) => (
+                    <StoryCard key={story.id} story={story} isLoggedIn={isLoggedIn} />
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-[10px] border border-dashed border-white/10 py-20 text-center">
+                  <p className="text-gray-400 mb-4">No stories match those filters yet.</p>
+                  <button
+                    onClick={clearAll}
+                    className="text-tru-pink hover:text-tru-pink-light text-sm font-semibold uppercase tracking-wider transition"
+                  >
+                    Reset filters
+                  </button>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
       </section>
 
@@ -466,252 +631,32 @@ export default function StoriesPage() {
         </div>
       </section>
 
-      <StoriesFilterDrawer
-        isOpen={showFilters}
-        onClose={() => setShowFilters(false)}
-        destinations={allDestinations}
-        destinationCounts={destinationCounts}
-        activeType={activeType}
-        setActiveType={setActiveType}
-        destination={destination}
-        setDestination={setDestination}
-        topic={topic}
-        setTopic={setTopic}
-        lifeMoment={lifeMoment}
-        setLifeMoment={setLifeMoment}
-        filteredCount={filtered.length}
-        onClear={clearAll}
-      />
-    </>
-  );
-}
-
-/* ============================================================
-   FILTER DRAWER — slide-in from the left, sticky footer
-   ============================================================ */
-function StoriesFilterDrawer({
-  isOpen,
-  onClose,
-  destinations,
-  destinationCounts,
-  activeType,
-  setActiveType,
-  destination,
-  setDestination,
-  topic,
-  setTopic,
-  lifeMoment,
-  setLifeMoment,
-  filteredCount,
-  onClear,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  destinations: string[];
-  destinationCounts: Record<string, number>;
-  activeType: StoryType | "all";
-  setActiveType: (v: StoryType | "all") => void;
-  destination: string;
-  setDestination: (v: string) => void;
-  topic: string;
-  setTopic: (v: string) => void;
-  lifeMoment: string;
-  setLifeMoment: (v: string) => void;
-  filteredCount: number;
-  onClear: () => void;
-}) {
-  const [closing, setClosing] = useState(false);
-
-  const handleClose = () => {
-    setClosing(true);
-    setTimeout(() => {
-      setClosing(false);
-      onClose();
-    }, 300);
-  };
-
-  useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-[100] flex justify-start">
-      <div
-        className={`absolute inset-0 bg-black/60 backdrop-blur-sm sm:block hidden transition-opacity duration-300 ${
-          closing ? "opacity-0" : "opacity-100"
-        }`}
-        onClick={handleClose}
-      />
-      <div
-        className={`relative w-full sm:w-[420px] lg:w-[480px] bg-tru-navy flex flex-col h-full shadow-2xl shadow-black/50 transition-transform duration-300 ease-out ${
-          closing ? "-translate-x-full" : "animate-slide-in-left"
-        }`}
-      >
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
-          <h2 className="text-white font-black text-lg uppercase font-heading tracking-wider">
-            Filters
-          </h2>
-          <button
-            onClick={handleClose}
-            className="text-gray-400 hover:text-white transition"
-          >
-            <svg
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-
-        {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto px-6 py-6 space-y-8">
-          {/* Content Type */}
-          <div>
-            <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">
-              Content Type
-            </p>
-            <div className="flex flex-wrap gap-2">
-              <ChipButton
-                active={activeType === "all"}
-                onClick={() => setActiveType("all")}
+      {/* Mobile filter drawer */}
+      {showFilters && (
+        <div className="fixed inset-0 z-[100] flex justify-end lg:hidden">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowFilters(false)} />
+          <div className="relative w-full sm:w-[420px] bg-tru-navy flex flex-col h-full shadow-2xl shadow-black/50 animate-slide-in-right">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
+              <h2 className="text-white font-black text-lg uppercase font-heading tracking-wider">Filters</h2>
+              <button onClick={() => setShowFilters(false)} className="text-gray-400 hover:text-white transition">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto px-6 py-6">{FilterPanel}</div>
+            <div className="px-6 py-4 border-t border-white/10">
+              <button
+                onClick={() => setShowFilters(false)}
+                className="w-full rounded-[10px] bg-tru-pink py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 text-center font-heading uppercase tracking-wider"
               >
-                All
-              </ChipButton>
-              {storyTypes.map((t) => (
-                <ChipButton
-                  key={t.value}
-                  active={activeType === t.value}
-                  onClick={() => setActiveType(t.value)}
-                >
-                  {t.label}
-                </ChipButton>
-              ))}
-            </div>
-          </div>
-
-          {/* Destination */}
-          <div>
-            <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">
-              Destination
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {destinations.map((d) => (
-                <ChipButton
-                  key={d}
-                  active={destination === d}
-                  onClick={() => setDestination(destination === d ? "" : d)}
-                >
-                  {d}
-                  <span
-                    className={`ml-1 ${
-                      destination === d ? "text-white/70" : "text-gray-500"
-                    }`}
-                  >
-                    ({destinationCounts[d] ?? 0})
-                  </span>
-                </ChipButton>
-              ))}
-            </div>
-          </div>
-
-          {/* Topic */}
-          <div>
-            <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">
-              Topic
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {storyTopics.map((t) => (
-                <ChipButton
-                  key={t}
-                  active={topic === t}
-                  onClick={() => setTopic(topic === t ? "" : t)}
-                >
-                  <span>{storyTopicEmojis[t]}</span>
-                  <span className="font-heading text-[11px] font-semibold uppercase tracking-wider">
-                    {t}
-                  </span>
-                </ChipButton>
-              ))}
-            </div>
-          </div>
-
-          {/* Life Moment */}
-          <div>
-            <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-3">
-              Life Moment
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {storyLifeMoments.map((m) => (
-                <ChipButton
-                  key={m}
-                  active={lifeMoment === m}
-                  onClick={() => setLifeMoment(lifeMoment === m ? "" : m)}
-                >
-                  <span>{storyLifeMomentEmojis[m]}</span>
-                  <span className="font-heading text-[11px] font-semibold uppercase tracking-wider">
-                    {m}
-                  </span>
-                </ChipButton>
-              ))}
+                Show {filtered.length} Stor{filtered.length === 1 ? "y" : "ies"}
+              </button>
             </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <div className="px-6 py-4 border-t border-white/10 flex items-center gap-3">
-          <button
-            onClick={onClear}
-            className="flex-1 rounded-[10px] border border-white/20 py-3 text-sm text-white hover:border-white/40 transition text-center font-heading uppercase tracking-wider"
-          >
-            Clear All
-          </button>
-          <button
-            onClick={handleClose}
-            className="flex-1 rounded-[10px] bg-tru-pink py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 text-center font-heading uppercase tracking-wider"
-          >
-            Show {filteredCount} Stor{filteredCount === 1 ? "y" : "ies"}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ChipButton({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`rounded-full px-4 py-2 text-sm transition-all duration-200 flex items-center gap-2 ${
-        active
-          ? "bg-tru-pink text-white"
-          : "border border-white/15 text-gray-300 hover:border-white/30 hover:text-white"
-      }`}
-    >
-      {children}
-    </button>
+      )}
+    </>
   );
 }
 
