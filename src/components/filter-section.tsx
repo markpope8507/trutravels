@@ -25,7 +25,7 @@ export default function FilterSection({
         aria-expanded={open}
         className="w-full flex items-center justify-between gap-2 group"
       >
-        <span className="flex items-center gap-2 text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading">
+        <span className="flex items-center gap-2 text-xs sm:text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading">
           {title}
           {count > 0 && (
             <span className="bg-tru-pink text-white text-[9px] font-bold h-4 min-w-[16px] px-1 rounded-full flex items-center justify-center tracking-normal">

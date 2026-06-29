@@ -199,7 +199,7 @@ export default function StoriesPage() {
                   </svg>
                 </button>
                 {regionOpen && (
-                  <div className="ml-3 mt-1 pl-3 border-l border-white/10 space-y-1.5">
+                  <div className="mt-1 space-y-1.5">
                     {countries.map((c) => {
                       const checked = selectedCountries.has(c);
                       return (
