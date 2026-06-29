@@ -21,6 +21,7 @@ import {
 import { useAuth } from "@/lib/auth-context";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import FilterSection from "@/components/filter-section";
+import SortMenu from "@/components/sort-menu";
 
 // Region → countries taxonomy for the nested Destination filter (mirrors the
 // site's destination structure). Tagging will populate these against stories.
@@ -40,6 +41,11 @@ const TOPIC_OPTIONS: { id: string; label: string }[] = [
 
 const countryStoryCount = (country: string) =>
   stories.filter((s) => s.destinations.includes(country)).length;
+
+const SORT_OPTIONS = [
+  { value: "latest", label: "Latest" },
+  { value: "oldest", label: "Oldest" },
+];
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-GB", {
@@ -430,6 +436,30 @@ export default function StoriesPage() {
         icon={<ReadIcon />}
       />
 
+      <div className="relative">
+        {/* Mobile sticky filter + sort bar (above the featured story) */}
+        <div className="lg:hidden sticky top-0 z-40 bg-tru-navy/95 backdrop-blur-md border-y border-white/10">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 flex items-center gap-3">
+            <button
+              onClick={() => setShowFilters(true)}
+              className="flex-1 inline-flex items-center justify-center gap-2 rounded-[10px] border border-white/15 hover:border-tru-pink/50 bg-white/5 px-4 py-3 text-sm font-bold uppercase tracking-wider text-white font-heading transition"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M6 12h12M10 20h4" />
+              </svg>
+              Filters
+              {activeFilterCount > 0 && (
+                <span className="bg-tru-pink text-white text-[10px] font-bold rounded-full h-5 min-w-[20px] px-1.5 flex items-center justify-center">
+                  {activeFilterCount}
+                </span>
+              )}
+            </button>
+            <div className="flex-1">
+              <SortMenu value={sort} onChange={(v) => setSort(v as "latest" | "oldest")} options={SORT_OPTIONS} />
+            </div>
+          </div>
+        </div>
+
       {/* Featured */}
       {featured && (
         <section className="pb-20">
@@ -487,7 +517,7 @@ export default function StoriesPage() {
 
             {/* Results */}
             <div className="min-w-0">
-              {/* Search + mobile filter + sort */}
+              {/* Search + sort (desktop — mobile uses the sticky bar above) */}
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 <div className="relative flex-1">
                   <svg className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -501,32 +531,8 @@ export default function StoriesPage() {
                     className="w-full bg-white/5 border border-white/10 rounded-[10px] pl-12 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
                   />
                 </div>
-                <button
-                  onClick={() => setShowFilters(true)}
-                  className="lg:hidden flex items-center justify-center gap-2 rounded-[10px] border border-white/15 hover:border-tru-pink/50 bg-white/5 px-5 py-3 text-sm font-bold uppercase tracking-wider text-white font-heading transition"
-                >
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 4h18M6 12h12M10 20h4" />
-                  </svg>
-                  Filters
-                  {activeFilterCount > 0 && (
-                    <span className="bg-tru-pink text-white text-[10px] font-bold rounded-full h-5 min-w-[20px] px-1.5 flex items-center justify-center">
-                      {activeFilterCount}
-                    </span>
-                  )}
-                </button>
-                <div className="relative">
-                  <select
-                    value={sort}
-                    onChange={(e) => setSort(e.target.value as "latest" | "oldest")}
-                    className="h-full w-full appearance-none bg-white/5 border border-white/10 rounded-[10px] pl-3 pr-9 py-3 text-xs text-gray-300 font-semibold uppercase tracking-wider focus:outline-none focus:border-tru-pink/50 cursor-pointer"
-                  >
-                    <option value="latest">Latest first</option>
-                    <option value="oldest">Oldest first</option>
-                  </select>
-                  <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
+                <div className="hidden lg:block w-40">
+                  <SortMenu value={sort} onChange={(v) => setSort(v as "latest" | "oldest")} options={SORT_OPTIONS} />
                 </div>
               </div>
 
@@ -566,6 +572,7 @@ export default function StoriesPage() {
           </div>
         </div>
       </section>
+      </div>
 
       {/* =========================================================
           LISTEN — podcast episodes
