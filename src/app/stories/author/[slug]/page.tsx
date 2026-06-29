@@ -74,6 +74,65 @@ export default async function AuthorPage({
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl">
                 {author.bio}
               </p>
+
+              {author.socials && (
+                <div className="flex items-center justify-center sm:justify-start gap-3 mt-6">
+                  {author.socials.website && (
+                    <a
+                      href={author.socials.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${author.name}'s blog`}
+                      title="Their blog"
+                      className="h-9 w-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-tru-pink hover:bg-tru-pink/10 transition"
+                    >
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+                        <circle cx="12" cy="12" r="9" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.5 12h17M12 3c2.6 2.8 2.6 15.2 0 18M12 3c-2.6 2.8-2.6 15.2 0 18" />
+                      </svg>
+                    </a>
+                  )}
+                  {author.socials.instagram && (
+                    <a
+                      href={author.socials.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${author.name} on Instagram`}
+                      className="h-9 w-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-tru-pink hover:bg-tru-pink/10 transition"
+                    >
+                      <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm0 2h10c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3zm5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm5.5-.75a1 1 0 100 2 1 1 0 000-2z" />
+                      </svg>
+                    </a>
+                  )}
+                  {author.socials.linkedin && (
+                    <a
+                      href={author.socials.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${author.name} on LinkedIn`}
+                      className="h-9 w-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-tru-pink hover:bg-tru-pink/10 transition"
+                    >
+                      <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zM8.34 17V10.5H6.17V17h2.17zM7.25 9.31a1.26 1.26 0 100-2.52 1.26 1.26 0 000 2.52zM18 17v-3.57c0-1.9-.41-3.36-2.63-3.36-1.07 0-1.79.59-2.08 1.14h-.03V10.5h-2.08V17h2.17v-3.21c0-.85.16-1.67 1.21-1.67 1.04 0 1.05.97 1.05 1.73V17H18z" />
+                      </svg>
+                    </a>
+                  )}
+                  {author.socials.tiktok && (
+                    <a
+                      href={author.socials.tiktok}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${author.name} on TikTok`}
+                      className="h-9 w-9 rounded-full border border-white/15 flex items-center justify-center text-gray-300 hover:text-white hover:border-tru-pink hover:bg-tru-pink/10 transition"
+                    >
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12a4 4 0 104 4V4a5 5 0 005 5" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

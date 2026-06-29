@@ -2,6 +2,13 @@
 // "Sophie Chen", plus a few team bylines), so each profile lists aliases and we
 // resolve a story's author string to a canonical profile.
 
+export type AuthorSocials = {
+  website?: string; // the author's own blog / site
+  instagram?: string;
+  linkedin?: string;
+  tiktok?: string;
+};
+
 export type Author = {
   slug: string;
   name: string;
@@ -9,6 +16,7 @@ export type Author = {
   bio: string;
   image: string;
   aliases?: string[];
+  socials?: AuthorSocials;
 };
 
 export const authors: Author[] = [
@@ -19,6 +27,11 @@ export const authors: Author[] = [
     bio: "Sophie has spent the last eight years chasing sunrises across Southeast Asia and beyond. She writes the destination guides and first-timer features, and firmly believes the best travel stories start with saying yes to the unplanned.",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80",
     aliases: ["Sophie"],
+    socials: {
+      website: "https://sophiechenwrites.com",
+      instagram: "https://instagram.com/sophiechen.travels",
+      linkedin: "https://linkedin.com/in/sophie-chen-travel",
+    },
   },
   {
     slug: "jake-morrison",
@@ -26,6 +39,11 @@ export const authors: Author[] = [
     role: "Adventure Editor",
     bio: "Jake covers the adrenaline end of the trips — diving, trekking, and anything involving a boat at sunrise. Former dive instructor, full-time storyteller, happiest somewhere with no phone signal.",
     image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80",
+    socials: {
+      website: "https://jakeontheroad.com",
+      instagram: "https://instagram.com/jakeontheroad",
+      tiktok: "https://tiktok.com/@jakeontheroad",
+    },
   },
   {
     slug: "nina-waves",
@@ -33,6 +51,11 @@ export const authors: Author[] = [
     role: "Islands & Beaches Writer",
     bio: "Nina maps out the island-hopping routes and the beaches worth the detour. If there's a hammock and a good playlist, she's already written about it.",
     image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80",
+    socials: {
+      website: "https://ninawaves.blog",
+      instagram: "https://instagram.com/ninawaves",
+      tiktok: "https://tiktok.com/@ninawaves",
+    },
   },
   {
     slug: "priya-kapoor",
@@ -40,6 +63,11 @@ export const authors: Author[] = [
     role: "Culture & Food Writer",
     bio: "Priya follows the food — street markets, family kitchens, and the little spots only the locals know. She writes the culture and cuisine stories that make you book the flight.",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80",
+    socials: {
+      website: "https://priyaeats.com",
+      instagram: "https://instagram.com/priyaeats",
+      linkedin: "https://linkedin.com/in/priya-kapoor",
+    },
   },
   {
     slug: "tom-ashworth",
@@ -47,6 +75,11 @@ export const authors: Author[] = [
     role: "Backpacking Correspondent",
     bio: "Tom has done the long-haul, low-budget, big-adventure thing more times than he can count. He writes the honest, money-saving guides for first-time backpackers.",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+    socials: {
+      website: "https://tompacks.com",
+      instagram: "https://instagram.com/tompacks",
+      linkedin: "https://linkedin.com/in/tom-ashworth",
+    },
   },
   {
     slug: "marcus-cole",
@@ -54,6 +87,10 @@ export const authors: Author[] = [
     role: "Outdoors & Trekking Writer",
     bio: "Marcus covers the summits, jungle climbs and multi-day treks. He's of the firm opinion that the best views are the ones you have to earn.",
     image: "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&q=80",
+    socials: {
+      website: "https://marcusoutdoors.com",
+      instagram: "https://instagram.com/marcusoutdoors",
+    },
   },
   {
     slug: "kamala-hewavitharana",
@@ -61,6 +98,10 @@ export const authors: Author[] = [
     role: "Sri Lanka Local Expert",
     bio: "Born and raised in Sri Lanka, Kamala writes the local-eye guides — the temples, the train rides, and the tea-country corners the guidebooks miss.",
     image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&q=80",
+    socials: {
+      website: "https://kamala.lk",
+      instagram: "https://instagram.com/kamala.lk",
+    },
   },
   {
     slug: "orty",
@@ -68,6 +109,10 @@ export const authors: Author[] = [
     role: "Creator & Storyteller",
     bio: "Orty is a TruTravels creator capturing the trips as they happen — the people, the parties, and the in-between moments that make a trip unforgettable.",
     image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=400&q=80",
+    socials: {
+      instagram: "https://instagram.com/orty",
+      tiktok: "https://tiktok.com/@orty",
+    },
   },
   {
     slug: "trutravels-team",
@@ -76,6 +121,12 @@ export const authors: Author[] = [
     bio: "Stories, guides and updates from the wider TruTravels crew — the leaders, the office team, and the community that keeps the adventures rolling.",
     image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&q=80",
     aliases: ["Tru Community", "Tru Crew"],
+    socials: {
+      website: "https://trutravels.com/stories",
+      instagram: "https://instagram.com/trutravels",
+      tiktok: "https://tiktok.com/@trutravels",
+      linkedin: "https://linkedin.com/company/trutravels",
+    },
   },
 ];
 
