@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { useAuth } from "@/lib/auth-context";
 import Link from "next/link";
 
@@ -62,8 +63,8 @@ export default function FavouriteButton({ tripId }: { tripId: string }) {
         )}
       </button>
 
-      {/* Login prompt modal */}
-      {showPrompt && (
+      {/* Login prompt modal — portaled so it isn't clipped by transformed ancestors */}
+      {showPrompt && createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowPrompt(false)} />
           <div className="relative w-72 rounded-[10px] border border-white/10 bg-tru-navy shadow-xl shadow-black/40 p-6 z-10 animate-fade-in text-center">
@@ -96,7 +97,8 @@ export default function FavouriteButton({ tripId }: { tripId: string }) {
               Don&apos;t have an account? Sign up
             </Link>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );

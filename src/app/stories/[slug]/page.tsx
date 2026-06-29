@@ -6,6 +6,7 @@ import ReadingProgressBar from "@/components/reading-progress-bar";
 import BackToTop from "@/components/back-to-top";
 import ShareButtons from "@/components/share-buttons";
 import SaveStoryButton from "@/components/save-story-button";
+import { getAuthorByName } from "@/lib/authors";
 
 export function generateStaticParams() {
   return Object.keys(storyArticles).map((slug) => ({ slug }));
@@ -51,6 +52,8 @@ export default async function StoryArticlePage({
     .map((id) => tourPool.find((t) => t.id === id))
     .filter((t): t is NonNullable<typeof t> => Boolean(t));
 
+  const author = getAuthorByName(story.author);
+
   return (
     <article className="pb-24">
       <ReadingProgressBar />
@@ -92,7 +95,16 @@ export default async function StoryArticlePage({
             {story.title}
           </h1>
           <div className="flex items-center gap-3 text-sm text-gray-300">
-            <span className="text-white font-semibold">{story.author}</span>
+            {author ? (
+              <Link
+                href={`/stories/author/${author.slug}`}
+                className="text-white font-semibold hover:text-tru-pink transition-colors"
+              >
+                {story.author}
+              </Link>
+            ) : (
+              <span className="text-white font-semibold">{story.author}</span>
+            )}
             <span className="text-gray-500">&middot;</span>
             <span>{formatDate(story.date)}</span>
             <span className="text-gray-500">&middot;</span>
