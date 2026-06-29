@@ -4,6 +4,8 @@ import { stories, storyArticles, trips, unescoTours } from "@/lib/data";
 import UnescoToursCarousel from "@/components/unesco-tours-carousel";
 import ReadingProgressBar from "@/components/reading-progress-bar";
 import BackToTop from "@/components/back-to-top";
+import ShareButtons from "@/components/share-buttons";
+import SaveStoryButton from "@/components/save-story-button";
 
 export function generateStaticParams() {
   return Object.keys(storyArticles).map((slug) => ({ slug }));
@@ -95,6 +97,12 @@ export default async function StoryArticlePage({
             <span>{formatDate(story.date)}</span>
             <span className="text-gray-500">&middot;</span>
             <span>{story.readTime} min read</span>
+          </div>
+
+          {/* Share / Save — consistent with the tour page */}
+          <div className="mt-6 flex items-center gap-2">
+            <ShareButtons title={story.title} itemLabel="story" />
+            <SaveStoryButton storyId={story.id} />
           </div>
         </div>
       </section>

@@ -7,6 +7,7 @@ import MemberGate from "@/components/member-gate";
 import { trips, stories } from "@/lib/data";
 import TripCard from "@/components/trip-card";
 import { mockBookings } from "@/components/booking-history";
+import SavedReads from "@/components/saved-reads";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import "swiper/css";
@@ -232,6 +233,9 @@ function DashboardContent() {
           ))}
         </Swiper>
       </section>
+
+      {/* Saved reads (blog stories the member has saved) */}
+      <SavedReads />
 
       {/* Exclusive content */}
       <section>
