@@ -52,17 +52,13 @@ function Stars({ size = "h-4 w-4", color = "#FBBC05" }: { size?: string; color?:
 
 function PlatformCard({ p }: { p: Platform }) {
   return (
-    <div className="rounded-[10px] border border-white/10 p-5 flex items-center gap-4">
+    <div className="rounded-[10px] border border-white/10 p-5 flex flex-col items-center text-center gap-2">
+      <PlatformLogo name={p.name} markClassName="h-4 w-4" textClassName="text-white font-bold font-heading text-sm" />
       <span className="text-4xl font-black font-heading leading-none" style={{ color: p.color }}>
         {p.score}
       </span>
-      <div className="min-w-0">
-        <PlatformLogo name={p.name} markClassName="h-4 w-4" textClassName="text-white font-bold font-heading text-sm" />
-        <div className="my-1.5">
-          <Stars color={p.color} size="h-3.5 w-3.5" />
-        </div>
-        <p className="text-gray-500 text-xs">{p.reviews} reviews</p>
-      </div>
+      <Stars color={p.color} size="h-4 w-4" />
+      <p className="text-gray-500 text-xs">{p.reviews} reviews</p>
     </div>
   );
 }
