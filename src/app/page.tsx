@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { trips, stories, drops, videoDiaries, experienceTypes, storyArticles } from "@/lib/data";
+import { trips, stories, drops, videoDiaries, experienceTypes } from "@/lib/data";
 import HeroSlider from "@/components/hero-slider";
 import ExperienceCarousel from "@/components/experience-carousel";
 import { DesignA as ExperienceTypesCarousel } from "@/components/experience-types-v2";
@@ -9,14 +9,12 @@ import DiscoveryPathways from "@/components/discovery-pathways";
 import SearchPrompt from "@/components/search-prompt";
 import PillButton from "@/components/pill-button";
 import ReviewsSection from "@/components/reviews-section";
+import StoryCard from "@/components/story-card";
 
 export default function HomePage() {
   const featuredStory = [...stories]
     .filter((s) => !s.memberOnly)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
-  const featuredStoryHref = storyArticles[featuredStory.id]
-    ? `/stories/${featuredStory.id}`
-    : `/stories#${featuredStory.id}`;
 
   return (
     <>
@@ -301,30 +299,10 @@ export default function HomePage() {
               <PillButton href="/stories">Explore All Stories</PillButton>
             </div>
 
-            {/* Featured story */}
-            <Link
-              href={featuredStoryHref}
-              className="group relative block overflow-hidden rounded-[10px] aspect-[4/3] lg:col-start-1 lg:row-start-1"
-              style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
-            >
-              <img
-                src={featuredStory.image}
-                alt={featuredStory.title}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
-              <span className="absolute top-4 left-4 bg-tru-pink text-white text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full font-heading">
-                Featured Story
-              </span>
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
-                  {featuredStory.category} &middot; {featuredStory.readTime} min read
-                </p>
-                <h3 className="text-2xl font-black text-white uppercase font-heading leading-tight group-hover:text-tru-pink transition">
-                  {featuredStory.title}
-                </h3>
-              </div>
-            </Link>
+            {/* Featured story — shared StoryCard for consistency */}
+            <div className="lg:col-start-1 lg:row-start-1">
+              <StoryCard story={featuredStory} isLoggedIn={false} />
+            </div>
           </div>
         </div>
       </section>
