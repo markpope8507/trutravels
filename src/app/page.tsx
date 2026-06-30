@@ -204,7 +204,7 @@ export default function HomePage() {
           3. VIDEO DIARIES — Swipeable vertical video carousel
           Real video content from travellers, creators, and influencers.
           ================================================================ */}
-      <section className="relative overflow-hidden py-24 bg-gradient-to-b from-transparent via-tru-pink/[0.03] to-transparent">
+      <section className="relative overflow-hidden pt-24 pb-8 bg-gradient-to-b from-transparent via-tru-pink/[0.03] to-transparent">
         <img
           src="/bg-assets/good-vibes.svg"
           alt=""

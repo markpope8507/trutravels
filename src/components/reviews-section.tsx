@@ -95,10 +95,10 @@ export default function ReviewsSection() {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="relative py-20 sm:py-24">
+    <section className="relative pt-4 pb-24 bg-gradient-to-b from-tru-pink/[0.03] to-transparent">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">The Reviews</p>
           <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
             But Don&apos;t Just Take <span className="text-tru-pink">Our Word For It</span>
