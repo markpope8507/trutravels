@@ -323,7 +323,7 @@ export default function HomePage() {
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
                 First-timer tips, destination deep-dives and honest stories from travellers and the Tru crew — long-reads to lose an afternoon in and video diaries to watch. The good, the unexpected and the unforgettable, straight from the road.
               </p>
-              <PillButton href="/stories">Read All Stories</PillButton>
+              <PillButton href="/stories">Explore All Stories</PillButton>
             </div>
           </div>
         </div>
