@@ -379,7 +379,7 @@ function UpcomingDepartures({ countryTrips }: { countryTrips: Trip[] }) {
         <div className="pt-8 text-center">
           <button
             onClick={() => setVisible((n) => n + DEPARTURES_PAGE_SIZE)}
-            className="inline-flex items-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-6 py-2.5 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading"
+            className="inline-flex items-center gap-2 rounded-full border px-6 py-2.5 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200 border-tru-pink bg-tru-pink text-white active:bg-tru-pink-light sm:border-tru-pink/40 sm:bg-transparent sm:text-tru-pink sm:hover:bg-tru-pink sm:hover:text-white sm:hover:border-tru-pink"
           >
             Show More Departures
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
