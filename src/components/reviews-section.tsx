@@ -1,6 +1,7 @@
 // Multi-platform social proof. Ratings and reviews below are placeholders for the
 // prototype — wire each platform to its live source when accounts are connected
 // (Trustpilot Business API / TrustBox, Google Places reviews, TourRadar feed).
+import { PlatformLogo, PlatformMark } from "@/components/platform-logos";
 
 type Platform = {
   name: string;
@@ -33,8 +34,6 @@ const REVIEWS: Review[] = [
   { title: "10/10 would book again", text: "Brilliant balance of culture, adventure and downtime. Nothing felt rushed and the group size was perfect. My favourite holiday ever.", name: "Tom A.", trip: "Philippines East", date: "3 weeks ago", platform: "TourRadar" },
 ];
 
-const platformColor = (name: string) => PLATFORMS.find((p) => p.name === name)?.color ?? "#FBBC05";
-
 function Stars({ size = "h-4 w-4", color = "#FBBC05" }: { size?: string; color?: string }) {
   return (
     <div className="flex gap-0.5">
@@ -57,7 +56,7 @@ function PlatformCard({ p }: { p: Platform }) {
         {p.score}
       </span>
       <div className="min-w-0">
-        <p className="text-white font-bold font-heading text-sm uppercase tracking-wide">{p.name}</p>
+        <PlatformLogo name={p.name} markClassName="h-4 w-4" textClassName="text-white font-bold font-heading text-sm" />
         <div className="my-1.5">
           <Stars color={p.color} size="h-3.5 w-3.5" />
         </div>
@@ -68,27 +67,21 @@ function PlatformCard({ p }: { p: Platform }) {
 }
 
 function ReviewCard({ r }: { r: Review }) {
-  const color = platformColor(r.platform);
   return (
     <div
       className="rounded-[10px] border border-white/10 bg-tru-navy p-5 flex flex-col h-full"
       style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
     >
-      <div className="flex items-center justify-between mb-3">
+      <div className="mb-3">
         <Stars />
-        <span
-          className="text-[10px] font-bold uppercase tracking-wider font-heading px-2 py-0.5 rounded-full"
-          style={{ background: `${color}22`, border: `1px solid ${color}80`, color }}
-        >
-          {r.platform}
-        </span>
       </div>
       <h3 className="text-white font-bold font-heading text-base mb-1.5">{r.title}</h3>
       <p className="text-gray-400 text-sm leading-relaxed mb-4">{r.text}</p>
-      <div className="mt-auto pt-3 border-t border-white/5">
+      <div className="mt-auto pt-3 border-t border-white/5 flex items-end justify-between gap-3">
         <p className="text-xs text-gray-400">
           <span className="text-white font-semibold">{r.name}</span> &middot; {r.trip} &middot; {r.date}
         </p>
+        <PlatformMark name={r.platform} className="h-5 w-5 flex-shrink-0" />
       </div>
     </div>
   );
