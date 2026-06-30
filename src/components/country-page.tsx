@@ -495,13 +495,15 @@ export default function CountryPage({ country }: { country: Country }) {
           </button>
         </div>
         {/* Mobile "see all" CTA */}
-        <Link
-          href={`/explore/all-trips?country=${encodeURIComponent(country.name)}`}
-          className="sm:hidden mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-tru-pink bg-tru-pink px-6 py-3 text-xs font-bold text-white active:bg-tru-pink-light transition-all duration-200 uppercase tracking-wider font-heading"
-        >
-          See All Trips
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-        </Link>
+        <div className="sm:hidden mt-6 flex justify-center">
+          <Link
+            href={`/explore/all-trips?country=${encodeURIComponent(country.name)}`}
+            className="inline-flex items-center gap-2 rounded-full border border-tru-pink bg-tru-pink px-6 py-3 text-xs font-bold text-white active:bg-tru-pink-light transition-all duration-200 uppercase tracking-wider font-heading"
+          >
+            See All Trips
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+          </Link>
+        </div>
       </section>
 
       {/* Video Diaries */}
