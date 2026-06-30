@@ -291,7 +291,7 @@ export default function HomePage() {
             <div className="max-w-lg">
               <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Stories</p>
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[0.95] mb-4">
-                Stories From <span className="text-tru-green">The Road</span>
+                Stories From <span className="text-tru-pink">The Road</span>
               </h2>
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
                 First-timer tips, destination deep-dives and honest stories from travellers and the Tru crew — long-reads to lose an afternoon in and video diaries to watch. The good, the unexpected and the unforgettable, straight from the road.
