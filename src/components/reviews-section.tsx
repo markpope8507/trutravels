@@ -1,7 +1,11 @@
+"use client";
+
 // Multi-platform social proof. Ratings and reviews below are placeholders for the
 // prototype — wire each platform to its live source when accounts are connected
 // (Trustpilot Business API / TrustBox, Google Places reviews, TourRadar feed).
+import { useState } from "react";
 import { PlatformLogo, PlatformMark } from "@/components/platform-logos";
+import PillButton from "@/components/pill-button";
 
 type Platform = {
   name: string;
@@ -88,6 +92,8 @@ function ReviewCard({ r }: { r: Review }) {
 }
 
 export default function ReviewsSection() {
+  const [open, setOpen] = useState(false);
+
   return (
     <section className="relative py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -99,18 +105,33 @@ export default function ReviewsSection() {
           </h2>
         </div>
 
-        {/* Platform ratings */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12 max-w-4xl mx-auto">
+        {/* Platform ratings — always visible */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 max-w-4xl mx-auto">
           {PLATFORMS.map((p) => (
             <PlatformCard key={p.name} p={p} />
           ))}
         </div>
 
-        {/* Reviews grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {REVIEWS.map((r, i) => (
-            <ReviewCard key={i} r={r} />
-          ))}
+        {/* Toggle */}
+        <div className="text-center">
+          <PillButton onClick={() => setOpen((o) => !o)} arrow="down">
+            {open ? "Hide Reviews" : "Read The Reviews"}
+          </PillButton>
+        </div>
+
+        {/* Reviews grid — collapsible */}
+        <div
+          className={`grid transition-all duration-500 ease-out ${
+            open ? "grid-rows-[1fr] opacity-100 mt-10" : "grid-rows-[0fr] opacity-0"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 px-1 pb-1">
+              {REVIEWS.map((r, i) => (
+                <ReviewCard key={i} r={r} />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

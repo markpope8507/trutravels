@@ -235,6 +235,11 @@ export default function HomePage() {
       </section>
 
       {/* ================================================================
+          4. REVIEWS — multi-platform social proof (Google, Trustpilot, TourRadar)
+          ================================================================ */}
+      <ReviewsSection />
+
+      {/* ================================================================
           5. THE DROP — Limited experiences & events carousel
           ================================================================ */}
       <section className="relative overflow-hidden py-24 bg-gradient-to-b from-transparent via-tru-green/[0.03] to-transparent">
@@ -471,11 +476,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ================================================================
-          8. REVIEWS — multi-platform social proof (Google, Trustpilot, TourRadar)
-          ================================================================ */}
-      <ReviewsSection />
 
     </>
   );
