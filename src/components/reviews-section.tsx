@@ -52,7 +52,7 @@ function Stars({ size = "h-4 w-4", color = "#FBBC05" }: { size?: string; color?:
 
 function PlatformCard({ p }: { p: Platform }) {
   return (
-    <div className="rounded-[10px] border border-white/10 p-3 sm:p-5 flex flex-col items-center text-center gap-1.5 sm:gap-2">
+    <div className="p-3 sm:p-5 flex flex-col items-center text-center gap-1.5 sm:gap-2">
       <PlatformLogo name={p.name} markClassName="h-3.5 w-3.5 sm:h-4 sm:w-4" textClassName="text-white font-bold font-heading text-xs sm:text-sm" />
       <span className="text-2xl sm:text-4xl font-black font-heading leading-none text-white">
         {p.score}
