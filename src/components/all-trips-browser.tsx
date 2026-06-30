@@ -77,9 +77,15 @@ function FilterSection({
 export default function AllTripsBrowser({
   trips,
   regions,
+  pageSize = PAGE_SIZE,
+  hideStyleFilter = false,
+  heading = "All Trips",
 }: {
   trips: Trip[];
   regions: { name: string; count: number }[];
+  pageSize?: number;
+  hideStyleFilter?: boolean;
+  heading?: string;
 }) {
   const minPrice = useMemo(() => Math.min(...trips.map((t) => t.price)), [trips]);
   const maxPrice = useMemo(() => Math.max(...trips.map((t) => t.price)), [trips]);
@@ -91,7 +97,7 @@ export default function AllTripsBrowser({
   const [sort, setSort] = useState("recommended");
   const [selectedMoments, setSelectedMoments] = useState<Set<string>>(new Set());
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-  const [limit, setLimit] = useState(PAGE_SIZE);
+  const [limit, setLimit] = useState(pageSize);
   const [navSticky, setNavSticky] = useState(false);
   // Which collapsible groups are expanded — all collapsed by default.
   const [openSections, setOpenSections] = useState<Set<string>>(new Set());
@@ -198,7 +204,7 @@ export default function AllTripsBrowser({
   const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
   if (filterKey !== prevFilterKey) {
     setPrevFilterKey(filterKey);
-    setLimit(PAGE_SIZE);
+    setLimit(pageSize);
   }
 
   /* ---- Reusable controls -------------------------------------------- */
@@ -259,33 +265,35 @@ export default function AllTripsBrowser({
         </div>
       </FilterSection>
 
-      {/* Travel Style — collapsible */}
-      <FilterSection
-        title="Travel Style"
-        count={selectedStyles.size}
-        open={openSections.has("style")}
-        onToggle={() => toggleSection("style")}
-      >
-        <div className="grid grid-cols-3 lg:grid-cols-2 gap-2.5">
-          {travelStyles.map(([key, config]) => {
-            const checked = selectedStyles.has(key);
-            return (
-              <button
-                key={key}
-                type="button"
-                onClick={() => toggleStyle(key)}
-                aria-pressed={checked}
-                title={config.label}
-                className={`aspect-square rounded-[10px] p-2 flex items-center justify-center transition-all duration-200 ${
-                  checked ? "border-2 border-tru-pink bg-tru-pink/15" : "border border-white/10 bg-white/5 hover:border-white/25"
-                }`}
-              >
-                <img src={config.logo} alt={config.label} className="h-full w-auto max-w-full object-contain" />
-              </button>
-            );
-          })}
-        </div>
-      </FilterSection>
+      {/* Travel Style — collapsible (hidden on travel-style pages) */}
+      {!hideStyleFilter && (
+        <FilterSection
+          title="Travel Style"
+          count={selectedStyles.size}
+          open={openSections.has("style")}
+          onToggle={() => toggleSection("style")}
+        >
+          <div className="grid grid-cols-3 lg:grid-cols-2 gap-2.5">
+            {travelStyles.map(([key, config]) => {
+              const checked = selectedStyles.has(key);
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => toggleStyle(key)}
+                  aria-pressed={checked}
+                  title={config.label}
+                  className={`aspect-square rounded-[10px] p-2 flex items-center justify-center transition-all duration-200 ${
+                    checked ? "border-2 border-tru-pink bg-tru-pink/15" : "border border-white/10 bg-white/5 hover:border-white/25"
+                  }`}
+                >
+                  <img src={config.logo} alt={config.label} className="h-full w-auto max-w-full object-contain" />
+                </button>
+              );
+            })}
+          </div>
+        </FilterSection>
+      )}
 
       {/* Life Moment — collapsible */}
       <FilterSection
@@ -462,7 +470,7 @@ export default function AllTripsBrowser({
             <div className="min-w-0">
               <div className="hidden lg:flex items-baseline justify-between mb-6">
                 <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide">
-                  All Trips
+                  {heading}
                   <span className="text-gray-500 text-sm font-normal ml-3">{filtered.length} trips found</span>
                 </h2>
               </div>
@@ -483,7 +491,7 @@ export default function AllTripsBrowser({
                   {limit < filtered.length && (
                     <div className="pt-10 text-center">
                       <button
-                        onClick={() => setLimit((n) => n + PAGE_SIZE)}
+                        onClick={() => setLimit((n) => n + pageSize)}
                         className="inline-flex items-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-6 py-2.5 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading"
                       >
                         Show More Trips
