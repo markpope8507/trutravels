@@ -58,7 +58,7 @@ function ActivityShowcase({ items }: { items: BucketListItem[] }) {
         breakpoints={{
           480: { slidesPerView: 1.4 },
           640: { slidesPerView: 2.1, spaceBetween: 16 },
-          1024: { slidesPerView: 3, spaceBetween: 24 },
+          1024: { slidesPerView: 3.2, spaceBetween: 24 },
         }}
         speed={600}
       >
@@ -123,7 +123,7 @@ function AccommodationShowcase({ items }: { items: NonNullable<Country["accommod
         breakpoints={{
           480: { slidesPerView: 1.4 },
           640: { slidesPerView: 2.1, spaceBetween: 16 },
-          1024: { slidesPerView: 3, spaceBetween: 24 },
+          1024: { slidesPerView: 3.2, spaceBetween: 24 },
         }}
         speed={600}
       >
@@ -397,7 +397,7 @@ export default function CountryPage({ country }: { country: Country }) {
             breakpoints={{
               480: { slidesPerView: 1.5 },
               640: { slidesPerView: 2.2 },
-              1024: { slidesPerView: 3, spaceBetween: 20 },
+              1024: { slidesPerView: 3.2, spaceBetween: 20 },
             }}
             speed={600}
           >
@@ -456,7 +456,7 @@ export default function CountryPage({ country }: { country: Country }) {
               navigation={{ nextEl: ".country-stories-next", prevEl: ".country-stories-prev" }}
               breakpoints={{
                 640: { slidesPerView: 2, spaceBetween: 16 },
-                1024: { slidesPerView: 3, spaceBetween: 24 },
+                1024: { slidesPerView: 3.2, spaceBetween: 24 },
               }}
               speed={600}
             >
