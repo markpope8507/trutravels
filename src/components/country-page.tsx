@@ -463,7 +463,7 @@ export default function CountryPage({ country }: { country: Country }) {
           </div>
           <Link
             href={`/explore/all-trips?country=${encodeURIComponent(country.name)}`}
-            className="hidden sm:inline-flex items-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-5 py-2.5 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading whitespace-nowrap flex-shrink-0"
+            className="hidden sm:inline-flex items-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-6 py-2.5 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading whitespace-nowrap flex-shrink-0"
           >
             See All Trips
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
@@ -497,7 +497,7 @@ export default function CountryPage({ country }: { country: Country }) {
         {/* Mobile "see all" CTA */}
         <Link
           href={`/explore/all-trips?country=${encodeURIComponent(country.name)}`}
-          className="sm:hidden mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-5 py-3 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading"
+          className="sm:hidden mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-tru-pink bg-tru-pink px-6 py-3 text-xs font-bold text-white active:bg-tru-pink-light transition-all duration-200 uppercase tracking-wider font-heading"
         >
           See All Trips
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
