@@ -7,7 +7,6 @@ import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import DropsCarousel from "@/components/drops-carousel";
 import DiscoveryPathways from "@/components/discovery-pathways";
 import SearchPrompt from "@/components/search-prompt";
-import JoinCommunity from "@/components/join-community";
 import PillButton from "@/components/pill-button";
 import ReviewsSection from "@/components/reviews-section";
 
@@ -406,71 +405,6 @@ export default function HomePage() {
         <div className="mt-8 text-center sm:hidden">
           <PillButton href="/stories">All Stories</PillButton>
         </div>
-        </div>
-      </section>
-
-      {/* ================================================================
-          7. MEMBERSHIP CTA — The big sell.
-          Navy background, pink + green brand CTAs.
-          ================================================================ */}
-      <section className="relative py-32 overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&q=80"
-          alt="Beach at sunset"
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-tru-navy/85" />
-
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Left — copy */}
-            <div>
-              <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-4 font-heading">Join Our Community</p>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6 uppercase font-heading">
-                We Are More<br />Than A Travel<br />Company
-              </h2>
-              <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-md">
-                TruTravels is a community. A lifestyle. A way of seeing the world differently. Membership is free — and it unlocks everything.
-              </p>
-              <JoinCommunity />
-            </div>
-
-            {/* Right — member perks */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {[
-                {
-                  icon: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
-                  title: "Exclusive Experiences",
-                  text: "Member-only trips, early access to new routes, and limited drops before anyone else.",
-                },
-                {
-                  icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
-                  title: "Personalised For You",
-                  text: "Recommendations based on your travel style, saved trips, and where you've been.",
-                },
-                {
-                  icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
-                  title: "Global Community",
-                  text: "Connect with travellers worldwide. Share tips, plan trips together, and make friends before you even leave.",
-                },
-                {
-                  icon: "M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z",
-                  title: "Insider Content",
-                  text: "Stories, guides, and hidden gems that only members can access. Written by creators, not copywriters.",
-                },
-              ].map((perk) => (
-                <div key={perk.title} className="glass rounded-[10px] p-5 hover:border-tru-pink/20 transition-all duration-300">
-                  <div className="h-10 w-10 rounded-full bg-tru-pink/15 flex items-center justify-center mb-3">
-                    <svg className="h-5 w-5 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d={perk.icon} />
-                    </svg>
-                  </div>
-                  <h3 className="text-white font-bold text-sm mb-1 uppercase font-heading">{perk.title}</h3>
-                  <p className="text-gray-400 text-xs leading-relaxed">{perk.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
