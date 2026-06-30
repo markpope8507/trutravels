@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { trips, stories, drops, videoDiaries, experienceTypes, storyPodcasts } from "@/lib/data";
+import { trips, stories, drops, videoDiaries, experienceTypes } from "@/lib/data";
 import HeroSlider from "@/components/hero-slider";
 import ExperienceCarousel from "@/components/experience-carousel";
 import { DesignA as ExperienceTypesCarousel } from "@/components/experience-types-v2";
@@ -9,13 +9,14 @@ import DiscoveryPathways from "@/components/discovery-pathways";
 import SearchPrompt from "@/components/search-prompt";
 import PillButton from "@/components/pill-button";
 import ReviewsSection from "@/components/reviews-section";
+import StoryCard from "@/components/story-card";
 
 export default function HomePage() {
-  const featuredStory = [...stories]
+  const featuredReads = [...stories]
     .filter((s) => !s.memberOnly)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 2);
   const featuredVideo = videoDiaries[0];
-  const featuredPodcast = storyPodcasts[0];
 
   return (
     <>
@@ -291,10 +292,10 @@ export default function HomePage() {
           <div>
             <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Stories</p>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[0.95]">
-              Watch. <span className="text-tru-green">Read.</span> <span className="text-tru-blue">Listen.</span>
+              Watch. <span className="text-tru-green">Read.</span>
             </h2>
             <p className="text-gray-400 mt-4 max-w-lg text-sm sm:text-base">
-              Stories from the road in every format. Diaries to lose an afternoon in, long-reads for the train, podcasts for the plane.
+              Stories from the road — video diaries to binge and long-reads to lose an afternoon in.
             </p>
           </div>
           <div className="hidden sm:block flex-shrink-0">
@@ -302,105 +303,48 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* WATCH — featured video diary */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* WATCH — featured video diary, styled to match the story cards */}
           <Link
             href="/stories#watch"
-            className="group relative overflow-hidden rounded-[10px] aspect-[4/5] block"
+            className="group relative block h-full flex flex-col overflow-hidden rounded-[10px] bg-tru-navy border border-white/10 hover:border-tru-pink/30 transition-all duration-300"
+            style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
           >
-            <img
-              src={featuredVideo.poster}
-              alt={featuredVideo.caption}
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/40 to-tru-navy/20" />
-            <div className="absolute top-4 left-4">
-              <span className="inline-flex items-center gap-1.5 bg-tru-green text-tru-navy text-[10px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full font-heading">
+            <div className="relative aspect-[3/2] overflow-hidden">
+              <img
+                src={featuredVideo.poster}
+                alt={featuredVideo.caption}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-black/10" />
+              <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-tru-green text-tru-navy text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full font-heading">
                 <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                 Watch
               </span>
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="h-16 w-16 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-tru-green/30 group-hover:scale-110 transition-all duration-300">
-                <svg className="h-7 w-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="h-14 w-14 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <svg className="h-6 w-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                </div>
               </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <p className="text-tru-green text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
-                Video Diaries &middot; {featuredVideo.location}
+            <div className="p-5 flex flex-col flex-1">
+              <p className="text-tru-green text-xs font-bold uppercase tracking-wider mb-1 font-heading">
+                Video Diary &middot; {featuredVideo.location}
               </p>
-              <h3 className="text-xl font-black text-white group-hover:text-tru-green transition uppercase font-heading leading-tight">
+              <h3 className="text-lg font-bold text-white group-hover:text-tru-pink transition mb-2 leading-snug">
                 {featuredVideo.author}
               </h3>
-              <p className="text-gray-300 text-sm line-clamp-2 mt-2">{featuredVideo.caption}</p>
-            </div>
-          </Link>
-
-          {/* READ — featured story */}
-          <Link
-            href="/stories#read"
-            className="group relative overflow-hidden rounded-[10px] aspect-[4/5] block"
-          >
-            <img
-              src={featuredStory.image}
-              alt={featuredStory.title}
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/40 to-tru-navy/20" />
-            <div className="absolute top-4 left-4">
-              <span className="inline-flex items-center gap-1.5 bg-tru-pink text-white text-[10px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full font-heading">
-                <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                Read
-              </span>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
-                {featuredStory.category} &middot; {featuredStory.readTime} min read
-              </p>
-              <h3 className="text-xl font-black text-white group-hover:text-tru-pink transition uppercase font-heading leading-tight">
-                {featuredStory.title}
-              </h3>
-              <p className="text-gray-300 text-sm line-clamp-2 mt-2">{featuredStory.excerpt}</p>
-            </div>
-          </Link>
-
-          {/* LISTEN — featured podcast episode */}
-          <Link
-            href="/stories#listen"
-            className="group relative overflow-hidden rounded-[10px] aspect-[4/5] block"
-          >
-            <img
-              src={featuredPodcast.image}
-              alt={featuredPodcast.title}
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/40 to-tru-navy/20" />
-            <div className="absolute top-4 left-4">
-              <span className="inline-flex items-center gap-1.5 bg-tru-blue text-white text-[10px] font-black uppercase tracking-[0.18em] px-3 py-1.5 rounded-full font-heading">
-                <svg className="h-3 w-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
-                Listen
-              </span>
-            </div>
-            <div className="absolute top-4 right-4">
-              <span className="bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading">
-                {featuredPodcast.duration}
-              </span>
-            </div>
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="h-16 w-16 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-tru-blue/30 group-hover:scale-110 transition-all duration-300">
-                <svg className="h-7 w-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+              <p className="text-gray-400 text-sm line-clamp-2 mb-4">{featuredVideo.caption}</p>
+              <div className="mt-auto pt-3 border-t border-white/5 flex items-center justify-end">
+                <span className="text-xs text-tru-pink font-semibold uppercase tracking-wider">Watch &rarr;</span>
               </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <p className="text-tru-blue text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
-                Episode {featuredPodcast.episode} &middot; {featuredPodcast.host}
-              </p>
-              <h3 className="text-xl font-black text-white group-hover:text-tru-blue transition uppercase font-heading leading-tight">
-                {featuredPodcast.title}
-              </h3>
-              <p className="text-gray-300 text-sm line-clamp-2 mt-2">{featuredPodcast.description}</p>
-            </div>
           </Link>
+
+          {/* READ — featured stories, shared StoryCard for consistency */}
+          {featuredReads.map((s) => (
+            <StoryCard key={s.id} story={s} isLoggedIn={false} />
+          ))}
         </div>
         <div className="mt-8 text-center sm:hidden">
           <PillButton href="/stories">All Stories</PillButton>
