@@ -192,9 +192,6 @@ export default function HomePage() {
 
         {/* What's Included CTA */}
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16 text-center">
-          <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mb-6">
-            Every trip includes all accommodation and transport, activities, some meals, and an awesome TRU leader who feels more like a friend who happens to know the way. Local legends, all of them.
-          </p>
           <PillButton href="/whats-included">See What&apos;s Included</PillButton>
         </div>
 
