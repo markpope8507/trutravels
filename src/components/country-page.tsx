@@ -8,7 +8,6 @@ import { Country, Trip, VideoDiary, BucketListItem, experienceTypes, trips as al
 import TripCard from "@/components/trip-card";
 import DealCard from "@/components/deal-card";
 import StoryCard from "@/components/story-card";
-import AccommodationMediaCarousel from "@/components/accommodation-media-carousel";
 import { useAuth } from "@/lib/auth-context";
 
 import "swiper/css";
@@ -106,6 +105,72 @@ function ActivityShowcase({ items }: { items: BucketListItem[] }) {
         <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
       </button>
       <button className="activities-next absolute top-[calc(50%-20px)] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
+        <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </button>
+    </div>
+  );
+}
+
+function AccommodationShowcase({ items }: { items: NonNullable<Country["accommodation"]> }) {
+  return (
+    <div className="stays-carousel relative">
+      <Swiper
+        modules={[Navigation, FreeMode]}
+        spaceBetween={16}
+        slidesPerView={1.1}
+        freeMode={{ enabled: true, sticky: false }}
+        navigation={{ nextEl: ".stays-next", prevEl: ".stays-prev" }}
+        breakpoints={{
+          480: { slidesPerView: 1.4 },
+          640: { slidesPerView: 2.1, spaceBetween: 16 },
+          1024: { slidesPerView: 3, spaceBetween: 24 },
+        }}
+        speed={600}
+      >
+        {items.map((item) => (
+          <SwiperSlide key={item.title} className="!h-auto">
+            <div className="group h-full flex flex-col overflow-hidden rounded-[10px] bg-tru-navy border border-white/10 hover:border-tru-green/30 transition-all duration-300" style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}>
+              {/* Media */}
+              <div className="relative aspect-[4/3] overflow-hidden bg-black">
+                {item.type === "video" ? (
+                  <video
+                    src={item.src}
+                    poster={item.poster}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                ) : (
+                  <img src={item.src} alt={item.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute top-3 left-3 flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider font-heading" style={{ background: "#6BD49522", border: "1px solid #6BD49580", color: "#6BD495" }}>
+                    <span className="text-sm leading-none">🛏️</span>
+                    Stay
+                  </span>
+                  {item.type === "video" && (
+                    <span className="bg-white/20 backdrop-blur-sm text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full font-heading">
+                      Video
+                    </span>
+                  )}
+                </div>
+              </div>
+              {/* Content */}
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="text-lg font-black text-white uppercase font-heading leading-tight mb-2 group-hover:text-tru-green transition-colors">{item.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{item.caption}</p>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <button className="stays-prev absolute top-[calc(50%-20px)] -left-2 sm:-left-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-green/40 transition-colors disabled:opacity-30">
+        <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+      </button>
+      <button className="stays-next absolute top-[calc(50%-20px)] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-green/40 transition-colors disabled:opacity-30">
         <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
       </button>
     </div>
@@ -363,15 +428,15 @@ export default function CountryPage({ country }: { country: Country }) {
 
       {/* Where You'll Stay */}
       {country.accommodation && country.accommodation.length > 0 && (
-        <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 mb-20">
+        <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20">
           <p className="text-tru-green text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">Where You&apos;ll Stay</p>
           <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95] mb-4">
             Sleep Somewhere <span className="text-tru-green">Special</span>
           </h2>
-          <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-8">
+          <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
             A few of the stays our {country.name} tours call home — from floating bungalows on a jungle lake to beach resorts steps from the sand.
           </p>
-          <AccommodationMediaCarousel items={country.accommodation} />
+          <AccommodationShowcase items={country.accommodation} />
         </section>
       )}
 
