@@ -558,7 +558,7 @@ export default function AllTripsBrowser({
                       drops from 3 → 2 → 1 columns as space shrinks rather than squashing them.
                       The min(100%, …) guard stops a single column overflowing on tiny screens. */}
                   <div
-                    className="grid gap-x-6 gap-y-10 justify-start"
+                    className="grid gap-x-6 gap-y-10 justify-center lg:justify-start"
                     style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 360px))" }}
                   >
                     {filtered.slice(0, limit).map((trip) => (
