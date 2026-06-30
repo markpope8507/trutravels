@@ -54,10 +54,10 @@ function PlatformCard({ p }: { p: Platform }) {
   return (
     <div className="rounded-[10px] border border-white/10 p-3 sm:p-5 flex flex-col items-center text-center gap-1.5 sm:gap-2">
       <PlatformLogo name={p.name} markClassName="h-3.5 w-3.5 sm:h-4 sm:w-4" textClassName="text-white font-bold font-heading text-xs sm:text-sm" />
-      <span className="text-2xl sm:text-4xl font-black font-heading leading-none" style={{ color: p.color }}>
+      <span className="text-2xl sm:text-4xl font-black font-heading leading-none text-white">
         {p.score}
       </span>
-      <Stars color={p.color} size="h-3 w-3 sm:h-4 sm:w-4" />
+      <Stars size="h-3 w-3 sm:h-4 sm:w-4" />
       <p className="text-gray-500 text-[10px] sm:text-xs">{p.reviews} reviews</p>
     </div>
   );
