@@ -120,25 +120,31 @@ export default async function StoryArticlePage({
       </section>
 
       {/* ===================== INTRO ===================== */}
-      <section className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-14">
-        {article.intro.map((p, i) => (
-          <p
-            key={i}
-            className={
-              i === 0
-                ? "text-xl sm:text-2xl text-white font-light leading-relaxed mb-6"
-                : "text-gray-300 text-lg leading-relaxed mb-6"
-            }
-          >
-            {p}
-          </p>
-        ))}
-        <div className="h-px w-16 bg-tru-pink mt-4" />
+      <section className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-14">
+        <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-40 lg:-right-72 -top-4 w-[260px] lg:w-[420px] opacity-[0.05] brightness-0 invert" />
+        <div className="relative">
+          {article.intro.map((p, i) => (
+            <p
+              key={i}
+              className={
+                i === 0
+                  ? "text-xl sm:text-2xl text-white font-light leading-relaxed mb-6"
+                  : "text-gray-300 text-lg leading-relaxed mb-6"
+              }
+            >
+              {p}
+            </p>
+          ))}
+          <div className="h-px w-16 bg-tru-pink mt-4" />
+        </div>
       </section>
 
       {/* ===================== SECTIONS ===================== */}
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-12 space-y-20">
-        {article.sections.map((section, i) => (
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-12">
+        <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-40 lg:-left-72 top-1/4 w-[240px] lg:w-[420px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-40 lg:-right-72 bottom-1/3 w-[240px] lg:w-[420px] opacity-[0.05] brightness-0 invert" />
+        <div className="relative space-y-20">
+          {article.sections.map((section, i) => (
           <section
             key={section.heading}
             className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
@@ -178,7 +184,8 @@ export default async function StoryArticlePage({
               </div>
             )}
           </section>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* ===================== TOURS CAROUSEL ===================== */}
