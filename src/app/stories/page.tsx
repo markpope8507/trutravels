@@ -1030,14 +1030,15 @@ function StoryCard({
             {story.title}
           </h3>
           <p className="text-gray-400 text-sm line-clamp-2 mb-4">{story.excerpt}</p>
-          <p className="text-xs text-gray-500 mt-auto pt-3 border-t border-white/5">
-            {story.author} &middot; {formatDate(story.date)}
-          </p>
-          {isLocked && (
-            <span className="inline-block mt-3 text-sm text-tru-pink group-hover:text-tru-pink-light transition font-semibold uppercase tracking-wider">
-              Join to unlock &rarr;
+          <div className="mt-auto pt-3 border-t border-white/5 flex items-center justify-between gap-3">
+            <p className="text-xs text-gray-500">
+              <span className="text-white font-semibold">{story.author}</span> &middot;{" "}
+              {formatDate(story.date)}
+            </p>
+            <span className="text-xs text-tru-pink font-semibold uppercase tracking-wider group-hover:text-tru-pink-light transition whitespace-nowrap">
+              {isLocked ? "Join to read" : "Read story"} &rarr;
             </span>
-          )}
+          </div>
         </div>
       </div>
     </Link>
