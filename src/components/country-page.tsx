@@ -292,7 +292,7 @@ function DepartureRow({ trip, dep }: DepartureEntry) {
 
   return (
     <div
-      className="rounded-[10px] border border-white/10 bg-tru-navy hover:border-tru-pink/30 transition-colors duration-200 p-4 flex flex-col sm:flex-row sm:items-center gap-4"
+      className="rounded-[10px] border border-white/10 bg-tru-navy hover:border-tru-pink/30 transition-colors duration-200 p-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4"
       style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
     >
       {/* Date */}
@@ -325,18 +325,20 @@ function DepartureRow({ trip, dep }: DepartureEntry) {
       </div>
 
       {/* Save + Price + CTA */}
-      <div className="flex items-center justify-between sm:justify-end gap-4 sm:gap-6 sm:flex-shrink-0">
-        {discount > 0 && (
-          <div className="text-center sm:text-right">
-            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.15em] font-heading mb-0.5">Save</p>
-            <p className="text-tru-pink text-sm font-bold leading-none">{discount}%</p>
-          </div>
-        )}
-        <div className="text-right">
-          {dep.originalPrice && dep.originalPrice > dep.price && (
-            <span className="block text-gray-500 text-xs line-through leading-none mb-0.5">&pound;{dep.originalPrice}</span>
+      <div className="flex items-center justify-between gap-4 sm:justify-end sm:gap-6 sm:flex-shrink-0 pt-3 border-t border-white/10 sm:pt-0 sm:border-0">
+        <div className="flex items-center gap-5 sm:gap-6">
+          {discount > 0 && (
+            <div className="text-left sm:text-right">
+              <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.15em] font-heading mb-0.5">Save</p>
+              <p className="text-tru-pink text-sm font-bold leading-none">{discount}%</p>
+            </div>
           )}
-          <p className="text-white text-lg font-bold font-heading leading-none">&pound;{dep.price}</p>
+          <div className="text-left sm:text-right">
+            {dep.originalPrice && dep.originalPrice > dep.price && (
+              <span className="block text-gray-500 text-xs line-through leading-none mb-0.5">&pound;{dep.originalPrice}</span>
+            )}
+            <p className="text-white text-lg font-bold font-heading leading-none">&pound;{dep.price}</p>
+          </div>
         </div>
         <Link
           href={tripUrl(trip)}
