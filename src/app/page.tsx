@@ -145,47 +145,47 @@ export default function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
             {/* Small Group Adventures */}
             <div>
-              <div className="flex items-center gap-3 mb-3">
+              <div className="flex flex-col items-center gap-2 mb-3 text-center">
                 <svg className="h-9 w-9 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-1a4 4 0 0 0-4-4h-1m-4 5H2v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1Zm-2-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6-1a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
                 </svg>
                 <h3 className="text-white font-black uppercase font-heading text-base sm:text-lg leading-tight">Small Group Adventures</h3>
               </div>
-              <p className="text-gray-400 text-sm sm:text-base leading-relaxed">Our groups stay between 10&ndash;20 in size, so every experience feels personal.</p>
+              <p className="text-gray-400 text-sm sm:text-base leading-relaxed text-center">Our groups stay between 10&ndash;20 in size, so every experience feels personal.</p>
             </div>
 
             {/* Local Guides & Experiences */}
             <div>
-              <div className="flex items-center gap-3 mb-3">
+              <div className="flex flex-col items-center gap-2 mb-3 text-center">
                 <svg className="h-9 w-9 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657 13.414 20.9a2 2 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0Z" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                 </svg>
                 <h3 className="text-white font-black uppercase font-heading text-base sm:text-lg leading-tight">Local Legends</h3>
               </div>
-              <p className="text-gray-400 text-sm sm:text-base leading-relaxed">Who better to show you around than someone who calls it home?</p>
+              <p className="text-gray-400 text-sm sm:text-base leading-relaxed text-center">Who better to show you around than someone who calls it home?</p>
             </div>
 
             {/* Logistics Locked In */}
             <div>
-              <div className="flex items-center gap-3 mb-3">
+              <div className="flex flex-col items-center gap-2 mb-3 text-center">
                 <svg className="h-9 w-9 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
                 <h3 className="text-white font-black uppercase font-heading text-base sm:text-lg leading-tight">Logistics Locked In</h3>
               </div>
-              <p className="text-gray-400 text-sm sm:text-base leading-relaxed">Zero stress, maximum adventure. Every detail is sorted before you even pack your bag.</p>
+              <p className="text-gray-400 text-sm sm:text-base leading-relaxed text-center">Zero stress, maximum adventure. Every detail is sorted before you even pack your bag.</p>
             </div>
 
             {/* Community & Connection */}
             <div>
-              <div className="flex items-center gap-3 mb-3">
+              <div className="flex flex-col items-center gap-2 mb-3 text-center">
                 <svg className="h-9 w-9 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                 </svg>
                 <h3 className="text-white font-black uppercase font-heading text-base sm:text-lg leading-tight">Community &amp; Connection</h3>
               </div>
-              <p className="text-gray-400 text-sm sm:text-base leading-relaxed">A shared adventure creates bonds that stick long after the trip ends.</p>
+              <p className="text-gray-400 text-sm sm:text-base leading-relaxed text-center">A shared adventure creates bonds that stick long after the trip ends.</p>
             </div>
           </div>
         </div>
