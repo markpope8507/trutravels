@@ -15,8 +15,8 @@ type Platform = {
 };
 
 const PLATFORMS: Platform[] = [
-  { name: "Google", score: "4.8", reviews: "1,200+", color: "#4285F4" },
-  { name: "Trustpilot", score: "4.9", reviews: "2,400+", color: "#00B67A" },
+  { name: "Google", score: "4.8", reviews: "1,300+", color: "#4285F4" },
+  { name: "Trustpilot", score: "4.9", reviews: "3,600+", color: "#00B67A" },
   { name: "TourRadar", score: "4.9", reviews: "17,000+", color: "#0CA4A5" },
 ];
 
