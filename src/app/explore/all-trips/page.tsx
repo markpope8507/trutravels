@@ -11,10 +11,11 @@ export const metadata = {
 export default async function AllTripsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ region?: string }>;
+  searchParams: Promise<{ country?: string }>;
 }) {
-  const { region } = await searchParams;
-  const initialRegions = region && regions.some((r) => r.name === region) ? [region] : [];
+  const { country } = await searchParams;
+  const initialCountries =
+    country && trips.some((t) => t.destination === country) ? [country] : [];
   return (
     <>
       {/* HERO */}
@@ -44,7 +45,7 @@ export default async function AllTripsPage({
         </div>
       </section>
 
-      <AllTripsBrowser trips={trips} regions={regions} initialRegions={initialRegions} />
+      <AllTripsBrowser trips={trips} regions={regions} initialCountries={initialCountries} />
     </>
   );
 }

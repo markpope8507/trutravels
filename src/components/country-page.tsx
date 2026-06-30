@@ -447,7 +447,7 @@ export default function CountryPage({ country }: { country: Country }) {
             <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide">{country.name} Trips</h2>
           </div>
           <Link
-            href={`/explore/all-trips?region=${encodeURIComponent(country.region)}`}
+            href={`/explore/all-trips?country=${encodeURIComponent(country.name)}`}
             className="hidden sm:inline-flex items-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-5 py-2.5 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading whitespace-nowrap flex-shrink-0"
           >
             See All Trips
@@ -481,7 +481,7 @@ export default function CountryPage({ country }: { country: Country }) {
         </div>
         {/* Mobile "see all" CTA */}
         <Link
-          href={`/explore/all-trips?region=${encodeURIComponent(country.region)}`}
+          href={`/explore/all-trips?country=${encodeURIComponent(country.name)}`}
           className="sm:hidden mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-5 py-3 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading"
         >
           See All Trips
