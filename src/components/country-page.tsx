@@ -6,10 +6,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import { Country, Trip, BucketListItem, experienceTypes, trips as allTrips, stories as allStories, videoDiaries as allVideoDiaries } from "@/lib/data";
 import TripCard from "@/components/trip-card";
-import DealCard from "@/components/deal-card";
 import StoryCard from "@/components/story-card";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import { useAuth } from "@/lib/auth-context";
+import { tripUrl } from "@/lib/utils";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -272,18 +272,115 @@ function CountryFaqs({ faqs }: { faqs: Country["faqs"] }) {
   );
 }
 
-function UpcomingDepartures({ countryTrips }: { countryTrips: Trip[] }) {
-  const tripsWithUpcoming = countryTrips.filter((t) =>
-    (t.departures || []).some((d) => d.status !== "full" && new Date(d.date) >= new Date()),
-  );
+type DepartureEntry = {
+  trip: Trip;
+  dep: NonNullable<Trip["departures"]>[number];
+};
 
-  if (tripsWithUpcoming.length === 0) return null;
+const DEPARTURES_PAGE_SIZE = 6;
+
+const STATUS_BADGE: Record<string, { label: string; color: string }> = {
+  available: { label: "Available", color: "#6BD495" },
+  "almost-full": { label: "Almost Full", color: "#FCA501" },
+  discount: { label: "On Sale", color: "#FF3F99" },
+};
+
+function DepartureRow({ trip, dep }: DepartureEntry) {
+  const date = new Date(dep.date);
+  const month = date.toLocaleDateString("en-GB", { month: "short" }).toUpperCase();
+  const day = date.toLocaleDateString("en-GB", { day: "numeric" });
+  const year = date.toLocaleDateString("en-GB", { year: "numeric" });
+  const badge = dep.discount
+    ? { label: dep.discount, color: "#FF3F99" }
+    : STATUS_BADGE[dep.status] ?? STATUS_BADGE.available;
 
   return (
-    <div className="space-y-5">
-      {tripsWithUpcoming.map((trip) => (
-        <DealCard key={trip.id} trip={trip} mode="all" />
-      ))}
+    <div className="rounded-[10px] border border-white/10 bg-white/5 hover:border-tru-pink/30 transition-colors duration-200 p-4 flex flex-col sm:flex-row sm:items-center gap-4">
+      {/* Date */}
+      <div className="flex items-baseline gap-2 sm:flex-col sm:items-center sm:gap-0 sm:w-20 sm:flex-shrink-0 sm:text-center">
+        <p className="text-tru-pink text-xs font-bold uppercase tracking-wider font-heading order-1 sm:order-none">{month}</p>
+        <p className="text-white text-2xl font-black font-heading leading-none order-0 sm:order-none">{day}</p>
+        <p className="text-gray-400 text-xs order-2 sm:order-none">{year}</p>
+      </div>
+
+      <div className="hidden sm:block w-px self-stretch bg-white/10" />
+
+      {/* Trip info */}
+      <div className="flex-1 min-w-0">
+        <h3 className="text-white font-bold text-sm sm:text-base font-heading leading-snug">{trip.title}</h3>
+        <p className="text-gray-400 text-xs mt-1">
+          {trip.duration}
+          {trip.startLocation && trip.endLocation && (
+            <> &middot; {trip.startLocation} &rarr; {trip.endLocation}</>
+          )}
+        </p>
+        <span
+          className="inline-flex items-center mt-2 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider font-heading"
+          style={{ background: `${badge.color}22`, border: `1px solid ${badge.color}80`, color: badge.color }}
+        >
+          {badge.label}
+        </span>
+      </div>
+
+      {/* Price + CTA */}
+      <div className="flex items-center justify-between sm:justify-end gap-4 sm:flex-shrink-0">
+        <div className="text-left sm:text-right">
+          {dep.originalPrice && dep.originalPrice > dep.price && (
+            <span className="block text-gray-500 text-xs line-through leading-none">£{dep.originalPrice}</span>
+          )}
+          <p className="text-white text-lg font-black font-heading leading-tight">
+            £{dep.price}
+            <span className="text-gray-400 text-[10px] font-normal ml-1">pp</span>
+          </p>
+        </div>
+        <Link
+          href={tripUrl(trip)}
+          className="inline-flex items-center gap-1.5 rounded-full bg-tru-pink px-4 py-2 text-xs font-bold text-white hover:bg-tru-pink-light transition-colors uppercase tracking-wider font-heading whitespace-nowrap"
+        >
+          View Trip
+          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function UpcomingDepartures({ countryTrips }: { countryTrips: Trip[] }) {
+  const [visible, setVisible] = useState(DEPARTURES_PAGE_SIZE);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const departures: DepartureEntry[] = countryTrips
+    .flatMap((trip) =>
+      (trip.departures || [])
+        .filter((d) => d.status !== "full" && new Date(d.date) >= today)
+        .map((dep) => ({ trip, dep })),
+    )
+    .sort((a, b) => new Date(a.dep.date).getTime() - new Date(b.dep.date).getTime());
+
+  if (departures.length === 0) return null;
+
+  return (
+    <div>
+      <div className="space-y-3">
+        {departures.slice(0, visible).map(({ trip, dep }) => (
+          <DepartureRow key={`${trip.id}-${dep.date}`} trip={trip} dep={dep} />
+        ))}
+      </div>
+      {visible < departures.length && (
+        <div className="pt-8 text-center">
+          <button
+            onClick={() => setVisible((n) => n + DEPARTURES_PAGE_SIZE)}
+            className="inline-flex items-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-6 py-2.5 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading"
+          >
+            Show More Departures
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
