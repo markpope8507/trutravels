@@ -359,23 +359,12 @@ export default function StoriesPage() {
         eyebrow="Press Play"
         title="Stories You Can Watch"
         description="Diaries from the road and deep-dive video series. Get comfortable — these are the ones you'll want to disappear into."
-        accent="tru-green"
+        accent="tru-pink"
         icon={<WatchIcon />}
       />
 
       {/* Sub-section: Video Diaries */}
       <section className="pb-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8">
-          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">
-            Video Diaries
-          </p>
-          <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight uppercase font-heading">
-            Moments From Our <span className="text-tru-pink">Community</span>
-          </h3>
-          <p className="text-gray-400 mt-3 max-w-lg text-sm sm:text-base">
-            Travellers, guides, partners, and the Planeterra projects we support — in their own words.
-          </p>
-        </div>
         <div className="mx-auto max-w-7xl pl-4 sm:pl-6 lg:pl-8 overflow-hidden">
           <VideoDiariesCarousel diaries={videoDiaries} />
         </div>
