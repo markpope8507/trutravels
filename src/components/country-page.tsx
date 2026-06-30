@@ -279,27 +279,26 @@ type DepartureEntry = {
 
 const DEPARTURES_PAGE_SIZE = 6;
 
-const STATUS_BADGE: Record<string, { label: string; color: string }> = {
-  available: { label: "Available", color: "#6BD495" },
-  "almost-full": { label: "Almost Full", color: "#FCA501" },
-  discount: { label: "On Sale", color: "#FF3F99" },
-};
-
 function DepartureRow({ trip, dep }: DepartureEntry) {
   const date = new Date(dep.date);
   const month = date.toLocaleDateString("en-GB", { month: "short" }).toUpperCase();
   const day = date.toLocaleDateString("en-GB", { day: "numeric" });
   const year = date.toLocaleDateString("en-GB", { year: "numeric" });
-  const badge = dep.discount
-    ? { label: dep.discount, color: "#FF3F99" }
-    : STATUS_BADGE[dep.status] ?? STATUS_BADGE.available;
+  const discount =
+    dep.originalPrice && dep.originalPrice > dep.price
+      ? Math.round(((dep.originalPrice - dep.price) / dep.originalPrice) * 100)
+      : 0;
+  const almostFull = dep.status === "almost-full";
 
   return (
-    <div className="rounded-[10px] border border-white/10 bg-white/5 hover:border-tru-pink/30 transition-colors duration-200 p-4 flex flex-col sm:flex-row sm:items-center gap-4">
+    <div
+      className="rounded-[10px] border border-white/10 bg-tru-navy hover:border-tru-pink/30 transition-colors duration-200 p-4 flex flex-col sm:flex-row sm:items-center gap-4"
+      style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
+    >
       {/* Date */}
       <div className="flex items-baseline gap-2 sm:flex-col sm:items-center sm:gap-0 sm:w-20 sm:flex-shrink-0 sm:text-center">
         <p className="text-tru-pink text-xs font-bold uppercase tracking-wider font-heading order-1 sm:order-none">{month}</p>
-        <p className="text-white text-2xl font-black font-heading leading-none order-0 sm:order-none">{day}</p>
+        <p className="text-white text-2xl font-black font-heading leading-none">{day}</p>
         <p className="text-gray-400 text-xs order-2 sm:order-none">{year}</p>
       </div>
 
@@ -307,38 +306,44 @@ function DepartureRow({ trip, dep }: DepartureEntry) {
 
       {/* Trip info */}
       <div className="flex-1 min-w-0">
-        <h3 className="text-white font-bold text-sm sm:text-base font-heading leading-snug">{trip.title}</h3>
-        <p className="text-gray-400 text-xs mt-1">
+        <h3 className="text-white font-black text-sm sm:text-base font-heading uppercase leading-snug">{trip.title}</h3>
+        <p className="text-gray-400 text-xs mt-1 flex items-center gap-1.5">
+          <svg className="h-3.5 w-3.5 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
           {trip.duration}
           {trip.startLocation && trip.endLocation && (
-            <> &middot; {trip.startLocation} &rarr; {trip.endLocation}</>
+            <> &middot; {trip.startLocation} &mdash; {trip.endLocation}</>
           )}
         </p>
-        <span
-          className="inline-flex items-center mt-2 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider font-heading"
-          style={{ background: `${badge.color}22`, border: `1px solid ${badge.color}80`, color: badge.color }}
-        >
-          {badge.label}
-        </span>
+        {almostFull && (
+          <span className="inline-flex items-center gap-1.5 mt-2 text-amber-400 text-[10px] font-bold uppercase tracking-wider font-heading">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-400" /> Almost Full
+          </span>
+        )}
       </div>
 
-      {/* Price + CTA */}
-      <div className="flex items-center justify-between sm:justify-end gap-4 sm:flex-shrink-0">
-        <div className="text-left sm:text-right">
+      {/* Save + Price + CTA */}
+      <div className="flex items-center justify-between sm:justify-end gap-4 sm:gap-6 sm:flex-shrink-0">
+        {discount > 0 && (
+          <div className="text-center sm:text-right">
+            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.15em] font-heading mb-0.5">Save</p>
+            <p className="text-tru-pink text-sm font-bold leading-none">{discount}%</p>
+          </div>
+        )}
+        <div className="text-right">
           {dep.originalPrice && dep.originalPrice > dep.price && (
-            <span className="block text-gray-500 text-xs line-through leading-none">£{dep.originalPrice}</span>
+            <span className="block text-gray-500 text-xs line-through leading-none mb-0.5">&pound;{dep.originalPrice}</span>
           )}
-          <p className="text-white text-lg font-black font-heading leading-tight">
-            £{dep.price}
-            <span className="text-gray-400 text-[10px] font-normal ml-1">pp</span>
-          </p>
+          <p className="text-white text-lg font-bold font-heading leading-none">&pound;{dep.price}</p>
         </div>
         <Link
           href={tripUrl(trip)}
-          className="inline-flex items-center gap-1.5 rounded-full bg-tru-pink px-4 py-2 text-xs font-bold text-white hover:bg-tru-pink-light transition-colors uppercase tracking-wider font-heading whitespace-nowrap"
+          className="rounded-[10px] px-4 sm:px-5 py-2.5 text-xs font-bold uppercase tracking-wider font-heading border whitespace-nowrap flex-shrink-0 transition-all duration-200"
+          style={{ backgroundColor: "#FFD814", borderColor: "#FCD200", color: "#0F1111" }}
         >
-          View Trip
-          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+          View Trip &rarr;
         </Link>
       </div>
     </div>
