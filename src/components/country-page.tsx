@@ -195,8 +195,8 @@ function ContentSeriesSection({ series }: { series: Country["contentSeries"] }) 
         speed={600}
       >
         {series.map((s) => (
-          <SwiperSlide key={s.id}>
-            <div className="group rounded-[10px] border border-white/10 bg-white/5 overflow-hidden hover:border-tru-pink/20 transition-all duration-300 cursor-pointer">
+          <SwiperSlide key={s.id} className="!h-auto">
+            <div className="group h-full flex flex-col rounded-[10px] border border-white/10 bg-tru-navy overflow-hidden hover:border-tru-pink/30 transition-all duration-300 cursor-pointer" style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}>
               <div className="relative aspect-video overflow-hidden">
                 <img src={s.image} alt={s.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute top-3 left-3">
@@ -206,7 +206,7 @@ function ContentSeriesSection({ series }: { series: Country["contentSeries"] }) 
                   <span className="bg-black/60 text-white text-[10px] font-semibold px-2 py-1 rounded-full backdrop-blur-sm">{s.episodes} episodes</span>
                 </div>
               </div>
-              <div className="p-4">
+              <div className="p-4 flex-1">
                 <h3 className="text-white text-sm font-bold font-heading group-hover:text-tru-pink transition-colors mb-1">{s.title}</h3>
                 <p className="text-gray-400 text-xs line-clamp-2">{s.description}</p>
               </div>
