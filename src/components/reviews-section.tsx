@@ -101,7 +101,7 @@ export default function ReviewsSection() {
         <div className="text-center mb-8">
           <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">The Reviews</p>
           <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
-            But Don&apos;t Just Take <span className="text-tru-pink">Our Word For It</span>
+            Don&apos;t Just Take <span className="text-tru-pink">Our Word For It</span>
           </h2>
         </div>
 
