@@ -475,7 +475,7 @@ export default function CountryPage({ country }: { country: Country }) {
         <section className="mb-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8">
             <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">Video Diaries</p>
-            <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95] mb-4">
+            <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-4">
               Moments In <span className="text-tru-pink">{country.name}</span> From Our Community
             </h2>
             <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl">
@@ -491,7 +491,7 @@ export default function CountryPage({ country }: { country: Country }) {
       {/* Experiences / Things To Do */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20">
         <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">The Experiences</p>
-        <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95] mb-4">
+        <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-4">
           Things To Do In <span className="text-tru-pink">{country.name}</span>
         </h2>
         <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
@@ -504,7 +504,7 @@ export default function CountryPage({ country }: { country: Country }) {
       {country.accommodation && country.accommodation.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20">
           <p className="text-tru-green text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">Where You&apos;ll Stay</p>
-          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95] mb-4">
+          <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-4">
             Sleep Somewhere <span className="text-tru-green">Special</span>
           </h2>
           <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
@@ -518,7 +518,7 @@ export default function CountryPage({ country }: { country: Country }) {
       {countryStories.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20">
           <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">From Our Community</p>
-          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95] mb-8">
+          <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-8">
             {country.name} <span className="text-tru-pink">Stories</span>
           </h2>
           <div className="country-stories-carousel relative">
