@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { trips, stories, drops, videoDiaries, experienceTypes } from "@/lib/data";
+import { trips, stories, drops, videoDiaries, experienceTypes, storyArticles } from "@/lib/data";
 import HeroSlider from "@/components/hero-slider";
 import ExperienceCarousel from "@/components/experience-carousel";
 import { DesignA as ExperienceTypesCarousel } from "@/components/experience-types-v2";
@@ -9,14 +9,14 @@ import DiscoveryPathways from "@/components/discovery-pathways";
 import SearchPrompt from "@/components/search-prompt";
 import PillButton from "@/components/pill-button";
 import ReviewsSection from "@/components/reviews-section";
-import StoryCard from "@/components/story-card";
 
 export default function HomePage() {
-  const featuredReads = [...stories]
+  const featuredStory = [...stories]
     .filter((s) => !s.memberOnly)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 2);
-  const featuredVideo = videoDiaries[0];
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
+  const featuredStoryHref = storyArticles[featuredStory.id]
+    ? `/stories/${featuredStory.id}`
+    : `/stories#${featuredStory.id}`;
 
   return (
     <>
@@ -288,67 +288,44 @@ export default function HomePage() {
           className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-32 -bottom-12 w-[240px] sm:w-[380px] md:w-[500px] lg:w-[640px] opacity-[0.08] brightness-0 invert"
         />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-12 flex-wrap gap-6">
-          <div>
-            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Stories</p>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[0.95]">
-              Watch. <span className="text-tru-green">Read.</span>
-            </h2>
-            <p className="text-gray-400 mt-4 max-w-lg text-sm sm:text-base">
-              Stories from the road — video diaries to binge and long-reads to lose an afternoon in.
-            </p>
-          </div>
-          <div className="hidden sm:block flex-shrink-0">
-            <PillButton href="/stories" className="whitespace-nowrap">All Stories</PillButton>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* WATCH — featured video diary, styled to match the story cards */}
-          <Link
-            href="/stories#watch"
-            className="group relative block h-full flex flex-col overflow-hidden rounded-[10px] bg-tru-navy border border-white/10 hover:border-tru-pink/30 transition-all duration-300"
-            style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
-          >
-            <div className="relative aspect-[3/2] overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+            {/* Featured story */}
+            <Link
+              href={featuredStoryHref}
+              className="group relative block overflow-hidden rounded-[10px] aspect-[4/3]"
+              style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
+            >
               <img
-                src={featuredVideo.poster}
-                alt={featuredVideo.caption}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                src={featuredStory.image}
+                alt={featuredStory.title}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-black/10" />
-              <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 bg-tru-green text-tru-navy text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full font-heading">
-                <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                Watch
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
+              <span className="absolute top-4 left-4 bg-tru-pink text-white text-[10px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full font-heading">
+                Featured Story
               </span>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="h-14 w-14 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg className="h-6 w-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-                </div>
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <p className="text-tru-pink text-[10px] font-bold uppercase tracking-wider mb-2 font-heading">
+                  {featuredStory.category} &middot; {featuredStory.readTime} min read
+                </p>
+                <h3 className="text-2xl font-black text-white uppercase font-heading leading-tight group-hover:text-tru-pink transition">
+                  {featuredStory.title}
+                </h3>
               </div>
-            </div>
-            <div className="p-5 flex flex-col flex-1">
-              <p className="text-tru-green text-xs font-bold uppercase tracking-wider mb-1 font-heading">
-                Video Diary &middot; {featuredVideo.location}
-              </p>
-              <h3 className="text-lg font-bold text-white group-hover:text-tru-pink transition mb-2 leading-snug">
-                {featuredVideo.author}
-              </h3>
-              <p className="text-gray-400 text-sm line-clamp-2 mb-4">{featuredVideo.caption}</p>
-              <div className="mt-auto pt-3 border-t border-white/5 flex items-center justify-end">
-                <span className="text-xs text-tru-pink font-semibold uppercase tracking-wider">Watch &rarr;</span>
-              </div>
-            </div>
-          </Link>
+            </Link>
 
-          {/* READ — featured stories, shared StoryCard for consistency */}
-          {featuredReads.map((s) => (
-            <StoryCard key={s.id} story={s} isLoggedIn={false} />
-          ))}
-        </div>
-        <div className="mt-8 text-center sm:hidden">
-          <PillButton href="/stories">All Stories</PillButton>
-        </div>
+            {/* Copy + link */}
+            <div>
+              <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Stories</p>
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[0.95] mb-5">
+                Tales From <span className="text-tru-green">The Road</span>
+              </h2>
+              <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
+                First-timer tips, destination deep-dives and honest stories from travellers and the Tru crew. The good, the unexpected and the unforgettable — straight from the road.
+              </p>
+              <PillButton href="/stories">Read All Stories</PillButton>
+            </div>
+          </div>
         </div>
       </section>
 
