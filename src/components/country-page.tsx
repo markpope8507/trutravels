@@ -476,7 +476,9 @@ export default function CountryPage({ country }: { country: Country }) {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8">
             <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">Video Diaries</p>
             <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-4">
-              Moments In <span className="text-tru-pink">{country.name}</span> From Our Community
+              Moments In <span className="text-tru-pink">{country.name}</span>
+              <br />
+              From Our Community
             </h2>
             <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl">
               Travellers, guides, partners, and the Planeterra projects we support — in their own words.
