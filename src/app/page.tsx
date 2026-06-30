@@ -196,7 +196,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/whats-included"
-            className="inline-flex items-center gap-2 rounded-full bg-tru-pink hover:bg-tru-pink-light text-white px-6 py-3 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200"
+            className="inline-flex items-center gap-2 rounded-[10px] bg-tru-pink hover:bg-tru-pink-light text-white px-6 py-3 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200"
           >
             See What&apos;s Included
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -303,15 +303,9 @@ export default function HomePage() {
               Stories from the road in every format. Diaries to lose an afternoon in, long-reads for the train, podcasts for the plane.
             </p>
           </div>
-          <Link
-            href="/stories"
-            className="hidden sm:flex items-center gap-2 text-sm text-gray-400 hover:text-tru-pink transition group uppercase tracking-wider font-semibold font-heading"
-          >
-            All stories
-            <svg className="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
+          <div className="hidden sm:block flex-shrink-0">
+            <PillButton href="/stories" className="whitespace-nowrap">All Stories</PillButton>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -413,6 +407,9 @@ export default function HomePage() {
               <p className="text-gray-300 text-sm line-clamp-2 mt-2">{featuredPodcast.description}</p>
             </div>
           </Link>
+        </div>
+        <div className="mt-8 text-center sm:hidden">
+          <PillButton href="/stories">All Stories</PillButton>
         </div>
         </div>
       </section>
