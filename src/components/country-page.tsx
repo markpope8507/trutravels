@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
-import { Country, Trip, Story, VideoDiary, ExperienceType, experienceTypes, trips as allTrips, stories as allStories, videoDiaries as allVideoDiaries } from "@/lib/data";
+import { Country, Trip, VideoDiary, BucketListItem, experienceTypes, trips as allTrips, stories as allStories, videoDiaries as allVideoDiaries } from "@/lib/data";
 import TripCard from "@/components/trip-card";
 import DealCard from "@/components/deal-card";
 import StoryCard from "@/components/story-card";
@@ -33,30 +33,45 @@ function FunFacts({ facts }: { facts: Country["facts"] }) {
   );
 }
 
-function ExperienceTypesShowcase({ types }: { types: ExperienceType[] }) {
+function ExperienceTypePill({ id }: { id?: string }) {
+  const exp = id ? experienceTypes.find((e) => e.id === id) : undefined;
+  if (!exp) return null;
   return (
-    <div className="exp-types-carousel relative">
+    <span
+      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider font-heading"
+      style={{ background: `${exp.color}22`, border: `1px solid ${exp.color}80`, color: exp.color }}
+    >
+      <span className="text-sm leading-none">{exp.emoji}</span>
+      {exp.name}
+    </span>
+  );
+}
+
+function ActivityShowcase({ items }: { items: BucketListItem[] }) {
+  return (
+    <div className="activities-carousel relative">
       <Swiper
         modules={[Navigation, FreeMode]}
         spaceBetween={16}
-        slidesPerView={1.2}
+        slidesPerView={1.1}
         freeMode={{ enabled: true, sticky: false }}
-        navigation={{ nextEl: ".exp-types-next", prevEl: ".exp-types-prev" }}
+        navigation={{ nextEl: ".activities-next", prevEl: ".activities-prev" }}
         breakpoints={{
-          480: { slidesPerView: 1.6 },
-          640: { slidesPerView: 2.3, spaceBetween: 16 },
-          1024: { slidesPerView: 3.2, spaceBetween: 20 },
+          480: { slidesPerView: 1.4 },
+          640: { slidesPerView: 2.1, spaceBetween: 16 },
+          1024: { slidesPerView: 3, spaceBetween: 24 },
         }}
         speed={600}
       >
-        {types.map((t) => (
-          <SwiperSlide key={t.id}>
-            <div className="group relative overflow-hidden rounded-[10px] h-full">
-              <div className="relative aspect-[3/4] overflow-hidden bg-black">
-                {t.video ? (
+        {items.map((item) => (
+          <SwiperSlide key={item.id} className="!h-auto">
+            <div className="group h-full flex flex-col overflow-hidden rounded-[10px] bg-tru-navy border border-white/10 hover:border-tru-pink/30 transition-all duration-300" style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}>
+              {/* Media */}
+              <div className="relative aspect-[4/3] overflow-hidden bg-black">
+                {item.video ? (
                   <video
-                    src={t.video}
-                    poster={t.poster ?? t.image}
+                    src={item.video}
+                    poster={item.poster ?? item.image}
                     autoPlay
                     muted
                     loop
@@ -64,40 +79,33 @@ function ExperienceTypesShowcase({ types }: { types: ExperienceType[] }) {
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                 ) : (
-                  <img src={t.image} alt={t.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img src={item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                <div className="absolute top-4 left-4 flex items-center gap-2">
-                  <span className="text-2xl">{t.emoji}</span>
-                  {t.video && (
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute top-3 left-3 flex items-center gap-2">
+                  <ExperienceTypePill id={item.experienceType} />
+                  {item.video && (
                     <span className="bg-white/20 backdrop-blur-sm text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full font-heading">
                       Video
                     </span>
                   )}
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 p-5">
-                  <h3 className="text-lg font-black text-white uppercase font-heading mb-1">{t.name}</h3>
-                  <p className="text-xs leading-relaxed mb-3" style={{ color: t.color }}>{t.tagline}</p>
-                  <ul className="space-y-1">
-                    {t.experiences.slice(0, 2).map((e) => (
-                      <li key={e} className="flex items-start gap-2 text-gray-200 text-[11px] leading-snug">
-                        <svg className="h-3 w-3 mt-0.5 flex-shrink-0" style={{ color: t.color }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                        {e}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              </div>
+              {/* Content */}
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="text-lg font-black text-white uppercase font-heading leading-tight mb-2 group-hover:text-tru-pink transition-colors">
+                  <span className="mr-1.5">{item.emoji}</span>{item.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      <button className="exp-types-prev absolute top-[calc(50%-20px)] -left-2 sm:-left-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
+      <button className="activities-prev absolute top-[calc(50%-20px)] -left-2 sm:-left-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
         <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
       </button>
-      <button className="exp-types-next absolute top-[calc(50%-20px)] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
+      <button className="activities-next absolute top-[calc(50%-20px)] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
         <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
       </button>
     </div>
@@ -341,16 +349,16 @@ export default function CountryPage({ country }: { country: Country }) {
         </div>
       </section>
 
-      {/* Experience Types */}
+      {/* Experiences / Things To Do */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20">
-        <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">The TRU Experience</p>
+        <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">The Experiences</p>
         <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95] mb-4">
-          More Than A <span className="text-tru-pink">Trip</span>
+          Things To Do In <span className="text-tru-pink">{country.name}</span>
         </h2>
         <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
-          Every {country.name} trip is built around our experience types — Local Lens moments through local eyes, Rise Up challenges that push you, and Bucket List highlights you&apos;ll never forget. It&apos;s the mix that makes a Tru trip more than just a holiday.
+          A taste of the experiences waiting for you — each one tagged by type so you know exactly what you&apos;re in for. Cook with locals on a <span className="text-white font-semibold">Local Lens</span> day, push your limits with a <span className="text-white font-semibold">Rise Up</span> challenge, and tick off the <span className="text-white font-semibold">Bucket List</span> moments you came here for.
         </p>
-        <ExperienceTypesShowcase types={experienceTypes} />
+        <ActivityShowcase items={country.bucketList} />
       </section>
 
       {/* Where You'll Stay */}
@@ -361,7 +369,7 @@ export default function CountryPage({ country }: { country: Country }) {
             Sleep Somewhere <span className="text-tru-green">Special</span>
           </h2>
           <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-8">
-            From floating bungalows to beach resorts — here&apos;s the kind of stays you&apos;ll wake up in across {country.name}.
+            A few of the stays our {country.name} tours call home — from floating bungalows on a jungle lake to beach resorts steps from the sand.
           </p>
           <AccommodationMediaCarousel items={country.accommodation} />
         </section>

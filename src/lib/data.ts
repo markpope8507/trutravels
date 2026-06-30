@@ -2007,6 +2007,11 @@ export type BucketListItem = {
   description: string;
   image: string;
   emoji: string;
+  /** Which experience type this activity belongs to (matches experienceTypes id). */
+  experienceType?: string;
+  /** Optional video — when set the card plays this clip instead of the image. */
+  video?: string;
+  poster?: string;
 };
 
 export type ContentSeries = {
@@ -2060,44 +2065,52 @@ export const countries: Country[] = [
       {
         id: "bl-1",
         title: "Full Moon Party",
-        description: "The world's most legendary beach party on Koh Phangan. Neon paint, fire dancers, and thousands of travellers dancing barefoot on the sand until sunrise.",
+        description: "Held on Haad Rin beach the night of every full moon, this is the original beach rave — neon body paint, fire skipping ropes, buckets of Sang Som, and tens of thousands of travellers dancing barefoot until sunrise. A rite of passage you'll be telling stories about for years.",
         image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
         emoji: "🌕",
+        experienceType: "bucket-list",
       },
       {
         id: "bl-2",
         title: "Island Hopping",
-        description: "Explore Thailand's 1,430 islands — from the iconic Phi Phi to hidden gems like Koh Lipe. Crystal water, white sand, and zero stress.",
+        description: "Long-tail boats weave between Thailand's limestone islands — from the postcard-famous Phi Phi to quiet, palm-fringed coves you'll have almost to yourselves. Snorkel over coral, swim in glassy bays, and watch the sun drop with no agenda but the tide.",
         image: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80",
         emoji: "🏝️",
+        experienceType: "unplugged",
       },
       {
         id: "bl-3",
-        title: "Temple Visits",
-        description: "From the golden spires of the Grand Palace to the ancient ruins of Ayutthaya. Thailand's 40,000+ temples are jaw-droppingly beautiful.",
+        title: "Temples & Local Culture",
+        description: "Step inside Thailand's living temples with someone who actually knows them — from the golden spires of Bangkok's Grand Palace to the crumbling ruins of Ayutthaya. Learn the etiquette, the symbolism, and the everyday rituals that locals still keep today.",
         image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80",
         emoji: "🛕",
+        experienceType: "local-lens",
       },
       {
         id: "bl-4",
         title: "Thai Cooking Class",
-        description: "Learn to make pad thai, green curry, and mango sticky rice from scratch. You'll never order takeaway the same way again.",
+        description: "Head to the market to pick out lemongrass, galangal and bird's-eye chillies, then cook alongside a local family. You'll pound your own curry paste and plate up pad thai, green curry and mango sticky rice — recipes you'll take home with you.",
         image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
         emoji: "👩‍🍳",
+        experienceType: "local-lens",
+        video: "https://videos.pexels.com/video-files/4434242/4434242-sd_506_960_24fps.mp4",
+        poster: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
       },
       {
         id: "bl-5",
-        title: "Floating Bungalows",
-        description: "Wake up on an emerald lake surrounded by limestone mountains in Khao Sok National Park. One of the most magical stays in the world.",
+        title: "Khao Sok Floating Bungalows",
+        description: "An exclusive overnight deep in Khao Sok National Park — your own raft-house floating on an emerald lake ringed by jungle-clad limestone cliffs. Kayak at dawn, swim straight off your deck, and fall asleep to nothing but the sound of the rainforest.",
         image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80",
         emoji: "🛖",
+        experienceType: "tru-ly-unique",
       },
       {
         id: "bl-6",
         title: "Muay Thai Lesson",
-        description: "Get your hands wrapped and step into the ring for an intro to Thailand's national sport. Whether you're a natural or completely useless, it's an absolute laugh.",
+        description: "Get your hands wrapped and learn the art of eight limbs from a real fighter. Drill jabs, elbows and kicks, then spar it out in the ring. Whether you're a natural or completely useless, you'll leave buzzing — and with a new respect for Thailand's national sport.",
         image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
         emoji: "🥊",
+        experienceType: "rise-up",
       },
     ],
     accommodation: [
