@@ -65,10 +65,7 @@ function PlatformCard({ p }: { p: Platform }) {
 
 function ReviewCard({ r }: { r: Review }) {
   return (
-    <div
-      className="rounded-[10px] border border-white/10 bg-tru-navy p-5 flex flex-col h-full"
-      style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
-    >
+    <div className="rounded-[10px] border border-white/10 p-5 flex flex-col h-full">
       <div className="mb-3">
         <Stars />
       </div>
