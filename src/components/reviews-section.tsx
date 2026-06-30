@@ -52,10 +52,7 @@ function Stars({ size = "h-4 w-4", color = "#FBBC05" }: { size?: string; color?:
 
 function PlatformCard({ p }: { p: Platform }) {
   return (
-    <div
-      className="rounded-[10px] border border-white/10 bg-tru-navy p-5 flex items-center gap-4"
-      style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
-    >
+    <div className="rounded-[10px] border border-white/10 p-5 flex items-center gap-4">
       <span className="text-4xl font-black font-heading leading-none" style={{ color: p.color }}>
         {p.score}
       </span>
