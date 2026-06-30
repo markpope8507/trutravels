@@ -318,10 +318,10 @@ export default function HomePage() {
             <div>
               <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Stories</p>
               <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[0.95] mb-5">
-                Tales From <span className="text-tru-green">The Road</span>
+                Stories From <span className="text-tru-green">The Road</span>
               </h2>
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-8 max-w-md">
-                First-timer tips, destination deep-dives and honest stories from travellers and the Tru crew. The good, the unexpected and the unforgettable — straight from the road.
+                First-timer tips, destination deep-dives and honest stories from travellers and the Tru crew — long-reads to lose an afternoon in and video diaries to watch. The good, the unexpected and the unforgettable, straight from the road.
               </p>
               <PillButton href="/stories">Read All Stories</PillButton>
             </div>
