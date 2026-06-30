@@ -424,7 +424,7 @@ export default function HomePage() {
             <div>
               <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-4 font-heading">Join Our Community</p>
               <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6 uppercase font-heading">
-                This Is More<br />Than A Trip<br />Company
+                We Are More<br />Than A Travel<br />Company
               </h2>
               <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-md">
                 TruTravels is a community. A lifestyle. A way of seeing the world differently. Membership is free — and it unlocks everything.
