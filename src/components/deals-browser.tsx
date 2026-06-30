@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { trips, type Trip } from "@/lib/data";
 import DealCard, { getUpcomingDepartures } from "@/components/deal-card";
+import PillButton from "@/components/pill-button";
 
 const PAGE_SIZE = 6;
 
@@ -361,15 +362,9 @@ export default function DealsBrowser() {
                   </div>
                   {dealsLimit < sortedDeals.length && (
                     <div className="pt-8 text-center">
-                      <button
-                        onClick={() => setDealsLimit((n) => n + PAGE_SIZE)}
-                        className="inline-flex items-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-6 py-2.5 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading"
-                      >
+                      <PillButton onClick={() => setDealsLimit((n) => n + PAGE_SIZE)} arrow="down">
                         Show More Deals
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                        </svg>
-                      </button>
+                      </PillButton>
                       <p className="mt-2 text-[10px] text-gray-500 uppercase tracking-wider font-heading">
                         Showing {dealsLimit} of {sortedDeals.length}
                       </p>

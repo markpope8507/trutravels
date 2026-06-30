@@ -8,6 +8,7 @@ import { Country, Trip, BucketListItem, experienceTypes, trips as allTrips, stor
 import TripCard from "@/components/trip-card";
 import StoryCard from "@/components/story-card";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
+import PillButton from "@/components/pill-button";
 import { useAuth } from "@/lib/auth-context";
 import { tripUrl } from "@/lib/utils";
 
@@ -377,15 +378,9 @@ function UpcomingDepartures({ countryTrips }: { countryTrips: Trip[] }) {
       </div>
       {visible < departures.length && (
         <div className="pt-8 text-center">
-          <button
-            onClick={() => setVisible((n) => n + DEPARTURES_PAGE_SIZE)}
-            className="inline-flex items-center gap-2 rounded-full border px-6 py-2.5 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200 border-tru-pink bg-tru-pink text-white active:bg-tru-pink-light sm:border-tru-pink/40 sm:bg-transparent sm:text-tru-pink sm:hover:bg-tru-pink sm:hover:text-white sm:hover:border-tru-pink"
-          >
+          <PillButton onClick={() => setVisible((n) => n + DEPARTURES_PAGE_SIZE)} arrow="down">
             Show More Departures
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
+          </PillButton>
         </div>
       )}
     </div>
@@ -461,13 +456,11 @@ export default function CountryPage({ country }: { country: Country }) {
             <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">Explore</p>
             <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide">{country.name} Trips</h2>
           </div>
-          <Link
-            href={`/explore/all-trips?country=${encodeURIComponent(country.name)}`}
-            className="hidden sm:inline-flex items-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-6 py-2.5 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading whitespace-nowrap flex-shrink-0"
-          >
-            See All Trips
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-          </Link>
+          <div className="hidden sm:block flex-shrink-0">
+            <PillButton href={`/explore/all-trips?country=${encodeURIComponent(country.name)}`} className="whitespace-nowrap">
+              See All Trips
+            </PillButton>
+          </div>
         </div>
         <div className="country-trips-carousel relative">
           <Swiper
@@ -496,13 +489,9 @@ export default function CountryPage({ country }: { country: Country }) {
         </div>
         {/* Mobile "see all" CTA */}
         <div className="sm:hidden mt-6 flex justify-center">
-          <Link
-            href={`/explore/all-trips?country=${encodeURIComponent(country.name)}`}
-            className="inline-flex items-center gap-2 rounded-full border border-tru-pink bg-tru-pink px-6 py-3 text-xs font-bold text-white active:bg-tru-pink-light transition-all duration-200 uppercase tracking-wider font-heading"
-          >
+          <PillButton href={`/explore/all-trips?country=${encodeURIComponent(country.name)}`}>
             See All Trips
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-          </Link>
+          </PillButton>
         </div>
       </section>
 
