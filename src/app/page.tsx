@@ -9,7 +9,7 @@ import DiscoveryPathways from "@/components/discovery-pathways";
 import SearchPrompt from "@/components/search-prompt";
 import JoinCommunity from "@/components/join-community";
 import PillButton from "@/components/pill-button";
-import TrustpilotReviews from "@/components/trustpilot-reviews";
+import ReviewsSection from "@/components/reviews-section";
 
 export default function HomePage() {
   const featuredStory = [...stories]
@@ -473,9 +473,9 @@ export default function HomePage() {
       </section>
 
       {/* ================================================================
-          8. TRUSTPILOT REVIEWS — social proof, scrolling marquee
+          8. REVIEWS — multi-platform social proof (Google, Trustpilot, TourRadar)
           ================================================================ */}
-      <TrustpilotReviews />
+      <ReviewsSection />
 
     </>
   );
