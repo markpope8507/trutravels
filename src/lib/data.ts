@@ -1463,6 +1463,8 @@ export type ExperienceType = {
   description: string;
   message: string;
   image: string;
+  video?: string;
+  poster?: string;
   color: string;
   experiences: string[];
 };
@@ -1477,6 +1479,8 @@ export const experienceTypes: ExperienceType[] = [
       "Direct connections with local culture, traditions, and communities. Cooking with families, exploring neighbourhoods with locals, and participating in generational cultural practices.",
     message: "Travel becomes more meaningful when you experience a place through the people who live there.",
     image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
+    video: "https://videos.pexels.com/video-files/4434242/4434242-sd_506_960_24fps.mp4",
+    poster: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
     color: "#2172D5",
     experiences: [
       "Cook pad thai with a Bangkok family",
@@ -2034,6 +2038,7 @@ export type Country = {
   bucketList: BucketListItem[];
   contentSeries: ContentSeries[];
   podcasts: PodcastEpisode[];
+  accommodation?: { type: "image" | "video"; src: string; poster?: string; title: string; caption: string }[];
   faqs: { question: string; answer: string }[];
 };
 
@@ -2093,6 +2098,33 @@ export const countries: Country[] = [
         description: "Get your hands wrapped and step into the ring for an intro to Thailand's national sport. Whether you're a natural or completely useless, it's an absolute laugh.",
         image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
         emoji: "🥊",
+      },
+    ],
+    accommodation: [
+      {
+        type: "video",
+        src: "https://videos.pexels.com/video-files/28156618/12312367_1080_1920_50fps.mp4",
+        poster: "https://images.unsplash.com/photo-1455587734955-081b22074882?w=1200&q=80",
+        title: "Tiki Beach Resort, Koh Phangan",
+        caption: "Beachfront bungalows and pools steps from the sand on Thailand's legendary party island.",
+      },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=80",
+        title: "Khao Sok Floating Bungalows",
+        caption: "Wake up on an emerald lake ringed by limestone cliffs — floating bungalows deep in the jungle.",
+      },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=1200&q=80",
+        title: "Krabi Mountain Views",
+        caption: "Tucked beneath Krabi's dramatic karst mountains, a short hop from the beaches.",
+      },
+      {
+        type: "image",
+        src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
+        title: "Bangkok City Hotel",
+        caption: "Central, comfortable hotels in the heart of the buzz before you head for the islands.",
       },
     ],
     contentSeries: [
