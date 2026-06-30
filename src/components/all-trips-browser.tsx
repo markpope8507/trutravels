@@ -80,17 +80,19 @@ export default function AllTripsBrowser({
   pageSize = PAGE_SIZE,
   hideStyleFilter = false,
   heading = "All Trips",
+  initialRegions = [],
 }: {
   trips: Trip[];
   regions: { name: string; count: number }[];
   pageSize?: number;
   hideStyleFilter?: boolean;
   heading?: string;
+  initialRegions?: string[];
 }) {
   const minPrice = useMemo(() => Math.min(...trips.map((t) => t.price)), [trips]);
   const maxPrice = useMemo(() => Math.max(...trips.map((t) => t.price)), [trips]);
 
-  const [selectedRegions, setSelectedRegions] = useState<Set<string>>(new Set());
+  const [selectedRegions, setSelectedRegions] = useState<Set<string>>(() => new Set(initialRegions));
   const [selectedStyles, setSelectedStyles] = useState<Set<TravelStyle>>(new Set());
   const [duration, setDuration] = useState("any");
   const [priceRange, setPriceRange] = useState<[number, number]>([minPrice, maxPrice]);
@@ -99,8 +101,11 @@ export default function AllTripsBrowser({
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [limit, setLimit] = useState(pageSize);
   const [navSticky, setNavSticky] = useState(false);
-  // Which collapsible groups are expanded — all collapsed by default.
-  const [openSections, setOpenSections] = useState<Set<string>>(new Set());
+  // Which collapsible groups are expanded — destination starts open when a
+  // region was pre-selected (e.g. arriving from a country page), else all closed.
+  const [openSections, setOpenSections] = useState<Set<string>>(
+    () => new Set(initialRegions.length > 0 ? ["destination"] : []),
+  );
 
   // Show the fixed sort/filter bar once the original scrolls out of view (mobile).
   useEffect(() => {

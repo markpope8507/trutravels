@@ -441,8 +441,19 @@ export default function CountryPage({ country }: { country: Country }) {
 
       {/* Trips */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20">
-        <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">Explore</p>
-        <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-8">{country.name} Trips</h2>
+        <div className="flex items-end justify-between gap-4 mb-8">
+          <div>
+            <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">Explore</p>
+            <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide">{country.name} Trips</h2>
+          </div>
+          <Link
+            href={`/explore/all-trips?region=${encodeURIComponent(country.region)}`}
+            className="hidden sm:inline-flex items-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-5 py-2.5 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading whitespace-nowrap flex-shrink-0"
+          >
+            See All Trips
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+          </Link>
+        </div>
         <div className="country-trips-carousel relative">
           <Swiper
             modules={[Navigation, FreeMode]}
@@ -468,6 +479,14 @@ export default function CountryPage({ country }: { country: Country }) {
             <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
           </button>
         </div>
+        {/* Mobile "see all" CTA */}
+        <Link
+          href={`/explore/all-trips?region=${encodeURIComponent(country.region)}`}
+          className="sm:hidden mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-tru-pink/40 bg-transparent px-5 py-3 text-xs font-bold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-200 uppercase tracking-wider font-heading"
+        >
+          See All Trips
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </Link>
       </section>
 
       {/* Video Diaries */}

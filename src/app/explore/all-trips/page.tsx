@@ -8,7 +8,13 @@ export const metadata = {
     "Browse every TruTravels group adventure. Filter by destination, travel style, duration and price to find your perfect trip.",
 };
 
-export default function AllTripsPage() {
+export default async function AllTripsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ region?: string }>;
+}) {
+  const { region } = await searchParams;
+  const initialRegions = region && regions.some((r) => r.name === region) ? [region] : [];
   return (
     <>
       {/* HERO */}
@@ -38,7 +44,7 @@ export default function AllTripsPage() {
         </div>
       </section>
 
-      <AllTripsBrowser trips={trips} regions={regions} />
+      <AllTripsBrowser trips={trips} regions={regions} initialRegions={initialRegions} />
     </>
   );
 }
