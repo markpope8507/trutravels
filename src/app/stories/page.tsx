@@ -517,7 +517,7 @@ export default function StoriesPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8">
             {/* Desktop sidebar */}
             <aside className="hidden lg:block">
-              <div className="sticky top-24 rounded-[12px] border border-white/10 bg-tru-navy/60 backdrop-blur-sm p-5">
+              <div className="sticky top-6 rounded-[12px] border border-white/10 bg-tru-navy/60 backdrop-blur-sm p-5">
                 <div className="flex items-center justify-between mb-4">
                   <p className="text-white text-sm font-black uppercase font-heading tracking-wider">Filters</p>
                   {activeFilterCount > 0 && (
