@@ -96,7 +96,7 @@ function ActivityShowcase({ items }: { items: BucketListItem[] }) {
               {/* Content */}
               <div className="p-5 flex flex-col flex-1">
                 <h3 className="text-lg font-black text-white uppercase font-heading leading-tight mb-2 group-hover:text-tru-pink transition-colors">
-                  <span className="mr-1.5">{item.emoji}</span>{item.title}
+                  {item.title}
                 </h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
               </div>
