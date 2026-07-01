@@ -40,8 +40,8 @@ function ExperienceTypePill({ id }: { id?: string }) {
   if (!exp) return null;
   return (
     <span
-      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider font-heading"
-      style={{ background: `${exp.color}22`, border: `1px solid ${exp.color}80`, color: exp.color }}
+      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider font-heading text-white"
+      style={{ background: exp.color }}
     >
       <span className="text-sm leading-none">{exp.emoji}</span>
       {exp.name}
