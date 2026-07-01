@@ -302,7 +302,7 @@ export default async function TripDetailPage({
                 </div>
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {["Accommodation throughout", "Experienced group leader", "All transport between destinations", "Activities listed in itinerary", "Welcome & farewell meals", "Airport pickup on arrival day"].map((item) => (
+                  {["Accommodation throughout", "A Local Legend who knows the way (not just a guide)", "All transport between destinations", "Activities listed in itinerary", "Welcome & farewell meals", "Airport pickup on arrival day"].map((item) => (
                     <div key={item} className="flex items-center gap-3 bg-white/5 rounded-xl p-4">
                       <div className="h-8 w-8 rounded-full bg-tru-green/20 flex items-center justify-center flex-shrink-0">
                         <svg className="h-4 w-4 text-tru-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
