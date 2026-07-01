@@ -41,9 +41,9 @@ export default function DestinationsCarousel({
           freeMode={{ enabled: true, sticky: false }}
           navigation={{ nextEl: ".also-like-next", prevEl: ".also-like-prev" }}
           breakpoints={{
-            480: { slidesPerView: 2 },
-            640: { slidesPerView: 3 },
-            1024: { slidesPerView: 4, spaceBetween: 20 },
+            480: { slidesPerView: 2.2 },
+            640: { slidesPerView: 3.2 },
+            1024: { slidesPerView: 4.2, spaceBetween: 20 },
           }}
           speed={600}
         >
