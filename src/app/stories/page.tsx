@@ -23,6 +23,7 @@ import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import FilterSection from "@/components/filter-section";
 import StoryCard from "@/components/story-card";
 import FeaturedStoryCard from "@/components/featured-story-card";
+import PillButton from "@/components/pill-button";
 
 // Region → countries taxonomy for the nested Destination filter (mirrors the
 // site's destination structure). Tagging will populate these against stories.
@@ -43,9 +44,12 @@ const TOPIC_OPTIONS: { id: string; label: string }[] = [
 const countryStoryCount = (country: string) =>
   stories.filter((s) => s.destinations.includes(country)).length;
 
+const STORIES_PAGE_SIZE = 6;
+
 export default function StoriesPage() {
   const { isLoggedIn } = useAuth();
   const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(STORIES_PAGE_SIZE);
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [selectedCountries, setSelectedCountries] = useState<Set<string>>(new Set());
   const [selectedMoments, setSelectedMoments] = useState<Set<string>>(new Set());
@@ -117,6 +121,20 @@ export default function StoriesPage() {
 
   const activeFilterCount = selectedTags.size + selectedCountries.size + selectedMoments.size;
   const hasActiveFilters = activeFilterCount > 0 || query.trim().length > 0;
+
+  // Reset the visible count back to one page whenever the filters/sort change.
+  const filterKey = JSON.stringify([
+    [...selectedTags].sort(),
+    [...selectedCountries].sort(),
+    [...selectedMoments].sort(),
+    query.trim(),
+    sort,
+  ]);
+  const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
+  if (filterKey !== prevFilterKey) {
+    setPrevFilterKey(filterKey);
+    setVisibleCount(STORIES_PAGE_SIZE);
+  }
 
   const makeToggle =
     (setter: React.Dispatch<React.SetStateAction<Set<string>>>) => (value: string) =>
@@ -560,7 +578,7 @@ export default function StoriesPage() {
 
               {/* Count */}
               <p className="text-sm text-gray-500 mb-6">
-                Showing {filtered.length} of {rest.length}{" "}
+                Showing {Math.min(visibleCount, filtered.length)} of {filtered.length}{" "}
                 {filtered.length === 1 ? "story" : "stories"}
                 {hasActiveFilters && (
                   <button
@@ -574,11 +592,20 @@ export default function StoriesPage() {
 
               {/* Grid */}
               {filtered.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                  {filtered.map((story) => (
-                    <StoryCard key={story.id} story={story} isLoggedIn={isLoggedIn} />
-                  ))}
-                </div>
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    {filtered.slice(0, visibleCount).map((story) => (
+                      <StoryCard key={story.id} story={story} isLoggedIn={isLoggedIn} />
+                    ))}
+                  </div>
+                  {visibleCount < filtered.length && (
+                    <div className="pt-10 text-center">
+                      <PillButton onClick={() => setVisibleCount((n) => n + STORIES_PAGE_SIZE)} arrow="down">
+                        Show More Stories
+                      </PillButton>
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="rounded-[10px] border border-dashed border-white/10 py-20 text-center">
                   <p className="text-gray-400 mb-4">No stories match those filters yet.</p>
