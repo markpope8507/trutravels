@@ -319,7 +319,7 @@ export const trips: Trip[] = [
       accommodation: "13 nights in hotels, floating bungalows & beach bungalows",
       transport: "All transport included — private van, overnight train, 2x ferry transfers",
       meals: "4 breakfasts, 4 lunches, 1 dinner",
-      leader: "Your own Local Legend throughout",
+      leader: "More a mate who happens to know the way than a guide",
       activities: [
         {
           name: "Bangkok river cruise & temple visits",
