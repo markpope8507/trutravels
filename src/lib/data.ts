@@ -11,7 +11,7 @@ export const travelStyleConfig: Record<TravelStyle, { label: string; color: stri
     color: "#2172D5",
     icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
     logo: "/classic-logo.png",
-    description: "We've perfected the balance between culture, adventure, beaches and parties. A high level of inclusions at a low cost. Highlights, hotspots & hidden gems are crafted into each itinerary with our own TruExclusives. We stay in a variety of different accommodations such as hotels, hostels, homestays, beach huts & even boats.",
+    description: "The perfect balance of culture, adventure, beaches and parties — big on inclusions, low on cost, with TruExclusives and a great mix of accommodation.",
   },
   backpacker: {
     label: "Backpacker",

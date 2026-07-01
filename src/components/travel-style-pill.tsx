@@ -14,12 +14,6 @@ export default function TravelStylePill({ style }: { style: TravelStyle }) {
         <p className="text-[10px] text-gray-400 uppercase tracking-wider font-heading mb-1">
           Travel Style
         </p>
-        <p
-          className="text-lg font-black uppercase tracking-wide font-heading mb-1.5"
-          style={{ color: config.color }}
-        >
-          {config.label}
-        </p>
         <p className="text-gray-300 text-sm leading-relaxed">{config.description}</p>
       </div>
     </div>
