@@ -13,7 +13,7 @@ const FOOTER_COLUMNS = [
       { name: "How It Works", href: "/whats-included" },
       { name: "Deals", href: "/deals" },
       { name: "Stories", href: "/stories" },
-      { name: "VIP Club", href: "/membership" },
+      { name: "VIP Club", href: "/about/vip-programme" },
       { name: "My Account", href: "/member/dashboard" },
     ],
   },
