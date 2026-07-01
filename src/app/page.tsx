@@ -10,6 +10,7 @@ import SearchPrompt from "@/components/search-prompt";
 import PillButton from "@/components/pill-button";
 import ReviewsSection from "@/components/reviews-section";
 import FeaturedStoryCard from "@/components/featured-story-card";
+import DestinationsCarousel from "@/components/destinations-carousel";
 
 export default function HomePage() {
   const featuredStory = [...stories]
@@ -310,6 +311,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ================================================================
+          9. DESTINATIONS — "You Might Also Like" carousel
+          ================================================================ */}
+      <DestinationsCarousel />
 
     </>
   );
