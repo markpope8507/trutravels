@@ -137,9 +137,9 @@ export default function HomePage() {
 
         {/* Why Choose Our Tours — the Tru difference */}
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16">
-          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading text-center">The Tru Difference</p>
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading text-center">Are We Right For You?</p>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading mb-10 text-center">
-            Why Choose <span className="text-gradient">Our Trips?</span>
+            Here&apos;s What We&apos;re <span className="text-gradient">About</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
             {/* Find Your People */}
