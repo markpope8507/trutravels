@@ -18,16 +18,28 @@ const DESTINATIONS = [
   { name: "Thailand", slug: "thailand", region: "asia", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", tagline: "The Land of Smiles" },
 ];
 
+export type DestinationCard = {
+  name: string;
+  slug: string;
+  region: string;
+  image: string;
+  tagline: string;
+};
+
 export default function DestinationsCarousel({
   excludeName,
   eyebrow = "Explore More",
   title = "You Might Also Like",
+  items: itemsProp,
+  limit = 6,
 }: {
   excludeName?: string;
   eyebrow?: string;
   title?: string;
+  items?: DestinationCard[];
+  limit?: number;
 }) {
-  const items = DESTINATIONS.filter((c) => c.name !== excludeName).slice(0, 6);
+  const items = (itemsProp ?? DESTINATIONS).filter((c) => c.name !== excludeName).slice(0, limit);
 
   return (
     <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">

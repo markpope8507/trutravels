@@ -2047,6 +2047,31 @@ export type Country = {
   faqs: { question: string; answer: string }[];
 };
 
+// ============================================================
+// REGIONS — continent landing pages (e.g. /destinations/asia)
+// ============================================================
+export type RegionInfo = {
+  slug: string;
+  name: string;
+  tagline: string;
+  description: string;
+  heroImage: string;
+  /** Country ids that belong to this region, in display order. */
+  countryIds: string[];
+};
+
+export const regionPages: RegionInfo[] = [
+  {
+    slug: "asia",
+    name: "Asia",
+    tagline: "Where The Adventure Begins",
+    description:
+      "From the temples of Angkor to the islands of the Andaman, Asia is where most first trips begin — and where the travel bug bites hardest. Street food that ruins you for home, full moon parties, jungle treks, ancient cultures and beaches that don't look real. One unforgettable continent, endless ways to explore it.",
+    heroImage: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1920&q=80",
+    countryIds: ["thailand", "indonesia", "philippines", "vietnam", "cambodia", "sri-lanka", "india", "japan", "china"],
+  },
+];
+
 export const countries: Country[] = [
   {
     id: "thailand",

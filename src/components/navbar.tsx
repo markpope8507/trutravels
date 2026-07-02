@@ -6,6 +6,10 @@ import { useAuth } from "@/lib/auth-context";
 import { useCart } from "@/lib/cart-context";
 import SearchOverlay from "@/components/search-overlay";
 import { LIFE_MOMENTS } from "@/lib/life-moments";
+import { regionPages } from "@/lib/data";
+import { slugify } from "@/lib/utils";
+
+const REGION_PAGE_SLUGS = new Set(regionPages.map((r) => r.slug));
 
 // ============================================================
 // NAV DATA — Real TruTravels destinations & structure
@@ -348,11 +352,20 @@ export default function Navbar() {
               <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -bottom-8 right-[40%] w-28 rotate-[-12deg] opacity-[0.05] brightness-0 invert" />
               <div className="relative grid grid-cols-12 gap-6">
                 <div className="col-span-9 grid grid-cols-5 gap-6">
-                  {destinations.map((region) => (
+                  {destinations.map((region) => {
+                    const regionSlug = slugify(region.region);
+                    const regionHref = REGION_PAGE_SLUGS.has(regionSlug) ? `/destinations/${regionSlug}` : null;
+                    return (
                     <div key={region.region}>
-                      <p className="text-xs font-black uppercase tracking-[0.18em] text-tru-pink font-heading mb-3">
-                        {region.region}
-                      </p>
+                      {regionHref ? (
+                        <Link href={regionHref} onClick={closeAll} className="block text-xs font-black uppercase tracking-[0.18em] text-tru-pink hover:text-tru-pink-light font-heading mb-3">
+                          {region.region}
+                        </Link>
+                      ) : (
+                        <p className="text-xs font-black uppercase tracking-[0.18em] text-tru-pink font-heading mb-3">
+                          {region.region}
+                        </p>
+                      )}
                       <div className="space-y-0.5">
                         {region.countries.map((country) => (
                           <Link
@@ -374,11 +387,12 @@ export default function Navbar() {
                           </Link>
                         ))}
                       </div>
-                      <Link href="/explore" onClick={closeAll} className="text-[10px] font-semibold uppercase tracking-wider text-tru-pink hover:text-tru-pink-light transition mt-3 block px-2">
+                      <Link href={regionHref || "/explore"} onClick={closeAll} className="text-[10px] font-semibold uppercase tracking-wider text-tru-pink hover:text-tru-pink-light transition mt-3 block px-2">
                         View all &rarr;
                       </Link>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
                 <div className="col-span-3">
                   {hoveredItem ? (

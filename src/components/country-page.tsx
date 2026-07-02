@@ -49,7 +49,7 @@ function ExperienceTypePill({ id }: { id?: string }) {
   );
 }
 
-function ActivityShowcase({ items }: { items: BucketListItem[] }) {
+export function ActivityShowcase({ items }: { items: BucketListItem[] }) {
   return (
     <div className="activities-carousel relative">
       <Swiper
@@ -354,7 +354,7 @@ function DepartureRow({ trip, dep }: DepartureEntry) {
   );
 }
 
-function UpcomingDepartures({ countryTrips }: { countryTrips: Trip[] }) {
+export function UpcomingDepartures({ countryTrips }: { countryTrips: Trip[] }) {
   const [visible, setVisible] = useState(DEPARTURES_PAGE_SIZE);
 
   const today = new Date();
