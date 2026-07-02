@@ -220,6 +220,7 @@ export default function TheTruWayPage() {
             <FeatureRow
               key={e.id}
               index={idx}
+              tinted
               images={EXPERIENCE_GALLERIES[e.id]}
               alt={e.name}
               accent={e.color}

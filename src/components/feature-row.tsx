@@ -14,6 +14,7 @@ export default function FeatureRow({
   body,
   bullets,
   index,
+  tinted = false,
 }: {
   images: GalleryImage[];
   alt: string;
@@ -24,13 +25,21 @@ export default function FeatureRow({
   body: string;
   bullets: string[];
   index: number;
+  tinted?: boolean;
 }) {
   const imageLeft = index % 2 === 0;
   const textCol = imageLeft ? "lg:col-start-2" : "lg:col-start-1";
   const imgCol = imageLeft ? "lg:col-start-1" : "lg:col-start-2";
 
+  const gridClass = tinted
+    ? "grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-x-12 lg:gap-y-4 lg:items-center rounded-[16px] border p-5 sm:p-8 lg:p-10"
+    : "grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-x-12 lg:gap-y-4 lg:items-center";
+
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-x-12 lg:gap-y-4 lg:items-center">
+    <div
+      className={gridClass}
+      style={tinted ? { background: `${accent}0D`, borderColor: `${accent}33` } : undefined}
+    >
       {/* Title */}
       <div className={`order-1 ${textCol} lg:row-start-1 lg:self-end`}>
         <div
