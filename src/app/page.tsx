@@ -137,9 +137,9 @@ export default function HomePage() {
 
         {/* Why Choose Our Tours — the Tru difference */}
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16">
-          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading text-center">See If It&apos;s Your Vibe</p>
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading text-center">The Tru Way</p>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading mb-10 text-center">
-            This Is How We <span className="text-gradient">Travel</span>
+            How We Do <span className="text-gradient">Things</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
             {/* Find Your People */}
@@ -191,7 +191,7 @@ export default function HomePage() {
 
         {/* What's Included CTA */}
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16 text-center">
-          <PillButton href="/whats-included">See What&apos;s Included</PillButton>
+          <PillButton href="/whats-included">Tell Me More</PillButton>
         </div>
 
       </section>
