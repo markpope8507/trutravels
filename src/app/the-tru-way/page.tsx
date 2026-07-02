@@ -113,6 +113,35 @@ const INCLUSIONS: Inclusion[] = [
   },
 ];
 
+// Image galleries for each experience type (keyed by experienceTypes id).
+const EXPERIENCE_GALLERIES: Record<string, GalleryImage[]> = {
+  "local-lens": [
+    { src: "https://cdn.trutravels.com/images/bali-ubud-cookingclass6.jpg", caption: "Cook with a local family" },
+    { src: "https://cdn.trutravels.com/images/cusco-markets.jpg", caption: "Local market tours" },
+    { src: "https://cdn.trutravels.com/africa/morocco-images/morocco-uncovered-day-2-marrakech-markets-exploring.jpg", caption: "Wander the medina with a local" },
+  ],
+  "rise-up": [
+    { src: "https://cdn.trutravels.com/images/peru-trek-3.jpg", caption: "Sunrise summit treks" },
+    { src: "https://cdn.trutravels.com/images/sumatra-trek-1.jpg", caption: "Jungle treks" },
+    { src: "https://cdn.trutravels.com/indonesia-images/surfing-lesson-bali.jpg", caption: "Learn to surf" },
+  ],
+  "bucket-list": [
+    { src: "https://cdn.trutravels.com/ancient-egypt/trutravels-cairo-pyramids.jpg", caption: "Pyramids of Giza" },
+    { src: "https://cdn.trutravels.com/greece/greece-island-hopper-017.jpg", caption: "Greek island sunsets" },
+    { src: "https://cdn.trutravels.com/indonesia/pink-beach-komodo-islands.jpg", caption: "Komodo National Park" },
+  ],
+  "tru-ly-unique": [
+    { src: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg", caption: "Private beach parties" },
+    { src: "https://cdn.trutravels.com/images/thailandbeachbarkohphangan.jpg", caption: "Exclusive beach bars" },
+    { src: "https://cdn.trutravels.com/thailand/girls-koh-nang-yuan.jpg", caption: "Secret viewpoints" },
+  ],
+  unplugged: [
+    { src: "https://cdn.trutravels.com/blog/khao-sok-southern-thailand-blog.jpg", caption: "Switch off in Khao Sok" },
+    { src: "https://cdn.trutravels.com/images/northernthailandviews.jpg", caption: "Slow mountain mornings" },
+    { src: "https://cdn.trutravels.com/images/sumatra-homestay-2.jpg", caption: "Off-grid homestays" },
+  ],
+};
+
 export default function TheTruWayPage() {
   return (
     <>
@@ -141,38 +170,8 @@ export default function TheTruWayPage() {
         </div>
       </section>
 
-      {/* Tru Experience Architecture */}
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-16">
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05] mb-5">
-            Tru Experience <span className="text-tru-pink">Architecture</span>
-          </h2>
-          <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
-            Every itinerary is intentionally designed around five experience types. Some trips lean harder into one than another — so you can search and choose by the kind of experiences you actually want to have, not just where you&apos;re going.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-10">
-          {experienceTypes.map((e) => (
-            <div key={e.id}>
-              <div className="flex flex-col items-center gap-2 mb-3 text-center">
-                <span
-                  className="h-14 w-14 rounded-full flex items-center justify-center text-2xl"
-                  style={{ background: `${e.color}22`, border: `1px solid ${e.color}66` }}
-                >
-                  {e.emoji}
-                </span>
-                <h3 className="font-black uppercase font-heading text-base sm:text-lg leading-tight" style={{ color: e.color }}>{e.name}</h3>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed text-center max-w-[15rem] mx-auto">{e.tagline}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Detailed inclusions — alternating rows with swipeable galleries */}
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
+      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-20">
         <div className="mb-12 sm:mb-16">
           <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Included As Standard</p>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
@@ -215,6 +214,60 @@ export default function TheTruWayPage() {
                         </svg>
                       </span>
                       {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Tru Experience Architecture — same alternating format */}
+      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="mb-12 sm:mb-16">
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
+            Tru Experience <span className="text-tru-pink">Architecture</span>
+          </h2>
+          <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
+            Every itinerary is intentionally designed around five experience types. Some trips lean harder into one than another — so you can search and choose by the kind of experiences you actually want to have, not just where you&apos;re going.
+          </p>
+        </div>
+        <div className="space-y-16 sm:space-y-24">
+          {experienceTypes.map((e, idx) => (
+            <div
+              key={e.id}
+              className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${
+                idx % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
+              }`}
+            >
+              <InclusionGallery images={EXPERIENCE_GALLERIES[e.id]} alt={e.name} />
+              <div>
+                <div
+                  className="mb-4 h-14 w-14 rounded-full flex items-center justify-center text-2xl"
+                  style={{ background: `${e.color}22`, border: `1px solid ${e.color}66` }}
+                >
+                  {e.emoji}
+                </div>
+                <p className="text-xs font-bold uppercase tracking-[0.3em] mb-3 font-heading" style={{ color: e.color }}>
+                  {e.name}
+                </p>
+                <h3 className="text-3xl sm:text-4xl font-black text-white uppercase font-heading leading-[1.05] mb-5">
+                  {e.tagline.replace(/\.$/, "")}
+                </h3>
+                <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
+                  {e.description}
+                </p>
+                <ul className="space-y-2.5">
+                  {e.experiences.slice(0, 3).map((ex) => (
+                    <li key={ex} className="flex items-start gap-3 text-gray-300 text-sm">
+                      <span className="mt-1 h-4 w-4 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: `${e.color}26` }}>
+                        <svg className="h-2.5 w-2.5" style={{ color: e.color }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                      {ex}
                     </li>
                   ))}
                 </ul>
