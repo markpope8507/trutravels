@@ -150,7 +150,7 @@ export default function TheTruWayPage() {
       <section className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
         <img
           src="/images/the-tru-way-hero.jpg"
-          alt="TruTravels friends making a heart on the beach"
+          alt="A TruTravels group on a boat trip"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-tru-navy/40 via-tru-navy/60 to-tru-navy/95" />
