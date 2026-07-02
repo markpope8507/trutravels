@@ -143,37 +143,31 @@ export default function TheTruWayPage() {
 
       {/* Tru Experience Architecture */}
       <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 lg:items-center">
-          {/* Copy */}
-          <div>
-            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
-              Tru Experience<br /><span className="text-tru-pink">Architecture</span>
-            </h2>
-            <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
-              Every itinerary is intentionally designed around our five experience types — some trips lean harder into one than another, so you can search and choose by the kind of experiences you actually want to have, not just where you&apos;re going.
-            </p>
-          </div>
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05] mb-5">
+            Tru Experience <span className="text-tru-pink">Architecture</span>
+          </h2>
+          <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
+            Every itinerary is intentionally designed around five experience types. Some trips lean harder into one than another — so you can search and choose by the kind of experiences you actually want to have, not just where you&apos;re going.
+          </p>
+        </div>
 
-          {/* The five experience types */}
-          <div className="space-y-3">
-            {experienceTypes.map((e) => (
-              <div key={e.id} className="flex items-start gap-4 rounded-[12px] border border-white/10 bg-white/[0.03] p-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-10">
+          {experienceTypes.map((e) => (
+            <div key={e.id}>
+              <div className="flex flex-col items-center gap-2 mb-3 text-center">
                 <span
-                  className="h-11 w-11 rounded-full flex items-center justify-center text-xl flex-shrink-0"
+                  className="h-14 w-14 rounded-full flex items-center justify-center text-2xl"
                   style={{ background: `${e.color}22`, border: `1px solid ${e.color}66` }}
                 >
                   {e.emoji}
                 </span>
-                <div className="min-w-0">
-                  <p className="font-black font-heading text-sm uppercase tracking-wide" style={{ color: e.color }}>{e.name}</p>
-                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
-                    <span className="text-gray-500">e.g.</span> {e.experiences[0]}
-                  </p>
-                </div>
+                <h3 className="font-black uppercase font-heading text-base sm:text-lg leading-tight" style={{ color: e.color }}>{e.name}</h3>
               </div>
-            ))}
-          </div>
+              <p className="text-gray-400 text-sm leading-relaxed text-center max-w-[15rem] mx-auto">{e.tagline}</p>
+            </div>
+          ))}
         </div>
       </section>
 
