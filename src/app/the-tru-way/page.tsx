@@ -117,7 +117,7 @@ export default function TheTruWayPage() {
   return (
     <>
       {/* HERO — the title now lives in the overlay */}
-      <section className="relative h-[60vh] min-h-[440px] flex items-center overflow-hidden">
+      <section className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
         <img
           src="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg"
           alt="A TruTravels group in the sea"
@@ -148,8 +148,28 @@ export default function TheTruWayPage() {
         </p>
       </section>
 
+      {/* Tru Experience Architecture */}
+      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+        <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
+        <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
+          Tru Experience <span className="text-tru-pink">Architecture</span>
+        </h2>
+        <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
+          Every itinerary is intentionally designed around our five experience types — Local Lens, Rise Up, Bucket List, Tru-ly Unique and Unplugged. Some trips lean harder into one than another, so you can search and choose by the kind of experiences you actually want to have, not just where you&apos;re going.
+        </p>
+      </section>
+
       {/* Detailed inclusions — alternating rows with swipeable galleries */}
       <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="mb-12 sm:mb-16">
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Included As Standard</p>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
+            What You Get <span className="text-tru-pink">As Standard</span>
+          </h2>
+          <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
+            Whatever the mix of experiences, the essentials are always sorted. Here&apos;s what&apos;s baked into every single Tru trip.
+          </p>
+        </div>
         <div className="space-y-16 sm:space-y-24">
           {INCLUSIONS.map((item, idx) => (
             <div
