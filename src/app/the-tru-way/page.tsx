@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { truPromises } from "@/lib/data";
+import { truPromises, experienceTypes } from "@/lib/data";
 import InclusionGallery, { type GalleryImage } from "@/components/inclusion-gallery";
 
 export const metadata = {
@@ -143,13 +143,38 @@ export default function TheTruWayPage() {
 
       {/* Tru Experience Architecture */}
       <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-16">
-        <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
-        <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
-          Tru Experience<br /><span className="text-tru-pink">Architecture</span>
-        </h2>
-        <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
-          Every itinerary is intentionally designed around our five experience types — Local Lens, Rise Up, Bucket List, Tru-ly Unique and Unplugged. Some trips lean harder into one than another, so you can search and choose by the kind of experiences you actually want to have, not just where you&apos;re going.
-        </p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 lg:items-center">
+          {/* Copy */}
+          <div>
+            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
+              Tru Experience<br /><span className="text-tru-pink">Architecture</span>
+            </h2>
+            <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
+              Every itinerary is intentionally designed around our five experience types — some trips lean harder into one than another, so you can search and choose by the kind of experiences you actually want to have, not just where you&apos;re going.
+            </p>
+          </div>
+
+          {/* The five experience types */}
+          <div className="space-y-3">
+            {experienceTypes.map((e) => (
+              <div key={e.id} className="flex items-start gap-4 rounded-[12px] border border-white/10 bg-white/[0.03] p-4">
+                <span
+                  className="h-11 w-11 rounded-full flex items-center justify-center text-xl flex-shrink-0"
+                  style={{ background: `${e.color}22`, border: `1px solid ${e.color}66` }}
+                >
+                  {e.emoji}
+                </span>
+                <div className="min-w-0">
+                  <p className="font-black font-heading text-sm uppercase tracking-wide" style={{ color: e.color }}>{e.name}</p>
+                  <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
+                    <span className="text-gray-500">e.g.</span> {e.experiences[0]}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Detailed inclusions — alternating rows with swipeable galleries */}
