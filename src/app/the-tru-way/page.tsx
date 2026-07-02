@@ -149,8 +149,8 @@ export default function TheTruWayPage() {
       {/* HERO — the title now lives in the overlay */}
       <section className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
         <img
-          src="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg"
-          alt="A TruTravels group in the sea"
+          src="/images/the-tru-way-hero.jpg"
+          alt="TruTravels friends making a heart on the beach"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-tru-navy/40 via-tru-navy/60 to-tru-navy/95" />
