@@ -141,15 +141,8 @@ export default function TheTruWayPage() {
         </div>
       </section>
 
-      {/* Intro body — pushed up under the hero */}
-      <section className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-14 pb-16 text-center">
-        <p className="text-gray-300 text-lg sm:text-xl leading-relaxed">
-          Every TruTravels trip includes accommodation, transport, activities, some meals, and a Local Legend who feels more like a mate who happens to know the way. It&apos;s all baked in — no bolt-ons, no surprises.
-        </p>
-      </section>
-
       {/* Tru Experience Architecture */}
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
+      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-16">
         <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
         <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
           Tru Experience <span className="text-tru-pink">Architecture</span>
@@ -167,7 +160,7 @@ export default function TheTruWayPage() {
             What You Get <span className="text-tru-pink">As Standard</span>
           </h2>
           <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
-            Whatever the mix of experiences, the essentials are always sorted. Here&apos;s what&apos;s baked into every single Tru trip.
+            Every TruTravels trip includes accommodation, transport, activities, some meals, and a Local Legend who feels more like a mate who happens to know the way. It&apos;s all baked in — no bolt-ons, no surprises.
           </p>
         </div>
         <div className="space-y-16 sm:space-y-24">
