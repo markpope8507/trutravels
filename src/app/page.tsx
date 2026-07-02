@@ -11,6 +11,7 @@ import PillButton from "@/components/pill-button";
 import ReviewsSection from "@/components/reviews-section";
 import FeaturedStoryCard from "@/components/featured-story-card";
 import DestinationsCarousel from "@/components/destinations-carousel";
+import BookWithConfidenceBar from "@/components/book-with-confidence-bar";
 
 export default function HomePage() {
   const featuredStory = [...stories]
@@ -195,6 +196,11 @@ export default function HomePage() {
         </div>
 
       </section>
+
+      {/* ================================================================
+          BOOK WITH CONFIDENCE — the Tru Promise band
+          ================================================================ */}
+      <BookWithConfidenceBar />
 
       {/* ================================================================
           3. VIDEO DIARIES — Swipeable vertical video carousel
