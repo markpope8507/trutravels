@@ -145,7 +145,7 @@ export default function TheTruWayPage() {
       <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-16">
         <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
         <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
-          Tru Experience <span className="text-tru-pink">Architecture</span>
+          Tru Experience<br /><span className="text-tru-pink">Architecture</span>
         </h2>
         <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
           Every itinerary is intentionally designed around our five experience types — Local Lens, Rise Up, Bucket List, Tru-ly Unique and Unplugged. Some trips lean harder into one than another, so you can search and choose by the kind of experiences you actually want to have, not just where you&apos;re going.
