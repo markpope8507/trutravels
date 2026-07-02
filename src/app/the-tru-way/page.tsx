@@ -237,20 +237,6 @@ export default function TheTruWayPage() {
       <section className="relative overflow-hidden pb-24">
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-[16px] border border-white/10 bg-gradient-to-br from-tru-navy via-tru-navy to-tru-pink/[0.04] overflow-hidden">
-            {/* Trust strip */}
-            <div className="flex items-center justify-center gap-4 px-6 py-4 border-b border-white/10 bg-tru-pink/10">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="h-4 w-4 text-amber-400" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="text-white text-xs sm:text-sm font-bold uppercase tracking-[0.2em] font-heading">
-                Rated 4.9 / 5 · Based on 25,000+ Verified Reviews
-              </p>
-            </div>
-
             <div className="p-6 sm:p-10">
               <div className="text-center mb-10">
                 <div className="mx-auto mb-4 h-14 w-14 rounded-full bg-tru-pink/15 border border-tru-pink/30 flex items-center justify-center">
