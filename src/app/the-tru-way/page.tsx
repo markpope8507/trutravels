@@ -145,22 +145,7 @@ const EXPERIENCE_GALLERIES: Record<string, GalleryImage[]> = {
 
 export default function TheTruWayPage() {
   return (
-    <div className="relative overflow-x-clip">
-      {/* Decorative background watermarks (behind content) */}
-      <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[18%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
-      <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 top-[34%] w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.05] brightness-0 invert" />
-      <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-32 top-[50%] w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.05] brightness-0 invert" />
-      <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-28 top-[66%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
-      <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[82%] w-[220px] sm:w-[340px] lg:w-[440px] opacity-[0.05] brightness-0 invert" />
-      <img src="/bg-assets/tru-logo.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 top-[94%] w-[200px] sm:w-[300px] lg:w-[420px] opacity-[0.04] brightness-0 invert" />
-      <img src="/bg-assets/eyes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-28 top-[10%] w-[200px] sm:w-[320px] lg:w-[420px] opacity-[0.05] brightness-0 invert" />
-      <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[26%] w-[200px] sm:w-[320px] lg:w-[440px] opacity-[0.05] brightness-0 invert" />
-      <img src="/bg-assets/komodo-dragon.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 top-[42%] w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.05] brightness-0 invert" />
-      <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[58%] w-[200px] sm:w-[320px] lg:w-[440px] opacity-[0.05] brightness-0 invert" />
-      <img src="/bg-assets/community.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-28 top-[74%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
-      <img src="/bg-assets/brazil.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[90%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
-
-      <div className="relative z-10">
+    <>
       {/* HERO — the title now lives in the overlay */}
       <section className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
         <img
@@ -187,17 +172,21 @@ export default function TheTruWayPage() {
       </section>
 
       {/* Detailed inclusions — alternating rows with swipeable galleries */}
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-20">
-        <div className="mb-12 sm:mb-16">
-          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">What You Get</p>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
-            Included <span className="text-tru-pink">As Standard</span>
-          </h2>
-          <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
-            Every TruTravels trip includes accommodation, transport, activities, some meals, and a Local Legend who feels more like a mate who happens to know the way. It&apos;s all baked in — no bolt-ons, no surprises.
-          </p>
-        </div>
-        <div className="space-y-16 sm:space-y-24">
+      <section className="relative overflow-hidden pt-16 pb-20">
+        <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[600px] opacity-[0.07] brightness-0 invert" />
+        <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-1/3 w-[220px] sm:w-[340px] lg:w-[480px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 -bottom-10 w-[220px] sm:w-[340px] lg:w-[480px] opacity-[0.06] brightness-0 invert" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 sm:mb-16">
+            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">What You Get</p>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
+              Included <span className="text-tru-pink">As Standard</span>
+            </h2>
+            <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
+              Every TruTravels trip includes accommodation, transport, activities, some meals, and a Local Legend who feels more like a mate who happens to know the way. It&apos;s all baked in — no bolt-ons, no surprises.
+            </p>
+          </div>
+          <div className="space-y-16 sm:space-y-24">
           {INCLUSIONS.map((item, idx) => (
             <FeatureRow
               key={item.title}
@@ -216,16 +205,21 @@ export default function TheTruWayPage() {
               bullets={item.bullets}
             />
           ))}
+          </div>
         </div>
       </section>
 
       {/* Tru Experience Architecture — same alternating format */}
-      <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
-        <div className="mb-12 sm:mb-16">
-          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
-            Tru Experience <span className="text-tru-pink">Architecture</span>
-          </h2>
+      <section className="relative overflow-hidden pb-20">
+        <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 -top-8 w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 top-1/2 w-[200px] sm:w-[320px] lg:w-[440px] opacity-[0.07] brightness-0 invert" />
+        <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-12 sm:-left-20 lg:-left-24 -bottom-10 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.06] brightness-0 invert" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 sm:mb-16">
+            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">The Blueprint</p>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
+              Tru Experience <span className="text-tru-pink">Architecture</span>
+            </h2>
           <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
             Every itinerary is intentionally designed around five experience types. Some trips lean harder into one than another — so you can search and choose by the kind of experiences you actually want to have, not just where you&apos;re going.
           </p>
@@ -246,11 +240,14 @@ export default function TheTruWayPage() {
               bullets={e.experiences.slice(0, 3)}
             />
           ))}
+          </div>
         </div>
       </section>
 
       {/* Book With Confidence */}
       <section className="relative overflow-hidden pb-24">
+        <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 -top-8 w-[240px] sm:w-[360px] lg:w-[500px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/tru-logo.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-28 -bottom-10 w-[220px] sm:w-[320px] lg:w-[440px] opacity-[0.05] brightness-0 invert" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-[16px] border border-white/10 bg-gradient-to-br from-tru-navy via-tru-navy to-tru-pink/[0.04] overflow-hidden">
             <div className="p-6 sm:p-10">
@@ -311,7 +308,6 @@ export default function TheTruWayPage() {
           </svg>
         </Link>
       </section>
-      </div>
-    </div>
+    </>
   );
 }
