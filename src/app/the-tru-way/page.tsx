@@ -174,9 +174,9 @@ export default function TheTruWayPage() {
       {/* Detailed inclusions — alternating rows with swipeable galleries */}
       <section className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-20">
         <div className="mb-12 sm:mb-16">
-          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Included As Standard</p>
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">What You Get</p>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05]">
-            What You Get <span className="text-tru-pink">As Standard</span>
+            Included <span className="text-tru-pink">As Standard</span>
           </h2>
           <p className="text-gray-400 mt-4 max-w-2xl text-base sm:text-lg leading-relaxed">
             Every TruTravels trip includes accommodation, transport, activities, some meals, and a Local Legend who feels more like a mate who happens to know the way. It&apos;s all baked in — no bolt-ons, no surprises.
