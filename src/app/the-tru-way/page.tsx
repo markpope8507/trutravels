@@ -145,7 +145,16 @@ const EXPERIENCE_GALLERIES: Record<string, GalleryImage[]> = {
 
 export default function TheTruWayPage() {
   return (
-    <>
+    <div className="relative overflow-x-clip">
+      {/* Decorative background watermarks (behind content) */}
+      <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[18%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+      <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 top-[34%] w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.05] brightness-0 invert" />
+      <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-32 top-[50%] w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.05] brightness-0 invert" />
+      <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-28 top-[66%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+      <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[82%] w-[220px] sm:w-[340px] lg:w-[440px] opacity-[0.05] brightness-0 invert" />
+      <img src="/bg-assets/tru-logo.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 top-[94%] w-[200px] sm:w-[300px] lg:w-[420px] opacity-[0.04] brightness-0 invert" />
+
+      <div className="relative z-10">
       {/* HERO — the title now lives in the overlay */}
       <section className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
         <img
@@ -296,6 +305,7 @@ export default function TheTruWayPage() {
           </svg>
         </Link>
       </section>
-    </>
+      </div>
+    </div>
   );
 }
