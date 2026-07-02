@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { truPromises, experienceTypes } from "@/lib/data";
-import InclusionGallery, { type GalleryImage } from "@/components/inclusion-gallery";
+import { type GalleryImage } from "@/components/inclusion-gallery";
+import FeatureRow from "@/components/feature-row";
 
 export const metadata = {
   title: "The Tru Way — TruTravels",
@@ -183,42 +184,22 @@ export default function TheTruWayPage() {
         </div>
         <div className="space-y-16 sm:space-y-24">
           {INCLUSIONS.map((item, idx) => (
-            <div
+            <FeatureRow
               key={item.title}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${
-                idx % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-              }`}
-            >
-              <InclusionGallery images={item.images} alt={item.title} />
-              <div>
-                <div className="mb-4 h-14 w-14 rounded-full bg-tru-pink/15 border border-tru-pink/30 flex items-center justify-center">
-                  <svg className="h-7 w-7 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    {item.svg}
-                  </svg>
-                </div>
-                <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] mb-3 font-heading">
-                  {item.eyebrow}
-                </p>
-                <h3 className="text-3xl sm:text-4xl font-black text-white uppercase font-heading leading-[1.05] mb-5">
-                  {item.title}
-                </h3>
-                <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
-                  {item.body}
-                </p>
-                <ul className="space-y-2.5">
-                  {item.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-start gap-3 text-gray-300 text-sm">
-                      <span className="mt-1 h-4 w-4 rounded-full bg-tru-pink/15 flex items-center justify-center flex-shrink-0">
-                        <svg className="h-2.5 w-2.5 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                      </span>
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+              index={idx}
+              images={item.images}
+              alt={item.title}
+              accent="#FF3F99"
+              icon={
+                <svg className="h-7 w-7 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  {item.svg}
+                </svg>
+              }
+              eyebrow={item.eyebrow}
+              title={item.title}
+              body={item.body}
+              bullets={item.bullets}
+            />
           ))}
         </div>
       </section>
@@ -236,43 +217,18 @@ export default function TheTruWayPage() {
         </div>
         <div className="space-y-16 sm:space-y-24">
           {experienceTypes.map((e, idx) => (
-            <div
+            <FeatureRow
               key={e.id}
-              className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center ${
-                idx % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
-              }`}
-            >
-              <InclusionGallery images={EXPERIENCE_GALLERIES[e.id]} alt={e.name} />
-              <div>
-                <div
-                  className="mb-4 h-14 w-14 rounded-full flex items-center justify-center text-2xl"
-                  style={{ background: `${e.color}22`, border: `1px solid ${e.color}66` }}
-                >
-                  {e.emoji}
-                </div>
-                <p className="text-xs font-bold uppercase tracking-[0.3em] mb-3 font-heading" style={{ color: e.color }}>
-                  {e.name}
-                </p>
-                <h3 className="text-3xl sm:text-4xl font-black text-white uppercase font-heading leading-[1.05] mb-5">
-                  {e.tagline.replace(/\.$/, "")}
-                </h3>
-                <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
-                  {e.description}
-                </p>
-                <ul className="space-y-2.5">
-                  {e.experiences.slice(0, 3).map((ex) => (
-                    <li key={ex} className="flex items-start gap-3 text-gray-300 text-sm">
-                      <span className="mt-1 h-4 w-4 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: `${e.color}26` }}>
-                        <svg className="h-2.5 w-2.5" style={{ color: e.color }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
-                      </span>
-                      {ex}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+              index={idx}
+              images={EXPERIENCE_GALLERIES[e.id]}
+              alt={e.name}
+              accent={e.color}
+              icon={<span className="text-2xl">{e.emoji}</span>}
+              eyebrow={e.name}
+              title={e.tagline.replace(/\.$/, "")}
+              body={e.description}
+              bullets={e.experiences.slice(0, 3)}
+            />
           ))}
         </div>
       </section>
