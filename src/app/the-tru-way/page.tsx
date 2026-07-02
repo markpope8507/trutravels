@@ -256,9 +256,9 @@ export default function TheTruWayPage() {
                 {truPromises.map((item) => (
                   <div
                     key={item.title}
-                    className="rounded-[12px] border border-white/10 bg-white/[0.03] p-6 hover:border-tru-pink/30 hover:bg-white/[0.05] transition-all duration-200"
+                    className="rounded-[12px] border border-white/10 bg-white/[0.03] p-6 text-center hover:border-tru-pink/30 hover:bg-white/[0.05] transition-all duration-200"
                   >
-                    <div className="h-12 w-12 rounded-full bg-tru-pink/15 flex items-center justify-center mb-4">
+                    <div className="h-12 w-12 rounded-full bg-tru-pink/15 flex items-center justify-center mb-4 mx-auto">
                       <svg className="h-6 w-6 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
                         <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
                       </svg>
