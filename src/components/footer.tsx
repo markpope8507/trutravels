@@ -10,7 +10,7 @@ const FOOTER_COLUMNS = [
       { name: "All Trips", href: "/explore" },
       { name: "Travel Styles", href: "/travel-styles" },
       { name: "Life Moments", href: "/life-moments/solo-soul-searcher" },
-      { name: "How It Works", href: "/whats-included" },
+      { name: "How It Works", href: "/the-tru-way" },
       { name: "Deals", href: "/deals" },
       { name: "Stories", href: "/stories" },
       { name: "VIP Club", href: "/about/vip-programme" },
@@ -36,7 +36,7 @@ const FOOTER_COLUMNS = [
       { name: "Travel Insurance", href: "/about" },
       { name: "Visa & Passport", href: "/about" },
       { name: "Package Travel Regulations", href: "/about" },
-      { name: "Book With Confidence", href: "/whats-included" },
+      { name: "Book With Confidence", href: "/the-tru-way" },
     ],
   },
   {

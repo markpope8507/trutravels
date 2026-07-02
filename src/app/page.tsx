@@ -191,7 +191,7 @@ export default function HomePage() {
 
         {/* What's Included CTA */}
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16 text-center">
-          <PillButton href="/whats-included">Tell Me More</PillButton>
+          <PillButton href="/the-tru-way">Tell Me More</PillButton>
         </div>
 
       </section>
