@@ -173,7 +173,7 @@ export default function HomePage() {
                 </svg>
                 <h3 className="text-white font-black uppercase font-heading text-lg sm:text-xl leading-tight">Local Legends</h3>
               </div>
-              <p className="text-gray-400 text-base leading-relaxed text-center max-w-xs mx-auto">Your guide — we call them a Local Legend. A local who knows the place inside out and feels more like a mate than a tour leader.</p>
+              <p className="text-gray-400 text-base leading-relaxed text-center max-w-xs mx-auto">Your guide — we call them Local Legends. Knows places inside out and feels more like a mate who happens to know the way.</p>
             </div>
 
             {/* Fully Protected */}
