@@ -31,15 +31,15 @@ const destinations: { region: string; countries: { name: string; flag: string; t
     ],
   },
   {
-    region: "Latin America",
+    region: "Central & South America",
     countries: [
-      { name: "Mexico", flag: "🇲🇽", tag: "Popular", href: "/destinations/latin-america/mexico", nickname: "Land of Colour", image: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80" },
-      { name: "Costa Rica", flag: "🇨🇷", tag: "", href: "/destinations/latin-america/costa-rica", nickname: "Pura Vida", image: "https://cdn.trutravels.com/images/costarica.jpg" },
-      { name: "Colombia", flag: "🇨🇴", tag: "", href: "/destinations/latin-america/colombia", nickname: "Land of Magical Realism", image: "https://cdn.trutravels.com/images/colombia-view.jpg" },
-      { name: "Peru", flag: "🇵🇪", tag: "", href: "/destinations/latin-america/peru", nickname: "Land of the Incas", image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80" },
-      { name: "Brazil", flag: "🇧🇷", tag: "", href: "/destinations/latin-america/brazil", nickname: "Land of Carnival", image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80" },
-      { name: "Belize", flag: "🇧🇿", tag: "", href: "/destinations/latin-america/belize", nickname: "Jewel of the Caribbean", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" },
-      { name: "Guatemala", flag: "🇬🇹", tag: "", href: "/destinations/latin-america/guatemala", nickname: "Land of Eternal Spring", image: "https://cdn.trutravels.com/images/mexico-guatemala-belize3.png" },
+      { name: "Mexico", flag: "🇲🇽", tag: "Popular", href: "/destinations/central-and-south-america/mexico", nickname: "Land of Colour", image: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80" },
+      { name: "Costa Rica", flag: "🇨🇷", tag: "", href: "/destinations/central-and-south-america/costa-rica", nickname: "Pura Vida", image: "https://cdn.trutravels.com/images/costarica.jpg" },
+      { name: "Colombia", flag: "🇨🇴", tag: "", href: "/destinations/central-and-south-america/colombia", nickname: "Land of Magical Realism", image: "https://cdn.trutravels.com/images/colombia-view.jpg" },
+      { name: "Peru", flag: "🇵🇪", tag: "", href: "/destinations/central-and-south-america/peru", nickname: "Land of the Incas", image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80" },
+      { name: "Brazil", flag: "🇧🇷", tag: "", href: "/destinations/central-and-south-america/brazil", nickname: "Land of Carnival", image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80" },
+      { name: "Belize", flag: "🇧🇿", tag: "", href: "/destinations/central-and-south-america/belize", nickname: "Jewel of the Caribbean", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" },
+      { name: "Guatemala", flag: "🇬🇹", tag: "", href: "/destinations/central-and-south-america/guatemala", nickname: "Land of Eternal Spring", image: "https://cdn.trutravels.com/images/mexico-guatemala-belize3.png" },
     ],
   },
   {

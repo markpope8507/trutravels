@@ -7,7 +7,7 @@ import PillButton from "@/components/pill-button";
 
 const PAGE_SIZE = 6;
 
-const REGIONS = ["Asia", "South Asia", "Central America", "Europe", "Africa", "Oceania"] as const;
+const REGIONS = ["Asia", "South Asia", "Central & South America", "Europe", "Africa", "Oceania"] as const;
 
 const DURATIONS = [
   { id: "any", label: "Any length" },

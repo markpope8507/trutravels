@@ -28,7 +28,7 @@ const quizSteps: QuizStep[] = [
     options: [
       { label: "Asia", value: "Asia", emoji: "🌴" },
       { label: "South Asia", value: "South Asia", emoji: "🐘" },
-      { label: "Central America", value: "Central America", emoji: "🌋" },
+      { label: "Central & South America", value: "Central & South America", emoji: "🌋" },
       { label: "Africa", value: "Africa", emoji: "🏜️" },
       { label: "Surprise Me", value: "any", emoji: "✨" },
     ],

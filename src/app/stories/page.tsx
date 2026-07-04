@@ -29,7 +29,7 @@ import PillButton from "@/components/pill-button";
 // site's destination structure). Tagging will populate these against stories.
 const STORY_REGIONS: { region: string; countries: string[] }[] = [
   { region: "Asia", countries: ["Thailand", "Indonesia", "Vietnam", "Philippines", "Cambodia", "Sri Lanka", "India", "Japan", "China", "South Korea"] },
-  { region: "Latin America", countries: ["Mexico", "Costa Rica", "Colombia", "Peru", "Brazil", "Belize", "Guatemala"] },
+  { region: "Central & South America", countries: ["Mexico", "Costa Rica", "Colombia", "Peru", "Brazil", "Belize", "Guatemala"] },
   { region: "Europe", countries: ["Greece", "Italy", "Albania"] },
   { region: "Africa & Middle East", countries: ["Morocco", "Jordan"] },
   { region: "Oceania", countries: ["New Zealand"] },

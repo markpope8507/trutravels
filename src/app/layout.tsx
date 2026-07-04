@@ -28,7 +28,7 @@ const caveat = Caveat({
 export const metadata: Metadata = {
   title: "TruTravels — Leave Ordinary Behind",
   description:
-    "Life changing experiences. Game changing travel. Group adventures for 18-35s across Southeast Asia, Central America, and beyond.",
+    "Life changing experiences. Game changing travel. Group adventures for 18-35s across Southeast Asia, Central & South America, and beyond.",
 };
 
 export default function RootLayout({
