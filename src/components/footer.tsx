@@ -344,7 +344,7 @@ export default function Footer() {
             <p className="mt-1">Company Reg: 08094426 · +44 203 542 2463</p>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px]">
-            <Link href="/about" className="text-gray-400 hover:text-tru-pink transition">
+            <Link href="/terms-conditions" className="text-gray-400 hover:text-tru-pink transition">
               Terms &amp; Conditions
             </Link>
             <Link href="/about" className="text-gray-400 hover:text-tru-pink transition">
