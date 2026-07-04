@@ -25,7 +25,7 @@ const FOOTER_COLUMNS = [
       { name: "Our Impact", href: "/about/impact" },
       { name: "Our Community", href: "/about/community" },
       { name: "Our Brand", href: "/about/brand" },
-      { name: "Contact Us", href: "/about" },
+      { name: "Contact Us", href: "/contact-us" },
       { name: "Careers", href: "/about" },
     ],
   },

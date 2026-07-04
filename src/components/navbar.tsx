@@ -181,7 +181,7 @@ const essentialsNav = [
   { name: "Travel Insurance", href: "/travel-insurance", description: "Stay covered on the road.", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" },
   { name: "Visa & Passports", href: "/visas-and-passports", description: "Entry requirements by country.", image: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=800&q=80" },
   { name: "Booking Conditions", href: "/terms-conditions", description: "Terms and conditions.", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" },
-  { name: "Contact Us", href: "/about", description: "Get in touch with the team.", image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80" },
+  { name: "Contact Us", href: "/contact-us", description: "Get in touch with the team.", image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80" },
 ];
 
 // ============================================================
