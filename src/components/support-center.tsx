@@ -55,7 +55,7 @@ export default function SupportCenter() {
             </svg>
           </span>
           <div>
-            <p className="text-white font-black uppercase font-heading text-lg tracking-wide">Tru.D</p>
+            <p className="text-white font-black uppercase font-heading text-lg tracking-wide">Ask Tru.D</p>
             <p className="text-gray-400 text-xs sm:text-sm">Your travel assistant — ask me a question and I&apos;ll find the answer.</p>
           </div>
         </div>
