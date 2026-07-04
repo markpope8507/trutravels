@@ -86,10 +86,10 @@ export default function TravelInsurancePage() {
 
           {/* World Nomads card */}
           <div className="rounded-[16px] border border-white/10 bg-gradient-to-br from-tru-navy via-tru-navy to-tru-pink/[0.05] p-8 sm:p-10">
-            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Our Partner</p>
-            <h3 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-tight leading-[1.05] mb-4">
-              World Nomads
-            </h3>
+            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-4 font-heading">Our Partner</p>
+            <span className="inline-block bg-white rounded-[10px] px-4 py-3 mb-5">
+              <img src="/images/world-nomads-logo.png" alt="World Nomads" className="h-9 sm:h-10 w-auto" />
+            </span>
             <p className="text-gray-300 text-sm sm:text-base leading-relaxed mb-6">
               We&apos;ve teamed up with World Nomads, who cover more than 150 adventure activities plus emergency medical, lost luggage, trip cancellation and more. Buy before you go or top up while you&apos;re travelling, and claim online from anywhere in the world.
             </p>
