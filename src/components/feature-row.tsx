@@ -15,6 +15,8 @@ export default function FeatureRow({
   bullets,
   index,
   tinted = false,
+  eyebrowClassName = "text-xs font-bold uppercase tracking-[0.3em] mb-3 font-heading",
+  titleClassName = "text-3xl sm:text-4xl font-black text-white uppercase font-heading leading-[1.05]",
 }: {
   images: GalleryImage[];
   alt: string;
@@ -26,6 +28,8 @@ export default function FeatureRow({
   bullets: string[];
   index: number;
   tinted?: boolean;
+  eyebrowClassName?: string;
+  titleClassName?: string;
 }) {
   const imageLeft = index % 2 === 0;
   const textCol = imageLeft ? "lg:col-start-2" : "lg:col-start-1";
@@ -48,10 +52,10 @@ export default function FeatureRow({
         >
           {icon}
         </div>
-        <p className="text-xs font-bold uppercase tracking-[0.3em] mb-3 font-heading" style={{ color: accent }}>
+        <p className={eyebrowClassName} style={{ color: accent }}>
           {eyebrow}
         </p>
-        <h3 className="text-3xl sm:text-4xl font-black text-white uppercase font-heading leading-[1.05]">
+        <h3 className={titleClassName}>
           {title}
         </h3>
       </div>

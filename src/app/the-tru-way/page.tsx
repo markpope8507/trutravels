@@ -235,7 +235,9 @@ export default function TheTruWayPage() {
               accent={e.color}
               icon={<span className="text-2xl">{e.emoji}</span>}
               eyebrow={`${e.name} Experiences`}
+              eyebrowClassName="text-2xl sm:text-3xl font-black uppercase tracking-wide font-heading mb-2 leading-tight"
               title={e.tagline.replace(/\.$/, "")}
+              titleClassName="text-white text-sm sm:text-base font-bold font-heading uppercase tracking-wide"
               body={e.description}
               bullets={e.experiences.slice(0, 3)}
             />
