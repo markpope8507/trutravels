@@ -32,7 +32,7 @@ const FOOTER_COLUMNS = [
   {
     title: "Essentials",
     links: [
-      { name: "FAQs", href: "/about" },
+      { name: "FAQs", href: "/faqs" },
       { name: "Travel Insurance", href: "/about" },
       { name: "Visa & Passport", href: "/about" },
       { name: "Package Travel Regulations", href: "/about" },
