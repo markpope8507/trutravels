@@ -1,5 +1,6 @@
 import Link from "next/link";
-import FaqAccordion, { type Faq } from "@/components/faq-accordion";
+import { type Faq } from "@/components/faq-accordion";
+import FaqSection from "@/components/faq-section";
 import StoriesFeature from "@/components/stories-feature";
 
 export const metadata = {
@@ -8,9 +9,10 @@ export const metadata = {
     "Everything you need to know before you go — group sizes, what's included, payments, insurance, visas and more.",
 };
 
-const FAQ_GROUPS: { category: string; faqs: Faq[] }[] = [
+const FAQ_GROUPS: { category: string; description: string; faqs: Faq[] }[] = [
   {
     category: "Before You Book",
+    description: "The big-picture stuff — who our trips are for, how they work, and what's covered before you commit.",
     faqs: [
       { q: "What's the age range?", a: "Most of our travellers are 18–35, though our trips are open up to 45. Our Backpacker style is exclusively for 18–29s." },
       { q: "Do many people travel solo?", a: "Absolutely — most people book on their own. Within a day you're part of a ready-made group of like-minded travellers." },
@@ -22,6 +24,7 @@ const FAQ_GROUPS: { category: string; faqs: Faq[] }[] = [
   },
   {
     category: "Getting Ready",
+    description: "Sorted your spot? Here's everything to organise before you fly — insurance, flights, money and packing.",
     faqs: [
       { q: "Do I need travel insurance?", a: "Yes — it's compulsory and needs to cover your entire trip. We recommend World Nomads." },
       { q: "Are flights included?", a: "No — book your own flights (try Skyscanner or Kayak) and send us the details once you're sorted." },
@@ -37,6 +40,7 @@ const FAQ_GROUPS: { category: string; faqs: Faq[] }[] = [
   },
   {
     category: "On The Trip",
+    description: "What day-to-day life on tour actually looks like — your Local Legend, the accommodation, food, free time and evenings.",
     faqs: [
       { q: "Who's my guide?", a: "A Local Legend — a local expert who's with you day and night, sharing the shortcuts, the best food stalls and the spots you'd never find on your own." },
       { q: "What accommodation will I stay in?", a: "Mostly twin-share rooms with a same-sex roommate — hotels, hostels, homestays, beach huts, even boats. Occasionally dorm or triple-share." },
@@ -50,6 +54,7 @@ const FAQ_GROUPS: { category: string; faqs: Faq[] }[] = [
   },
   {
     category: "Payments & Changes",
+    description: "Deposits, instalments, currencies and what happens if your plans change.",
     faqs: [
       { q: "Can I pay a deposit?", a: "Yes — secure your spot with a £200 deposit per person, per trip, as long as the balance is paid 60 days before departure. Booking inside 60 days is paid in full." },
       { q: "Can I pay the deposit off in instalments?", a: "Yes — set up flexible payments through your account, via the links in your confirmation email, or with the sales team." },
@@ -61,6 +66,7 @@ const FAQ_GROUPS: { category: string; faqs: Faq[] }[] = [
   },
   {
     category: "After Your Trip",
+    description: "Wrapping up — finish times, extra nights and getting to wherever's next.",
     faqs: [
       { q: "What time does the trip finish?", a: "On the final checkout day — treat it as a travel day. Your Local Legend will suggest things to do if you've got a late flight." },
       { q: "Can I book extra nights at the end?", a: "We can't book them for you, but your Local Legend will share the final hotel name and recommendations so you can extend your stay." },
@@ -103,18 +109,21 @@ export default function FaqsPage() {
         <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.06] brightness-0 invert" />
         <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-1/2 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.06] brightness-0 invert" />
         <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 -bottom-10 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.06] brightness-0 invert" />
-        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-14">
-          {FAQ_GROUPS.map((group) => (
-            <div key={group.category}>
-              <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-6">
-                {group.category}
-              </h2>
-              <FaqAccordion faqs={group.faqs} />
-            </div>
-          ))}
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="divide-y divide-white/10">
+            {FAQ_GROUPS.map((group, i) => (
+              <FaqSection
+                key={group.category}
+                title={group.category}
+                description={group.description}
+                faqs={group.faqs}
+                defaultOpen={i === 0}
+              />
+            ))}
+          </div>
 
           {/* Still stuck CTA */}
-          <div className="rounded-[16px] border border-white/10 bg-gradient-to-br from-tru-navy via-tru-navy to-tru-pink/[0.05] p-8 text-center">
+          <div className="mt-14 rounded-[16px] border border-white/10 bg-gradient-to-br from-tru-navy via-tru-navy to-tru-pink/[0.05] p-8 text-center">
             <h3 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-tight mb-3">
               Still Not <span className="text-tru-pink">Sure?</span>
             </h3>
