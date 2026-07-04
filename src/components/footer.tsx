@@ -34,7 +34,7 @@ const FOOTER_COLUMNS = [
     links: [
       { name: "FAQs", href: "/faqs" },
       { name: "Travel Insurance", href: "/travel-insurance" },
-      { name: "Visa & Passport", href: "/about" },
+      { name: "Visa & Passport", href: "/visas-and-passports" },
       { name: "Package Travel Regulations", href: "/about" },
       { name: "Book With Confidence", href: "/the-tru-way" },
     ],
