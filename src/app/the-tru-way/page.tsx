@@ -281,7 +281,7 @@ export default function TheTruWayPage() {
                     <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-2">
                       {item.eyebrow}
                     </p>
-                    <h4 className="text-white text-base sm:text-lg font-black uppercase font-heading leading-tight mb-2">
+                    <h4 className="text-white text-base sm:text-lg font-black uppercase font-heading leading-tight mb-2 whitespace-pre-line">
                       {item.title}
                     </h4>
                     <p className="text-gray-400 text-xs leading-relaxed">
