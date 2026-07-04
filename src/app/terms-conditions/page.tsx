@@ -10,7 +10,7 @@ export default function TermsConditionsPage() {
   return (
     <>
       {/* HERO — standard right-aligned overlay */}
-      <section className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
+      <section id="top" className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
         <img
           src="https://cdn.trutravels.com/greece/greece-island-hopper-026.jpg"
           alt="TruTravels adventure"
@@ -35,8 +35,14 @@ export default function TermsConditionsPage() {
       </section>
 
       {/* Content */}
-      <section className="relative pt-16 pb-24">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden pt-16 pb-24">
+        <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-1/4 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 top-1/2 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-3/4 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/tru-logo.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -bottom-8 w-[200px] sm:w-[300px] lg:w-[420px] opacity-[0.04] brightness-0 invert" />
+
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           {TERMS_BLOCKS.map((block, i) =>
             block.type === "h" ? (
               <h2
@@ -51,6 +57,18 @@ export default function TermsConditionsPage() {
               </p>
             ),
           )}
+
+          <div className="mt-12 pt-8 border-t border-white/10 text-center">
+            <a
+              href="#top"
+              className="inline-flex items-center gap-2 text-tru-pink hover:text-tru-pink-light text-xs font-bold uppercase tracking-wider font-heading transition-colors"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5M5 12l7-7 7 7" />
+              </svg>
+              Take Me To The Top
+            </a>
+          </div>
         </div>
       </section>
     </>
