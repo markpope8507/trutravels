@@ -66,6 +66,15 @@ export default function SupportPage() {
         <img src="/bg-assets/community.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 -bottom-10 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.06] brightness-0 invert" />
 
         <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] mb-3 font-heading">Here To Help</p>
+            <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
+              Help &amp; <span className="text-tru-pink">Support</span>
+            </h2>
+            <p className="text-gray-400 text-base sm:text-lg leading-relaxed mt-4 max-w-2xl">
+              Get instant answers with Ask Tru.D, our support assistant — just type your question and it&apos;ll dig out the answer. Prefer to browse? Pick a topic below. And if you&apos;re still stuck, live chat, email and phone are all a tap away.
+            </p>
+          </div>
           <SupportCenter />
         </div>
       </section>
