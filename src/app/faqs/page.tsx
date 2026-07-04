@@ -80,7 +80,7 @@ export default function FaqsPage() {
   return (
     <>
       {/* HERO — standard right-aligned overlay */}
-      <section className="relative h-[60vh] min-h-[460px] flex items-center overflow-hidden">
+      <section className="relative h-[75vh] min-h-[540px] flex items-center overflow-hidden">
         <img
           src="https://cdn.trutravels.com/thailand/girls-koh-nang-yuan.jpg"
           alt="TruTravels group at a viewpoint"
