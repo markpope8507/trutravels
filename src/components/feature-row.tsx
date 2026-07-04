@@ -22,7 +22,7 @@ export default function FeatureRow({
   alt: string;
   icon: ReactNode;
   accent: string;
-  eyebrow: string;
+  eyebrow: ReactNode;
   title: string;
   body: string;
   bullets: string[];
