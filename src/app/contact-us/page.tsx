@@ -65,7 +65,7 @@ export default function ContactUsPage() {
           <div className="max-w-2xl mb-12">
             <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Say Hello</p>
             <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[1.05] mb-4">
-              Here&apos;s The Place <span className="text-tru-pink">To Ask It</span>
+              Here&apos;s The Place<br /><span className="text-tru-pink">To Ask It</span>
             </h2>
             <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
               Curious about a specific trip, want to know more about how we do things, or just fancy a chat about your next adventure? Drop us a message and we&apos;ll get back to you.
