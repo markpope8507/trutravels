@@ -25,14 +25,14 @@ const FOOTER_COLUMNS = [
       { name: "Our Impact", href: "/about/impact" },
       { name: "Our Community", href: "/about/community" },
       { name: "Our Brand", href: "/about/brand" },
-      { name: "Contact Us", href: "/contact-us" },
+      { name: "Contact Us", href: "/support" },
       { name: "Careers", href: "/about" },
     ],
   },
   {
     title: "Essentials",
     links: [
-      { name: "FAQs", href: "/faqs" },
+      { name: "Help & Support", href: "/support" },
       { name: "Travel Insurance", href: "/travel-insurance" },
       { name: "Visa & Passport", href: "/visas-and-passports" },
       { name: "Package Travel Regulations", href: "/about" },
