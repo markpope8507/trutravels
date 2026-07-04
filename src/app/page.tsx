@@ -30,23 +30,23 @@ export default function HomePage() {
       <section className="bg-tru-navy py-3 overflow-hidden border-y border-white/10">
         <div className="animate-ticker flex whitespace-nowrap">
           {[...Array(2)].map((_, i) => (
-            <span key={i} className="flex items-center gap-8 text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mx-4 font-heading">
+            <span key={i} className="flex items-center gap-8 text-white text-xs font-bold uppercase tracking-[0.2em] mx-4 font-heading">
               <span>Leave Ordinary Behind</span>
-              <span className="text-tru-pink/40">/</span>
+              <span className="text-white/30">/</span>
               <span>Find Your Extraordinary</span>
-              <span className="text-tru-pink/40">/</span>
+              <span className="text-white/30">/</span>
               <span>Chase Sunsets Not Schedules</span>
-              <span className="text-tru-pink/40">/</span>
+              <span className="text-white/30">/</span>
               <span>Strangers Who Become Family</span>
-              <span className="text-tru-pink/40">/</span>
+              <span className="text-white/30">/</span>
               <span>Step Into The Unknown</span>
-              <span className="text-tru-pink/40">/</span>
+              <span className="text-white/30">/</span>
               <span>Connect Deeply</span>
-              <span className="text-tru-pink/40">/</span>
+              <span className="text-white/30">/</span>
               <span>Make Every Journey Count</span>
-              <span className="text-tru-pink/40">/</span>
+              <span className="text-white/30">/</span>
               <span>We Don&apos;t Do Average</span>
-              <span className="text-tru-pink/40">/</span>
+              <span className="text-white/30">/</span>
             </span>
           ))}
         </div>
