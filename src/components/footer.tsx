@@ -138,8 +138,11 @@ export default function Footer() {
             {/* Brand */}
             <div>
               <img src="/logo-white.png" alt="TruTravels" className="h-20 sm:h-24 mb-5" />
-              <p className="text-white text-2xl sm:text-3xl font-black uppercase tracking-tight font-heading leading-[1.05] mb-3">
+              <p className="text-white text-2xl sm:text-3xl font-black uppercase tracking-tight font-heading leading-[1.05] mb-1">
                 Leave Ordinary <span className="text-tru-pink">Behind</span>
+              </p>
+              <p className="text-tru-pink font-handwriting text-3xl sm:text-4xl mb-4">
+                Find Your Extraordinary&hellip;
               </p>
               <p className="text-gray-300 text-sm leading-relaxed max-w-md">
                 Life-changing experiences. Game-changing travel. We&apos;re here for the in-between years
