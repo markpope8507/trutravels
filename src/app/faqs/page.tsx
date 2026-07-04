@@ -111,13 +111,12 @@ export default function FaqsPage() {
         <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 -bottom-10 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.06] brightness-0 invert" />
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="divide-y divide-white/10">
-            {FAQ_GROUPS.map((group, i) => (
+            {FAQ_GROUPS.map((group) => (
               <FaqSection
                 key={group.category}
                 title={group.category}
                 description={group.description}
                 faqs={group.faqs}
-                defaultOpen={i === 0}
               />
             ))}
           </div>
