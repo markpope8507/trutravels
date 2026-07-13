@@ -94,7 +94,7 @@ export default function CollapsibleItinerary({
                   )}
 
                   {/* Body text */}
-                  <p className="text-gray-300 text-sm leading-relaxed sm:flex-1">
+                  <p className="text-gray-300 text-base leading-relaxed sm:flex-1">
                     {day.description}
                   </p>
                 </div>

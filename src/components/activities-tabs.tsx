@@ -184,7 +184,7 @@ export default function ActivitiesTabs({
                           </p>
                         )}
                         {activity.description && (
-                          <p className="text-gray-300 text-sm leading-relaxed">
+                          <p className="text-gray-300 text-base leading-relaxed">
                             {activity.description}
                           </p>
                         )}
