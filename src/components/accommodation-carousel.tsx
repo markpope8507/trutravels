@@ -56,7 +56,7 @@ export default function AccommodationCarousel({ items }: { items: AccommodationI
               {item.video ? (
                 <button
                   onClick={() => setPlaying(item)}
-                  className="group relative aspect-[16/10] bg-black block w-full"
+                  className="group relative aspect-square bg-black block w-full"
                   aria-label={`Play video of ${item.title}`}
                 >
                   <img src={item.poster || item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover" />
@@ -72,7 +72,7 @@ export default function AccommodationCarousel({ items }: { items: AccommodationI
                   </span>
                 </button>
               ) : (
-                <div className="relative aspect-[16/10] bg-black">
+                <div className="relative aspect-square bg-black">
                   <img src={item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover" />
                 </div>
               )}
