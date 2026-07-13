@@ -116,7 +116,7 @@ export type Trip = {
   depositPrice?: number;
   startLocation?: string;
   endLocation?: string;
-  accommodation?: { title: string; description: string; image: string }[];
+  accommodation?: { title: string; description: string; image: string; video?: string; poster?: string }[];
   travelStyle: TravelStyle;
   memberOnly?: boolean;
   rating?: number;
@@ -486,6 +486,7 @@ export const trips: Trip[] = [
         title: "Khao Sok Floating Bungalows",
         description: "One of the most magical stays on the trip. Wake up on an emerald lake surrounded by towering limestone mountains. Basic but beautiful — hammocks, wooden decks, and water all around you.",
         image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80",
+        video: "https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4",
       },
       {
         title: "Bottle Beach Bungalows",
