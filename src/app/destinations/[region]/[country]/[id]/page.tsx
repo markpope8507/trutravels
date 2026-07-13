@@ -244,7 +244,7 @@ export default async function TripDetailPage({
               {trip.inclusions ? (
                 <div className="space-y-6">
                   {/* Essentials grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 auto-rows-fr gap-3">
                     {trip.inclusions.accommodation && (
                       <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 text-center h-full">
                         <svg className="h-6 w-6 text-tru-pink mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
