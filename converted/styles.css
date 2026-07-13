@@ -1273,3 +1273,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Sidebar sub-blocks */
 .side-block { margin-top: 1.5rem; }
 .side-block__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 0.02em; margin: 0 0 0.75rem; }
+
+/* Transparent overlay nav (floats over the hero) */
+.site-nav--over { position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); backdrop-filter: none; border-bottom: none; }
+
+/* Nav right-side actions */
+.site-nav__actions { display: flex; align-items: center; gap: 0.75rem; }
+.site-nav__icon { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 0.35rem; }
+.site-nav__icon svg { width: 1.25rem; height: 1.25rem; }
+@media (min-width: 768px) { .site-nav__icon { display: inline-flex; } }
