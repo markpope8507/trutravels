@@ -90,7 +90,7 @@ export default function CollapsibleItinerary({
             >
               <div className="overflow-hidden">
               <div className="px-4 sm:pl-[72px] pb-5">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-5">
                   {/* Image(s) */}
                   {dayImages.length > 1 ? (
                     <DayImageSlider images={dayImages} alt={day.title} />
