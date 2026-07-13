@@ -27,7 +27,7 @@ export default function CollapsibleItinerary({
   days: ItineraryDay[];
   activities?: Activity[];
 }) {
-  const [openDays, setOpenDays] = useState<Set<number>>(new Set([1]));
+  const [openDays, setOpenDays] = useState<Set<number>>(new Set());
 
   const toggle = (day: number) => {
     setOpenDays((prev) => {
