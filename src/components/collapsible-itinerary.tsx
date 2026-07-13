@@ -84,7 +84,7 @@ export default function CollapsibleItinerary({
                 <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5">
                   {/* Image */}
                   {day.image && (
-                    <div className="rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-48 sm:h-36 sm:flex-shrink-0">
+                    <div className="rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 sm:h-52 lg:h-56 sm:flex-shrink-0">
                       <img
                         src={day.image}
                         alt={day.title}
