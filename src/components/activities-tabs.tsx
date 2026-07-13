@@ -140,7 +140,7 @@ export default function ActivitiesTabs({
                     />
                   </svg>
                 </div>
-                <span className="text-gray-200 text-sm flex-1">{activity.name}</span>
+                <span className="text-gray-200 text-base flex-1">{activity.name}</span>
                 {isExpandable && (
                   <svg
                     className={`h-4 w-4 text-gray-400 flex-shrink-0 transition-transform duration-200 ${
@@ -184,7 +184,7 @@ export default function ActivitiesTabs({
                           </p>
                         )}
                         {activity.description && (
-                          <p className="text-gray-300 text-base leading-relaxed">
+                          <p className="text-gray-300 text-sm leading-relaxed">
                             {activity.description}
                           </p>
                         )}
