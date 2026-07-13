@@ -27,16 +27,21 @@ export default function CollapsibleItinerary({
   days: ItineraryDay[];
   activities?: Activity[];
 }) {
-  const [openDay, setOpenDay] = useState<number | null>(1);
+  const [openDays, setOpenDays] = useState<Set<number>>(new Set([1]));
 
   const toggle = (day: number) => {
-    setOpenDay(openDay === day ? null : day);
+    setOpenDays((prev) => {
+      const next = new Set(prev);
+      if (next.has(day)) next.delete(day);
+      else next.add(day);
+      return next;
+    });
   };
 
   return (
     <div className="space-y-3">
       {days.map((day) => {
-        const isOpen = openDay === day.day;
+        const isOpen = openDays.has(day.day);
         const dayActivities = activities.filter((a) => a.day === day.day);
         const dayTypeIds = new Set(
           dayActivities
