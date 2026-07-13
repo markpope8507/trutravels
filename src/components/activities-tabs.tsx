@@ -65,9 +65,13 @@ export default function ActivitiesTabs({
               className={`rounded-[10px] border p-3 flex flex-col items-center gap-2.5 text-center transition-all duration-200 ${
                 isActive
                   ? "text-white"
-                  : "border-white/10 bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20"
+                  : "border-white/10 bg-white/5 text-gray-400 hover:text-white hover:[border-color:var(--exp)] hover:[background-color:var(--exp-tint)]"
               }`}
-              style={isActive ? { borderColor: tab.color, background: `${tab.color}1f` } : undefined}
+              style={
+                isActive
+                  ? { borderColor: tab.color, background: `${tab.color}1f` }
+                  : ({ "--exp": tab.color, "--exp-tint": `${tab.color}1f` } as React.CSSProperties)
+              }
             >
               <span className="h-10 w-10 flex items-center justify-center">
                 {tab.icon ? (
