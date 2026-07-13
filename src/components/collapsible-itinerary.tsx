@@ -57,7 +57,7 @@ export default function CollapsibleItinerary({
                 {day.day}
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="text-white font-semibold text-base sm:text-lg">
+                <h3 className="text-white font-semibold text-sm sm:text-base">
                   {day.title}
                 </h3>
               </div>
