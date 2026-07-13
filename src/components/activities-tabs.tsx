@@ -54,29 +54,36 @@ export default function ActivitiesTabs({
         Every Tru trip is intentionally designed around five core experience types — each one plays a role in shaping your journey. Pick a type below to see how it shows up on this adventure.
       </p>
 
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-3 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wider font-heading transition-all duration-200 ${
-              activeTab === tab.id
-                ? "text-white"
-                : "text-gray-400 bg-white/5 hover:text-white hover:bg-white/10"
-            }`}
-            style={
-              activeTab === tab.id
-                ? { background: tab.id === "all" ? "rgba(255,255,255,0.15)" : tab.color }
-                : undefined
-            }
-          >
-            {tab.icon && (
-              <img src={tab.icon} alt="" aria-hidden="true" className="inline-block h-3.5 w-3.5 mr-1.5 -mt-0.5 object-contain" />
-            )}
-            {tab.label}
-          </button>
-        ))}
+      {/* Experience-type selector — icon above label, mirroring the inclusion cards */}
+      <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-5">
+        {tabs.map((tab) => {
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`rounded-[10px] border p-3 flex flex-col items-center gap-2.5 text-center transition-all duration-200 ${
+                isActive
+                  ? "text-white"
+                  : "border-white/10 bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20"
+              }`}
+              style={isActive ? { borderColor: tab.color, background: `${tab.color}1f` } : undefined}
+            >
+              <span className="h-10 w-10 flex items-center justify-center">
+                {tab.icon ? (
+                  <img src={tab.icon} alt="" aria-hidden="true" className="h-10 w-10 object-contain" />
+                ) : (
+                  <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                  </svg>
+                )}
+              </span>
+              <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider font-heading leading-tight">
+                {tab.label}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Experience type description */}
