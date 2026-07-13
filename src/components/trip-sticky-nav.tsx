@@ -102,7 +102,7 @@ export default function TripStickyNav({
           </div>
           <div className="flex items-center gap-4 flex-shrink-0">
           {originalPrice && originalPrice !== price && (
-            <span className="text-white text-[11px] font-bold uppercase tracking-wider font-heading whitespace-nowrap hidden sm:inline">
+            <span className="text-tru-pink text-[11px] font-bold uppercase tracking-wider font-heading whitespace-nowrap">
               Save &pound;{originalPrice - price}
             </span>
           )}
