@@ -1226,3 +1226,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Full-screen hero variant (tour pages) */
 .country-hero--full { height: 100vh; min-height: 40rem; }
 @media (min-width: 640px) { .country-hero--full { height: 100vh; } }
+
+/* Travel style block */
+.travel-style { display: flex; align-items: center; gap: 1.25rem; border: 1px solid var(--border-soft); background: var(--surface-soft); border-radius: var(--radius); padding: 1.25rem 1.5rem; }
+.travel-style__logo { flex: 0 0 auto; height: 3.5rem; width: 3.5rem; object-fit: contain; }
+.travel-style__name { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 1.25rem; margin: 0 0 0.35rem; }
+.travel-style__desc { color: #d1d5db; font-size: 0.9rem; line-height: 1.55; margin: 0; }
+
+/* Booking-bar section tabs */
+.booking-bar__tabs { display: none; gap: 1.5rem; }
+@media (min-width: 768px) { .booking-bar__tabs { display: flex; } }
+.booking-bar__tabs a { color: #cfd6df; font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s; }
+.booking-bar__tabs a:hover { color: var(--tru-pink); }
