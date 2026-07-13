@@ -81,12 +81,13 @@ export default function CollapsibleItinerary({
               </svg>
             </button>
 
-            {/* Expandable content */}
+            {/* Expandable content — grid-rows transition animates to true height */}
             <div
-              className={`transition-all duration-300 ease-out ${
-                isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
-              } overflow-hidden`}
+              className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+              }`}
             >
+              <div className="overflow-hidden">
               <div className="px-4 sm:pl-[72px] pb-5">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5">
                   {/* Image(s) */}
@@ -182,6 +183,7 @@ export default function CollapsibleItinerary({
                     ))}
                   </div>
                 )}
+              </div>
               </div>
             </div>
           </div>
