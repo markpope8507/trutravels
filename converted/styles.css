@@ -1282,3 +1282,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .site-nav__icon { display: none; background: none; border: none; color: #fff; cursor: pointer; padding: 0.35rem; }
 .site-nav__icon svg { width: 1.25rem; height: 1.25rem; }
 @media (min-width: 768px) { .site-nav__icon { display: inline-flex; } }
+
+/* "Watch the trip" video block (overview) */
+.trip-video { position: relative; display: block; border-radius: var(--radius); overflow: hidden; margin: 1.75rem 0; aspect-ratio: 16 / 9; background: #000; }
+.trip-video img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; transition: opacity 0.2s; }
+.trip-video:hover img { opacity: 0.7; }
+.trip-video__play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.trip-video__play span { width: 4.5rem; height: 4.5rem; border-radius: 999px; background: var(--tru-pink); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.trip-video__play svg { width: 1.75rem; height: 1.75rem; color: #fff; margin-left: 3px; }
+.trip-video__label { position: absolute; bottom: 1rem; left: 1.15rem; color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.9rem; }
+
+/* Pricing card refinements */
+.pricing-card__badge { background: var(--tru-pink); color: #fff; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.5rem; border-radius: 999px; font-family: 'Montserrat', sans-serif; align-self: center; }
+.pricing-card__date { color: #d1d5db; font-size: 0.8rem; margin: 0.4rem 0 0; }
