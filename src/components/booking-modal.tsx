@@ -67,8 +67,10 @@ export default function BookingModal({
   const [selected, setSelected] = useState<Departure | null>(null);
   const [notifySignedUp, setNotifySignedUp] = useState(false);
   const [travellers, setTravellers] = useState(1);
-  const [step, setStep] = useState<"dates" | "confirm">("dates");
+  const [step, setStep] = useState<"dates" | "confirm" | "waitlist">("dates");
   const [selectedYear, setSelectedYear] = useState(2026);
+  const [waitlistDone, setWaitlistDone] = useState(false);
+  const [waitlist, setWaitlist] = useState({ name: "", email: "", phone: "", message: "" });
 
   useEffect(() => {
     if (!isOpen) {
@@ -77,6 +79,8 @@ export default function BookingModal({
       setStep("dates");
       setSelectedYear(2026);
       setNotifySignedUp(false);
+      setWaitlistDone(false);
+      setWaitlist({ name: "", email: "", phone: "", message: "" });
     }
   }, [isOpen]);
 
@@ -93,14 +97,33 @@ export default function BookingModal({
   }, {});
 
   const handleSelect = (dep: Departure) => {
-    if (dep.status === "full") return;
     setSelected(dep);
-    setStep("confirm");
+    if (dep.status === "full") {
+      setWaitlistDone(false);
+      setStep("waitlist");
+    } else {
+      setStep("confirm");
+    }
   };
 
   const handleBack = () => {
     setStep("dates");
   };
+
+  const updateWaitlist =
+    (key: keyof typeof waitlist) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setWaitlist((w) => ({ ...w, [key]: e.target.value }));
+
+  const handleWaitlistSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Prototype: in production this posts the enquiry to the sales team's CRM
+    // so they can offer the spot if a cancellation frees up on this date.
+    setWaitlistDone(true);
+  };
+
+  const waitlistInput =
+    "w-full bg-white/5 border border-white/10 rounded-[10px] px-4 py-2.5 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition";
 
   const totalPrice = selected ? selected.price * travellers : 0;
   const totalDeposit = depositPrice * travellers;
@@ -113,7 +136,7 @@ export default function BookingModal({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
           <div>
-            <p className="text-white font-bold text-base">{step === "dates" ? "Choose Your Date" : "Confirm Booking"}</p>
+            <p className="text-white font-bold text-base">{step === "dates" ? "Choose Your Date" : step === "waitlist" ? "Join The Waitlist" : "Confirm Booking"}</p>
             <p className="text-gray-400 text-xs">{tripTitle} &middot; {duration}</p>
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-white transition">
@@ -226,10 +249,9 @@ export default function BookingModal({
                           <button
                             key={dep.date}
                             onClick={() => handleSelect(dep)}
-                            disabled={isFull}
                             className={`w-full flex items-center justify-between rounded-[10px] border px-4 py-3 transition-all duration-200 text-left ${
                               isFull
-                                ? "border-white/5 bg-white/[0.02] opacity-40 cursor-not-allowed"
+                                ? "border-white/10 bg-white/[0.03] hover:border-tru-pink/40 hover:bg-tru-pink/[0.06]"
                                 : selected?.date === dep.date
                                 ? "border-tru-pink bg-tru-pink/10"
                                 : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"
@@ -238,9 +260,10 @@ export default function BookingModal({
                             <div className="flex items-center gap-3">
                               <div className={`h-2.5 w-2.5 rounded-full flex-shrink-0 ${config.dot}`} />
                               <div>
-                                <p className="text-white text-sm font-medium">{formatDate(dep.date)}</p>
+                                <p className={`text-sm font-medium ${isFull ? "text-gray-300" : "text-white"}`}>{formatDate(dep.date)}</p>
                                 <p className="text-gray-400 text-[11px]">
                                   {config.label}
+                                  {isFull && <span className="text-tru-pink ml-1.5">&middot; Join the waitlist</span>}
                                   {dep.discount && (
                                     <span className="text-tru-pink ml-1.5">
                                       &middot; {dep.discount}
@@ -253,15 +276,26 @@ export default function BookingModal({
                               </div>
                             </div>
                             <div className="text-right">
-                              <div className="flex items-center gap-2 justify-end">
-                                {dep.originalPrice && dep.originalPrice !== dep.price && (
-                                  <span className="text-gray-500 text-xs line-through">&pound;{dep.originalPrice}</span>
-                                )}
-                                <span className="font-bold text-sm text-white">
-                                  &pound;{dep.price}
+                              {isFull ? (
+                                <span className="inline-flex items-center gap-1 text-tru-pink text-[11px] font-bold uppercase tracking-wider font-heading">
+                                  Request Spot
+                                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                                  </svg>
                                 </span>
-                              </div>
-                              <p className="text-gray-500 text-[10px]">per person</p>
+                              ) : (
+                                <>
+                                  <div className="flex items-center gap-2 justify-end">
+                                    {dep.originalPrice && dep.originalPrice !== dep.price && (
+                                      <span className="text-gray-500 text-xs line-through">&pound;{dep.originalPrice}</span>
+                                    )}
+                                    <span className="font-bold text-sm text-white">
+                                      &pound;{dep.price}
+                                    </span>
+                                  </div>
+                                  <p className="text-gray-500 text-[10px]">per person</p>
+                                </>
+                              )}
                             </div>
                           </button>
                         );
@@ -273,7 +307,70 @@ export default function BookingModal({
                 );
               })()}
             </div>
-          ) : selected ? (
+          ) : step === "waitlist" && selected ? (
+            /* Waitlist step — request a spot on a full date */
+            <div className="p-6">
+              <button onClick={handleBack} className="flex items-center gap-1 text-gray-400 hover:text-white transition text-sm mb-6">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to dates
+              </button>
+
+              {waitlistDone ? (
+                <div className="text-center py-8">
+                  <div className="mx-auto mb-4 h-14 w-14 rounded-full bg-tru-pink/15 border border-tru-pink/30 flex items-center justify-center">
+                    <svg className="h-7 w-7 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-black text-white uppercase font-heading tracking-tight mb-2">
+                    You&apos;re On The <span className="text-tru-pink">Waitlist</span>
+                  </h3>
+                  <p className="text-gray-300 text-sm leading-relaxed max-w-sm mx-auto">
+                    Thanks{waitlist.name ? `, ${waitlist.name.split(" ")[0]}` : ""} — {formatDate(selected.date)} is currently full, but we&apos;ve passed your details to the team. If a spot frees up from a cancellation, you&apos;ll be the first we call.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className="rounded-[10px] border border-tru-pink/25 bg-tru-pink/[0.06] p-4 mb-6">
+                    <p className="text-white text-sm font-bold">{formatDate(selected.date)} &middot; Full</p>
+                    <p className="text-gray-300 text-xs leading-relaxed mt-1">
+                      This departure is fully booked. Leave your details and we&apos;ll keep them on file — if a spot opens up from a cancellation, you&apos;ll be first to know.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleWaitlistSubmit} className="space-y-4">
+                    <div>
+                      <label className="block text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-2">Name <span className="text-gray-500">*</span></label>
+                      <input type="text" required value={waitlist.name} onChange={updateWaitlist("name")} placeholder="Your name" className={waitlistInput} />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-2">Email <span className="text-gray-500">*</span></label>
+                      <input type="email" required value={waitlist.email} onChange={updateWaitlist("email")} placeholder="you@email.com" className={waitlistInput} />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-2">Contact Number <span className="text-gray-500">*</span></label>
+                      <input type="tel" required value={waitlist.phone} onChange={updateWaitlist("phone")} placeholder="+44 …" className={waitlistInput} />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-2">Message</label>
+                      <textarea rows={3} value={waitlist.message} onChange={updateWaitlist("message")} placeholder="Anything we should know? (flexible on dates, group size, etc.)" className={`${waitlistInput} resize-none`} />
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full inline-flex items-center justify-center gap-2 rounded-[10px] bg-tru-pink hover:bg-tru-pink-light text-white px-6 py-3 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200"
+                    >
+                      Request A Spot
+                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </form>
+                </>
+              )}
+            </div>
+          ) : step === "confirm" && selected ? (
             /* Confirm step */
             <div className="p-6">
               <button onClick={handleBack} className="flex items-center gap-1 text-gray-400 hover:text-white transition text-sm mb-6">
