@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import { trips, type Trip } from "@/lib/data";
 import DealCard, { getUpcomingDepartures } from "@/components/deal-card";
 import PillButton from "@/components/pill-button";
@@ -59,6 +60,7 @@ export default function DealsBrowser() {
   const [maxBudget, setMaxBudget] = useState<number>(PRICE_MAX);
   const [dealsSort, setDealsSort] = useState("earliest");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  useScrollLock(mobileFilterOpen);
 
   const [dealsLimit, setDealsLimit] = useState(PAGE_SIZE);
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import { createPortal } from "react-dom";
 
 export default function ShareButtons({
@@ -12,6 +13,7 @@ export default function ShareButtons({
 }) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  useScrollLock(open);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(window.location.href);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import Link from "next/link";
 import { trips, stories } from "@/lib/data";
 import { tripUrl } from "@/lib/utils";
@@ -95,6 +96,7 @@ export default function SearchOverlay({
     return () => document.removeEventListener("keydown", handler);
   }, [onClose]);
 
+  useScrollLock(isOpen);
   if (!isOpen) return null;
 
   const filtered = query.length > 0

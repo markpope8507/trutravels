@@ -10,6 +10,19 @@ export default function MapViewer({ src, alt }: { src: string; alt: string }) {
   const lastDistance = useRef(0);
   const lastTouch = useRef({ x: 0, y: 0 });
   const dragging = useRef(false);
+  const stageRef = useRef<HTMLDivElement>(null);
+
+  // Stop the browser from pinch-zooming the whole page while the user pinches
+  // the map — needs a non-passive listener (React's touch events are passive).
+  useEffect(() => {
+    const el = stageRef.current;
+    if (!open || !el) return;
+    const block = (e: TouchEvent) => {
+      if (e.touches.length >= 2) e.preventDefault();
+    };
+    el.addEventListener("touchmove", block, { passive: false });
+    return () => el.removeEventListener("touchmove", block);
+  }, [open]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 2) {
@@ -118,6 +131,7 @@ export default function MapViewer({ src, alt }: { src: string; alt: string }) {
 
           {/* Map image */}
           <div
+            ref={stageRef}
             className="relative z-10 w-full h-full flex items-center justify-center overflow-hidden touch-none"
             onClick={(e) => e.stopPropagation()}
             onTouchStart={handleTouchStart}

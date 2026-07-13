@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { trips, Trip, experienceTypes, travelStyleConfig } from "@/lib/data";
@@ -202,6 +203,7 @@ function InspireMeModal({
     }
   }, [isOpen]);
 
+  useScrollLock(isOpen);
   if (!isOpen || !mounted) return null;
 
   const currentStep = quizSteps[step];

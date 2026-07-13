@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import { createPortal } from "react-dom";
 import { useAuth } from "@/lib/auth-context";
 import Link from "next/link";
@@ -9,6 +10,7 @@ export default function FavouriteButton({ tripId }: { tripId: string }) {
   const { isLoggedIn } = useAuth();
   const [saved, setSaved] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
+  useScrollLock(showPrompt);
   const ref = useRef<HTMLDivElement>(null);
 
   // Close on outside click

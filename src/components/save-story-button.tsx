@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useSyncExternalStore } from "react";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
@@ -17,6 +18,7 @@ export default function SaveStoryButton({ storyId }: { storyId: string }) {
   const saved = (JSON.parse(raw) as string[]).includes(storyId);
 
   const [showPrompt, setShowPrompt] = useState(false);
+  useScrollLock(showPrompt);
   const ref = useRef<HTMLDivElement>(null);
 
   // Close the login prompt on outside click.

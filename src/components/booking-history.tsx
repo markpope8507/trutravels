@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import Link from "next/link";
 
 const mockBookings = [
@@ -219,6 +220,7 @@ function BookingHistory() {
   const [manageTab, setManageTab] = useState("overview");
   const [editing, setEditing] = useState(false);
   const [videoReviewOpen, setVideoReviewOpen] = useState<string | null>(null);
+  useScrollLock(!!videoReviewOpen);
   const [recording, setRecording] = useState(false);
   const [recorded, setRecorded] = useState(false);
   const [formData, setFormData] = useState({

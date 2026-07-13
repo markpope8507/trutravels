@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import Link from "next/link";
 import { InspireMeModal } from "@/components/inspire-me";
 
@@ -20,6 +21,7 @@ function LifeMomentsModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  useScrollLock(isOpen);
   if (!isOpen) return null;
 
   return (
@@ -77,6 +79,7 @@ function TravelStylesModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  useScrollLock(isOpen);
   if (!isOpen) return null;
 
   return (
@@ -137,6 +140,7 @@ function LastMinuteModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  useScrollLock(isOpen);
   if (!isOpen) return null;
 
   return (

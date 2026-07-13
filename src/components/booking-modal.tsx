@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useScrollLock } from "@/lib/use-scroll-lock";
 import { useAuth } from "@/lib/auth-context";
 import { useCart } from "@/lib/cart-context";
 import Link from "next/link";
@@ -83,6 +84,8 @@ export default function BookingModal({
       setWaitlist({ name: "", email: "", phone: "", message: "" });
     }
   }, [isOpen]);
+
+  useScrollLock(isOpen);
 
   if (!isOpen) return null;
 
