@@ -1064,7 +1064,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    ============================================================ */
 
 /* Sticky booking bar */
-.booking-bar { position: sticky; top: 56px; z-index: 40; background: rgba(9,33,62,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-soft); }
+.booking-bar { position: sticky; top: 0; z-index: 40; background: rgba(9,33,62,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border-soft); }
 .booking-bar__inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 56px; }
 .booking-bar__title { display: none; color: #fff; font-family: Montserrat, sans-serif; font-weight: 900; text-transform: uppercase; font-size: 1rem; }
 @media (min-width: 640px) { .booking-bar__title { display: block; } }
@@ -1275,7 +1275,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .side-block__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 0.02em; margin: 0 0 0.75rem; }
 
 /* Transparent overlay nav (floats over the hero) */
-.site-nav--over { position: fixed; top: 0; left: 0; right: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); backdrop-filter: none; border-bottom: none; }
+.site-nav--over { position: absolute; top: 0; left: 0; right: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); backdrop-filter: none; border-bottom: none; }
 
 /* Nav right-side actions */
 .site-nav__actions { display: flex; align-items: center; gap: 0.75rem; }
@@ -1295,3 +1295,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Pricing card refinements */
 .pricing-card__badge { background: var(--tru-pink); color: #fff; font-size: 0.62rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.2rem 0.5rem; border-radius: 999px; font-family: 'Montserrat', sans-serif; align-self: center; }
 .pricing-card__date { color: #d1d5db; font-size: 0.8rem; margin: 0.4rem 0 0; }
+
+/* Sidebar stacked stays */
+.side-stays { display: flex; flex-direction: column; gap: 1rem; }
