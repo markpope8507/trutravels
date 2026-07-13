@@ -167,7 +167,7 @@ export default function CollapsibleItinerary({
                           color: e.color,
                         }}
                       >
-                        <span className="text-sm leading-none">{e.emoji}</span>
+                        <img src={e.icon} alt="" aria-hidden="true" className="h-3.5 w-3.5 object-contain" />
                         {e.name}
                       </span>
                     ))}
