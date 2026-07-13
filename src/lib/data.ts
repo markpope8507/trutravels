@@ -103,7 +103,7 @@ export type Trip = {
     transport?: string;
     meals?: string;
     leader?: string;
-    activities: { name: string; experienceType?: string; day?: number; image?: string; description?: string }[];
+    activities: { name: string; experienceType?: string; day?: number; image?: string; description?: string; images?: string[] }[];
     truExclusive?: { name: string; description: string };
     extras?: string[];
   };
@@ -359,6 +359,7 @@ export const trips: Trip[] = [
           experienceType: "local-lens",
           day: 2,
           image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80", "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80"],
           description:
             "Glide through Bangkok's back canals along the Chao Phraya River, then visit Wat Arun glowing in the morning light and the reclining Buddha at Wat Pho.",
         },
@@ -367,6 +368,7 @@ export const trips: Trip[] = [
           experienceType: "unplugged",
           day: 3,
           image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800&q=80", "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80"],
           description:
             "You've earned it — a proper traditional Thai massage to loosen up before the overnight train south.",
         },
@@ -375,6 +377,7 @@ export const trips: Trip[] = [
           experienceType: "local-lens",
           day: 3,
           image: "https://images.unsplash.com/photo-1541185934-01b600ea069c?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1541185934-01b600ea069c?w=800&q=80", "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80", "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80"],
           description:
             "Sleeper carriages, the swaying rhythm of the rails, and Thailand's countryside slipping past your window through the night.",
         },
@@ -383,6 +386,7 @@ export const trips: Trip[] = [
           experienceType: "unplugged",
           day: 4,
           image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80", "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80"],
           description:
             "Emerald lakes, towering limestone karsts, and a kayak across some of the bluest water on Earth — one of Thailand's best-kept secrets.",
         },
@@ -391,6 +395,7 @@ export const trips: Trip[] = [
           experienceType: "tru-ly-unique",
           day: 4,
           image: "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800&q=80", "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80", "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80"],
           description:
             "Sleep on wooden bungalows tethered to a hidden lake. Hammocks over the water, jungle on three sides, and zero Wi-Fi.",
         },
@@ -399,6 +404,7 @@ export const trips: Trip[] = [
           experienceType: "tru-ly-unique",
           day: 5,
           image: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80", "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80"],
           description:
             "A secluded beach stay only we can pull off — private fire show, cocktails on the sand, and a bonfire dinner under the stars. You won't find this anywhere else.",
         },
@@ -407,6 +413,7 @@ export const trips: Trip[] = [
           experienceType: "rise-up",
           day: 6,
           image: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80", "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80"],
           description:
             "Trek up to the lookout above one of Thailand's most secluded beaches for jaw-dropping panoramas across the coast.",
         },
@@ -415,6 +422,7 @@ export const trips: Trip[] = [
           experienceType: "rise-up",
           day: 6,
           image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
+          images: ["https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg", "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80"],
           description:
             "Wrap your hands, learn the kicks, and get a taste of Thailand's national sport. Useless or natural — it's a laugh either way.",
         },
@@ -423,6 +431,7 @@ export const trips: Trip[] = [
           experienceType: "bucket-list",
           day: 7,
           image: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80", "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80", "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80"],
           description:
             "Hop a longtail to secret coves, snorkel over coral gardens, and chase the sunset back to shore. Lunch on the boat.",
         },
@@ -431,6 +440,7 @@ export const trips: Trip[] = [
           experienceType: "bucket-list",
           day: 9,
           image: "https://images.unsplash.com/photo-1546500840-ae38253aba9b?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1546500840-ae38253aba9b?w=800&q=80", "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80", "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80"],
           description:
             "The three tiny islands joined by a white sandbar that own your Instagram feed. Snorkel in some of the clearest water you'll ever see.",
         },
@@ -439,6 +449,7 @@ export const trips: Trip[] = [
           experienceType: "bucket-list",
           day: 12,
           image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80", "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80"],
           description:
             "Maya Bay (yes, *The Beach*), Monkey Beach, Viking Cave — limestone cliffs and lunch on deck in one perfect day at sea.",
         },
@@ -446,6 +457,7 @@ export const trips: Trip[] = [
           name: "Phuket nightlife",
           day: 13,
           image: "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=800&q=80",
+          images: ["https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=800&q=80", "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80"],
           description:
             "A proper farewell night in Patong — Bangla Road, beach bars, neon, and one last group photo before the goodbyes.",
         },
@@ -518,13 +530,16 @@ export const trips: Trip[] = [
     ],
     itinerary: [
       { day: 1, title: "Welcome to Thailand!", description: "A city with as much history as it has traffic, more sticky rice than you could ever imagine. Tonight you'll meet your group and tour leader on the famous Khao San Road — grab some local street food, sink a few cold ones, and get to know the people you're about to have the time of your life with.", image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80", "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80", "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80"],
         location: "Bangkok Hotel",
       },
       { day: 2, title: "Bangkok Temples & River Cruise", description: "Start with a traditional boat journey through Bangkok's back canals and along the Chao Phraya River — it's like seeing a completely different side of the city. Visit the stunning Wat Arun temple glowing in the morning light, then head to Wat Pho to see the famous reclining Buddha. Tonight, it's your call — rooftop cocktails or dive into Bangkok's legendary nightlife.", image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80", "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80", "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80"],
         location: "Bangkok Hotel",
         meals: ["1x Breakfast"],
       },
       { day: 3, title: "Massage & Overnight Train", description: "You've earned a treat — kick off the day with a traditional Thai massage before boarding the overnight train heading south towards Khao Sok National Park. There's something magical about falling asleep to the rhythm of the rails, watching Thailand's countryside slip by through the window.", image: "https://images.unsplash.com/photo-1541185934-01b600ea069c?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1541185934-01b600ea069c?w=800&q=80", "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80"],
         location: "Overnight sleeper train",
         transport: "Overnight train to Khao Sok",
         meals: ["1x Breakfast"],
@@ -535,44 +550,54 @@ export const trips: Trip[] = [
         meals: ["1x Breakfast", "1x Lunch", "1x Dinner"],
       },
       { day: 5, title: "Bottle Beach Experience", description: "One of our absolute favourite spots in the world — Bottle Beach. It's a stunningly beautiful little beach only accessible by boat, and today it's all yours. Swim, play volleyball, trek through the jungle, or just do absolutely nothing. As the sun goes down, we put on a TruExclusive evening — dinner on the sand, cocktails, and a private fire show. Pure magic.", image: "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80", "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80"],
         location: "Bottle Beach Bungalows",
         transport: "Ferry to Koh Phangan + longtail to Bottle Beach",
         meals: ["1x Breakfast", "1x Dinner"],
       },
       { day: 6, title: "Morning Chill & Muay Thai", description: "No alarms today. Sleep in, soak up the beach vibes, or hike up to the Bottle Beach viewpoint for jaw-dropping views across the coast. In the afternoon, get your hands wrapped for an intro lesson in Muay Thai — Thailand's national sport. Whether you're a natural or completely useless, it's an absolute laugh.", image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
+        images: ["https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg", "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80", "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80"],
         location: "Bottle Beach Bungalows",
         meals: ["1x Breakfast"],
       },
       { day: 7, title: "Koh Phangan Island Boat Trip", description: "Jump on a boat and spend the day island-hopping around Koh Phangan's stunning coastline. Stop off at secret snorkelling spots, swim in crystal-clear coves, and soak up the sun on deck. Lunch is included on the boat. Get back to shore just in time for sunset, then head out for dinner and drinks.", image: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80", "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80"],
         location: "Koh Phangan Beach Hotel",
         meals: ["1x Lunch"],
       },
       { day: 8, title: "Koh Tao Bound", description: "Speed boat across to Koh Tao — the diving capital of Thailand. Check into your spot near Sairee Beach, lined with cool little restaurants and beach bars. The afternoon is yours to explore — rent a scooter, find a quiet beach, or just wander and take it all in. This island has serious vibes.", image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80", "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80", "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80"],
         location: "Koh Tao Beach Resort",
         transport: "Speed boat to Koh Tao",
       },
       { day: 9, title: "Koh Nang Yuan Day Trip", description: "Today's a big one. Boat trip to the iconic Koh Nang Yuan — three tiny islands connected by a white sand bar that you've definitely seen on Instagram. Snorkel in some of the clearest water you'll ever see, or just chill on the boat and take in the views. Group dinner tonight followed by beach bar hopping.", image: "https://images.unsplash.com/photo-1546500840-ae38253aba9b?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1546500840-ae38253aba9b?w=800&q=80", "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80", "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80"],
         location: "Koh Tao Beach Resort",
         meals: ["1x Dinner"],
       },
       { day: 10, title: "Get Active or Relax", description: "Your last full day on Koh Tao — make it count. Head to Tanote Bay for some of the island's best swimming, try your hand at wakeboarding or cliff jumping, or just claim a sun lounger and do absolutely nothing. No judgement either way. Soak up every last second of island life.", image: "https://images.unsplash.com/photo-1598935898639-81586f7d2129?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1598935898639-81586f7d2129?w=800&q=80", "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80"],
         location: "Koh Tao Beach Resort",
       },
       { day: 11, title: "Travel Day to Phi Phi Islands", description: "Say goodbye to Koh Tao and hop on the afternoon speed boat to the Phi Phi Islands. Check in, freshen up, and get ready for a group dinner on one of the most beautiful islands on the planet. The views here are absolutely unreal — you'll understand when you see them.", image: "https://images.unsplash.com/photo-1470004914212-05527e49370b?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1470004914212-05527e49370b?w=800&q=80", "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80"],
         location: "Phi Phi Island Hotel",
         transport: "Speed boat to Phi Phi",
         meals: ["1x Dinner"],
       },
       { day: 12, title: "Maya Bay — The Beach", description: "Full-day island excursion to Maya Bay — the filming location from 'The Beach' with Leonardo DiCaprio. Snorkel at Monkey Beach, explore Viking Cave, and cruise past towering limestone cliffs. Lunch on the boat, sunset views from the deck. This is one of those days you'll never forget.", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80", "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80"],
         location: "Phi Phi Island Hotel",
         meals: ["1x Lunch"],
       },
       { day: 13, title: "Phuket", description: "Optional early morning viewpoint hike in Phi Phi — worth the effort if you're up for it. Then transfer to Phuket for your final afternoon of freedom. Relax by the pool, hit the beach, or explore the town. Tonight is the big farewell — group dinner followed by a proper send-off night out in Patong.", image: "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=800&q=80", "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80"],
         location: "Phuket Hotel",
         transport: "Ferry to Phuket",
         meals: ["1x Dinner"],
       },
       { day: 14, title: "Chilled Check Out", description: "And just like that, it's over. But not really — because you've just made friends for life, filled your camera roll with bangers, and had the kind of adventure most people only dream about. We'll help you sort onward travel, swap details with the crew, and say those bittersweet goodbyes. See you on the next one.", image: "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80", "https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80", "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80"],
       },
     ],
   },

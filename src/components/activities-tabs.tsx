@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import { experienceTypes } from "@/lib/data";
+import ImageSlider from "@/components/image-slider";
 
 type Activity = {
   name: string;
   experienceType?: string;
   day?: number;
   image?: string;
+  images?: string[];
   description?: string;
 };
 
@@ -110,7 +112,8 @@ export default function ActivitiesTabs({
       <div className="space-y-1.5">
         {filtered.map((activity) => {
           const isOpen = openActivity === activity.name;
-          const isExpandable = Boolean(activity.image || activity.description);
+          const activityImages = activity.images?.length ? activity.images : activity.image ? [activity.image] : [];
+          const isExpandable = Boolean(activityImages.length || activity.description);
           return (
             <div
               key={activity.name}
@@ -172,14 +175,8 @@ export default function ActivitiesTabs({
                 >
                   <div className="px-4 sm:pl-[52px] pb-4">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
-                      {activity.image && (
-                        <div className="rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 h-56 sm:h-64 lg:h-72 sm:flex-shrink-0">
-                          <img
-                            src={activity.image}
-                            alt={activity.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+                      {activityImages.length > 0 && (
+                        <ImageSlider images={activityImages} alt={activity.name} />
                       )}
                       <div className="sm:flex-1">
                         {activity.day && (
