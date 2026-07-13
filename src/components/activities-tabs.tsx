@@ -89,15 +89,12 @@ export default function ActivitiesTabs({
       {/* Experience type description */}
       {activeExp && (
         <div
-          className="rounded-[10px] px-4 py-4 mb-4 border"
+          className="rounded-[10px] px-4 py-5 mb-4 border text-center"
           style={{ borderColor: `${activeExp.color}30`, background: `${activeExp.color}08` }}
         >
-          <p className="text-white text-sm font-semibold mb-1 flex items-center gap-2">
-            <img src={activeExp.icon} alt="" aria-hidden="true" className="h-4 w-4 object-contain" />
-            {activeExp.name}
-          </p>
-          <p className="text-gray-300 text-sm leading-relaxed mb-2">{activeExp.description}</p>
-          <p className="text-gray-400 text-xs italic">{activeExp.message}</p>
+          <img src={activeExp.icon} alt="" aria-hidden="true" className="h-10 w-10 object-contain mx-auto mb-2.5" />
+          <p className="text-white text-lg font-black uppercase font-heading tracking-tight mb-2">{activeExp.name}</p>
+          <p className="text-gray-300 text-sm leading-relaxed max-w-md mx-auto">{activeExp.description}</p>
         </div>
       )}
 
