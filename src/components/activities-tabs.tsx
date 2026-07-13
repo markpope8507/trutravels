@@ -180,7 +180,7 @@ export default function ActivitiesTabs({
                       )}
                       <div className="sm:flex-1">
                         {activity.day && (
-                          <p className="text-gray-500 text-sm font-semibold uppercase tracking-wider font-heading mb-1">
+                          <p className="text-tru-pink text-sm font-semibold uppercase tracking-wider font-heading mb-1">
                             Day {activity.day}
                           </p>
                         )}
