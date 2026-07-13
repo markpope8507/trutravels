@@ -95,6 +95,7 @@ export default function ActivitiesTabs({
           <div className="flex flex-col items-start sm:w-44 sm:flex-shrink-0">
             <img src={activeExp.icon} alt="" aria-hidden="true" className="h-10 w-10 object-contain mb-2.5" />
             <p className="text-white text-lg font-black uppercase font-heading tracking-tight leading-tight">{activeExp.name}</p>
+            <p className="text-tru-pink text-xs font-light uppercase tracking-[0.2em] font-heading mt-1">Experiences</p>
           </div>
           <p className="text-gray-300 text-sm leading-relaxed flex-1">{activeExp.description}</p>
         </div>
