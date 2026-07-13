@@ -239,7 +239,10 @@ export default async function TripDetailPage({
 
             {/* Inclusions */}
             <section id="inclusions" className="mb-12">
-              <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-6">What&apos;s Included</h2>
+              <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">What You Get</p>
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-[1.05] mb-6">
+                Included <span className="text-tru-pink">As Standard</span>
+              </h2>
 
               {trip.inclusions ? (
                 <div className="space-y-6">
