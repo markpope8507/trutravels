@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 export default function MapViewer({ src, alt }: { src: string; alt: string }) {
   const [open, setOpen] = useState(false);
@@ -55,6 +56,18 @@ export default function MapViewer({ src, alt }: { src: string; alt: string }) {
     resetZoom();
   };
 
+  // Lock background scroll + close on Escape while the lightbox is open.
+  useEffect(() => {
+    if (!open) return;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && handleClose();
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = "";
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   return (
     <>
       <div
@@ -71,7 +84,8 @@ export default function MapViewer({ src, alt }: { src: string; alt: string }) {
         </div>
       </div>
 
-      {open && (
+      {open &&
+        createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center" onClick={handleClose}>
           <div className="absolute inset-0 bg-black/90" />
 
@@ -118,7 +132,8 @@ export default function MapViewer({ src, alt }: { src: string; alt: string }) {
               draggable={false}
             />
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );
