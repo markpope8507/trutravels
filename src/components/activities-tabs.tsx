@@ -167,17 +167,17 @@ export default function ActivitiesTabs({
               {isExpandable && (
                 <div
                   className={`transition-all duration-300 ease-out overflow-hidden ${
-                    isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                    isOpen ? "max-h-[900px] opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
                   <div className="px-4 sm:pl-[52px] pb-4">
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4">
                       {activity.image && (
-                        <div className="rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 sm:h-52 lg:h-56 sm:flex-shrink-0">
+                        <div className="rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 h-56 sm:h-64 lg:h-72 sm:flex-shrink-0">
                           <img
                             src={activity.image}
                             alt={activity.name}
-                            className="w-full h-48 sm:h-full object-cover"
+                            className="w-full h-full object-cover"
                           />
                         </div>
                       )}
