@@ -453,7 +453,6 @@ export const trips: Trip[] = [
         name: "Bottle Beach Experience",
         description: "Secluded beach stay with private fire show, cocktails, and beach bonfire dinner — a Tru-ly Unique experience you won't find anywhere else.",
       },
-      extras: ["Help with onward travel arrangements on final day"],
     },
     departures: [
       { date: "2026-04-12", price: 736, originalPrice: 899, status: "discount", discount: "18% off" },
