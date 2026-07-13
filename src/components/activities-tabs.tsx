@@ -69,11 +69,14 @@ export default function ActivitiesTabs({
               }`}
               style={isActive ? { borderColor: tab.color, background: `${tab.color}1f` } : undefined}
             >
-              <span className="h-10 w-10 flex items-center justify-center">
+              <span
+                className="h-12 w-12 rounded-full flex items-center justify-center flex-shrink-0"
+                style={{ background: tab.id === "all" ? "rgba(255,255,255,0.12)" : tab.color }}
+              >
                 {tab.icon ? (
-                  <img src={tab.icon} alt="" aria-hidden="true" className="h-10 w-10 object-contain" />
+                  <img src={tab.icon} alt="" aria-hidden="true" className="h-7 w-7 object-contain" />
                 ) : (
-                  <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                   </svg>
                 )}
@@ -93,7 +96,12 @@ export default function ActivitiesTabs({
           style={{ borderColor: `${activeExp.color}30`, background: `${activeExp.color}08` }}
         >
           <div className="flex flex-col items-start sm:w-44 sm:flex-shrink-0">
-            <img src={activeExp.icon} alt="" aria-hidden="true" className="h-10 w-10 object-contain mb-2.5" />
+            <span
+              className="h-12 w-12 rounded-full flex items-center justify-center mb-2.5"
+              style={{ background: activeExp.color }}
+            >
+              <img src={activeExp.icon} alt="" aria-hidden="true" className="h-7 w-7 object-contain" />
+            </span>
             <p className="text-white text-lg font-black uppercase font-heading tracking-tight leading-tight">{activeExp.name}</p>
             <p className="text-tru-pink text-xs font-light uppercase tracking-[0.2em] font-heading mt-1">Experiences</p>
           </div>
