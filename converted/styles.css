@@ -1304,3 +1304,50 @@ ul { margin: 0; padding: 0; list-style: none; }
 .site-nav__icon--menu { display: inline-flex; }
 @media (min-width: 768px) { .site-nav__icon--menu { display: none; } }
 @media (max-width: 767px) { .site-nav__join { display: none; } }
+
+/* ============================================================
+   FOOTER (full) — rebuilt to match prototype
+   ============================================================ */
+.footer-toplink { border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); }
+.footer-toplink a { display: flex; align-items: center; justify-content: center; gap: 0.5rem; padding: 1rem; color: var(--text-mute); font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; transition: color 0.2s; }
+.footer-toplink a:hover { color: var(--tru-pink); }
+.footer-toplink svg { width: 1rem; height: 1rem; }
+
+.site-footer { position: relative; overflow: hidden; padding-top: 3.5rem; }
+.footer-top { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+@media (min-width: 640px) { .footer-top { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .footer-top { grid-template-columns: 1.6fr repeat(4, 1fr); gap: 2rem; } }
+
+.footer-brand__logo { height: 3rem; width: 3rem; border-radius: 999px; object-fit: contain; margin-bottom: 1rem; }
+.footer-brand__head { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 1.4rem; line-height: 1; margin: 0; }
+.footer-brand__hand { font-family: 'Caveat', cursive; color: var(--tru-pink); font-size: 1.6rem; margin: 0.15rem 0 0.75rem; }
+.footer-brand__desc { color: var(--text-mute); font-size: 0.85rem; line-height: 1.55; max-width: 22rem; margin: 0 0 1rem; }
+.footer-socials { display: flex; gap: 0.75rem; }
+.footer-socials a { width: 2.1rem; height: 2.1rem; border-radius: 999px; border: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: center; color: #cfd6df; transition: all 0.2s; }
+.footer-socials a:hover { color: #fff; border-color: var(--tru-pink); background: var(--tru-pink); }
+.footer-socials svg { width: 1rem; height: 1rem; }
+
+.footer-col h4 { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.12em; margin: 0 0 1rem; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-col a { color: var(--text-mute); font-size: 0.85rem; transition: color 0.2s; }
+.footer-col a:hover { color: var(--tru-pink); }
+
+.footer-mailing { margin-top: 3rem; padding: 1.75rem 0; border-top: 1px solid var(--border-soft); border-bottom: 1px solid var(--border-soft); display: grid; gap: 1.25rem; }
+@media (min-width: 900px) { .footer-mailing { grid-template-columns: 1fr 1fr; align-items: center; } }
+.footer-mailing h4 { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; font-size: 1rem; margin: 0 0 0.35rem; }
+.footer-mailing p { color: var(--text-mute); font-size: 0.82rem; margin: 0; }
+.footer-mailing p a { color: var(--tru-pink); }
+.footer-mailing form { display: flex; gap: 0.6rem; }
+.footer-mailing input { flex: 1; background: var(--surface-soft); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 0.7rem 1rem; color: #fff; font: inherit; }
+
+.footer-trust { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.75rem 0; }
+.footer-trust__badges { display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+.footer-pill { display: inline-flex; align-items: center; gap: 0.4rem; color: #d1d5db; font-size: 0.8rem; font-weight: 600; }
+.footer-pay { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.footer-pay span { background: #fff; color: #111; font-size: 0.6rem; font-weight: 800; padding: 0.25rem 0.5rem; border-radius: 5px; font-family: 'Montserrat', sans-serif; letter-spacing: 0.02em; }
+
+.footer-legal { border-top: 1px solid var(--border-soft); padding: 1.5rem 0 3rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.footer-legal p { color: var(--text-faint); font-size: 0.75rem; margin: 0; line-height: 1.5; }
+.footer-legal__links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; }
+.footer-legal__links a { color: var(--text-mute); font-size: 0.75rem; }
+.footer-legal__links a:hover { color: var(--tru-pink); }
