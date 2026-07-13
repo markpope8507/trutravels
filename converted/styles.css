@@ -1395,3 +1395,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .booking-bar__tabs a:hover { color: #fff; }
 .booking-bar__tabs a.is-active { color: var(--tru-pink); border-bottom-color: var(--tru-pink); }
 @media (max-width: 640px) { .booking-bar__tabs { overflow-x: auto; } .booking-bar__tabs a { flex: 0 0 auto; } .booking-bar__from, .booking-bar__pp { display: none; } }
+
+/* Travel style — badge + eyebrow (exact) */
+.travel-style { display: flex; align-items: center; gap: 1.5rem; border: none; background: none; padding: 0; margin-top: 1.75rem; }
+.travel-style__badge { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; width: 5rem; }
+.travel-style__badge img { width: 3.5rem; height: 3.5rem; object-fit: contain; }
+.travel-style__badge span { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.05em; }
+.travel-style__eyebrow { color: var(--tru-pink); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; font-family: 'Montserrat', sans-serif; margin: 0 0 0.4rem; }
+/* Watch the trip — shorter banner like prototype */
+.trip-video { aspect-ratio: 2.4 / 1; }
