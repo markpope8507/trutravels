@@ -95,11 +95,11 @@ export default function CollapsibleItinerary({
                   {dayImages.length > 1 ? (
                     <DayImageSlider images={dayImages} alt={day.title} />
                   ) : dayImages.length === 1 ? (
-                    <div className="rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 sm:h-52 lg:h-56 sm:flex-shrink-0">
+                    <div className="rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 h-56 sm:h-64 lg:h-72 sm:flex-shrink-0">
                       <img
                         src={dayImages[0]}
                         alt={day.title}
-                        className="w-full h-48 sm:h-full object-cover"
+                        className="w-full h-full object-cover"
                       />
                     </div>
                   ) : null}
@@ -211,7 +211,7 @@ function DayImageSlider({ images, alt }: { images: string[]; alt: string }) {
 
   return (
     <div
-      className="relative rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 sm:h-52 lg:h-56 sm:flex-shrink-0 group"
+      className="relative rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 h-56 sm:h-64 lg:h-72 sm:flex-shrink-0 group"
       onTouchStart={(e) => (startX.current = e.touches[0].clientX)}
       onTouchEnd={(e) => {
         const dx = e.changedTouches[0].clientX - startX.current;
@@ -221,7 +221,7 @@ function DayImageSlider({ images, alt }: { images: string[]; alt: string }) {
     >
       {/* Sliding track — images swipe out/in */}
       <div
-        className="flex h-48 sm:h-full transition-transform duration-300 ease-out"
+        className="flex h-full transition-transform duration-300 ease-out"
         style={{ transform: `translateX(-${i * 100}%)` }}
       >
         {images.map((src, idx) => (
