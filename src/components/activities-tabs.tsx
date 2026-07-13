@@ -84,8 +84,15 @@ export default function ActivitiesTabs({
                   </svg>
                 )}
               </span>
-              <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider font-heading leading-tight">
-                {tab.label}
+              <span className="flex flex-col items-center leading-tight">
+                <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider font-heading">
+                  {tab.label}
+                </span>
+                {tab.id !== "all" && (
+                  <span className="text-tru-pink text-[8px] sm:text-[9px] font-light uppercase tracking-[0.15em] font-heading mt-0.5">
+                    Experiences
+                  </span>
+                )}
               </span>
             </button>
           );
