@@ -154,22 +154,22 @@ export default function CollapsibleItinerary({
                   </div>
                 )}
 
-                {/* Experience-type pills for this day */}
+                {/* Experience-type cards for this day — mirrors the activities selector */}
                 {dayExpTypes.length > 0 && (
-                  <div className="mt-4 flex flex-wrap items-center gap-2">
+                  <div className="mt-4 grid grid-cols-3 sm:grid-cols-6 gap-2">
                     {dayExpTypes.map((e) => (
-                      <span
+                      <div
                         key={e.id}
-                        className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider font-heading"
-                        style={{
-                          background: `${e.color}20`,
-                          border: `1px solid ${e.color}50`,
-                          color: e.color,
-                        }}
+                        className="rounded-[10px] border p-3 flex flex-col items-center gap-2.5 text-center text-white"
+                        style={{ borderColor: e.color, background: `${e.color}1f` }}
                       >
-                        <img src={e.icon} alt="" aria-hidden="true" className="h-3.5 w-3.5 object-contain" />
-                        {e.name}
-                      </span>
+                        <span className="h-10 w-10 flex items-center justify-center">
+                          <img src={e.icon} alt="" aria-hidden="true" className="h-10 w-10 object-contain" />
+                        </span>
+                        <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider font-heading leading-tight">
+                          {e.name}
+                        </span>
+                      </div>
                     ))}
                   </div>
                 )}
