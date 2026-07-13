@@ -39,7 +39,7 @@ export default function CollapsibleItinerary({
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 [overflow-anchor:none]">
       {days.map((day) => {
         const isOpen = openDays.has(day.day);
         const dayActivities = activities.filter((a) => a.day === day.day);
