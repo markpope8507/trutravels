@@ -29,7 +29,19 @@ export default function CollapsibleItinerary({
 }) {
   const [openDays, setOpenDays] = useState<Set<number>>(new Set([1]));
 
-  const toggle = (day: number) => {
+  const toggle = (day: number, headerEl?: HTMLElement | null) => {
+    // Keep the clicked header fixed in the viewport while the panel animates
+    // open/closed, so the content only grows below it (no upward scroll jump).
+    if (headerEl) {
+      const anchorTop = headerEl.getBoundingClientRect().top;
+      const started = performance.now();
+      const pin = () => {
+        const delta = headerEl.getBoundingClientRect().top - anchorTop;
+        if (Math.abs(delta) > 0.5) window.scrollBy(0, delta);
+        if (performance.now() - started < 420) requestAnimationFrame(pin);
+      };
+      requestAnimationFrame(pin);
+    }
     setOpenDays((prev) => {
       const next = new Set(prev);
       if (next.has(day)) next.delete(day);
@@ -57,7 +69,7 @@ export default function CollapsibleItinerary({
           >
             {/* Header — always visible */}
             <button
-              onClick={() => toggle(day.day)}
+              onClick={(e) => toggle(day.day, e.currentTarget)}
               className="w-full flex items-center gap-4 px-4 py-4 text-left hover:bg-white/5 transition-colors duration-200"
             >
               <div className="flex-shrink-0 h-10 w-10 rounded-full bg-tru-pink text-white flex items-center justify-center text-sm font-bold">
