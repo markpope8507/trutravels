@@ -1222,3 +1222,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 #exp-bucket-list:checked  ~ .exp__list > [data-exp]:not([data-exp="bucket-list"]),
 #exp-tru-ly-unique:checked~ .exp__list > [data-exp]:not([data-exp="tru-ly-unique"]),
 #exp-unplugged:checked    ~ .exp__list > [data-exp]:not([data-exp="unplugged"]) { display: none; }
+
+/* Full-screen hero variant (tour pages) */
+.country-hero--full { height: 100vh; min-height: 40rem; }
+@media (min-width: 640px) { .country-hero--full { height: 100vh; } }
