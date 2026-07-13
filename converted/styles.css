@@ -1298,3 +1298,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Sidebar stacked stays */
 .side-stays { display: flex; flex-direction: column; gap: 1rem; }
+
+/* Mobile nav: search + hamburger; hide Join Club; desktop shows links + join */
+.site-nav__icon--always { display: inline-flex; }
+.site-nav__icon--menu { display: inline-flex; }
+@media (min-width: 768px) { .site-nav__icon--menu { display: none; } }
+@media (max-width: 767px) { .site-nav__join { display: none; } }
