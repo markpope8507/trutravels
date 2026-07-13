@@ -1491,6 +1491,7 @@ export type ExperienceType = {
   id: string;
   name: string;
   emoji: string;
+  icon: string;
   tagline: string;
   description: string;
   message: string;
@@ -1506,6 +1507,7 @@ export const experienceTypes: ExperienceType[] = [
     id: "local-lens",
     name: "Local Lens",
     emoji: "🌍",
+    icon: "/images/experience-icons/local-lens.png",
     tagline: "See the destination through local eyes.",
     description:
       "Direct connections with local culture, traditions, and communities. Cooking with families, exploring neighbourhoods with locals, and participating in generational cultural practices.",
@@ -1525,6 +1527,7 @@ export const experienceTypes: ExperienceType[] = [
     id: "rise-up",
     name: "Rise Up",
     emoji: "🔥",
+    icon: "/images/experience-icons/rise-up.png",
     tagline: "Step beyond comfort and discover what you're capable of.",
     description:
       "Intentional challenges — physical, mental, or emotional — in supportive settings. Summit hikes, independent navigation, and experiences that push your limits.",
@@ -1542,6 +1545,7 @@ export const experienceTypes: ExperienceType[] = [
     id: "bucket-list",
     name: "Bucket List",
     emoji: "🏔",
+    icon: "/images/experience-icons/bucket-list.png",
     tagline: "The iconic experiences that define your journey.",
     description:
       "World-famous landmarks, extraordinary landscapes, and universally recognised destinations that inspire travel aspirations.",
@@ -1559,6 +1563,7 @@ export const experienceTypes: ExperienceType[] = [
     id: "tru-ly-unique",
     name: "Tru-ly Unique",
     emoji: "✨",
+    icon: "/images/experience-icons/tru-ly-unique.png",
     tagline: "Experiences designed exclusively for the Tru community.",
     description:
       "Proprietary experiences through exclusive partnerships, private access, and community-specific opportunities unavailable to general tourists.",
@@ -1576,6 +1581,7 @@ export const experienceTypes: ExperienceType[] = [
     id: "unplugged",
     name: "Unplugged",
     emoji: "🌿",
+    icon: "/images/experience-icons/unplugged.png",
     tagline: "Disconnect from distraction and reconnect with what matters.",
     description:
       "Intentional slowness, presence, and tech-free moments in nature or group settings enabling reflection and authentic connection.",

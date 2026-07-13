@@ -28,10 +28,10 @@ export default function ActivitiesTabs({
       .map((e) => ({
         id: e.id,
         label: e.name,
-        emoji: e.emoji,
+        icon: e.icon,
         color: e.color,
       })),
-    { id: "all", label: "All", emoji: "", color: "#ffffff" },
+    { id: "all", label: "All", icon: "", color: "#ffffff" },
   ];
 
   const [activeTab, setActiveTab] = useState("all");
@@ -71,7 +71,9 @@ export default function ActivitiesTabs({
                 : undefined
             }
           >
-            {tab.emoji && <span className="mr-1">{tab.emoji}</span>}
+            {tab.icon && (
+              <img src={tab.icon} alt="" aria-hidden="true" className="inline-block h-3.5 w-3.5 mr-1.5 -mt-0.5 object-contain" />
+            )}
             {tab.label}
           </button>
         ))}
@@ -83,7 +85,10 @@ export default function ActivitiesTabs({
           className="rounded-[10px] px-4 py-4 mb-4 border"
           style={{ borderColor: `${activeExp.color}30`, background: `${activeExp.color}08` }}
         >
-          <p className="text-white text-sm font-semibold mb-1">{activeExp.emoji} {activeExp.name}</p>
+          <p className="text-white text-sm font-semibold mb-1 flex items-center gap-2">
+            <img src={activeExp.icon} alt="" aria-hidden="true" className="h-4 w-4 object-contain" />
+            {activeExp.name}
+          </p>
           <p className="text-gray-300 text-sm leading-relaxed mb-2">{activeExp.description}</p>
           <p className="text-gray-400 text-xs italic">{activeExp.message}</p>
         </div>
