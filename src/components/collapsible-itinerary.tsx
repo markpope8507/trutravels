@@ -211,7 +211,15 @@ function DayImageSlider({ images, alt }: { images: string[]; alt: string }) {
         else if (dx < -40) go(1);
       }}
     >
-      <img src={images[i]} alt={alt} className="w-full h-48 sm:h-full object-cover" />
+      {/* Sliding track — images swipe out/in */}
+      <div
+        className="flex h-48 sm:h-full transition-transform duration-300 ease-out"
+        style={{ transform: `translateX(-${i * 100}%)` }}
+      >
+        {images.map((src, idx) => (
+          <img key={idx} src={src} alt={alt} className="w-full h-full flex-shrink-0 object-cover" />
+        ))}
+      </div>
 
       {/* Count badge */}
       <div className="absolute top-2 right-2 rounded-full bg-black/55 backdrop-blur-sm px-2 py-0.5 text-white text-[10px] font-bold font-heading">
