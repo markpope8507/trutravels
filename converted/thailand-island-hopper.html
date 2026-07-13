@@ -83,22 +83,27 @@
 
     <!-- ================= STICKY BOOKING BAR (appears on scroll past hero) ================= -->
     <div class="booking-bar">
-      <div class="container booking-bar__inner">
+      <div class="container">
+        <div class="booking-bar__row1">
+          <div class="booking-bar__titlewrap">
+            <button class="booking-bar__share" aria-label="Share"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg></button>
+            <span class="booking-bar__title">Thailand Island Hopper</span>
+          </div>
+          <div class="booking-bar__right">
+            <span class="booking-bar__save">Save &pound;163</span>
+            <span class="booking-bar__from">From <span class="strike">&pound;899</span></span>
+            <span class="booking-bar__now">&pound;736</span>
+            <span class="booking-bar__pp">/ person</span>
+            <a href="#dates" class="btn btn--book">Check Dates &rarr;</a>
+          </div>
+        </div>
         <nav class="booking-bar__tabs" aria-label="Sections">
-          <a href="#overview">Overview</a>
+          <a href="#overview" class="is-active">Overview</a>
           <a href="#inclusions">Inclusions</a>
           <a href="#itinerary">Itinerary</a>
           <a href="#reviews">Reviews</a>
           <a href="#faqs">FAQs</a>
         </nav>
-        <div class="booking-bar__right">
-          <span class="booking-bar__save">Save &pound;163</span>
-          <div class="booking-bar__price">
-            <span class="strike">&pound;899</span>
-            <span class="now">&pound;736</span>
-          </div>
-          <a href="#dates" class="btn btn--primary">Check Dates</a>
-        </div>
       </div>
     </div>
 
