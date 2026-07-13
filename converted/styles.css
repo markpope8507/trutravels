@@ -1365,3 +1365,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .breadcrumb a:hover { color: var(--tru-pink); }
 .breadcrumb .sep { color: var(--text-faint); }
 .breadcrumb .current { color: #fff; }
+
+/* ============================================================
+   EXACT MATCH — hero + nav (from prototype computed styles)
+   ============================================================ */
+.site-nav__inner { padding-block: 1.35rem; }
+.site-nav__links a { font-family: 'Montserrat', sans-serif; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #d1d5db; }
+.country-hero--full .country-hero__title { font-size: 2.25rem; line-height: 0.95; letter-spacing: normal; }
+@media (min-width: 640px) { .country-hero--full .country-hero__title { font-size: 3rem; } }
+@media (min-width: 1024px) { .country-hero--full .country-hero__title { font-size: 3.75rem; } }
