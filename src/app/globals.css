@@ -57,6 +57,9 @@ h1, h2, h3, h4, h5, h6 {
 html {
   scroll-behavior: smooth;
   overflow-x: clip;
+  /* Prevent the browser from re-anchoring scroll to elements below an
+     expanding accordion (which shoves the opened panel up off-screen). */
+  overflow-anchor: none;
 }
 
 html, body {
