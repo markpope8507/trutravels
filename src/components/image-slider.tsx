@@ -13,7 +13,7 @@ export default function ImageSlider({ images, alt }: { images: string[]; alt: st
 
   return (
     <div
-      className="relative rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 h-56 sm:h-64 lg:h-72 sm:flex-shrink-0 group"
+      className="relative rounded-lg overflow-hidden mb-4 sm:mb-0 w-full sm:w-72 lg:w-80 aspect-[1.91/1] sm:flex-shrink-0 group"
       onTouchStart={(e) => (startX.current = e.touches[0].clientX)}
       onTouchEnd={(e) => {
         if (n < 2) return;
