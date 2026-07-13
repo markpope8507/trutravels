@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { experienceTypes } from "@/lib/data";
 
 type ItineraryDay = {
@@ -8,6 +8,7 @@ type ItineraryDay = {
   title: string;
   description: string;
   image?: string;
+  images?: string[];
   location?: string;
   transport?: string;
   meals?: string[];
@@ -43,6 +44,7 @@ export default function CollapsibleItinerary({
             .filter(Boolean) as string[],
         );
         const dayExpTypes = experienceTypes.filter((e) => dayTypeIds.has(e.id));
+        const dayImages = day.images?.length ? day.images : day.image ? [day.image] : [];
         return (
           <div
             key={day.day}
@@ -82,16 +84,18 @@ export default function CollapsibleItinerary({
             >
               <div className="px-4 sm:pl-[72px] pb-5">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:gap-5">
-                  {/* Image */}
-                  {day.image && (
+                  {/* Image(s) */}
+                  {dayImages.length > 1 ? (
+                    <DayImageSlider images={dayImages} alt={day.title} />
+                  ) : dayImages.length === 1 ? (
                     <div className="rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 sm:h-52 lg:h-56 sm:flex-shrink-0">
                       <img
-                        src={day.image}
+                        src={dayImages[0]}
                         alt={day.title}
                         className="w-full h-48 sm:h-full object-cover"
                       />
                     </div>
-                  )}
+                  ) : null}
 
                   {/* Body text */}
                   <p className="text-gray-300 text-sm leading-relaxed sm:flex-1">
@@ -187,6 +191,63 @@ function DayIncludedRow({ icon, label }: { icon: React.ReactNode; label: string 
     <div className="flex items-center gap-2.5 text-sm text-gray-300">
       <span className="text-tru-pink flex-shrink-0">{icon}</span>
       <span>{label}</span>
+    </div>
+  );
+}
+
+function DayImageSlider({ images, alt }: { images: string[]; alt: string }) {
+  const [i, setI] = useState(0);
+  const startX = useRef(0);
+  const n = images.length;
+  const go = (d: number) => setI((p) => (p + d + n) % n);
+
+  return (
+    <div
+      className="relative rounded-lg overflow-hidden mb-4 sm:mb-0 sm:w-72 lg:w-80 sm:h-52 lg:h-56 sm:flex-shrink-0 group"
+      onTouchStart={(e) => (startX.current = e.touches[0].clientX)}
+      onTouchEnd={(e) => {
+        const dx = e.changedTouches[0].clientX - startX.current;
+        if (dx > 40) go(-1);
+        else if (dx < -40) go(1);
+      }}
+    >
+      <img src={images[i]} alt={alt} className="w-full h-48 sm:h-full object-cover" />
+
+      {/* Count badge */}
+      <div className="absolute top-2 right-2 rounded-full bg-black/55 backdrop-blur-sm px-2 py-0.5 text-white text-[10px] font-bold font-heading">
+        {i + 1}/{n}
+      </div>
+
+      {/* Arrows */}
+      <button
+        type="button"
+        onClick={(e) => { e.stopPropagation(); go(-1); }}
+        aria-label="Previous image"
+        className="absolute left-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-black/45 hover:bg-black/70 flex items-center justify-center text-white transition sm:opacity-0 sm:group-hover:opacity-100"
+      >
+        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+      </button>
+      <button
+        type="button"
+        onClick={(e) => { e.stopPropagation(); go(1); }}
+        aria-label="Next image"
+        className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-full bg-black/45 hover:bg-black/70 flex items-center justify-center text-white transition sm:opacity-0 sm:group-hover:opacity-100"
+      >
+        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+      </button>
+
+      {/* Dots */}
+      <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            type="button"
+            onClick={(e) => { e.stopPropagation(); setI(idx); }}
+            aria-label={`Go to image ${idx + 1}`}
+            className={`h-1.5 rounded-full transition-all ${idx === i ? "w-4 bg-white" : "w-1.5 bg-white/50"}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }

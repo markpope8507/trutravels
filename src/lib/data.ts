@@ -93,6 +93,7 @@ export type Trip = {
     title: string;
     description: string;
     image?: string;
+    images?: string[];
     location?: string;
     transport?: string;
     meals?: string[];
@@ -529,6 +530,7 @@ export const trips: Trip[] = [
         meals: ["1x Breakfast"],
       },
       { day: 4, title: "Khao Sok National Park", description: "Wake up to one of Thailand's best-kept secrets. Khao Sok is all emerald lakes, towering limestone mountains, and floating bungalows that feel like something from a movie. Spend the day kayaking across the lake, swimming in impossibly green water, and soaking it all in. Dinner tonight is a Thai buffet at the floating restaurant — doesn't get much better than this.", image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80",
+        images: ["https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80", "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80"],
         location: "Khao Sok Floating Bungalows",
         meals: ["1x Breakfast", "1x Lunch", "1x Dinner"],
       },
