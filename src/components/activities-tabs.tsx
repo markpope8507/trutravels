@@ -49,7 +49,7 @@ export default function ActivitiesTabs({
   return (
     <div>
       {/* Intro explainer — same typographic feel as Overview copy */}
-      <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
+      <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] font-heading mb-3">
         5 Experience Types &middot; 1 Intentional Journey
       </p>
       <p className="text-gray-300 leading-relaxed mb-6">
