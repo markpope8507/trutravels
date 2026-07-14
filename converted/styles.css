@@ -1603,6 +1603,21 @@ ul { margin: 0; padding: 0; list-style: none; }
 .vdiary--cta__sub { color: #6b7280; font-size: 0.75rem; margin: 0 0 1rem; }
 .vdiary--cta__link { color: var(--tru-pink); font-size: 0.875rem; font-weight: 600; text-decoration: none; }
 
+/* Where You'll Stay — video player popup (like the video diaries) */
+.stay-modal { display: none; position: fixed; inset: 0; z-index: 120; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 1rem; }
+.stay-modal:target { display: flex; }
+.stay-modal__backdrop { position: absolute; inset: 0; }
+.stay-modal__close { position: absolute; top: 1rem; right: 1rem; z-index: 2; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: rgba(255,255,255,0.1); backdrop-filter: blur(4px); color: #fff; display: flex; align-items: center; justify-content: center; }
+.stay-modal__close svg { width: 1.25rem; height: 1.25rem; }
+.stay-modal__inner { position: relative; width: 100%; max-width: 56rem; }
+.stay-modal__media { position: relative; width: 100%; aspect-ratio: 16 / 9; max-height: 75vh; border-radius: 10px; overflow: hidden; background: #000; }
+.stay-modal__media img { width: 100%; height: 100%; object-fit: cover; }
+.stay-modal__play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.stay-modal__play span { width: 4rem; height: 4rem; border-radius: 999px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; }
+.stay-modal__play svg { width: 1.75rem; height: 1.75rem; color: #fff; margin-left: 3px; }
+.stay-modal__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.125rem; margin: 1rem 0 0.25rem; }
+.stay-modal__text { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; margin: 0; }
+
 /* pagination dots */
 .rm-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
 .rm-dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--tru-pink); opacity: 0.3; transition: opacity 0.2s; cursor: pointer; }

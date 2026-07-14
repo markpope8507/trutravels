@@ -478,16 +478,29 @@
       </div>
     </section>
 
-    <!-- ================= WHERE YOU'LL STAY ================= -->
+    <!-- ================= MAP (mobile) ================= -->
+    <section class="section only-mobile" id="map">
+      <h2 class="section-heading">Map</h2>
+      <a class="map-thumb" href="#map-modal">
+        <img src="https://cdn.trutravels.com/images/thailand-island-hopper-2023.png" alt="Thailand Island Hopper route map" />
+        <span class="map-thumb__icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></span>
+      </a>
+    </section>
+
+    <!-- ================= WHERE YOU'LL STAY (mobile) ================= -->
     <section class="section only-mobile" id="accommodation">
       <h2 class="section-heading">Where You&rsquo;ll Stay</h2>
-      <div class="carousel carousel--trips">
+      <div class="carousel carousel--trips" data-dots>
         <article class="stay-card">
           <div class="stay-card__media"><img src="https://cdn.trutravels.com/thailand/bangkok-temple.jpg" alt="Bangkok Hotel" /></div>
           <div class="stay-card__body"><h3 class="stay-card__title">Bangkok Hotel</h3><p class="stay-card__text">Start your trip in a comfortable hotel in the heart of Bangkok, walking distance from Khao San Road and the city's best street food. Twin-share rooms with AC and hot showers.</p></div>
         </article>
         <article class="stay-card">
-          <div class="stay-card__media"><img src="https://cdn.trutravels.com/blog/khao-sok-southern-thailand-blog.jpg" alt="Khao Sok Floating Bungalows" /></div>
+          <a class="stay-card__media" href="#stay-video" aria-label="Play video of Khao Sok Floating Bungalows">
+            <img src="https://cdn.trutravels.com/blog/khao-sok-southern-thailand-blog.jpg" alt="Khao Sok Floating Bungalows" />
+            <span class="stay-card__badge"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Video</span>
+            <span class="stay-card__play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></span>
+          </a>
           <div class="stay-card__body"><h3 class="stay-card__title">Khao Sok Floating Bungalows</h3><p class="stay-card__text">One of the most magical stays on the trip. Wake up on an emerald lake surrounded by towering limestone mountains. Basic but beautiful — hammocks, wooden decks, and water all around you.</p></div>
         </article>
         <article class="stay-card">
@@ -499,15 +512,7 @@
           <div class="stay-card__body"><h3 class="stay-card__title">Koh Tao Beach Resort</h3><p class="stay-card__text">Your home base on the diving capital of Thailand. Simple, clean rooms steps from Sairee Beach — the island's best strip of sand, restaurants, and beach bars.</p></div>
         </article>
       </div>
-    </section>
-
-    <!-- ================= MAP ================= -->
-    <section class="section only-mobile" id="map">
-      <h2 class="section-heading">Route Map</h2>
-      <a class="map-thumb" href="#map-modal">
-        <img src="https://cdn.trutravels.com/images/thailand-island-hopper-2023.png" alt="Thailand Island Hopper route map" />
-        <span class="map-thumb__icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/></svg></span>
-      </a>
+      <div class="rm-dots"><span></span><span></span><span></span><span></span></div>
     </section>
 
     <!-- ================= REVIEWS ================= -->
@@ -791,6 +796,20 @@
     </div>
   </div>
 
+  <!-- Where You'll Stay — video player popup -->
+  <div class="stay-modal" id="stay-video">
+    <a class="stay-modal__backdrop" href="#accommodation" aria-label="Close"></a>
+    <a class="stay-modal__close" href="#accommodation" aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+    <div class="stay-modal__inner">
+      <div class="stay-modal__media">
+        <img src="https://cdn.trutravels.com/blog/khao-sok-southern-thailand-blog.jpg" alt="Khao Sok Floating Bungalows" />
+        <span class="stay-modal__play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></span>
+      </div>
+      <h3 class="stay-modal__title">Khao Sok Floating Bungalows</h3>
+      <p class="stay-modal__text">One of the most magical stays on the trip. Wake up on an emerald lake surrounded by towering limestone mountains. Basic but beautiful — hammocks, wooden decks, and water all around you.</p>
+    </div>
+  </div>
+
     <div class="vid-modal" id="v1">
       <div class="vid-modal__controls">
         <a class="vid-modal__btn" href="#real-moments" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
@@ -1046,11 +1065,16 @@
     });
   })();
   </script>
-  <script>/* diaries carousel dots */
+  <script>/* carousel progress dots (video diaries + where you'll stay) */
   (function () {
-    document.querySelectorAll('.vdiaries').forEach(function (track) {
-      var dotsWrap = track.closest('#real-moments').querySelector('.rm-dots');
-      if (!dotsWrap) return;
+    document.querySelectorAll('.rm-dots').forEach(function (dotsWrap) {
+      // the scrollable track is the previous sibling, or a scroller inside it
+      var prev = dotsWrap.previousElementSibling;
+      if (!prev) return;
+      var track = prev.matches('.vdiaries, .carousel')
+        ? prev
+        : prev.querySelector('.vdiaries, .carousel');
+      if (!track) return;
       var dots = dotsWrap.querySelectorAll('span');
       var n = dots.length;
       function upd() {
