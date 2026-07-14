@@ -875,6 +875,45 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ============================================================
    REVIEWS
    ============================================================ */
+/* ============================================================
+   REVIEWS — Trustpilot widget + bleed carousel (exact mirror)
+   ============================================================ */
+.reviews { display: flex; flex-direction: column; gap: 2rem; }
+/* trustpilot green star tiles */
+.tp-tiles { display: inline-flex; align-items: center; gap: 4px; }
+.tp-tiles i { background: #00B67A; display: flex; align-items: center; justify-content: center; }
+.tp-tiles svg { color: #fff; display: block; }
+.tp-tiles--md i { width: 28px; height: 28px; }
+.tp-tiles--md svg { width: 16px; height: 16px; }
+.tp-tiles--sm i { width: 24px; height: 24px; }
+.tp-tiles--sm svg { width: 14px; height: 14px; }
+/* widget row */
+.rev-tp { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+@media (min-width: 640px) { .rev-tp { flex-direction: row; align-items: center; gap: 1.5rem; } }
+.rev-tp__rating { display: flex; align-items: center; gap: 0.75rem; }
+.rev-tp__count { color: #fff; font-weight: 600; font-size: 0.875rem; }
+.rev-tp__rated { display: flex; align-items: center; gap: 0.5rem; }
+.rev-tp__mute { color: var(--text-mute); font-size: 0.75rem; }
+.rev-tp__excellent { color: #fff; font-weight: 700; font-size: 0.875rem; }
+.rev-tp__logo { height: 20px; }
+/* bleed carousel */
+.rev-bleed { position: relative; overflow: hidden; }
+@media (min-width: 1024px) { .rev-bleed { width: 152%; } }
+.carousel--reviews { gap: 1.25rem; scrollbar-width: none; }
+.carousel--reviews::-webkit-scrollbar { display: none; }
+@media (min-width: 1024px) { .carousel--reviews { gap: 1.5rem; } }
+.carousel--reviews > * { width: 100%; }
+@media (min-width: 640px) { .carousel--reviews > * { width: calc((100% - 1.25rem) / 1.5); } }
+@media (min-width: 1024px) { .carousel--reviews > * { width: calc((100% - 1.5rem) / 2); } }
+/* review card */
+.rev-card { border: 1px solid var(--border-soft); background: var(--surface-soft); border-radius: var(--radius); padding: 1.25rem; display: flex; flex-direction: column; }
+@media (min-width: 640px) { .rev-card { padding: 1.5rem; } }
+.rev-card__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1rem; margin: 1rem 0 0.75rem; }
+@media (min-width: 640px) { .rev-card__title { font-size: 1.125rem; } }
+.rev-card__body { color: #d1d5db; font-size: 0.875rem; line-height: 1.625; margin: 0 0 1rem; flex: 1; }
+.rev-card__author { color: #fff; font-weight: 700; font-size: 0.875rem; margin: 0; }
+.rev-card__author span { color: var(--text-mute); font-weight: 400; }
+
 .reviews-meta {
   display: flex;
   align-items: center;
