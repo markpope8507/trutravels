@@ -1447,3 +1447,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tour-facts li { color: lab(91.6229 -0.159115 -2.26791); font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 400; }
 .hero-scroll { color: lab(65.9269 -0.832707 -8.17473); }
 .country-hero--full .country-hero__inner { padding-bottom: 96px; }
+
+/* Scroll indicator — pink gradient line (exact) */
+.hero-scroll { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.5rem; z-index: 3; }
+.hero-scroll__label { margin: 0; font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: #9ca3af; font-family: 'Montserrat', sans-serif; }
+.hero-scroll__line { width: 1px; height: 32px; background: linear-gradient(to bottom, var(--tru-pink), transparent); }
+
+/* Sticky trip-bar: hidden until scrolled past the price box, then slides in (exact) */
+.booking-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 60; transform: translateY(-100%); opacity: 0; transition: transform 0.35s ease, opacity 0.35s ease; }
+.booking-bar.is-visible { transform: translateY(0); opacity: 1; }
