@@ -156,7 +156,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 999px;
+  border-radius: 10px;
   padding: 0.55rem 1.1rem;
   font-family: 'Montserrat', Arial, sans-serif;
   font-weight: 700;
@@ -1456,3 +1456,27 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Sticky trip-bar: hidden until scrolled past the price box, then slides in (exact) */
 .booking-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 60; transform: translateY(-100%); opacity: 0; transition: transform 0.35s ease, opacity 0.35s ease; }
 .booking-bar.is-visible { transform: translateY(0); opacity: 1; }
+
+/* ============================================================
+   EXACT — buttons, price box, breadcrumb (prototype values)
+   ============================================================ */
+/* Nav Join/Log In stays a full pill; all other .btn are 10px (set on .btn) */
+.site-nav__join { border-radius: 999px; }
+
+/* Price box exact sizes */
+.pricing-card__price .now { font-size: 36px; }
+.pricing-card__from { font-size: 10px; font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; color: lab(65.9269 -0.832707 -8.17473); }
+.pricing-card__rows .lbl { font-size: 10px; font-weight: 400; letter-spacing: 0.5px; color: lab(65.9269 -0.832707 -8.17473); }
+
+/* Breadcrumb — crumbs left, "All Thailand Trips" right (exact) */
+.breadcrumb { border-bottom: 1px solid rgba(255,255,255,0.05); background: transparent; }
+.breadcrumb__inner { padding: 12px 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.breadcrumb__crumbs { display: flex; align-items: center; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+.breadcrumb__crumbs li { display: flex; align-items: center; }
+.breadcrumb__crumbs a, .breadcrumb__crumbs .current { font-size: 12px; font-family: 'Source Sans 3', sans-serif; color: lab(65.9269 -0.832707 -8.17473); }
+.breadcrumb__crumbs a:hover { color: #fff; }
+.breadcrumb__crumbs .current { color: #fff; }
+.breadcrumb__crumbs .sep { color: #4b5563; }
+.breadcrumb__back { font-size: 11px; font-weight: 600; letter-spacing: 0.55px; text-transform: uppercase; font-family: 'Montserrat', sans-serif; color: lab(65.9269 -0.832707 -8.17473); display: inline-flex; align-items: center; gap: 0.35rem; }
+.breadcrumb__back:hover { color: #fff; }
+.breadcrumb__back svg { width: 0.9rem; height: 0.9rem; }
