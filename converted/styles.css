@@ -1403,7 +1403,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .travel-style__badge span { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.05em; }
 .travel-style__eyebrow { color: var(--tru-pink); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; font-family: 'Montserrat', sans-serif; margin: 0 0 0.4rem; }
 /* Watch the trip — shorter banner like prototype */
-.trip-video { aspect-ratio: 2.4 / 1; }
+.trip-video { aspect-ratio: 2 / 1; }
 
 /* ============================================================
    PRICING CARD — exact rebuild (from prototype)
