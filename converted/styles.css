@@ -905,6 +905,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .carousel--reviews > * { width: 100%; }
 @media (min-width: 640px) { .carousel--reviews > * { width: calc((100% - 1.25rem) / 1.5); } }
 @media (min-width: 1024px) { .carousel--reviews > * { width: calc((100% - 1.5rem) / 2); } }
+/* nav arrows */
+.rev-carousel { position: relative; }
+.rev-arrow { position: absolute; top: calc(50% - 20px); z-index: 10; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: rgba(9,33,62,0.9); border: 1px solid var(--border-soft); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color 0.2s, opacity 0.2s; }
+.rev-arrow:hover { border-color: rgba(255,63,153,0.4); }
+.rev-arrow svg { width: 1rem; height: 1rem; }
+.rev-arrow--prev { left: -0.5rem; }
+.rev-arrow--next { right: -0.5rem; }
+@media (min-width: 640px) { .rev-arrow--prev { left: -1.25rem; } .rev-arrow--next { right: -1.25rem; } }
+.rev-arrow[disabled] { opacity: 0.3; cursor: default; }
+
 /* review card */
 .rev-card { border: 1px solid var(--border-soft); background: var(--surface-soft); border-radius: var(--radius); padding: 1.25rem; display: flex; flex-direction: column; }
 @media (min-width: 640px) { .rev-card { padding: 1.5rem; } }
