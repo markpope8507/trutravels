@@ -1510,3 +1510,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Bigger Classic travel-style logo */
 .travel-style__badge { width: auto; }
 .travel-style__badge img { width: 5.5rem; height: 5.5rem; }
+
+/* ============================================================
+   INCLUDED AS STANDARD — exact sizes (prototype)
+   ============================================================ */
+#inclusions .section-heading { font-size: 1.875rem; letter-spacing: -0.025em; }
+@media (min-width: 640px) { #inclusions .section-heading { font-size: 3rem; } }
+#inclusions .eyebrow { font-size: 12px; letter-spacing: 2.4px; }
+.inclusion-card__text { color: lab(65.9269 -0.832707 -8.17473); font-size: 11px; }
