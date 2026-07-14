@@ -716,5 +716,32 @@
     onScroll();
   })();
   </script>
+  <script>/* gallery indicators */
+  (function () {
+    document.querySelectorAll('.gallery').forEach(function (g) {
+      var imgs = g.querySelectorAll('img');
+      if (imgs.length < 2) return;
+      var holder = document.createElement('div');
+      holder.className = 'gallery-holder';
+      g.parentNode.insertBefore(holder, g);
+      holder.appendChild(g);
+      var count = document.createElement('div');
+      count.className = 'gallery-count';
+      holder.appendChild(count);
+      var dots = document.createElement('div');
+      dots.className = 'gallery-dots';
+      imgs.forEach(function () { dots.appendChild(document.createElement('span')); });
+      holder.appendChild(dots);
+      function upd() {
+        var idx = Math.round(g.scrollLeft / g.clientWidth);
+        idx = Math.max(0, Math.min(idx, imgs.length - 1));
+        count.textContent = (idx + 1) + ' / ' + imgs.length;
+        dots.querySelectorAll('span').forEach(function (d, i) { d.classList.toggle('active', i === idx); });
+      }
+      g.addEventListener('scroll', upd, { passive: true });
+      upd();
+    });
+  })();
+  </script>
 </body>
 </html>
