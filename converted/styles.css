@@ -1485,3 +1485,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .pricing-card__perday { font-size: 12px; color: lab(65.9269 -0.832707 -8.17473); }
 .pricing-card__perday span { color: #fff; font-weight: 700; }
 .pricing-card__deposit { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; color: lab(47.7841 -0.393182 -10.0268); text-align: center; }
+
+/* ============================================================
+   STICKY TABS — active underline + mobile fit (exact)
+   ============================================================ */
+.booking-bar__tabs a { position: relative; border-bottom: none; }
+.booking-bar__tabs a.is-active { border-bottom: none; color: var(--tru-pink); }
+.booking-bar__tabs a.is-active::after { content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 58%; height: 2px; background: var(--tru-pink); border-radius: 2px; }
+@media (max-width: 640px) {
+  .booking-bar__tabs { overflow: visible; }
+  .booking-bar__tabs a { flex: 1; padding: 0.55rem 0.1rem; font-size: 0.58rem; letter-spacing: 0.02em; }
+  .booking-bar__title { display: none; }
+  .booking-bar__pp { display: none; }
+}
