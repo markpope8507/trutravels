@@ -1819,6 +1819,7 @@ export type TripExperienceCount = {
   id: string;
   name: string;
   color: string;
+  icon: string;
   count: number;
 };
 
@@ -1838,7 +1839,7 @@ export function getTripExperienceCounts(trip: Trip): {
       total: explicit.length,
       byType: experienceTypes
         .filter((e) => counts[e.id])
-        .map((e) => ({ id: e.id, name: e.name, color: e.color, count: counts[e.id] })),
+        .map((e) => ({ id: e.id, name: e.name, color: e.color, icon: e.icon, count: counts[e.id] })),
     };
   }
 
@@ -1853,7 +1854,7 @@ export function getTripExperienceCounts(trip: Trip): {
     total: highlights.length,
     byType: experienceTypes
       .filter((e) => counts[e.id])
-      .map((e) => ({ id: e.id, name: e.name, color: e.color, count: counts[e.id] })),
+      .map((e) => ({ id: e.id, name: e.name, color: e.color, icon: e.icon, count: counts[e.id] })),
   };
 }
 
