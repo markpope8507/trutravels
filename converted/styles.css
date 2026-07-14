@@ -1434,3 +1434,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .hero-action svg { width: 1.35rem; height: 1.35rem; }
 .hero-scroll { position: absolute; bottom: 1.25rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.3rem; color: rgba(255,255,255,0.75); font-family: 'Montserrat', sans-serif; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; z-index: 3; }
 .hero-scroll svg { width: 1rem; height: 1rem; }
+
+/* ============================================================
+   HERO — exact typography + gold stars (prototype computed styles)
+   ============================================================ */
+.stars--gold { display: inline-flex; gap: 2px; align-items: center; }
+.stars--gold svg { width: 16px; height: 16px; color: lab(80.1641 16.6016 99.2089); }
+.country-hero__rating .rating-num { color: #fff; font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 700; }
+.country-hero__rating .rating-text { color: lab(65.9269 -0.832707 -8.17473); font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 400; }
+.tour-hero__route { color: #fff; font-family: 'Source Sans 3', sans-serif; font-size: 16px; font-weight: 400; }
+.country-hero--full .country-hero__tagline { font-family: 'Source Sans 3', sans-serif; color: lab(85.1236 -0.612259 -3.7138); font-size: 18px; font-weight: 400; font-style: normal; margin: 0.35rem 0 0; }
+.tour-facts li { color: lab(91.6229 -0.159115 -2.26791); font-family: 'Source Sans 3', sans-serif; font-size: 14px; font-weight: 400; }
+.hero-scroll { color: lab(65.9269 -0.832707 -8.17473); }
+.country-hero--full .country-hero__inner { padding-bottom: 96px; }
