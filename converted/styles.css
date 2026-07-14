@@ -107,7 +107,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   text-transform: uppercase;
   letter-spacing: 0.025em;
   color: #fff;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 .section-heading--tight { margin-bottom: 1.5rem; }
 
@@ -1547,6 +1547,13 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ============================================================
    REAL MOMENTS / DIARIES — video carousel (exact match)
    ============================================================ */
+#real-moments .eyebrow { font-size: 11px; letter-spacing: 0.3em; margin-bottom: 0.75rem; }
+#real-moments .section-heading { margin-bottom: 0.75rem; line-height: 0.95; }
+#also .section-heading { margin-bottom: 2rem; }
+#stories .eyebrow { font-size: 11px; letter-spacing: 0.3em; margin-bottom: 0.75rem; }
+#stories .section-heading { margin-bottom: 0.75rem; line-height: 0.95; }
+.stories-intro { color: var(--text-mute); font-size: 1rem; line-height: 1.6; max-width: 32rem; margin: 0 0 2rem; }
+@media (max-width: 640px) { .stories-intro { font-size: 0.875rem; } }
 .rm-intro { color: var(--text-mute); font-size: 1rem; line-height: 1.6; max-width: 32rem; margin: 0 0 1.5rem; }
 @media (max-width: 640px) { .rm-intro { font-size: 0.875rem; } }
 
