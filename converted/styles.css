@@ -1134,12 +1134,20 @@ ul { margin: 0; padding: 0; list-style: none; }
 .day__chevron { width: 1.25rem; height: 1.25rem; color: #9ca3af; transition: transform 0.2s; flex: 0 0 auto; }
 .day[open] .day__chevron { transform: rotate(180deg); }
 .day__body { padding: 0 1rem 1.25rem; }
+@media (min-width: 640px) { .day__body { padding: 0 1rem 1.25rem 72px; } }
 .day__row { display: flex; flex-direction: column; gap: 1rem; }
 @media (min-width: 640px) { .day__row { flex-direction: row; align-items: center; gap: 1.25rem; } }
-.day__desc { color: #d1d5db; font-size: 0.9rem; line-height: 1.6; margin: 0; flex: 1; }
+.day__desc { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; margin: 0; flex: 1; }
 .day__meta { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-soft); display: flex; flex-direction: column; gap: 0.5rem; padding-left: 0; }
-.day__meta li { display: flex; gap: 0.6rem; align-items: center; color: #d1d5db; font-size: 0.85rem; list-style: none; }
+.day__meta li { display: flex; gap: 0.625rem; align-items: center; color: #d1d5db; font-size: 0.875rem; list-style: none; }
 .day__meta svg { width: 1rem; height: 1rem; color: var(--tru-pink); flex: 0 0 auto; }
+/* per-day experience-type cards */
+.day__exps { margin-top: 1rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+@media (min-width: 640px) { .day__exps { grid-template-columns: repeat(6, 1fr); } }
+.day__exp { border: 1px solid; border-radius: var(--radius); padding: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 0.625rem; text-align: center; }
+.day__exp img { width: 2.5rem; height: 2.5rem; object-fit: contain; }
+.day__exp span { color: #fff; font-size: 0.625rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Montserrat', sans-serif; line-height: 1.1; }
+@media (min-width: 640px) { .day__exp span { font-size: 0.6875rem; } }
 
 /* Square image gallery — scroll-snap, no JS */
 .gallery { display: flex; gap: 0.5rem; overflow-x: auto; scroll-snap-type: x mandatory; border-radius: var(--radius); scrollbar-width: none; margin-bottom: 1rem; }
