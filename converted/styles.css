@@ -1521,3 +1521,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Bigger Classic logo on mobile */
 @media (max-width: 640px) { .travel-style__badge img { width: 6.5rem; height: 6.5rem; } }
+
+/* Tighten Included As Standard heading spacing to match prototype */
+#inclusions .section-heading { line-height: 1.05; margin-bottom: 1.5rem; }
