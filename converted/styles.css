@@ -1404,3 +1404,25 @@ ul { margin: 0; padding: 0; list-style: none; }
 .travel-style__eyebrow { color: var(--tru-pink); font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; font-family: 'Montserrat', sans-serif; margin: 0 0 0.4rem; }
 /* Watch the trip — shorter banner like prototype */
 .trip-video { aspect-ratio: 2.4 / 1; }
+
+/* ============================================================
+   PRICING CARD — exact rebuild (from prototype)
+   ============================================================ */
+.pricing-card { position: relative; overflow: hidden; border: 1px solid var(--border-soft); background: var(--surface-soft); border-radius: 16px; padding: 1.5rem; }
+.pricing-card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.pricing-card__from { color: var(--text-mute); font-size: 0.72rem; margin: 0; text-transform: uppercase; letter-spacing: 0.08em; font-family: 'Montserrat', sans-serif; font-weight: 700; }
+.pricing-card__from .strike { text-decoration: line-through; color: var(--text-faint); font-weight: 400; margin-left: 0.3rem; }
+.pricing-card__price { display: flex; align-items: baseline; gap: 0.4rem; margin: 0.1rem 0 0; }
+.pricing-card__price .now { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 2.75rem; line-height: 1; }
+.pricing-card__price .pp { color: var(--text-mute); font-size: 0.9rem; }
+.pricing-card__perday { color: var(--text-mute); font-size: 0.8rem; margin: 0.35rem 0 0; }
+.pricing-card__perday span { color: var(--tru-pink); font-weight: 700; }
+.pricing-card__badgecol { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; flex-shrink: 0; }
+.pricing-card__off { width: 4rem; height: 4rem; border-radius: 999px; background: #E11D2E; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; text-transform: uppercase; line-height: 1.05; }
+.pricing-card__off span { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.05em; }
+.pricing-card__off strong { font-size: 1.05rem; font-weight: 900; }
+.pricing-card__saveamt { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.pricing-card__rows { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.35rem 0; padding-top: 1.35rem; border-top: 1px solid var(--border-soft); }
+.pricing-card__rows .lbl { display: block; color: var(--text-mute); font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'Montserrat', sans-serif; font-weight: 700; margin-bottom: 0.3rem; }
+.pricing-card__rows .val { display: block; color: #fff; font-size: 0.9rem; font-weight: 600; }
+.pricing-card__deposit { color: var(--text-mute); font-size: 0.72rem; text-align: center; margin: 0.9rem 0 0; }
