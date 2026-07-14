@@ -313,15 +313,15 @@ function ExperienceTypesDisclosure({
         }`}
       >
         <div className="overflow-hidden">
-          <div className="grid grid-cols-5 gap-1.5">
+          <div className="grid grid-cols-3 gap-2">
             {expCounts.map((e) => (
               <div
                 key={e.id}
-                className="rounded-[10px] border p-2 flex flex-col items-center gap-1 text-center text-white"
+                className="rounded-[10px] border p-3 flex flex-col items-center gap-1.5 text-center text-white"
                 style={{ borderColor: e.color, background: `${e.color}1f` }}
               >
-                <img src={e.icon} alt="" aria-hidden="true" className="h-7 w-7 object-contain" />
-                <span className="text-[9px] font-semibold uppercase tracking-wide font-heading leading-tight">
+                <img src={e.icon} alt="" aria-hidden="true" className="h-9 w-9 object-contain" />
+                <span className="text-[10px] font-semibold uppercase tracking-wide font-heading leading-tight">
                   {e.name}
                 </span>
                 <span className="text-xs font-bold" style={{ color: e.color }}>

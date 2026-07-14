@@ -1763,8 +1763,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tripcard__exp-count { color: #6b7280; font-weight: 600; text-transform: none; letter-spacing: normal; }
 .tripcard__exp-sum svg { height: 1rem; width: 1rem; flex-shrink: 0; transition: transform 0.2s; }
 .tripcard__exp[open] .tripcard__exp-sum svg { transform: rotate(180deg); }
-.tripcard__pills { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.375rem; margin-top: 0.75rem; }
-.exp-box { border: 1px solid; border-radius: var(--radius); padding: 0.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.25rem; text-align: center; }
-.exp-box img { height: 1.75rem; width: 1.75rem; object-fit: contain; }
-.exp-box .name { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.1; }
+.tripcard__pills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin-top: 0.75rem; }
+.exp-box { border: 1px solid; border-radius: var(--radius); padding: 0.75rem; display: flex; flex-direction: column; align-items: center; gap: 0.375rem; text-align: center; }
+.exp-box img { height: 2.25rem; width: 2.25rem; object-fit: contain; }
+.exp-box .name { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; line-height: 1.1; }
 .exp-box .count { font-size: 0.75rem; font-weight: 700; }
