@@ -1498,3 +1498,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   .booking-bar__title { display: none; }
   .booking-bar__pp { display: none; }
 }
+
+/* ============================================================
+   OVERVIEW — exact (heading, 16:9 video, muted travel-style label)
+   ============================================================ */
+#overview .section-heading { font-size: 1.5rem; margin-bottom: 1rem; letter-spacing: 0.01em; }
+.overview__desc { color: #d1d5db; font-size: 1rem; line-height: 1.6; max-width: 46rem; margin: 0 0 1.75rem; }
+.trip-video { aspect-ratio: 16 / 9; border: 1px solid var(--border-soft); }
+.travel-style__eyebrow { color: lab(65.9269 -0.832707 -8.17473); font-size: 10px; font-weight: 400; letter-spacing: 0.1em; }
