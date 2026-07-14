@@ -1202,7 +1202,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 #exp-tru-ly-unique:checked ~ .exp__tabs label[for="exp-tru-ly-unique"] span,
 #exp-unplugged:checked     ~ .exp__tabs label[for="exp-unplugged"] span { color: #fff; }
 
-#exp-all:checked          ~ .exp__tabs label[for="exp-all"]          { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.12); }
+#exp-all:checked          ~ .exp__tabs label[for="exp-all"] { border-color: #fff; background: rgba(255,255,255,0.12); }
 #exp-local-lens:checked   ~ .exp__tabs label[for="exp-local-lens"]   { border-color: #2172D5; background: rgba(33,114,213,0.12); }
 #exp-rise-up:checked      ~ .exp__tabs label[for="exp-rise-up"]      { border-color: #FF3F99; background: rgba(255,63,153,0.12); }
 #exp-bucket-list:checked  ~ .exp__tabs label[for="exp-bucket-list"]  { border-color: #FCA501; background: rgba(252,165,1,0.12); }
