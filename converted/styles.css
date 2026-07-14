@@ -1703,3 +1703,66 @@ ul { margin: 0; padding: 0; list-style: none; }
 .vid-modal__peek-grad { position: absolute; inset: 0; background: rgba(0,0,0,0.5); border-radius: 16px 0 0 16px; }
 .vid-modal__peek-info { position: absolute; bottom: 1rem; left: 1rem; right: 1rem; }
 .vid-modal__peek-info .vdiary__name { font-size: 12px; margin-top: 0.5rem; }
+
+/* ============================================================
+   YOU MIGHT LIKE — rich trip cards (exact mirror of TripCard)
+   ============================================================ */
+/* spacing mirrors the home page ExperienceCarousel (1.15 -> 3.2 per view) */
+.carousel--related { gap: 1rem; scrollbar-width: none; }
+.carousel--related::-webkit-scrollbar { display: none; }
+@media (min-width: 1024px) { .carousel--related { gap: 1.25rem; } }
+.carousel--related > * { width: calc(100% / 1.15 - 0.13rem); }
+@media (min-width: 480px)  { .carousel--related > * { width: calc(100% / 1.5 - 0.33rem); } }
+@media (min-width: 640px)  { .carousel--related > * { width: calc(100% / 2.2 - 0.55rem); } }
+@media (min-width: 1024px) { .carousel--related > * { width: calc(100% / 3 - 0.83rem); } }
+@media (min-width: 1280px) { .carousel--related > * { width: calc(100% / 3.2 - 0.86rem); } }
+/* arrows sit over the card image, like the home carousel */
+#also .rev-arrow { top: calc(50% - 60px); }
+
+.tripcard { position: relative; height: 100%; }
+.tripcard__link { position: absolute; inset: 0; z-index: 1; border-radius: var(--radius); }
+.tripcard__inner { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--tru-navy); border: 1px solid var(--border-soft); height: 100%; display: flex; flex-direction: column; box-shadow: 0 5px 25px -5px rgba(0,0,0,0.3); transition: border-color 0.3s; }
+.tripcard:hover .tripcard__inner { border-color: rgba(255,63,153,0.3); }
+/* media */
+.tripcard__media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.tripcard__media > img.tripcard__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+.tripcard:hover .tripcard__media img.tripcard__image { transform: scale(1.05); }
+.tripcard__grad { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0.1)); }
+.tripcard__badge { position: absolute; top: 0.75rem; left: 0.75rem; height: 5rem; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.5)); z-index: 2; }
+.tripcard__save { position: absolute; top: 0.75rem; right: 0.75rem; height: 5rem; width: 5rem; border-radius: 999px; background: #dc2626; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; box-shadow: 0 10px 25px rgba(0,0,0,0.4); box-shadow: 0 0 0 2px rgba(239,68,68,0.4), 0 10px 20px rgba(0,0,0,0.4); transform: rotate(-10deg); z-index: 2; }
+.tripcard__save span:first-child { font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.18em; line-height: 1; margin-bottom: 2px; opacity: 0.9; }
+.tripcard__save-pct { font-size: 1.5rem; font-weight: 900; line-height: 1; }
+.tripcard__save span:last-child { font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; line-height: 1; margin-top: 2px; }
+/* body */
+.tripcard__body { padding: 1.25rem; display: flex; flex-direction: column; flex: 1; }
+.tripcard__titlerow { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.375rem; }
+.tripcard__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 1rem; line-height: 1.15; margin: 0; transition: color 0.2s; }
+.tripcard:hover .tripcard__title { color: var(--tru-pink); }
+.tripcard__pricecol { display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0; }
+.tripcard__prices { display: flex; align-items: baseline; gap: 0.375rem; }
+.tripcard__strike { color: #6b7280; font-size: 0.75rem; text-decoration: line-through; }
+.tripcard__price { color: #fff; font-weight: 700; font-size: 1.125rem; font-family: 'Montserrat', sans-serif; }
+.tripcard__perday { color: var(--text-mute); font-size: 10px; font-weight: 500; margin: 0.125rem 0 0; }
+.tripcard__perday span { color: #fff; }
+.tripcard__route { color: var(--text-mute); font-size: 0.75rem; margin: 0 0 0.75rem; display: flex; align-items: center; gap: 0.375rem; }
+.tripcard__route svg { height: 0.875rem; width: 0.875rem; color: var(--tru-pink); flex-shrink: 0; }
+.tripcard__rating { display: flex; align-items: center; gap: 0.375rem; margin-bottom: 0.75rem; }
+.tripcard__stars { display: flex; gap: 2px; }
+.tripcard__stars svg { height: 0.875rem; width: 0.875rem; color: #fbbf24; }
+.tripcard__rating .num { color: #fff; font-size: 0.75rem; font-weight: 700; margin-left: 0.125rem; }
+.tripcard__rating .rev { color: #6b7280; font-size: 0.75rem; }
+.tripcard__tagline { color: var(--text-mute); font-size: 0.75rem; line-height: 1.6; margin: 0 0 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tripcard__facts { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem 1rem; color: #d1d5db; font-size: 0.75rem; margin-bottom: 0.75rem; }
+.tripcard__facts span { display: flex; align-items: center; gap: 0.375rem; }
+.tripcard__facts svg { height: 0.875rem; width: 0.875rem; color: var(--tru-pink); flex-shrink: 0; }
+/* experience-types disclosure */
+.tripcard__exp { position: relative; z-index: 2; margin-top: auto; padding-top: 0.75rem; border-top: 1px solid var(--border-soft); }
+.tripcard__exp-sum { display: flex; align-items: center; justify-content: space-between; cursor: pointer; list-style: none; color: #d1d5db; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.2s; }
+.tripcard__exp-sum::-webkit-details-marker { display: none; }
+.tripcard__exp-sum:hover { color: #fff; }
+.tripcard__exp-count { color: #6b7280; font-weight: 600; text-transform: none; letter-spacing: normal; }
+.tripcard__exp-sum svg { height: 1rem; width: 1rem; flex-shrink: 0; transition: transform 0.2s; }
+.tripcard__exp[open] .tripcard__exp-sum svg { transform: rotate(180deg); }
+.tripcard__pills { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.75rem; }
+.exp-pill { display: inline-flex; align-items: center; gap: 0.25rem; border-radius: 999px; padding: 0.25rem 0.625rem; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid; }
+.exp-pill .name { color: #e5e7eb; }
