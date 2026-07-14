@@ -1506,3 +1506,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .overview__desc { color: #d1d5db; font-size: 1rem; line-height: 1.6; max-width: 46rem; margin: 0 0 1.75rem; }
 .trip-video { aspect-ratio: 16 / 9; border: 1px solid var(--border-soft); }
 .travel-style__eyebrow { color: lab(65.9269 -0.832707 -8.17473); font-size: 10px; font-weight: 400; letter-spacing: 0.1em; }
+
+/* Bigger Classic travel-style logo */
+.travel-style__badge { width: auto; }
+.travel-style__badge img { width: 5.5rem; height: 5.5rem; }
