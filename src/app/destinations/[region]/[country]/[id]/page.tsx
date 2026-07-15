@@ -16,7 +16,6 @@ import TripPricingCard from "@/components/trip-pricing-card";
 import TripReviews from "@/components/trip-reviews";
 import TripFaqs from "@/components/trip-faqs";
 import RelatedTrips from "@/components/related-trips";
-import RelatedStories from "@/components/related-stories";
 import TripVideoPlayer from "@/components/trip-video-player";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import BackToTop from "@/components/back-to-top";
@@ -409,8 +408,6 @@ export default async function TripDetailPage({
       </div>
 
       <RelatedTrips trips={trips} currentTripId={trip.id} />
-
-      <RelatedStories region={trip.region} country={trip.destination} />
 
       <BackToTop />
     </>
