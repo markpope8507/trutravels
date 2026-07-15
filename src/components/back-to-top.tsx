@@ -6,7 +6,7 @@ export default function BackToTop() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="inline-flex items-center gap-2 rounded-[10px] border border-tru-pink/40 bg-transparent px-8 py-3.5 text-sm font-semibold text-tru-pink hover:bg-tru-pink hover:text-white hover:border-tru-pink transition-all duration-300 uppercase tracking-wider font-heading"
+          className="inline-flex items-center justify-center gap-2 rounded-[10px] border px-6 py-2.5 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200 border-tru-pink bg-tru-pink text-white active:bg-tru-pink-light sm:border-tru-pink/40 sm:bg-transparent sm:text-tru-pink sm:hover:bg-tru-pink sm:hover:text-white sm:hover:border-tru-pink"
         >
           <svg
             className="h-4 w-4"
