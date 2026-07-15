@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { stories, storyArticles } from "@/lib/data";
+import { stories } from "@/lib/data";
+import StoryCard from "@/components/story-card";
 
 export default function RelatedStories({
   region,
@@ -30,33 +30,9 @@ export default function RelatedStories({
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {related.map((story) => {
-          const href = storyArticles[story.id] ? `/stories/${story.id}` : `/stories#${story.id}`;
-          return (
-            <Link
-              key={story.id}
-              href={href}
-              className="group block rounded-[12px] overflow-hidden border border-white/10 bg-white/5 hover:border-white/20 transition-all duration-200"
-            >
-              <div className="aspect-[16/10] overflow-hidden">
-                <img
-                  src={story.image}
-                  alt={story.title}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="p-5">
-                <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-2">
-                  {story.category} · {story.readTime} min read
-                </p>
-                <h3 className="text-white font-black text-lg uppercase font-heading leading-tight mb-2 group-hover:text-tru-pink transition-colors">
-                  {story.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed line-clamp-2">{story.excerpt}</p>
-              </div>
-            </Link>
-          );
-        })}
+        {related.map((story) => (
+          <StoryCard key={story.id} story={story} isLoggedIn />
+        ))}
       </div>
     </section>
   );
