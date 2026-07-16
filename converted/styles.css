@@ -197,6 +197,11 @@ ul { margin: 0; padding: 0; list-style: none; }
   inset: 0;
   background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
 }
+/* tour hero — gradient covers only the bottom half, matching the prototype */
+.country-hero--full .country-hero__overlay {
+  top: 50%;
+  background: linear-gradient(to top, #000 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%);
+}
 .country-hero__inner {
   position: relative;
   z-index: 2;
@@ -1412,7 +1417,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .pricing-card__date { color: #d1d5db; font-size: 0.8rem; margin: 0.4rem 0 0; }
 
 /* Sidebar stacked stays */
-.side-stays { display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; align-items: stretch; }
+.side-stays { display: flex; gap: 0.75rem; overflow-x: auto; scrollbar-width: none; align-items: stretch; }
+#accommodation .carousel--trips { scroll-snap-type: none; }
 .side-stays::-webkit-scrollbar { display: none; }
 .side-stays .stay-card { flex: 0 0 80%; scroll-snap-align: start; }
 

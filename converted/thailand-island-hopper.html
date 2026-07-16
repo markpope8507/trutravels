@@ -39,7 +39,7 @@
     <!-- ================= HERO ================= -->
     <section class="country-hero country-hero--full" id="top">
       <img class="country-hero__image"
-        src="https://cdn.trutravels.com/thailand/girls-koh-nang-yuan.jpg"
+        src="assets/thailand-island-hopper-hero.jpg"
         alt="Thailand Island Hopper" />
       <div class="country-hero__overlay"></div>
       <div class="container country-hero__inner">
@@ -1436,32 +1436,71 @@
     });
   })();
   </script>
-  <script>/* drag-to-scroll — one-finger/pointer swipe on the stays carousels */
+  <script>/* drag-to-scroll with momentum — click/one-finger drag on every horizontal carousel (like Swiper) */
   (function () {
-    document.querySelectorAll('.side-stays, #accommodation .carousel--trips').forEach(function (track) {
-      var down = false, startX = 0, startLeft = 0, moved = false;
+    document.querySelectorAll('.side-stays, .carousel, .vdiaries').forEach(function (track) {
+      var down = false, startX = 0, startLeft = 0, moved = false, snap = '';
+      var lastX = 0, lastT = 0, vx = 0, raf = null;
       track.style.cursor = 'grab';
-      track.addEventListener('pointerdown', function (e) {
-        if (e.pointerType === 'touch') return;
+      track.querySelectorAll('img').forEach(function (im) { im.setAttribute('draggable', 'false'); });
+      track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+      function stopMomentum() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+      track.addEventListener('mousedown', function (e) {
+        if (e.button !== 0) return;
+        stopMomentum();
         down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
-        track.setPointerCapture(e.pointerId); track.style.cursor = 'grabbing';
+        lastX = e.clientX; lastT = performance.now(); vx = 0;
+        snap = track.style.scrollSnapType; track.style.scrollSnapType = 'none';
+        track.style.cursor = 'grabbing';
+        e.preventDefault();
       });
-      track.addEventListener('pointermove', function (e) {
+      document.addEventListener('mousemove', function (e) {
         if (!down) return;
         var dx = e.clientX - startX;
-        if (Math.abs(dx) > 4) moved = true;
+        if (Math.abs(dx) > 3) moved = true;
         track.scrollLeft = startLeft - dx;
+        var now = performance.now(), dt = now - lastT;
+        if (dt > 0) { vx = (e.clientX - lastX) / dt; lastX = e.clientX; lastT = now; }
       });
-      function end() {
+      document.addEventListener('mouseup', function () {
         if (!down) return; down = false; track.style.cursor = 'grab';
         if (moved) {
-          var block = function (ev) { ev.preventDefault(); ev.stopPropagation(); track.removeEventListener('click', block, true); };
+          var block = function (ev) { ev.preventDefault(); ev.stopPropagation(); };
           track.addEventListener('click', block, true);
+          setTimeout(function () { track.removeEventListener('click', block, true); }, 0);
         }
-      }
-      track.addEventListener('pointerup', end);
-      track.addEventListener('pointercancel', end);
+        var v = -vx * 16;
+        function step() {
+          v *= 0.95;
+          track.scrollLeft += v;
+          if (Math.abs(v) > 0.4) { raf = requestAnimationFrame(step); }
+          else { raf = null; track.style.scrollSnapType = snap; }
+        }
+        if (moved && Math.abs(v) > 1.5) { raf = requestAnimationFrame(step); }
+        else { track.style.scrollSnapType = snap; }
+      });
     });
+  })();
+  </script>
+  <script>/* sticky nav — active section highlight (scroll-spy) */
+  (function () {
+    var tabs = [].slice.call(document.querySelectorAll('.booking-bar__tabs a'));
+    if (!tabs.length) return;
+    var ids = tabs.map(function (a) { return a.getAttribute('href').slice(1); });
+    function setActive(id) {
+      tabs.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('href') === '#' + id); });
+    }
+    function onScroll() {
+      var current = ids[0];
+      ids.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el && el.offsetParent !== null && el.getBoundingClientRect().top <= 140) current = id;
+      });
+      setActive(current);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
   })();
   </script>
 </body>
