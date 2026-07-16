@@ -983,36 +983,108 @@
   <!-- ================= MODALS (:target — no JS) ================= -->
 
   <!-- Check Dates -->
-  <div class="modal" id="dates">
-    <a class="modal__backdrop" href="#top" aria-label="Close"></a>
-    <div class="modal__panel">
-      <a class="modal__close" href="#top" aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
-      <p class="modal__title">Choose Your Date</p>
-      <ul class="departures-list">
-        <li><a class="departure-row" href="#"><div class="departure-row__date"><p class="departure-row__day">12</p><p class="departure-row__month">Apr</p></div><div class="departure-row__divider"></div><div class="departure-row__main"><p class="departure-row__duration">14 Days</p><div class="departure-row__status departure-row__status--discount"><span class="dot"></span><span class="text">On Sale</span></div></div><div class="departure-row__pricing"><span class="save-tag">Save &pound;163</span><div class="departure-row__price-line"><span class="strike">&pound;899</span><span class="now">&pound;736</span></div></div></a></li>
-        <li><a class="departure-row" href="#"><div class="departure-row__date"><p class="departure-row__day">10</p><p class="departure-row__month">May</p></div><div class="departure-row__divider"></div><div class="departure-row__main"><p class="departure-row__duration">14 Days</p><div class="departure-row__status"><span class="dot"></span><span class="text">Available</span></div></div><div class="departure-row__pricing"><div class="departure-row__price-line"><span class="now">&pound;799</span></div></div></a></li>
-        <li><a class="departure-row" href="#"><div class="departure-row__date"><p class="departure-row__day">24</p><p class="departure-row__month">May</p></div><div class="departure-row__divider"></div><div class="departure-row__main"><p class="departure-row__duration">14 Days</p><div class="departure-row__status departure-row__status--almost-full"><span class="dot"></span><span class="text">Almost Full</span></div></div><div class="departure-row__pricing"><div class="departure-row__price-line"><span class="now">&pound;799</span></div></div></a></li>
-        <li><a class="departure-row" href="#"><div class="departure-row__date"><p class="departure-row__day">05</p><p class="departure-row__month">Jul</p></div><div class="departure-row__divider"></div><div class="departure-row__main"><p class="departure-row__duration">14 Days</p><div class="departure-row__status"><span class="dot"></span><span class="text">Available</span></div></div><div class="departure-row__pricing"><div class="departure-row__price-line"><span class="now">&pound;849</span></div></div></a></li>
-        <li><a class="departure-row" href="#waitlist"><div class="departure-row__date"><p class="departure-row__day">16</p><p class="departure-row__month">Aug</p></div><div class="departure-row__divider"></div><div class="departure-row__main"><p class="departure-row__duration">14 Days</p><div class="departure-row__status"><span class="dot" style="background:#6b7280;"></span><span class="text">Full &middot; Join the waitlist</span></div></div><div class="departure-row__pricing"><span class="save-tag" style="background:rgba(255,63,153,0.15);color:var(--tru-pink);">Request Spot &rarr;</span></div></a></li>
-        <li><a class="departure-row" href="#waitlist"><div class="departure-row__date"><p class="departure-row__day">06</p><p class="departure-row__month">Dec</p></div><div class="departure-row__divider"></div><div class="departure-row__main"><p class="departure-row__duration">14 Days</p><div class="departure-row__status"><span class="dot" style="background:#6b7280;"></span><span class="text">Full &middot; Join the waitlist</span></div></div><div class="departure-row__pricing"><span class="save-tag" style="background:rgba(255,63,153,0.15);color:var(--tru-pink);">Request Spot &rarr;</span></div></a></li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Waitlist -->
-  <div class="modal" id="waitlist">
-    <a class="modal__backdrop" href="#top" aria-label="Close"></a>
-    <div class="modal__panel">
-      <a class="modal__close" href="#top" aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
-      <p class="modal__title">Join The Waitlist</p>
-      <div class="note-box"><p style="color:#fff;font-weight:700;font-size:0.9rem;">This departure is full</p><p style="color:#d1d5db;font-size:0.8rem;line-height:1.5;">Leave your details and we'll keep them on file — if a spot opens up from a cancellation, you'll be first to know.</p></div>
-      <form action="#" method="post">
-        <div class="field"><label>Name *</label><input type="text" name="name" required placeholder="Your name" /></div>
-        <div class="field"><label>Email *</label><input type="email" name="email" required placeholder="you@email.com" /></div>
-        <div class="field"><label>Contact Number *</label><input type="tel" name="phone" required placeholder="+44 …" /></div>
-        <div class="field"><label>Message</label><textarea name="message" rows="3" placeholder="Anything we should know? (flexible on dates, group size, etc.)"></textarea></div>
-        <button type="submit" class="btn btn--primary btn--block">Request A Spot</button>
-      </form>
+  <div class="modal bkg-modal" id="dates">
+    <a class="modal__backdrop" href="#_" aria-label="Close"></a>
+    <div class="bkg">
+      <div class="bkg__head">
+        <div>
+          <p class="bkg__title" data-title>Choose Your Date</p>
+          <p class="bkg__sub">Thailand Island Hopper &middot; 14 Days</p>
+        </div>
+        <a class="bkg__close" href="#_" aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+      </div>
+      <div class="bkg__body">
+        <!-- STEP: dates -->
+        <div class="bkg__step" data-step="dates">
+          <div class="bkg-years">
+            <button type="button" class="bkg-year is-active" data-year="2026">2026</button>
+            <button type="button" class="bkg-year" data-year="2027">2027</button>
+          </div>
+          <div class="bkg-legend"><span class="bkg-leg"><span class="bkg-dot bkg-dot--available"></span>Available</span><span class="bkg-leg"><span class="bkg-dot bkg-dot--almost-full"></span>Almost Full</span><span class="bkg-leg"><span class="bkg-dot bkg-dot--full"></span>Full</span><span class="bkg-leg"><span class="bkg-dot bkg-dot--discount"></span>On Sale</span></div>
+          <div class="bkg-usps">
+            <span class="bkg-usp">Deposit from &pound;200</span>
+            <span class="bkg-usp">Free date change up to 60 days</span>
+          </div>
+          <div class="bkg-year-group" data-yeargroup="2026">
+<div class="bkg-month"><h3 class="bkg-month__h">April 2026</h3><div class="bkg-month__list"><button class="bkg-dep" data-status="discount" data-datefmt="Sun, 12 Apr 2026" data-returns="Sat, 25 Apr 2026" data-price="736" data-orig="899" data-discount="18% off"><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--discount"></span><span><span class="bkg-dep__date">Sun, 12 Apr 2026</span><span class="bkg-dep__status">On Sale <span class="bkg-dep__pink">&middot; 18% off &middot; Save &pound;163</span></span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;736</span></span><span class="bkg-dep__pp">per person</span></span></button><button class="bkg-dep" data-status="discount" data-datefmt="Sun, 26 Apr 2026" data-returns="Sat, 9 May 2026" data-price="736" data-orig="899" data-discount="18% off"><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--discount"></span><span><span class="bkg-dep__date">Sun, 26 Apr 2026</span><span class="bkg-dep__status">On Sale <span class="bkg-dep__pink">&middot; 18% off &middot; Save &pound;163</span></span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;736</span></span><span class="bkg-dep__pp">per person</span></span></button></div></div>
+<div class="bkg-month"><h3 class="bkg-month__h">May 2026</h3><div class="bkg-month__list"><button class="bkg-dep" data-status="available" data-datefmt="Sun, 10 May 2026" data-returns="Sat, 23 May 2026" data-price="799" data-orig="899" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--available"></span><span><span class="bkg-dep__date">Sun, 10 May 2026</span><span class="bkg-dep__status">Available</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;799</span></span><span class="bkg-dep__pp">per person</span></span></button><button class="bkg-dep" data-status="almost-full" data-datefmt="Sun, 24 May 2026" data-returns="Sat, 6 Jun 2026" data-price="799" data-orig="899" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--almost-full"></span><span><span class="bkg-dep__date">Sun, 24 May 2026</span><span class="bkg-dep__status">Almost Full</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;799</span></span><span class="bkg-dep__pp">per person</span></span></button></div></div>
+<div class="bkg-month"><h3 class="bkg-month__h">June 2026</h3><div class="bkg-month__list"><button class="bkg-dep" data-status="discount" data-datefmt="Sun, 7 Jun 2026" data-returns="Sat, 20 Jun 2026" data-price="736" data-orig="899" data-discount="18% off"><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--discount"></span><span><span class="bkg-dep__date">Sun, 7 Jun 2026</span><span class="bkg-dep__status">On Sale <span class="bkg-dep__pink">&middot; 18% off &middot; Save &pound;163</span></span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;736</span></span><span class="bkg-dep__pp">per person</span></span></button><button class="bkg-dep" data-status="available" data-datefmt="Sun, 21 Jun 2026" data-returns="Sat, 4 Jul 2026" data-price="799" data-orig="899" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--available"></span><span><span class="bkg-dep__date">Sun, 21 Jun 2026</span><span class="bkg-dep__status">Available</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;799</span></span><span class="bkg-dep__pp">per person</span></span></button></div></div>
+<div class="bkg-month"><h3 class="bkg-month__h">July 2026</h3><div class="bkg-month__list"><button class="bkg-dep" data-status="available" data-datefmt="Sun, 5 Jul 2026" data-returns="Sat, 18 Jul 2026" data-price="849" data-orig="899" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--available"></span><span><span class="bkg-dep__date">Sun, 5 Jul 2026</span><span class="bkg-dep__status">Available</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;849</span></span><span class="bkg-dep__pp">per person</span></span></button><button class="bkg-dep" data-status="almost-full" data-datefmt="Sun, 19 Jul 2026" data-returns="Sat, 1 Aug 2026" data-price="849" data-orig="899" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--almost-full"></span><span><span class="bkg-dep__date">Sun, 19 Jul 2026</span><span class="bkg-dep__status">Almost Full</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;849</span></span><span class="bkg-dep__pp">per person</span></span></button></div></div>
+<div class="bkg-month"><h3 class="bkg-month__h">August 2026</h3><div class="bkg-month__list"><button class="bkg-dep" data-status="available" data-datefmt="Sun, 2 Aug 2026" data-returns="Sat, 15 Aug 2026" data-price="899" data-orig="" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--available"></span><span><span class="bkg-dep__date">Sun, 2 Aug 2026</span><span class="bkg-dep__status">Available</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="now">&pound;899</span></span><span class="bkg-dep__pp">per person</span></span></button><button class="bkg-dep" data-status="full" data-datefmt="Sun, 16 Aug 2026" data-returns="Sat, 29 Aug 2026" data-price="899" data-orig="" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--full"></span><span><span class="bkg-dep__date">Sun, 16 Aug 2026</span><span class="bkg-dep__status">Full <span class="bkg-dep__pink">&middot; Join the waitlist</span></span></span></span><span class="bkg-dep__r"><span class="bkg-dep__request">Request Spot <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span></span></button><button class="bkg-dep" data-status="available" data-datefmt="Sun, 30 Aug 2026" data-returns="Sat, 12 Sep 2026" data-price="849" data-orig="899" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--available"></span><span><span class="bkg-dep__date">Sun, 30 Aug 2026</span><span class="bkg-dep__status">Available</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;849</span></span><span class="bkg-dep__pp">per person</span></span></button></div></div>
+<div class="bkg-month"><h3 class="bkg-month__h">September 2026</h3><div class="bkg-month__list"><button class="bkg-dep" data-status="discount" data-datefmt="Sun, 13 Sep 2026" data-returns="Sat, 26 Sep 2026" data-price="736" data-orig="899" data-discount="18% off"><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--discount"></span><span><span class="bkg-dep__date">Sun, 13 Sep 2026</span><span class="bkg-dep__status">On Sale <span class="bkg-dep__pink">&middot; 18% off &middot; Save &pound;163</span></span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;736</span></span><span class="bkg-dep__pp">per person</span></span></button><button class="bkg-dep" data-status="available" data-datefmt="Sun, 27 Sep 2026" data-returns="Sat, 10 Oct 2026" data-price="799" data-orig="899" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--available"></span><span><span class="bkg-dep__date">Sun, 27 Sep 2026</span><span class="bkg-dep__status">Available</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;799</span></span><span class="bkg-dep__pp">per person</span></span></button></div></div>
+<div class="bkg-month"><h3 class="bkg-month__h">October 2026</h3><div class="bkg-month__list"><button class="bkg-dep" data-status="available" data-datefmt="Sun, 11 Oct 2026" data-returns="Sat, 24 Oct 2026" data-price="799" data-orig="899" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--available"></span><span><span class="bkg-dep__date">Sun, 11 Oct 2026</span><span class="bkg-dep__status">Available</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;799</span></span><span class="bkg-dep__pp">per person</span></span></button><button class="bkg-dep" data-status="almost-full" data-datefmt="Sun, 25 Oct 2026" data-returns="Sat, 7 Nov 2026" data-price="849" data-orig="899" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--almost-full"></span><span><span class="bkg-dep__date">Sun, 25 Oct 2026</span><span class="bkg-dep__status">Almost Full</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="strike">&pound;899</span><span class="now">&pound;849</span></span><span class="bkg-dep__pp">per person</span></span></button></div></div>
+<div class="bkg-month"><h3 class="bkg-month__h">November 2026</h3><div class="bkg-month__list"><button class="bkg-dep" data-status="available" data-datefmt="Sun, 8 Nov 2026" data-returns="Sat, 21 Nov 2026" data-price="899" data-orig="" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--available"></span><span><span class="bkg-dep__date">Sun, 8 Nov 2026</span><span class="bkg-dep__status">Available</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="now">&pound;899</span></span><span class="bkg-dep__pp">per person</span></span></button><button class="bkg-dep" data-status="available" data-datefmt="Sun, 22 Nov 2026" data-returns="Sat, 5 Dec 2026" data-price="899" data-orig="" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--available"></span><span><span class="bkg-dep__date">Sun, 22 Nov 2026</span><span class="bkg-dep__status">Available</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="now">&pound;899</span></span><span class="bkg-dep__pp">per person</span></span></button></div></div>
+<div class="bkg-month"><h3 class="bkg-month__h">December 2026</h3><div class="bkg-month__list"><button class="bkg-dep" data-status="full" data-datefmt="Sun, 6 Dec 2026" data-returns="Sat, 19 Dec 2026" data-price="899" data-orig="" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--full"></span><span><span class="bkg-dep__date">Sun, 6 Dec 2026</span><span class="bkg-dep__status">Full <span class="bkg-dep__pink">&middot; Join the waitlist</span></span></span></span><span class="bkg-dep__r"><span class="bkg-dep__request">Request Spot <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span></span></button><button class="bkg-dep" data-status="available" data-datefmt="Sun, 20 Dec 2026" data-returns="Sat, 2 Jan 2027" data-price="899" data-orig="" data-discount=""><span class="bkg-dep__l"><span class="bkg-dot bkg-dot--available"></span><span><span class="bkg-dep__date">Sun, 20 Dec 2026</span><span class="bkg-dep__status">Available</span></span></span><span class="bkg-dep__r"><span class="bkg-dep__prices"><span class="now">&pound;899</span></span><span class="bkg-dep__pp">per person</span></span></button></div></div>
+          </div>
+          <div class="bkg-year-group" data-yeargroup="2027" hidden>
+            <div class="bkg-empty">
+              <span class="bkg-empty__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/></svg></span>
+              <p class="bkg-empty__t">2027 dates coming soon</p>
+              <p class="bkg-empty__s">Dates for 2027 haven&rsquo;t been released yet. Be the first to know when they drop.</p>
+              <a class="bkg-empty__btn" href="#">Sign Up to Get Notified</a>
+              <p class="bkg-empty__login">Already have an account? <a href="#">Log in</a></p>
+            </div>
+          </div>
+        </div>
+        <!-- STEP: confirm -->
+        <div class="bkg__step" data-step="confirm" hidden>
+          <button type="button" class="bkg-back" data-back><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg> Change date</button>
+          <div class="bkg-summary">
+            <div class="bkg-summary__top">
+              <p class="bkg-summary__date" data-c-date></p>
+              <span class="bkg-summary__badge" data-c-badge hidden></span>
+            </div>
+            <div class="bkg-summary__route">
+              <span class="bkg-summary__pt"><span class="bkg-dot" style="background:#6BD495;"></span>Bangkok</span>
+              <span class="bkg-summary__line"></span>
+              <span class="bkg-summary__pt">Phuket<span class="bkg-dot" style="background:#FF3F99;"></span></span>
+            </div>
+            <div class="bkg-summary__meta"><span data-c-departs></span><span data-c-returns></span></div>
+          </div>
+          <div class="bkg-travellers">
+            <label class="bkg-travellers__label">Number of Travellers</label>
+            <div class="bkg-travellers__ctrl">
+              <button type="button" class="bkg-step-btn" data-c-minus aria-label="Fewer"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"/></svg></button>
+              <span class="bkg-travellers__count" data-c-count>1</span>
+              <button type="button" class="bkg-step-btn" data-c-plus aria-label="More"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg></button>
+            </div>
+          </div>
+          <div class="bkg-price">
+            <div class="bkg-price__row"><span class="bkg-price__lbl" data-c-line></span><span class="bkg-price__val" data-c-linetotal></span></div>
+            <div class="bkg-price__row" data-c-saverow hidden><span class="bkg-price__save">You save</span><span class="bkg-price__save" data-c-save></span></div>
+            <div class="bkg-price__row bkg-price__row--total"><span>Total Price</span><span class="bkg-price__total" data-c-total></span></div>
+            <div class="bkg-price__row"><span class="bkg-price__lbl">Or pay a deposit today</span><span class="bkg-price__dep" data-c-deposit></span></div>
+          </div>
+        </div>
+        <!-- STEP: waitlist -->
+        <div class="bkg__step" data-step="waitlist" hidden>
+          <button type="button" class="bkg-back" data-back><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg> Back to dates</button>
+          <form class="bkg-wl" data-wl-form>
+            <div class="bkg-wl__note">
+              <p class="bkg-wl__note-t" data-wl-date>Full</p>
+              <p class="bkg-wl__note-s">This departure is fully booked. Leave your details and we&rsquo;ll keep them on file &mdash; if a spot opens up from a cancellation, you&rsquo;ll be first to know.</p>
+            </div>
+            <div class="field"><label>Name <span>*</span></label><input type="text" name="name" required placeholder="Your name" data-wl-name-input /></div>
+            <div class="field"><label>Email <span>*</span></label><input type="email" name="email" required placeholder="you@email.com" /></div>
+            <div class="field"><label>Contact Number <span>*</span></label><input type="tel" name="phone" required placeholder="+44 …" /></div>
+            <div class="field"><label>Message</label><textarea name="message" rows="3" placeholder="Anything we should know? (flexible on dates, group size, etc.)"></textarea></div>
+            <button type="submit" class="bkg-wl__submit">Request A Spot <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+          </form>
+          <div class="bkg-wl__done" data-wl-success hidden>
+            <span class="bkg-wl__done-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+            <h3 class="bkg-wl__done-t">You&rsquo;re On The <span>Waitlist</span></h3>
+            <p class="bkg-wl__done-s" data-wl-msg></p>
+          </div>
+        </div>
+      </div>
+      <!-- footer (confirm only) -->
+      <div class="bkg__foot" data-foot hidden>
+        <div class="bkg__foot-btns">
+          <button type="button" class="bkg__cart">Add To Cart</button>
+          <button type="button" class="bkg__book">Book Now</button>
+        </div>
+        <p class="bkg__foot-note" data-c-depnote></p>
+      </div>
     </div>
   </div>
 
@@ -1580,6 +1652,91 @@
     stage.addEventListener('touchend', function () { lastDist = 0; dragging = false; });
     window.addEventListener('hashchange', function () { if (location.hash !== '#map-modal') reset(); });
     apply();
+  })();
+  </script>
+  <script>/* booking modal (Check Dates) — steps: dates -> confirm / waitlist */
+  (function () {
+    var modal = document.getElementById('dates');
+    if (!modal) return;
+    var DEPOSIT = 200;
+    var q = function (sel) { return modal.querySelector(sel); };
+    var titleEl = q('[data-title]');
+    var body = q('.bkg__body');
+    var foot = q('[data-foot]');
+    var steps = { dates: q('[data-step="dates"]'), confirm: q('[data-step="confirm"]'), waitlist: q('[data-step="waitlist"]') };
+    var travellers = 1, sel = null;
+
+    function showStep(step) {
+      steps.dates.hidden = step !== 'dates';
+      steps.confirm.hidden = step !== 'confirm';
+      steps.waitlist.hidden = step !== 'waitlist';
+      foot.hidden = step !== 'confirm';
+      titleEl.textContent = step === 'dates' ? 'Choose Your Date' : (step === 'waitlist' ? 'Join The Waitlist' : 'Confirm Booking');
+      if (body) body.scrollTop = 0;
+    }
+
+    /* year tabs */
+    modal.querySelectorAll('.bkg-year').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        modal.querySelectorAll('.bkg-year').forEach(function (t) { t.classList.remove('is-active'); });
+        tab.classList.add('is-active');
+        var y = tab.getAttribute('data-year');
+        modal.querySelectorAll('[data-yeargroup]').forEach(function (g) { g.hidden = g.getAttribute('data-yeargroup') !== y; });
+      });
+    });
+
+    /* departure select */
+    modal.querySelectorAll('.bkg-dep').forEach(function (dep) {
+      dep.addEventListener('click', function () {
+        sel = dep.dataset; travellers = 1;
+        if (dep.dataset.status === 'full') {
+          q('[data-wl-date]').textContent = dep.dataset.datefmt + ' \u00b7 Full';
+          q('[data-wl-form]').hidden = false;
+          q('[data-wl-success]').hidden = true;
+          q('[data-wl-form]').reset();
+          showStep('waitlist');
+        } else {
+          renderConfirm();
+          showStep('confirm');
+        }
+      });
+    });
+
+    function renderConfirm() {
+      q('[data-c-date]').textContent = sel.datefmt;
+      var badge = q('[data-c-badge]');
+      if (sel.discount) { badge.textContent = sel.discount; badge.hidden = false; } else { badge.hidden = true; }
+      q('[data-c-departs]').textContent = 'Departs: ' + sel.datefmt;
+      q('[data-c-returns]').textContent = 'Returns: ' + sel.returns;
+      renderPrice();
+    }
+    function renderPrice() {
+      var price = +sel.price, orig = sel.orig ? +sel.orig : 0, total = price * travellers;
+      q('[data-c-count]').textContent = travellers;
+      q('[data-c-line]').textContent = '\u00a3' + price + ' \u00d7 ' + travellers + ' traveller' + (travellers > 1 ? 's' : '');
+      q('[data-c-linetotal]').textContent = '\u00a3' + total;
+      var saveRow = q('[data-c-saverow]');
+      if (orig && orig !== price) { saveRow.hidden = false; q('[data-c-save]').textContent = '\u00a3' + ((orig - price) * travellers); } else { saveRow.hidden = true; }
+      q('[data-c-total]').textContent = '\u00a3' + total;
+      q('[data-c-deposit]').textContent = '\u00a3' + (DEPOSIT * travellers);
+      q('[data-c-depnote]').textContent = 'Deposit \u00a3' + (DEPOSIT * travellers) + ' \u00b7 Free date change up to 60 days before departure';
+    }
+
+    q('[data-c-minus]').addEventListener('click', function () { travellers = Math.max(1, travellers - 1); renderPrice(); });
+    q('[data-c-plus]').addEventListener('click', function () { travellers = Math.min(10, travellers + 1); renderPrice(); });
+    modal.querySelectorAll('[data-back]').forEach(function (b) { b.addEventListener('click', function () { showStep('dates'); }); });
+
+    q('[data-wl-form]').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = (q('[data-wl-name-input]').value || '').trim();
+      var first = name ? ', ' + name.split(' ')[0] : '';
+      q('[data-wl-msg]').innerHTML = 'Thanks' + first + ' \u2014 ' + (sel ? sel.datefmt : 'this date') + ' is currently full, but we\u2019ve passed your details to the team. If a spot frees up from a cancellation, you\u2019ll be the first we call.';
+      q('[data-wl-form]').hidden = true;
+      q('[data-wl-success]').hidden = false;
+    });
+
+    /* reset to dates step whenever the modal closes */
+    window.addEventListener('hashchange', function () { if (location.hash !== '#dates') { showStep('dates'); } });
   })();
   </script>
 </body>
