@@ -616,7 +616,7 @@ export const trips: Trip[] = [
     rating: 4.8,
     reviewCount: 189,
     image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80",
-    tagline: "The complete mixture of culture, adventure, beaches and parties",
+    tagline: "Culture, adventure, beaches and parties",
     description: "8 days of everything that makes Thailand incredible. From Bangkok's temples to Koh Phangan's beaches — culture, adventure, and good vibes packed into one week.",
     highlights: ["Bangkok temples & street food", "Overnight train south", "Ang Thong Marine Park", "Beach parties on Koh Phangan"],
     itinerary: [

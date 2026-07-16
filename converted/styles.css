@@ -1782,7 +1782,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    YOU MIGHT LIKE — rich trip cards (exact mirror of TripCard)
    ============================================================ */
 /* spacing mirrors the home page ExperienceCarousel (1.15 -> 3.2 per view) */
-.carousel--related { gap: 1rem; scrollbar-width: none; }
+.carousel--related { gap: 1rem; scrollbar-width: none; align-items: stretch; }
 .carousel--related::-webkit-scrollbar { display: none; }
 @media (min-width: 1024px) { .carousel--related { gap: 1.25rem; } }
 .carousel--related > * { width: calc(100% / 1.15 - 0.13rem); }
@@ -1793,7 +1793,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* arrows sit over the card image, like the home carousel */
 #also .rev-arrow { top: calc(50% - 60px); }
 
-.tripcard { position: relative; height: 100%; }
+.tripcard { position: relative; }
 .tripcard__link { position: absolute; inset: 0; z-index: 1; border-radius: var(--radius); }
 .tripcard__inner { position: relative; overflow: hidden; border-radius: var(--radius); background: var(--tru-navy); border: 1px solid var(--border-soft); height: 100%; display: flex; flex-direction: column; box-shadow: 0 5px 25px -5px rgba(0,0,0,0.3); transition: border-color 0.3s; }
 .tripcard:hover .tripcard__inner { border-color: rgba(255,63,153,0.3); }
@@ -1825,7 +1825,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tripcard__stars svg { height: 0.875rem; width: 0.875rem; color: #fbbf24; }
 .tripcard__rating .num { color: #fff; font-size: 0.75rem; font-weight: 700; margin-left: 0.125rem; }
 .tripcard__rating .rev { color: #6b7280; font-size: 0.75rem; }
-.tripcard__tagline { color: var(--text-mute); font-size: 0.75rem; line-height: 1.6; margin: 0 0 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tripcard__tagline { color: var(--text-mute); font-size: 0.75rem; line-height: 1.6; margin: 0 0 1rem; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
 .tripcard__facts { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem 1rem; color: #d1d5db; font-size: 0.75rem; margin-bottom: 0.75rem; }
 .tripcard__facts span { display: flex; align-items: center; gap: 0.375rem; }
 .tripcard__facts svg { height: 0.875rem; width: 0.875rem; color: var(--tru-pink); flex-shrink: 0; }
