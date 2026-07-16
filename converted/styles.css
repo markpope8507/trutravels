@@ -1279,7 +1279,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .stay-card__text { color: #d1d5db; font-size: 0.85rem; line-height: 1.5; margin: 0; }
 
 /* Map thumbnail */
-.map-thumb { position: relative; display: block; border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; background: var(--background); }
+.map-thumb { position: relative; display: block; border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; background: rgba(255,255,255,0.05); }
 .map-thumb img { width: 100%; display: block; }
 .map-thumb__icon { position: absolute; top: 0.75rem; left: 0.75rem; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: rgba(255,255,255,0.9); color: var(--tru-navy); display: flex; align-items: center; justify-content: center; }
 .map-thumb__icon svg { width: 1.25rem; height: 1.25rem; }
@@ -1920,3 +1920,27 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* stays carousel arrows */
 .side-block .rev-arrow, #accommodation .rev-arrow { top: 27%; }
+
+/* ============================================================
+   MAP LIGHTBOX — zoom + pan (mirrors MapViewer)
+   ============================================================ */
+.map-lightbox { display: none; position: fixed; inset: 0; z-index: 130; }
+.map-lightbox:target { display: block; }
+.map-lightbox__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.9); }
+.map-lightbox__close { position: fixed; top: 1rem; right: 1rem; z-index: 3; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: rgba(255,255,255,0.15); backdrop-filter: blur(4px); color: #fff; display: flex; align-items: center; justify-content: center; }
+.map-lightbox__close svg { width: 1.25rem; height: 1.25rem; }
+.map-lightbox__stage { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; touch-action: none; }
+.map-lightbox__img { max-width: 92vw; max-height: 80vh; object-fit: contain; transition: transform 0.1s; will-change: transform; user-select: none; -webkit-user-drag: none; }
+.map-lightbox__controls { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.map-lightbox__hint { color: rgba(255,255,255,0.8); font-size: 11px; font-weight: 600; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); padding: 0.25rem 0.75rem; border-radius: 999px; margin: 0; }
+.map-lightbox__zoom { display: flex; align-items: center; gap: 0.375rem; border-radius: 999px; background: rgba(255,255,255,0.1); backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.15); padding: 0.375rem; }
+.map-lightbox__zoom button { height: 2.5rem; min-width: 2.5rem; border: none; background: none; color: #fff; border-radius: 999px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+.map-lightbox__zoom button:hover { background: rgba(255,255,255,0.15); }
+.map-lightbox__zoom button[disabled] { opacity: 0.3; cursor: default; }
+.map-lightbox__zoom svg { width: 1.25rem; height: 1.25rem; }
+.map-lightbox__pct { font-size: 0.75rem; font-weight: 700; font-family: 'Montserrat', sans-serif; padding: 0 0.75rem; min-width: 3.25rem; }
+
+/* sticky-menu shortcuts land below the fixed booking bar (~96px), not under it */
+#overview, #inclusions, #real-moments, #itinerary, #map, #accommodation, #reviews, #faqs, #also {
+  scroll-margin-top: 7rem;
+}

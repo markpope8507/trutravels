@@ -1013,11 +1013,19 @@
   </div>
 
   <!-- Map lightbox -->
-  <div class="modal" id="map-modal">
-    <a class="modal__backdrop" href="#map" aria-label="Close"></a>
-    <div class="modal__panel modal__panel--wide">
-      <a class="modal__close" href="#map" aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
-      <img src="https://cdn.trutravels.com/images/thailand-island-hopper-2023.png" alt="Thailand Island Hopper route map" />
+  <div class="map-lightbox" id="map-modal">
+    <a class="map-lightbox__backdrop" href="#_" aria-label="Close"></a>
+    <a class="map-lightbox__close" href="#_" aria-label="Close map"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+    <div class="map-lightbox__stage">
+      <img class="map-lightbox__img" src="https://cdn.trutravels.com/images/thailand-island-hopper-2023.png" alt="Thailand Island Hopper route map" draggable="false" />
+    </div>
+    <div class="map-lightbox__controls">
+      <p class="map-lightbox__hint">Pinch or use +/&minus; to zoom</p>
+      <div class="map-lightbox__zoom">
+        <button type="button" data-map-zoom="out" aria-label="Zoom out"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"/></svg></button>
+        <button type="button" data-map-zoom="reset" class="map-lightbox__pct">100%</button>
+        <button type="button" data-map-zoom="in" aria-label="Zoom in"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg></button>
+      </div>
     </div>
   </div>
 
@@ -1501,6 +1509,60 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
     onScroll();
+  })();
+  </script>
+  <script>/* map lightbox — zoom (wheel/buttons/pinch) + pan */
+  (function () {
+    var modal = document.getElementById('map-modal');
+    if (!modal) return;
+    var img = modal.querySelector('.map-lightbox__img');
+    var stage = modal.querySelector('.map-lightbox__stage');
+    var pct = modal.querySelector('.map-lightbox__pct');
+    var outBtn = modal.querySelector('[data-map-zoom="out"]');
+    var inBtn = modal.querySelector('[data-map-zoom="in"]');
+    var scale = 1, tx = 0, ty = 0;
+    function clamp(n) { return Math.min(Math.max(n, 1), 4); }
+    function apply() {
+      img.style.transform = 'scale(' + scale + ') translate(' + (tx / scale) + 'px,' + (ty / scale) + 'px)';
+      pct.textContent = Math.round(scale * 100) + '%';
+      outBtn.disabled = scale <= 1; inBtn.disabled = scale >= 4;
+      stage.style.cursor = scale > 1 ? 'grab' : 'default';
+    }
+    function reset() { scale = 1; tx = 0; ty = 0; apply(); }
+    inBtn.addEventListener('click', function (e) { e.preventDefault(); scale = clamp(+(scale + 0.5).toFixed(2)); apply(); });
+    outBtn.addEventListener('click', function (e) { e.preventDefault(); scale = clamp(+(scale - 0.5).toFixed(2)); if (scale === 1) { tx = 0; ty = 0; } apply(); });
+    modal.querySelector('[data-map-zoom="reset"]').addEventListener('click', function (e) { e.preventDefault(); reset(); });
+    stage.addEventListener('wheel', function (e) { e.preventDefault(); scale = clamp(scale - e.deltaY * 0.0015); if (scale === 1) { tx = 0; ty = 0; } apply(); }, { passive: false });
+    var dragging = false, lastX = 0, lastY = 0;
+    stage.addEventListener('pointerdown', function (e) {
+      if (scale <= 1) return;
+      dragging = true; lastX = e.clientX; lastY = e.clientY; stage.style.cursor = 'grabbing';
+      try { stage.setPointerCapture(e.pointerId); } catch (x) {}
+    });
+    stage.addEventListener('pointermove', function (e) {
+      if (!dragging) return; tx += e.clientX - lastX; ty += e.clientY - lastY; lastX = e.clientX; lastY = e.clientY; apply();
+    });
+    stage.addEventListener('pointerup', function () { dragging = false; if (scale > 1) stage.style.cursor = 'grab'; });
+    var lastDist = 0;
+    stage.addEventListener('touchstart', function (e) {
+      if (e.touches.length === 2) { lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); }
+      else if (e.touches.length === 1 && scale > 1) { dragging = true; lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; }
+    });
+    stage.addEventListener('touchmove', function (e) {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        var d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        if (lastDist > 0) { scale = clamp(scale * (d / lastDist)); if (scale === 1) { tx = 0; ty = 0; } apply(); }
+        lastDist = d;
+      } else if (e.touches.length === 1 && dragging && scale > 1) {
+        e.preventDefault();
+        tx += e.touches[0].clientX - lastX; ty += e.touches[0].clientY - lastY;
+        lastX = e.touches[0].clientX; lastY = e.touches[0].clientY; apply();
+      }
+    }, { passive: false });
+    stage.addEventListener('touchend', function () { lastDist = 0; dragging = false; });
+    window.addEventListener('hashchange', function () { if (location.hash !== '#map-modal') reset(); });
+    apply();
   })();
   </script>
 </body>
