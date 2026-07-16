@@ -1273,7 +1273,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .stay-card__text { color: #d1d5db; font-size: 0.85rem; line-height: 1.5; margin: 0; }
 
 /* Map thumbnail */
-.map-thumb { position: relative; display: block; border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; }
+.map-thumb { position: relative; display: block; border: 1px solid var(--border-soft); border-radius: var(--radius); overflow: hidden; background: var(--background); }
 .map-thumb img { width: 100%; display: block; }
 .map-thumb__icon { position: absolute; top: 0.75rem; left: 0.75rem; width: 2.75rem; height: 2.75rem; border-radius: 999px; background: rgba(255,255,255,0.9); color: var(--tru-navy); display: flex; align-items: center; justify-content: center; }
 .map-thumb__icon svg { width: 1.25rem; height: 1.25rem; }
@@ -1359,9 +1359,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .tour-side { display: none; }
 .only-desktop { display: none; }
 @media (min-width: 1024px) {
-  .tour-layout { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 2.5rem; align-items: start; }
-  .tour-main .section { margin-bottom: 3.5rem; padding-inline: 0; max-width: none; }
-  .tour-side { display: block; position: sticky; top: 5rem; }
+  .tour-layout { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; align-items: start; padding-top: 4rem; }
+  .tour-main { grid-column: span 2; }
+  .tour-main .section { margin-bottom: 3rem; padding-inline: 0; max-width: none; }
+  .tour-side { display: block; }
   .only-desktop { display: block; }
   .only-mobile { display: none; }
 }
@@ -1384,8 +1385,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .btn--book:hover { background: #F7CA00; }
 
 /* Sidebar sub-blocks */
-.side-block { margin-top: 1.5rem; }
-.side-block__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; font-size: 0.95rem; letter-spacing: 0.02em; margin: 0 0 0.75rem; }
+.side-block { margin-top: 2rem; }
+.side-block__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 1.125rem; letter-spacing: 0.025em; margin: 0 0 0.75rem; }
 
 /* Transparent overlay nav (floats over the hero) */
 .site-nav--over { position: absolute; top: 0; left: 0; right: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent); backdrop-filter: none; border-bottom: none; }
@@ -1410,7 +1411,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .pricing-card__date { color: #d1d5db; font-size: 0.8rem; margin: 0.4rem 0 0; }
 
 /* Sidebar stacked stays */
-.side-stays { display: flex; flex-direction: column; gap: 1rem; }
+.side-stays { display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; align-items: stretch; }
+.side-stays::-webkit-scrollbar { display: none; }
+.side-stays .stay-card { flex: 0 0 80%; scroll-snap-align: start; }
 
 /* Mobile nav: search + hamburger; hide Join Club; desktop shows links + join */
 .site-nav__icon--always { display: inline-flex; }
@@ -1637,7 +1640,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* ============================================================
    OVERVIEW — exact (heading, 16:9 video, muted travel-style label)
    ============================================================ */
-#overview .section-heading { font-size: 1.5rem; margin-bottom: 1rem; letter-spacing: 0.01em; }
+#overview .section-heading { font-size: 1.5rem; margin-bottom: 1rem; letter-spacing: 0.025em; }
 .overview__desc { color: #d1d5db; font-size: 1rem; line-height: 1.6; max-width: 46rem; margin: 0 0 1.75rem; }
 .trip-video { aspect-ratio: 16 / 9; border: 1px solid var(--border-soft); }
 .travel-style__eyebrow { color: lab(65.9269 -0.832707 -8.17473); font-size: 10px; font-weight: 400; letter-spacing: 0.1em; }
@@ -1683,8 +1686,9 @@ ul { margin: 0; padding: 0; list-style: none; }
    REAL MOMENTS / DIARIES — video carousel (exact match)
    ============================================================ */
 #real-moments .eyebrow { font-size: 11px; letter-spacing: 0.3em; margin-bottom: 0.75rem; }
-#real-moments .section-heading { margin-bottom: 0.75rem; line-height: 0.95; }
+#real-moments .section-heading { margin-bottom: 0.75rem; line-height: 0.95; letter-spacing: -0.025em; }
 #also .section-heading { margin-bottom: 2rem; }
+#itinerary .section-heading, #reviews .section-heading, #faqs .section-heading, #also .section-heading, #accommodation .section-heading, #map .section-heading { font-size: 1.5rem; }
 #stories .eyebrow { font-size: 11px; letter-spacing: 0.3em; margin-bottom: 0.75rem; }
 #stories .section-heading { margin-bottom: 0.75rem; line-height: 0.95; }
 .stories-intro { color: var(--text-mute); font-size: 1rem; line-height: 1.6; max-width: 32rem; margin: 0 0 2rem; }

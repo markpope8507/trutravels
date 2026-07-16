@@ -638,7 +638,10 @@
               <div class="stay-card__body"><h3 class="stay-card__title">Bangkok Hotel</h3><p class="stay-card__text">Comfortable hotel in the heart of Bangkok, steps from Khao San Road. Twin-share, AC, hot showers.</p></div>
             </article>
             <article class="stay-card">
-              <div class="stay-card__media"><img src="https://cdn.trutravels.com/blog/khao-sok-southern-thailand-blog.jpg" alt="Khao Sok Floating Bungalows" /></div>
+              <a class="stay-card__media" href="#stay-video" aria-label="Play video of Khao Sok Floating Bungalows">
+                <img src="https://cdn.trutravels.com/blog/khao-sok-southern-thailand-blog.jpg" alt="Khao Sok Floating Bungalows" />
+                <span class="stay-card__play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></span>
+              </a>
               <div class="stay-card__body"><h3 class="stay-card__title">Khao Sok Floating Bungalows</h3><p class="stay-card__text">Wake up on an emerald lake ringed by limestone mountains. Hammocks, wooden decks, water all around.</p></div>
             </article>
             <article class="stay-card">
@@ -650,6 +653,7 @@
               <div class="stay-card__body"><h3 class="stay-card__title">Koh Tao Beach Resort</h3><p class="stay-card__text">Simple, clean rooms steps from Sairee Beach — the island's best strip of sand and beach bars.</p></div>
             </article>
           </div>
+          <div class="rm-dots"><span></span><span></span><span></span><span></span></div>
         </div>
       </aside>
     </div><!-- /.tour-layout -->
@@ -1315,9 +1319,9 @@
       // the scrollable track is the previous sibling, or a scroller inside it
       var prev = dotsWrap.previousElementSibling;
       if (!prev) return;
-      var track = prev.matches('.vdiaries, .carousel')
+      var track = prev.matches('.vdiaries, .carousel, .side-stays')
         ? prev
-        : prev.querySelector('.vdiaries, .carousel');
+        : prev.querySelector('.vdiaries, .carousel, .side-stays');
       if (!track) return;
       var dots = dotsWrap.querySelectorAll('span');
       var n = dots.length;
