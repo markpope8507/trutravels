@@ -1267,7 +1267,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .stay-card__play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
 .stay-card__play span { width: 3.5rem; height: 3.5rem; border-radius: 999px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; }
 .stay-card__play svg { width: 1.5rem; height: 1.5rem; color: #fff; }
-.stay-card__badge { position: absolute; top: 0.75rem; left: 0.75rem; background: rgba(255,63,153,0.9); color: #fff; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.6rem; border-radius: 999px; font-family: Montserrat, sans-serif; }
+.stay-card__badge { position: absolute; top: 0.75rem; left: 0.75rem; z-index: 2; display: inline-flex; align-items: center; gap: 0.375rem; background: rgba(255,63,153,0.9); color: #fff; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.625rem; border-radius: 999px; font-family: 'Montserrat', sans-serif; }
+.stay-card__badge svg { width: 0.625rem; height: 0.625rem; }
 .stay-card__body { padding: 1rem; }
 .stay-card__title { color: #fff; font-weight: 700; font-size: 1rem; margin: 0 0 0.4rem; }
 .stay-card__text { color: #d1d5db; font-size: 0.85rem; line-height: 1.5; margin: 0; }
@@ -1892,3 +1893,24 @@ ul { margin: 0; padding: 0; list-style: none; }
   width: clamp(200px, 30vw, 520px);
   filter: brightness(0) invert(1);
 }
+
+/* ============================================================
+   STAY IMAGE ZOOM — clickable accommodation photos (:target)
+   ============================================================ */
+.stay-card__zoom { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; background: rgba(0,0,0,0.1); transition: opacity 0.2s, background 0.2s; }
+.stay-card__media:hover .stay-card__zoom { opacity: 1; background: rgba(0,0,0,0.3); }
+.stay-card__zoom span { width: 3.5rem; height: 3.5rem; border-radius: 999px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; }
+.stay-card__zoom svg { width: 1.5rem; height: 1.5rem; color: #fff; }
+
+.zoom-modal { display: none; position: fixed; inset: 0; z-index: 130; background: rgba(0,0,0,0.95); align-items: center; justify-content: center; padding: 1rem; }
+.zoom-modal:target { display: flex; }
+.zoom-modal .modal__backdrop { position: absolute; inset: 0; }
+.zoom-modal__close { position: absolute; top: 1rem; right: 1rem; z-index: 2; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: rgba(255,255,255,0.1); backdrop-filter: blur(4px); color: #fff; display: flex; align-items: center; justify-content: center; }
+.zoom-modal__close svg { width: 1.25rem; height: 1.25rem; }
+.zoom-modal__inner { position: relative; z-index: 1; width: 100%; max-width: 56rem; }
+.zoom-modal__inner img { width: 100%; max-height: 75vh; object-fit: contain; border-radius: 10px; background: #000; display: block; }
+.zoom-modal__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.125rem; margin: 1rem 0 0.25rem; }
+.zoom-modal__text { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; margin: 0; }
+
+/* stays carousel arrows */
+.side-block .rev-arrow, #accommodation .rev-arrow { top: 27%; }

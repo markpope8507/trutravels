@@ -72,9 +72,21 @@ export default function AccommodationCarousel({ items }: { items: AccommodationI
                   </span>
                 </button>
               ) : (
-                <div className="relative aspect-square bg-black">
+                <button
+                  onClick={() => setPlaying(item)}
+                  className="group relative aspect-square bg-black block w-full"
+                  aria-label={`View photo of ${item.title}`}
+                >
                   <img src={item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover" />
-                </div>
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-colors" />
+                  <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="h-14 w-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                      <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                      </svg>
+                    </span>
+                  </span>
+                </button>
               )}
               <div className="p-4 flex-1">
                 <h3 className="text-white text-base font-bold font-heading mb-1.5">{item.title}</h3>
@@ -114,14 +126,22 @@ export default function AccommodationCarousel({ items }: { items: AccommodationI
               </svg>
             </button>
             <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
-              <video
-                src={playing.video}
-                poster={playing.poster || playing.image}
-                controls
-                autoPlay
-                playsInline
-                className="w-full max-h-[75vh] rounded-[10px] bg-black object-contain"
-              />
+              {playing.video ? (
+                <video
+                  src={playing.video}
+                  poster={playing.poster || playing.image}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="w-full max-h-[75vh] rounded-[10px] bg-black object-contain"
+                />
+              ) : (
+                <img
+                  src={playing.image}
+                  alt={playing.title}
+                  className="w-full max-h-[75vh] rounded-[10px] bg-black object-contain"
+                />
+              )}
               <h3 className="text-white font-bold font-heading text-lg mt-4">{playing.title}</h3>
               <p className="text-gray-300 text-sm leading-relaxed mt-1">{playing.description}</p>
             </div>
