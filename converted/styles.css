@@ -1958,3 +1958,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 #accommodation .carousel--trips > * { width: calc(100% / 1.1 - 1.5px); }
 @media (min-width: 480px) { #accommodation .carousel--trips > * { width: calc(100% / 1.2 - 3px); } }
 @media (min-width: 640px) { #accommodation .carousel--trips > * { width: calc(100% / 1.6 - 6px); } }
+
+/* Save-to-favourites prompt (mirrors FavouriteButton) */
+.share-modal__panel--center { text-align: center; }
+.save-modal__login { display: block; width: 100%; border-radius: 10px; background: var(--tru-pink); color: #fff; padding: 0.625rem 1rem; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 0.5rem; transition: background 0.2s; }
+.save-modal__login:hover { background: #ff5bab; }
+.save-modal__signup { display: block; margin-top: 0.75rem; color: var(--text-mute); font-size: 0.75rem; transition: color 0.2s; }
+.save-modal__signup:hover { color: #fff; }
