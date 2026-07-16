@@ -27,6 +27,7 @@
       </nav>
       <div class="site-nav__actions">
         <button class="site-nav__icon site-nav__icon--always" aria-label="Search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg></button>
+        <button class="site-nav__icon site-nav__icon--always site-nav__cart" aria-label="Cart" data-cart-open><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg><span class="site-nav__cart-badge" data-cart-count hidden>0</span></button>
         <button class="site-nav__icon" aria-label="Saved"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></button>
         <a href="#" class="btn btn--primary site-nav__join">Join / Log In</a>
         <button class="site-nav__icon site-nav__icon--menu" aria-label="Menu"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
@@ -1726,6 +1727,24 @@
     q('[data-c-plus]').addEventListener('click', function () { travellers = Math.min(10, travellers + 1); renderPrice(); });
     modal.querySelectorAll('[data-back]').forEach(function (b) { b.addEventListener('click', function () { showStep('dates'); }); });
 
+    q('.bkg__cart').addEventListener('click', function () {
+      if (!sel || !window.TruCart) return;
+      window.TruCart.add({
+        tripTitle: 'Thailand Island Hopper',
+        image: 'assets/thailand-island-hopper-hero.jpg',
+        date: sel.datefmt,
+        duration: '14 Days',
+        startLocation: 'Bangkok',
+        endLocation: 'Phuket',
+        travellers: travellers,
+        price: +sel.price,
+        orig: sel.orig ? +sel.orig : 0,
+        deposit: DEPOSIT
+      });
+      location.hash = '#_';
+      window.TruCart.open();
+    });
+
     q('[data-wl-form]').addEventListener('submit', function (e) {
       e.preventDefault();
       var name = (q('[data-wl-name-input]').value || '').trim();
@@ -1737,6 +1756,94 @@
 
     /* reset to dates step whenever the modal closes */
     window.addEventListener('hashchange', function () { if (location.hash !== '#dates') { showStep('dates'); } });
+  })();
+  </script>
+  <!-- Cart drawer -->
+  <div class="cart-drawer" data-cart>
+    <div class="cart-drawer__backdrop" data-cart-close></div>
+    <div class="cart-drawer__panel">
+      <div class="cart-drawer__head">
+        <div>
+          <h2 class="cart-drawer__title">Your Trips</h2>
+          <p class="cart-drawer__sub" data-cart-sub>Cart is empty</p>
+        </div>
+        <button class="cart-drawer__close" data-cart-close aria-label="Close cart"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+      </div>
+      <div class="cart-drawer__body">
+        <div class="cart-drawer__empty" data-cart-empty>
+          <span class="cart-drawer__empty-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg></span>
+          <p class="cart-drawer__empty-t">No trips in your cart yet</p>
+          <p class="cart-drawer__empty-s">Browse adventures and tap &ldquo;Add to Cart&rdquo; on a date to start planning a multi-trip booking.</p>
+          <a class="cart-drawer__empty-btn" href="#">Explore Trips</a>
+        </div>
+        <div class="cart-drawer__items" data-cart-items></div>
+      </div>
+      <div class="cart-drawer__foot" data-cart-foot hidden>
+        <div class="cart-drawer__row" data-cart-saverow hidden><span class="cart-drawer__save">You save</span><span class="cart-drawer__save" data-cart-savings></span></div>
+        <div class="cart-drawer__row"><span class="cart-drawer__mute">Total</span><span class="cart-drawer__total" data-cart-total></span></div>
+        <div class="cart-drawer__row cart-drawer__row--sm"><span class="cart-drawer__mute">Or deposit today</span><span class="cart-drawer__dep" data-cart-deposit></span></div>
+        <button class="cart-drawer__checkout">Proceed To Checkout &rarr;</button>
+        <p class="cart-drawer__note">Free date change up to 60 days before departure</p>
+      </div>
+    </div>
+  </div>
+
+  <script>/* cart drawer */
+  window.TruCart = (function () {
+    var drawer = document.querySelector('[data-cart]');
+    if (!drawer) return { add: function () {}, open: function () {} };
+    var itemsEl = drawer.querySelector('[data-cart-items]');
+    var emptyEl = drawer.querySelector('[data-cart-empty]');
+    var footEl = drawer.querySelector('[data-cart-foot]');
+    var subEl = drawer.querySelector('[data-cart-sub]');
+    var badges = document.querySelectorAll('[data-cart-count]');
+    var cart = [], uid = 0;
+    var PIN = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>';
+    var CAL = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+    var CLK = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>';
+    var X = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>';
+    function totals() {
+      var t = { count: 0, total: 0, dep: 0, save: 0 };
+      cart.forEach(function (it) { t.count += it.travellers; t.total += it.price * it.travellers; t.dep += it.deposit * it.travellers; if (it.orig) t.save += (it.orig - it.price) * it.travellers; });
+      return t;
+    }
+    function render() {
+      var t = totals();
+      badges.forEach(function (b) { b.textContent = t.count; b.hidden = t.count === 0; });
+      subEl.textContent = cart.length === 0 ? 'Cart is empty' : (cart.length + ' trip' + (cart.length === 1 ? '' : 's') + ' · ' + t.count + ' traveller' + (t.count === 1 ? '' : 's'));
+      emptyEl.hidden = cart.length > 0;
+      footEl.hidden = cart.length === 0;
+      itemsEl.innerHTML = cart.map(function (it) {
+        var lineTotal = it.price * it.travellers, lineOrig = it.orig ? it.orig * it.travellers : 0, lineSave = it.orig ? (it.orig - it.price) * it.travellers : 0;
+        return '<div class="cart-item" data-id="' + it.id + '">'
+          + '<div class="cart-item__row"><div class="cart-item__img"><img src="' + it.image + '" alt=""/></div>'
+          + '<div class="cart-item__info"><p class="cart-item__title">' + it.tripTitle + '</p>'
+          + '<p class="cart-item__meta">' + PIN + it.startLocation + ' — ' + it.endLocation + '</p>'
+          + '<p class="cart-item__meta">' + CAL + it.date + '</p>'
+          + '<p class="cart-item__meta">' + CLK + it.duration + '</p></div>'
+          + '<button class="cart-item__remove" data-remove aria-label="Remove">' + X + '</button></div>'
+          + '<div class="cart-item__foot"><div class="cart-item__qty"><button data-minus aria-label="Fewer">−</button><span class="cart-item__qty-count">' + it.travellers + '</span><button data-plus aria-label="More">+</button></div>'
+          + '<div class="cart-item__price"><div class="cart-item__price-line">' + (lineOrig ? '<span class="cart-item__strike">£' + lineOrig + '</span>' : '') + '<p class="cart-item__now">£' + lineTotal + '</p></div>' + (lineSave > 0 ? '<p class="cart-item__save">Save £' + lineSave + '</p>' : '') + '</div></div></div>';
+      }).join('');
+      var sr = drawer.querySelector('[data-cart-saverow]');
+      if (t.save > 0) { sr.hidden = false; drawer.querySelector('[data-cart-savings]').textContent = '£' + t.save; } else { sr.hidden = true; }
+      drawer.querySelector('[data-cart-total]').textContent = '£' + t.total;
+      drawer.querySelector('[data-cart-deposit]').textContent = '£' + t.dep;
+    }
+    function add(item) { item.id = ++uid; cart.push(item); render(); }
+    function open() { drawer.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+    function close() { drawer.classList.remove('is-open'); document.body.style.overflow = ''; }
+    document.querySelectorAll('[data-cart-open]').forEach(function (b) { b.addEventListener('click', open); });
+    drawer.querySelectorAll('[data-cart-close]').forEach(function (b) { b.addEventListener('click', close); });
+    itemsEl.addEventListener('click', function (e) {
+      var card = e.target.closest('.cart-item'); if (!card) return;
+      var it = cart.filter(function (i) { return i.id == card.dataset.id; })[0]; if (!it) return;
+      if (e.target.closest('[data-remove]')) { cart = cart.filter(function (i) { return i.id != it.id; }); render(); }
+      else if (e.target.closest('[data-minus]')) { it.travellers = Math.max(1, it.travellers - 1); render(); }
+      else if (e.target.closest('[data-plus]')) { it.travellers = Math.min(10, it.travellers + 1); render(); }
+    });
+    render();
+    return { add: add, open: open, close: close };
   })();
   </script>
 </body>
