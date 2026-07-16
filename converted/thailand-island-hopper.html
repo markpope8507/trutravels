@@ -1382,5 +1382,18 @@
     });
   })();
   </script>
+  <script>/* experience-types disclosure — open one opens all cards */
+  (function () {
+    var boxes = document.querySelectorAll('.tripcard__exp-cb');
+    if (!boxes.length) return;
+    boxes.forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        boxes.forEach(function (other) {
+          if (other !== cb) other.checked = cb.checked;
+        });
+      });
+    });
+  })();
+  </script>
 </body>
 </html>

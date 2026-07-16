@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { Trip, getTripExperienceCounts, type TripExperienceCount } from "@/lib/data";
+import { useExpDisclosure, toggleExpDisclosure } from "@/lib/use-exp-disclosure";
 import { tripUrl } from "@/lib/utils";
 import TravelStyleBadge from "@/components/travel-style-badge";
 
@@ -273,7 +273,7 @@ function ExperienceTypesDisclosure({
   expCounts: TripExperienceCount[];
   totalActivities: number;
 }) {
-  const [open, setOpen] = useState(false);
+  const open = useExpDisclosure();
 
   return (
     <div className="mt-auto pt-3 border-t border-white/10">
@@ -282,7 +282,7 @@ function ExperienceTypesDisclosure({
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          setOpen((v) => !v);
+          toggleExpDisclosure();
         }}
         aria-expanded={open}
         className="w-full flex items-center justify-between text-left text-[11px] font-bold uppercase tracking-wider font-heading text-gray-300 hover:text-white transition-colors"
