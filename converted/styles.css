@@ -192,6 +192,9 @@ ul { margin: 0; padding: 0; list-style: none; }
   width: 100%;
   object-fit: cover;
 }
+/* tour hero — shift left on mobile so the subject stays in frame (matches pt) */
+.country-hero--full .country-hero__image { object-position: 40% 50%; }
+@media (min-width: 640px) { .country-hero--full .country-hero__image { object-position: 50% 50%; } }
 .country-hero__overlay {
   position: absolute;
   inset: 0;
@@ -1528,15 +1531,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 .booking-bar__share { background: none; border: none; color: #9ca3af; cursor: pointer; padding: 0.25rem; display: inline-flex; align-items: center; transition: color 0.2s; flex-shrink: 0; }
 .booking-bar__share:hover { color: #fff; }
 .booking-bar__share svg { width: 1.25rem; height: 1.25rem; }
-.booking-bar__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 1rem; letter-spacing: 0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.booking-bar__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; font-size: 1.125rem; letter-spacing: -0.025em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .booking-bar__right { display: flex; align-items: center; gap: 0.85rem; flex-shrink: 0; }
 .booking-bar__save { color: var(--tru-pink); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-family: 'Montserrat', sans-serif; }
 .booking-bar__from { color: var(--text-mute); font-size: 0.78rem; }
 .booking-bar__from .strike { text-decoration: line-through; }
 .booking-bar__now { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 1.5rem; line-height: 1; }
+@media (min-width: 640px) { .booking-bar__now { font-size: 1.875rem; } }
+.booking-bar .btn--book { font-size: 0.6875rem; }
 .booking-bar__pp { color: var(--text-mute); font-size: 0.72rem; }
 .booking-bar__tabs { display: flex; justify-content: space-between; border-top: 1px solid var(--border-soft); }
-.booking-bar__tabs a { flex: 1; text-align: center; padding: 0.7rem 0.5rem; color: var(--text-mute); font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 2px solid transparent; transition: color 0.2s; }
+.booking-bar__tabs a { flex: 1; text-align: center; padding: 0.7rem 0.5rem; color: var(--text-mute); font-family: 'Montserrat', sans-serif; font-size: 0.6875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 2px solid transparent; transition: color 0.2s; }
 .booking-bar__tabs a:hover { color: #fff; }
 .booking-bar__tabs a.is-active { color: var(--tru-pink); border-bottom-color: var(--tru-pink); }
 @media (max-width: 640px) { .booking-bar__tabs { overflow-x: auto; } .booking-bar__tabs a { flex: 0 0 auto; } .booking-bar__from, .booking-bar__pp { display: none; } }
@@ -1639,7 +1644,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .booking-bar__tabs a.is-active::after { content: ''; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); width: 58%; height: 2px; background: var(--tru-pink); border-radius: 2px; }
 @media (max-width: 640px) {
   .booking-bar__tabs { overflow: visible; }
-  .booking-bar__tabs a { flex: 1; padding: 0.55rem 0.1rem; font-size: 0.58rem; letter-spacing: 0.02em; }
+  .booking-bar__tabs a { flex: 1; padding: 0.55rem 0.1rem; font-size: 0.625rem; letter-spacing: 0.05em; }
   .booking-bar__title { display: none; }
   .booking-bar__pp { display: none; }
 }
