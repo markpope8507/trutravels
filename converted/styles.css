@@ -2228,3 +2228,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 .nav-m__join { display: block; border-radius: 999px; background: #FACC15; color: var(--tru-navy); text-align: center; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 600; padding: 0.625rem 1.25rem; margin-top: 0.75rem; }
 
 .site-nav__cart-badge[hidden] { display: none; }
+
+/* mobile nav actions (search + cart + burger) */
+.site-nav__mobile-actions { display: flex; align-items: center; gap: 0.25rem; margin-left: auto; }
+.site-nav__mobile-actions .site-nav__burger { margin-left: 0; }
+@media (min-width: 1280px) { .site-nav__mobile-actions { display: none; } }
+
+/* elements toggled via the hidden attribute but with display CSS */
+.cart-drawer__foot[hidden], .cart-drawer__row[hidden], .bkg-price__row[hidden], .bkg-summary__badge[hidden] { display: none; }
