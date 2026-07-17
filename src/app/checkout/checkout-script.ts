@@ -1,0 +1,753 @@
+// AUTO-GENERATED from converted/checkout.html — do not edit by hand.
+/* eslint-disable */
+// @ts-nocheck
+export function runCheckout() {
+
+    /* ---- Icons ---- */
+    var IC = {
+      pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
+      cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+      clk: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>',
+      lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 018 0v4"/></svg>',
+      hotel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955a1.125 1.125 0 011.591 0L21.75 12M4.5 9.75v10.125A1.125 1.125 0 005.625 21H9.75v-4.875A1.125 1.125 0 0110.875 15h2.25A1.125 1.125 0 0114.25 16.125V21h4.125A1.125 1.125 0 0019.5 19.875V9.75"/></svg>',
+      key: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"/></svg>',
+      van: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-6.375m0-11.25L14.25 8.25M4.5 9.75l1.5-4.5h8.25l-1.5 4.5"/></svg>',
+      day: '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+      clip: '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>',
+      mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 6 9-6"/></svg>',
+      phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>',
+      bed: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v11M3 13h18v5M21 18v-4a3 3 0 00-3-3H8V9a2 2 0 012-2h4"/></svg>'
+    };
+    var STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+    var EXP_META = { 'Local Lens': { icon: 'local-lens', color: '#2172D5' }, 'Rise Up': { icon: 'rise-up', color: '#FF3F99' }, 'Bucket List': { icon: 'bucket-list', color: '#FCA501' }, 'Tru-ly Unique': { icon: 'tru-ly-unique', color: '#6BD495' }, 'Unplugged': { icon: 'unplugged', color: '#00BBB4' } };
+    var fmt = function (n) { return '£' + Math.round(n).toLocaleString('en-GB'); };
+
+    var ROOM_UPGRADE = 450;   /* "My own room" supplement, per trip */
+
+    /* ---- Cart handoff (sessionStorage) or demo seed (two tours = worst case) ---- */
+    var cart = [];
+    try { cart = JSON.parse(sessionStorage.getItem('truCart') || '[]'); } catch (e) { cart = []; }
+    if (!Array.isArray(cart) || cart.length === 0) {
+      cart = [
+        { tripTitle: 'Thailand Island Hopper', image: '/checkout-assets/thailand-island-hopper-hero.jpg', date: 'Sat 14 Nov 2026', endDate: 'Fri 27 Nov 2026', duration: '14 Days', startLocation: 'Bangkok', endLocation: 'Phuket', travellers: 1, price: 1149, orig: 1299, deposit: 200, rating: 4.9, reviewCount: 328, places: 6, activities: 18, tagline: 'Temples, jungles, islands and legendary beach parties', expTypes: [{ name: 'Local Lens', count: 5 }, { name: 'Rise Up', count: 3 }, { name: 'Bucket List', count: 4 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] },
+        { tripTitle: 'Northern Thailand Adventure', image: 'https://cdn.trutravels.com/thailand/bangkok-temple.jpg', date: 'Sat 5 Dec 2026', endDate: 'Sun 13 Dec 2026', duration: '9 Days', startLocation: 'Chiang Mai', endLocation: 'Bangkok', travellers: 2, price: 849, orig: 949, deposit: 200, rating: 4.8, reviewCount: 152, places: 4, activities: 11, tagline: 'Mountain towns, hill tribes and northern temples', expTypes: [{ name: 'Local Lens', count: 3 }, { name: 'Bucket List', count: 2 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] }
+      ];
+    }
+    /* Backfill tour-card info for any item that predates these fields (e.g. a cart
+       saved before this data existed, or a real item added from the tour page). */
+    var TC_DEFAULTS = { rating: 4.8, reviewCount: 200, places: 5, activities: 14, tagline: 'An unforgettable Tru adventure', expTypes: [{ name: 'Local Lens', count: 4 }, { name: 'Rise Up', count: 2 }, { name: 'Bucket List', count: 3 }, { name: 'Tru-ly Unique', count: 2 }, { name: 'Unplugged', count: 3 }] };
+    cart.forEach(function (t) { ['rating', 'reviewCount', 'places', 'activities', 'tagline', 'expTypes'].forEach(function (k) { if (t[k] == null) t[k] = TC_DEFAULTS[k]; }); });
+    /* every trip carries a room choice + its own set of extras */
+    cart.forEach(function (t) { if (t.room !== 'own') t.room = 'shared'; if (!t.addons) t.addons = {}; });
+    function persist() { try { sessionStorage.setItem('truCart', JSON.stringify(cart)); } catch (e) {} }
+    persist();
+
+    /* ---- Add-on catalogue: categorised, contextual per tour, selected per tour ---- */
+    var ADDONS = [
+      { id: 'prenight', cat: 'Accommodation', name: 'Pre-Night Hotel', price: 45, icon: 'hotel', on: 'start', shift: -1, ctx: function (t) { return t.startLocation + ' &middot; ' + shiftDate(t.date, -1); } },
+      { id: 'postnight', cat: 'Accommodation', name: 'Post-Night Hotel', price: 45, icon: 'hotel', on: 'end', shift: 0, ctx: function (t) { return t.endLocation + ' &middot; ' + shiftDate(t.endDate || t.date, 0); } },
+      { id: 'arrival', cat: 'Transfers', name: 'Arrival Transfer', price: 60, icon: 'van', on: 'start', shift: 0, ctx: function (t) { return 'Pick-up from ' + t.startLocation + ' Airport'; } },
+      { id: 'departure', cat: 'Transfers', name: 'Departure Transfer', price: 60, icon: 'van', on: 'end', shift: 1, ctx: function (t) { return 'Drop-off to ' + t.endLocation + ' Airport'; } }
+    ];
+    var ADDON_BY_ID = {}; ADDONS.forEach(function (a) { ADDON_BY_ID[a.id] = a; });
+    var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    function shiftDate(str, days) {
+      var d = new Date((str || '').replace(/^[A-Za-z]+\s/, ''));
+      if (isNaN(d.getTime())) return str || '';
+      d.setDate(d.getDate() + (days || 0));
+      return WD[d.getDay()] + ' ' + d.getDate() + ' ' + MO[d.getMonth()] + ' ' + d.getFullYear();
+    }
+    function addonDate(a, t) { return shiftDate(a.on === 'end' ? (t.endDate || t.date) : t.date, a.shift); }
+    var ADDON_CATS = ['Accommodation', 'Transfers'];
+    var payMode = null; /* no default — chosen on the booking summary (deposit/full/hold) */
+    var promo = 0;
+    var promoCode = '';
+
+    /* ---- Totals ---- */
+    function totals() {
+      var tripsTotal = 0, tripsOrig = 0, tripsDep = 0, pax = 0, roomTotal = 0, ownRooms = 0;
+      cart.forEach(function (t) {
+        var q = t.travellers || 1;
+        pax += q;
+        tripsTotal += (t.price || 0) * q;
+        tripsOrig += (t.orig ? t.orig : t.price || 0) * q;
+        tripsDep += (t.deposit || 0) * q;
+        if (t.room === 'own') { roomTotal += ROOM_UPGRADE * q; ownRooms += q; }
+      });
+      var addonsTotal = 0;
+      cart.forEach(function (t) { if (t.addons) ADDONS.forEach(function (a) { if (t.addons[a.id]) addonsTotal += a.price; }); });
+      var save = (tripsOrig - tripsTotal) + promo;
+      var grand = tripsTotal + roomTotal + addonsTotal - promo;
+      /* The deposit is just the fixed tour deposit (per person). Add-ons, room upgrades and
+         the rest of the trip cost sit in the balance — paid later or across the plan. */
+      var deposit = Math.min(tripsDep, grand);
+      if (deposit < 0) deposit = 0;
+      var dueToday = payMode === 'full' ? grand : (payMode === 'hold' ? 0 : deposit);
+      if (dueToday < 0) dueToday = 0;
+      var balance = grand - dueToday;
+      /* Party size = the largest single-tour traveller count. The same people can do
+         several tours, so we never sum traveller counts across tours as a headcount. */
+      var partySize = cart.reduce(function (m, t) { return Math.max(m, t.travellers || 1); }, 0);
+      return { tripsTotal: tripsTotal, tripsOrig: tripsOrig, roomTotal: roomTotal, ownRooms: ownRooms, addonsTotal: addonsTotal, save: save, grand: grand, dueToday: dueToday, balance: balance, deposit: deposit, pax: pax, partySize: partySize, tours: cart.length };
+    }
+    /* Payment plan: deposit today, then the balance split monthly up to the balance-due date
+       (60 days before departure). Instalments = whole months between now and that date. */
+    function planDetails() {
+      var months = Math.max(2, Math.floor((daysToDeparture() - 60) / 30));
+      var t = totals();
+      var remaining = Math.max(0, t.grand - t.deposit);
+      var monthly = Math.ceil(remaining / months / 5) * 5; /* round up to nearest £5 */
+      return { months: months, monthly: monthly, remaining: remaining, deposit: t.deposit };
+    }
+
+    /* ---- Render trip list (step 1) — big tour card, pax stepper, per-trip rooming ---- */
+    function renderTrips() {
+      var html = cart.map(function (t, i) {
+        var q = t.travellers || 1;
+        var per = t.price || 0;
+        var orig = t.orig && t.orig > per ? t.orig : 0;
+        var pct = orig ? Math.round((orig - per) / orig * 100) : 0;
+        var badge = pct ? '<span class="co-trip__save"><span class="co-trip__save-s">Save</span><span class="co-trip__save-n">' + pct + '%</span><span class="co-trip__save-o">Off</span></span>' : '';
+        var own = t.room === 'own';
+        var dates = t.date + (t.endDate ? ' <span class="co-trip__arw">&rarr;</span> ' + t.endDate : '');
+        var addonSum = 0;
+        if (t.addons) ADDONS.forEach(function (a) { if (t.addons[a.id]) addonSum += a.price; });
+        var tripTotal = per * q + (own ? ROOM_UPGRADE * q : 0) + addonSum;
+        var ratingHtml = t.rating ? '<div class="tripcard__rating"><div class="tripcard__stars">' + STAR + STAR + STAR + STAR + STAR + '</div><span class="num">' + t.rating + '</span><span class="rev">(' + t.reviewCount + ' Reviews)</span></div>' : '';
+        var factsHtml = '<div class="tripcard__facts"><span>' + IC.day + t.duration + '</span>' + (t.places ? '<span>' + IC.pin + t.places + ' Places</span>' : '') + (t.activities ? '<span>' + IC.clip + t.activities + ' Activities</span>' : '') + '</div>';
+        var expHtml = '';
+        if (t.expTypes && t.expTypes.length) {
+          var pills = t.expTypes.map(function (x) { var mm = EXP_META[x.name] || {}; return '<div class="exp-ico"><img src="/checkout-assets/experience-icons/' + mm.icon + '.png" alt="" aria-hidden="true" /><span class="name">' + x.name + '</span><span class="count">' + x.count + '</span></div>'; }).join('');
+          expHtml = '<div class="tripcard__exp"><input type="checkbox" id="co-exp-' + i + '" class="tripcard__exp-cb"' + (window.innerWidth >= 640 ? ' checked' : '') + ' /><label class="tripcard__exp-sum" for="co-exp-' + i + '"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">' + (t.activities || '') + ' activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills">' + pills + '</div></div></div></div>';
+        }
+        /* pax-aware rooming options */
+        var roomOpts = [];
+        roomOpts.push({ id: 'shared', name: 'Shared (standard)', desc: 'Twin or triple room · always with the same gender', price: 'Included' });
+        roomOpts.push({ id: 'own', name: q === 1 ? 'My own room' : 'Own rooms', desc: q === 1 ? 'Private room throughout · subject to availability' : 'A private room each · subject to availability', price: q > 1 ? '+' + fmt(ROOM_UPGRADE) + ' each' : '+' + fmt(ROOM_UPGRADE) });
+        var roomHtml = roomOpts.map(function (o) {
+          return '<button type="button" class="co-trip__roomopt ' + (t.room === o.id ? 'is-active' : '') + '" data-room-opt="' + o.id + '"><span class="co-roomdot"></span><span class="co-roomtxt"><strong>' + o.name + '</strong><span>' + o.desc + '</span></span><span class="co-roomprice">' + o.price + '</span></button>';
+        }).join('');
+        /* Couples can request a double instead of a shared twin — styled like an add-on (free, request only) */
+        if (q === 2 && t.room === 'shared') {
+          var req = t.doubleReq;
+          roomHtml += '<div class="co-addon co-addon--double ' + (req ? 'is-on' : '') + '">'
+            + '<div class="co-addon__info"><p class="co-addon__name">Travelling as a couple?</p><p class="co-addon__desc">Request a double at no extra cost (Subject to Availability).</p></div>'
+            + '<div class="co-addon__right"><span class="co-addon__price">Free</span><button type="button" class="co-addon__btn ' + (req ? 'is-on' : '') + '" data-double-req' + (req ? ' aria-label="Requested — tap to remove"' : '') + '>' + (req ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : 'Add') + '</button></div>'
+            + '</div>';
+        }
+        /* Add-ons booked on this tour — grouped Accommodation / Transfers, and their cost lines */
+        var addonHtml = ADDON_CATS.map(function (cat) {
+          var rows = ADDONS.filter(function (a) { return a.cat === cat; }).map(function (a) { return addonRow(a, t, i); }).join('');
+          return '<p class="co-trip__adgroup">' + cat + '</p>' + rows;
+        }).join('');
+        var addonCostRows = '';
+        if (t.addons) ADDONS.forEach(function (a) { if (t.addons[a.id]) addonCostRows += '<div class="co-trip__costrow"><span>' + a.name + '</span><span>+' + fmt(a.price) + '</span></div>'; });
+        return '<div class="co-trip" data-trip-i="' + i + '">'
+          + '<div class="co-trip__top">'
+          + '<div class="co-trip__img"><img src="' + t.image + '" alt="" onerror="this.style.display=\'none\'" />' + badge + '</div>'
+          + '<div class="co-trip__info">'
+          + '<div class="co-trip__topline"><h3 class="co-trip__title">' + t.tripTitle + '</h3></div>'
+          + ratingHtml
+          + '<div class="co-trip__metas"><span class="co-trip__meta">' + IC.pin + t.startLocation + ' — ' + t.endLocation + '</span></div>'
+          + (t.tagline ? '<p class="co-trip__tagline">' + t.tagline + '</p>' : '')
+          + factsHtml
+          + expHtml
+          + '</div>'
+          + '</div>'
+          + '<div class="co-trip__booking">'
+          + '<div class="co-trip__cols">'
+          + '<div class="co-trip__col">'
+          + '<p class="co-trip__sec-h">Dates</p>'
+          + '<p class="co-trip__daterange">' + IC.cal + dates + '</p>'
+          + '<div class="co-trip__daterow"><div class="co-trip__dcol"><span class="co-trip__dlbl">Start</span><span class="co-trip__dval">' + t.date + '</span></div><div class="co-trip__dcol"><span class="co-trip__dlbl">End</span><span class="co-trip__dval">' + (t.endDate || '&mdash;') + '</span></div></div>'
+          + '</div>'
+          + '<div class="co-trip__col co-trip__col--trav">'
+          + '<p class="co-trip__sec-h">Travellers</p>'
+          + '<div class="co-trip__travrow"><div class="co-trip__dcol"><span class="co-trip__dlbl">Group size</span><span class="co-trip__dval">' + q + ' traveller' + (q === 1 ? '' : 's') + '</span></div><div class="co-trip__dcol"><span class="co-trip__dlbl">Per person</span><span class="co-trip__dval"><span class="co-trip__now">' + fmt(per) + '</span>' + (orig ? ' <s>' + fmt(orig) + '</s>' : '') + '</span></div></div>'
+          + '</div>'
+          + '</div>'
+          + '<div class="co-trip__sec"><p class="co-trip__sec-h">Rooming</p><div class="co-trip__roomopts">' + roomHtml + '</div></div>'
+          + '<div class="co-trip__sec"><p class="co-trip__sec-h">Add-ons</p><div class="co-trip__addons">' + addonHtml + '</div></div>'
+          + '<div class="co-trip__sec"><p class="co-trip__sec-h">Trip cost</p>'
+          + (orig ? '<div class="co-trip__costrow"><span>Original price</span><span>' + fmt(orig * q) + '</span></div>' : '')
+          + (orig ? '<div class="co-trip__costrow"><span>Discount</span><span>' + pct + '% off</span></div>' : '')
+          + (orig ? '<div class="co-trip__costrow co-trip__costrow--save"><span>Discount value</span><span>&minus;' + fmt((orig - per) * q) + '</span></div>' : '')
+          + (own ? '<div class="co-trip__costrow"><span>Own room upgrade</span><span>+' + fmt(ROOM_UPGRADE * q) + '</span></div>' : '')
+          + addonCostRows
+          + '<div class="co-trip__total"><span>Trip total</span><strong>' + fmt(tripTotal) + '</strong></div></div>'
+          + '</div>'
+          + '</div>';
+      }).join('');
+      document.querySelector('[data-trip-list]').innerHTML = html;
+    }
+
+    /* ---- Render add-ons (step 3): one block per tour, grouped Accommodation / Transfers ---- */
+    function addonRow(a, tr, idx) {
+      var on = !!(tr.addons && tr.addons[a.id]);
+      return '<div class="co-addon ' + (on ? 'is-on' : '') + '">'
+        + '<span class="co-addon__ico" style="color:' + (a.cat === 'Accommodation' ? 'var(--tru-green)' : 'var(--tru-blue)') + '">' + IC[a.icon] + '</span>'
+        + '<div class="co-addon__info"><p class="co-addon__name">' + a.name + '</p><p class="co-addon__desc">' + a.ctx(tr) + '</p></div>'
+        + '<div class="co-addon__right"><span class="co-addon__price">+' + fmt(a.price) + '</span><button type="button" class="co-addon__btn ' + (on ? 'is-on' : '') + '" data-addon-toggle="' + idx + ':' + a.id + '"' + (on ? ' aria-label="Added — tap to remove"' : '') + '>' + (on ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : 'Add') + '</button></div>'
+        + '</div>';
+    }
+    /* ---- Traveller info (step 1): per-traveller accordion ---- */
+    var NATIONALITIES = ['United Kingdom', 'Ireland', 'United States', 'Canada', 'Australia', 'New Zealand', 'France', 'Germany', 'Spain', 'Italy', 'Netherlands', 'Belgium', 'Switzerland', 'Austria', 'Portugal', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Poland', 'Czech Republic', 'Greece', 'South Africa', 'India', 'China', 'Japan', 'Singapore', 'Hong Kong', 'United Arab Emirates', 'Brazil', 'Argentina', 'Mexico', 'Other'];
+    /* [name, dial code, ISO country] — United Kingdom stays first as the favourite */
+    var DIAL_CODES = [['United Kingdom', '+44', 'GB'], ['Ireland', '+353', 'IE'], ['United States', '+1', 'US'], ['Canada', '+1', 'CA'], ['Australia', '+61', 'AU'], ['New Zealand', '+64', 'NZ'], ['France', '+33', 'FR'], ['Germany', '+49', 'DE'], ['Spain', '+34', 'ES'], ['Italy', '+39', 'IT'], ['Netherlands', '+31', 'NL'], ['Portugal', '+351', 'PT'], ['Switzerland', '+41', 'CH'], ['Sweden', '+46', 'SE'], ['Norway', '+47', 'NO'], ['Denmark', '+45', 'DK'], ['South Africa', '+27', 'ZA'], ['India', '+91', 'IN'], ['Singapore', '+65', 'SG'], ['United Arab Emirates', '+971', 'AE'], ['Brazil', '+55', 'BR']];
+    /* Default selection follows the visitor's likely location (browser locale/timezone); UK is the fallback. */
+    function detectRegion() {
+      try {
+        var langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en-GB'];
+        for (var i = 0; i < langs.length; i++) { var r = (langs[i].split('-')[1] || '').toUpperCase(); if (r) return r; }
+      } catch (e) {}
+      return 'GB';
+    }
+    var DEFAULT_REGION = detectRegion();
+    var DIAL_DEFAULT_I = 0;
+    for (var di = 0; di < DIAL_CODES.length; di++) { if (DIAL_CODES[di][2] === DEFAULT_REGION) { DIAL_DEFAULT_I = di; break; } }
+    var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    function opts(list, sel) { return list.map(function (v) { return '<option value="' + v + '"' + (v === sel ? ' selected' : '') + '>' + v + '</option>'; }).join(''); }
+    var DOB_DAY = '<option value="">Day</option>' + Array.apply(null, { length: 31 }).map(function (_, i) { return '<option>' + (i + 1) + '</option>'; }).join('');
+    var DOB_MONTH = '<option value="">Month</option>' + MONTHS.map(function (m, i) { return '<option value="' + (i + 1) + '">' + m + '</option>'; }).join('');
+    var DOB_YEAR = (function () { var o = '<option value="">Year</option>'; for (var y = 2010; y >= 1930; y--) o += '<option>' + y + '</option>'; return o; })();
+    var DIAL_OPTS = DIAL_CODES.map(function (c, i) { return '<option value="' + c[1] + '" data-short="' + c[1] + '"' + (i === DIAL_DEFAULT_I ? ' selected' : '') + '>' + c[0] + ' (' + c[1] + ')</option>'; }).join('');
+    document.getElementById('co-nationalities').innerHTML = NATIONALITIES.map(function (n) { return '<option value="' + n + '"></option>'; }).join('');
+
+    var travCount = 0;
+    function renderTravellers() {
+      var wrap = document.querySelector('[data-travellers]');
+      var n = totals().partySize;
+      if (n === travCount && wrap.children.length) return;   /* keep typed values when the count is unchanged */
+      travCount = n;
+      var cards = '';
+      for (var i = 1; i <= n; i++) {
+        var lead = i === 1;
+        cards += '<div class="co-trav ' + (lead ? 'is-open' : '') + '" data-trav="' + i + '">'
+          + '<button type="button" class="co-trav__head" data-trav-toggle>'
+          + '<span class="co-trav__badge">' + i + '</span>'
+          + '<span class="co-trav__label"><strong>' + (lead ? 'Lead traveller' : 'Traveller ' + i) + '</strong><span data-trav-name>' + (lead ? 'The booking contact' : 'Tap to add details') + '</span></span>'
+          + '<svg class="co-trav__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>'
+          + '<div class="co-trav__body">'
+          + '<div class="co-field"><label>First name <span class="co-req">*</span></label><input type="text" data-tfirst autocomplete="off" placeholder="First name" /></div>'
+          + '<div class="co-field"><label>Middle name(s)</label><input type="text" data-tmiddle autocomplete="off" placeholder="As shown on passport" /><label class="co-check co-check--sm"><input type="checkbox" data-no-middle /><span>This traveller has no middle name</span></label></div>'
+          + '<div class="co-field"><label>Last name <span class="co-req">*</span></label><input type="text" data-tlast autocomplete="off" placeholder="Last name" /></div>'
+          + '<div class="co-field"><label>Email address <span class="co-req">*</span></label><input type="email" ' + (lead ? 'id="co-email" ' : 'data-temail ') + 'autocomplete="off" placeholder="name@email.com" required /></div>'
+          + '<div class="co-field"><label>Nationality <span class="co-req">*</span></label><input type="text" list="co-nationalities" autocomplete="off" placeholder="Start typing&hellip;" /></div>'
+          + '<div class="co-field"><label>Date of birth <span class="co-req">*</span></label><div class="co-dob"><select>' + DOB_DAY + '</select><select>' + DOB_MONTH + '</select><select>' + DOB_YEAR + '</select></div></div>'
+          + '<div class="co-field"><label>Contact number ' + (lead ? '<span class="co-req">*</span>' : '<span class="co-opt">(optional)</span>') + '</label><div class="co-phone"><select aria-label="Dialling code">' + DIAL_OPTS + '</select><input type="tel" data-tphone autocomplete="off" placeholder="7700 900000" ' + (lead ? 'required' : '') + ' /></div>'
+          + (lead ? '<p class="co-help">We&rsquo;ll only call about your booking.</p>' : '') + '</div>'
+          + '</div></div>';
+      }
+      wrap.innerHTML = cards;
+      enhanceSelects(wrap);
+    }
+
+    /* ---- Custom brand-styled dropdowns (replace native <select> popups) ---- */
+    function enhanceSelects(root) {
+      (root || document).querySelectorAll('select:not([data-dd])').forEach(function (sel) {
+        sel.setAttribute('data-dd', '');
+        var wrap = document.createElement('div');
+        wrap.className = 'co-dd';
+        sel.parentNode.insertBefore(wrap, sel);
+        wrap.appendChild(sel);
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'co-dd__btn';
+        btn.innerHTML = '<span class="co-dd__val"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
+        var list = document.createElement('div');
+        list.className = 'co-dd__list';
+        Array.prototype.forEach.call(sel.options, function (opt, i) {
+          var o = document.createElement('button');
+          o.type = 'button';
+          o.className = 'co-dd__opt';
+          o.textContent = opt.textContent;
+          o.addEventListener('click', function (e) {
+            e.stopPropagation();
+            sel.selectedIndex = i;
+            sel.dispatchEvent(new Event('change', { bubbles: true }));
+            wrap.classList.remove('is-open');
+          });
+          list.appendChild(o);
+        });
+        wrap.appendChild(btn);
+        wrap.appendChild(list);
+        function sync() {
+          var opt = sel.options[sel.selectedIndex];
+          wrap.querySelector('.co-dd__val').textContent = opt ? (opt.getAttribute('data-short') || opt.textContent) : '';
+          wrap.classList.toggle('is-placeholder', opt && opt.value === '');
+          Array.prototype.forEach.call(list.children, function (c, i) { c.classList.toggle('is-sel', i === sel.selectedIndex); });
+        }
+        sel.addEventListener('change', sync);
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var open = wrap.classList.contains('is-open');
+          document.querySelectorAll('.co-dd.is-open').forEach(function (w) { w.classList.remove('is-open'); });
+          if (!open) { wrap.classList.add('is-open'); var s = list.querySelector('.is-sel'); if (s) list.scrollTop = s.offsetTop - 60; }
+        });
+        sync();
+      });
+    }
+    document.addEventListener('click', function () { document.querySelectorAll('.co-dd.is-open').forEach(function (w) { w.classList.remove('is-open'); }); });
+
+    /* ---- Render order summary (desktop + mobile share markup) ---- */
+    /* One tour "summary item" — reused by the desktop aside AND the full-width booking summary */
+    function oiHtml(tr) {
+      var q = tr.travellers || 1;
+      var per = tr.price || 0, o = tr.orig && tr.orig > per ? tr.orig : 0;
+      var range = tr.date + (tr.endDate ? ' → ' + tr.endDate : '');
+      var roomLabel = tr.room === 'own' ? (q > 1 ? 'Own rooms' : 'Own room') : (tr.doubleReq ? 'Double (requested)' : 'Shared room');
+      /* Extras booked on top of this tour — own room + add-ons */
+      var ex = '';
+      if (tr.room === 'own') ex += '<div class="co-oi__xline"><span class="co-oi__xname">' + IC.key + 'Own room upgrade' + (q > 1 ? ' × ' + q : '') + '</span><span class="co-oi__xprice">+' + fmt(ROOM_UPGRADE * q) + '</span></div>';
+      if (tr.addons) ADDONS.forEach(function (a) { if (tr.addons[a.id]) ex += '<div class="co-oi__xline"><span class="co-oi__xname">' + IC[a.icon] + '<span class="co-oi__xtext"><span>' + a.name + '</span><small class="co-oi__xdate">' + addonDate(a, tr) + '</small></span></span><span class="co-oi__xprice">+' + fmt(a.price) + '</span></div>'; });
+      var days = parseInt(tr.duration, 10) || 1;
+      var perDay = Math.round(per / days);
+      return '<div class="co-oi">'
+        + '<div class="co-oi__img"><img src="' + tr.image + '" alt="" onerror="this.style.display=\'none\'" /></div>'
+        + '<div class="co-oi__info">'
+        + '<div class="co-oi__toprow"><p class="co-oi__title">' + tr.tripTitle + '</p><div class="co-oi__price"><span class="co-oi__priceline">' + (o ? '<s>' + fmt(o * q) + '</s>' : '') + '<strong>' + fmt(per * q) + '</strong></span><span class="co-oi__perday">' + fmt(perDay) + ' per day</span></div></div>'
+        + '<p class="co-oi__meta">' + IC.pin + tr.startLocation + ' — ' + tr.endLocation + '</p>'
+        + (tr.rating ? '<div class="co-oi__rating"><span class="co-oi__stars">' + STAR + STAR + STAR + STAR + STAR + '</span><span class="co-oi__rnum">' + tr.rating + '</span><span class="co-oi__rrev">(' + tr.reviewCount + ' reviews)</span></div>' : '')
+        + (tr.tagline ? '<p class="co-oi__tagline">' + tr.tagline + '</p>' : '')
+        + '<div class="co-oi__facts"><span>' + IC.day + tr.duration + '</span><span>' + IC.pin + (tr.places || 0) + ' Places</span><span>' + IC.clip + (tr.activities || 0) + ' Activities</span></div>'
+        + '<p class="co-oi__meta co-oi__meta--book">' + IC.cal + range + '</p>'
+        + (ex ? '<div class="co-oi__extras">' + ex + '</div>' : '')
+        + '</div></div>';
+    }
+    /* Price breakdown rows — reused by the aside AND the booking summary.
+       showPromo adds the promo-code input (booking summary only; the aside omits it). */
+    function costRowsHtml(showPromo) {
+      var t = totals();
+      var rows = '';
+      if (t.tripsOrig > t.tripsTotal) {
+        var pct = Math.round((t.tripsOrig - t.tripsTotal) / t.tripsOrig * 100);
+        rows += '<div class="co-trip__costrow"><span>Original price</span><span>' + fmt(t.tripsOrig) + '</span></div>';
+        rows += '<div class="co-trip__costrow"><span>Discount</span><span>' + pct + '% off</span></div>';
+        rows += '<div class="co-trip__costrow co-trip__costrow--save"><span>Discount value</span><span>&minus;' + fmt(t.tripsOrig - t.tripsTotal) + '</span></div>';
+      } else {
+        rows += '<div class="co-trip__costrow"><span>' + t.tours + ' tour' + (t.tours === 1 ? '' : 's') + '</span><span>' + fmt(t.tripsTotal) + '</span></div>';
+      }
+      if (promo > 0) rows += '<div class="co-trip__costrow co-trip__costrow--save"><span>Promo' + (promoCode ? ' &middot; ' + promoCode : '') + '</span><span>&minus;' + fmt(promo) + '</span></div>';
+      if (t.roomTotal > 0) rows += '<div class="co-trip__costrow"><span>Own room upgrade</span><span>+' + fmt(t.roomTotal) + '</span></div>';
+      if (t.addonsTotal > 0) rows += '<div class="co-trip__costrow"><span>Add-ons</span><span>+' + fmt(t.addonsTotal) + '</span></div>';
+      /* Promo code — sits just above the total (booking summary only) */
+      if (showPromo) {
+        rows += '<div class="co-promo co-promo--rows"><input type="text" placeholder="Promo code" data-promo-input aria-label="Promo code" value="' + (promoCode || '') + '"' + (promo > 0 ? ' class="is-ok"' : '') + ' /><button type="button" data-promo-apply>Apply</button></div>';
+        rows += promo > 0
+          ? '<p class="co-promo__msg co-promo__msg--ok co-promo__msg--rows" data-promo-msg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Code <strong>' + promoCode + '</strong> applied &mdash; ' + fmt(promo) + ' off your total</p>'
+          : '<p class="co-promo__msg co-promo__msg--rows" data-promo-msg hidden></p>';
+      }
+      rows += '<div class="co-trip__total"><span>Total</span><strong>' + fmt(t.grand) + '</strong></div>';
+      return rows;
+    }
+    function renderSummary() {
+      var t = totals();
+      var itemsHtml = cart.map(oiHtml).join('');
+      var rows = costRowsHtml(false); /* aside + mobile drop: no promo input */
+      document.querySelector('[data-order-items]').innerHTML = itemsHtml;
+      document.querySelector('[data-order-rows]').innerHTML = rows;
+      document.querySelector('[data-order-total]').textContent = fmt(t.dueToday);
+      /* mobile drop mirrors items + rows */
+      document.querySelector('[data-order-drop]').innerHTML = itemsHtml + '<div class="co-summary__rows">' + rows + '</div>';
+
+      /* payment-option labels — compute deposit & full amounts without disturbing payMode */
+      var depNow, fullNow;
+      (function () { var m = payMode; payMode = 'deposit'; depNow = totals().dueToday; payMode = 'full'; fullNow = totals().dueToday; payMode = m; })();
+      var md = document.querySelector('[data-price-deposit]'); if (md) md.textContent = fmt(depNow);
+      var mf = document.querySelector('[data-price-full]'); if (mf) mf.textContent = fmt(fullNow);
+      var pa = document.querySelector('[data-pay-amount]'); if (pa) pa.textContent = fmt(t.dueToday);
+      /* Payment plan labels */
+      var pl = planDetails();
+      var pp = document.querySelector('[data-price-plan]'); if (pp) pp.textContent = fmt(pl.deposit);
+      var ps = document.querySelector('[data-plan-sub]'); if (ps) ps.textContent = fmt(pl.monthly) + '/mo for ' + pl.months + ' months after your deposit';
+
+      renderBooking();
+    }
+    /* Full-width booking summary on the Add-ons step — same data, hero image on top */
+    function renderBooking() {
+      var bt = document.querySelector('[data-booking-trips]');
+      if (bt) bt.innerHTML = cart.map(oiHtml).join('');
+      var br = document.querySelector('[data-booking-rows]');
+      if (br) br.innerHTML = costRowsHtml(true); /* booking summary: include promo input */
+      var travHtml = '';
+      function val(el) { return el ? (el.value || '').trim() : ''; }
+      document.querySelectorAll('.co-trav').forEach(function (card) {
+        var i = card.dataset.trav;
+        var f = val(card.querySelector('[data-tfirst]')), m = val(card.querySelector('[data-tmiddle]')), l = val(card.querySelector('[data-tlast]'));
+        var realName = [f, m, l].filter(Boolean).join(' ');
+        var label = (i === '1') ? 'Lead' : 'Traveller ' + i;
+        var heading = realName ? label + ' &middot; ' + realName : label;
+        var em = val(card.querySelector('input[type="email"]'));
+        var nat = val(card.querySelector('input[list="co-nationalities"]'));
+        var dobSel = card.querySelectorAll('.co-dob select'), dob = '';
+        if (dobSel.length === 3 && dobSel[0].value && dobSel[1].value && dobSel[2].value) dob = dobSel[0].value + ' ' + MONTHS[+dobSel[1].value - 1] + ' ' + dobSel[2].value;
+        var phSel = card.querySelector('.co-phone select'), phInp = val(card.querySelector('[data-tphone]'));
+        var phone = phInp ? ((phSel ? phSel.value + ' ' : '') + phInp) : '';
+        var rows = '';
+        if (dob) rows += '<span class="co-revtrav__d">' + IC.cal + 'Born ' + dob + '</span>';
+        if (nat) rows += '<span class="co-revtrav__d">' + IC.pin + nat + '</span>';
+        if (em) rows += '<span class="co-revtrav__d">' + IC.mail + em + '</span>';
+        if (phone) rows += '<span class="co-revtrav__d">' + IC.phone + phone + '</span>';
+        travHtml += '<div class="co-revtrav"><p class="co-revtrav__n">' + heading + '</p>'
+          + (rows ? '<div class="co-revtrav__meta">' + rows + '</div>' : '<p class="co-revtrav__todo">No details added yet &mdash; tap Edit to complete.</p>') + '</div>';
+      });
+      var rt = document.querySelector('[data-rev-trav]'); if (rt) rt.innerHTML = travHtml;
+      var sub = document.querySelector('[data-rev-travsub]');
+      if (sub) sub.textContent = totals().partySize + ' traveller' + (totals().partySize === 1 ? '' : 's');
+
+      /* Trip & add-ons recap */
+      var tripHtml = cart.map(function (tr) {
+        var q = tr.travellers || 1;
+        var range = tr.date + (tr.endDate ? ' → ' + tr.endDate : '');
+        var roomLabel = tr.room === 'own' ? (q > 1 ? 'Own rooms' : 'Own room') : (tr.doubleReq ? 'Double (requested)' : 'Shared room');
+        var ad = '';
+        if (tr.room === 'own') ad += '<li>Own room upgrade' + (q > 1 ? ' × ' + q : '') + '<span>+' + fmt(ROOM_UPGRADE * q) + '</span></li>';
+        if (tr.addons) ADDONS.forEach(function (a) { if (tr.addons[a.id]) ad += '<li>' + a.name + ' &middot; ' + addonDate(a, tr) + '<span>+' + fmt(a.price) + '</span></li>'; });
+        return '<div class="co-revtrip"><p class="co-revtrip__t">' + tr.tripTitle + '</p>'
+          + '<p class="co-revtrip__m">' + IC.cal + ' ' + range + ' &middot; ' + q + ' traveller' + (q === 1 ? '' : 's') + ' &middot; ' + roomLabel + '</p>'
+          + (ad ? '<ul class="co-revtrip__x">' + ad + '</ul>' : '<p class="co-revtrip__none">No add-ons</p>') + '</div>';
+      }).join('');
+      var rtr = document.querySelector('[data-rev-trip]'); if (rtr) rtr.innerHTML = tripHtml;
+      var tsub = document.querySelector('[data-rev-tripsub]');
+      if (tsub) { var t = totals(); tsub.textContent = t.tours + ' tour' + (t.tours === 1 ? '' : 's'); }
+    }
+
+    function renderAll() { renderTravellers(); renderTrips(); renderSummary(); }
+    renderAll();
+
+    /* ---- Step navigation (all steps open/clickable for design review) ---- */
+    function setProgress(step) {
+      document.querySelectorAll('[data-pstep]').forEach(function (li) {
+        var n = +li.dataset.pstep;
+        li.classList.toggle('is-active', n === step);
+        li.classList.toggle('is-done', n < step);
+      });
+    }
+    function openStep(step) {
+      document.querySelectorAll('.co-card[data-step]').forEach(function (c) {
+        var n = +c.dataset.step;
+        if (n === 5) return;
+        c.classList.toggle('is-open', n === step);
+      });
+      setProgress(step);
+      /* Summary aside shows on Travellers (1) & Payment (3). Step 2 (Your Trip) runs full
+         width — the trip cards + booking summary carry everything inline. */
+      var grid = document.querySelector('.co-grid');
+      grid.classList.toggle('co-grid--full', step === 2);
+      grid.classList.toggle('is-pay', step === 3);
+      if (step === 2) renderBooking();
+      if (step === 3 && typeof enterPayment === 'function') enterPayment();
+      /* One step at a time — jump to the top so the new step starts under the sticky bar */
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    /* clickable progress steps */
+    document.querySelectorAll('[data-pstep]').forEach(function (li) {
+      li.addEventListener('click', function () {
+        var n = +li.dataset.pstep;
+        if (n === 4) { confirm(); return; }
+        openStep(n);
+      });
+    });
+    function doneSummary(step) {
+      var t = totals();
+      var el = document.querySelector('[data-done="' + step + '"]');
+      if (!el) return;
+      var txt = '';
+      if (step === 1) { var em = (document.getElementById('co-email').value || 'Details saved'); txt = em; }
+      if (step === 2) { var n = 0; cart.forEach(function (tr) { if (tr.addons) ADDONS.forEach(function (a) { if (tr.addons[a.id]) n++; }); }); txt = t.tours + ' tour' + (t.tours === 1 ? '' : 's') + (t.ownRooms ? ' · ' + t.ownRooms + ' own room' + (t.ownRooms === 1 ? '' : 's') : '') + (n ? ' · ' + n + ' extra' + (n === 1 ? '' : 's') : ''); }
+      el.innerHTML = '<span class="co-done-tick">✓</span> ' + txt;
+      el.hidden = false;
+      var edit = document.querySelector('[data-edit="' + step + '"]');
+      if (edit) edit.hidden = false;
+    }
+    function advance(from) {
+      doneSummary(from);
+      openStep(from + 1);
+    }
+
+    document.querySelectorAll('[data-next]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var n = +b.dataset.next;
+        /* Your Trip step: must accept T&Cs and choose a payment option before continuing */
+        if (n === 2) {
+          var tc = document.querySelector('[data-tc-agree]'), tcErr = document.querySelector('[data-tc-err]');
+          var payErr = document.querySelector('[data-pay-err]');
+          var tcMissing = tc && !tc.checked, payMissing = !payMode;
+          if (tcErr) tcErr.hidden = !tcMissing;
+          if (payErr) payErr.hidden = !payMissing;
+          if (tcMissing || payMissing) {
+            var target = tcMissing ? tc.closest('.co-rev') : document.querySelector('[data-payopts]');
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+          }
+        }
+        advance(n);
+      });
+    });
+    var tcAgree = document.querySelector('[data-tc-agree]');
+    if (tcAgree) tcAgree.addEventListener('change', function () { if (tcAgree.checked) { var e = document.querySelector('[data-tc-err]'); if (e) e.hidden = true; } });
+    document.querySelectorAll('[data-edit]').forEach(function (b) {
+      b.addEventListener('click', function () { openStep(+b.dataset.edit); });
+    });
+
+    /* ---- Per-trip rooming + add-ons (step 2). Passenger count is fixed from the basket. ---- */
+    document.querySelector('[data-trip-list]').addEventListener('click', function (e) {
+      var card = e.target.closest('[data-trip-i]'); if (!card) return;
+      var it = cart[+card.dataset.tripI]; if (!it) return;
+      if (e.target.closest('[data-double-req]')) { it.doubleReq = !it.doubleReq; renderTrips(); renderSummary(); persist(); return; }
+      var room = e.target.closest('[data-room-opt]');
+      if (room) { it.room = room.dataset.roomOpt; if (it.room !== 'shared') it.doubleReq = false; renderTrips(); renderSummary(); persist(); return; }
+      var addon = e.target.closest('[data-addon-toggle]');
+      if (addon) {
+        var id = addon.dataset.addonToggle.split(':')[1];
+        it.addons = it.addons || {};
+        it.addons[id] = !it.addons[id];
+        renderTrips(); renderSummary(); persist();
+        return;
+      }
+    });
+
+    /* ---- Traveller accordion: collapse, no-middle, live name in header ---- */
+    document.querySelector('[data-travellers]').addEventListener('click', function (e) {
+      var head = e.target.closest('[data-trav-toggle]');
+      if (head) { head.closest('.co-trav').classList.toggle('is-open'); }
+    });
+    document.querySelector('[data-travellers]').addEventListener('change', function (e) {
+      var chk = e.target.closest('[data-no-middle]');
+      if (chk) {
+        var mid = chk.closest('.co-field').querySelector('[data-tmiddle]');
+        mid.disabled = chk.checked; if (chk.checked) mid.value = '';
+      }
+    });
+    document.querySelector('[data-travellers]').addEventListener('input', function (e) {
+      if (e.target.matches('[data-tfirst], [data-tlast]')) {
+        var card = e.target.closest('.co-trav');
+        var f = (card.querySelector('[data-tfirst]').value || '').trim();
+        var l = (card.querySelector('[data-tlast]').value || '').trim();
+        var nm = card.querySelector('[data-trav-name]');
+        var lead = card.dataset.trav === '1';
+        nm.textContent = (f || l) ? (f + ' ' + l).trim() : (lead ? 'The booking contact' : 'Tap to add details');
+      }
+    });
+
+    /* ---- Log in to autofill (mock saved profile) ---- */
+    var PROFILE = { email: 'alex.morgan@email.com', first: 'Alex', middle: 'Jordan', last: 'Morgan', nationality: 'United Kingdom', dobDay: '14', dobMonth: '6', dobYear: '1996', dial: '+44', phone: '7700 900123' };
+    function prefillLead(pr) {
+      var em = document.getElementById('co-email'); if (em) em.value = pr.email;
+      var card = document.querySelector('.co-trav[data-trav="1"]'); if (!card) return;
+      card.classList.add('is-open');
+      card.querySelector('[data-tfirst]').value = pr.first;
+      card.querySelector('[data-tlast]').value = pr.last;
+      var mid = card.querySelector('[data-tmiddle]'), nomid = card.querySelector('[data-no-middle]');
+      if (nomid.checked) { nomid.checked = false; mid.disabled = false; }
+      mid.value = pr.middle;
+      card.querySelector('input[list="co-nationalities"]').value = pr.nationality;
+      var dob = card.querySelectorAll('.co-dob select'); dob[0].value = pr.dobDay; dob[1].value = pr.dobMonth; dob[2].value = pr.dobYear;
+      var ph = card.querySelector('.co-phone'); ph.querySelector('select').value = pr.dial; ph.querySelector('[data-tphone]').value = pr.phone;
+      card.querySelectorAll('select').forEach(function (s) { s.dispatchEvent(new Event('change', { bubbles: true })); });
+      card.querySelector('[data-trav-name]').textContent = pr.first + ' ' + pr.last;
+    }
+    var loginModal = document.querySelector('[data-login-modal]');
+    var headerLogin = document.querySelector('.co-header__login');
+    function openLogin() { loginModal.hidden = false; document.body.style.overflow = 'hidden'; }
+    function closeLogin() { loginModal.hidden = true; document.body.style.overflow = ''; }
+    function logout() { headerLogin.classList.remove('is-in'); var l = document.querySelector('[data-login-label]'); if (l) l.textContent = 'Log in'; }
+    document.querySelectorAll('[data-login-open]').forEach(function (b) {
+      b.addEventListener('click', function () { if (b.classList.contains('is-in')) logout(); else openLogin(); });
+    });
+    document.querySelectorAll('[data-login-close]').forEach(function (b) { b.addEventListener('click', closeLogin); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !loginModal.hidden) closeLogin(); });
+    loginModal.querySelector('[data-login-submit]').addEventListener('click', function () {
+      var email = loginModal.querySelector('[data-login-email]');
+      if (!email.value || email.value.indexOf('@') < 0) { email.classList.add('is-err'); email.focus(); return; }
+      var pr = Object.assign({}, PROFILE, { email: email.value });
+      prefillLead(pr);
+      var l = document.querySelector('[data-login-label]'); if (l) l.textContent = pr.first;
+      headerLogin.classList.add('is-in');
+      closeLogin();
+    });
+
+    /* ---- Deposit / hold options only apply when departure is 60+ days out ---- */
+    function daysToDeparture() {
+      var min = Infinity;
+      cart.forEach(function (t) { var d = new Date((t.date || '').replace(/^[A-Za-z]+\s/, '')); if (!isNaN(d.getTime())) { var days = Math.ceil((d - new Date()) / 86400000); if (days < min) min = days; } });
+      return min === Infinity ? 999 : min;
+    }
+    var OUTSIDE_60 = daysToDeparture() > 60;
+
+    /* ---- Pay mode: deposit / full / hold — chosen on the booking summary (step 3) ---- */
+    function setPayMode(mode) {
+      payMode = mode;
+      document.querySelectorAll('[data-mode]').forEach(function (x) { x.classList.toggle('is-active', x.dataset.mode === mode); });
+      var card = document.querySelector('[data-pay-card]'); if (card) card.hidden = (mode === 'hold');
+      var hold = document.querySelector('[data-pay-hold]'); if (hold) hold.hidden = (mode !== 'hold');
+      var err = document.querySelector('[data-pay-err]'); if (err) err.hidden = true;
+      renderSummary();
+    }
+    document.querySelectorAll('[data-mode]').forEach(function (b) {
+      b.addEventListener('click', function () { setPayMode(b.dataset.mode); });
+    });
+    /* NOTE: 60-day gating is disabled for now — all three options always show (design).
+       To re-enable: within 60 days, hide deposit + hold and pre-select full.
+    if (!OUTSIDE_60) {
+      var depO = document.querySelector('[data-opt-deposit]'), holdO = document.querySelector('[data-opt-hold]');
+      if (depO) depO.hidden = true; if (holdO) holdO.hidden = true;
+      setPayMode('full');
+    } */
+    /* Default selection: Pay in full */
+    setPayMode('full');
+    /* Outside 60 days: no default — the traveller must actively choose (payMode stays null) */
+
+    /* ---- Payment step (step 4): reflect the chosen option ---- */
+    function enterPayment() {
+      setPayMode(payMode || 'deposit');
+      var t = totals();
+      var tot = document.querySelector('[data-pay-total]');
+      if (tot) tot.textContent = fmt(t.dueToday);
+      var el = document.querySelector('[data-pay-chosen]');
+      if (el) {
+        if (payMode === 'full') el.innerHTML = 'Paying <strong>in full</strong> today — ' + fmt(t.grand) + '. You&rsquo;re all set once this goes through.';
+        else if (payMode === 'hold') el.innerHTML = 'Holding your spot for <strong>48 hours</strong> — no payment taken today. We&rsquo;ll email a link to complete your booking.';
+        else if (payMode === 'plan') { var pl = planDetails(); el.innerHTML = 'Paying a <strong>deposit</strong> of ' + fmt(t.dueToday) + ' today, then <strong>' + fmt(pl.monthly) + '/month</strong> for ' + pl.months + ' months. Fully paid before your balance-due date.'; }
+        else el.innerHTML = 'Paying a <strong>deposit</strong> of ' + fmt(t.dueToday) + ' today. The ' + fmt(t.balance) + ' balance is due 60 days before departure.';
+      }
+    }
+    document.querySelectorAll('[data-rev-toggle]').forEach(function (b) {
+      b.addEventListener('click', function () { b.closest('.co-rev').classList.toggle('is-open'); });
+    });
+    /* "Pay by card" accordion — reveals the card form */
+    var paycardToggle = document.querySelector('[data-paycard-toggle]');
+    if (paycardToggle) paycardToggle.addEventListener('click', function () { document.querySelector('[data-paycard]').classList.toggle('is-open'); });
+    document.querySelectorAll('[data-goto]').forEach(function (b) {
+      b.addEventListener('click', function () { openStep(+b.dataset.goto); });
+    });
+    /* "Edit above" jumps back up to the editable trip cards on this same step */
+    document.querySelectorAll('[data-scroll-trips]').forEach(function (b) {
+      b.addEventListener('click', function () { var tl = document.querySelector('[data-trip-list]'); if (tl) tl.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+    });
+    var holdBtn = document.querySelector('[data-hold]');
+    if (holdBtn) holdBtn.addEventListener('click', function () { holdBtn.textContent = 'Holding your spot…'; setTimeout(function () { confirm(true); }, 600); });
+
+    /* ---- Promo codes: TAKEOFF100 = £100 off, TRU10 = £50 off ---- */
+    var PROMO_CODES = { 'TAKEOFF100': 100, 'TRU10': 50 };
+    /* Two promo widgets (booking summary + desktop aside) share one promo state */
+    function applyPromo(v) {
+      v = (v || '').trim().toUpperCase();
+      promo = PROMO_CODES[v] || 0;
+      promoCode = promo > 0 ? v : '';
+      renderSummary();
+      document.querySelectorAll('[data-promo-input]').forEach(function (i) {
+        i.value = v;
+        i.classList.toggle('is-ok', promo > 0);
+        i.classList.toggle('is-err', v.length > 0 && promo === 0);
+      });
+      document.querySelectorAll('[data-promo-msg]').forEach(function (msg) {
+        if (promo > 0) {
+          msg.className = 'co-promo__msg co-promo__msg--ok';
+          msg.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Code <strong>' + v + '</strong> applied &mdash; ' + fmt(promo) + ' off your total';
+          msg.hidden = false;
+        } else if (v.length > 0) {
+          msg.className = 'co-promo__msg co-promo__msg--err';
+          msg.textContent = 'That code isn’t valid. Try again.';
+          msg.hidden = false;
+        } else { msg.hidden = true; }
+      });
+    }
+    /* Promo widgets live inside the re-rendered summary rows — delegate so clicks survive */
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-promo-apply]'); if (!btn) return;
+      var wrap = btn.closest('.co-promo'), inp = wrap ? wrap.querySelector('[data-promo-input]') : document.querySelector('[data-promo-input]');
+      applyPromo(inp ? inp.value : '');
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter') return;
+      var inp = e.target.closest('[data-promo-input]'); if (!inp) return;
+      e.preventDefault(); applyPromo(inp.value);
+    });
+
+    /* ---- Card input niceties ---- */
+    var cardNum = document.getElementById('co-card-num');
+    cardNum.addEventListener('input', function () {
+      var v = cardNum.value.replace(/\D/g, '').slice(0, 16);
+      cardNum.value = v.replace(/(.{4})/g, '$1 ').trim();
+    });
+    var exp = document.getElementById('co-exp');
+    exp.addEventListener('input', function () {
+      var v = exp.value.replace(/\D/g, '').slice(0, 4);
+      exp.value = v.length > 2 ? v.slice(0, 2) + ' / ' + v.slice(2) : v;
+    });
+
+    /* ---- Express + Pay -> confirm ---- */
+    function refCode() {
+      var s = 'TRU-';
+      var seed = (cart[0] && cart[0].tripTitle ? cart[0].tripTitle.length : 7) * 48271 + totals().grand;
+      for (var i = 0; i < 6; i++) { seed = (seed * 31 + 7) % 1000000; }
+      return s + ('000000' + (seed % 1000000)).slice(-6);
+    }
+    function confirm(isHold) {
+      doneSummary(2);
+      var email = document.getElementById('co-email').value || 'you@email.com';
+      var sub = document.querySelector('.co-confirm__sub'), title = document.querySelector('.co-confirm__title'), script = document.querySelector('.co-confirm__script'), refLbl = document.querySelector('.co-confirm__ref span');
+      if (isHold) {
+        title.textContent = 'Spot held!';
+        script.textContent = 'Go check those flights…';
+        sub.innerHTML = 'We’ve held your place for <strong>48 hours</strong> and emailed <strong>' + email + '</strong> a link to complete your booking before it expires.';
+        refLbl.textContent = 'Hold reference';
+      } else {
+        title.textContent = 'You’re going!';
+        script.textContent = 'Leave ordinary behind…';
+        sub.innerHTML = 'We’ve emailed your confirmation to <strong>' + email + '</strong>. Your adventure is locked in.';
+        refLbl.textContent = 'Booking reference';
+      }
+      document.querySelector('[data-confirm-ref]').textContent = refCode();
+      document.querySelectorAll('.co-card[data-step]').forEach(function (c) { c.classList.toggle('is-open', +c.dataset.step === 4); });
+      document.querySelector('.co-summary--mobile').hidden = true;
+      var backLink = document.querySelector('.co-back-link'); if (backLink) backLink.style.display = 'none';
+      document.querySelector('[data-step="4"]').hidden = false;
+      setProgress(4);
+      document.querySelectorAll('[data-pstep]').forEach(function (li) { if (+li.dataset.pstep === 4) li.classList.add('is-done'); });
+      try { sessionStorage.removeItem('truCart'); } catch (e) {}
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    var payBtn = document.querySelector('[data-pay]');
+    if (payBtn) payBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      payBtn.classList.add('is-loading'); payBtn.textContent = 'Processing…';
+      setTimeout(confirm, 700);
+    });
+    document.querySelectorAll('[data-express]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var email = document.getElementById('co-email');
+        if (!email.value) email.value = 'guest@apple.com';
+        setTimeout(confirm, 500);
+      });
+    });
+    /* ---- Create account: set password in a modal ---- */
+    var createBtn = document.querySelector('[data-create-account]');
+    var accountModal = document.querySelector('[data-account-modal]');
+    function openAccount() { if (accountModal) { accountModal.hidden = false; document.body.style.overflow = 'hidden'; var f = accountModal.querySelector('[data-acc-pass]'); if (f) f.focus(); } }
+    function closeAccount() { if (accountModal) { accountModal.hidden = true; document.body.style.overflow = ''; } }
+    if (createBtn) createBtn.addEventListener('click', function () { if (!createBtn.disabled) openAccount(); });
+    document.querySelectorAll('[data-account-close]').forEach(function (b) { b.addEventListener('click', closeAccount); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && accountModal && !accountModal.hidden) closeAccount(); });
+    var accSubmit = accountModal ? accountModal.querySelector('[data-account-submit]') : null;
+    if (accSubmit) accSubmit.addEventListener('click', function () {
+      var p1 = accountModal.querySelector('[data-acc-pass]'), p2 = accountModal.querySelector('[data-acc-pass2]'), err = accountModal.querySelector('[data-acc-err]');
+      p1.classList.remove('is-err'); p2.classList.remove('is-err'); if (err) err.hidden = true;
+      if (!p1.value || p1.value.length < 6) { p1.classList.add('is-err'); if (err) { err.textContent = 'Choose a password of at least 6 characters.'; err.hidden = false; } p1.focus(); return; }
+      if (p1.value !== p2.value) { p2.classList.add('is-err'); if (err) { err.textContent = 'Passwords don’t match. Try again.'; err.hidden = false; } p2.focus(); return; }
+      closeAccount();
+      if (createBtn) { createBtn.textContent = 'Account created ✓'; createBtn.disabled = true; }
+    });
+
+    /* ---- Mobile summary toggle ---- */
+    var toggle = document.querySelector('[data-order-toggle]');
+    if (toggle) toggle.addEventListener('click', function () {
+      var drop = document.querySelector('[data-order-drop]');
+      var open = !drop.hidden;
+      drop.hidden = open;
+      toggle.setAttribute('aria-expanded', String(!open));
+      toggle.closest('.co-summary--mobile').classList.toggle('is-open', !open);
+    });
+  
+}

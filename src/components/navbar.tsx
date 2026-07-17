@@ -619,9 +619,29 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ============ MOBILE MENU ============ */}
+      {/* ============ MOBILE MENU — full-screen slide-in sheet ============ */}
       {mobileOpen && (
-        <div className="xl:hidden bg-tru-navy/95 backdrop-blur-md mx-4 rounded-b-[20px] border border-t-0 border-white/10 px-5 pb-5 pt-2 max-h-[70vh] overflow-y-auto">
+        <div className="xl:hidden fixed inset-0 z-[100] flex justify-end">
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+          {/* Panel */}
+          <div className="relative w-full sm:w-[420px] h-full bg-tru-navy flex flex-col shadow-2xl shadow-black/50 overflow-hidden animate-slide-in-right">
+            {/* Background watermark icons */}
+            <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute top-[70px] -right-6 w-32 rotate-[12deg] opacity-[0.05] brightness-0 invert" />
+            <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute top-[42%] -left-7 w-28 -rotate-[12deg] opacity-[0.05] brightness-0 invert" />
+            <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute top-[64%] -right-5 w-32 rotate-[8deg] opacity-[0.05] brightness-0 invert" />
+            <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute bottom-[90px] -left-6 w-32 -rotate-[6deg] opacity-[0.05] brightness-0 invert" />
+            {/* Header */}
+            <div className="relative z-10 flex items-center justify-between px-5 py-4 border-b border-white/10">
+              <span className="text-3xl text-tru-pink font-handwriting leading-none">Find your Extraordinary&hellip;</span>
+              <button onClick={() => setMobileOpen(false)} aria-label="Close menu" className="text-gray-400 hover:text-white transition p-1">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            {/* Body */}
+            <div className="relative z-10 flex-1 overflow-y-auto px-5 pt-2 pb-5">
           {/* Mobile search */}
           <button
             onClick={() => { setSearchOpen(true); setMobileOpen(false); }}
@@ -727,18 +747,23 @@ export default function Navbar() {
               )}
             </div>
           ))}
-          <Link href="/stories" onClick={closeAll} className="block text-gray-300 hover:text-white font-semibold uppercase tracking-wider text-sm font-heading py-3 border-b border-white/10">
+          <Link href="/stories" onClick={closeAll} className="block text-gray-300 hover:text-white font-semibold uppercase tracking-wider text-sm font-heading py-3">
             Stories
           </Link>
-          {isLoggedIn ? (
-            <Link href="/member/dashboard" onClick={closeAll} className="block text-tru-pink font-semibold uppercase tracking-wider text-sm font-heading py-3">
-              Dashboard
-            </Link>
-          ) : (
-            <Link href="/login" onClick={closeAll} className="block rounded-full bg-yellow-400 px-5 py-2.5 text-center text-sm font-semibold text-tru-navy mt-3">
-              Join / Log in
-            </Link>
-          )}
+            </div>
+            {/* Footer */}
+            <div className="relative z-10 flex-shrink-0 px-5 py-4 border-t border-white/10">
+              {isLoggedIn ? (
+                <Link href="/member/dashboard" onClick={closeAll} className="block rounded-full bg-tru-pink px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-tru-pink-light transition">
+                  Dashboard
+                </Link>
+              ) : (
+                <Link href="/login" onClick={closeAll} className="block rounded-full bg-tru-pink px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-tru-pink-light transition">
+                  Join / Log in
+                </Link>
+              )}
+            </div>
+          </div>
         </div>
       )}
       <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />

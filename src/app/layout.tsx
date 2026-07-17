@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { Montserrat, Source_Sans_3, Caveat } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
+import { SiteHeader, SiteChromeFooter } from "@/components/site-chrome";
 import { AuthProvider } from "@/lib/auth-context";
 import { CartProvider } from "@/lib/cart-context";
-import CartDrawer from "@/components/cart-drawer";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -44,10 +42,9 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <AuthProvider>
           <CartProvider>
-            <Navbar />
+            <SiteHeader />
             <main className="flex-1">{children}</main>
-            <Footer />
-            <CartDrawer />
+            <SiteChromeFooter />
           </CartProvider>
         </AuthProvider>
       </body>

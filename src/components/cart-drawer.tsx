@@ -263,8 +263,10 @@ export default function CartDrawer() {
               <span className="text-gray-400">Or deposit today</span>
               <span className="text-white font-bold">&pound;{totalDeposit}</span>
             </div>
-            <button
-              className="w-full rounded-[10px] py-3.5 text-sm font-bold uppercase tracking-wider font-heading transition-all duration-200 border mt-2"
+            <Link
+              href="/checkout"
+              onClick={handleClose}
+              className="block text-center w-full rounded-[10px] py-3.5 text-sm font-bold uppercase tracking-wider font-heading transition-all duration-200 border mt-2"
               style={{
                 backgroundColor: "#FFD814",
                 borderColor: "#FCD200",
@@ -272,7 +274,7 @@ export default function CartDrawer() {
               }}
             >
               Proceed To Checkout &rarr;
-            </button>
+            </Link>
             <p className="text-center text-[10px] text-gray-500 uppercase tracking-wider font-heading">
               Free date change up to 60 days before departure
             </p>
