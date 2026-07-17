@@ -1539,7 +1539,7 @@ export const experienceTypes: ExperienceType[] = [
     description:
       "Direct connections with local culture, traditions, and communities. Cooking with families, exploring neighbourhoods with locals, and participating in generational cultural practices.",
     message: "Travel becomes more meaningful when you experience a place through the people who live there.",
-    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
+    image: "/images/experiences/local-lens.jpg",
     video: "https://videos.pexels.com/video-files/4434242/4434242-sd_506_960_24fps.mp4",
     poster: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
     color: "#2172D5",
@@ -1559,7 +1559,7 @@ export const experienceTypes: ExperienceType[] = [
     description:
       "Intentional challenges — physical, mental, or emotional — in supportive settings. Summit hikes, independent navigation, and experiences that push your limits.",
     message: "You arrive unsure. You leave stronger.",
-    image: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80",
+    image: "/images/experiences/rise-up.jpg",
     color: "#FF3F99",
     experiences: [
       "Sunrise summit trek up Mount Batur",
@@ -1577,7 +1577,7 @@ export const experienceTypes: ExperienceType[] = [
     description:
       "World-famous landmarks, extraordinary landscapes, and universally recognised destinations that inspire travel aspirations.",
     message: "Bucket List experiences create those unforgettable highlights that stay with you forever.",
-    image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80",
+    image: "/images/experiences/bucket-list.jpg",
     color: "#FCA501",
     experiences: [
       "Ha Long Bay overnight junk boat cruise",
@@ -1595,7 +1595,7 @@ export const experienceTypes: ExperienceType[] = [
     description:
       "Proprietary experiences through exclusive partnerships, private access, and community-specific opportunities unavailable to general tourists.",
     message: "These moments don't just make your trip better — they make it distinctively Tru.",
-    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
+    image: "/images/experiences/tru-ly-unique.jpg",
     color: "#6BD495",
     experiences: [
       "Private beach party — Tru members only",
@@ -1613,7 +1613,7 @@ export const experienceTypes: ExperienceType[] = [
     description:
       "Intentional slowness, presence, and tech-free moments in nature or group settings enabling reflection and authentic connection.",
     message: "No pressure to perform, post, or move quickly. Just time to breathe, reflect, and be present.",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+    image: "/images/experiences/unplugged.jpg",
     color: "#00BBB4",
     experiences: [
       "Silent sunrise on a Sri Lankan beach",

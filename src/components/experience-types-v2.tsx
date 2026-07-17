@@ -35,41 +35,26 @@ export function DesignA({ types }: { types: ExperienceType[] }) {
             <div className="group relative overflow-hidden rounded-[10px] h-full">
               <div className="relative aspect-[2/3] overflow-hidden">
                 <img src={type.image} alt={type.name} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/10" />
+                {/* Gradient overlay — dark only at the base for text legibility, photo brighter up top */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent" />
+                <div className="absolute inset-0 opacity-40" style={{ background: `radial-gradient(120% 65% at 20% 100%, ${type.color}1a 0%, transparent 55%)` }} />
 
-                {/* Top badge */}
-                <div className="absolute top-4 left-4">
-                  <div className="h-12 w-12 rounded-full flex items-center justify-center text-xl" style={{ background: type.color }}>
-                    {type.emoji}
-                  </div>
-                </div>
+                {/* Content overlay */}
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                  {/* New icon glyph — larger, directly over the image (no circle) */}
+                  <img src={type.icon} alt="" className="h-16 w-16 sm:h-[72px] sm:w-[72px] object-contain object-left mb-4 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]" />
 
-                {/* Bottom content */}
-                <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-7 pb-7 sm:pb-8">
-                  <div className="mb-1">
-                    <span className="text-lg sm:text-xl font-black text-white uppercase font-heading tracking-wider">
-                      {type.name}
-                    </span>
-                    <br />
-                    <span className="text-3xl sm:text-4xl font-handwriting leading-none" style={{ color: type.color }}>
-                      Experiences
-                    </span>
-                  </div>
-
-                  <h3 className="text-xs sm:text-sm font-black text-white uppercase font-heading tracking-wider mt-3 mb-3 leading-snug">
-                    {type.tagline}
+                  <h3 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide leading-none">
+                    {type.name}
                   </h3>
+                  <p className="text-tru-pink text-[0.68rem] font-bold uppercase tracking-[0.25em] mt-1.5 font-heading">
+                    Experiences
+                  </p>
 
-                  <div className="w-8 h-[2px] mb-3" style={{ background: type.color }} />
-
-                  <ul className="space-y-1.5">
-                    {type.experiences.slice(0, 3).map((exp) => (
-                      <li key={exp} className="flex items-center gap-2">
-                        <span className="h-1 w-1 rounded-full flex-shrink-0" style={{ background: type.color }} />
-                        <span className="text-gray-300 text-xs leading-snug">{exp}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Reserve 4 lines so every card's title lines up (3-line copy keeps the title put) */}
+                  <p className="text-gray-300 text-xs sm:text-[0.8rem] leading-relaxed mt-3 min-h-[5.6rem] line-clamp-4">
+                    {type.description}
+                  </p>
                 </div>
               </div>
             </div>
