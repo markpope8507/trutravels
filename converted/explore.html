@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Explore Trips — TruTravels</title>
+  <meta name="description" content="Browse group travel adventures across Southeast Asia, Central & South America, Africa and beyond. Filter by destination, travel style, or life moment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="site-nav site-nav--over" data-nav>
+    <div class="container site-nav__wrap">
+      <div class="site-nav__pill" data-nav-pill>
+        <div class="site-nav__bar">
+          <a href="thailand.html" class="site-nav__logo"><img src="assets/logo-white.png" alt="TruTravels" /></a>
+          <nav class="site-nav__links" aria-label="Primary">
+            <a class="site-nav__link" href="explore.html">Explore</a>
+            <a class="site-nav__link" href="#">Deals</a>
+            <button class="site-nav__link site-nav__menu-btn" data-menu="destinations" type="button">Destinations</button>
+            <button class="site-nav__link site-nav__menu-btn" data-menu="styles" type="button">Travel Styles</button>
+            <button class="site-nav__link site-nav__menu-btn" data-menu="about" type="button">About Us</button>
+            <button class="site-nav__link site-nav__menu-btn" data-menu="essentials" type="button">Essentials</button>
+            <a class="site-nav__link" href="#stories">Stories</a>
+          </nav>
+          <div class="site-nav__actions">
+            <button class="site-nav__act" aria-label="Search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+            <button class="site-nav__act" aria-label="Saved"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></button>
+            <button class="site-nav__act site-nav__cart" data-cart-open aria-label="Cart"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg><span class="site-nav__cart-badge" data-cart-count hidden>0</span></button>
+            <a class="site-nav__join" href="#">Join / Log in</a>
+          </div>
+          <div class="site-nav__mobile-actions">
+            <button class="site-nav__act" aria-label="Search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+            <button class="site-nav__act site-nav__cart" data-cart-open aria-label="Cart"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg><span class="site-nav__cart-badge" data-cart-count hidden>0</span></button>
+            <button class="site-nav__burger" data-nav-burger aria-label="Toggle menu"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+          </div>
+        </div>
+        <div class="site-nav__mega" data-mega="destinations" hidden>
+  <img class="nav-bg" src="assets/bg/bali-flower.svg" alt="" aria-hidden="true" style="top:-24px;right:28%;width:128px;transform:rotate(-8deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/peru-bird.svg" alt="" aria-hidden="true" style="bottom:-24px;left:20%;width:112px;transform:rotate(12deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/brazil.svg" alt="" aria-hidden="true" style="top:-32px;left:-24px;width:112px;transform:rotate(-10deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/good-vibes.svg" alt="" aria-hidden="true" style="top:50%;left:42%;width:128px;transform:translateY(-50%) rotate(6deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/sun.svg" alt="" aria-hidden="true" style="bottom:-32px;right:40%;width:112px;transform:rotate(-12deg);opacity:.05">
+  <div class="nav-mega__grid">
+    <div class="nav-mega__list nav-mega__list--dest"><div class="nav-col"><a class="nav-col__h" href="/destinations/asia">Asia</a><div class="nav-col__list"><a class="nav-item" href="/destinations/asia/thailand" data-preview data-pv-eyebrow="Asia" data-pv-name="Thailand" data-pv-desc="The Land of Smiles" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Thailand</span></a><a class="nav-item" href="/destinations/asia/indonesia" data-preview data-pv-eyebrow="Asia" data-pv-name="Indonesia" data-pv-desc="Emerald of the Equator" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Indonesia</span></a><a class="nav-item" href="/destinations/asia/philippines" data-preview data-pv-eyebrow="Asia" data-pv-name="Philippines" data-pv-desc="Pearl of the Orient Seas" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Philippines</span></a><a class="nav-item" href="/destinations/asia/vietnam" data-preview data-pv-eyebrow="Asia" data-pv-name="Vietnam" data-pv-desc="Land of the Ascending Dragon" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Vietnam</span></a><a class="nav-item" href="/destinations/asia/cambodia" data-preview data-pv-eyebrow="Asia" data-pv-name="Cambodia" data-pv-desc="Kingdom of Wonder" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Cambodia</span></a><a class="nav-item" href="/destinations/asia/sri-lanka" data-preview data-pv-eyebrow="Asia" data-pv-name="Sri Lanka" data-pv-desc="Pearl of the Indian Ocean" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Sri Lanka</span></a><a class="nav-item" href="/destinations/asia/india" data-preview data-pv-eyebrow="Asia" data-pv-name="India" data-pv-desc="Land of a Thousand Cultures" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>India</span></a><a class="nav-item" href="/destinations/asia/japan" data-preview data-pv-eyebrow="Asia" data-pv-name="Japan" data-pv-desc="Land of the Rising Sun" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Japan</span></a><a class="nav-item" href="/destinations/asia/china" data-preview data-pv-eyebrow="Asia" data-pv-name="China" data-pv-desc="The Middle Kingdom" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>China</span></a></div><a class="nav-col__all" href="/destinations/asia">View all &rarr;</a></div><div class="nav-col"><a class="nav-col__h" href="/destinations/central-and-south-america">Central &amp; South America</a><div class="nav-col__list"><a class="nav-item" href="/destinations/central-and-south-america/mexico" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Mexico" data-pv-desc="Land of Colour" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Mexico</span></a><a class="nav-item" href="/destinations/central-and-south-america/costa-rica" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Costa Rica" data-pv-desc="Pura Vida" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Costa Rica</span></a><a class="nav-item" href="/destinations/central-and-south-america/colombia" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Colombia" data-pv-desc="Land of Magical Realism" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Colombia</span></a><a class="nav-item" href="/destinations/central-and-south-america/peru" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Peru" data-pv-desc="Land of the Incas" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Peru</span></a><a class="nav-item" href="/destinations/central-and-south-america/brazil" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Brazil" data-pv-desc="Land of Carnival" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Brazil</span></a><a class="nav-item" href="/destinations/central-and-south-america/belize" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Belize" data-pv-desc="Jewel of the Caribbean" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Belize</span></a><a class="nav-item" href="/destinations/central-and-south-america/guatemala" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Guatemala" data-pv-desc="Land of Eternal Spring" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Guatemala</span></a></div><a class="nav-col__all" href="/destinations/central-and-south-america">View all &rarr;</a></div><div class="nav-col"><a class="nav-col__h" href="/destinations/europe">Europe</a><div class="nav-col__list"><a class="nav-item" href="/destinations/europe/greece" data-preview data-pv-eyebrow="Europe" data-pv-name="Greece" data-pv-desc="Cradle of Civilization" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Greece</span></a><a class="nav-item" href="/destinations/europe/italy" data-preview data-pv-eyebrow="Europe" data-pv-name="Italy" data-pv-desc="Il Bel Paese" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Italy</span></a><a class="nav-item" href="/destinations/europe/albania" data-preview data-pv-eyebrow="Europe" data-pv-name="Albania" data-pv-desc="Land of the Eagles" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Albania</span></a><a class="nav-item" href="/explore" data-preview data-pv-eyebrow="Europe" data-pv-name="Europe By Rail" data-pv-desc="Borderless Europe" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Europe By Rail</span></a></div><a class="nav-col__all" href="/destinations/europe">View all &rarr;</a></div><div class="nav-col"><a class="nav-col__h" href="/destinations/africa-and-middle-east">Africa &amp; Middle East</a><div class="nav-col__list"><a class="nav-item" href="/destinations/africa-and-middle-east/morocco" data-preview data-pv-eyebrow="Africa &amp; Middle East" data-pv-name="Morocco" data-pv-desc="Gateway to Africa" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Morocco</span></a><a class="nav-item" href="/destinations/africa-and-middle-east/jordan" data-preview data-pv-eyebrow="Africa &amp; Middle East" data-pv-name="Jordan" data-pv-desc="Cradle of Petra" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Jordan</span></a></div><a class="nav-col__all" href="/destinations/africa-and-middle-east">View all &rarr;</a></div><div class="nav-col"><a class="nav-col__h" href="/destinations/oceania">Oceania</a><div class="nav-col__list"><a class="nav-item" href="/destinations/oceania/new-zealand" data-preview data-pv-eyebrow="Oceania" data-pv-name="New Zealand" data-pv-desc="Land of the Long White Cloud" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>New Zealand</span></a></div><a class="nav-col__all" href="/destinations/oceania">View all &rarr;</a></div></div>
+    <div class="nav-mega__promo"><a class="nav-promo" data-promo href="#"><img data-promo-img src="https://cdn.trutravels.com/thailand/full-moon-party.jpg" alt="Rio Carnival 2027" /><span class="nav-promo__grad"></span><span class="nav-promo__body"><span class="nav-promo__eyebrow" data-promo-eyebrow>New Trip Alert</span><span class="nav-promo__title" data-promo-title>Rio Carnival 2027</span><span class="nav-promo__desc" data-promo-desc>Limited edition launch — sign up for early access.</span></span></a></div>
+  </div>
+</div>
+        <div class="site-nav__mega" data-mega="styles" hidden>
+  <img class="nav-bg" src="assets/bg/sun.svg" alt="" aria-hidden="true" style="top:-32px;right:20%;width:128px;transform:rotate(10deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/komodo-dragon.svg" alt="" aria-hidden="true" style="bottom:-40px;left:18%;width:160px;transform:rotate(-6deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/peru-bird.svg" alt="" aria-hidden="true" style="top:-24px;left:-16px;width:112px;transform:rotate(-14deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/lantern.svg" alt="" aria-hidden="true" style="top:33%;left:44%;width:96px;transform:rotate(8deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/mask.svg" alt="" aria-hidden="true" style="bottom:-24px;right:38%;width:128px;transform:rotate(10deg);opacity:.05">
+  <div class="nav-mega__grid">
+    <div class="nav-mega__list nav-mega__list--2col">
+      <div class="nav-col"><p class="nav-col__h">Travel Styles</p><div class="nav-col__list"><a class="nav-item" href="/travel-styles/backpacker" data-preview data-pv-eyebrow="Travel Style" data-pv-name="Backpacker" data-pv-desc="Maximum adventure, minimum spend." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Backpacker</span></a><a class="nav-item" href="/travel-styles/classic" data-preview data-pv-eyebrow="Travel Style" data-pv-name="Classic" data-pv-desc="The perfect balance of comfort and adventure." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Classic</span></a><a class="nav-item" href="/travel-styles/flashpacker" data-preview data-pv-eyebrow="Travel Style" data-pv-name="Flashpacker" data-pv-desc="Adventure with an upgrade." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Flashpacker</span></a><a class="nav-item" href="/travel-styles/multi-country" data-preview data-pv-eyebrow="Travel Style" data-pv-name="Multi Country" data-pv-desc="Cross borders, collect stamps." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Multi Country</span></a><a class="nav-item" href="/travel-styles/limited-edition" data-preview data-pv-eyebrow="Travel Style" data-pv-name="Limited Edition" data-pv-desc="Once it&#x27;s gone, it&#x27;s gone." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Limited Edition</span></a></div></div>
+      <div class="nav-col"><p class="nav-col__h">Life Moments</p><div class="nav-col__list"><a class="nav-item" href="/life-moments/solo-soul-searcher" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Solo Soul Searcher" data-pv-desc="Coming alone? You won&#x27;t leave that way." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Solo Soul Searcher</span></a><a class="nav-item" href="/life-moments/just-left-uni" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Just Left Uni" data-pv-desc="Three years done. Hat off. Tickets booked." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Just Left Uni</span></a><a class="nav-item" href="/life-moments/work-break-recharge" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Work Break Recharge" data-pv-desc="Two weeks. No emails. Pure reset." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Work Break Recharge</span></a><a class="nav-item" href="/life-moments/gap-year" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Gap Year" data-pv-desc="A whole year on the road. The University of Life." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Gap Year</span></a><a class="nav-item" href="/life-moments/turning-30" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Turning 30" data-pv-desc="Stamps collected. Now collect the stories." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Turning 30</span></a><a class="nav-item" href="/life-moments/looking-to-challenge-myself" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Looking To Challenge Myself" data-pv-desc="Treks, summits, jungle climbs — be tested." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Looking To Challenge Myself</span></a></div></div>
+    </div>
+    <div class="nav-mega__promo"><a class="nav-promo" data-promo href="#"><img data-promo-img src="https://cdn.trutravels.com/thailand/girls-koh-nang-yuan.jpg" alt="Limited Edition" /><span class="nav-promo__grad"></span><span class="nav-promo__body"><span class="nav-promo__eyebrow" data-promo-eyebrow>Featured Style</span><span class="nav-promo__title" data-promo-title>Limited Edition</span><span class="nav-promo__desc" data-promo-desc>Songkran, Day of the Dead, Rio Carnival — gone in a flash.</span></span></a></div>
+  </div>
+</div>
+        <div class="site-nav__mega" data-mega="about" hidden>
+  <img class="nav-bg" src="assets/bg/tru-logo.svg" alt="" aria-hidden="true" style="top:-24px;left:28%;width:96px;transform:rotate(-12deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/eyes.svg" alt="" aria-hidden="true" style="bottom:-24px;right:26%;width:112px;transform:rotate(10deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/mask.svg" alt="" aria-hidden="true" style="top:-32px;left:-24px;width:128px;transform:rotate(10deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/community.svg" alt="" aria-hidden="true" style="top:50%;left:44%;width:112px;transform:translateY(-50%) rotate(-6deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/brazil.svg" alt="" aria-hidden="true" style="bottom:-32px;left:12%;width:112px;transform:rotate(-8deg);opacity:.05">
+  <div class="nav-mega__grid">
+    <div class="nav-mega__list nav-mega__cards"><a class="nav-card" href="/about/our-story" data-preview data-pv-eyebrow="About TruTravels" data-pv-name="Our Story" data-pv-desc="How TruTravels started — straight from the founders." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Our Story</p><p class="nav-card__d">How TruTravels started — straight from the founders.</p></a><a class="nav-card" href="/about/our-values" data-preview data-pv-eyebrow="About TruTravels" data-pv-name="Our Values" data-pv-desc="What we stand for and how we travel." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Our Values</p><p class="nav-card__d">What we stand for and how we travel.</p></a><a class="nav-card" href="/about/our-impact" data-preview data-pv-eyebrow="About TruTravels" data-pv-name="Our Impact" data-pv-desc="Local guides, Planeterra projects, real change." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Our Impact</p><p class="nav-card__d">Local guides, Planeterra projects, real change.</p></a><a class="nav-card" href="/about" data-preview data-pv-eyebrow="About TruTravels" data-pv-name="Our Community" data-pv-desc="The travellers, leaders, and creators in our world." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Our Community</p><p class="nav-card__d">The travellers, leaders, and creators in our world.</p></a><a class="nav-card" href="/about/our-brand" data-preview data-pv-eyebrow="About TruTravels" data-pv-name="Our Brand" data-pv-desc="Logo, voice, and the look of TruTravels." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Our Brand</p><p class="nav-card__d">Logo, voice, and the look of TruTravels.</p></a></div>
+    <div class="nav-mega__promo"><a class="nav-promo" data-promo href="#"><img data-promo-img src="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg" alt="Our Impact" /><span class="nav-promo__grad"></span><span class="nav-promo__body"><span class="nav-promo__eyebrow" data-promo-eyebrow>Make Travel Matter</span><span class="nav-promo__title" data-promo-title>Our Impact</span><span class="nav-promo__desc" data-promo-desc>Planeterra projects, local guides, and community-first travel.</span></span></a></div>
+  </div>
+</div>
+        <div class="site-nav__mega" data-mega="essentials" hidden>
+  <img class="nav-bg" src="assets/bg/ramen.svg" alt="" aria-hidden="true" style="top:-32px;right:22%;width:112px;transform:rotate(12deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/community.svg" alt="" aria-hidden="true" style="bottom:-32px;left:22%;width:128px;transform:rotate(-8deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/eyes.svg" alt="" aria-hidden="true" style="top:-24px;left:-16px;width:112px;transform:rotate(-10deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/lantern.svg" alt="" aria-hidden="true" style="top:50%;left:46%;width:96px;transform:translateY(-50%) rotate(6deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/sun.svg" alt="" aria-hidden="true" style="bottom:-24px;right:42%;width:112px;transform:rotate(12deg);opacity:.05">
+  <div class="nav-mega__grid">
+    <div class="nav-mega__list nav-mega__cards"><a class="nav-card" href="/travel-insurance" data-preview data-pv-eyebrow="Essentials" data-pv-name="Travel Insurance" data-pv-desc="Stay covered on the road." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Travel Insurance</p><p class="nav-card__d">Stay covered on the road.</p></a><a class="nav-card" href="/visas-and-passports" data-preview data-pv-eyebrow="Essentials" data-pv-name="Visa &amp; Passports" data-pv-desc="Entry requirements by country." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Visa &amp; Passports</p><p class="nav-card__d">Entry requirements by country.</p></a><a class="nav-card" href="/terms-conditions" data-preview data-pv-eyebrow="Essentials" data-pv-name="Booking Conditions" data-pv-desc="Terms and conditions." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Booking Conditions</p><p class="nav-card__d">Terms and conditions.</p></a><a class="nav-card" href="/support" data-preview data-pv-eyebrow="Essentials" data-pv-name="Help &amp; Support" data-pv-desc="Answers fast, with Ask Tru.D." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Help &amp; Support</p><p class="nav-card__d">Answers fast, with Ask Tru.D.</p></a></div>
+    <div class="nav-mega__promo"><a class="nav-promo" data-promo href="#"><img data-promo-img src="https://cdn.trutravels.com/thailand/longtail-boat.jpg" alt="Talk To A Human" /><span class="nav-promo__grad"></span><span class="nav-promo__body"><span class="nav-promo__eyebrow" data-promo-eyebrow>Need A Hand?</span><span class="nav-promo__title" data-promo-title>Talk To A Human</span><span class="nav-promo__desc" data-promo-desc>Real people, real advice — 9am to 9pm GMT.</span></span></a></div>
+  </div>
+</div>
+      </div>
+    </div>
+    <div class="nav-sheet" data-nav-mobile hidden>
+  <div class="nav-sheet__backdrop" data-nav-close></div>
+  <div class="nav-sheet__panel">
+    <img class="nav-bg" src="assets/bg/sun.svg" alt="" aria-hidden="true" style="top:70px;right:-24px;width:120px;transform:rotate(12deg);opacity:.05">
+    <img class="nav-bg" src="assets/bg/peru-bird.svg" alt="" aria-hidden="true" style="top:42%;left:-28px;width:112px;transform:rotate(-12deg);opacity:.05">
+    <img class="nav-bg" src="assets/bg/bali-flower.svg" alt="" aria-hidden="true" style="top:64%;right:-20px;width:128px;transform:rotate(8deg);opacity:.05">
+    <img class="nav-bg" src="assets/bg/good-vibes.svg" alt="" aria-hidden="true" style="bottom:90px;left:-24px;width:120px;transform:rotate(-6deg);opacity:.05">
+    <div class="nav-sheet__head"><span class="nav-sheet__title">Find your Extraordinary&hellip;</span><button class="nav-sheet__close" data-nav-close aria-label="Close menu"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button></div>
+    <div class="nav-sheet__body">
+  <button class="nav-m__search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span>Search</span></button>
+  <a class="nav-m__top" href="explore.html">Explore</a>
+  <a class="nav-m__top" href="#">Deals</a>
+  <div class="nav-m__sec"><button class="nav-m__sec-btn" data-msec>Destinations<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__sec-body" hidden><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Asia<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/asia/thailand">Thailand</a><a class="nav-m__country" href="/destinations/asia/indonesia">Indonesia</a><a class="nav-m__country" href="/destinations/asia/philippines">Philippines</a><a class="nav-m__country" href="/destinations/asia/vietnam">Vietnam</a><a class="nav-m__country" href="/destinations/asia/cambodia">Cambodia</a><a class="nav-m__country" href="/destinations/asia/sri-lanka">Sri Lanka</a><a class="nav-m__country" href="/destinations/asia/india">India</a><a class="nav-m__country" href="/destinations/asia/japan">Japan</a><a class="nav-m__country" href="/destinations/asia/china">China</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Central &amp; South America<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/central-and-south-america/mexico">Mexico</a><a class="nav-m__country" href="/destinations/central-and-south-america/costa-rica">Costa Rica</a><a class="nav-m__country" href="/destinations/central-and-south-america/colombia">Colombia</a><a class="nav-m__country" href="/destinations/central-and-south-america/peru">Peru</a><a class="nav-m__country" href="/destinations/central-and-south-america/brazil">Brazil</a><a class="nav-m__country" href="/destinations/central-and-south-america/belize">Belize</a><a class="nav-m__country" href="/destinations/central-and-south-america/guatemala">Guatemala</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Europe<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/europe/greece">Greece</a><a class="nav-m__country" href="/destinations/europe/italy">Italy</a><a class="nav-m__country" href="/destinations/europe/albania">Albania</a><a class="nav-m__country" href="/explore">Europe By Rail</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Africa &amp; Middle East<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/africa-and-middle-east/morocco">Morocco</a><a class="nav-m__country" href="/destinations/africa-and-middle-east/jordan">Jordan</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Oceania<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/oceania/new-zealand">New Zealand</a></div></div></div></div>
+  <div class="nav-m__sec"><button class="nav-m__sec-btn" data-msec>Travel Styles<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__sec-body" hidden><p class="nav-m__group nav-m__group--pink">Travel Styles</p><a class="nav-m__link" href="/travel-styles/backpacker">Backpacker</a><a class="nav-m__link" href="/travel-styles/classic">Classic</a><a class="nav-m__link" href="/travel-styles/flashpacker">Flashpacker</a><a class="nav-m__link" href="/travel-styles/multi-country">Multi Country</a><a class="nav-m__link" href="/travel-styles/limited-edition">Limited Edition</a><p class="nav-m__group nav-m__group--blue">Life Moments</p><a class="nav-m__link" href="/life-moments/solo-soul-searcher">Solo Soul Searcher</a><a class="nav-m__link" href="/life-moments/just-left-uni">Just Left Uni</a><a class="nav-m__link" href="/life-moments/work-break-recharge">Work Break Recharge</a><a class="nav-m__link" href="/life-moments/gap-year">Gap Year</a><a class="nav-m__link" href="/life-moments/turning-30">Turning 30</a><a class="nav-m__link" href="/life-moments/looking-to-challenge-myself">Looking To Challenge Myself</a></div></div>
+  <div class="nav-m__sec"><button class="nav-m__sec-btn" data-msec>About Us<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__sec-body" hidden><a class="nav-m__link" href="/about/our-story">Our Story</a><a class="nav-m__link" href="/about/our-values">Our Values</a><a class="nav-m__link" href="/about/our-impact">Our Impact</a><a class="nav-m__link" href="/about">Our Community</a><a class="nav-m__link" href="/about/our-brand">Our Brand</a></div></div>
+  <div class="nav-m__sec"><button class="nav-m__sec-btn" data-msec>Essentials<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__sec-body" hidden><a class="nav-m__link" href="/travel-insurance">Travel Insurance</a><a class="nav-m__link" href="/visas-and-passports">Visa &amp; Passports</a><a class="nav-m__link" href="/terms-conditions">Booking Conditions</a><a class="nav-m__link" href="/support">Help &amp; Support</a></div></div>
+  <a class="nav-m__top" href="#stories">Stories</a>
+    </div>
+    <div class="nav-sheet__foot"><a class="nav-m__join" href="#">Join / Log in</a></div>
+  </div>
+</div>
+  </header>
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="exp-hero" id="explore-hero">
+      <img class="exp-hero__img" src="assets/explore-hero.jpg" alt="TruTravels explore — find your trip" />
+      <div class="exp-hero__overlay"></div>
+      <div class="exp-hero__inner">
+        <div class="exp-hero__content">
+          <p class="exp-hero__eyebrow">Explore</p>
+          <h1 class="exp-hero__title">Find Your<br /><span>Trip</span></h1>
+          <div class="exp-hero__rule"></div>
+          <p class="exp-hero__sub">Handcrafted group adventures for 18&ndash;35s. Filter by destination, travel style, or the moment in life that brought you here.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RECENTLY VIEWED (JS-hydrated) ================= -->
+    <div class="exp-recent" id="exp-recent" hidden>
+      <p class="exp-recent__eyebrow">Pick Up Where You Left Off</p>
+      <h2 class="exp-recent__title">Recently <span>Viewed</span></h2>
+      <div class="exp-recent__track" id="exp-recent-track"></div>
+    </div>
+
+    <!-- ================= SECTION PILL BAR ================= -->
+    <div class="exp-bar" id="explore-bar"><div class="exp-bar__inner"><div class="exp-bar__pills"><button type="button" class="exp-pill is-active" data-pill="trending">Most Popular</button><button type="button" class="exp-pill" data-pill="first-timer">First Trips</button><button type="button" class="exp-pill" data-pill="budget">Best Value</button><button type="button" class="exp-pill" data-pill="life-moments">Life Moments</button></div><a class="exp-browseall" href="all-trips.html"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg> Browse All Trips</a></div></div>
+    <div class="exp-bar exp-bar--sticky" data-sticky-bar><div class="exp-bar__inner"><div class="exp-bar__pills"><button type="button" class="exp-pill is-active" data-pill="trending">Most Popular</button><button type="button" class="exp-pill" data-pill="first-timer">First Trips</button><button type="button" class="exp-pill" data-pill="budget">Best Value</button><button type="button" class="exp-pill" data-pill="life-moments">Life Moments</button></div><a class="exp-browseall" href="all-trips.html"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg> Browse All Trips</a></div></div>
+
+    <!-- ================= CONTENT ================= -->
+    <div class="exp-content">
+      <section class="exp-sections" id="explore">
+        <img class="exp-sections__sun" src="assets/bg-assets/sun.svg" alt="" aria-hidden="true" />
+        <img class="exp-sections__bird" src="assets/bg-assets/peru-bird.svg" alt="" aria-hidden="true" />
+        <img class="exp-sections__flower" src="assets/bg-assets/bali-flower.svg" alt="" aria-hidden="true" />
+        <div class="container">
+          <section id="trending" class="exp-csec">
+            <p class="exp-csec__label" style="color:#FF3F99">Trending Now</p>
+            <h2 class="exp-csec__title">Most Popular Trips</h2>
+            <div class="rev-carousel" data-arrows>
+              <div class="carousel carousel--related">
+          <article class="tripcard">
+            <a class="tripcard__link" href="thailand-island-hopper.html" aria-label="Thailand Island Hopper"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80" alt="Thailand Island Hopper" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/classic-logo.png" alt="Classic travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">18%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Thailand Island Hopper</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;899</span><span class="tripcard__price">&pound;736</span></div><p class="tripcard__perday"><span>&pound;53</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Phuket</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.9</span><span class="rev">(305 Reviews)</span></div>
+                <p class="tripcard__tagline">Paradise found, one island at a time</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 14 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 11 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-thailand-island-hopper" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-thailand-island-hopper"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">11 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">2</span></div><div class="exp-ico"><img src="assets/experience-icons/rise-up.png" alt="" aria-hidden="true" /><span class="name">Rise Up</span><span class="count">2</span></div><div class="exp-ico"><img src="assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">3</span></div><div class="exp-ico"><img src="assets/experience-icons/tru-ly-unique.png" alt="" aria-hidden="true" /><span class="name">Tru-ly Unique</span><span class="count">2</span></div><div class="exp-ico"><img src="assets/experience-icons/unplugged.png" alt="" aria-hidden="true" /><span class="name">Unplugged</span><span class="count">2</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Thailand Experience"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80" alt="Thailand Experience" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/classic-logo.png" alt="Classic travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">30%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Thailand Experience</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;695</span><span class="tripcard__price">&pound;487</span></div><p class="tripcard__perday"><span>&pound;61</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Koh Phangan</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.8</span><span class="rev">(189 Reviews)</span></div>
+                <p class="tripcard__tagline">Culture, adventure, beaches and parties</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 8 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-thailand-experience" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-thailand-experience"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">3</span></div><div class="exp-ico"><img src="assets/experience-icons/unplugged.png" alt="" aria-hidden="true" /><span class="name">Unplugged</span><span class="count">1</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Full Moon Party Pack"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80" alt="Full Moon Party Pack" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/backpacker-logo.png" alt="Backpacker travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">10%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Full Moon Party Pack</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;525</span><span class="tripcard__price">&pound;473</span></div><p class="tripcard__perday"><span>&pound;95</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Koh Phangan &mdash; Koh Phangan</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.7</span><span class="rev">(312 Reviews)</span></div>
+                <p class="tripcard__tagline">The legendary beach party experience</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 5 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-full-moon-party-pack" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-full-moon-party-pack"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">1</span></div><div class="exp-ico"><img src="assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">1</span></div><div class="exp-ico"><img src="assets/experience-icons/unplugged.png" alt="" aria-hidden="true" /><span class="name">Unplugged</span><span class="count">2</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Full Moon Experience"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80" alt="Full Moon Experience" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/classic-logo.png" alt="Classic travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">10%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Full Moon Experience</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;1260</span><span class="tripcard__price">&pound;1134</span></div><p class="tripcard__perday"><span>&pound;113</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Koh Phangan</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.8</span><span class="rev">(198 Reviews)</span></div>
+                <p class="tripcard__tagline">Culture meets the ultimate party</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 10 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-full-moon-experience" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-full-moon-experience"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">2</span></div><div class="exp-ico"><img src="assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">1</span></div><div class="exp-ico"><img src="assets/experience-icons/unplugged.png" alt="" aria-hidden="true" /><span class="name">Unplugged</span><span class="count">1</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Northern Thailand Adventure"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1598935898639-81586f7d2129?w=800&q=80" alt="Northern Thailand Adventure" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/classic-logo.png" alt="Classic travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">10%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Northern Thailand Adventure</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;1095</span><span class="tripcard__price">&pound;986</span></div><p class="tripcard__perday"><span>&pound;70</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Chiang Mai</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.9</span><span class="rev">(145 Reviews)</span></div>
+                <p class="tripcard__tagline">Elephants, hill tribes, and jungle ziplines</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 14 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-northern-thailand-adventure" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-northern-thailand-adventure"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">3</span></div><div class="exp-ico"><img src="assets/experience-icons/rise-up.png" alt="" aria-hidden="true" /><span class="name">Rise Up</span><span class="count">1</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Full Moon Island Hopper"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80" alt="Full Moon Island Hopper" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/classic-logo.png" alt="Classic travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">10%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Full Moon Island Hopper</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;1475</span><span class="tripcard__price">&pound;1328</span></div><p class="tripcard__perday"><span>&pound;83</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Phuket</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.8</span><span class="rev">(167 Reviews)</span></div>
+                <p class="tripcard__tagline">Southern beaches plus the legendary party</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 16 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-full-moon-island-hopper" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-full-moon-island-hopper"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">3</span></div><div class="exp-ico"><img src="assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">1</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+              </div>
+              <button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+              <button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+          </section>
+          <section id="first-timer" class="exp-csec">
+            <p class="exp-csec__label" style="color:#6BD495">New to Tru?</p>
+            <h2 class="exp-csec__title">Perfect First Trips</h2>
+            <div class="rev-carousel" data-arrows>
+              <div class="carousel carousel--related">
+          <article class="tripcard">
+            <a class="tripcard__link" href="thailand-island-hopper.html" aria-label="Thailand Island Hopper"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80" alt="Thailand Island Hopper" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/classic-logo.png" alt="Classic travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">18%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Thailand Island Hopper</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;899</span><span class="tripcard__price">&pound;736</span></div><p class="tripcard__perday"><span>&pound;53</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Phuket</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.9</span><span class="rev">(305 Reviews)</span></div>
+                <p class="tripcard__tagline">Paradise found, one island at a time</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 14 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 11 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-thailand-island-hopper" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-thailand-island-hopper"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">11 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">2</span></div><div class="exp-ico"><img src="assets/experience-icons/rise-up.png" alt="" aria-hidden="true" /><span class="name">Rise Up</span><span class="count">2</span></div><div class="exp-ico"><img src="assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">3</span></div><div class="exp-ico"><img src="assets/experience-icons/tru-ly-unique.png" alt="" aria-hidden="true" /><span class="name">Tru-ly Unique</span><span class="count">2</span></div><div class="exp-ico"><img src="assets/experience-icons/unplugged.png" alt="" aria-hidden="true" /><span class="name">Unplugged</span><span class="count">2</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Thailand Experience"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80" alt="Thailand Experience" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/classic-logo.png" alt="Classic travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">30%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Thailand Experience</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;695</span><span class="tripcard__price">&pound;487</span></div><p class="tripcard__perday"><span>&pound;61</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Koh Phangan</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.8</span><span class="rev">(189 Reviews)</span></div>
+                <p class="tripcard__tagline">Culture, adventure, beaches and parties</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 8 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-thailand-experience" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-thailand-experience"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">3</span></div><div class="exp-ico"><img src="assets/experience-icons/unplugged.png" alt="" aria-hidden="true" /><span class="name">Unplugged</span><span class="count">1</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Full Moon Party Pack"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80" alt="Full Moon Party Pack" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/backpacker-logo.png" alt="Backpacker travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">10%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Full Moon Party Pack</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;525</span><span class="tripcard__price">&pound;473</span></div><p class="tripcard__perday"><span>&pound;95</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Koh Phangan &mdash; Koh Phangan</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.7</span><span class="rev">(312 Reviews)</span></div>
+                <p class="tripcard__tagline">The legendary beach party experience</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 5 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-full-moon-party-pack" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-full-moon-party-pack"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">1</span></div><div class="exp-ico"><img src="assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">1</span></div><div class="exp-ico"><img src="assets/experience-icons/unplugged.png" alt="" aria-hidden="true" /><span class="name">Unplugged</span><span class="count">2</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Full Moon Experience"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80" alt="Full Moon Experience" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/classic-logo.png" alt="Classic travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">10%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Full Moon Experience</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;1260</span><span class="tripcard__price">&pound;1134</span></div><p class="tripcard__perday"><span>&pound;113</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Koh Phangan</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.8</span><span class="rev">(198 Reviews)</span></div>
+                <p class="tripcard__tagline">Culture meets the ultimate party</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 10 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-full-moon-experience" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-full-moon-experience"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">2</span></div><div class="exp-ico"><img src="assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">1</span></div><div class="exp-ico"><img src="assets/experience-icons/unplugged.png" alt="" aria-hidden="true" /><span class="name">Unplugged</span><span class="count">1</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Northern Thailand Adventure"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1598935898639-81586f7d2129?w=800&q=80" alt="Northern Thailand Adventure" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/classic-logo.png" alt="Classic travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">10%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Northern Thailand Adventure</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;1095</span><span class="tripcard__price">&pound;986</span></div><p class="tripcard__perday"><span>&pound;70</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Chiang Mai</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.9</span><span class="rev">(145 Reviews)</span></div>
+                <p class="tripcard__tagline">Elephants, hill tribes, and jungle ziplines</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 14 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-northern-thailand-adventure" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-northern-thailand-adventure"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">3</span></div><div class="exp-ico"><img src="assets/experience-icons/rise-up.png" alt="" aria-hidden="true" /><span class="name">Rise Up</span><span class="count">1</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Full Moon Island Hopper"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80" alt="Full Moon Island Hopper" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/classic-logo.png" alt="Classic travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">10%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Full Moon Island Hopper</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;1475</span><span class="tripcard__price">&pound;1328</span></div><p class="tripcard__perday"><span>&pound;83</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Phuket</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.8</span><span class="rev">(167 Reviews)</span></div>
+                <p class="tripcard__tagline">Southern beaches plus the legendary party</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 16 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-full-moon-island-hopper" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-full-moon-island-hopper"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">3</span></div><div class="exp-ico"><img src="assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">1</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+              </div>
+              <button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+              <button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+          </section>
+          <section id="budget" class="exp-csec">
+            <p class="exp-csec__label" style="color:#FCA501">Ballin' on a Budget</p>
+            <h2 class="exp-csec__title">Best Value Trips</h2>
+            <div class="rev-carousel" data-arrows>
+              <div class="carousel carousel--related">
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Bali Backpacker"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80" alt="Bali Backpacker" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/backpacker-logo.png" alt="Backpacker travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">40%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Bali Backpacker</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;495</span><span class="tripcard__price">&pound;297</span></div><p class="tripcard__perday"><span>&pound;25</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Uluwatu &mdash; Gili Trawangan</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.7</span><span class="rev">(178 Reviews)</span></div>
+                <p class="tripcard__tagline">More Bali for your buck</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 12 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-bali-backpacker" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-bali-backpacker"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">3</span></div><div class="exp-ico"><img src="assets/experience-icons/rise-up.png" alt="" aria-hidden="true" /><span class="name">Rise Up</span><span class="count">1</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Thailand Backpacker"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80" alt="Thailand Backpacker" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/backpacker-logo.png" alt="Backpacker travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">40%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Thailand Backpacker</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;695</span><span class="tripcard__price">&pound;417</span></div><p class="tripcard__perday"><span>&pound;42</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Bangkok &mdash; Phuket</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.7</span><span class="rev">(256 Reviews)</span></div>
+                <p class="tripcard__tagline">Maximum adventure, minimum spend</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 10 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-thailand-backpacker" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-thailand-backpacker"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">3</span></div><div class="exp-ico"><img src="assets/experience-icons/unplugged.png" alt="" aria-hidden="true" /><span class="name">Unplugged</span><span class="count">1</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+          <article class="tripcard">
+            <a class="tripcard__link" href="#" aria-label="Full Moon Party Pack"></a>
+            <div class="tripcard__inner">
+              <div class="tripcard__media">
+                <img class="tripcard__image" src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80" alt="Full Moon Party Pack" />
+                <div class="tripcard__media-overlay"></div>
+                <img class="tripcard__badge" src="assets/backpacker-logo.png" alt="Backpacker travel style" />
+                <div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">10%</span><span>Off</span></div>
+              </div>
+              <div class="tripcard__body">
+                <div class="tripcard__titlerow"><h3 class="tripcard__title">Full Moon Party Pack</h3><div class="tripcard__pricecol"><div class="tripcard__prices"><span class="tripcard__strike">&pound;525</span><span class="tripcard__price">&pound;473</span></div><p class="tripcard__perday"><span>&pound;95</span> per day</p></div></div>
+                <p class="tripcard__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Koh Phangan &mdash; Koh Phangan</p><div class="tripcard__rating"><div class="tripcard__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><span class="num">4.7</span><span class="rev">(312 Reviews)</span></div>
+                <p class="tripcard__tagline">The legendary beach party experience</p>
+                <div class="tripcard__facts"><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 5 Days</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg> 4 Places</span><span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg> 4 Activities</span></div><div class="tripcard__exp"><input type="checkbox" id="ex-exp-full-moon-party-pack" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="ex-exp-full-moon-party-pack"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">1</span></div><div class="exp-ico"><img src="assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">1</span></div><div class="exp-ico"><img src="assets/experience-icons/unplugged.png" alt="" aria-hidden="true" /><span class="name">Unplugged</span><span class="count">2</span></div></div></div></div></div>
+              </div>
+            </div>
+          </article>
+              </div>
+              <button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+              <button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="exp-life" id="life-moments">
+        <img class="exp-life__mask" src="assets/bg-assets/mask.svg" alt="" aria-hidden="true" />
+        <img class="exp-life__ramen" src="assets/bg-assets/ramen.svg" alt="" aria-hidden="true" />
+        <div class="container">
+          <div class="exp-life__head">
+            <p class="exp-life__eyebrow">Life Moments &middot; Find Your Fit</p>
+            <h2 class="exp-life__title">Travel Through Every <span>Chapter</span></h2>
+            <p class="exp-life__intro">Different stage of life, different kind of trip. Just left uni and chasing your first taste of freedom? Burnt out and need a recharge? Turning thirty and after something more? Pick the moment you&rsquo;re in — we&rsquo;ll show you the routes built for it.</p>
+          </div>
+          <div class="exp-life__grid">
+            <a class="exp-life-card" href="#">
+              <img class="exp-life-card__img" src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" alt="Solo Soul Searcher" />
+              <div class="exp-life-card__grad"></div>
+              <div class="exp-life-card__body">
+                <span class="exp-life-card__emoji">🧭</span>
+                <h3 class="exp-life-card__name">Solo Soul Searcher</h3>
+                <p class="exp-life-card__desc">Coming alone? You won't leave that way.</p>
+              </div>
+            </a>
+            <a class="exp-life-card" href="#">
+              <img class="exp-life-card__img" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=800&q=80" alt="Just Left Uni" />
+              <div class="exp-life-card__grad"></div>
+              <div class="exp-life-card__body">
+                <span class="exp-life-card__emoji">🎓</span>
+                <h3 class="exp-life-card__name">Just Left Uni</h3>
+                <p class="exp-life-card__desc">Three years done. Hat off. Tickets booked.</p>
+              </div>
+            </a>
+            <a class="exp-life-card" href="#">
+              <img class="exp-life-card__img" src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" alt="Work Break Recharge" />
+              <div class="exp-life-card__grad"></div>
+              <div class="exp-life-card__body">
+                <span class="exp-life-card__emoji">🔋</span>
+                <h3 class="exp-life-card__name">Work Break Recharge</h3>
+                <p class="exp-life-card__desc">Two weeks. No emails. Pure reset.</p>
+              </div>
+            </a>
+            <a class="exp-life-card" href="#">
+              <img class="exp-life-card__img" src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&q=80" alt="Gap Year" />
+              <div class="exp-life-card__grad"></div>
+              <div class="exp-life-card__body">
+                <span class="exp-life-card__emoji">🌍</span>
+                <h3 class="exp-life-card__name">Gap Year</h3>
+                <p class="exp-life-card__desc">A whole year on the road. The University of Life.</p>
+              </div>
+            </a>
+            <a class="exp-life-card" href="#">
+              <img class="exp-life-card__img" src="https://cdn.trutravels.com/africa/morocco-images/morocco-uncovered-day-3-road-trip-viewpoint.jpg" alt="Turning 30" />
+              <div class="exp-life-card__grad"></div>
+              <div class="exp-life-card__body">
+                <span class="exp-life-card__emoji">🎂</span>
+                <h3 class="exp-life-card__name">Turning 30</h3>
+                <p class="exp-life-card__desc">Stamps collected. Now collect the stories.</p>
+              </div>
+            </a>
+            <a class="exp-life-card" href="#">
+              <img class="exp-life-card__img" src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80" alt="Looking To Challenge Myself" />
+              <div class="exp-life-card__grad"></div>
+              <div class="exp-life-card__body">
+                <span class="exp-life-card__emoji">🏔️</span>
+                <h3 class="exp-life-card__name">Looking To Challenge Myself</h3>
+                <p class="exp-life-card__desc">Treks, summits, jungle climbs — be tested.</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= INSPIRE CTA ================= -->
+    <div class="exp-inspire">
+      <div class="exp-inspire__card">
+        <p class="exp-inspire__hand">Not sure where to start?</p>
+        <p class="exp-inspire__sub">Answer a few quick questions and we&rsquo;ll match you with your perfect trip.</p>
+        <a class="exp-inspire__btn" href="index.html">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          Inspire Me
+        </a>
+      </div>
+    </div>
+  </main>
+  <!-- ================= FOOTER ================= -->
+  <!-- Take me to the top -->
+  <div class="footer-toplink">
+    <div class="container">
+      <a class="btn-top" href="#top">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+        Take Me To The Top
+      </a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer__glow footer__glow--tr"></span>
+    <span class="footer__glow footer__glow--bl"></span>
+    <img class="footer__wm footer__wm--logo" src="assets/bg-assets/tru-logo.svg" alt="" aria-hidden="true" />
+    <img class="footer__wm footer__wm--mask" src="assets/bg-assets/mask.svg" alt="" aria-hidden="true" />
+    <img class="footer__wm footer__wm--sun" src="assets/bg-assets/sun.svg" alt="" aria-hidden="true" />
+    <div class="container footer__inner">
+      <div class="footer__top">
+        <div class="footer__main">
+          <div class="footer__brand">
+            <img class="footer__logo" src="assets/logo-white.png" alt="TruTravels" />
+            <p class="footer__headline">Leave Ordinary <span>Behind</span></p>
+            <p class="footer__script">Find Your Extraordinary&hellip;</p>
+            <p class="footer__blurb">Life-changing experiences. Game-changing travel. We&rsquo;re here for the in-between years &mdash; the bit where you find out who you are by going somewhere new.</p>
+            <div class="footer__socials"><a class="footer__social" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a class="footer__social" href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a><a class="footer__social" href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a><a class="footer__social" href="https://pinterest.com" target="_blank" rel="noopener noreferrer" aria-label="Pinterest"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M9.5 21l2-7.5M9 9.5a3 3 0 116 0c0 2.5-1.5 5-3.5 5-1 0-1.5-.7-1.3-1.8"/></svg></a><a class="footer__social" href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none"/></svg></a></div>
+          </div>
+          <div class="footer__cols">
+            <div class="footer__cols-grid"><div class="footer__col"><h4 class="footer__col-h">Explore</h4><ul class="footer__col-list"><li><a href="#">All Trips</a></li><li><a href="#">Travel Styles</a></li><li><a href="#">Life Moments</a></li><li><a href="#">How It Works</a></li><li><a href="#">Deals</a></li><li><a href="#stories">Stories</a></li><li><a href="#">VIP Club</a></li><li><a href="#">My Account</a></li></ul></div><div class="footer__col"><h4 class="footer__col-h">About</h4><ul class="footer__col-list"><li><a href="#">Our Story</a></li><li><a href="#">Our Values</a></li><li><a href="#">Our Impact</a></li><li><a href="#">Our Community</a></li><li><a href="#">Our Brand</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Careers</a></li></ul></div><div class="footer__col"><h4 class="footer__col-h">Essentials</h4><ul class="footer__col-list"><li><a href="#">Help &amp; Support</a></li><li><a href="#">Travel Insurance</a></li><li><a href="#">Visa &amp; Passport</a></li><li><a href="#">Package Travel Regulations</a></li><li><a href="#">Book With Confidence</a></li></ul></div><div class="footer__col"><h4 class="footer__col-h">Partners</h4><ul class="footer__col-list"><li><a href="#">Partner With Us</a></li><li><a href="#">Affiliate Program</a></li><li><a href="#">Host A Trip</a></li><li><a href="#">Agent Registration</a></li><li><a href="#">Agents Login</a></li></ul></div></div>
+            <div class="footer__accordions"><div class="footer__acc"><button class="footer__acc-btn" data-facc>Explore<svg class="footer__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="footer__acc-body" hidden><ul class="footer__col-list"><li><a href="#">All Trips</a></li><li><a href="#">Travel Styles</a></li><li><a href="#">Life Moments</a></li><li><a href="#">How It Works</a></li><li><a href="#">Deals</a></li><li><a href="#stories">Stories</a></li><li><a href="#">VIP Club</a></li><li><a href="#">My Account</a></li></ul></div></div><div class="footer__acc"><button class="footer__acc-btn" data-facc>About<svg class="footer__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="footer__acc-body" hidden><ul class="footer__col-list"><li><a href="#">Our Story</a></li><li><a href="#">Our Values</a></li><li><a href="#">Our Impact</a></li><li><a href="#">Our Community</a></li><li><a href="#">Our Brand</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Careers</a></li></ul></div></div><div class="footer__acc"><button class="footer__acc-btn" data-facc>Essentials<svg class="footer__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="footer__acc-body" hidden><ul class="footer__col-list"><li><a href="#">Help &amp; Support</a></li><li><a href="#">Travel Insurance</a></li><li><a href="#">Visa &amp; Passport</a></li><li><a href="#">Package Travel Regulations</a></li><li><a href="#">Book With Confidence</a></li></ul></div></div><div class="footer__acc"><button class="footer__acc-btn" data-facc>Partners<svg class="footer__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="footer__acc-body" hidden><ul class="footer__col-list"><li><a href="#">Partner With Us</a></li><li><a href="#">Affiliate Program</a></li><li><a href="#">Host A Trip</a></li><li><a href="#">Agent Registration</a></li><li><a href="#">Agents Login</a></li></ul></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer__mailing">
+        <div class="footer__mailing-head">
+          <p class="footer__mailing-t">Join the mailing list</p>
+          <p class="footer__mailing-s">Trips, deals and stories &mdash; no account needed. Unsubscribe anytime.</p>
+        </div>
+        <div class="footer__mailing-form">
+          <form class="footer__form" data-mailform>
+            <input type="email" required placeholder="your@email.com" aria-label="Email address" />
+            <button type="submit">Sign Up</button>
+          </form>
+          <p class="footer__form-done" data-maildone hidden><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> You&rsquo;re on the list!</p>
+          <p class="footer__form-note">Want the full experience? <a href="#">Create an account</a> for saved trips, member deals and more.</p>
+        </div>
+      </div>
+      <div class="footer__trust">
+        <div class="footer__badges">
+          <img class="footer__atol" src="assets/pay/atol-logo.png" alt="ATOL Protected" />
+          <img class="footer__abta" src="assets/pay/abta-logo.png" alt="ABTA — Travel With Confidence" />
+          <div class="footer__rating"><span class="footer__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><p>4.9 &middot; Trustpilot</p></div>
+          <div class="footer__rating"><span class="footer__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><p>4.8 &middot; Google</p></div>
+        </div>
+        <div class="footer__pay">
+          <img src="assets/pay/visa.png" alt="Visa" />
+          <img src="assets/pay/mastercard.png" alt="Mastercard" />
+          <img src="assets/pay/amex.png" alt="American Express" />
+          <img src="assets/pay/apple-pay.png" alt="Apple Pay" />
+          <img src="assets/pay/google-pay.png" alt="Google Pay" />
+        </div>
+      </div>
+      <div class="footer__legal">
+        <div class="footer__legal-info">
+          <p>&copy; 2026 TruTravels Limited. All rights reserved.</p>
+          <p>Registered Office: TruTravels Limited, TruHQ, 6 Fife Road, Kingston Upon Thames, Surrey, KT1 1SZ</p>
+          <p>Company Reg: 08094426 &middot; +44 203 542 2463</p>
+        </div>
+        <div class="footer__legal-links">
+          <a href="#">Terms &amp; Conditions</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Cookie Preferences</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+<script>/* carousel nav arrows (reviews + you might like) */
+  (function () {
+    document.querySelectorAll('[data-arrows]').forEach(function (wrap) {
+      var track = wrap.querySelector('.carousel, .side-stays, .vdiaries');
+      var prev = wrap.querySelector('[data-rev="prev"]');
+      var next = wrap.querySelector('[data-rev="next"]');
+      if (!track || !prev || !next) return;
+      function step() {
+        var card = track.firstElementChild;
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 20;
+        return card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+      }
+      function sync() {
+        var max = track.scrollWidth - track.clientWidth;
+        prev.disabled = track.scrollLeft <= 1;
+        next.disabled = track.scrollLeft >= max - 1;
+      }
+      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+      track.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    });
+  })();
+  </script>
+<script>/* experience-types disclosure — opening one card opens all (shared state, like the prototype) */
+  (function () {
+    var boxes = document.querySelectorAll('.tripcard__exp-cb');
+    if (!boxes.length) return;
+    boxes.forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        boxes.forEach(function (other) {
+          if (other !== cb) other.checked = cb.checked;
+        });
+      });
+    });
+  })();
+  </script>
+<script>/* drag-to-scroll with momentum — click/one-finger drag on every horizontal carousel (like Swiper) */
+  (function () {
+    document.querySelectorAll('.side-stays, .carousel, .vdiaries').forEach(function (track) {
+      var down = false, startX = 0, startLeft = 0, moved = false, snap = '';
+      var lastX = 0, lastT = 0, vx = 0, raf = null;
+      track.style.cursor = 'grab';
+      track.querySelectorAll('img').forEach(function (im) { im.setAttribute('draggable', 'false'); });
+      track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+      function stopMomentum() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+      track.addEventListener('mousedown', function (e) {
+        if (e.button !== 0) return;
+        stopMomentum();
+        down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+        lastX = e.clientX; lastT = performance.now(); vx = 0;
+        snap = track.style.scrollSnapType; track.style.scrollSnapType = 'none';
+        track.style.cursor = 'grabbing';
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', function (e) {
+        if (!down) return;
+        var dx = e.clientX - startX;
+        if (Math.abs(dx) > 3) moved = true;
+        track.scrollLeft = startLeft - dx;
+        var now = performance.now(), dt = now - lastT;
+        if (dt > 0) { vx = (e.clientX - lastX) / dt; lastX = e.clientX; lastT = now; }
+      });
+      document.addEventListener('mouseup', function () {
+        if (!down) return; down = false; track.style.cursor = 'grab';
+        if (moved) {
+          var block = function (ev) { ev.preventDefault(); ev.stopPropagation(); };
+          track.addEventListener('click', block, true);
+          setTimeout(function () { track.removeEventListener('click', block, true); }, 0);
+        }
+        var v = -vx * 16;
+        function step() {
+          v *= 0.95;
+          track.scrollLeft += v;
+          if (Math.abs(v) > 0.4) { raf = requestAnimationFrame(step); }
+          else { raf = null; track.style.scrollSnapType = snap; }
+        }
+        if (moved && Math.abs(v) > 1.5) { raf = requestAnimationFrame(step); }
+        else { track.style.scrollSnapType = snap; }
+      });
+    });
+  })();
+  </script>
+<script>/* cart drawer */
+  window.TruCart = (function () {
+    var drawer = document.querySelector('[data-cart]');
+    if (!drawer) return { add: function () {}, open: function () {} };
+    var itemsEl = drawer.querySelector('[data-cart-items]');
+    var emptyEl = drawer.querySelector('[data-cart-empty]');
+    var footEl = drawer.querySelector('[data-cart-foot]');
+    var subEl = drawer.querySelector('[data-cart-sub]');
+    var badges = document.querySelectorAll('[data-cart-count]');
+    var cart = [], uid = 0;
+    var PIN = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>';
+    var CAL = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+    var CLK = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>';
+    var X = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>';
+    function totals() {
+      var t = { count: 0, total: 0, dep: 0, save: 0 };
+      cart.forEach(function (it) { t.count += it.travellers; t.total += it.price * it.travellers; t.dep += it.deposit * it.travellers; if (it.orig) t.save += (it.orig - it.price) * it.travellers; });
+      return t;
+    }
+    function render() {
+      var t = totals();
+      try { sessionStorage.setItem('truCart', JSON.stringify(cart)); } catch (e) {}
+      badges.forEach(function (b) { b.textContent = t.count; b.hidden = t.count === 0; });
+      subEl.textContent = cart.length === 0 ? 'Cart is empty' : (cart.length + ' trip' + (cart.length === 1 ? '' : 's') + ' · ' + t.count + ' traveller' + (t.count === 1 ? '' : 's'));
+      emptyEl.hidden = cart.length > 0;
+      footEl.hidden = cart.length === 0;
+      itemsEl.innerHTML = cart.map(function (it) {
+        var lineTotal = it.price * it.travellers, lineOrig = it.orig ? it.orig * it.travellers : 0, lineSave = it.orig ? (it.orig - it.price) * it.travellers : 0;
+        return '<div class="cart-item" data-id="' + it.id + '">'
+          + '<div class="cart-item__row"><div class="cart-item__img"><img src="' + it.image + '" alt=""/></div>'
+          + '<div class="cart-item__info"><p class="cart-item__title">' + it.tripTitle + '</p>'
+          + '<p class="cart-item__meta">' + PIN + it.startLocation + ' — ' + it.endLocation + '</p>'
+          + '<p class="cart-item__meta">' + CAL + it.date + '</p>'
+          + '<p class="cart-item__meta">' + CLK + it.duration + '</p></div>'
+          + '<button class="cart-item__remove" data-remove aria-label="Remove">' + X + '</button></div>'
+          + '<div class="cart-item__foot"><div class="cart-item__qty"><button data-minus aria-label="Fewer">−</button><span class="cart-item__qty-count">' + it.travellers + '</span><button data-plus aria-label="More">+</button></div>'
+          + '<div class="cart-item__price"><div class="cart-item__price-line">' + (lineOrig ? '<span class="cart-item__strike">£' + lineOrig + '</span>' : '') + '<p class="cart-item__now">£' + lineTotal + '</p></div>' + (lineSave > 0 ? '<p class="cart-item__save">Save £' + lineSave + '</p>' : '') + '</div></div></div>';
+      }).join('');
+      var sr = drawer.querySelector('[data-cart-saverow]');
+      if (t.save > 0) { sr.hidden = false; drawer.querySelector('[data-cart-savings]').textContent = '£' + t.save; } else { sr.hidden = true; }
+      drawer.querySelector('[data-cart-total]').textContent = '£' + t.total;
+      drawer.querySelector('[data-cart-deposit]').textContent = '£' + t.dep;
+    }
+    function add(item) { item.id = ++uid; cart.push(item); render(); }
+    function open() { drawer.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+    function close() { drawer.classList.remove('is-open'); document.body.style.overflow = ''; }
+    document.querySelectorAll('[data-cart-open]').forEach(function (b) { b.addEventListener('click', open); });
+    drawer.querySelectorAll('[data-cart-close]').forEach(function (b) { b.addEventListener('click', close); });
+    itemsEl.addEventListener('click', function (e) {
+      var card = e.target.closest('.cart-item'); if (!card) return;
+      var it = cart.filter(function (i) { return i.id == card.dataset.id; })[0]; if (!it) return;
+      if (e.target.closest('[data-remove]')) { cart = cart.filter(function (i) { return i.id != it.id; }); render(); }
+      else if (e.target.closest('[data-minus]')) { it.travellers = Math.max(1, it.travellers - 1); render(); }
+      else if (e.target.closest('[data-plus]')) { it.travellers = Math.min(10, it.travellers + 1); render(); }
+    });
+    var checkoutBtn = drawer.querySelector('.cart-drawer__checkout');
+    if (checkoutBtn) checkoutBtn.addEventListener('click', function () {
+      if (cart.length === 0) return;
+      try { sessionStorage.setItem('truCart', JSON.stringify(cart)); } catch (e) {}
+      window.location.href = 'checkout.html';
+    });
+    /* Restore any basket handed back from checkout, then optionally open it */
+    try {
+      var saved = JSON.parse(sessionStorage.getItem('truCart') || '[]');
+      if (Array.isArray(saved)) saved.forEach(function (it) { if (it.id > uid) uid = it.id; cart.push(it); });
+    } catch (e) {}
+    render();
+    if (/[?&]cart=1/.test(location.search) || location.hash === '#cart') open();
+    return { add: add, open: open, close: close };
+  })();
+  </script>
+<script>/* full navbar — mega menus, hover preview, mobile menu */
+  (function () {
+    var nav = document.querySelector('[data-nav]');
+    if (!nav) return;
+    var pill = nav.querySelector('[data-nav-pill]');
+    var megas = {};
+    nav.querySelectorAll('.site-nav__mega').forEach(function (m) {
+      megas[m.dataset.mega] = m;
+      var promo = m.querySelector('[data-promo]');
+      m._promoDefault = {
+        img: promo.querySelector('[data-promo-img]').getAttribute('src'),
+        eyebrow: promo.querySelector('[data-promo-eyebrow]').textContent,
+        title: promo.querySelector('[data-promo-title]').textContent,
+        desc: promo.querySelector('[data-promo-desc]').textContent
+      };
+    });
+    var current = null;
+    function setPromo(mega, d, preview) {
+      var promo = mega.querySelector('[data-promo]');
+      promo.classList.toggle('is-preview', !!preview);
+      promo.querySelector('[data-promo-img]').setAttribute('src', d.img);
+      promo.querySelector('[data-promo-eyebrow]').textContent = d.eyebrow;
+      promo.querySelector('[data-promo-title]').textContent = d.title;
+      promo.querySelector('[data-promo-desc]').textContent = d.desc;
+    }
+    function openMenu(menu) {
+      if (current === menu) return;
+      if (current) closeMenu();
+      current = menu;
+      megas[menu].classList.add('is-open');
+      pill.classList.add('is-open');
+      nav.querySelector('[data-menu="' + menu + '"]').classList.add('is-active');
+      setPromo(megas[menu], megas[menu]._promoDefault, false);
+    }
+    function closeMenu() {
+      if (!current) return;
+      megas[current].classList.remove('is-open');
+      nav.querySelector('[data-menu="' + current + '"]').classList.remove('is-active');
+      pill.classList.remove('is-open');
+      current = null;
+    }
+    nav.querySelectorAll('.site-nav__menu-btn').forEach(function (b) {
+      b.addEventListener('mouseenter', function () { openMenu(b.dataset.menu); });
+      b.addEventListener('click', function () { current === b.dataset.menu ? closeMenu() : openMenu(b.dataset.menu); });
+    });
+    nav.querySelectorAll('.site-nav__link:not(.site-nav__menu-btn), .site-nav__logo').forEach(function (l) {
+      l.addEventListener('mouseenter', closeMenu);
+    });
+    pill.addEventListener('mouseleave', closeMenu);
+    document.addEventListener('click', function (e) { if (!nav.contains(e.target)) closeMenu(); });
+    /* hover preview */
+    nav.querySelectorAll('[data-preview]').forEach(function (item) {
+      item.addEventListener('mouseenter', function () {
+        var mega = item.closest('.site-nav__mega');
+        setPromo(mega, { img: item.dataset.pvImg, eyebrow: item.dataset.pvEyebrow, title: item.dataset.pvName, desc: item.dataset.pvDesc }, true);
+      });
+    });
+    /* mobile menu — full-screen slide-in sheet */
+    var mobile = nav.querySelector('[data-nav-mobile]');
+    var burger = nav.querySelector('[data-nav-burger]');
+    function openSheet() { mobile.hidden = false; document.body.style.overflow = 'hidden'; }
+    function closeSheet() { mobile.hidden = true; document.body.style.overflow = ''; }
+    burger.addEventListener('click', function () { mobile.hidden ? openSheet() : closeSheet(); });
+    nav.querySelectorAll('[data-nav-close]').forEach(function (el) { el.addEventListener('click', closeSheet); });
+    mobile.querySelectorAll('a[href]').forEach(function (a) { a.addEventListener('click', closeSheet); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !mobile.hidden) closeSheet(); });
+    nav.querySelectorAll('[data-msec]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var body = btn.nextElementSibling; body.hidden = !body.hidden; btn.classList.toggle('is-open', !body.hidden);
+      });
+    });
+    nav.querySelectorAll('[data-msub]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var body = btn.nextElementSibling; body.hidden = !body.hidden; btn.classList.toggle('is-open', !body.hidden);
+      });
+    });
+  })();
+  </script>
+<script>/* footer — mobile accordions + mailing form */
+  (function () {
+    document.querySelectorAll('[data-facc]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var body = btn.nextElementSibling; body.hidden = !body.hidden; btn.classList.toggle('is-open', !body.hidden);
+      });
+    });
+    var form = document.querySelector('[data-mailform]');
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault(); form.hidden = true; document.querySelector('[data-maildone]').hidden = false;
+    });
+  })();
+  </script>
+  <script>/* explore — section pill bar (scroll-to, scroll-spy, sticky) */
+  (function () {
+    var bar = document.getElementById('explore-bar');
+    var sticky = document.querySelector('[data-sticky-bar]');
+    var IDS = ['trending', 'first-timer', 'budget', 'life-moments'];
+    function scrollToSection(id) { var el = document.getElementById(id); if (!el) return; var top = el.getBoundingClientRect().top + window.scrollY - 80; window.scrollTo({ top: top, behavior: 'smooth' }); }
+    document.querySelectorAll('[data-pill]').forEach(function (p) { p.addEventListener('click', function () { scrollToSection(p.getAttribute('data-pill')); }); });
+    function setActive(id) { document.querySelectorAll('[data-pill]').forEach(function (p) { p.classList.toggle('is-active', p.getAttribute('data-pill') === id); }); }
+    function onScroll() { if (!bar || !sticky) return; sticky.classList.toggle('is-shown', bar.getBoundingClientRect().bottom < 0); }
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) { for (var i = 0; i < entries.length; i++) { if (entries[i].isIntersecting) { setActive(entries[i].target.id); break; } } }, { rootMargin: '-30% 0px -55% 0px' });
+      IDS.forEach(function (id) { var el = document.getElementById(id); if (el) obs.observe(el); });
+    }
+    function goHash() { var h = location.hash.slice(1); if (!h) return; requestAnimationFrame(function () { scrollToSection(h); }); }
+    goHash(); window.addEventListener('hashchange', goHash);
+  })();
+  </script>
+  <script>/* explore — recently viewed (localStorage) */
+  (function () {
+    var RECENT = {"thailand-island-hopper":{"title":"Thailand Island Hopper","image":"https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80","start":"Bangkok","end":"Phuket","duration":"14 Days","price":736,"originalPrice":899},"thailand-experience":{"title":"Thailand Experience","image":"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80","start":"Bangkok","end":"Koh Phangan","duration":"8 Days","price":487,"originalPrice":695},"full-moon-party-pack":{"title":"Full Moon Party Pack","image":"https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80","start":"Koh Phangan","end":"Koh Phangan","duration":"5 Days","price":473,"originalPrice":525},"full-moon-experience":{"title":"Full Moon Experience","image":"https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80","start":"Bangkok","end":"Koh Phangan","duration":"10 Days","price":1134,"originalPrice":1260},"northern-thailand-adventure":{"title":"Northern Thailand Adventure","image":"https://images.unsplash.com/photo-1598935898639-81586f7d2129?w=800&q=80","start":"Bangkok","end":"Chiang Mai","duration":"14 Days","price":986,"originalPrice":1095},"full-moon-island-hopper":{"title":"Full Moon Island Hopper","image":"https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80","start":"Bangkok","end":"Phuket","duration":"16 Days","price":1328,"originalPrice":1475},"total-thailand":{"title":"Total Thailand","image":"https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80","start":"Bangkok","end":"Phuket","duration":"27 Days","price":1505,"originalPrice":2150},"thailand-backpacker":{"title":"Thailand Backpacker","image":"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80","start":"Bangkok","end":"Phuket","duration":"10 Days","price":417,"originalPrice":695},"songkran-festival":{"title":"Songkran Festival","image":"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80","start":"Bangkok","end":"Chiang Mai","duration":"7 Days","price":595},"bali-experience":{"title":"Bali Experience","image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80","start":"Canggu","end":"Gili Trawangan","duration":"10 Days","price":487,"originalPrice":695},"bali-backpacker":{"title":"Bali Backpacker","image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80","start":"Uluwatu","end":"Gili Trawangan","duration":"12 Days","price":297,"originalPrice":495},"komodo-island-hopper":{"title":"Komodo Island Hopper","image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80","start":"Lombok","end":"Labuan Bajo","duration":"9 Days","price":767,"originalPrice":1095},"bali-and-beyond":{"title":"Bali & Beyond","image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80","start":"Canggu","end":"Labuan Bajo","duration":"18 Days","price":1243,"originalPrice":1775},"bali-sumatra-adventure":{"title":"Bali & Sumatra Adventure","image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80","start":"Medan","end":"Gili Trawangan","duration":"18 Days","price":1397,"originalPrice":1995},"sumatra-uncovered":{"title":"Sumatra Uncovered","image":"https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80","start":"Medan","end":"Alue Sungai Pinang","duration":"9 Days","price":805,"originalPrice":1150},"total-indonesia":{"title":"Total Indonesia","image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80","start":"Medan","end":"Labuan Bajo","duration":"26 Days","price":1957,"originalPrice":2795},"philippines-east":{"title":"Philippines East","image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80","start":"Cebu City","end":"Boracay Island","duration":"8 Days","price":665,"originalPrice":950},"philippines-west":{"title":"Philippines West","image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80","start":"Manila","end":"Coron Town","duration":"10 Days","price":717,"originalPrice":1195},"philippines-island-hopper":{"title":"Philippines Island Hopper","image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80","start":"Manila","end":"Boracay Island","duration":"17 Days","price":1537,"originalPrice":2195},"philippines-backpacker":{"title":"Philippines Backpacker","image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80","start":"Manila","end":"Coron","duration":"11 Days","price":627,"originalPrice":895},"philippines-siargao":{"title":"Philippines Siargao Adventure","image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80","start":"Cebu","end":"Siargao Island","duration":"8 Days","price":627,"originalPrice":895},"total-philippines":{"title":"Total Philippines","image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80","start":"Manila","end":"Siargao Island","duration":"24 Days","price":2167,"originalPrice":3095},"vietnam-backpacker":{"title":"Vietnam Backpacker","image":"https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80","start":"Hanoi","end":"Ho Chi Minh City","duration":"12 Days","price":525,"originalPrice":750},"vietnam-explorer":{"title":"Vietnam Explorer","image":"https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80","start":"Ho Chi Minh City","end":"Hanoi","duration":"13 Days","price":875,"originalPrice":1250},"cambodia-explorer":{"title":"Cambodia Explorer","image":"https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80","start":"Siem Reap","end":"Phnom Penh","duration":"11 Days","price":613,"originalPrice":875},"sri-lanka-uncovered":{"title":"Sri Lanka Uncovered","image":"https://images.unsplash.com/photo-1612862862126-865765df2ded?w=800&q=80","start":"Negombo","end":"Unawatuna","duration":"10 Days","price":697,"originalPrice":995},"mexico-yucatan-experience":{"title":"Mexico Yucatán Experience","image":"https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80","start":"Cancún","end":"Playa del Carmen","duration":"11 Days","price":1017,"originalPrice":1695},"mexico-yucatan-loop":{"title":"Mexico Yucatán Loop","image":"https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80","start":"Cancún","end":"Playa del Carmen","duration":"7 Days","price":767,"originalPrice":1095},"day-of-the-dead":{"title":"Day of the Dead Festival","image":"https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80","start":"Mexico City","end":"Mexico City","duration":"6 Days","price":895},"costa-rica-adventure":{"title":"Costa Rica Adventure","image":"https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80","start":"San José","end":"Santa Teresa","duration":"10 Days","price":945,"originalPrice":1350},"greece-island-hopper":{"title":"Greece Island Hopper","image":"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80","start":"Athens","end":"Santorini","duration":"9 Days","price":1327,"originalPrice":1895},"cambodia-vietnam-explorer":{"title":"Cambodia & Vietnam Explorer","image":"https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80","start":"Siem Reap","end":"Hanoi","duration":"23 Days","price":1435,"originalPrice":2050},"india-sri-lanka":{"title":"India & Sri Lanka Uncovered","image":"https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80","start":"Delhi","end":"Unawatuna","duration":"23 Days","price":1677,"originalPrice":2395},"mexico-belize-guatemala":{"title":"Mexico, Belize & Guatemala","image":"https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80","start":"Cancún","end":"Antigua Guatemala","duration":"18 Days","price":1925,"originalPrice":2750},"discover-asia":{"title":"Discover Asia","image":"https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80","start":"Bangkok","end":"Hanoi","duration":"37 Days","price":2485,"originalPrice":3550},"total-asia":{"title":"Total Asia","image":"https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80","start":"Bangkok","end":"Hanoi","duration":"50 Days","price":4185,"originalPrice":4650}};
+    var wrap = document.getElementById('exp-recent');
+    var track = document.getElementById('exp-recent-track');
+    if (!wrap || !track) return;
+    var ids = []; try { ids = JSON.parse(localStorage.getItem('trutravels-recent') || '[]'); } catch (e) {}
+    var PIN = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>';
+    var CLK = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>';
+    var cards = ids.map(function (id) { return RECENT[id]; }).filter(Boolean);
+    if (!cards.length) return;
+    track.innerHTML = cards.map(function (t) {
+      var save = t.originalPrice ? (t.originalPrice - t.price) : 0;
+      var route = (t.start && t.end) ? '<p class="exp-recent-card__meta">' + PIN + t.start + ' — ' + t.end + '</p>' : '';
+      var strike = t.originalPrice ? '<span class="exp-recent-card__strike">£' + t.originalPrice + '</span>' : '';
+      var savetag = save > 0 ? '<span class="exp-recent-card__save">Save £' + save + '</span>' : '';
+      return '<a class="exp-recent-card" href="#">' +
+        '<div class="exp-recent-card__row"><div class="exp-recent-card__thumb"><img src="' + t.image + '" alt="' + t.title + '" /></div>' +
+        '<div style="min-width:0;flex:1"><p class="exp-recent-card__title">' + t.title + '</p>' + route +
+        '<p class="exp-recent-card__meta">' + CLK + t.duration + '</p></div></div>' +
+        '<div class="exp-recent-card__price">' + strike + '<span class="exp-recent-card__now">£' + t.price + '</span>' + savetag + '</div></a>';
+    }).join('');
+    wrap.hidden = false;
+  })();
+  </script>
+</body>
+</html>

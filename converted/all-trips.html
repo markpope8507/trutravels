@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>All Trips — TruTravels</title>
+  <meta name="description" content="Browse every TruTravels group adventure. Filter by destination, travel style, duration and price to find your perfect trip." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="site-nav site-nav--over" data-nav>
+    <div class="container site-nav__wrap">
+      <div class="site-nav__pill" data-nav-pill>
+        <div class="site-nav__bar">
+          <a href="thailand.html" class="site-nav__logo"><img src="assets/logo-white.png" alt="TruTravels" /></a>
+          <nav class="site-nav__links" aria-label="Primary">
+            <a class="site-nav__link" href="explore.html">Explore</a>
+            <a class="site-nav__link" href="#">Deals</a>
+            <button class="site-nav__link site-nav__menu-btn" data-menu="destinations" type="button">Destinations</button>
+            <button class="site-nav__link site-nav__menu-btn" data-menu="styles" type="button">Travel Styles</button>
+            <button class="site-nav__link site-nav__menu-btn" data-menu="about" type="button">About Us</button>
+            <button class="site-nav__link site-nav__menu-btn" data-menu="essentials" type="button">Essentials</button>
+            <a class="site-nav__link" href="#stories">Stories</a>
+          </nav>
+          <div class="site-nav__actions">
+            <button class="site-nav__act" aria-label="Search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+            <button class="site-nav__act" aria-label="Saved"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></button>
+            <button class="site-nav__act site-nav__cart" data-cart-open aria-label="Cart"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg><span class="site-nav__cart-badge" data-cart-count hidden>0</span></button>
+            <a class="site-nav__join" href="#">Join / Log in</a>
+          </div>
+          <div class="site-nav__mobile-actions">
+            <button class="site-nav__act" aria-label="Search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+            <button class="site-nav__act site-nav__cart" data-cart-open aria-label="Cart"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg><span class="site-nav__cart-badge" data-cart-count hidden>0</span></button>
+            <button class="site-nav__burger" data-nav-burger aria-label="Toggle menu"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+          </div>
+        </div>
+        <div class="site-nav__mega" data-mega="destinations" hidden>
+  <img class="nav-bg" src="assets/bg/bali-flower.svg" alt="" aria-hidden="true" style="top:-24px;right:28%;width:128px;transform:rotate(-8deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/peru-bird.svg" alt="" aria-hidden="true" style="bottom:-24px;left:20%;width:112px;transform:rotate(12deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/brazil.svg" alt="" aria-hidden="true" style="top:-32px;left:-24px;width:112px;transform:rotate(-10deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/good-vibes.svg" alt="" aria-hidden="true" style="top:50%;left:42%;width:128px;transform:translateY(-50%) rotate(6deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/sun.svg" alt="" aria-hidden="true" style="bottom:-32px;right:40%;width:112px;transform:rotate(-12deg);opacity:.05">
+  <div class="nav-mega__grid">
+    <div class="nav-mega__list nav-mega__list--dest"><div class="nav-col"><a class="nav-col__h" href="/destinations/asia">Asia</a><div class="nav-col__list"><a class="nav-item" href="/destinations/asia/thailand" data-preview data-pv-eyebrow="Asia" data-pv-name="Thailand" data-pv-desc="The Land of Smiles" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Thailand</span></a><a class="nav-item" href="/destinations/asia/indonesia" data-preview data-pv-eyebrow="Asia" data-pv-name="Indonesia" data-pv-desc="Emerald of the Equator" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Indonesia</span></a><a class="nav-item" href="/destinations/asia/philippines" data-preview data-pv-eyebrow="Asia" data-pv-name="Philippines" data-pv-desc="Pearl of the Orient Seas" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Philippines</span></a><a class="nav-item" href="/destinations/asia/vietnam" data-preview data-pv-eyebrow="Asia" data-pv-name="Vietnam" data-pv-desc="Land of the Ascending Dragon" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Vietnam</span></a><a class="nav-item" href="/destinations/asia/cambodia" data-preview data-pv-eyebrow="Asia" data-pv-name="Cambodia" data-pv-desc="Kingdom of Wonder" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Cambodia</span></a><a class="nav-item" href="/destinations/asia/sri-lanka" data-preview data-pv-eyebrow="Asia" data-pv-name="Sri Lanka" data-pv-desc="Pearl of the Indian Ocean" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Sri Lanka</span></a><a class="nav-item" href="/destinations/asia/india" data-preview data-pv-eyebrow="Asia" data-pv-name="India" data-pv-desc="Land of a Thousand Cultures" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>India</span></a><a class="nav-item" href="/destinations/asia/japan" data-preview data-pv-eyebrow="Asia" data-pv-name="Japan" data-pv-desc="Land of the Rising Sun" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Japan</span></a><a class="nav-item" href="/destinations/asia/china" data-preview data-pv-eyebrow="Asia" data-pv-name="China" data-pv-desc="The Middle Kingdom" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>China</span></a></div><a class="nav-col__all" href="/destinations/asia">View all &rarr;</a></div><div class="nav-col"><a class="nav-col__h" href="/destinations/central-and-south-america">Central &amp; South America</a><div class="nav-col__list"><a class="nav-item" href="/destinations/central-and-south-america/mexico" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Mexico" data-pv-desc="Land of Colour" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Mexico</span></a><a class="nav-item" href="/destinations/central-and-south-america/costa-rica" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Costa Rica" data-pv-desc="Pura Vida" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Costa Rica</span></a><a class="nav-item" href="/destinations/central-and-south-america/colombia" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Colombia" data-pv-desc="Land of Magical Realism" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Colombia</span></a><a class="nav-item" href="/destinations/central-and-south-america/peru" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Peru" data-pv-desc="Land of the Incas" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Peru</span></a><a class="nav-item" href="/destinations/central-and-south-america/brazil" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Brazil" data-pv-desc="Land of Carnival" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Brazil</span></a><a class="nav-item" href="/destinations/central-and-south-america/belize" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Belize" data-pv-desc="Jewel of the Caribbean" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Belize</span></a><a class="nav-item" href="/destinations/central-and-south-america/guatemala" data-preview data-pv-eyebrow="Central &amp; South America" data-pv-name="Guatemala" data-pv-desc="Land of Eternal Spring" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Guatemala</span></a></div><a class="nav-col__all" href="/destinations/central-and-south-america">View all &rarr;</a></div><div class="nav-col"><a class="nav-col__h" href="/destinations/europe">Europe</a><div class="nav-col__list"><a class="nav-item" href="/destinations/europe/greece" data-preview data-pv-eyebrow="Europe" data-pv-name="Greece" data-pv-desc="Cradle of Civilization" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Greece</span></a><a class="nav-item" href="/destinations/europe/italy" data-preview data-pv-eyebrow="Europe" data-pv-name="Italy" data-pv-desc="Il Bel Paese" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Italy</span></a><a class="nav-item" href="/destinations/europe/albania" data-preview data-pv-eyebrow="Europe" data-pv-name="Albania" data-pv-desc="Land of the Eagles" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Albania</span></a><a class="nav-item" href="/explore" data-preview data-pv-eyebrow="Europe" data-pv-name="Europe By Rail" data-pv-desc="Borderless Europe" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Europe By Rail</span></a></div><a class="nav-col__all" href="/destinations/europe">View all &rarr;</a></div><div class="nav-col"><a class="nav-col__h" href="/destinations/africa-and-middle-east">Africa &amp; Middle East</a><div class="nav-col__list"><a class="nav-item" href="/destinations/africa-and-middle-east/morocco" data-preview data-pv-eyebrow="Africa &amp; Middle East" data-pv-name="Morocco" data-pv-desc="Gateway to Africa" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Morocco</span></a><a class="nav-item" href="/destinations/africa-and-middle-east/jordan" data-preview data-pv-eyebrow="Africa &amp; Middle East" data-pv-name="Jordan" data-pv-desc="Cradle of Petra" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Jordan</span></a></div><a class="nav-col__all" href="/destinations/africa-and-middle-east">View all &rarr;</a></div><div class="nav-col"><a class="nav-col__h" href="/destinations/oceania">Oceania</a><div class="nav-col__list"><a class="nav-item" href="/destinations/oceania/new-zealand" data-preview data-pv-eyebrow="Oceania" data-pv-name="New Zealand" data-pv-desc="Land of the Long White Cloud" data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>New Zealand</span></a></div><a class="nav-col__all" href="/destinations/oceania">View all &rarr;</a></div></div>
+    <div class="nav-mega__promo"><a class="nav-promo" data-promo href="#"><img data-promo-img src="https://cdn.trutravels.com/thailand/full-moon-party.jpg" alt="Rio Carnival 2027" /><span class="nav-promo__grad"></span><span class="nav-promo__body"><span class="nav-promo__eyebrow" data-promo-eyebrow>New Trip Alert</span><span class="nav-promo__title" data-promo-title>Rio Carnival 2027</span><span class="nav-promo__desc" data-promo-desc>Limited edition launch — sign up for early access.</span></span></a></div>
+  </div>
+</div>
+        <div class="site-nav__mega" data-mega="styles" hidden>
+  <img class="nav-bg" src="assets/bg/sun.svg" alt="" aria-hidden="true" style="top:-32px;right:20%;width:128px;transform:rotate(10deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/komodo-dragon.svg" alt="" aria-hidden="true" style="bottom:-40px;left:18%;width:160px;transform:rotate(-6deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/peru-bird.svg" alt="" aria-hidden="true" style="top:-24px;left:-16px;width:112px;transform:rotate(-14deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/lantern.svg" alt="" aria-hidden="true" style="top:33%;left:44%;width:96px;transform:rotate(8deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/mask.svg" alt="" aria-hidden="true" style="bottom:-24px;right:38%;width:128px;transform:rotate(10deg);opacity:.05">
+  <div class="nav-mega__grid">
+    <div class="nav-mega__list nav-mega__list--2col">
+      <div class="nav-col"><p class="nav-col__h">Travel Styles</p><div class="nav-col__list"><a class="nav-item" href="/travel-styles/backpacker" data-preview data-pv-eyebrow="Travel Style" data-pv-name="Backpacker" data-pv-desc="Maximum adventure, minimum spend." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Backpacker</span></a><a class="nav-item" href="/travel-styles/classic" data-preview data-pv-eyebrow="Travel Style" data-pv-name="Classic" data-pv-desc="The perfect balance of comfort and adventure." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Classic</span></a><a class="nav-item" href="/travel-styles/flashpacker" data-preview data-pv-eyebrow="Travel Style" data-pv-name="Flashpacker" data-pv-desc="Adventure with an upgrade." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Flashpacker</span></a><a class="nav-item" href="/travel-styles/multi-country" data-preview data-pv-eyebrow="Travel Style" data-pv-name="Multi Country" data-pv-desc="Cross borders, collect stamps." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Multi Country</span></a><a class="nav-item" href="/travel-styles/limited-edition" data-preview data-pv-eyebrow="Travel Style" data-pv-name="Limited Edition" data-pv-desc="Once it&#x27;s gone, it&#x27;s gone." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Limited Edition</span></a></div></div>
+      <div class="nav-col"><p class="nav-col__h">Life Moments</p><div class="nav-col__list"><a class="nav-item" href="/life-moments/solo-soul-searcher" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Solo Soul Searcher" data-pv-desc="Coming alone? You won&#x27;t leave that way." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Solo Soul Searcher</span></a><a class="nav-item" href="/life-moments/just-left-uni" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Just Left Uni" data-pv-desc="Three years done. Hat off. Tickets booked." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Just Left Uni</span></a><a class="nav-item" href="/life-moments/work-break-recharge" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Work Break Recharge" data-pv-desc="Two weeks. No emails. Pure reset." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Work Break Recharge</span></a><a class="nav-item" href="/life-moments/gap-year" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Gap Year" data-pv-desc="A whole year on the road. The University of Life." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Gap Year</span></a><a class="nav-item" href="/life-moments/turning-30" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Turning 30" data-pv-desc="Stamps collected. Now collect the stories." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Turning 30</span></a><a class="nav-item" href="/life-moments/looking-to-challenge-myself" data-preview data-pv-eyebrow="Life Moment" data-pv-name="Looking To Challenge Myself" data-pv-desc="Treks, summits, jungle climbs — be tested." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><span>Looking To Challenge Myself</span></a></div></div>
+    </div>
+    <div class="nav-mega__promo"><a class="nav-promo" data-promo href="#"><img data-promo-img src="https://cdn.trutravels.com/thailand/girls-koh-nang-yuan.jpg" alt="Limited Edition" /><span class="nav-promo__grad"></span><span class="nav-promo__body"><span class="nav-promo__eyebrow" data-promo-eyebrow>Featured Style</span><span class="nav-promo__title" data-promo-title>Limited Edition</span><span class="nav-promo__desc" data-promo-desc>Songkran, Day of the Dead, Rio Carnival — gone in a flash.</span></span></a></div>
+  </div>
+</div>
+        <div class="site-nav__mega" data-mega="about" hidden>
+  <img class="nav-bg" src="assets/bg/tru-logo.svg" alt="" aria-hidden="true" style="top:-24px;left:28%;width:96px;transform:rotate(-12deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/eyes.svg" alt="" aria-hidden="true" style="bottom:-24px;right:26%;width:112px;transform:rotate(10deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/mask.svg" alt="" aria-hidden="true" style="top:-32px;left:-24px;width:128px;transform:rotate(10deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/community.svg" alt="" aria-hidden="true" style="top:50%;left:44%;width:112px;transform:translateY(-50%) rotate(-6deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/brazil.svg" alt="" aria-hidden="true" style="bottom:-32px;left:12%;width:112px;transform:rotate(-8deg);opacity:.05">
+  <div class="nav-mega__grid">
+    <div class="nav-mega__list nav-mega__cards"><a class="nav-card" href="/about/our-story" data-preview data-pv-eyebrow="About TruTravels" data-pv-name="Our Story" data-pv-desc="How TruTravels started — straight from the founders." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Our Story</p><p class="nav-card__d">How TruTravels started — straight from the founders.</p></a><a class="nav-card" href="/about/our-values" data-preview data-pv-eyebrow="About TruTravels" data-pv-name="Our Values" data-pv-desc="What we stand for and how we travel." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Our Values</p><p class="nav-card__d">What we stand for and how we travel.</p></a><a class="nav-card" href="/about/our-impact" data-preview data-pv-eyebrow="About TruTravels" data-pv-name="Our Impact" data-pv-desc="Local guides, Planeterra projects, real change." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Our Impact</p><p class="nav-card__d">Local guides, Planeterra projects, real change.</p></a><a class="nav-card" href="/about" data-preview data-pv-eyebrow="About TruTravels" data-pv-name="Our Community" data-pv-desc="The travellers, leaders, and creators in our world." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Our Community</p><p class="nav-card__d">The travellers, leaders, and creators in our world.</p></a><a class="nav-card" href="/about/our-brand" data-preview data-pv-eyebrow="About TruTravels" data-pv-name="Our Brand" data-pv-desc="Logo, voice, and the look of TruTravels." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Our Brand</p><p class="nav-card__d">Logo, voice, and the look of TruTravels.</p></a></div>
+    <div class="nav-mega__promo"><a class="nav-promo" data-promo href="#"><img data-promo-img src="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg" alt="Our Impact" /><span class="nav-promo__grad"></span><span class="nav-promo__body"><span class="nav-promo__eyebrow" data-promo-eyebrow>Make Travel Matter</span><span class="nav-promo__title" data-promo-title>Our Impact</span><span class="nav-promo__desc" data-promo-desc>Planeterra projects, local guides, and community-first travel.</span></span></a></div>
+  </div>
+</div>
+        <div class="site-nav__mega" data-mega="essentials" hidden>
+  <img class="nav-bg" src="assets/bg/ramen.svg" alt="" aria-hidden="true" style="top:-32px;right:22%;width:112px;transform:rotate(12deg);opacity:.06">
+  <img class="nav-bg" src="assets/bg/community.svg" alt="" aria-hidden="true" style="bottom:-32px;left:22%;width:128px;transform:rotate(-8deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/eyes.svg" alt="" aria-hidden="true" style="top:-24px;left:-16px;width:112px;transform:rotate(-10deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/lantern.svg" alt="" aria-hidden="true" style="top:50%;left:46%;width:96px;transform:translateY(-50%) rotate(6deg);opacity:.05">
+  <img class="nav-bg" src="assets/bg/sun.svg" alt="" aria-hidden="true" style="bottom:-24px;right:42%;width:112px;transform:rotate(12deg);opacity:.05">
+  <div class="nav-mega__grid">
+    <div class="nav-mega__list nav-mega__cards"><a class="nav-card" href="/travel-insurance" data-preview data-pv-eyebrow="Essentials" data-pv-name="Travel Insurance" data-pv-desc="Stay covered on the road." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Travel Insurance</p><p class="nav-card__d">Stay covered on the road.</p></a><a class="nav-card" href="/visas-and-passports" data-preview data-pv-eyebrow="Essentials" data-pv-name="Visa &amp; Passports" data-pv-desc="Entry requirements by country." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Visa &amp; Passports</p><p class="nav-card__d">Entry requirements by country.</p></a><a class="nav-card" href="/terms-conditions" data-preview data-pv-eyebrow="Essentials" data-pv-name="Booking Conditions" data-pv-desc="Terms and conditions." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Booking Conditions</p><p class="nav-card__d">Terms and conditions.</p></a><a class="nav-card" href="/support" data-preview data-pv-eyebrow="Essentials" data-pv-name="Help &amp; Support" data-pv-desc="Answers fast, with Ask Tru.D." data-pv-img="https://cdn.trutravels.com/thailand/bangkok-temple.jpg"><p class="nav-card__t">Help &amp; Support</p><p class="nav-card__d">Answers fast, with Ask Tru.D.</p></a></div>
+    <div class="nav-mega__promo"><a class="nav-promo" data-promo href="#"><img data-promo-img src="https://cdn.trutravels.com/thailand/longtail-boat.jpg" alt="Talk To A Human" /><span class="nav-promo__grad"></span><span class="nav-promo__body"><span class="nav-promo__eyebrow" data-promo-eyebrow>Need A Hand?</span><span class="nav-promo__title" data-promo-title>Talk To A Human</span><span class="nav-promo__desc" data-promo-desc>Real people, real advice — 9am to 9pm GMT.</span></span></a></div>
+  </div>
+</div>
+      </div>
+    </div>
+    <div class="nav-sheet" data-nav-mobile hidden>
+  <div class="nav-sheet__backdrop" data-nav-close></div>
+  <div class="nav-sheet__panel">
+    <img class="nav-bg" src="assets/bg/sun.svg" alt="" aria-hidden="true" style="top:70px;right:-24px;width:120px;transform:rotate(12deg);opacity:.05">
+    <img class="nav-bg" src="assets/bg/peru-bird.svg" alt="" aria-hidden="true" style="top:42%;left:-28px;width:112px;transform:rotate(-12deg);opacity:.05">
+    <img class="nav-bg" src="assets/bg/bali-flower.svg" alt="" aria-hidden="true" style="top:64%;right:-20px;width:128px;transform:rotate(8deg);opacity:.05">
+    <img class="nav-bg" src="assets/bg/good-vibes.svg" alt="" aria-hidden="true" style="bottom:90px;left:-24px;width:120px;transform:rotate(-6deg);opacity:.05">
+    <div class="nav-sheet__head"><span class="nav-sheet__title">Find your Extraordinary&hellip;</span><button class="nav-sheet__close" data-nav-close aria-label="Close menu"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button></div>
+    <div class="nav-sheet__body">
+  <button class="nav-m__search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span>Search</span></button>
+  <a class="nav-m__top" href="explore.html">Explore</a>
+  <a class="nav-m__top" href="#">Deals</a>
+  <div class="nav-m__sec"><button class="nav-m__sec-btn" data-msec>Destinations<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__sec-body" hidden><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Asia<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/asia/thailand">Thailand</a><a class="nav-m__country" href="/destinations/asia/indonesia">Indonesia</a><a class="nav-m__country" href="/destinations/asia/philippines">Philippines</a><a class="nav-m__country" href="/destinations/asia/vietnam">Vietnam</a><a class="nav-m__country" href="/destinations/asia/cambodia">Cambodia</a><a class="nav-m__country" href="/destinations/asia/sri-lanka">Sri Lanka</a><a class="nav-m__country" href="/destinations/asia/india">India</a><a class="nav-m__country" href="/destinations/asia/japan">Japan</a><a class="nav-m__country" href="/destinations/asia/china">China</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Central &amp; South America<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/central-and-south-america/mexico">Mexico</a><a class="nav-m__country" href="/destinations/central-and-south-america/costa-rica">Costa Rica</a><a class="nav-m__country" href="/destinations/central-and-south-america/colombia">Colombia</a><a class="nav-m__country" href="/destinations/central-and-south-america/peru">Peru</a><a class="nav-m__country" href="/destinations/central-and-south-america/brazil">Brazil</a><a class="nav-m__country" href="/destinations/central-and-south-america/belize">Belize</a><a class="nav-m__country" href="/destinations/central-and-south-america/guatemala">Guatemala</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Europe<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/europe/greece">Greece</a><a class="nav-m__country" href="/destinations/europe/italy">Italy</a><a class="nav-m__country" href="/destinations/europe/albania">Albania</a><a class="nav-m__country" href="/explore">Europe By Rail</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Africa &amp; Middle East<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/africa-and-middle-east/morocco">Morocco</a><a class="nav-m__country" href="/destinations/africa-and-middle-east/jordan">Jordan</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Oceania<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/oceania/new-zealand">New Zealand</a></div></div></div></div>
+  <div class="nav-m__sec"><button class="nav-m__sec-btn" data-msec>Travel Styles<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__sec-body" hidden><p class="nav-m__group nav-m__group--pink">Travel Styles</p><a class="nav-m__link" href="/travel-styles/backpacker">Backpacker</a><a class="nav-m__link" href="/travel-styles/classic">Classic</a><a class="nav-m__link" href="/travel-styles/flashpacker">Flashpacker</a><a class="nav-m__link" href="/travel-styles/multi-country">Multi Country</a><a class="nav-m__link" href="/travel-styles/limited-edition">Limited Edition</a><p class="nav-m__group nav-m__group--blue">Life Moments</p><a class="nav-m__link" href="/life-moments/solo-soul-searcher">Solo Soul Searcher</a><a class="nav-m__link" href="/life-moments/just-left-uni">Just Left Uni</a><a class="nav-m__link" href="/life-moments/work-break-recharge">Work Break Recharge</a><a class="nav-m__link" href="/life-moments/gap-year">Gap Year</a><a class="nav-m__link" href="/life-moments/turning-30">Turning 30</a><a class="nav-m__link" href="/life-moments/looking-to-challenge-myself">Looking To Challenge Myself</a></div></div>
+  <div class="nav-m__sec"><button class="nav-m__sec-btn" data-msec>About Us<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__sec-body" hidden><a class="nav-m__link" href="/about/our-story">Our Story</a><a class="nav-m__link" href="/about/our-values">Our Values</a><a class="nav-m__link" href="/about/our-impact">Our Impact</a><a class="nav-m__link" href="/about">Our Community</a><a class="nav-m__link" href="/about/our-brand">Our Brand</a></div></div>
+  <div class="nav-m__sec"><button class="nav-m__sec-btn" data-msec>Essentials<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__sec-body" hidden><a class="nav-m__link" href="/travel-insurance">Travel Insurance</a><a class="nav-m__link" href="/visas-and-passports">Visa &amp; Passports</a><a class="nav-m__link" href="/terms-conditions">Booking Conditions</a><a class="nav-m__link" href="/support">Help &amp; Support</a></div></div>
+  <a class="nav-m__top" href="#stories">Stories</a>
+    </div>
+    <div class="nav-sheet__foot"><a class="nav-m__join" href="#">Join / Log in</a></div>
+  </div>
+</div>
+  </header>
+  <main>
+    <section class="exp-hero at-hero" id="all-trips-hero">
+      <img class="exp-hero__img" src="assets/explore-hero.jpg" alt="TruTravels — browse all trips" />
+      <div class="exp-hero__overlay"></div>
+      <div class="exp-hero__inner at-wrap">
+        <div class="exp-hero__content">
+          <nav class="at-crumb"><a href="explore.html">Explore</a><span class="at-crumb__sep">/</span><span class="at-crumb__here">All Trips</span></nav>
+          <h1 class="exp-hero__title">All<br /><span>Trips</span></h1>
+          <div class="exp-hero__rule"></div>
+          <p class="exp-hero__sub">Every adventure in one place. Filter by destination, travel style, duration or budget and find the one that fits.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="at-bar" id="all-trips-bar"><div class="at-bar__inner"><div class="at-bar__sort"><div class="at-select "><select data-sort><option value="recommended">Recommended</option><option value="price-low">Price: Low to High</option><option value="price-high">Price: High to Low</option><option value="duration-short">Duration: Shortest</option><option value="duration-long">Duration: Longest</option><option value="highest-rated">Highest Rated</option></select><svg class="at-select__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div></div><button type="button" class="at-filterbtn" data-open-filters><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h18M6 12h12M10 20h4"/></svg> Filters <span class="at-badge" data-filterbtn-badge hidden>0</span></button></div></div>
+    <div class="at-bar at-bar--sticky" data-sticky-bar><div class="at-bar__inner"><div class="at-bar__sort"><div class="at-select "><select data-sort><option value="recommended">Recommended</option><option value="price-low">Price: Low to High</option><option value="price-high">Price: High to Low</option><option value="duration-short">Duration: Shortest</option><option value="duration-long">Duration: Longest</option><option value="highest-rated">Highest Rated</option></select><svg class="at-select__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div></div><button type="button" class="at-filterbtn" data-open-filters><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h18M6 12h12M10 20h4"/></svg> Filters <span class="at-badge" data-filterbtn-badge hidden>0</span></button></div></div>
+
+    <section class="at-section">
+      <div class="container at-wrap">
+        <div class="at-layout">
+          <aside class="at-sidebar" data-sidebar>
+            <div class="at-sidebar__inner">
+              <button type="button" class="at-drawer-close" data-close-filters aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+              <div class="at-sidebar__head"><p class="at-sidebar__title">Filters</p><button type="button" class="at-clear-top" data-clear hidden>Clear</button></div>
+              <p class="at-found"><strong data-count>0</strong> trips found</p>
+        <div class="at-filters">
+          <div>
+            <p class="at-flabel">Sort By</p>
+            <div class="at-select "><select data-sort><option value="recommended">Recommended</option><option value="price-low">Price: Low to High</option><option value="price-high">Price: High to Low</option><option value="duration-short">Duration: Shortest</option><option value="duration-long">Duration: Longest</option><option value="highest-rated">Highest Rated</option></select><svg class="at-select__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></div>
+          </div>
+          <div class="at-fsec" data-fsec="destination">
+            <button type="button" class="at-fsec__head" data-fsec-toggle>
+              <span class="at-fsec__title">Destination<span class="at-fbadge" data-fbadge="countries">0</span></span>
+              <svg class="at-fsec__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="at-fsec__body">
+              <div style="display:flex;flex-direction:column;gap:0.25rem">
+            <div class="at-region" data-region="Asia">
+              <button type="button" class="at-region__head" data-region-toggle>
+                <span class="at-region__name">Asia<span class="at-regbadge" data-regbadge="Asia">0</span></span>
+                <svg class="at-region__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div class="at-region__list">
+                <label class="at-country" data-country-row="Cambodia"><input type="checkbox" data-country="Cambodia" /><span class="at-country__name">Cambodia</span><span class="at-country__count">2</span></label>
+                <label class="at-country" data-country-row="Indonesia"><input type="checkbox" data-country="Indonesia" /><span class="at-country__name">Indonesia</span><span class="at-country__count">7</span></label>
+                <label class="at-country" data-country-row="Philippines"><input type="checkbox" data-country="Philippines" /><span class="at-country__name">Philippines</span><span class="at-country__count">6</span></label>
+                <label class="at-country" data-country-row="Thailand"><input type="checkbox" data-country="Thailand" /><span class="at-country__name">Thailand</span><span class="at-country__count">11</span></label>
+                <label class="at-country" data-country-row="Vietnam"><input type="checkbox" data-country="Vietnam" /><span class="at-country__name">Vietnam</span><span class="at-country__count">2</span></label>
+              </div>
+            </div>
+            <div class="at-region" data-region="South Asia">
+              <button type="button" class="at-region__head" data-region-toggle>
+                <span class="at-region__name">South Asia<span class="at-regbadge" data-regbadge="South Asia">0</span></span>
+                <svg class="at-region__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div class="at-region__list">
+                <label class="at-country" data-country-row="India"><input type="checkbox" data-country="India" /><span class="at-country__name">India</span><span class="at-country__count">1</span></label>
+                <label class="at-country" data-country-row="Sri Lanka"><input type="checkbox" data-country="Sri Lanka" /><span class="at-country__name">Sri Lanka</span><span class="at-country__count">1</span></label>
+              </div>
+            </div>
+            <div class="at-region" data-region="Central & South America">
+              <button type="button" class="at-region__head" data-region-toggle>
+                <span class="at-region__name">Central & South America<span class="at-regbadge" data-regbadge="Central & South America">0</span></span>
+                <svg class="at-region__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div class="at-region__list">
+                <label class="at-country" data-country-row="Costa Rica"><input type="checkbox" data-country="Costa Rica" /><span class="at-country__name">Costa Rica</span><span class="at-country__count">1</span></label>
+                <label class="at-country" data-country-row="Mexico"><input type="checkbox" data-country="Mexico" /><span class="at-country__name">Mexico</span><span class="at-country__count">4</span></label>
+              </div>
+            </div>
+            <div class="at-region" data-region="Europe">
+              <button type="button" class="at-region__head" data-region-toggle>
+                <span class="at-region__name">Europe<span class="at-regbadge" data-regbadge="Europe">0</span></span>
+                <svg class="at-region__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </button>
+              <div class="at-region__list">
+                <label class="at-country" data-country-row="Greece"><input type="checkbox" data-country="Greece" /><span class="at-country__name">Greece</span><span class="at-country__count">1</span></label>
+              </div>
+            </div>
+              </div>
+            </div>
+          </div>
+          <div class="at-fsec" data-fsec="style">
+            <button type="button" class="at-fsec__head" data-fsec-toggle>
+              <span class="at-fsec__title">Travel Style<span class="at-fbadge" data-fbadge="styles">0</span></span>
+              <svg class="at-fsec__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="at-fsec__body">
+              <div class="at-styles">
+              <button type="button" class="at-style" data-style="classic" title="Classic" aria-pressed="false"><img src="assets/classic-logo.png" alt="Classic" /></button>
+              <button type="button" class="at-style" data-style="backpacker" title="Backpacker" aria-pressed="false"><img src="assets/backpacker-logo.png" alt="Backpacker" /></button>
+              <button type="button" class="at-style" data-style="flashpacker" title="Flashpacker" aria-pressed="false"><img src="assets/flashpacker-logo.png" alt="Flashpacker" /></button>
+              <button type="button" class="at-style" data-style="multi_country" title="Multi Country" aria-pressed="false"><img src="assets/multi-country-logo.png" alt="Multi Country" /></button>
+              <button type="button" class="at-style" data-style="limited_edition" title="Limited Edition" aria-pressed="false"><img src="assets/limited-edition-logo.png" alt="Limited Edition" /></button>
+              </div>
+            </div>
+          </div>
+          <div class="at-fsec" data-fsec="moment">
+            <button type="button" class="at-fsec__head" data-fsec-toggle>
+              <span class="at-fsec__title">Life Moment<span class="at-fbadge" data-fbadge="moments">0</span></span>
+              <svg class="at-fsec__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="at-fsec__body">
+              <div style="display:flex;flex-direction:column;gap:0.375rem">
+              <label class="at-opt" data-moment-row="solo-soul-searcher"><input type="checkbox" data-moment="solo-soul-searcher" /><span>Solo Soul Searcher</span></label>
+              <label class="at-opt" data-moment-row="just-left-uni"><input type="checkbox" data-moment="just-left-uni" /><span>Just Left Uni</span></label>
+              <label class="at-opt" data-moment-row="work-break-recharge"><input type="checkbox" data-moment="work-break-recharge" /><span>Work Break Recharge</span></label>
+              <label class="at-opt" data-moment-row="gap-year"><input type="checkbox" data-moment="gap-year" /><span>Gap Year</span></label>
+              <label class="at-opt" data-moment-row="turning-30"><input type="checkbox" data-moment="turning-30" /><span>Turning 30</span></label>
+              <label class="at-opt" data-moment-row="looking-to-challenge-myself"><input type="checkbox" data-moment="looking-to-challenge-myself" /><span>Looking To Challenge Myself</span></label>
+              </div>
+              <p class="at-soon">Filtering by life moment is coming soon.</p>
+            </div>
+          </div>
+          <div class="at-fsec" data-fsec="duration">
+            <button type="button" class="at-fsec__head" data-fsec-toggle>
+              <span class="at-fsec__title">Duration<span class="at-fbadge" data-fbadge="duration">0</span></span>
+              <svg class="at-fsec__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="at-fsec__body">
+              <div style="display:flex;flex-direction:column;gap:0.375rem">
+              <label class="at-opt is-checked" data-dur-row="any"><input type="radio" name="at-duration" value="any" checked /><span>Any length</span></label>
+              <label class="at-opt" data-dur-row="short"><input type="radio" name="at-duration" value="short" /><span>Under 10 days</span></label>
+              <label class="at-opt" data-dur-row="medium"><input type="radio" name="at-duration" value="medium" /><span>10–14 days</span></label>
+              <label class="at-opt" data-dur-row="long"><input type="radio" name="at-duration" value="long" /><span>15+ days</span></label>
+              </div>
+            </div>
+          </div>
+          <div class="at-price">
+            <div class="at-price__head"><p class="at-flabel" style="margin:0">Price Range</p><p class="at-price__val" data-price-val>&pound;297 – &pound;4185</p></div>
+            <div class="at-price__row"><span>Min</span><input type="range" min="297" max="4185" value="297" data-price="min" /></div>
+            <div class="at-price__row"><span>Max</span><input type="range" min="297" max="4185" value="4185" data-price="max" /></div>
+          </div>
+          <div class="at-clear-wrap" data-clear-wrap>
+            <div class="at-rule"></div>
+            <button type="button" class="at-clear" data-clear>Clear Filters (<span data-clear-count>0</span>)</button>
+          </div>
+        </div>
+            </div>
+          </aside>
+
+          <div class="at-col">
+            <div class="at-colhead"><h2>All Trips<span data-count-inline>0 trips found</span></h2></div>
+            <div class="at-grid" data-grid></div>
+            <div class="at-showmore" data-showmore hidden>
+              <a class="pill-btn" href="javascript:void(0)" data-showmore-btn>Show More Trips <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></a>
+              <p class="at-showmore__note" data-showmore-note></p>
+            </div>
+            <div class="at-empty" data-empty hidden>
+              <p class="at-empty__h">No trips found</p>
+              <p class="at-empty__p">Try adjusting your filters.</p>
+              <button type="button" class="at-empty__btn" data-clear>Clear Filters</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="at-drawer-backdrop" data-drawer-backdrop></div>
+  </main>
+  <!-- ================= FOOTER ================= -->
+  <!-- Take me to the top -->
+  <div class="footer-toplink">
+    <div class="container">
+      <a class="btn-top" href="#top">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+        Take Me To The Top
+      </a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <span class="footer__glow footer__glow--tr"></span>
+    <span class="footer__glow footer__glow--bl"></span>
+    <img class="footer__wm footer__wm--logo" src="assets/bg-assets/tru-logo.svg" alt="" aria-hidden="true" />
+    <img class="footer__wm footer__wm--mask" src="assets/bg-assets/mask.svg" alt="" aria-hidden="true" />
+    <img class="footer__wm footer__wm--sun" src="assets/bg-assets/sun.svg" alt="" aria-hidden="true" />
+    <div class="container footer__inner">
+      <div class="footer__top">
+        <div class="footer__main">
+          <div class="footer__brand">
+            <img class="footer__logo" src="assets/logo-white.png" alt="TruTravels" />
+            <p class="footer__headline">Leave Ordinary <span>Behind</span></p>
+            <p class="footer__script">Find Your Extraordinary&hellip;</p>
+            <p class="footer__blurb">Life-changing experiences. Game-changing travel. We&rsquo;re here for the in-between years &mdash; the bit where you find out who you are by going somewhere new.</p>
+            <div class="footer__socials"><a class="footer__social" href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a class="footer__social" href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a><a class="footer__social" href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a><a class="footer__social" href="https://pinterest.com" target="_blank" rel="noopener noreferrer" aria-label="Pinterest"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="10"/><path d="M9.5 21l2-7.5M9 9.5a3 3 0 116 0c0 2.5-1.5 5-3.5 5-1 0-1.5-.7-1.3-1.8"/></svg></a><a class="footer__social" href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor" stroke="none"/></svg></a></div>
+          </div>
+          <div class="footer__cols">
+            <div class="footer__cols-grid"><div class="footer__col"><h4 class="footer__col-h">Explore</h4><ul class="footer__col-list"><li><a href="#">All Trips</a></li><li><a href="#">Travel Styles</a></li><li><a href="#">Life Moments</a></li><li><a href="#">How It Works</a></li><li><a href="#">Deals</a></li><li><a href="#stories">Stories</a></li><li><a href="#">VIP Club</a></li><li><a href="#">My Account</a></li></ul></div><div class="footer__col"><h4 class="footer__col-h">About</h4><ul class="footer__col-list"><li><a href="#">Our Story</a></li><li><a href="#">Our Values</a></li><li><a href="#">Our Impact</a></li><li><a href="#">Our Community</a></li><li><a href="#">Our Brand</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Careers</a></li></ul></div><div class="footer__col"><h4 class="footer__col-h">Essentials</h4><ul class="footer__col-list"><li><a href="#">Help &amp; Support</a></li><li><a href="#">Travel Insurance</a></li><li><a href="#">Visa &amp; Passport</a></li><li><a href="#">Package Travel Regulations</a></li><li><a href="#">Book With Confidence</a></li></ul></div><div class="footer__col"><h4 class="footer__col-h">Partners</h4><ul class="footer__col-list"><li><a href="#">Partner With Us</a></li><li><a href="#">Affiliate Program</a></li><li><a href="#">Host A Trip</a></li><li><a href="#">Agent Registration</a></li><li><a href="#">Agents Login</a></li></ul></div></div>
+            <div class="footer__accordions"><div class="footer__acc"><button class="footer__acc-btn" data-facc>Explore<svg class="footer__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="footer__acc-body" hidden><ul class="footer__col-list"><li><a href="#">All Trips</a></li><li><a href="#">Travel Styles</a></li><li><a href="#">Life Moments</a></li><li><a href="#">How It Works</a></li><li><a href="#">Deals</a></li><li><a href="#stories">Stories</a></li><li><a href="#">VIP Club</a></li><li><a href="#">My Account</a></li></ul></div></div><div class="footer__acc"><button class="footer__acc-btn" data-facc>About<svg class="footer__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="footer__acc-body" hidden><ul class="footer__col-list"><li><a href="#">Our Story</a></li><li><a href="#">Our Values</a></li><li><a href="#">Our Impact</a></li><li><a href="#">Our Community</a></li><li><a href="#">Our Brand</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Careers</a></li></ul></div></div><div class="footer__acc"><button class="footer__acc-btn" data-facc>Essentials<svg class="footer__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="footer__acc-body" hidden><ul class="footer__col-list"><li><a href="#">Help &amp; Support</a></li><li><a href="#">Travel Insurance</a></li><li><a href="#">Visa &amp; Passport</a></li><li><a href="#">Package Travel Regulations</a></li><li><a href="#">Book With Confidence</a></li></ul></div></div><div class="footer__acc"><button class="footer__acc-btn" data-facc>Partners<svg class="footer__chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="footer__acc-body" hidden><ul class="footer__col-list"><li><a href="#">Partner With Us</a></li><li><a href="#">Affiliate Program</a></li><li><a href="#">Host A Trip</a></li><li><a href="#">Agent Registration</a></li><li><a href="#">Agents Login</a></li></ul></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer__mailing">
+        <div class="footer__mailing-head">
+          <p class="footer__mailing-t">Join the mailing list</p>
+          <p class="footer__mailing-s">Trips, deals and stories &mdash; no account needed. Unsubscribe anytime.</p>
+        </div>
+        <div class="footer__mailing-form">
+          <form class="footer__form" data-mailform>
+            <input type="email" required placeholder="your@email.com" aria-label="Email address" />
+            <button type="submit">Sign Up</button>
+          </form>
+          <p class="footer__form-done" data-maildone hidden><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> You&rsquo;re on the list!</p>
+          <p class="footer__form-note">Want the full experience? <a href="#">Create an account</a> for saved trips, member deals and more.</p>
+        </div>
+      </div>
+      <div class="footer__trust">
+        <div class="footer__badges">
+          <img class="footer__atol" src="assets/pay/atol-logo.png" alt="ATOL Protected" />
+          <img class="footer__abta" src="assets/pay/abta-logo.png" alt="ABTA — Travel With Confidence" />
+          <div class="footer__rating"><span class="footer__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><p>4.9 &middot; Trustpilot</p></div>
+          <div class="footer__rating"><span class="footer__stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><p>4.8 &middot; Google</p></div>
+        </div>
+        <div class="footer__pay">
+          <img src="assets/pay/visa.png" alt="Visa" />
+          <img src="assets/pay/mastercard.png" alt="Mastercard" />
+          <img src="assets/pay/amex.png" alt="American Express" />
+          <img src="assets/pay/apple-pay.png" alt="Apple Pay" />
+          <img src="assets/pay/google-pay.png" alt="Google Pay" />
+        </div>
+      </div>
+      <div class="footer__legal">
+        <div class="footer__legal-info">
+          <p>&copy; 2026 TruTravels Limited. All rights reserved.</p>
+          <p>Registered Office: TruTravels Limited, TruHQ, 6 Fife Road, Kingston Upon Thames, Surrey, KT1 1SZ</p>
+          <p>Company Reg: 08094426 &middot; +44 203 542 2463</p>
+        </div>
+        <div class="footer__legal-links">
+          <a href="#">Terms &amp; Conditions</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Cookie Preferences</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+<script>/* carousel nav arrows (reviews + you might like) */
+  (function () {
+    document.querySelectorAll('[data-arrows]').forEach(function (wrap) {
+      var track = wrap.querySelector('.carousel, .side-stays, .vdiaries');
+      var prev = wrap.querySelector('[data-rev="prev"]');
+      var next = wrap.querySelector('[data-rev="next"]');
+      if (!track || !prev || !next) return;
+      function step() {
+        var card = track.firstElementChild;
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 20;
+        return card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+      }
+      function sync() {
+        var max = track.scrollWidth - track.clientWidth;
+        prev.disabled = track.scrollLeft <= 1;
+        next.disabled = track.scrollLeft >= max - 1;
+      }
+      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+      track.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    });
+  })();
+  </script>
+<script>/* experience-types disclosure — opening one card opens all (shared state, like the prototype) */
+  (function () {
+    var boxes = document.querySelectorAll('.tripcard__exp-cb');
+    if (!boxes.length) return;
+    boxes.forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        boxes.forEach(function (other) {
+          if (other !== cb) other.checked = cb.checked;
+        });
+      });
+    });
+  })();
+  </script>
+<script>/* drag-to-scroll with momentum — click/one-finger drag on every horizontal carousel (like Swiper) */
+  (function () {
+    document.querySelectorAll('.side-stays, .carousel, .vdiaries').forEach(function (track) {
+      var down = false, startX = 0, startLeft = 0, moved = false, snap = '';
+      var lastX = 0, lastT = 0, vx = 0, raf = null;
+      track.style.cursor = 'grab';
+      track.querySelectorAll('img').forEach(function (im) { im.setAttribute('draggable', 'false'); });
+      track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+      function stopMomentum() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+      track.addEventListener('mousedown', function (e) {
+        if (e.button !== 0) return;
+        stopMomentum();
+        down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+        lastX = e.clientX; lastT = performance.now(); vx = 0;
+        snap = track.style.scrollSnapType; track.style.scrollSnapType = 'none';
+        track.style.cursor = 'grabbing';
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', function (e) {
+        if (!down) return;
+        var dx = e.clientX - startX;
+        if (Math.abs(dx) > 3) moved = true;
+        track.scrollLeft = startLeft - dx;
+        var now = performance.now(), dt = now - lastT;
+        if (dt > 0) { vx = (e.clientX - lastX) / dt; lastX = e.clientX; lastT = now; }
+      });
+      document.addEventListener('mouseup', function () {
+        if (!down) return; down = false; track.style.cursor = 'grab';
+        if (moved) {
+          var block = function (ev) { ev.preventDefault(); ev.stopPropagation(); };
+          track.addEventListener('click', block, true);
+          setTimeout(function () { track.removeEventListener('click', block, true); }, 0);
+        }
+        var v = -vx * 16;
+        function step() {
+          v *= 0.95;
+          track.scrollLeft += v;
+          if (Math.abs(v) > 0.4) { raf = requestAnimationFrame(step); }
+          else { raf = null; track.style.scrollSnapType = snap; }
+        }
+        if (moved && Math.abs(v) > 1.5) { raf = requestAnimationFrame(step); }
+        else { track.style.scrollSnapType = snap; }
+      });
+    });
+  })();
+  </script>
+<script>/* cart drawer */
+  window.TruCart = (function () {
+    var drawer = document.querySelector('[data-cart]');
+    if (!drawer) return { add: function () {}, open: function () {} };
+    var itemsEl = drawer.querySelector('[data-cart-items]');
+    var emptyEl = drawer.querySelector('[data-cart-empty]');
+    var footEl = drawer.querySelector('[data-cart-foot]');
+    var subEl = drawer.querySelector('[data-cart-sub]');
+    var badges = document.querySelectorAll('[data-cart-count]');
+    var cart = [], uid = 0;
+    var PIN = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>';
+    var CAL = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+    var CLK = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>';
+    var X = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>';
+    function totals() {
+      var t = { count: 0, total: 0, dep: 0, save: 0 };
+      cart.forEach(function (it) { t.count += it.travellers; t.total += it.price * it.travellers; t.dep += it.deposit * it.travellers; if (it.orig) t.save += (it.orig - it.price) * it.travellers; });
+      return t;
+    }
+    function render() {
+      var t = totals();
+      try { sessionStorage.setItem('truCart', JSON.stringify(cart)); } catch (e) {}
+      badges.forEach(function (b) { b.textContent = t.count; b.hidden = t.count === 0; });
+      subEl.textContent = cart.length === 0 ? 'Cart is empty' : (cart.length + ' trip' + (cart.length === 1 ? '' : 's') + ' · ' + t.count + ' traveller' + (t.count === 1 ? '' : 's'));
+      emptyEl.hidden = cart.length > 0;
+      footEl.hidden = cart.length === 0;
+      itemsEl.innerHTML = cart.map(function (it) {
+        var lineTotal = it.price * it.travellers, lineOrig = it.orig ? it.orig * it.travellers : 0, lineSave = it.orig ? (it.orig - it.price) * it.travellers : 0;
+        return '<div class="cart-item" data-id="' + it.id + '">'
+          + '<div class="cart-item__row"><div class="cart-item__img"><img src="' + it.image + '" alt=""/></div>'
+          + '<div class="cart-item__info"><p class="cart-item__title">' + it.tripTitle + '</p>'
+          + '<p class="cart-item__meta">' + PIN + it.startLocation + ' — ' + it.endLocation + '</p>'
+          + '<p class="cart-item__meta">' + CAL + it.date + '</p>'
+          + '<p class="cart-item__meta">' + CLK + it.duration + '</p></div>'
+          + '<button class="cart-item__remove" data-remove aria-label="Remove">' + X + '</button></div>'
+          + '<div class="cart-item__foot"><div class="cart-item__qty"><button data-minus aria-label="Fewer">−</button><span class="cart-item__qty-count">' + it.travellers + '</span><button data-plus aria-label="More">+</button></div>'
+          + '<div class="cart-item__price"><div class="cart-item__price-line">' + (lineOrig ? '<span class="cart-item__strike">£' + lineOrig + '</span>' : '') + '<p class="cart-item__now">£' + lineTotal + '</p></div>' + (lineSave > 0 ? '<p class="cart-item__save">Save £' + lineSave + '</p>' : '') + '</div></div></div>';
+      }).join('');
+      var sr = drawer.querySelector('[data-cart-saverow]');
+      if (t.save > 0) { sr.hidden = false; drawer.querySelector('[data-cart-savings]').textContent = '£' + t.save; } else { sr.hidden = true; }
+      drawer.querySelector('[data-cart-total]').textContent = '£' + t.total;
+      drawer.querySelector('[data-cart-deposit]').textContent = '£' + t.dep;
+    }
+    function add(item) { item.id = ++uid; cart.push(item); render(); }
+    function open() { drawer.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+    function close() { drawer.classList.remove('is-open'); document.body.style.overflow = ''; }
+    document.querySelectorAll('[data-cart-open]').forEach(function (b) { b.addEventListener('click', open); });
+    drawer.querySelectorAll('[data-cart-close]').forEach(function (b) { b.addEventListener('click', close); });
+    itemsEl.addEventListener('click', function (e) {
+      var card = e.target.closest('.cart-item'); if (!card) return;
+      var it = cart.filter(function (i) { return i.id == card.dataset.id; })[0]; if (!it) return;
+      if (e.target.closest('[data-remove]')) { cart = cart.filter(function (i) { return i.id != it.id; }); render(); }
+      else if (e.target.closest('[data-minus]')) { it.travellers = Math.max(1, it.travellers - 1); render(); }
+      else if (e.target.closest('[data-plus]')) { it.travellers = Math.min(10, it.travellers + 1); render(); }
+    });
+    var checkoutBtn = drawer.querySelector('.cart-drawer__checkout');
+    if (checkoutBtn) checkoutBtn.addEventListener('click', function () {
+      if (cart.length === 0) return;
+      try { sessionStorage.setItem('truCart', JSON.stringify(cart)); } catch (e) {}
+      window.location.href = 'checkout.html';
+    });
+    /* Restore any basket handed back from checkout, then optionally open it */
+    try {
+      var saved = JSON.parse(sessionStorage.getItem('truCart') || '[]');
+      if (Array.isArray(saved)) saved.forEach(function (it) { if (it.id > uid) uid = it.id; cart.push(it); });
+    } catch (e) {}
+    render();
+    if (/[?&]cart=1/.test(location.search) || location.hash === '#cart') open();
+    return { add: add, open: open, close: close };
+  })();
+  </script>
+<script>/* full navbar — mega menus, hover preview, mobile menu */
+  (function () {
+    var nav = document.querySelector('[data-nav]');
+    if (!nav) return;
+    var pill = nav.querySelector('[data-nav-pill]');
+    var megas = {};
+    nav.querySelectorAll('.site-nav__mega').forEach(function (m) {
+      megas[m.dataset.mega] = m;
+      var promo = m.querySelector('[data-promo]');
+      m._promoDefault = {
+        img: promo.querySelector('[data-promo-img]').getAttribute('src'),
+        eyebrow: promo.querySelector('[data-promo-eyebrow]').textContent,
+        title: promo.querySelector('[data-promo-title]').textContent,
+        desc: promo.querySelector('[data-promo-desc]').textContent
+      };
+    });
+    var current = null;
+    function setPromo(mega, d, preview) {
+      var promo = mega.querySelector('[data-promo]');
+      promo.classList.toggle('is-preview', !!preview);
+      promo.querySelector('[data-promo-img]').setAttribute('src', d.img);
+      promo.querySelector('[data-promo-eyebrow]').textContent = d.eyebrow;
+      promo.querySelector('[data-promo-title]').textContent = d.title;
+      promo.querySelector('[data-promo-desc]').textContent = d.desc;
+    }
+    function openMenu(menu) {
+      if (current === menu) return;
+      if (current) closeMenu();
+      current = menu;
+      megas[menu].classList.add('is-open');
+      pill.classList.add('is-open');
+      nav.querySelector('[data-menu="' + menu + '"]').classList.add('is-active');
+      setPromo(megas[menu], megas[menu]._promoDefault, false);
+    }
+    function closeMenu() {
+      if (!current) return;
+      megas[current].classList.remove('is-open');
+      nav.querySelector('[data-menu="' + current + '"]').classList.remove('is-active');
+      pill.classList.remove('is-open');
+      current = null;
+    }
+    nav.querySelectorAll('.site-nav__menu-btn').forEach(function (b) {
+      b.addEventListener('mouseenter', function () { openMenu(b.dataset.menu); });
+      b.addEventListener('click', function () { current === b.dataset.menu ? closeMenu() : openMenu(b.dataset.menu); });
+    });
+    nav.querySelectorAll('.site-nav__link:not(.site-nav__menu-btn), .site-nav__logo').forEach(function (l) {
+      l.addEventListener('mouseenter', closeMenu);
+    });
+    pill.addEventListener('mouseleave', closeMenu);
+    document.addEventListener('click', function (e) { if (!nav.contains(e.target)) closeMenu(); });
+    /* hover preview */
+    nav.querySelectorAll('[data-preview]').forEach(function (item) {
+      item.addEventListener('mouseenter', function () {
+        var mega = item.closest('.site-nav__mega');
+        setPromo(mega, { img: item.dataset.pvImg, eyebrow: item.dataset.pvEyebrow, title: item.dataset.pvName, desc: item.dataset.pvDesc }, true);
+      });
+    });
+    /* mobile menu — full-screen slide-in sheet */
+    var mobile = nav.querySelector('[data-nav-mobile]');
+    var burger = nav.querySelector('[data-nav-burger]');
+    function openSheet() { mobile.hidden = false; document.body.style.overflow = 'hidden'; }
+    function closeSheet() { mobile.hidden = true; document.body.style.overflow = ''; }
+    burger.addEventListener('click', function () { mobile.hidden ? openSheet() : closeSheet(); });
+    nav.querySelectorAll('[data-nav-close]').forEach(function (el) { el.addEventListener('click', closeSheet); });
+    mobile.querySelectorAll('a[href]').forEach(function (a) { a.addEventListener('click', closeSheet); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !mobile.hidden) closeSheet(); });
+    nav.querySelectorAll('[data-msec]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var body = btn.nextElementSibling; body.hidden = !body.hidden; btn.classList.toggle('is-open', !body.hidden);
+      });
+    });
+    nav.querySelectorAll('[data-msub]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var body = btn.nextElementSibling; body.hidden = !body.hidden; btn.classList.toggle('is-open', !body.hidden);
+      });
+    });
+  })();
+  </script>
+<script>/* footer — mobile accordions + mailing form */
+  (function () {
+    document.querySelectorAll('[data-facc]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var body = btn.nextElementSibling; body.hidden = !body.hidden; btn.classList.toggle('is-open', !body.hidden);
+      });
+    });
+    var form = document.querySelector('[data-mailform]');
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault(); form.hidden = true; document.querySelector('[data-maildone]').hidden = false;
+    });
+  })();
+  </script>
+  <script>/* all-trips — filter engine */
+  (function () {
+    var TRIPS = [{"id":"thailand-island-hopper","title":"Thailand Island Hopper","destination":"Thailand","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"14 Days","days":14,"price":736,"originalPrice":899,"perday":53,"save":18,"rating":4.9,"reviewCount":305,"start":"Bangkok","end":"Phuket","tagline":"Paradise found, one island at a time","places":4,"activities":11,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":2},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":3},{"name":"Tru-ly Unique","color":"#6BD495","icon":"tru-ly-unique","count":2},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":2}],"image":"https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80"},{"id":"thailand-experience","title":"Thailand Experience","destination":"Thailand","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"8 Days","days":8,"price":487,"originalPrice":695,"perday":61,"save":30,"rating":4.8,"reviewCount":189,"start":"Bangkok","end":"Koh Phangan","tagline":"Culture, adventure, beaches and parties","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":1}],"image":"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80"},{"id":"full-moon-party-pack","title":"Full Moon Party Pack","destination":"Thailand","region":"Asia","travelStyle":"backpacker","styleLabel":"Backpacker","styleLogo":"backpacker-logo","duration":"5 Days","days":5,"price":473,"originalPrice":525,"perday":95,"save":10,"rating":4.7,"reviewCount":312,"start":"Koh Phangan","end":"Koh Phangan","tagline":"The legendary beach party experience","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":1},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":1},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":2}],"image":"https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80"},{"id":"full-moon-experience","title":"Full Moon Experience","destination":"Thailand","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"10 Days","days":10,"price":1134,"originalPrice":1260,"perday":113,"save":10,"rating":4.8,"reviewCount":198,"start":"Bangkok","end":"Koh Phangan","tagline":"Culture meets the ultimate party","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":1},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":1}],"image":"https://images.unsplash.com/photo-1519451241324-20b4ea2c4220?w=800&q=80"},{"id":"northern-thailand-adventure","title":"Northern Thailand Adventure","destination":"Thailand","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"14 Days","days":14,"price":986,"originalPrice":1095,"perday":70,"save":10,"rating":4.9,"reviewCount":145,"start":"Bangkok","end":"Chiang Mai","tagline":"Elephants, hill tribes, and jungle ziplines","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1}],"image":"https://images.unsplash.com/photo-1598935898639-81586f7d2129?w=800&q=80"},{"id":"full-moon-island-hopper","title":"Full Moon Island Hopper","destination":"Thailand","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"16 Days","days":16,"price":1328,"originalPrice":1475,"perday":83,"save":10,"rating":4.8,"reviewCount":167,"start":"Bangkok","end":"Phuket","tagline":"Southern beaches plus the legendary party","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":1}],"image":"https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80"},{"id":"total-thailand","title":"Total Thailand","destination":"Thailand","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"27 Days","days":27,"price":1505,"originalPrice":2150,"perday":56,"save":30,"rating":4.9,"reviewCount":89,"start":"Bangkok","end":"Phuket","tagline":"The complete Thailand experience","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":1}],"image":"https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80"},{"id":"thailand-backpacker","title":"Thailand Backpacker","destination":"Thailand","region":"Asia","travelStyle":"backpacker","styleLabel":"Backpacker","styleLogo":"backpacker-logo","duration":"10 Days","days":10,"price":417,"originalPrice":695,"perday":42,"save":40,"rating":4.7,"reviewCount":256,"start":"Bangkok","end":"Phuket","tagline":"Maximum adventure, minimum spend","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":1}],"image":"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80"},{"id":"songkran-festival","title":"Songkran Festival","destination":"Thailand","region":"Asia","travelStyle":"limited_edition","styleLabel":"Limited Edition","styleLogo":"limited-edition-logo","duration":"7 Days","days":7,"price":595,"perday":85,"save":0,"rating":4.9,"reviewCount":45,"start":"Bangkok","end":"Chiang Mai","tagline":"The world's largest water fight","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1}],"image":"https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=800&q=80"},{"id":"bali-experience","title":"Bali Experience","destination":"Indonesia","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"10 Days","days":10,"price":487,"originalPrice":695,"perday":49,"save":30,"rating":4.8,"reviewCount":234,"start":"Canggu","end":"Gili Trawangan","tagline":"Waterfalls, surfing, temples, and beaches","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":1}],"image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80"},{"id":"bali-backpacker","title":"Bali Backpacker","destination":"Indonesia","region":"Asia","travelStyle":"backpacker","styleLabel":"Backpacker","styleLogo":"backpacker-logo","duration":"12 Days","days":12,"price":297,"originalPrice":495,"perday":25,"save":40,"rating":4.7,"reviewCount":178,"start":"Uluwatu","end":"Gili Trawangan","tagline":"More Bali for your buck","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1}],"image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80"},{"id":"komodo-island-hopper","title":"Komodo Island Hopper","destination":"Indonesia","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"9 Days","days":9,"price":767,"originalPrice":1095,"perday":85,"save":30,"rating":4.9,"reviewCount":98,"start":"Lombok","end":"Labuan Bajo","tagline":"Dragons, diving, and pristine beaches","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Tru-ly Unique","color":"#6BD495","icon":"tru-ly-unique","count":1},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":1}],"image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80"},{"id":"bali-and-beyond","title":"Bali & Beyond","destination":"Indonesia","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"18 Days","days":18,"price":1243,"originalPrice":1775,"perday":69,"save":30,"rating":4.8,"reviewCount":112,"start":"Canggu","end":"Labuan Bajo","tagline":"Bali Experience meets Komodo","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1},{"name":"Tru-ly Unique","color":"#6BD495","icon":"tru-ly-unique","count":1}],"image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80"},{"id":"bali-sumatra-adventure","title":"Bali & Sumatra Adventure","destination":"Indonesia","region":"Asia","travelStyle":"flashpacker","styleLabel":"Flashpacker","styleLogo":"flashpacker-logo","duration":"18 Days","days":18,"price":1397,"originalPrice":1995,"perday":78,"save":30,"rating":4.8,"reviewCount":67,"start":"Medan","end":"Gili Trawangan","tagline":"Crystal waters, culture, and adventure","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1}],"image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80"},{"id":"sumatra-uncovered","title":"Sumatra Uncovered","destination":"Indonesia","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"9 Days","days":9,"price":805,"originalPrice":1150,"perday":89,"save":30,"rating":4.7,"reviewCount":45,"start":"Medan","end":"Alue Sungai Pinang","tagline":"Indonesia's hidden secret","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1}],"image":"https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80"},{"id":"total-indonesia","title":"Total Indonesia","destination":"Indonesia","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"26 Days","days":26,"price":1957,"originalPrice":2795,"perday":75,"save":30,"rating":4.9,"reviewCount":56,"start":"Medan","end":"Labuan Bajo","tagline":"The complete Indonesia experience","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":4}],"image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80"},{"id":"philippines-east","title":"Philippines East","destination":"Philippines","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"8 Days","days":8,"price":665,"originalPrice":950,"perday":83,"save":30,"rating":4.8,"reviewCount":134,"start":"Cebu City","end":"Boracay Island","tagline":"Crystal waters, sunsets, and waterfalls","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":2}],"image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80"},{"id":"philippines-west","title":"Philippines West","destination":"Philippines","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"10 Days","days":10,"price":717,"originalPrice":1195,"perday":72,"save":40,"rating":4.9,"reviewCount":112,"start":"Manila","end":"Coron Town","tagline":"Lagoons, shipwrecks, and castaway vibes","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":4}],"image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80"},{"id":"philippines-island-hopper","title":"Philippines Island Hopper","destination":"Philippines","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"17 Days","days":17,"price":1537,"originalPrice":2195,"perday":90,"save":30,"rating":4.9,"reviewCount":89,"start":"Manila","end":"Boracay Island","tagline":"The best of East and West combined","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":4}],"image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80"},{"id":"philippines-backpacker","title":"Philippines Backpacker","destination":"Philippines","region":"Asia","travelStyle":"backpacker","styleLabel":"Backpacker","styleLogo":"backpacker-logo","duration":"11 Days","days":11,"price":627,"originalPrice":895,"perday":57,"save":30,"rating":4.7,"reviewCount":98,"start":"Manila","end":"Coron","tagline":"11 epic days of island hopping","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":2}],"image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80"},{"id":"philippines-siargao","title":"Philippines Siargao Adventure","destination":"Philippines","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"8 Days","days":8,"price":627,"originalPrice":895,"perday":78,"save":30,"rating":4.8,"reviewCount":67,"start":"Cebu","end":"Siargao Island","tagline":"Surf, island-hop, and explore","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":2}],"image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80"},{"id":"total-philippines","title":"Total Philippines","destination":"Philippines","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"24 Days","days":24,"price":2167,"originalPrice":3095,"perday":90,"save":30,"rating":4.9,"reviewCount":45,"start":"Manila","end":"Siargao Island","tagline":"The ultimate Philippines experience","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":1}],"image":"https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80"},{"id":"vietnam-backpacker","title":"Vietnam Backpacker","destination":"Vietnam","region":"Asia","travelStyle":"backpacker","styleLabel":"Backpacker","styleLogo":"backpacker-logo","duration":"12 Days","days":12,"price":525,"originalPrice":750,"perday":44,"save":30,"rating":4.7,"reviewCount":189,"start":"Hanoi","end":"Ho Chi Minh City","tagline":"Highlights and hidden gems on a budget","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":1}],"image":"https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80"},{"id":"vietnam-explorer","title":"Vietnam Explorer","destination":"Vietnam","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"13 Days","days":13,"price":875,"originalPrice":1250,"perday":67,"save":30,"rating":4.8,"reviewCount":167,"start":"Ho Chi Minh City","end":"Hanoi","tagline":"From bustling cities to misty mountains","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":1}],"image":"https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80"},{"id":"cambodia-explorer","title":"Cambodia Explorer","destination":"Cambodia","region":"Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"11 Days","days":11,"price":613,"originalPrice":875,"perday":56,"save":30,"rating":4.8,"reviewCount":123,"start":"Siem Reap","end":"Phnom Penh","tagline":"Temples, beaches, and bustling cities","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":1},{"name":"Tru-ly Unique","color":"#6BD495","icon":"tru-ly-unique","count":1}],"image":"https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80"},{"id":"sri-lanka-uncovered","title":"Sri Lanka Uncovered","destination":"Sri Lanka","region":"South Asia","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"10 Days","days":10,"price":697,"originalPrice":995,"perday":70,"save":30,"rating":4.8,"reviewCount":156,"start":"Negombo","end":"Unawatuna","tagline":"Culture, safari, and breathtaking scenery","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":1}],"image":"https://images.unsplash.com/photo-1612862862126-865765df2ded?w=800&q=80"},{"id":"mexico-yucatan-experience","title":"Mexico Yucatán Experience","destination":"Mexico","region":"Central & South America","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"11 Days","days":11,"price":1017,"originalPrice":1695,"perday":92,"save":40,"rating":4.8,"reviewCount":134,"start":"Cancún","end":"Playa del Carmen","tagline":"Hotspots and hidden gems of Yucatán","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":4}],"image":"https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80"},{"id":"mexico-yucatan-loop","title":"Mexico Yucatán Loop","destination":"Mexico","region":"Central & South America","travelStyle":"backpacker","styleLabel":"Backpacker","styleLogo":"backpacker-logo","duration":"7 Days","days":7,"price":767,"originalPrice":1095,"perday":110,"save":30,"rating":4.7,"reviewCount":89,"start":"Cancún","end":"Playa del Carmen","tagline":"Beaches, ruins, and a wonder of the world","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":4}],"image":"https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80"},{"id":"day-of-the-dead","title":"Day of the Dead Festival","destination":"Mexico","region":"Central & South America","travelStyle":"limited_edition","styleLabel":"Limited Edition","styleLogo":"limited-edition-logo","duration":"6 Days","days":6,"price":895,"perday":149,"save":0,"rating":4.9,"reviewCount":56,"start":"Mexico City","end":"Mexico City","tagline":"Experience the magic of Day of the Dead","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":4}],"image":"https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80"},{"id":"costa-rica-adventure","title":"Costa Rica Adventure","destination":"Costa Rica","region":"Central & South America","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"10 Days","days":10,"price":945,"originalPrice":1350,"perday":95,"save":30,"rating":4.9,"reviewCount":112,"start":"San José","end":"Santa Teresa","tagline":"Jungles, volcanoes, and exotic wildlife","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Rise Up","color":"#FF3F99","icon":"rise-up","count":1}],"image":"https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80"},{"id":"greece-island-hopper","title":"Greece Island Hopper","destination":"Greece","region":"Europe","travelStyle":"classic","styleLabel":"Classic","styleLogo":"classic-logo","duration":"9 Days","days":9,"price":1327,"originalPrice":1895,"perday":147,"save":30,"rating":4.9,"reviewCount":167,"start":"Athens","end":"Santorini","tagline":"Beaches, beers, and a bucket list 9 days","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":1},{"name":"Unplugged","color":"#00BBB4","icon":"unplugged","count":1}],"image":"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80"},{"id":"cambodia-vietnam-explorer","title":"Cambodia & Vietnam Explorer","destination":"Cambodia","region":"Asia","travelStyle":"multi_country","styleLabel":"Multi Country","styleLogo":"multi-country-logo","duration":"23 Days","days":23,"price":1435,"originalPrice":2050,"perday":62,"save":30,"rating":4.8,"reviewCount":98,"start":"Siem Reap","end":"Hanoi","tagline":"Epic scenery and unforgettable culture","places":5,"activities":5,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":3}],"image":"https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80"},{"id":"india-sri-lanka","title":"India & Sri Lanka Uncovered","destination":"India","region":"South Asia","travelStyle":"multi_country","styleLabel":"Multi Country","styleLogo":"multi-country-logo","duration":"23 Days","days":23,"price":1677,"originalPrice":2395,"perday":73,"save":30,"rating":4.8,"reviewCount":78,"start":"Delhi","end":"Unawatuna","tagline":"Golden Triangle meets island paradise","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":3},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":1}],"image":"https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80"},{"id":"mexico-belize-guatemala","title":"Mexico, Belize & Guatemala","destination":"Mexico","region":"Central & South America","travelStyle":"multi_country","styleLabel":"Multi Country","styleLogo":"multi-country-logo","duration":"18 Days","days":18,"price":1925,"originalPrice":2750,"perday":107,"save":30,"rating":4.8,"reviewCount":67,"start":"Cancún","end":"Antigua Guatemala","tagline":"Ultimate Central American whirlwind","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":4}],"image":"https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80"},{"id":"discover-asia","title":"Discover Asia","destination":"Thailand","region":"Asia","travelStyle":"multi_country","styleLabel":"Multi Country","styleLogo":"multi-country-logo","duration":"37 Days","days":37,"price":2485,"originalPrice":3550,"perday":67,"save":30,"rating":4.9,"reviewCount":56,"start":"Bangkok","end":"Hanoi","tagline":"Thailand, Cambodia, and Vietnam in one trip","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":2},{"name":"Bucket List","color":"#FCA501","icon":"bucket-list","count":2}],"image":"https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80"},{"id":"total-asia","title":"Total Asia","destination":"Thailand","region":"Asia","travelStyle":"multi_country","styleLabel":"Multi Country","styleLogo":"multi-country-logo","duration":"50 Days","days":50,"price":4185,"originalPrice":4650,"perday":84,"save":10,"rating":5,"reviewCount":34,"start":"Bangkok","end":"Hanoi","tagline":"The ultimate Asian adventure","places":4,"activities":4,"expTypes":[{"name":"Local Lens","color":"#2172D5","icon":"local-lens","count":4}],"image":"https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80"}];
+    var MIN = 297, MAX = 4185, PAGE = 9;
+    var state = { countries: {}, styles: {}, moments: {}, duration: 'any', min: MIN, max: MAX, sort: 'recommended', limit: PAGE };
+
+    var PIN = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>';
+    var STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+    var CAL = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>';
+    var ACT = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>';
+    var CHEV = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
+    var STARS5 = STAR + STAR + STAR + STAR + STAR;
+    function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    function href(t) { return t.id === 'thailand-island-hopper' ? 'thailand-island-hopper.html' : '#'; }
+
+    function tripcard(t) {
+      var save = t.save ? '<div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">' + t.save + '%</span><span>Off</span></div>' : '';
+      var strike = t.originalPrice ? '<span class="tripcard__strike">£' + t.originalPrice + '</span>' : '';
+      var rating = t.rating ? '<div class="tripcard__rating"><div class="tripcard__stars">' + STARS5 + '</div><span class="num">' + t.rating + '</span><span class="rev">(' + t.reviewCount + ' Reviews)</span></div>' : '';
+      var route = (t.start && t.end) ? '<p class="tripcard__route">' + PIN + ' ' + esc(t.start) + ' — ' + esc(t.end) + '</p>' : '';
+      var facts = '<div class="tripcard__facts"><span>' + CAL + ' ' + esc(t.duration) + '</span>' + (t.places ? '<span>' + PIN + ' ' + t.places + ' Places</span>' : '') + (t.activities ? '<span>' + ACT + ' ' + t.activities + ' Activities</span>' : '') + '</div>';
+      var pills = (t.expTypes || []).map(function (x) { return '<div class="exp-ico"><img src="assets/experience-icons/' + x.icon + '.png" alt="" aria-hidden="true" /><span class="name">' + esc(x.name) + '</span><span class="count">' + x.count + '</span></div>'; }).join('');
+      var cb = 'at-exp-' + t.id;
+      var exp = (t.expTypes && t.expTypes.length) ? '<div class="tripcard__exp"><input type="checkbox" id="' + cb + '" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="' + cb + '"><span>TRU Experience Types · <span class="tripcard__exp-count">' + t.activities + ' activities</span></span>' + CHEV + '</label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills">' + pills + '</div></div></div></div>' : '';
+      return '<article class="tripcard"><a class="tripcard__link" href="' + href(t) + '" aria-label="' + esc(t.title) + '"></a><div class="tripcard__inner">' +
+        '<div class="tripcard__media"><img class="tripcard__image" src="' + t.image + '" alt="' + esc(t.title) + '" /><div class="tripcard__media-overlay"></div><img class="tripcard__badge" src="assets/' + t.styleLogo + '.png" alt="' + esc(t.styleLabel) + ' travel style" />' + save + '</div>' +
+        '<div class="tripcard__body"><div class="tripcard__titlerow"><h3 class="tripcard__title">' + esc(t.title) + '</h3><div class="tripcard__pricecol"><div class="tripcard__prices">' + strike + '<span class="tripcard__price">£' + t.price + '</span></div><p class="tripcard__perday"><span>£' + t.perday + '</span> per day</p></div></div>' +
+        route + rating + '<p class="tripcard__tagline">' + esc(t.tagline) + '</p>' + facts + exp + '</div></div></article>';
+    }
+
+    function durMatch(days, b) { if (b === 'short') return days < 10; if (b === 'medium') return days >= 10 && days <= 14; if (b === 'long') return days >= 15; return true; }
+    function count(o) { return Object.keys(o).length; }
+    function priceTouched() { return state.min !== MIN || state.max !== MAX; }
+    function activeCount() { return count(state.countries) + count(state.styles) + count(state.moments) + (state.duration !== 'any' ? 1 : 0) + (priceTouched() ? 1 : 0); }
+
+    function applyFilters() {
+      var r = TRIPS.slice();
+      if (count(state.countries)) r = r.filter(function (t) { return state.countries[t.destination]; });
+      if (count(state.styles)) r = r.filter(function (t) { return state.styles[t.travelStyle]; });
+      if (state.duration !== 'any') r = r.filter(function (t) { return durMatch(t.days, state.duration); });
+      r = r.filter(function (t) { return t.price >= state.min && t.price <= state.max; });
+      var s = state.sort;
+      if (s === 'price-low') r.sort(function (a, b) { return a.price - b.price; });
+      else if (s === 'price-high') r.sort(function (a, b) { return b.price - a.price; });
+      else if (s === 'duration-short') r.sort(function (a, b) { return a.days - b.days; });
+      else if (s === 'duration-long') r.sort(function (a, b) { return b.days - a.days; });
+      else if (s === 'highest-rated') r.sort(function (a, b) { return (b.rating || 0) - (a.rating || 0); });
+      return r;
+    }
+
+    var grid = document.querySelector('[data-grid]');
+    var showmore = document.querySelector('[data-showmore]');
+    var empty = document.querySelector('[data-empty]');
+
+    function render() {
+      var res = applyFilters();
+      // count displays
+      document.querySelectorAll('[data-count]').forEach(function (el) { el.textContent = res.length; });
+      var inline = document.querySelector('[data-count-inline]'); if (inline) inline.textContent = res.length + (res.length === 1 ? ' trip found' : ' trips found');
+      if (res.length === 0) {
+        grid.innerHTML = ''; grid.style.display = 'none'; showmore.hidden = true; empty.hidden = false;
+      } else {
+        grid.style.display = ''; empty.hidden = true;
+        grid.innerHTML = res.slice(0, state.limit).map(tripcard).join('');
+        if (state.limit < res.length) { showmore.hidden = false; document.querySelector('[data-showmore-note]').textContent = 'Showing ' + Math.min(state.limit, res.length) + ' of ' + res.length; }
+        else showmore.hidden = true;
+      }
+      // badges
+      var ac = activeCount();
+      document.querySelectorAll('[data-fbadge="countries"]').forEach(function (b) { setBadge(b, count(state.countries)); });
+      document.querySelectorAll('[data-fbadge="styles"]').forEach(function (b) { setBadge(b, count(state.styles)); });
+      document.querySelectorAll('[data-fbadge="moments"]').forEach(function (b) { setBadge(b, count(state.moments)); });
+      document.querySelectorAll('[data-fbadge="duration"]').forEach(function (b) { setBadge(b, state.duration !== 'any' ? 1 : 0); });
+      document.querySelectorAll('[data-regbadge]').forEach(function (b) {
+        var region = b.getAttribute('data-regbadge');
+        var n = TRIPS.filter(function (t) { return t.region === region && state.countries[t.destination]; })
+          .reduce(function (set, t) { set[t.destination] = 1; return set; }, {});
+        setBadge(b, count(n));
+      });
+      var fb = document.querySelector('[data-filterbtn-badge]'); if (fb) { fb.textContent = ac; fb.hidden = ac === 0; }
+      var btn = document.querySelector('[data-open-filters]'); if (btn) btn.classList.toggle('has-active', ac > 0);
+      document.querySelectorAll('[data-clear-count]').forEach(function (el) { el.textContent = ac; });
+      var cw = document.querySelector('[data-clear-wrap]'); if (cw) cw.classList.toggle('show', ac > 0);
+      document.querySelectorAll('[data-clear][hidden]').forEach(function () {});
+      var clearTop = document.querySelector('.at-clear-top'); if (clearTop) clearTop.hidden = ac === 0;
+    }
+    function setBadge(b, n) { b.textContent = n; b.classList.toggle('show', n > 0); }
+
+    // ---- wiring ----
+    document.querySelectorAll('[data-sort]').forEach(function (sel) {
+      sel.addEventListener('change', function () { state.sort = sel.value; state.limit = PAGE; document.querySelectorAll('[data-sort]').forEach(function (o) { o.value = sel.value; }); render(); });
+    });
+    document.querySelectorAll('[data-country]').forEach(function (cb) {
+      cb.addEventListener('change', function () { var n = cb.getAttribute('data-country'); if (cb.checked) state.countries[n] = 1; else delete state.countries[n]; cb.closest('[data-country-row]').classList.toggle('is-checked', cb.checked); state.limit = PAGE; render(); });
+    });
+    document.querySelectorAll('[data-region-toggle]').forEach(function (h) { h.addEventListener('click', function () { h.closest('[data-region]').classList.toggle('is-open'); }); });
+    document.querySelectorAll('[data-style]').forEach(function (b) {
+      b.addEventListener('click', function () { var k = b.getAttribute('data-style'); var on = !state.styles[k]; if (on) state.styles[k] = 1; else delete state.styles[k]; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); state.limit = PAGE; render(); });
+    });
+    document.querySelectorAll('[data-moment]').forEach(function (cb) {
+      cb.addEventListener('change', function () { var s = cb.getAttribute('data-moment'); if (cb.checked) state.moments[s] = 1; else delete state.moments[s]; cb.closest('[data-moment-row]').classList.toggle('is-checked', cb.checked); render(); });
+    });
+    document.querySelectorAll('[name="at-duration"]').forEach(function (r) {
+      r.addEventListener('change', function () { state.duration = r.value; document.querySelectorAll('[data-dur-row]').forEach(function (row) { row.classList.toggle('is-checked', row.getAttribute('data-dur-row') === r.value); }); state.limit = PAGE; render(); });
+    });
+    var pmin = document.querySelector('[data-price="min"]'), pmax = document.querySelector('[data-price="max"]'), pval = document.querySelector('[data-price-val]');
+    function priceInput() { var lo = Math.min(+pmin.value, +pmax.value), hi = Math.max(+pmin.value, +pmax.value); state.min = lo; state.max = hi; pval.innerHTML = '£' + lo + ' – £' + hi; state.limit = PAGE; render(); }
+    if (pmin) pmin.addEventListener('input', priceInput);
+    if (pmax) pmax.addEventListener('input', priceInput);
+    document.querySelectorAll('[data-fsec-toggle]').forEach(function (h) { h.addEventListener('click', function () { h.closest('[data-fsec]').classList.toggle('is-open'); }); });
+    document.querySelectorAll('[data-clear]').forEach(function (b) { b.addEventListener('click', function () {
+      state.countries = {}; state.styles = {}; state.moments = {}; state.duration = 'any'; state.min = MIN; state.max = MAX; state.limit = PAGE;
+      document.querySelectorAll('[data-country]').forEach(function (c) { c.checked = false; c.closest('[data-country-row]').classList.remove('is-checked'); });
+      document.querySelectorAll('[data-style]').forEach(function (s) { s.classList.remove('is-on'); s.setAttribute('aria-pressed', 'false'); });
+      document.querySelectorAll('[data-moment]').forEach(function (m) { m.checked = false; m.closest('[data-moment-row]').classList.remove('is-checked'); });
+      var anyR = document.querySelector('[name="at-duration"][value="any"]'); if (anyR) anyR.checked = true;
+      document.querySelectorAll('[data-dur-row]').forEach(function (row) { row.classList.toggle('is-checked', row.getAttribute('data-dur-row') === 'any'); });
+      if (pmin) pmin.value = MIN; if (pmax) pmax.value = MAX; pval.innerHTML = '£' + MIN + ' – £' + MAX;
+      render();
+    }); });
+    var smBtn = document.querySelector('[data-showmore-btn]'); if (smBtn) smBtn.addEventListener('click', function () { state.limit += PAGE; render(); });
+
+    // mobile drawer
+    var sidebar = document.querySelector('[data-sidebar]'), backdrop = document.querySelector('[data-drawer-backdrop]');
+    function openDrawer() { sidebar.classList.add('is-open'); backdrop.classList.add('is-open'); document.body.style.overflow = 'hidden'; }
+    function closeDrawer() { sidebar.classList.remove('is-open'); backdrop.classList.remove('is-open'); document.body.style.overflow = ''; }
+    document.querySelectorAll('[data-open-filters]').forEach(function (b) { b.addEventListener('click', openDrawer); });
+    document.querySelectorAll('[data-close-filters]').forEach(function (b) { b.addEventListener('click', closeDrawer); });
+    if (backdrop) backdrop.addEventListener('click', closeDrawer);
+
+    // sticky mobile bar
+    var bar = document.getElementById('all-trips-bar'), sticky = document.querySelector('[data-sticky-bar]');
+    window.addEventListener('scroll', function () { if (bar && sticky) sticky.classList.toggle('is-shown', bar.getBoundingClientRect().bottom < 0); }, { passive: true });
+
+    render();
+  })();
+  </script>
+</body>
+</html>
