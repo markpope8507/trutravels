@@ -522,7 +522,7 @@ export default function AllTripsBrowser({
       {/* Sidebar + grid */}
       <section className="relative py-10 overflow-clip">
         <div className="relative mx-auto max-w-[1480px] px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-8">
             {/* Desktop sidebar */}
             <aside className="hidden lg:block">
               <div className="sticky top-6 rounded-[12px] border border-white/10 bg-tru-navy/60 backdrop-blur-sm p-5">
@@ -559,8 +559,7 @@ export default function AllTripsBrowser({
                       drops from 3 → 2 → 1 columns as space shrinks rather than squashing them.
                       The min(100%, …) guard stops a single column overflowing on tiny screens. */}
                   <div
-                    className="grid gap-x-6 gap-y-10 justify-center lg:justify-start"
-                    style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 360px))" }}
+                    className="all-trips-grid grid gap-x-6 gap-y-10 justify-center lg:justify-start"
                   >
                     {filtered.slice(0, limit).map((trip) => (
                       <TripCard key={trip.id} trip={trip} />

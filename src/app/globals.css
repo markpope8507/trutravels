@@ -246,3 +246,14 @@ html, body {
 .overlay-navy {
   background: linear-gradient(0deg, rgba(9, 33, 62, 1) 0%, rgba(9, 33, 62, 1) 30%, rgba(9, 33, 62, 0) 45%, rgba(9, 33, 62, 0) 100%);
 }
+
+/* All Trips results grid — up to 3 tour cards across on desktop once the screen
+   is wide enough to hold them at full size (cards keep their 320–360px width). */
+.all-trips-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 360px));
+}
+@media (min-width: 1280px) {
+  .all-trips-grid {
+    grid-template-columns: repeat(3, minmax(0, 360px));
+  }
+}
