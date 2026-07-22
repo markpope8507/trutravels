@@ -27,6 +27,14 @@ export const metadata: Metadata = {
   title: "TruTravels — Leave Ordinary Behind",
   description:
     "Life changing experiences. Game changing travel. Group adventures for 18-35s across Southeast Asia, Central & South America, and beyond.",
+  // Prototype/demo — keep it out of search indexes so it never competes with the
+  // live site (trutravels.com) as duplicate content.
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: { index: false, follow: false, noimageindex: true },
+  },
 };
 
 export default function RootLayout({
