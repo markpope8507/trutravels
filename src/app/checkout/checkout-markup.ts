@@ -15,7 +15,7 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
   <!-- ============ SECURE HEADER ============ -->
   <header class="co-header">
     <div class="co-header__inner">
-      <a class="co-header__logo" href="/" aria-label="TruTravels home">
+      <a class="co-header__logo" href="index.html" aria-label="TruTravels home">
         <img src="/checkout-assets/logo-white.png" alt="TruTravels" />
       </a>
       <nav class="co-progress" aria-label="Checkout progress">
@@ -42,7 +42,7 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
         <!-- Mobile order summary (collapsible) -->
         <div class="co-summary co-summary--mobile" data-order-mobile>
           <button class="co-summary__bar" data-order-toggle aria-expanded="false">
-            <span class="co-summary__bar-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 2.3c-.6.6-.2 1.7.7 1.7H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg> Order summary <svg class="co-summary__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+            <span class="co-summary__bar-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 2.3c-.6.6-.2 1.7.7 1.7H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg> Booking summary <svg class="co-summary__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
             <span class="co-summary__bar-total" data-order-total>&pound;0</span>
           </button>
           <div class="co-summary__drop" data-order-drop hidden></div>
@@ -54,6 +54,7 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
           <div class="co-card__body">
             <form data-details novalidate>
               <p class="co-sub">Tell us about everyone travelling &mdash; names must match each passport exactly. We&rsquo;ll send each traveller&rsquo;s confirmation and e-tickets to their email. No account needed; you can create one after you book.</p>
+              <div class="co-pax co-pax--mobile" data-pax-box></div>
               <div class="co-travellers-list" data-travellers></div>
               <button type="button" class="co-btn co-btn--yellow" data-next="1">Continue to your trip &rarr;</button>
               <p class="co-autosave"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Your progress is saved automatically</p>
@@ -108,10 +109,11 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
               <p class="co-pay-h">Choose how you&rsquo;d like to book</p>
               <div class="co-payopts" data-payopts>
                 <button class="co-payopt" data-mode="hold" type="button" data-opt-hold><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Hold your spot</strong><span>Secure your spot for 48 hours</span></span><span class="co-payopt__price" data-price-hold>Free</span></button>
-                <button class="co-payopt" data-mode="deposit" type="button" data-opt-deposit><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Deposit</strong><span>Pay the balance 60 days before departure</span></span><span class="co-payopt__price" data-price-deposit>&pound;0</span></button>
+                <button class="co-payopt" data-mode="deposit" type="button" data-opt-deposit><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Deposit</strong><span data-deposit-sub>Pay the balance 60 days before departure</span></span><span class="co-payopt__price" data-price-deposit>&pound;0</span></button>
                 <button class="co-payopt" data-mode="plan" type="button" data-opt-plan><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Payment plan</strong><span data-plan-sub>Spread the cost monthly</span></span><span class="co-payopt__price" data-price-plan>&pound;0</span></button>
                 <button class="co-payopt" data-mode="full" type="button"><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Pay in full</strong><span>Everything paid &amp; sorted today</span></span><span class="co-payopt__price" data-price-full>&pound;0</span></button>
               </div>
+              <p class="co-payopts__note" data-pay-note hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16.3v.2M12 8v5"/></svg> Your trip departs within 60 days, so the full balance is due to book. Deposit, payment plan and hold-your-spot are only available for departures more than 60 days away.</p>
               <p class="co-payopts__err" data-pay-err hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v5M12 16.3v.2"/></svg> Please choose a payment option to continue.</p>
 
               <button type="button" class="co-btn co-btn--yellow" data-next="2">Continue to payment &rarr;</button>
@@ -217,8 +219,9 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
       <!-- ============ RIGHT: ORDER SUMMARY ============ -->
       <aside class="co-summary co-summary--desk">
         <div class="co-summary__inner" data-order-desk>
-          <h3 class="co-summary__h">Order summary</h3>
+          <h3 class="co-summary__h">Booking summary</h3>
           <div data-order-items></div>
+          <div class="co-pax co-pax--desk" data-pax-box></div>
           <div class="co-summary__rows" data-order-rows></div>
           <div class="co-trust">
             <ul class="co-trust__points">

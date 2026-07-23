@@ -54,7 +54,7 @@
         <!-- Mobile order summary (collapsible) -->
         <div class="co-summary co-summary--mobile" data-order-mobile>
           <button class="co-summary__bar" data-order-toggle aria-expanded="false">
-            <span class="co-summary__bar-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 2.3c-.6.6-.2 1.7.7 1.7H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg> Order summary <svg class="co-summary__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+            <span class="co-summary__bar-l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 2.3c-.6.6-.2 1.7.7 1.7H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg> Booking summary <svg class="co-summary__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
             <span class="co-summary__bar-total" data-order-total>&pound;0</span>
           </button>
           <div class="co-summary__drop" data-order-drop hidden></div>
@@ -66,6 +66,7 @@
           <div class="co-card__body">
             <form data-details novalidate>
               <p class="co-sub">Tell us about everyone travelling &mdash; names must match each passport exactly. We&rsquo;ll send each traveller&rsquo;s confirmation and e-tickets to their email. No account needed; you can create one after you book.</p>
+              <div class="co-pax co-pax--mobile" data-pax-box></div>
               <div class="co-travellers-list" data-travellers></div>
               <button type="button" class="co-btn co-btn--yellow" data-next="1">Continue to your trip &rarr;</button>
               <p class="co-autosave"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Your progress is saved automatically</p>
@@ -120,10 +121,11 @@
               <p class="co-pay-h">Choose how you&rsquo;d like to book</p>
               <div class="co-payopts" data-payopts>
                 <button class="co-payopt" data-mode="hold" type="button" data-opt-hold><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Hold your spot</strong><span>Secure your spot for 48 hours</span></span><span class="co-payopt__price" data-price-hold>Free</span></button>
-                <button class="co-payopt" data-mode="deposit" type="button" data-opt-deposit><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Deposit</strong><span>Pay the balance 60 days before departure</span></span><span class="co-payopt__price" data-price-deposit>&pound;0</span></button>
+                <button class="co-payopt" data-mode="deposit" type="button" data-opt-deposit><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Deposit</strong><span data-deposit-sub>Pay the balance 60 days before departure</span></span><span class="co-payopt__price" data-price-deposit>&pound;0</span></button>
                 <button class="co-payopt" data-mode="plan" type="button" data-opt-plan><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Payment plan</strong><span data-plan-sub>Spread the cost monthly</span></span><span class="co-payopt__price" data-price-plan>&pound;0</span></button>
                 <button class="co-payopt" data-mode="full" type="button"><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Pay in full</strong><span>Everything paid &amp; sorted today</span></span><span class="co-payopt__price" data-price-full>&pound;0</span></button>
               </div>
+              <p class="co-payopts__note" data-pay-note hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16.3v.2M12 8v5"/></svg> Your trip departs within 60 days, so the full balance is due to book. Deposit, payment plan and hold-your-spot are only available for departures more than 60 days away.</p>
               <p class="co-payopts__err" data-pay-err hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v5M12 16.3v.2"/></svg> Please choose a payment option to continue.</p>
 
               <button type="button" class="co-btn co-btn--yellow" data-next="2">Continue to payment &rarr;</button>
@@ -229,8 +231,9 @@
       <!-- ============ RIGHT: ORDER SUMMARY ============ -->
       <aside class="co-summary co-summary--desk">
         <div class="co-summary__inner" data-order-desk>
-          <h3 class="co-summary__h">Order summary</h3>
+          <h3 class="co-summary__h">Booking summary</h3>
           <div data-order-items></div>
+          <div class="co-pax co-pax--desk" data-pax-box></div>
           <div class="co-summary__rows" data-order-rows></div>
           <div class="co-trust">
             <ul class="co-trust__points">
@@ -311,13 +314,17 @@
 
     var ROOM_UPGRADE = 450;   /* "My own room" supplement, per trip */
 
-    /* ---- Cart handoff (sessionStorage) or demo seed (two tours = worst case) ---- */
+    /* ---- Cart handoff (sessionStorage) or demo seed (two tours, one group) ---- */
+    /* Demo departures are kept a few weeks out (within 60 days) so the checkout always
+       demonstrates the "full payment required" gate, and never shows past dates. */
+    var _SEEDWD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], _SEEDMO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    function seedDate(days) { var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + days); return _SEEDWD[d.getDay()] + ' ' + d.getDate() + ' ' + _SEEDMO[d.getMonth()] + ' ' + d.getFullYear(); }
     var cart = [];
     try { cart = JSON.parse(sessionStorage.getItem('truCart') || '[]'); } catch (e) { cart = []; }
     if (!Array.isArray(cart) || cart.length === 0) {
       cart = [
-        { tripTitle: 'Thailand Island Hopper', image: 'assets/thailand-island-hopper-hero.jpg', date: 'Sat 14 Nov 2026', endDate: 'Fri 27 Nov 2026', duration: '14 Days', startLocation: 'Bangkok', endLocation: 'Phuket', travellers: 1, price: 1149, orig: 1299, deposit: 200, rating: 4.9, reviewCount: 328, places: 6, activities: 18, tagline: 'Temples, jungles, islands and legendary beach parties', expTypes: [{ name: 'Local Lens', count: 5 }, { name: 'Rise Up', count: 3 }, { name: 'Bucket List', count: 4 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] },
-        { tripTitle: 'Northern Thailand Adventure', image: 'https://cdn.trutravels.com/thailand/bangkok-temple.jpg', date: 'Sat 5 Dec 2026', endDate: 'Sun 13 Dec 2026', duration: '9 Days', startLocation: 'Chiang Mai', endLocation: 'Bangkok', travellers: 2, price: 849, orig: 949, deposit: 200, rating: 4.8, reviewCount: 152, places: 4, activities: 11, tagline: 'Mountain towns, hill tribes and northern temples', expTypes: [{ name: 'Local Lens', count: 3 }, { name: 'Bucket List', count: 2 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] }
+        { tripTitle: 'Thailand Island Hopper', image: 'assets/thailand-island-hopper-hero.jpg', date: seedDate(24), endDate: seedDate(37), duration: '14 Days', startLocation: 'Bangkok', endLocation: 'Phuket', travellers: 2, price: 1149, orig: 1299, deposit: 200, rating: 4.9, reviewCount: 328, places: 6, activities: 18, tagline: 'Temples, jungles, islands and legendary beach parties', expTypes: [{ name: 'Local Lens', count: 5 }, { name: 'Rise Up', count: 3 }, { name: 'Bucket List', count: 4 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] },
+        { tripTitle: 'Northern Thailand Adventure', image: 'https://cdn.trutravels.com/thailand/bangkok-temple.jpg', date: seedDate(45), endDate: seedDate(53), duration: '9 Days', startLocation: 'Chiang Mai', endLocation: 'Bangkok', travellers: 2, price: 849, orig: 949, deposit: 200, rating: 4.8, reviewCount: 152, places: 4, activities: 11, tagline: 'Mountain towns, hill tribes and northern temples', expTypes: [{ name: 'Local Lens', count: 3 }, { name: 'Bucket List', count: 2 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] }
       ];
     }
     /* Backfill tour-card info for any item that predates these fields (e.g. a cart
@@ -326,6 +333,9 @@
     cart.forEach(function (t) { ['rating', 'reviewCount', 'places', 'activities', 'tagline', 'expTypes'].forEach(function (k) { if (t[k] == null) t[k] = TC_DEFAULTS[k]; }); });
     /* every trip carries a room choice + its own set of extras */
     cart.forEach(function (t) { if (t.room !== 'own') t.room = 'shared'; if (!t.addons) t.addons = {}; });
+    /* One group travels every tour, so the whole booking shares a single traveller
+       count — coerce here so the cart can never hold mixed counts across tours. */
+    (function () { var g = cart.reduce(function (m, t) { return Math.max(m, t.travellers || 1); }, 1); cart.forEach(function (t) { t.travellers = g; }); })();
     function persist() { try { sessionStorage.setItem('truCart', JSON.stringify(cart)); } catch (e) {} }
     persist();
 
@@ -641,6 +651,14 @@
       var depNow, fullNow;
       (function () { var m = payMode; payMode = 'deposit'; depNow = totals().dueToday; payMode = 'full'; fullNow = totals().dueToday; payMode = m; })();
       var md = document.querySelector('[data-price-deposit]'); if (md) md.textContent = fmt(depNow);
+      /* With more than one traveller, spell out the per-person deposit in the body text. */
+      var dsub = document.querySelector('[data-deposit-sub]');
+      if (dsub) {
+        var perPerson = t.partySize > 0 ? Math.round(depNow / t.partySize) : depNow;
+        dsub.textContent = t.partySize > 1
+          ? fmt(perPerson) + ' per person · Pay the balance 60 days before departure'
+          : 'Pay the balance 60 days before departure';
+      }
       var mf = document.querySelector('[data-price-full]'); if (mf) mf.textContent = fmt(fullNow);
       var pa = document.querySelector('[data-pay-amount]'); if (pa) pa.textContent = fmt(t.dueToday);
       /* Payment plan labels */
@@ -699,7 +717,33 @@
       if (tsub) { var t = totals(); tsub.textContent = t.tours + ' tour' + (t.tours === 1 ? '' : 's'); }
     }
 
-    function renderAll() { renderTravellers(); renderTrips(); renderSummary(); }
+    /* ---- Pax changer — one group travels every tour, so it's a single count
+       across the whole booking (never mixed per tour). Step 1 mobile + desktop summary. ---- */
+    function renderPax() {
+      var boxes = document.querySelectorAll('[data-pax-box]');
+      if (!boxes.length || !cart.length) return;
+      var q = cart[0].travellers || 1;
+      var html = '<p class="co-pax__h">Travellers</p>'
+        + '<div class="co-pax__row"><span class="co-pax__trip">How many travelling?</span>'
+        + '<div class="co-trip__pax">'
+        + '<button type="button" data-pax-dec aria-label="Fewer travellers"' + (q <= 1 ? ' disabled' : '') + '>&minus;</button>'
+        + '<span class="co-trip__paxn">' + q + '</span>'
+        + '<button type="button" data-pax-inc aria-label="More travellers"' + (q >= 12 ? ' disabled' : '') + '>+</button>'
+        + '</div></div>';
+      boxes.forEach(function (el) { el.innerHTML = html; });
+    }
+    document.addEventListener('click', function (e) {
+      var inc = e.target.closest('[data-pax-inc]'), dec = e.target.closest('[data-pax-dec]');
+      if (!inc && !dec) return;
+      var q = (cart[0] && cart[0].travellers) || 1;
+      var nq = inc ? Math.min(12, q + 1) : Math.max(1, q - 1);
+      if (nq === q) return;
+      cart.forEach(function (t) { t.travellers = nq; });   /* same group on every tour */
+      persist();
+      renderAll();
+    });
+
+    function renderAll() { renderPax(); renderTravellers(); renderTrips(); renderSummary(); }
     renderAll();
 
     /* ---- Step navigation (all steps open/clickable for design review) ---- */
@@ -874,16 +918,23 @@
     document.querySelectorAll('[data-mode]').forEach(function (b) {
       b.addEventListener('click', function () { setPayMode(b.dataset.mode); });
     });
-    /* NOTE: 60-day gating is disabled for now — all three options always show (design).
-       To re-enable: within 60 days, hide deposit + hold and pre-select full.
-    if (!OUTSIDE_60) {
-      var depO = document.querySelector('[data-opt-deposit]'), holdO = document.querySelector('[data-opt-hold]');
-      if (depO) depO.hidden = true; if (holdO) holdO.hidden = true;
-      setPayMode('full');
-    } */
     /* Default selection: Pay in full */
     setPayMode('full');
-    /* Outside 60 days: no default — the traveller must actively choose (payMode stays null) */
+    /* Within 60 days of departure, the full balance is required to book: grey out and
+       disable Hold / Deposit / Payment plan and show a disclaimer explaining why. */
+    function applyPayGating() {
+      var within60 = !OUTSIDE_60;
+      ['hold', 'deposit', 'plan'].forEach(function (mode) {
+        var b = document.querySelector('[data-mode="' + mode + '"]');
+        if (!b) return;
+        b.disabled = within60;
+        b.classList.toggle('is-disabled', within60);
+      });
+      var note = document.querySelector('[data-pay-note]');
+      if (note) note.hidden = !within60;
+      if (within60) setPayMode('full');
+    }
+    applyPayGating();
 
     /* ---- Payment step (step 4): reflect the chosen option ---- */
     function enterPayment() {

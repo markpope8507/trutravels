@@ -16,6 +16,7 @@ export type CartItem = {
   tripTitle: string;
   image: string;
   date: string;
+  endDate?: string;
   duration: string;
   startLocation?: string;
   endLocation?: string;

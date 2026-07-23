@@ -24,13 +24,17 @@ export function runCheckout() {
 
     var ROOM_UPGRADE = 450;   /* "My own room" supplement, per trip */
 
-    /* ---- Cart handoff (sessionStorage) or demo seed (two tours = worst case) ---- */
+    /* ---- Cart handoff (sessionStorage) or demo seed (two tours, one group) ---- */
+    /* Demo departures are kept a few weeks out (within 60 days) so the checkout always
+       demonstrates the "full payment required" gate, and never shows past dates. */
+    var _SEEDWD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], _SEEDMO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    function seedDate(days) { var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + days); return _SEEDWD[d.getDay()] + ' ' + d.getDate() + ' ' + _SEEDMO[d.getMonth()] + ' ' + d.getFullYear(); }
     var cart = [];
     try { cart = JSON.parse(sessionStorage.getItem('truCart') || '[]'); } catch (e) { cart = []; }
     if (!Array.isArray(cart) || cart.length === 0) {
       cart = [
-        { tripTitle: 'Thailand Island Hopper', image: '/checkout-assets/thailand-island-hopper-hero.jpg', date: 'Sat 14 Nov 2026', endDate: 'Fri 27 Nov 2026', duration: '14 Days', startLocation: 'Bangkok', endLocation: 'Phuket', travellers: 1, price: 1149, orig: 1299, deposit: 200, rating: 4.9, reviewCount: 328, places: 6, activities: 18, tagline: 'Temples, jungles, islands and legendary beach parties', expTypes: [{ name: 'Local Lens', count: 5 }, { name: 'Rise Up', count: 3 }, { name: 'Bucket List', count: 4 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] },
-        { tripTitle: 'Northern Thailand Adventure', image: 'https://cdn.trutravels.com/thailand/bangkok-temple.jpg', date: 'Sat 5 Dec 2026', endDate: 'Sun 13 Dec 2026', duration: '9 Days', startLocation: 'Chiang Mai', endLocation: 'Bangkok', travellers: 2, price: 849, orig: 949, deposit: 200, rating: 4.8, reviewCount: 152, places: 4, activities: 11, tagline: 'Mountain towns, hill tribes and northern temples', expTypes: [{ name: 'Local Lens', count: 3 }, { name: 'Bucket List', count: 2 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] }
+        { tripTitle: 'Thailand Island Hopper', image: '/checkout-assets/thailand-island-hopper-hero.jpg', date: seedDate(24), endDate: seedDate(37), duration: '14 Days', startLocation: 'Bangkok', endLocation: 'Phuket', travellers: 2, price: 1149, orig: 1299, deposit: 200, rating: 4.9, reviewCount: 328, places: 6, activities: 18, tagline: 'Temples, jungles, islands and legendary beach parties', expTypes: [{ name: 'Local Lens', count: 5 }, { name: 'Rise Up', count: 3 }, { name: 'Bucket List', count: 4 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] },
+        { tripTitle: 'Northern Thailand Adventure', image: 'https://cdn.trutravels.com/thailand/bangkok-temple.jpg', date: seedDate(45), endDate: seedDate(53), duration: '9 Days', startLocation: 'Chiang Mai', endLocation: 'Bangkok', travellers: 2, price: 849, orig: 949, deposit: 200, rating: 4.8, reviewCount: 152, places: 4, activities: 11, tagline: 'Mountain towns, hill tribes and northern temples', expTypes: [{ name: 'Local Lens', count: 3 }, { name: 'Bucket List', count: 2 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] }
       ];
     }
     /* Backfill tour-card info for any item that predates these fields (e.g. a cart
@@ -39,6 +43,9 @@ export function runCheckout() {
     cart.forEach(function (t) { ['rating', 'reviewCount', 'places', 'activities', 'tagline', 'expTypes'].forEach(function (k) { if (t[k] == null) t[k] = TC_DEFAULTS[k]; }); });
     /* every trip carries a room choice + its own set of extras */
     cart.forEach(function (t) { if (t.room !== 'own') t.room = 'shared'; if (!t.addons) t.addons = {}; });
+    /* One group travels every tour, so the whole booking shares a single traveller
+       count — coerce here so the cart can never hold mixed counts across tours. */
+    (function () { var g = cart.reduce(function (m, t) { return Math.max(m, t.travellers || 1); }, 1); cart.forEach(function (t) { t.travellers = g; }); })();
     function persist() { try { sessionStorage.setItem('truCart', JSON.stringify(cart)); } catch (e) {} }
     persist();
 
@@ -354,6 +361,14 @@ export function runCheckout() {
       var depNow, fullNow;
       (function () { var m = payMode; payMode = 'deposit'; depNow = totals().dueToday; payMode = 'full'; fullNow = totals().dueToday; payMode = m; })();
       var md = document.querySelector('[data-price-deposit]'); if (md) md.textContent = fmt(depNow);
+      /* With more than one traveller, spell out the per-person deposit in the body text. */
+      var dsub = document.querySelector('[data-deposit-sub]');
+      if (dsub) {
+        var perPerson = t.partySize > 0 ? Math.round(depNow / t.partySize) : depNow;
+        dsub.textContent = t.partySize > 1
+          ? fmt(perPerson) + ' per person · Pay the balance 60 days before departure'
+          : 'Pay the balance 60 days before departure';
+      }
       var mf = document.querySelector('[data-price-full]'); if (mf) mf.textContent = fmt(fullNow);
       var pa = document.querySelector('[data-pay-amount]'); if (pa) pa.textContent = fmt(t.dueToday);
       /* Payment plan labels */
@@ -412,7 +427,33 @@ export function runCheckout() {
       if (tsub) { var t = totals(); tsub.textContent = t.tours + ' tour' + (t.tours === 1 ? '' : 's'); }
     }
 
-    function renderAll() { renderTravellers(); renderTrips(); renderSummary(); }
+    /* ---- Pax changer — one group travels every tour, so it's a single count
+       across the whole booking (never mixed per tour). Step 1 mobile + desktop summary. ---- */
+    function renderPax() {
+      var boxes = document.querySelectorAll('[data-pax-box]');
+      if (!boxes.length || !cart.length) return;
+      var q = cart[0].travellers || 1;
+      var html = '<p class="co-pax__h">Travellers</p>'
+        + '<div class="co-pax__row"><span class="co-pax__trip">How many travelling?</span>'
+        + '<div class="co-trip__pax">'
+        + '<button type="button" data-pax-dec aria-label="Fewer travellers"' + (q <= 1 ? ' disabled' : '') + '>&minus;</button>'
+        + '<span class="co-trip__paxn">' + q + '</span>'
+        + '<button type="button" data-pax-inc aria-label="More travellers"' + (q >= 12 ? ' disabled' : '') + '>+</button>'
+        + '</div></div>';
+      boxes.forEach(function (el) { el.innerHTML = html; });
+    }
+    document.addEventListener('click', function (e) {
+      var inc = e.target.closest('[data-pax-inc]'), dec = e.target.closest('[data-pax-dec]');
+      if (!inc && !dec) return;
+      var q = (cart[0] && cart[0].travellers) || 1;
+      var nq = inc ? Math.min(12, q + 1) : Math.max(1, q - 1);
+      if (nq === q) return;
+      cart.forEach(function (t) { t.travellers = nq; });   /* same group on every tour */
+      persist();
+      renderAll();
+    });
+
+    function renderAll() { renderPax(); renderTravellers(); renderTrips(); renderSummary(); }
     renderAll();
 
     /* ---- Step navigation (all steps open/clickable for design review) ---- */
@@ -587,16 +628,23 @@ export function runCheckout() {
     document.querySelectorAll('[data-mode]').forEach(function (b) {
       b.addEventListener('click', function () { setPayMode(b.dataset.mode); });
     });
-    /* NOTE: 60-day gating is disabled for now — all three options always show (design).
-       To re-enable: within 60 days, hide deposit + hold and pre-select full.
-    if (!OUTSIDE_60) {
-      var depO = document.querySelector('[data-opt-deposit]'), holdO = document.querySelector('[data-opt-hold]');
-      if (depO) depO.hidden = true; if (holdO) holdO.hidden = true;
-      setPayMode('full');
-    } */
     /* Default selection: Pay in full */
     setPayMode('full');
-    /* Outside 60 days: no default — the traveller must actively choose (payMode stays null) */
+    /* Within 60 days of departure, the full balance is required to book: grey out and
+       disable Hold / Deposit / Payment plan and show a disclaimer explaining why. */
+    function applyPayGating() {
+      var within60 = !OUTSIDE_60;
+      ['hold', 'deposit', 'plan'].forEach(function (mode) {
+        var b = document.querySelector('[data-mode="' + mode + '"]');
+        if (!b) return;
+        b.disabled = within60;
+        b.classList.toggle('is-disabled', within60);
+      });
+      var note = document.querySelector('[data-pay-note]');
+      if (note) note.hidden = !within60;
+      if (within60) setPayMode('full');
+    }
+    applyPayGating();
 
     /* ---- Payment step (step 4): reflect the chosen option ---- */
     function enterPayment() {

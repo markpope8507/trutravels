@@ -479,6 +479,7 @@ export default function BookingModal({
                     tripTitle,
                     image: tripImage,
                     date: selected.date,
+                    endDate: getEndDate(selected.date, duration),
                     duration,
                     startLocation,
                     endLocation,
