@@ -106,6 +106,12 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
                 </div>
               </div>
 
+              <div class="co-credit" data-credit-card hidden>
+                <span class="co-credit__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></span>
+                <span class="co-credit__txt"><strong data-credit-card-h>&pound;150 travel credit</strong><span data-credit-card-s>Add it to this booking to reduce your total.</span></span>
+                <button type="button" class="co-credit__btn" data-credit-toggle>Add</button>
+              </div>
+
               <p class="co-pay-h">Choose how you&rsquo;d like to book</p>
               <div class="co-payopts" data-payopts>
                 <button class="co-payopt" data-mode="hold" type="button" data-opt-hold><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Hold your spot</strong><span>Secure your spot for 48 hours</span></span><span class="co-payopt__price" data-price-hold>Free</span></button>
@@ -260,6 +266,20 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
       <button type="button" class="co-btn co-btn--primary" data-login-submit>Log in</button>
       <button type="button" class="co-modal__guest" data-login-close>Continue as guest</button>
       <p class="co-login__hint">Prototype: any email &amp; password works.</p>
+    </div>
+  </div>
+
+  <!-- Travel credit popup (shown after login) -->
+  <div class="co-modal" data-credit-modal hidden>
+    <div class="co-modal__backdrop" data-credit-pop-close></div>
+    <div class="co-modal__panel co-creditpop">
+      <button type="button" class="co-modal__x" data-credit-pop-close aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+      <span class="co-creditpop__badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg></span>
+      <h3 class="co-modal__title">You&rsquo;ve got travel credit!</h3>
+      <p class="co-creditpop__amt" data-credit-pop-amt>&pound;150</p>
+      <p class="co-modal__sub" data-credit-pop-sub>You have travel credit on your account — add it to this booking now, or save it for next time.</p>
+      <button type="button" class="co-btn co-btn--primary" data-credit-pop-apply>Add to this booking</button>
+      <button type="button" class="co-modal__guest" data-credit-pop-close>Save for later</button>
     </div>
   </div>
 

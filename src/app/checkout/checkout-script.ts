@@ -69,6 +69,8 @@ export function runCheckout() {
     var payMode = null; /* no default — chosen on the booking summary (deposit/full/hold) */
     var promo = 0;
     var promoCode = '';
+    /* Travel credit on the (logged-in) account — reduces the overall total only, never the deposit. */
+    var creditAvail = 0, creditApplied = false;
 
     /* ---- Totals ---- */
     function totals() {
@@ -84,18 +86,21 @@ export function runCheckout() {
       var addonsTotal = 0;
       cart.forEach(function (t) { if (t.addons) ADDONS.forEach(function (a) { if (t.addons[a.id]) addonsTotal += a.price; }); });
       var save = (tripsOrig - tripsTotal) + promo;
-      var grand = tripsTotal + roomTotal + addonsTotal - promo;
-      /* The deposit is just the fixed tour deposit (per person). Add-ons, room upgrades and
-         the rest of the trip cost sit in the balance — paid later or across the plan. */
-      var deposit = Math.min(tripsDep, grand);
+      var subtotal = tripsTotal + roomTotal + addonsTotal - promo; /* total before travel credit */
+      /* Travel credit comes off the overall total (and balance / full payment) only — never the deposit. */
+      var creditUsed = creditApplied ? Math.min(creditAvail, subtotal) : 0;
+      var grand = subtotal - creditUsed;
+      /* The deposit is the fixed tour deposit (per person), computed before credit so it never shrinks. */
+      var deposit = Math.min(tripsDep, subtotal);
       if (deposit < 0) deposit = 0;
       var dueToday = payMode === 'full' ? grand : (payMode === 'hold' ? 0 : deposit);
       if (dueToday < 0) dueToday = 0;
+      if (dueToday > grand) dueToday = grand; /* deposit can't exceed the credit-reduced total */
       var balance = grand - dueToday;
       /* Party size = the largest single-tour traveller count. The same people can do
          several tours, so we never sum traveller counts across tours as a headcount. */
       var partySize = cart.reduce(function (m, t) { return Math.max(m, t.travellers || 1); }, 0);
-      return { tripsTotal: tripsTotal, tripsOrig: tripsOrig, roomTotal: roomTotal, ownRooms: ownRooms, addonsTotal: addonsTotal, save: save, grand: grand, dueToday: dueToday, balance: balance, deposit: deposit, pax: pax, partySize: partySize, tours: cart.length };
+      return { tripsTotal: tripsTotal, tripsOrig: tripsOrig, roomTotal: roomTotal, ownRooms: ownRooms, addonsTotal: addonsTotal, save: save, subtotal: subtotal, creditUsed: creditUsed, creditAvail: creditAvail, grand: grand, dueToday: dueToday, balance: balance, deposit: deposit, pax: pax, partySize: partySize, tours: cart.length };
     }
     /* Payment plan: deposit today, then the balance split monthly up to the balance-due date
        (60 days before departure). Instalments = whole months between now and that date. */
@@ -335,6 +340,8 @@ export function runCheckout() {
         rows += '<div class="co-trip__costrow"><span>' + t.tours + ' tour' + (t.tours === 1 ? '' : 's') + '</span><span>' + fmt(t.tripsTotal) + '</span></div>';
       }
       if (promo > 0) rows += '<div class="co-trip__costrow co-trip__costrow--save"><span>Promo' + (promoCode ? ' &middot; ' + promoCode : '') + '</span><span>&minus;' + fmt(promo) + '</span></div>';
+      if (t.creditUsed > 0) rows += '<div class="co-trip__costrow co-trip__costrow--save"><span>Travel credit</span><span>&minus;' + fmt(t.creditUsed) + '</span></div>';
+      else if (t.creditAvail > 0) rows += '<div class="co-trip__costrow co-trip__costrow--credit"><span>Travel credit available</span><span>' + fmt(t.creditAvail) + '</span></div>';
       if (t.roomTotal > 0) rows += '<div class="co-trip__costrow"><span>Own room upgrade</span><span>+' + fmt(t.roomTotal) + '</span></div>';
       if (t.addonsTotal > 0) rows += '<div class="co-trip__costrow"><span>Add-ons</span><span>+' + fmt(t.addonsTotal) + '</span></div>';
       /* Promo code — sits just above the total (booking summary only) */
@@ -453,7 +460,7 @@ export function runCheckout() {
       renderAll();
     });
 
-    function renderAll() { renderPax(); renderTravellers(); renderTrips(); renderSummary(); }
+    function renderAll() { renderPax(); renderTravellers(); renderTrips(); renderSummary(); renderCredit(); }
     renderAll();
 
     /* ---- Step navigation (all steps open/clickable for design review) ---- */
@@ -572,7 +579,7 @@ export function runCheckout() {
     });
 
     /* ---- Log in to autofill (mock saved profile) ---- */
-    var PROFILE = { email: 'alex.morgan@email.com', first: 'Alex', middle: 'Jordan', last: 'Morgan', nationality: 'United Kingdom', dobDay: '14', dobMonth: '6', dobYear: '1996', dial: '+44', phone: '7700 900123' };
+    var PROFILE = { email: 'alex.morgan@email.com', first: 'Alex', middle: 'Jordan', last: 'Morgan', nationality: 'United Kingdom', dobDay: '14', dobMonth: '6', dobYear: '1996', dial: '+44', phone: '7700 900123', credit: 150 };
     function prefillLead(pr) {
       var em = document.getElementById('co-email'); if (em) em.value = pr.email;
       var card = document.querySelector('.co-trav[data-trav="1"]'); if (!card) return;
@@ -592,7 +599,13 @@ export function runCheckout() {
     var headerLogin = document.querySelector('.co-header__login');
     function openLogin() { loginModal.hidden = false; document.body.style.overflow = 'hidden'; }
     function closeLogin() { loginModal.hidden = true; document.body.style.overflow = ''; }
-    function logout() { headerLogin.classList.remove('is-in'); var l = document.querySelector('[data-login-label]'); if (l) l.textContent = 'Log in'; }
+    var loggedName = '';
+    function logout() {
+      headerLogin.classList.remove('is-in');
+      var l = document.querySelector('[data-login-label]'); if (l) l.textContent = 'Log in';
+      loggedName = ''; creditAvail = 0; creditApplied = false;
+      renderAll();
+    }
     document.querySelectorAll('[data-login-open]').forEach(function (b) {
       b.addEventListener('click', function () { if (b.classList.contains('is-in')) logout(); else openLogin(); });
     });
@@ -603,10 +616,43 @@ export function runCheckout() {
       if (!email.value || email.value.indexOf('@') < 0) { email.classList.add('is-err'); email.focus(); return; }
       var pr = Object.assign({}, PROFILE, { email: email.value });
       prefillLead(pr);
+      loggedName = pr.first;
       var l = document.querySelector('[data-login-label]'); if (l) l.textContent = pr.first;
       headerLogin.classList.add('is-in');
+      creditAvail = pr.credit || 0;
+      creditApplied = false;
+      renderAll();
       closeLogin();
+      if (creditAvail > 0) openCreditPopup();
     });
+
+    /* ---- Travel credit: popup after login + add/remove card at the confirmation stage ---- */
+    var creditModal = document.querySelector('[data-credit-modal]');
+    function openCreditPopup() {
+      if (!creditModal) return;
+      var amt = creditModal.querySelector('[data-credit-pop-amt]'); if (amt) amt.textContent = fmt(creditAvail);
+      var sub = creditModal.querySelector('[data-credit-pop-sub]');
+      if (sub) sub.innerHTML = 'Welcome back' + (loggedName ? ', ' + loggedName : '') + '. You have <strong>' + fmt(creditAvail) + '</strong> in travel credit on your account — add it to this booking now, or save it for next time.';
+      creditModal.hidden = false; document.body.style.overflow = 'hidden';
+    }
+    function closeCreditPopup() { if (creditModal) creditModal.hidden = true; document.body.style.overflow = ''; }
+    if (creditModal) {
+      creditModal.querySelectorAll('[data-credit-pop-close]').forEach(function (b) { b.addEventListener('click', closeCreditPopup); });
+      var cpa = creditModal.querySelector('[data-credit-pop-apply]');
+      if (cpa) cpa.addEventListener('click', function () { creditApplied = true; renderAll(); closeCreditPopup(); });
+    }
+    var creditToggle = document.querySelector('[data-credit-toggle]');
+    if (creditToggle) creditToggle.addEventListener('click', function () { creditApplied = !creditApplied; renderAll(); });
+    function renderCredit() {
+      var card = document.querySelector('[data-credit-card]');
+      if (!card) return;
+      if (creditAvail <= 0) { card.hidden = true; return; }
+      card.hidden = false;
+      card.classList.toggle('is-applied', creditApplied);
+      var h = card.querySelector('[data-credit-card-h]'), s = card.querySelector('[data-credit-card-s]'), btn = card.querySelector('[data-credit-toggle]');
+      if (creditApplied) { h.innerHTML = fmt(creditAvail) + ' travel credit applied'; s.textContent = 'Taken off your total below.'; btn.textContent = 'Remove'; }
+      else { h.innerHTML = fmt(creditAvail) + ' travel credit'; s.textContent = 'Add it to this booking to reduce your total.'; btn.textContent = 'Add'; }
+    }
 
     /* ---- Deposit / hold options only apply when departure is 60+ days out ---- */
     function daysToDeparture() {
