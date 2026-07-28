@@ -320,7 +320,7 @@ function ExperienceTypesDisclosure({
                 <span className="text-[8px] font-semibold uppercase font-heading leading-tight text-gray-200">
                   {e.name}
                 </span>
-                <span className="text-[11px] font-bold mt-auto pt-0.5" style={{ color: e.color }}>
+                <span className="text-[0.95rem] font-bold mt-auto pt-0.5 text-white">
                   {e.count}
                 </span>
               </div>
