@@ -22,8 +22,9 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
       <ol class="co-progress__list" data-progress>
         <li class="co-pstep is-active" data-pstep="1"><span class="co-pstep__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM5 21a7 7 0 0114 0"/></svg></span><span class="co-pstep__label">Travellers</span></li>
         <li class="co-pstep" data-pstep="2"><span class="co-pstep__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="7" width="16" height="13" rx="2"/><path stroke-linecap="round" d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2"/></svg></span><span class="co-pstep__label">Add-ons</span></li>
-        <li class="co-pstep" data-pstep="3"><span class="co-pstep__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path stroke-linecap="round" d="M2 10h20"/></svg></span><span class="co-pstep__label">Payment</span></li>
-        <li class="co-pstep" data-pstep="4"><span class="co-pstep__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span><span class="co-pstep__label">Confirmed</span></li>
+        <li class="co-pstep" data-pstep="3"><span class="co-pstep__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7l2 2 4-4"/></svg></span><span class="co-pstep__label">Review &amp; confirm</span></li>
+        <li class="co-pstep" data-pstep="4"><span class="co-pstep__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path stroke-linecap="round" d="M2 10h20"/></svg></span><span class="co-pstep__label">Payment</span></li>
+        <li class="co-pstep" data-pstep="5"><span class="co-pstep__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M8.5 12.5l2.5 2.5 4.5-5"/></svg></span><span class="co-pstep__label">Booked</span></li>
       </ol>
       </nav>
       <div class="co-header__right">
@@ -68,14 +69,20 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
         <section class="co-card co-card--bare" data-step="2">
           <h2 class="section-heading co-step-heading">Customise Your <span style="color: var(--tru-pink);">Trip</span></h2>
           <div class="co-card__body">
-            <p class="co-lead">Here&rsquo;s everything in your basket. Pick how you&rsquo;d like to room on each trip and add any extras &mdash; airport transfers, extra nights &mdash; then choose how to pay. Nothing&rsquo;s charged yet.</p>
+            <p class="co-lead">Here&rsquo;s everything in your basket. Pick how you&rsquo;d like to room on each trip and add any extras &mdash; airport transfers, extra nights. Nothing&rsquo;s charged yet.</p>
             <div class="co-trips" data-trip-list></div>
             <p class="co-hint">Adding more travellers or changing dates? <a href="/">Edit in your basket &rarr;</a></p>
+            <button type="button" class="co-btn co-btn--yellow" data-next="2">Continue to review &rarr;</button>
+          </div>
+          <div class="co-card__done" data-done="2" hidden></div>
+        </section>
 
-            <!-- Booking summary footer -->
+        <!-- STEP 3 — REVIEW &amp; CONFIRM -->
+        <section class="co-card co-card--bare" data-step="3">
+          <h2 class="section-heading co-step-heading">Review &amp; <span style="color: var(--tru-pink);">Confirm</span></h2>
+          <div class="co-card__body">
             <div class="co-booking-sec">
-              <h2 class="section-heading co-step-heading co-booking-h">Booking <span style="color: var(--tru-pink);">Summary</span></h2>
-              <p class="co-sub">Check your details before you continue to payment.</p>
+              <p class="co-sub">Check everything&rsquo;s right before you continue to payment. Nothing&rsquo;s charged yet.</p>
 
               <div class="co-review">
                 <div class="co-rev">
@@ -89,7 +96,7 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
                   <button type="button" class="co-rev__head" data-rev-toggle><span class="co-rev__title">Trip &amp; add-ons</span><span class="co-rev__sub" data-rev-tripsub></span><svg class="co-rev__chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>
                   <div class="co-rev__body">
                     <div data-rev-trip></div>
-                    <div class="co-rev__edits"><button type="button" class="co-rev__edit" data-scroll-trips>Edit above &uarr;</button></div>
+                    <div class="co-rev__edits"><button type="button" class="co-rev__edit" data-goto="2">Edit trip &amp; add-ons</button></div>
                   </div>
                 </div>
                 <div class="co-rev co-rev--static is-open">
@@ -112,29 +119,32 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
                 <button type="button" class="co-credit__btn" data-credit-toggle>Add</button>
               </div>
 
-              <p class="co-pay-h">Choose how you&rsquo;d like to book</p>
-              <div class="co-payopts" data-payopts>
-                <button class="co-payopt" data-mode="hold" type="button" data-opt-hold><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Hold your spot</strong><span>Secure your spot for 48 hours</span></span><span class="co-payopt__price" data-price-hold>Free</span></button>
-                <button class="co-payopt" data-mode="deposit" type="button" data-opt-deposit><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Deposit</strong><span data-deposit-sub>Pay the balance 60 days before departure</span></span><span class="co-payopt__price" data-price-deposit>&pound;0</span></button>
-                <button class="co-payopt" data-mode="plan" type="button" data-opt-plan><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Payment plan</strong><span data-plan-sub>Spread the cost monthly</span></span><span class="co-payopt__price" data-price-plan>&pound;0</span></button>
-                <button class="co-payopt" data-mode="full" type="button"><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Pay in full</strong><span>Everything paid &amp; sorted today</span></span><span class="co-payopt__price" data-price-full>&pound;0</span></button>
-              </div>
-              <p class="co-payopts__note" data-pay-note hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16.3v.2M12 8v5"/></svg> Your trip departs within 60 days, so the full balance is due to book. Deposit, payment plan and hold-your-spot are only available for departures more than 60 days away.</p>
-              <p class="co-payopts__err" data-pay-err hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 8v5M12 16.3v.2"/></svg> Please choose a payment option to continue.</p>
+              <p class="co-pay-h">How you can pay</p>
+              <div class="co-paypreview" data-pay-preview></div>
+              <p class="co-paypreview__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16.3v.2M12 8v5"/></svg> You&rsquo;ll choose your payment option on the next step.</p>
 
-              <button type="button" class="co-btn co-btn--yellow" data-next="2">Continue to payment &rarr;</button>
+              <button type="button" class="co-btn co-btn--yellow" data-next="3">Confirm &amp; continue to payment &rarr;</button>
             </div>
           </div>
           <div class="co-card__done" data-done="2" hidden></div>
         </section>
 
-        <!-- STEP 3 — PAYMENT -->
-        <section class="co-card co-card--bare" data-step="3">
+        <!-- STEP 4 — PAYMENT -->
+        <section class="co-card co-card--bare" data-step="4">
           <h2 class="section-heading co-step-heading"><span style="color: var(--tru-pink);">Payment</span></h2>
           <div class="co-card__body">
+            <p class="co-sub">Choose how you&rsquo;d like to book, then enter your details. Your booking is placed when you pay.</p>
+            <p class="co-pay-h">Choose how you&rsquo;d like to book</p>
+            <div class="co-payopts" data-payopts>
+              <button class="co-payopt" data-mode="hold" type="button" data-opt-hold><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Hold your spot</strong><span>Secure your spot for 48 hours</span></span><span class="co-payopt__price" data-price-hold>Free</span></button>
+              <button class="co-payopt" data-mode="deposit" type="button" data-opt-deposit><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Deposit</strong><span data-deposit-sub>Pay the balance 60 days before departure</span></span><span class="co-payopt__price" data-price-deposit>&pound;0</span></button>
+              <button class="co-payopt" data-mode="plan" type="button" data-opt-plan><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Payment plan</strong><span data-plan-sub>Spread the cost monthly</span></span><span class="co-payopt__price" data-price-plan>&pound;0</span></button>
+              <button class="co-payopt" data-mode="full" type="button"><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Pay in full</strong><span>Everything paid &amp; sorted today</span></span><span class="co-payopt__price" data-price-full>&pound;0</span></button>
+            </div>
+            <p class="co-payopts__note" data-pay-note hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16.3v.2M12 8v5"/></svg> Your trip departs within 60 days, so the full balance is due to book. Deposit, payment plan and hold-your-spot are only available for departures more than 60 days away.</p>
+
             <p class="co-pay-total" data-pay-total>&pound;0</p>
             <p class="co-sub" data-pay-chosen></p>
-            <button type="button" class="co-rev__edit co-pay-change" data-goto="2">&larr; Change payment option</button>
 
             <div data-pay-card>
               <p class="co-pay-h">Payment method</p>
@@ -194,8 +204,8 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
           </div>
         </section>
 
-        <!-- STEP 4 — CONFIRMED -->
-        <section class="co-card co-confirm" data-step="4" hidden>
+        <!-- STEP 5 — CONFIRMED -->
+        <section class="co-card co-confirm" data-step="5" hidden>
           <div class="co-confirm__tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
           <h2 class="co-confirm__title">You&rsquo;re going!</h2>
           <p class="co-confirm__script">Leave ordinary behind&hellip;</p>

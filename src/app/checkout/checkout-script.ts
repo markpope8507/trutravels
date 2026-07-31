@@ -384,6 +384,7 @@ export function runCheckout() {
       var ps = document.querySelector('[data-plan-sub]'); if (ps) ps.textContent = fmt(pl.monthly) + '/mo for ' + pl.months + ' months after your deposit';
 
       renderBooking();
+      renderPayPreview();
     }
     /* Full-width booking summary on the Add-ons step — same data, hero image on top */
     function renderBooking() {
@@ -478,13 +479,13 @@ export function runCheckout() {
         c.classList.toggle('is-open', n === step);
       });
       setProgress(step);
-      /* Summary aside shows on Travellers (1) & Payment (3). Step 2 (Your Trip) runs full
-         width — the trip cards + booking summary carry everything inline. */
+      /* Booking summary aside shows on desktop for every step now — including Add-ons
+         and Review & confirm — so the running total is always visible on the right. */
       var grid = document.querySelector('.co-grid');
-      grid.classList.toggle('co-grid--full', step === 2);
-      grid.classList.toggle('is-pay', step === 3);
-      if (step === 2) renderBooking();
-      if (step === 3 && typeof enterPayment === 'function') enterPayment();
+      grid.classList.remove('co-grid--full');
+      grid.classList.toggle('is-pay', step === 4);
+      if (step === 3) renderBooking();
+      if (step === 4 && typeof enterPayment === 'function') enterPayment();
       /* One step at a time — jump to the top so the new step starts under the sticky bar */
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -492,7 +493,7 @@ export function runCheckout() {
     document.querySelectorAll('[data-pstep]').forEach(function (li) {
       li.addEventListener('click', function () {
         var n = +li.dataset.pstep;
-        if (n === 4) { confirm(); return; }
+        if (n === 5) { confirm(); return; }
         openStep(n);
       });
     });
@@ -503,6 +504,7 @@ export function runCheckout() {
       var txt = '';
       if (step === 1) { var em = (document.getElementById('co-email').value || 'Details saved'); txt = em; }
       if (step === 2) { var n = 0; cart.forEach(function (tr) { if (tr.addons) ADDONS.forEach(function (a) { if (tr.addons[a.id]) n++; }); }); txt = t.tours + ' tour' + (t.tours === 1 ? '' : 's') + (t.ownRooms ? ' · ' + t.ownRooms + ' own room' + (t.ownRooms === 1 ? '' : 's') : '') + (n ? ' · ' + n + ' extra' + (n === 1 ? '' : 's') : ''); }
+      if (step === 3) { txt = 'Reviewed &amp; confirmed'; }
       el.innerHTML = '<span class="co-done-tick">✓</span> ' + txt;
       el.hidden = false;
       var edit = document.querySelector('[data-edit="' + step + '"]');
@@ -516,15 +518,13 @@ export function runCheckout() {
     document.querySelectorAll('[data-next]').forEach(function (b) {
       b.addEventListener('click', function () {
         var n = +b.dataset.next;
-        /* Your Trip step: must accept T&Cs and choose a payment option before continuing */
-        if (n === 2) {
+        /* Review & confirm step: must accept the T&Cs before continuing to payment */
+        if (n === 3) {
           var tc = document.querySelector('[data-tc-agree]'), tcErr = document.querySelector('[data-tc-err]');
-          var payErr = document.querySelector('[data-pay-err]');
-          var tcMissing = tc && !tc.checked, payMissing = !payMode;
+          var tcMissing = tc && !tc.checked;
           if (tcErr) tcErr.hidden = !tcMissing;
-          if (payErr) payErr.hidden = !payMissing;
-          if (tcMissing || payMissing) {
-            var target = tcMissing ? tc.closest('.co-rev') : document.querySelector('[data-payopts]');
+          if (tcMissing) {
+            var target = tc.closest('.co-rev');
             if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
           }
@@ -670,6 +670,7 @@ export function runCheckout() {
       var hold = document.querySelector('[data-pay-hold]'); if (hold) hold.hidden = (mode !== 'hold');
       var err = document.querySelector('[data-pay-err]'); if (err) err.hidden = true;
       renderSummary();
+      refreshPayDisplay();
     }
     document.querySelectorAll('[data-mode]').forEach(function (b) {
       b.addEventListener('click', function () { setPayMode(b.dataset.mode); });
@@ -693,8 +694,7 @@ export function runCheckout() {
     applyPayGating();
 
     /* ---- Payment step (step 4): reflect the chosen option ---- */
-    function enterPayment() {
-      setPayMode(payMode || 'deposit');
+    function refreshPayDisplay() {
       var t = totals();
       var tot = document.querySelector('[data-pay-total]');
       if (tot) tot.textContent = fmt(t.dueToday);
@@ -705,6 +705,23 @@ export function runCheckout() {
         else if (payMode === 'plan') { var pl = planDetails(); el.innerHTML = 'Paying a <strong>deposit</strong> of ' + fmt(t.dueToday) + ' today, then <strong>' + fmt(pl.monthly) + '/month</strong> for ' + pl.months + ' months. Fully paid before your balance-due date.'; }
         else el.innerHTML = 'Paying a <strong>deposit</strong> of ' + fmt(t.dueToday) + ' today. The ' + fmt(t.balance) + ' balance is due 60 days before departure.';
       }
+    }
+    function enterPayment() { setPayMode(payMode || 'full'); }
+    /* Read-only payment-options preview shown on the Review & confirm step (step 3). */
+    function renderPayPreview() {
+      var box = document.querySelector('[data-pay-preview]');
+      if (!box) return;
+      var t = totals(), pl = planDetails(), within60 = !OUTSIDE_60;
+      var pp = t.partySize > 1 ? fmt(Math.round(t.deposit / t.partySize)) + ' per person &middot; ' : '';
+      var opts = [
+        { on: !within60, s: 'Hold your spot', sub: 'Secure your spot for 48 hours', price: 'Free' },
+        { on: !within60, s: 'Deposit', sub: pp + 'Pay the balance 60 days before departure', price: fmt(t.deposit) },
+        { on: !within60, s: 'Payment plan', sub: fmt(pl.monthly) + '/mo for ' + pl.months + ' months', price: fmt(pl.deposit) },
+        { on: true, s: 'Pay in full', sub: 'Everything paid &amp; sorted today', price: fmt(t.grand) }
+      ];
+      box.innerHTML = opts.map(function (o) {
+        return '<div class="co-payopt co-payopt--preview' + (o.on ? '' : ' is-disabled') + '"><span class="co-payopt__txt"><strong>' + o.s + '</strong><span>' + o.sub + '</span></span><span class="co-payopt__price">' + o.price + '</span></div>';
+      }).join('');
     }
     document.querySelectorAll('[data-rev-toggle]').forEach(function (b) {
       b.addEventListener('click', function () { b.closest('.co-rev').classList.toggle('is-open'); });
@@ -794,12 +811,12 @@ export function runCheckout() {
         refLbl.textContent = 'Booking reference';
       }
       document.querySelector('[data-confirm-ref]').textContent = refCode();
-      document.querySelectorAll('.co-card[data-step]').forEach(function (c) { c.classList.toggle('is-open', +c.dataset.step === 4); });
-      document.querySelector('.co-summary--mobile').hidden = true;
+      document.querySelectorAll('.co-card[data-step]').forEach(function (c) { c.classList.toggle('is-open', +c.dataset.step === 5); });
+      var ms = document.querySelector('.co-summary--mobile'); if (ms) ms.hidden = true;
       var backLink = document.querySelector('.co-back-link'); if (backLink) backLink.style.display = 'none';
-      document.querySelector('[data-step="4"]').hidden = false;
-      setProgress(4);
-      document.querySelectorAll('[data-pstep]').forEach(function (li) { if (+li.dataset.pstep === 4) li.classList.add('is-done'); });
+      document.querySelector('[data-step="5"]').hidden = false;
+      setProgress(5);
+      document.querySelectorAll('[data-pstep]').forEach(function (li) { if (+li.dataset.pstep === 5) li.classList.add('is-done'); });
       try { sessionStorage.removeItem('truCart'); } catch (e) {}
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }

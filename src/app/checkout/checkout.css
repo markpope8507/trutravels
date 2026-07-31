@@ -2764,6 +2764,15 @@
 .co-payopts__note { display: flex; align-items: flex-start; gap: 0.5rem; margin: 0.85rem 0 0; font-size: 0.8rem; line-height: 1.45; color: #9ca3af; }
 .co-payopts__note svg { width: 1rem; height: 1rem; color: var(--tru-pink); flex-shrink: 0; margin-top: 0.1rem; }
 
+/* Read-only payment-options preview (Review & confirm step) — same rows as the
+   selectable options but non-interactive; the choice is made on the Payment step. */
+.co-paypreview { display: flex; flex-direction: column; gap: 0.6rem; }
+.co-payopt--preview { cursor: default; }
+.co-payopt--preview:hover { border-color: rgba(255,255,255,0.14); }
+.co-payopt--preview.is-disabled { opacity: 0.45; }
+.co-paypreview__note { display: flex; align-items: flex-start; gap: 0.5rem; margin: 0.85rem 0 0; font-size: 0.8rem; line-height: 1.45; color: #9ca3af; }
+.co-paypreview__note svg { width: 1rem; height: 1rem; color: var(--tru-pink); flex-shrink: 0; margin-top: 0.1rem; }
+
 /* Travel credit — confirmation-stage add/remove card */
 .co-credit { display: flex; align-items: center; gap: 0.85rem; border: 1px solid rgba(107,212,149,0.4); background: rgba(107,212,149,0.08); border-radius: var(--radius); padding: 0.85rem 1rem; margin-bottom: 1.1rem; }
 .co-credit.is-applied { border-color: rgba(107,212,149,0.6); background: rgba(107,212,149,0.12); }
@@ -2788,7 +2797,7 @@
 .co-trip__costrow--credit span:last-child { color: var(--tru-green); font-weight: 700; }
 
 /* Booking summary (Add-ons step) — full-width tour cards, hero image on top */
-.co-booking-sec { margin-top: 2.75rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); }
+.co-booking-sec { margin-top: 0; padding-top: 0; border-top: none; }
 .co-booking-h { margin-bottom: 0.35rem; }
 .co-booking { margin: 1.35rem 0 0.5rem; }
 .co-booking .co-oi { display: block; padding: 0; border-bottom: none; background: var(--tru-navy); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); overflow: hidden; margin-bottom: 1.1rem; }
@@ -2958,10 +2967,11 @@
 .co-trust__cards { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.5rem 1.25rem; }
 .co-trust__cards img { height: 24px; width: auto; opacity: 0.8; }
 
-/* Mobile summary (collapsible) */
-/* Mobile: no persistent summary bar — review costs by going back to Your Trip */
-.co-summary--mobile { display: none !important; }
-.co-summary--mobile-legacy { margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); background: rgba(255,255,255,0.03); overflow: hidden; }
+/* Mobile summary (collapsible) — persistent "Booking summary" bar at the top of
+   the flow so travellers can always refer to what they've booked. Hidden on
+   desktop, where the sticky sidebar summary takes over. */
+.co-summary--mobile { display: block; margin-bottom: 1.25rem; border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); background: rgba(255,255,255,0.03); overflow: hidden; }
+@media (min-width: 1024px) { .co-summary--mobile { display: none; } }
 .co-summary__bar { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; color: #fff; padding: 0.9rem 1.1rem; cursor: pointer; }
 .co-summary__bar-l { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.9rem; font-family: var(--font-montserrat), 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.03em; }
 .co-summary__bar-l svg { width: 1.1rem; height: 1.1rem; color: var(--tru-pink); }
