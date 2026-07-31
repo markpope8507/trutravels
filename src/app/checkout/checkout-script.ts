@@ -384,7 +384,6 @@ export function runCheckout() {
       var ps = document.querySelector('[data-plan-sub]'); if (ps) ps.textContent = fmt(pl.monthly) + '/mo for ' + pl.months + ' months after your deposit';
 
       renderBooking();
-      renderPayPreview();
     }
     /* Full-width booking summary on the Add-ons step — same data, hero image on top */
     function renderBooking() {
@@ -707,22 +706,6 @@ export function runCheckout() {
       }
     }
     function enterPayment() { setPayMode(payMode || 'full'); }
-    /* Read-only payment-options preview shown on the Review & confirm step (step 3). */
-    function renderPayPreview() {
-      var box = document.querySelector('[data-pay-preview]');
-      if (!box) return;
-      var t = totals(), pl = planDetails(), within60 = !OUTSIDE_60;
-      var pp = t.partySize > 1 ? fmt(Math.round(t.deposit / t.partySize)) + ' per person &middot; ' : '';
-      var opts = [
-        { on: !within60, s: 'Hold your spot', sub: 'Secure your spot for 48 hours', price: 'Free' },
-        { on: !within60, s: 'Deposit', sub: pp + 'Pay the balance 60 days before departure', price: fmt(t.deposit) },
-        { on: !within60, s: 'Payment plan', sub: fmt(pl.monthly) + '/mo for ' + pl.months + ' months', price: fmt(pl.deposit) },
-        { on: true, s: 'Pay in full', sub: 'Everything paid &amp; sorted today', price: fmt(t.grand) }
-      ];
-      box.innerHTML = opts.map(function (o) {
-        return '<div class="co-payopt co-payopt--preview' + (o.on ? '' : ' is-disabled') + '"><span class="co-payopt__txt"><strong>' + o.s + '</strong><span>' + o.sub + '</span></span><span class="co-payopt__price">' + o.price + '</span></div>';
-      }).join('');
-    }
     document.querySelectorAll('[data-rev-toggle]').forEach(function (b) {
       b.addEventListener('click', function () { b.closest('.co-rev').classList.toggle('is-open'); });
     });

@@ -119,9 +119,14 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
                 <button type="button" class="co-credit__btn" data-credit-toggle>Add</button>
               </div>
 
-              <p class="co-pay-h">How you can pay</p>
-              <div class="co-paypreview" data-pay-preview></div>
-              <p class="co-paypreview__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16.3v.2M12 8v5"/></svg> You&rsquo;ll choose your payment option on the next step.</p>
+              <p class="co-pay-h">Choose how you&rsquo;d like to book</p>
+              <div class="co-payopts" data-payopts>
+                <button class="co-payopt" data-mode="hold" type="button" data-opt-hold><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Hold your spot</strong><span>Secure your spot for 48 hours</span></span><span class="co-payopt__price" data-price-hold>Free</span></button>
+                <button class="co-payopt" data-mode="deposit" type="button" data-opt-deposit><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Deposit</strong><span data-deposit-sub>Pay the balance 60 days before departure</span></span><span class="co-payopt__price" data-price-deposit>&pound;0</span></button>
+                <button class="co-payopt" data-mode="plan" type="button" data-opt-plan><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Payment plan</strong><span data-plan-sub>Spread the cost monthly</span></span><span class="co-payopt__price" data-price-plan>&pound;0</span></button>
+                <button class="co-payopt" data-mode="full" type="button"><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Pay in full</strong><span>Everything paid &amp; sorted today</span></span><span class="co-payopt__price" data-price-full>&pound;0</span></button>
+              </div>
+              <p class="co-payopts__note" data-pay-note hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16.3v.2M12 8v5"/></svg> Your trip departs within 60 days, so the full balance is due to book. Deposit, payment plan and hold-your-spot are only available for departures more than 60 days away.</p>
 
               <button type="button" class="co-btn co-btn--yellow" data-next="3">Confirm &amp; continue to payment &rarr;</button>
             </div>
@@ -133,18 +138,9 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
         <section class="co-card co-card--bare" data-step="4">
           <h2 class="section-heading co-step-heading"><span style="color: var(--tru-pink);">Payment</span></h2>
           <div class="co-card__body">
-            <p class="co-sub">Choose how you&rsquo;d like to book, then enter your details. Your booking is placed when you pay.</p>
-            <p class="co-pay-h">Choose how you&rsquo;d like to book</p>
-            <div class="co-payopts" data-payopts>
-              <button class="co-payopt" data-mode="hold" type="button" data-opt-hold><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Hold your spot</strong><span>Secure your spot for 48 hours</span></span><span class="co-payopt__price" data-price-hold>Free</span></button>
-              <button class="co-payopt" data-mode="deposit" type="button" data-opt-deposit><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Deposit</strong><span data-deposit-sub>Pay the balance 60 days before departure</span></span><span class="co-payopt__price" data-price-deposit>&pound;0</span></button>
-              <button class="co-payopt" data-mode="plan" type="button" data-opt-plan><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Payment plan</strong><span data-plan-sub>Spread the cost monthly</span></span><span class="co-payopt__price" data-price-plan>&pound;0</span></button>
-              <button class="co-payopt" data-mode="full" type="button"><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Pay in full</strong><span>Everything paid &amp; sorted today</span></span><span class="co-payopt__price" data-price-full>&pound;0</span></button>
-            </div>
-            <p class="co-payopts__note" data-pay-note hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16.3v.2M12 8v5"/></svg> Your trip departs within 60 days, so the full balance is due to book. Deposit, payment plan and hold-your-spot are only available for departures more than 60 days away.</p>
-
             <p class="co-pay-total" data-pay-total>&pound;0</p>
             <p class="co-sub" data-pay-chosen></p>
+            <button type="button" class="co-rev__edit co-pay-change" data-goto="3">&larr; Change payment option</button>
 
             <div data-pay-card>
               <p class="co-pay-h">Payment method</p>
