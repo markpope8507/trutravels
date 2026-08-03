@@ -1891,6 +1891,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .share-row--email:hover { background: var(--tru-pink); }
 .share-row--ig:hover { background: #E1306C; }
 .share-row--msg:hover { background: #0084FF; }
+.share-row--sms:hover { background: #34C759; }
 .share-row__ico { width: 2rem; height: 2rem; border-radius: 999px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .share-row__ico svg { width: 1rem; height: 1rem; }
 .share-row__check { display: none; color: var(--tru-green); }
