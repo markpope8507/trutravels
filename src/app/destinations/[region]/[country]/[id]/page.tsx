@@ -271,6 +271,8 @@ export default async function TripDetailPage({
                           <path strokeLinecap="round" strokeLinejoin="round" d="M3 2v7c0 1.1.9 2 2 2h0a2 2 0 002-2V2" />
                           <path strokeLinecap="round" strokeLinejoin="round" d="M7 2v20" />
                           <path strokeLinecap="round" strokeLinejoin="round" d="M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+                          <circle cx="11.5" cy="12" r="3.4" />
+                          <circle cx="11.5" cy="12" r="1.35" />
                         </svg>
                         <p className="text-white text-sm font-semibold mb-1">Meals</p>
                         <p className="text-gray-400 text-[11px] leading-tight">{trip.inclusions.meals}</p>
