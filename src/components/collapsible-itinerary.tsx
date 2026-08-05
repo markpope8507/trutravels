@@ -122,10 +122,7 @@ export default function CollapsibleItinerary({
                       <DayIncludedRow
                         icon={
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <rect x="4" y="4" width="16" height="14" rx="2" />
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16M8 18v2m8-2v2" />
-                            <circle cx="8" cy="15" r="0.5" fill="currentColor" />
-                            <circle cx="16" cy="15" r="0.5" fill="currentColor" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H6.375m11.25 0h3.375c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 00-.879-2.121l-3.496-3.496A2.999 2.999 0 0014.25 8.25H6.375c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125z" />
                           </svg>
                         }
                         label={day.transport}
@@ -147,7 +144,10 @@ export default function CollapsibleItinerary({
                         key={m}
                         icon={
                           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 11h18M5 11V5a1 1 0 011-1h12a1 1 0 011 1v6M5 11l-1 8a1 1 0 001 1h14a1 1 0 001-1l-1-8" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v18" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M7 3v3a2 2 0 004 0V3" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 3v18" />
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 3c-2 0-3 2-3 4.5s1 4.5 3 4.5" />
                           </svg>
                         }
                         label={m}
