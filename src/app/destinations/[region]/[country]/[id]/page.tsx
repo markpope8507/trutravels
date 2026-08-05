@@ -268,11 +268,11 @@ export default async function TripDetailPage({
                     {trip.inclusions.meals && (
                       <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 text-center h-full">
                         <svg className="h-6 w-6 text-tru-pink mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 2v7c0 1.1.9 2 2 2h0a2 2 0 002-2V2" />
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M7 2v20" />
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
-                          <circle cx="11.5" cy="12" r="3.4" />
-                          <circle cx="11.5" cy="12" r="1.35" />
+                          <circle cx="12" cy="12" r="9" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 8v8" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8v2a1.5 1.5 0 003 0V8" />
+                          <ellipse cx="15" cy="10.2" rx="1.7" ry="2.3" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 12.5v3.5" />
                         </svg>
                         <p className="text-white text-sm font-semibold mb-1">Meals</p>
                         <p className="text-gray-400 text-[11px] leading-tight">{trip.inclusions.meals}</p>

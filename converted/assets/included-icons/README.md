@@ -7,7 +7,7 @@ Standalone SVGs for the "Included As Standard" cards on the tour page
 |------|------|
 | `accommodation.svg` | Accommodation (home) |
 | `transport.svg` | Transport (van) |
-| `meals.svg` | Meals (plate, fork & knife) |
+| `meals.svg` | Meals (fork & spoon on a plate) |
 | `local-legend.svg` | Local Legend (people) |
 
 All are outline icons, `24×24` on a `0 0 24 24` viewBox, `stroke-width="1.5"`,
