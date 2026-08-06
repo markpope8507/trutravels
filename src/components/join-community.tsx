@@ -34,7 +34,7 @@ export default function JoinCommunity() {
   );
 }
 
-function SignupModal({ onClose }: { onClose: () => void }) {
+export function SignupModal({ onClose }: { onClose: () => void }) {
   const { signup } = useAuth();
   const router = useRouter();
 

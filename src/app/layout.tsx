@@ -4,6 +4,7 @@ import "./globals.css";
 import { SiteHeader, SiteChromeFooter } from "@/components/site-chrome";
 import { AuthProvider } from "@/lib/auth-context";
 import { CartProvider } from "@/lib/cart-context";
+import { AuthModalProvider } from "@/lib/auth-modal";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -50,9 +51,11 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <AuthProvider>
           <CartProvider>
-            <SiteHeader />
-            <main className="flex-1">{children}</main>
-            <SiteChromeFooter />
+            <AuthModalProvider>
+              <SiteHeader />
+              <main className="flex-1">{children}</main>
+              <SiteChromeFooter />
+            </AuthModalProvider>
           </CartProvider>
         </AuthProvider>
       </body>

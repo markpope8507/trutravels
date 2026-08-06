@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
+import { useAuthModal } from "@/lib/auth-modal";
 import { useCart } from "@/lib/cart-context";
 import SearchOverlay from "@/components/search-overlay";
 import { LIFE_MOMENTS } from "@/lib/life-moments";
@@ -189,6 +190,7 @@ const essentialsNav = [
 
 export default function Navbar() {
   const { isLoggedIn, user, logout } = useAuth();
+  const { openAuth } = useAuthModal();
   const { count: cartCount, openDrawer: openCart } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
@@ -308,13 +310,13 @@ export default function Navbar() {
                   </button>
                 </div>
               ) : (
-                <Link
-                  href="/login"
+                <button
+                  type="button"
                   className="ml-1 rounded-full bg-yellow-400 px-4 py-1.5 text-[10px] font-semibold text-tru-navy hover:bg-yellow-300 transition uppercase tracking-wider font-heading"
-                  onClick={closeAll}
+                  onClick={() => { closeAll(); openAuth(); }}
                 >
                   Join / Log in
-                </Link>
+                </button>
               )}
             </div>
 
@@ -758,9 +760,9 @@ export default function Navbar() {
                   Dashboard
                 </Link>
               ) : (
-                <Link href="/login" onClick={closeAll} className="block rounded-full bg-tru-pink px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-tru-pink-light transition">
+                <button type="button" onClick={() => { closeAll(); openAuth(); }} className="block w-full rounded-full bg-tru-pink px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-tru-pink-light transition">
                   Join / Log in
-                </Link>
+                </button>
               )}
             </div>
           </div>

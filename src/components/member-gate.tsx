@@ -1,11 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
+import { useAuthModal } from "@/lib/auth-modal";
 import { ReactNode } from "react";
 
 export default function MemberGate({ children }: { children: ReactNode }) {
   const { isLoggedIn } = useAuth();
+  const { openAuth } = useAuthModal();
 
   if (isLoggedIn) return <>{children}</>;
 
@@ -21,18 +22,20 @@ export default function MemberGate({ children }: { children: ReactNode }) {
         This content is exclusive to TruTravels members. Join for free to unlock personalised recommendations, exclusive stories, deals, and community access.
       </p>
       <div className="flex gap-4">
-        <Link
-          href="/signup"
+        <button
+          type="button"
+          onClick={openAuth}
           className="rounded-[10px] bg-tru-green px-6 py-3 text-sm font-semibold text-tru-navy hover:bg-tru-green-light transition"
         >
           Join Free
-        </Link>
-        <Link
-          href="/login"
+        </button>
+        <button
+          type="button"
+          onClick={openAuth}
           className="rounded-[10px] border border-tru-pink px-6 py-3 text-sm font-semibold text-tru-pink hover:bg-tru-pink hover:text-white transition"
         >
           Log In
-        </Link>
+        </button>
       </div>
     </div>
   );

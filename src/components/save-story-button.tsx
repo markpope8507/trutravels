@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { useScrollLock } from "@/lib/use-scroll-lock";
 import { createPortal } from "react-dom";
-import Link from "next/link";
 import { useAuth } from "@/lib/auth-context";
+import { useAuthModal } from "@/lib/auth-modal";
 import {
   subscribeSavedStories,
   getSavedSnapshot,
@@ -14,6 +14,7 @@ import {
 
 export default function SaveStoryButton({ storyId }: { storyId: string }) {
   const { isLoggedIn } = useAuth();
+  const { openAuth } = useAuthModal();
   const raw = useSyncExternalStore(subscribeSavedStories, getSavedSnapshot, getServerSnapshot);
   const saved = (JSON.parse(raw) as string[]).includes(storyId);
 
@@ -75,20 +76,20 @@ export default function SaveStoryButton({ storyId }: { storyId: string }) {
             </svg>
             <p className="text-white text-base font-semibold mb-1">Save this read</p>
             <p className="text-gray-400 text-sm mb-5">Log in to save reads to your dashboard</p>
-            <Link
-              href="/login"
-              onClick={() => setShowPrompt(false)}
+            <button
+              type="button"
+              onClick={() => { setShowPrompt(false); openAuth(); }}
               className="block w-full rounded-[10px] bg-tru-pink px-4 py-2.5 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-200 uppercase tracking-wider"
             >
               Log In
-            </Link>
-            <Link
-              href="/signup"
-              onClick={() => setShowPrompt(false)}
-              className="block mt-3 text-xs text-gray-400 hover:text-white transition-colors"
+            </button>
+            <button
+              type="button"
+              onClick={() => { setShowPrompt(false); openAuth(); }}
+              className="block w-full mt-3 text-xs text-gray-400 hover:text-white transition-colors"
             >
               Don&apos;t have an account? Sign up
-            </Link>
+            </button>
           </div>
         </div>,
         document.body,

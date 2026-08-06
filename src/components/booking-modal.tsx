@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { useScrollLock } from "@/lib/use-scroll-lock";
 import { useAuth } from "@/lib/auth-context";
+import { useAuthModal } from "@/lib/auth-modal";
 import { useCart } from "@/lib/cart-context";
-import Link from "next/link";
 
 type Departure = {
   date: string;
@@ -64,6 +64,7 @@ export default function BookingModal({
   depositPrice,
 }: BookingModalProps) {
   const { isLoggedIn } = useAuth();
+  const { openAuth } = useAuthModal();
   const { addItem, openDrawer } = useCart();
   const [selected, setSelected] = useState<Departure | null>(null);
   const [notifySignedUp, setNotifySignedUp] = useState(false);
@@ -222,16 +223,16 @@ export default function BookingModal({
                         </button>
                       ) : (
                         <div className="space-y-3">
-                          <Link
-                            href="/signup"
-                            onClick={onClose}
-                            className="block rounded-[10px] bg-tru-pink px-6 py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 uppercase tracking-wider font-heading text-center"
+                          <button
+                            type="button"
+                            onClick={() => { onClose(); openAuth(); }}
+                            className="block w-full rounded-[10px] bg-tru-pink px-6 py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 uppercase tracking-wider font-heading text-center"
                           >
                             Sign Up to Get Notified
-                          </Link>
+                          </button>
                           <p className="text-gray-500 text-xs">
                             Already have an account?{" "}
-                            <Link href="/login" onClick={onClose} className="text-tru-pink hover:text-tru-pink-light transition">Log in</Link>
+                            <button type="button" onClick={() => { onClose(); openAuth(); }} className="text-tru-pink hover:text-tru-pink-light transition">Log in</button>
                           </p>
                         </div>
                       )}
