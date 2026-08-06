@@ -3801,7 +3801,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .co-processing__title span { color: var(--tru-pink); }
 .co-processing__bar { height: 8px; width: 100%; max-width: 26rem; margin: 0 auto; border-radius: 999px; background: rgba(255,255,255,0.12); overflow: hidden; }
 .co-processing__fill { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--tru-pink), #ff8ac4); box-shadow: 0 0 18px -2px rgba(255,63,153,0.7); }
-.co-processing.is-on .co-processing__fill { animation: co-proc-fill 2.6s cubic-bezier(0.45, 0.05, 0.25, 1) forwards; }
+.co-processing.is-on .co-processing__fill { animation: co-proc-fill 5.2s cubic-bezier(0.45, 0.05, 0.25, 1) forwards; }
 @keyframes co-proc-fill { 0% { width: 4%; } 55% { width: 72%; } 100% { width: 100%; } }
 .co-processing__status { color: #e5e7eb; font-family: 'Montserrat', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem; margin: 1.1rem 0 0; min-height: 1rem; }
 .co-processing__note { display: inline-flex; align-items: center; gap: 0.45rem; color: #9ca3af; font-size: 0.8rem; margin: 1.75rem 0 0; }

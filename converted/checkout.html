@@ -857,14 +857,14 @@
       var statusEl = ov.querySelector('[data-proc-status]');
       var statuses = ['Securing your spot…', 'Confirming your details…', 'Reserving your adventure…', 'Almost there…'];
       var i = 0; if (statusEl) statusEl.textContent = statuses[0];
-      var timer = window.setInterval(function () { i++; if (statusEl && statuses[i]) statusEl.textContent = statuses[i]; }, 650);
+      var timer = window.setInterval(function () { i++; if (statusEl && statuses[i]) statusEl.textContent = statuses[i]; }, 1250);
       window.setTimeout(function () {
         window.clearInterval(timer);
         ov.hidden = true;
         ov.classList.remove('is-on');
         document.body.style.overflow = '';
         done();
-      }, 2600);
+      }, 5200);
     }
 
     document.querySelectorAll('[data-next]').forEach(function (b) {
