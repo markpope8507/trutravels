@@ -3806,3 +3806,57 @@ ul { margin: 0; padding: 0; list-style: none; }
 .co-processing__status { color: #e5e7eb; font-family: 'Montserrat', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem; margin: 1.1rem 0 0; min-height: 1rem; }
 .co-processing__note { display: inline-flex; align-items: center; gap: 0.45rem; color: #9ca3af; font-size: 0.8rem; margin: 1.75rem 0 0; }
 .co-processing__note svg { width: 1rem; height: 1rem; flex-shrink: 0; color: var(--tru-pink); }
+
+/* ============================================================
+   SHARED COMPONENT — Auth modal (Log in / Create account)
+   Social shortcuts + email/password. Toggle open with the `is-open` class
+   and switch view with data-auth-view; see components/auth-modal.html.
+   ============================================================ */
+.auth-modal { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; padding: 1rem; }
+.auth-modal.is-open { display: flex; }
+.auth-modal__backdrop { position: absolute; inset: 0; background: rgba(9,33,62,0.8); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); border: none; cursor: pointer; }
+.auth-modal__card { position: relative; width: 100%; max-width: 28rem; max-height: 95vh; overflow-y: auto; border-radius: 1rem; border: 1px solid var(--border-soft); background: #0b1626; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6); }
+.auth-modal__inner { padding: 1.5rem; }
+.auth-modal__close { position: absolute; top: 0.875rem; right: 0.875rem; height: 2rem; width: 2rem; border-radius: 999px; display: flex; align-items: center; justify-content: center; color: #9ca3af; background: none; border: none; cursor: pointer; transition: color 0.2s, background 0.2s; z-index: 2; }
+.auth-modal__close:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.auth-modal__close svg { height: 1.25rem; width: 1.25rem; }
+.auth-modal__view { display: none; }
+.auth-modal__view.is-active { display: block; }
+.auth-modal__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin: 0 0 0.375rem; }
+.auth-modal__title { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 900; text-transform: uppercase; line-height: 1.2; margin: 0 0 0.25rem; }
+.auth-modal__sub { color: #9ca3af; font-size: 0.875rem; margin: 0 0 1.25rem; }
+.auth-modal__socials { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+.auth-social { height: 3rem; width: 3rem; border-radius: 999px; background: var(--tru-navy); border: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: border-color 0.2s, transform 0.2s; }
+.auth-social:hover { border-color: rgba(255,63,153,0.4); transform: scale(1.05); }
+.auth-social svg { height: 1.5rem; width: 1.5rem; }
+.auth-modal__divider { display: flex; align-items: center; gap: 0.75rem; margin: 1.25rem 0; }
+.auth-modal__divider span:first-child, .auth-modal__divider span:last-child { height: 1px; flex: 1; background: rgba(255,255,255,0.1); }
+.auth-modal__divider-txt { color: #6b7280; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Montserrat', sans-serif; }
+.auth-field { display: block; margin-bottom: 0.75rem; }
+.auth-field__label { display: block; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #d1d5db; margin-bottom: 0.25rem; }
+.auth-field input { width: 100%; box-sizing: border-box; border-radius: var(--radius); border: 1px solid var(--border-soft); background: rgba(255,255,255,0.05); padding: 0.625rem 1rem; font-size: 0.875rem; color: #fff; outline: none; transition: border-color 0.2s, background 0.2s; }
+.auth-field input::placeholder { color: #6b7280; }
+.auth-field input:focus { border-color: rgba(255,63,153,0.6); background: rgba(255,255,255,0.1); }
+.auth-modal__row { display: flex; align-items: center; justify-content: space-between; padding-top: 0.125rem; margin-bottom: 0.25rem; }
+.auth-remember { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
+.auth-remember input { height: 1rem; width: 1rem; accent-color: var(--tru-pink); }
+.auth-remember span { color: #d1d5db; font-size: 0.75rem; }
+.auth-forgot { color: var(--tru-pink); font-size: 0.75rem; background: none; border: none; cursor: pointer; }
+.auth-forgot:hover { color: #ff6db3; }
+.auth-reqs { list-style: none; margin: 0.5rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
+.auth-req { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: #6b7280; }
+.auth-req__tick { height: 1rem; width: 1rem; border-radius: 999px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.auth-req__tick svg { height: 0.625rem; width: 0.625rem; color: #6b7280; }
+.auth-submit { width: 100%; border-radius: var(--radius); padding: 0.75rem; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid #FCD200; background: #FFD814; color: #0F1111; cursor: pointer; margin-top: 0.75rem; transition: filter 0.2s; }
+.auth-submit:hover { filter: brightness(0.96); }
+.auth-modal__switch { text-align: center; color: #6b7280; font-size: 0.75rem; margin: 1.25rem 0 0; }
+.auth-modal__switch button, .auth-modal__switch a { color: var(--tru-pink); font-weight: 600; background: none; border: none; cursor: pointer; }
+.auth-modal__switch button:hover, .auth-modal__switch a:hover { color: #ff6db3; }
+
+/* Auth as a full page (login.html / signup.html) — reuses the card + fields */
+.auth-page { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem 1rem; }
+.auth-page__logo { height: 2.5rem; width: auto; margin-bottom: 1.5rem; display: block; }
+.auth-page .auth-modal__card { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+.auth-page__back { margin-top: 1.5rem; color: #9ca3af; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+.auth-page__back:hover { color: #fff; }
+.auth-page__back svg { width: 1rem; height: 1rem; }

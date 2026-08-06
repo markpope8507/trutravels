@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Auth modal (component) — TruTravels</title>
+  <meta name="description" content="Shared log in / create account popup component." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+  <!-- ===== DEMO TRIGGERS (not part of the component) ===== -->
+  <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem;text-align:center;">
+    <p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;">Auth modal component &mdash; demo</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <button type="button" class="btn btn--primary" data-auth-open="login">Log in</button>
+      <button type="button" class="btn btn--ghost" data-auth-open="signup">Create account</button>
+    </div>
+    <p style="color:#6b7280;font-size:0.8rem;max-width:30rem;">Any element with <code>data-auth-open="login"</code> or <code>data-auth-open="signup"</code> opens the popup. Copy the modal markup + script below into any page (and set your nav "Join / Log in" trigger's <code>data-auth-open</code>).</p>
+  </div>
+
+  <!-- ===================================================================
+       AUTH MODAL COMPONENT — copy this block + its script tag into any page.
+       Requires styles.css (the .auth-modal / .auth-* rules).
+       =================================================================== -->
+  <div class="auth-modal" data-auth-modal>
+    <button class="auth-modal__backdrop" type="button" data-auth-close aria-label="Close"></button>
+    <div class="auth-modal__card">
+      <button class="auth-modal__close" type="button" data-auth-close aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+      <div class="auth-modal__inner">
+
+        <!-- ===== LOG IN VIEW ===== -->
+        <div class="auth-modal__view is-active" data-auth-view="login">
+          <p class="auth-modal__eyebrow">Welcome Back</p>
+          <h2 class="auth-modal__title">Log In</h2>
+          <p class="auth-modal__sub">Pick up right where you left off.</p>
+
+          <div class="auth-modal__socials">
+            <button class="auth-social" type="button" aria-label="Log in with Google"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></button>
+            <button class="auth-social" type="button" aria-label="Log in with Facebook"><svg viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></button>
+            <button class="auth-social" type="button" aria-label="Log in with Apple"><svg viewBox="0 0 24 24" fill="#fff"><path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.04.28.04.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z"/></svg></button>
+          </div>
+
+          <div class="auth-modal__divider"><span></span><span class="auth-modal__divider-txt">or</span><span></span></div>
+
+          <form onsubmit="return false;">
+            <label class="auth-field"><span class="auth-field__label">Email</span><input type="email" placeholder="you@example.com" autocomplete="email" /></label>
+            <label class="auth-field"><span class="auth-field__label">Password</span><input type="password" placeholder="Your password" autocomplete="current-password" /></label>
+            <div class="auth-modal__row">
+              <label class="auth-remember"><input type="checkbox" checked /><span>Remember me</span></label>
+              <button type="button" class="auth-forgot">Forgot password?</button>
+            </div>
+            <button type="submit" class="auth-submit">Log In &rarr;</button>
+          </form>
+
+          <p class="auth-modal__switch">New to TruTravels? <button type="button" data-auth-switch="signup">Create an account</button></p>
+        </div>
+
+        <!-- ===== CREATE ACCOUNT VIEW ===== -->
+        <div class="auth-modal__view" data-auth-view="signup">
+          <p class="auth-modal__eyebrow">Join Our Community</p>
+          <h2 class="auth-modal__title">Create Your Free Account</h2>
+          <p class="auth-modal__sub">One free account unlocks everything. No catch.</p>
+
+          <form onsubmit="return false;">
+            <label class="auth-field"><span class="auth-field__label">Email</span><input type="email" placeholder="you@example.com" autocomplete="email" /></label>
+            <label class="auth-field"><span class="auth-field__label">Password</span><input type="password" placeholder="Create a password" autocomplete="new-password" /></label>
+            <label class="auth-field"><span class="auth-field__label">Confirm password</span><input type="password" placeholder="Re-enter your password" autocomplete="new-password" /></label>
+            <ul class="auth-reqs">
+              <li class="auth-req"><span class="auth-req__tick"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span> At least 8 characters</li>
+              <li class="auth-req"><span class="auth-req__tick"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span> Passwords match</li>
+            </ul>
+            <button type="submit" class="auth-submit">Create Free Account &rarr;</button>
+          </form>
+
+          <div class="auth-modal__divider"><span></span><span class="auth-modal__divider-txt">or</span><span></span></div>
+
+          <div class="auth-modal__socials">
+            <button class="auth-social" type="button" aria-label="Sign up with Google"><svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></button>
+            <button class="auth-social" type="button" aria-label="Sign up with Facebook"><svg viewBox="0 0 24 24"><path fill="#1877F2" d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"/></svg></button>
+            <button class="auth-social" type="button" aria-label="Sign up with Apple"><svg viewBox="0 0 24 24" fill="#fff"><path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.04.28.04.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z"/></svg></button>
+          </div>
+
+          <p class="auth-modal__switch">Already a member? <button type="button" data-auth-switch="login">Log in</button></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* Auth modal — open/close + view switch. Include once per page. */
+  (function () {
+    var modal = document.querySelector('[data-auth-modal]');
+    if (!modal) return;
+    function show(view) {
+      modal.querySelectorAll('[data-auth-view]').forEach(function (v) {
+        v.classList.toggle('is-active', v.getAttribute('data-auth-view') === (view || 'login'));
+      });
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+    document.querySelectorAll('[data-auth-open]').forEach(function (b) {
+      b.addEventListener('click', function (e) { e.preventDefault(); show(b.getAttribute('data-auth-open')); });
+    });
+    modal.querySelectorAll('[data-auth-close]').forEach(function (b) { b.addEventListener('click', close); });
+    modal.querySelectorAll('[data-auth-switch]').forEach(function (b) {
+      b.addEventListener('click', function () { show(b.getAttribute('data-auth-switch')); });
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
+  })();
+  </script>
+</body>
+</html>
