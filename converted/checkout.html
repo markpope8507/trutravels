@@ -273,6 +273,17 @@
     </div>
   </main>
 
+  <!-- Processing overlay — full-screen while the booking is being placed (API call) -->
+  <div class="co-processing" data-processing hidden role="status" aria-live="polite">
+    <div class="co-processing__inner">
+      <p class="co-processing__script">Leave ordinary behind&hellip;</p>
+      <h2 class="co-processing__title">Booking your <span>trip of a lifetime</span></h2>
+      <div class="co-processing__bar"><span class="co-processing__fill" data-proc-fill></span></div>
+      <p class="co-processing__status" data-proc-status>Securing your spot&hellip;</p>
+      <p class="co-processing__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg> Please don&rsquo;t refresh or go back &mdash; this only takes a moment.</p>
+    </div>
+  </div>
+
   <!-- Log in modal -->
   <div class="co-modal" data-login-modal hidden>
     <div class="co-modal__backdrop" data-login-close></div>
@@ -831,6 +842,31 @@
       openStep(from + 1);
     }
 
+    /* Full-screen "booking your trip" processing overlay — shown while the API is
+       (mock-)called between Review & confirm and Payment. Determinate progress bar,
+       cycling status lines, then reveals the payment step. */
+    function runProcessing(done) {
+      var ov = document.querySelector('[data-processing]');
+      if (!ov) { done(); return; }
+      document.body.style.overflow = 'hidden';
+      ov.hidden = false;
+      /* restart the fill animation each time */
+      ov.classList.remove('is-on');
+      void ov.offsetWidth;
+      ov.classList.add('is-on');
+      var statusEl = ov.querySelector('[data-proc-status]');
+      var statuses = ['Securing your spot…', 'Confirming your details…', 'Reserving your adventure…', 'Almost there…'];
+      var i = 0; if (statusEl) statusEl.textContent = statuses[0];
+      var timer = window.setInterval(function () { i++; if (statusEl && statuses[i]) statusEl.textContent = statuses[i]; }, 650);
+      window.setTimeout(function () {
+        window.clearInterval(timer);
+        ov.hidden = true;
+        ov.classList.remove('is-on');
+        document.body.style.overflow = '';
+        done();
+      }, 2600);
+    }
+
     document.querySelectorAll('[data-next]').forEach(function (b) {
       b.addEventListener('click', function () {
         var n = +b.dataset.next;
@@ -844,6 +880,9 @@
             if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
           }
+          /* Placing the booking — show the processing screen, then reveal payment */
+          runProcessing(function () { advance(3); });
+          return;
         }
         advance(n);
       });

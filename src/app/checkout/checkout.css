@@ -1846,6 +1846,7 @@
 .share-row--email:hover { background: var(--tru-pink); }
 .share-row--ig:hover { background: #E1306C; }
 .share-row--msg:hover { background: #0084FF; }
+.share-row--sms:hover { background: #34C759; }
 .share-row__ico { width: 2rem; height: 2rem; border-radius: 999px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .share-row__ico svg { width: 1rem; height: 1rem; }
 .share-row__check { display: none; color: var(--tru-green); }
@@ -3735,3 +3736,28 @@
 .at-empty__h { color: #fff; font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; margin: 0 0 0.75rem; }
 .at-empty__p { color: #9ca3af; font-size: 0.875rem; margin: 0 0 1.5rem; }
 .at-empty__btn { border-radius: var(--radius); background: var(--tru-pink); color: #fff; border: none; padding: 0.75rem 1.5rem; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; }
+
+/* ============================================================
+   CHECKOUT — full-screen "booking your trip" processing overlay
+   Shown between Review & confirm and Payment while the API is called.
+   A determinate progress bar (not a spinner) so it never reads as "buffering".
+   ============================================================ */
+.co-processing { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1.5rem; background: var(--tru-navy); overflow: hidden; }
+.co-processing[hidden] { display: none; }
+.co-processing::before { content: ''; position: absolute; inset: 0; pointer-events: none; background:
+  radial-gradient(ellipse at 20% 25%, rgba(255,63,153,0.18) 0%, transparent 45%),
+  radial-gradient(ellipse at 85% 80%, rgba(33,114,213,0.16) 0%, transparent 45%); }
+.co-processing__inner { position: relative; text-align: center; width: 100%; max-width: 40rem; }
+.co-processing__script { font-family: var(--font-caveat), 'Caveat', cursive; color: var(--tru-pink); font-size: 1.5rem; line-height: 1; margin: 0 0 0.75rem; }
+@media (min-width: 640px) { .co-processing__script { font-size: 1.875rem; } }
+.co-processing__title { font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: -0.02em; line-height: 1.02; margin: 0 0 2rem; font-size: 2rem; }
+@media (min-width: 640px) { .co-processing__title { font-size: 3.25rem; } }
+@media (min-width: 1024px) { .co-processing__title { font-size: 4rem; } }
+.co-processing__title span { color: var(--tru-pink); }
+.co-processing__bar { height: 8px; width: 100%; max-width: 26rem; margin: 0 auto; border-radius: 999px; background: rgba(255,255,255,0.12); overflow: hidden; }
+.co-processing__fill { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--tru-pink), #ff8ac4); box-shadow: 0 0 18px -2px rgba(255,63,153,0.7); }
+.co-processing.is-on .co-processing__fill { animation: co-proc-fill 2.6s cubic-bezier(0.45, 0.05, 0.25, 1) forwards; }
+@keyframes co-proc-fill { 0% { width: 4%; } 55% { width: 72%; } 100% { width: 100%; } }
+.co-processing__status { color: #e5e7eb; font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem; margin: 1.1rem 0 0; min-height: 1rem; }
+.co-processing__note { display: inline-flex; align-items: center; gap: 0.45rem; color: #9ca3af; font-size: 0.8rem; margin: 1.75rem 0 0; }
+.co-processing__note svg { width: 1rem; height: 1rem; flex-shrink: 0; color: var(--tru-pink); }

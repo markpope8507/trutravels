@@ -261,6 +261,17 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
     </div>
   </main>
 
+  <!-- Processing overlay — full-screen while the booking is being placed (API call) -->
+  <div class="co-processing" data-processing hidden role="status" aria-live="polite">
+    <div class="co-processing__inner">
+      <p class="co-processing__script">Leave ordinary behind&hellip;</p>
+      <h2 class="co-processing__title">Booking your <span>trip of a lifetime</span></h2>
+      <div class="co-processing__bar"><span class="co-processing__fill" data-proc-fill></span></div>
+      <p class="co-processing__status" data-proc-status>Securing your spot&hellip;</p>
+      <p class="co-processing__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg> Please don&rsquo;t refresh or go back &mdash; this only takes a moment.</p>
+    </div>
+  </div>
+
   <!-- Log in modal -->
   <div class="co-modal" data-login-modal hidden>
     <div class="co-modal__backdrop" data-login-close></div>
