@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Booking your trip — TruTravels</title>
+  <meta name="description" content="Full-screen booking / processing screen shown while a TruTravels booking is placed." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ================= BOOKING PROCESSING SCREEN =================
+       Full-screen dark overlay shown while a booking is placed (API call).
+       A determinate progress bar (not a spinner) so it never reads as
+       "buffering". Drop this markup over your page and toggle the [hidden]
+       attribute + `is-on` class to show it; see the checkout for how it's
+       wired into the flow. This page loops it as a standalone preview. -->
+  <div class="co-processing is-on" data-processing role="status" aria-live="polite">
+    <div class="co-processing__inner">
+      <p class="co-processing__script">Leave ordinary behind&hellip;</p>
+      <h2 class="co-processing__title">Booking your <span>trip of a lifetime</span></h2>
+      <div class="co-processing__bar"><span class="co-processing__fill" data-proc-fill></span></div>
+      <p class="co-processing__status" data-proc-status>Securing your spot&hellip;</p>
+      <p class="co-processing__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg> Please don&rsquo;t refresh or go back &mdash; this only takes a moment.</p>
+    </div>
+  </div>
+
+  <script>
+  /* Standalone preview — loop the fill + cycle the status lines so the screen
+     animates continuously. In the real flow it plays once, then reveals the
+     next page (see the checkout's runProcessing()). */
+  (function () {
+    var ov = document.querySelector('[data-processing]');
+    if (!ov) return;
+    var statusEl = ov.querySelector('[data-proc-status]');
+    var statuses = ['Securing your spot…', 'Confirming your details…', 'Reserving your adventure…', 'Almost there…'];
+    var DURATION = 2600, STEP = 650;
+    function cycle() {
+      /* restart the bar fill */
+      ov.classList.remove('is-on');
+      void ov.offsetWidth;
+      ov.classList.add('is-on');
+      /* cycle status text */
+      var i = 0; if (statusEl) statusEl.textContent = statuses[0];
+      var timer = window.setInterval(function () { i++; if (statusEl && statuses[i]) statusEl.textContent = statuses[i]; }, STEP);
+      window.setTimeout(function () { window.clearInterval(timer); }, DURATION);
+    }
+    cycle();
+    window.setInterval(cycle, DURATION + 400);
+  })();
+  </script>
+</body>
+</html>
