@@ -8,7 +8,7 @@ import { useAuthModal } from "@/lib/auth-modal";
 
 export default function FavouriteButton({ tripId }: { tripId: string }) {
   const { isLoggedIn } = useAuth();
-  const { openAuth } = useAuthModal();
+  const { openLogin, openSignup } = useAuthModal();
   const [saved, setSaved] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
   useScrollLock(showPrompt);
@@ -87,14 +87,14 @@ export default function FavouriteButton({ tripId }: { tripId: string }) {
             <p className="text-gray-400 text-sm mb-5">Log in to save trips you love</p>
             <button
               type="button"
-              onClick={() => { setShowPrompt(false); openAuth(); }}
+              onClick={() => { setShowPrompt(false); openLogin(); }}
               className="block w-full rounded-[10px] bg-tru-pink px-4 py-2.5 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-200 uppercase tracking-wider"
             >
               Log In
             </button>
             <button
               type="button"
-              onClick={() => { setShowPrompt(false); openAuth(); }}
+              onClick={() => { setShowPrompt(false); openSignup(); }}
               className="block w-full mt-3 text-xs text-gray-400 hover:text-white transition-colors"
             >
               Don&apos;t have an account? Sign up

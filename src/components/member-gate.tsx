@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 
 export default function MemberGate({ children }: { children: ReactNode }) {
   const { isLoggedIn } = useAuth();
-  const { openAuth } = useAuthModal();
+  const { openLogin, openSignup } = useAuthModal();
 
   if (isLoggedIn) return <>{children}</>;
 
@@ -24,14 +24,14 @@ export default function MemberGate({ children }: { children: ReactNode }) {
       <div className="flex gap-4">
         <button
           type="button"
-          onClick={openAuth}
+          onClick={openSignup}
           className="rounded-[10px] bg-tru-green px-6 py-3 text-sm font-semibold text-tru-navy hover:bg-tru-green-light transition"
         >
           Join Free
         </button>
         <button
           type="button"
-          onClick={openAuth}
+          onClick={openLogin}
           className="rounded-[10px] border border-tru-pink px-6 py-3 text-sm font-semibold text-tru-pink hover:bg-tru-pink hover:text-white transition"
         >
           Log In

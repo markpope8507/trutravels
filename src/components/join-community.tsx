@@ -34,7 +34,7 @@ export default function JoinCommunity() {
   );
 }
 
-export function SignupModal({ onClose }: { onClose: () => void }) {
+export function SignupModal({ onClose, onLogin }: { onClose: () => void; onLogin?: () => void }) {
   const { signup } = useAuth();
   const router = useRouter();
 
@@ -192,6 +192,7 @@ export function SignupModal({ onClose }: { onClose: () => void }) {
             Already a member?{" "}
             <button
               onClick={() => {
+                if (onLogin) { onLogin(); return; }
                 onClose();
                 router.push("/login");
               }}
@@ -206,7 +207,7 @@ export function SignupModal({ onClose }: { onClose: () => void }) {
   );
 }
 
-function SocialButton({
+export function SocialButton({
   label,
   onClick,
   icon,
@@ -228,7 +229,7 @@ function SocialButton({
   );
 }
 
-function Field({
+export function Field({
   label,
   type,
   value,
@@ -287,7 +288,7 @@ function Requirement({ met, label }: { met: boolean; label: string }) {
 
 /* ---------------- Brand icons ---------------- */
 
-function GoogleIcon() {
+export function GoogleIcon() {
   return (
     <svg viewBox="0 0 48 48" className="h-5 w-5">
       <path
@@ -310,7 +311,7 @@ function GoogleIcon() {
   );
 }
 
-function FacebookIcon() {
+export function FacebookIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5">
       <path
@@ -321,7 +322,7 @@ function FacebookIcon() {
   );
 }
 
-function AppleIcon() {
+export function AppleIcon() {
   return (
     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="#fff">
       <path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.04.28.04.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z" />

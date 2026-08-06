@@ -64,7 +64,7 @@ export default function BookingModal({
   depositPrice,
 }: BookingModalProps) {
   const { isLoggedIn } = useAuth();
-  const { openAuth } = useAuthModal();
+  const { openLogin, openSignup } = useAuthModal();
   const { addItem, openDrawer } = useCart();
   const [selected, setSelected] = useState<Departure | null>(null);
   const [notifySignedUp, setNotifySignedUp] = useState(false);
@@ -225,14 +225,14 @@ export default function BookingModal({
                         <div className="space-y-3">
                           <button
                             type="button"
-                            onClick={() => { onClose(); openAuth(); }}
+                            onClick={() => { onClose(); openSignup(); }}
                             className="block w-full rounded-[10px] bg-tru-pink px-6 py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition-all duration-300 uppercase tracking-wider font-heading text-center"
                           >
                             Sign Up to Get Notified
                           </button>
                           <p className="text-gray-500 text-xs">
                             Already have an account?{" "}
-                            <button type="button" onClick={() => { onClose(); openAuth(); }} className="text-tru-pink hover:text-tru-pink-light transition">Log in</button>
+                            <button type="button" onClick={() => { onClose(); openLogin(); }} className="text-tru-pink hover:text-tru-pink-light transition">Log in</button>
                           </p>
                         </div>
                       )}
