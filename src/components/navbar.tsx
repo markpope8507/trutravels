@@ -312,7 +312,7 @@ export default function Navbar() {
               ) : (
                 <button
                   type="button"
-                  className="ml-1 rounded-full bg-yellow-400 px-4 py-1.5 text-[10px] font-semibold text-tru-navy hover:bg-yellow-300 transition uppercase tracking-wider font-heading"
+                  className="ml-1 rounded-full bg-tru-pink px-4 py-1.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading"
                   onClick={() => { closeAll(); openAuth(); }}
                 >
                   Join / Log in
