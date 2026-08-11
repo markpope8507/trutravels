@@ -35,11 +35,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
-      <Link href="/" className="mb-6">
-        <img src="/logo-white.png" alt="TruTravels" className="h-10" />
-      </Link>
-
+    <div className="pt-28 pb-16 flex items-center justify-center min-h-[80vh] px-4">
       {/* Card */}
       <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#0b1626] shadow-2xl max-h-[95vh] overflow-y-auto">
         <div className="p-6">
@@ -119,13 +115,6 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
-
-      <Link href="/" className="mt-6 inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition">
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-        </svg>
-        Back to TruTravels
-      </Link>
     </div>
   );
 }
