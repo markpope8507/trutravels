@@ -4,90 +4,128 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
+import { SocialButton, Field, GoogleIcon, FacebookIcon, AppleIcon } from "@/components/join-community";
 
+/* Full-page login — same design as the LoginModal, on a centred card with the
+   TruTravels logo above and a link back home. Social shortcuts (Google /
+   Facebook / Apple), email + password, remember me, and a CTA to create an
+   account. */
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const { login } = useAuth();
   const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const canSubmit = emailValid && password.length > 0 && !submitting;
+
+  const finish = (withEmail: string) => {
+    login(withEmail, password || "social-login");
+    router.push("/member/dashboard");
+  };
+
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
-      setError("Please fill in all fields");
-      return;
-    }
-    const success = login(email, password);
-    if (success) {
-      router.push("/member/dashboard");
-    } else {
-      setError("Login failed. Please try again.");
-    }
+    if (!canSubmit) return;
+    setSubmitting(true);
+    finish(email);
   };
 
   return (
-    <div className="pt-28 flex items-center justify-center min-h-[80vh] px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-          <p className="text-gray-400">Log in to your TruTravels account</p>
-        </div>
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 py-16">
+      <Link href="/" className="mb-6">
+        <img src="/logo-white.png" alt="TruTravels" className="h-10" />
+      </Link>
 
-        <form onSubmit={handleSubmit} className="bg-white/5 rounded-2xl p-8 border border-white/10">
-          {error && (
-            <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-              {error}
-            </div>
-          )}
+      {/* Card */}
+      <div className="relative w-full max-w-md rounded-2xl border border-white/10 bg-[#0b1626] shadow-2xl max-h-[95vh] overflow-y-auto">
+        <div className="p-6">
+          <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 font-heading">
+            Welcome Back
+          </p>
+          <h2 className="text-xl font-black text-white uppercase font-heading leading-tight mb-1">
+            Log In
+          </h2>
+          <p className="text-gray-400 text-sm mb-5">
+            Pick up right where you left off.
+          </p>
 
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-              Email
-            </label>
-            <input
-              id="email"
+          {/* Social login — icon only */}
+          <div className="flex items-center justify-center gap-4">
+            <SocialButton label="Log in with Google" onClick={() => finish("traveller@gmail.com")} icon={<GoogleIcon />} />
+            <SocialButton label="Log in with Facebook" onClick={() => finish("traveller@facebook.com")} icon={<FacebookIcon />} />
+            <SocialButton label="Log in with Apple" onClick={() => finish("traveller@icloud.com")} icon={<AppleIcon />} />
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center gap-3 my-5">
+            <span className="h-px flex-1 bg-white/10" />
+            <span className="text-gray-500 text-[11px] uppercase tracking-wider font-heading">or</span>
+            <span className="h-px flex-1 bg-white/10" />
+          </div>
+
+          {/* Email + password */}
+          <form onSubmit={handleLogin} className="space-y-3">
+            <Field
+              label="Email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition"
+              onChange={setEmail}
               placeholder="you@example.com"
+              autoComplete="email"
             />
-          </div>
-
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
-              Password
-            </label>
-            <input
-              id="password"
+            <Field
+              label="Password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 transition"
-              placeholder="Enter your password"
+              onChange={setPassword}
+              placeholder="Your password"
+              autoComplete="current-password"
             />
-          </div>
 
-          <button
-            type="submit"
-            className="w-full rounded-full bg-amber-400 py-3 text-sm font-semibold text-black hover:bg-amber-300 transition"
-          >
-            Log In
-          </button>
+            <div className="flex items-center justify-between pt-0.5">
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={remember}
+                  onChange={(e) => setRemember(e.target.checked)}
+                  className="h-4 w-4 accent-tru-pink rounded"
+                />
+                <span className="text-xs text-gray-300">Remember me</span>
+              </label>
+              <button type="button" className="text-xs text-tru-pink hover:text-tru-pink-light transition">
+                Forgot password?
+              </button>
+            </div>
 
-          <p className="text-center text-sm text-gray-400 mt-6">
-            Don&apos;t have an account?{" "}
-            <Link href="/signup" className="text-amber-400 hover:text-amber-300 transition">
-              Join free
+            <button
+              type="submit"
+              disabled={!canSubmit}
+              className="w-full rounded-[10px] py-3 text-sm font-bold uppercase tracking-wider font-heading border transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+              style={{ backgroundColor: "#FFD814", borderColor: "#FCD200", color: "#0F1111" }}
+            >
+              Log In &rarr;
+            </button>
+          </form>
+
+          <p className="text-center text-gray-500 text-xs mt-5">
+            New to TruTravels?{" "}
+            <Link href="/signup" className="text-tru-pink font-semibold hover:text-tru-pink-light transition">
+              Create an account
             </Link>
           </p>
-        </form>
-
-        <p className="text-center text-xs text-gray-500 mt-4">
-          This is a prototype — any email and password will work.
-        </p>
+        </div>
       </div>
+
+      <Link href="/" className="mt-6 inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition">
+        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to TruTravels
+      </Link>
     </div>
   );
 }
