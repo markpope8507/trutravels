@@ -973,6 +973,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 .rev-arrow--prev { left: -0.5rem; }
 .rev-arrow--next { right: -0.5rem; }
 @media (min-width: 640px) { .rev-arrow--prev { left: -1.25rem; } .rev-arrow--next { right: -1.25rem; } }
+/* Reviews carousel bleeds 152% wide on desktop (.rev-bleed); pin its next
+   arrow to the bleed's right edge so it isn't stranded mid-cards. 52% = the
+   bleed's overhang past .rev-carousel; the extra -1.25rem centres it on the
+   edge, mirroring the prev arrow on the left. */
+@media (min-width: 1024px) { #reviews .rev-arrow--next { right: calc(-52% - 1.25rem); } }
 .rev-arrow[disabled] { opacity: 0.3; cursor: default; }
 
 /* review card */

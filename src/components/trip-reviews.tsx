@@ -106,8 +106,10 @@ export default function TripReviews() {
         </div>
       </div>
 
-      {/* Text reviews carousel */}
-      <div className="text-review-carousel relative z-0 overflow-hidden lg:w-[152%]">
+      {/* Text reviews carousel. No overflow-hidden here — Swiper clips its own
+          slides internally, and clipping here would cut off the prev/next
+          arrows that sit at the bleed edges (-left-5 / -right-5). */}
+      <div className="text-review-carousel relative z-0 lg:w-[152%]">
         <Swiper
           modules={[Navigation, FreeMode]}
           spaceBetween={20}
