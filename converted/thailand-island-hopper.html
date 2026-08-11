@@ -2018,5 +2018,76 @@
     });
   })();
   </script>
+
+  <!-- ================= FOMO social-proof toast ================= -->
+  <div class="fomo" data-fomo role="status" aria-live="polite" aria-atomic="true">
+    <div class="fomo__icon" data-fomo-icon></div>
+    <div class="fomo__text">
+      <p class="fomo__title" data-fomo-title></p>
+      <p class="fomo__meta" data-fomo-meta></p>
+    </div>
+    <button class="fomo__close" data-fomo-close type="button" aria-label="Dismiss">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <script>/* FOMO social-proof toast — rotating live-activity nudges */
+  (function () {
+    var el = document.querySelector('[data-fomo]');
+    if (!el) return;
+    if (sessionStorage.getItem('truFomoDismissed') === '1') { el.remove(); return; }
+
+    var iconEl = el.querySelector('[data-fomo-icon]');
+    var titleEl = el.querySelector('[data-fomo-title]');
+    var metaEl = el.querySelector('[data-fomo-meta]');
+
+    var rand = function (a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; };
+    var pick = function (arr) { return arr[Math.floor(Math.random() * arr.length)]; };
+
+    var names = ['Sophie', 'Jack', 'Mia', 'Liam', 'Emma', 'Noah', 'Ava', 'Leo', 'Grace', 'Ben', 'Chloe', 'Ryan'];
+    var places = ['London, UK', 'Sydney, AU', 'Toronto, CA', 'Dublin, IE', 'Berlin, DE', 'Austin, US', 'Auckland, NZ', 'Amsterdam, NL'];
+
+    var PULSE = '<span class="fomo__pulse"><i></i></span>';
+    var BAG = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>';
+    var BOLT = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>';
+    var HEART = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>';
+
+    function build() {
+      return [
+        { v: 'live',  icon: PULSE, title: '<b>' + rand(14, 36) + '</b> people are viewing this trip', meta: 'Right now' },
+        { v: 'book',  icon: BAG,   title: pick(names) + ' just booked this trip', meta: pick(places) + ' · ' + rand(2, 19) + ' min ago' },
+        { v: 'spots', icon: BOLT,  title: 'Only <b>' + rand(3, 6) + '</b> spots left on 12 Apr', meta: rand(78, 92) + '% full for this departure' },
+        { v: 'save',  icon: HEART, title: '<b>' + rand(9, 24) + '</b> travellers saved this today', meta: 'In the last 24 hours' },
+        { v: 'book',  icon: BAG,   title: pick(names) + ' just booked this trip', meta: pick(places) + ' · ' + rand(1, 12) + ' min ago' },
+      ];
+    }
+
+    var queue = [], idx = 0, timer;
+
+    function next() {
+      if (idx >= queue.length) { queue = build(); idx = 0; }
+      var m = queue[idx++];
+      el.setAttribute('data-variant', m.v);
+      iconEl.innerHTML = m.icon;
+      titleEl.innerHTML = m.title;
+      metaEl.textContent = m.meta;
+      el.classList.add('is-visible');
+      timer = setTimeout(hideThenNext, 5500);
+    }
+    function hideThenNext() {
+      el.classList.remove('is-visible');
+      timer = setTimeout(next, 700);
+    }
+
+    el.querySelector('[data-fomo-close]').addEventListener('click', function () {
+      clearTimeout(timer);
+      el.classList.remove('is-visible');
+      sessionStorage.setItem('truFomoDismissed', '1');
+      setTimeout(function () { el.remove(); }, 500);
+    });
+
+    queue = build();
+    timer = setTimeout(next, 3500); // let the page settle first
+  })();
+  </script>
 </body>
 </html>

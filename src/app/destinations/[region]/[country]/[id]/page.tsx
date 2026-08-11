@@ -19,6 +19,7 @@ import RelatedTrips from "@/components/related-trips";
 import TripVideoPlayer from "@/components/trip-video-player";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import BackToTop from "@/components/back-to-top";
+import FomoToast from "@/components/fomo-toast";
 
 export async function generateStaticParams() {
   return trips.map((trip) => ({
@@ -413,6 +414,7 @@ export default async function TripDetailPage({
       <RelatedTrips trips={trips} currentTripId={trip.id} />
 
       <BackToTop />
+      <FomoToast />
     </>
   );
 }

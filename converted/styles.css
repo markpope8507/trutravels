@@ -3865,3 +3865,95 @@ ul { margin: 0; padding: 0; list-style: none; }
 .auth-page__back { margin-top: 1.5rem; color: #9ca3af; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
 .auth-page__back:hover { color: #fff; }
 .auth-page__back svg { width: 1rem; height: 1rem; }
+
+/* ============================================================
+   FOMO social-proof toast — rotating live-activity nudges
+   (fixed bottom-left; used on trip/tour pages)
+   ============================================================ */
+.fomo {
+  position: fixed;
+  left: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 60;
+  width: 330px;
+  max-width: calc(100vw - 2.5rem);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 2.4rem 0.8rem 0.8rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-soft);
+  background: rgba(11, 22, 38, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 18px 45px -12px rgba(0, 0, 0, 0.65);
+  color: #fff;
+  opacity: 0;
+  transform: translateY(18px) scale(0.97);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.fomo.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+
+.fomo__icon {
+  flex-shrink: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fomo__icon svg { width: 1.2rem; height: 1.2rem; }
+
+/* per-variant accent (driven by data-variant on the root) */
+.fomo[data-variant="live"]  .fomo__icon { background: rgba(107, 212, 149, 0.16); color: var(--tru-green); }
+.fomo[data-variant="live"]  .fomo__title b { color: var(--tru-green); }
+.fomo[data-variant="book"]  .fomo__icon { background: rgba(255, 63, 153, 0.16); color: var(--tru-pink); }
+.fomo[data-variant="book"]  .fomo__title b { color: var(--tru-pink); }
+.fomo[data-variant="spots"] .fomo__icon { background: rgba(255, 63, 153, 0.16); color: var(--tru-pink); }
+.fomo[data-variant="spots"] .fomo__title b { color: var(--tru-pink); }
+.fomo[data-variant="save"]  .fomo__icon { background: rgba(33, 114, 213, 0.18); color: var(--tru-blue); }
+.fomo[data-variant="save"]  .fomo__title b { color: var(--tru-blue); }
+
+/* live "viewing now" pulse dot */
+.fomo__pulse { position: relative; width: 0.65rem; height: 0.65rem; }
+.fomo__pulse i { position: absolute; inset: 0; border-radius: 999px; background: var(--tru-green); }
+.fomo__pulse i::before {
+  content: ""; position: absolute; inset: 0; border-radius: 999px;
+  background: var(--tru-green);
+  animation: fomo-ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes fomo-ping { 0% { transform: scale(1); opacity: 0.7; } 75%, 100% { transform: scale(2.6); opacity: 0; } }
+
+.fomo__text { min-width: 0; }
+.fomo__title { margin: 0; font-size: 0.82rem; font-weight: 700; line-height: 1.3; color: #fff; }
+.fomo__title b { font-weight: 800; }
+.fomo__meta {
+  margin: 0.2rem 0 0;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fomo__close {
+  position: absolute; top: 0.45rem; right: 0.45rem;
+  width: 1.5rem; height: 1.5rem; border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; border: none; color: var(--text-mute); cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+}
+.fomo__close:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+.fomo__close svg { width: 0.9rem; height: 0.9rem; }
+
+@media (max-width: 640px) {
+  .fomo { left: 0.75rem; right: 0.75rem; bottom: 0.75rem; width: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fomo { transition: opacity 0.3s ease; transform: none; }
+  .fomo.is-visible { transform: none; }
+  .fomo__pulse i::before { animation: none; }
+}
