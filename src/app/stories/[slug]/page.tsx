@@ -6,6 +6,7 @@ import ReadingProgressBar from "@/components/reading-progress-bar";
 import BackToTop from "@/components/back-to-top";
 import ShareButtons from "@/components/share-buttons";
 import SaveStoryButton from "@/components/save-story-button";
+import StoryCard from "@/components/story-card";
 import { getAuthorByName } from "@/lib/authors";
 
 export function generateStaticParams() {
@@ -237,34 +238,10 @@ export default async function StoryArticlePage({
           <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-tight mb-10">
             More Stories
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {related.map((s) => {
-              const hasArticle = !!storyArticles[s.id];
-              return (
-                <Link
-                  key={s.id}
-                  href={hasArticle ? `/stories/${s.id}` : `/stories#${s.id}`}
-                  className="group"
-                >
-                  <div className="relative overflow-hidden rounded-[10px] aspect-[3/2] mb-4">
-                    <img
-                      src={s.image}
-                      alt={s.title}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <p className="text-tru-pink text-xs font-bold uppercase tracking-wider mb-1 font-heading">
-                    {s.category}
-                  </p>
-                  <h3 className="text-lg font-bold text-white group-hover:text-tru-pink transition mb-2 leading-snug">
-                    {s.title}
-                  </h3>
-                  <p className="text-gray-400 text-sm line-clamp-2">
-                    {s.excerpt}
-                  </p>
-                </Link>
-              );
-            })}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {related.map((s) => (
+              <StoryCard key={s.id} story={s} isLoggedIn />
+            ))}
           </div>
         </section>
       )}
