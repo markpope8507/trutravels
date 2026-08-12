@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Blog video insert (component) — TruTravels</title>
+  <meta name="description" content="Click-to-play inline video that lives inside a blog image box." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Blog video insert &mdash; demo (poster + play button; native controls on play; box size unchanged)</p></div>
+
+  <!-- ===================================================================
+       BLOG VIDEO INSERT — drop-in replacement for a single blog image.
+       Keep the outer .art-section__media box; add class "art-video" + the
+       data-video hook. Set the <video poster> and <source src>. Requires
+       styles.css (.art-video*) + the <script> below.
+       =================================================================== -->
+  <section style="padding:2rem 0 4rem;">
+    <div class="container" style="max-width:42rem;">
+      <div class="art-section__media art-video" data-video>
+        <video class="art-video__el" preload="metadata" playsinline poster="https://cdn.trutravels.com/blog/khao-sok-southern-thailand-blog.jpg"><source src="https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4" type="video/mp4" /></video>
+        <button class="art-video__play" type="button" data-video-play aria-label="Play video"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button>
+        <span class="art-video__badge">Video</span>
+      </div>
+    </div>
+  </section>
+
+  <script>/* blog video insert */
+  document.querySelectorAll('[data-video]').forEach(function (v) {
+    var el = v.querySelector('video'), play = v.querySelector('[data-video-play]');
+    if (play) play.addEventListener('click', function () { el.controls = true; el.play(); v.classList.add('is-playing'); });
+  });
+  </script>
+</body>
+</html>
