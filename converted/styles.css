@@ -3910,8 +3910,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* per-variant accent (driven by data-variant on the root) */
 .fomo[data-variant="live"]  .fomo__icon { background: rgba(107, 212, 149, 0.16); color: var(--tru-green); }
 .fomo[data-variant="live"]  .fomo__title b { color: var(--tru-green); }
-.fomo[data-variant="book"]  .fomo__icon { background: rgba(255, 63, 153, 0.16); color: var(--tru-pink); }
-.fomo[data-variant="book"]  .fomo__title b { color: var(--tru-pink); }
+.fomo[data-variant="basket"]  .fomo__icon { background: rgba(255, 63, 153, 0.16); color: var(--tru-pink); }
+.fomo[data-variant="basket"]  .fomo__title b { color: var(--tru-pink); }
 .fomo[data-variant="spots"] .fomo__icon { background: rgba(255, 63, 153, 0.16); color: var(--tru-pink); }
 .fomo[data-variant="spots"] .fomo__title b { color: var(--tru-pink); }
 .fomo[data-variant="save"]  .fomo__icon { background: rgba(33, 114, 213, 0.18); color: var(--tru-blue); }

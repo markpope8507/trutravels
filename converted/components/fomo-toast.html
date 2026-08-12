@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>FOMO toast (component) — TruTravels</title>
+  <meta name="description" content="Rotating social-proof / FOMO toast for trip pages." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">FOMO toast &mdash; demo (slides in bottom-left after ~3.5s, rotates, dismissible; aggregate counts only &mdash; no names, GDPR-safe)</p></div>
+
+  <div style="min-height:120vh;padding:1.5rem;max-width:46rem;margin:0 auto;color:#9ca3af;line-height:1.7;">
+    <p>Wait a few seconds &mdash; the toast slides in at the bottom-left and rotates through: live viewers, <strong>added to basket</strong> (uses the nav basket icon), spots-left, and saves. Every message uses <strong>aggregate counts only</strong> (no customer names, GDPR-safe). Dismiss with the &times; (stays hidden for the rest of the browser session).</p>
+  </div>
+
+  <!-- ===================================================================
+       FOMO TOAST COMPONENT — copy this block + its <script> into a trip /
+       tour page. Requires styles.css (.fomo*). Fixed bottom-left; the script
+       rotates the messages and remembers dismissal for the session. Edit the
+       build() list to change the messages (keep them aggregate — no names).
+       =================================================================== -->
+<div class="fomo" data-fomo role="status" aria-live="polite" aria-atomic="true">
+    <div class="fomo__icon" data-fomo-icon></div>
+    <div class="fomo__text">
+      <p class="fomo__title" data-fomo-title></p>
+      <p class="fomo__meta" data-fomo-meta></p>
+    </div>
+    <button class="fomo__close" data-fomo-close type="button" aria-label="Dismiss">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <script>/* FOMO social-proof toast — rotating live-activity nudges */
+  (function () {
+    var el = document.querySelector('[data-fomo]');
+    if (!el) return;
+    if (sessionStorage.getItem('truFomoDismissed') === '1') { el.remove(); return; }
+
+    var iconEl = el.querySelector('[data-fomo-icon]');
+    var titleEl = el.querySelector('[data-fomo-title]');
+    var metaEl = el.querySelector('[data-fomo-meta]');
+
+    var rand = function (a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; };
+
+    var PULSE = '<span class="fomo__pulse"><i></i></span>';
+    var CART = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>';
+    var BOLT = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>';
+    var HEART = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>';
+
+    function build() {
+      return [
+        { v: 'live',   icon: PULSE, title: '<b>' + rand(14, 36) + '</b> people are viewing this trip', meta: 'Right now' },
+        { v: 'basket', icon: CART,  title: '<b>' + rand(4, 11) + '</b> added this to their basket', meta: 'In the last hour' },
+        { v: 'spots',  icon: BOLT,  title: 'Only <b>' + rand(3, 6) + '</b> spots left on 12 Apr', meta: rand(78, 92) + '% full for this departure' },
+        { v: 'save',   icon: HEART, title: '<b>' + rand(9, 24) + '</b> travellers saved this today', meta: 'In the last 24 hours' },
+      ];
+    }
+
+    var queue = [], idx = 0, timer;
+
+    function next() {
+      if (idx >= queue.length) { queue = build(); idx = 0; }
+      var m = queue[idx++];
+      el.setAttribute('data-variant', m.v);
+      iconEl.innerHTML = m.icon;
+      titleEl.innerHTML = m.title;
+      metaEl.textContent = m.meta;
+      el.classList.add('is-visible');
+      timer = setTimeout(hideThenNext, 5500);
+    }
+    function hideThenNext() {
+      el.classList.remove('is-visible');
+      timer = setTimeout(next, 700);
+    }
+
+    el.querySelector('[data-fomo-close]').addEventListener('click', function () {
+      clearTimeout(timer);
+      el.classList.remove('is-visible');
+      sessionStorage.setItem('truFomoDismissed', '1');
+      setTimeout(function () { el.remove(); }, 500);
+    });
+
+    queue = build();
+    timer = setTimeout(next, 3500); // let the page settle first
+  })();
+  </script>
+</body>
+</html>

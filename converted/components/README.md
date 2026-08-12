@@ -18,6 +18,7 @@ page at the site root, drop the `../`.
 | `blog-image-slider.html` | Swipeable image gallery inside a blog image box (arrows, dots, 1/N counter). Drop-in replacement for a single blog image; box size unchanged. | yes |
 | `blog-video.html` | Click-to-play inline video inside a blog image box (poster + play button, native controls on play). Drop-in replacement for a single blog image; box size unchanged. | yes |
 | `auth-modal.html` | Log in / Create account popup (Google · Facebook · Apple + email/password, "Remember me", switchable views). | yes |
+| `fomo-toast.html` | Rotating social-proof toast for trip pages (live viewers, added-to-basket w/ nav basket icon, spots-left, saves). Aggregate counts only — no customer names (GDPR). Fixed bottom-left, dismissible for the session. | yes |
 
 ## Trip carousel
 

@@ -3,17 +3,14 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 /* Rotating social-proof / FOMO toast for trip pages. Cycles through live-viewer,
-   recent-booking, scarcity and save nudges in the bottom-left. Dismissible for
-   the session. Mirrors the static converted/ version. */
+   added-to-basket, scarcity and save nudges in the bottom-left. Dismissible for
+   the session. Aggregate counts only — no named individuals (GDPR). Mirrors the
+   static converted/ version. */
 
-type Variant = "live" | "book" | "spots" | "save";
+type Variant = "live" | "basket" | "spots" | "save";
 type Msg = { v: Variant; icon: ReactNode; title: ReactNode; meta: string };
 
 const rand = (a: number, b: number) => Math.floor(Math.random() * (b - a + 1)) + a;
-const pick = <T,>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
-
-const names = ["Sophie", "Jack", "Mia", "Liam", "Emma", "Noah", "Ava", "Leo", "Grace", "Ben", "Chloe", "Ryan"];
-const places = ["London, UK", "Sydney, AU", "Toronto, CA", "Dublin, IE", "Berlin, DE", "Austin, US", "Auckland, NZ", "Amsterdam, NL"];
 
 const PulseDot = () => (
   <span className="relative flex h-2.5 w-2.5">
@@ -21,9 +18,10 @@ const PulseDot = () => (
     <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-tru-green" />
   </span>
 );
-const BagIcon = () => (
+/* Shopping basket — same icon as the main nav bar */
+const CartIcon = () => (
   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
   </svg>
 );
 const BoltIcon = () => (
@@ -39,7 +37,7 @@ const HeartIcon = () => (
 
 const accentWrap: Record<Variant, string> = {
   live: "bg-tru-green/15 text-tru-green",
-  book: "bg-tru-pink/15 text-tru-pink",
+  basket: "bg-tru-pink/15 text-tru-pink",
   spots: "bg-tru-pink/15 text-tru-pink",
   save: "bg-tru-blue/20 text-tru-blue",
 };
@@ -47,10 +45,9 @@ const accentWrap: Record<Variant, string> = {
 function buildQueue(): Msg[] {
   return [
     { v: "live", icon: <PulseDot />, title: (<><b className="font-extrabold text-tru-green">{rand(14, 36)}</b> people are viewing this trip</>), meta: "Right now" },
-    { v: "book", icon: <BagIcon />, title: <>{pick(names)} just booked this trip</>, meta: `${pick(places)} · ${rand(2, 19)} min ago` },
+    { v: "basket", icon: <CartIcon />, title: (<><b className="font-extrabold text-tru-pink">{rand(4, 11)}</b> added this to their basket</>), meta: "In the last hour" },
     { v: "spots", icon: <BoltIcon />, title: (<>Only <b className="font-extrabold text-tru-pink">{rand(3, 6)}</b> spots left on 12 Apr</>), meta: `${rand(78, 92)}% full for this departure` },
     { v: "save", icon: <HeartIcon />, title: (<><b className="font-extrabold text-tru-blue">{rand(9, 24)}</b> travellers saved this today</>), meta: "In the last 24 hours" },
-    { v: "book", icon: <BagIcon />, title: <>{pick(names)} just booked this trip</>, meta: `${pick(places)} · ${rand(1, 12)} min ago` },
   ];
 }
 

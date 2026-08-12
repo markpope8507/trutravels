@@ -194,5 +194,28 @@ video = (HEAD.replace("__TITLE__", "Blog video insert").replace("__DESC__", "Cli
 ''')
 open(os.path.join(COMP, "blog-video.html"), "w", encoding="utf-8").write(video)
 
-print("wrote: trip-carousel.html, blog-card.html, blog-image-slider.html, blog-video.html")
-print("tripcards embedded:", len(cards))
+# ============================ 5. FOMO TOAST ============================
+tih = read("thailand-island-hopper.html")
+mm = re.search(r'<div class="fomo" data-fomo[\s\S]*?/\* FOMO social-proof toast[\s\S]*?</script>', tih)
+FOMO_BLOCK = mm.group(0) if mm else ''
+fomo = (HEAD.replace("__TITLE__", "FOMO toast").replace("__DESC__", "Rotating social-proof / FOMO toast for trip pages.")
+  + demo_label("FOMO toast &mdash; demo (slides in bottom-left after ~3.5s, rotates, dismissible; aggregate counts only &mdash; no names, GDPR-safe)")
+  + '''
+  <div style="min-height:120vh;padding:1.5rem;max-width:46rem;margin:0 auto;color:#9ca3af;line-height:1.7;">
+    <p>Wait a few seconds &mdash; the toast slides in at the bottom-left and rotates through: live viewers, <strong>added to basket</strong> (uses the nav basket icon), spots-left, and saves. Every message uses <strong>aggregate counts only</strong> (no customer names, GDPR-safe). Dismiss with the &times; (stays hidden for the rest of the browser session).</p>
+  </div>
+
+  <!-- ===================================================================
+       FOMO TOAST COMPONENT — copy this block + its <script> into a trip /
+       tour page. Requires styles.css (.fomo*). Fixed bottom-left; the script
+       rotates the messages and remembers dismissal for the session. Edit the
+       build() list to change the messages (keep them aggregate — no names).
+       =================================================================== -->
+''' + FOMO_BLOCK + '''
+</body>
+</html>
+''')
+open(os.path.join(COMP, "fomo-toast.html"), "w", encoding="utf-8").write(fomo)
+
+print("wrote: trip-carousel.html, blog-card.html, blog-image-slider.html, blog-video.html, fomo-toast.html")
+print("tripcards embedded:", len(cards), "| fomo block chars:", len(FOMO_BLOCK))
