@@ -96,6 +96,52 @@ def keep_card(s):
       + '<span class="story-card__read">%s &rarr;</span></div></div></a>' % ('Join to read' if locked else 'Read story')
     )
 
+# ---- Component showcase: turn specific section images into a slider / video ----
+# (same .art-section__media box, so the box size is unchanged)
+PLAY_SVG = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'
+STACK_SVG = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16V6a2 2 0 012-2h10M8 8h10a2 2 0 012 2v8a2 2 0 01-2 2H8a2 2 0 01-2-2v-8a2 2 0 012-2z"/></svg>'
+NEXT_SVG = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>'
+
+SLIDER_MEDIA = {
+    "top-5-places-to-visit-in-thailand": {
+        0: [
+            ("https://cdn.trutravels.com/images/thailandbottlebeach.jpeg", "Bottle Beach, Koh Phangan"),
+            ("https://cdn.trutravels.com/thailand/girls-koh-nang-yuan.jpg", "Koh Nang Yuan viewpoint"),
+            ("https://images.unsplash.com/photo-1528181304800-259b08848526?w=1200&q=80", "Phi Phi Islands from above"),
+            ("https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200&q=80", "Longtail boats, Railay"),
+        ],
+    },
+}
+VIDEO_MEDIA = {
+    "top-5-places-to-visit-in-thailand": {
+        1: {
+            "src": "https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4",
+            "poster": "https://cdn.trutravels.com/blog/khao-sok-southern-thailand-blog.jpg",
+        },
+    },
+}
+
+def render_slider(slides):
+    imgs = "".join('<div class="art-slider__slide"><img src="%s" alt="%s" /></div>' % (u, esc(a)) for (u, a) in slides)
+    return (
+      '<div class="art-section__media"><div class="art-slider" data-slider>'
+      + '<div class="art-slider__track" data-track>%s</div>' % imgs
+      + '<span class="art-slider__badge">%s <span data-count>1 / %d</span></span>' % (STACK_SVG, len(slides))
+      + '<button class="art-slider__arrow art-slider__arrow--prev" type="button" data-slide="prev" aria-label="Previous image">%s</button>' % ICON_BACK
+      + '<button class="art-slider__arrow art-slider__arrow--next" type="button" data-slide="next" aria-label="Next image">%s</button>' % NEXT_SVG
+      + '<div class="art-slider__dots" data-dots></div>'
+      + '</div></div>'
+    )
+
+def render_video(v):
+    return (
+      '<div class="art-section__media art-video" data-video>'
+      + '<video class="art-video__el" preload="metadata" playsinline poster="%s"><source src="%s" type="video/mp4" /></video>' % (v["poster"], v["src"])
+      + '<button class="art-video__play" type="button" data-video-play aria-label="Play video"><span>%s</span></button>' % PLAY_SVG
+      + '<span class="art-video__badge">Video</span>'
+      + '</div>'
+    )
+
 def build_article(sid):
     s = by_id[sid]; art = articles[sid]
     ahref = author_href(s["author"])
@@ -114,7 +160,13 @@ def build_article(sid):
         body = "".join('<p>%s</p>' % esc(p) for p in sec["body"])
         kicker = '<p class="art-section__kicker">%s</p>' % esc(sec["kicker"]) if sec.get("kicker") else ''
         img = ''
-        if sec.get("image"):
+        slides = SLIDER_MEDIA.get(sid, {}).get(i)
+        vid = VIDEO_MEDIA.get(sid, {}).get(i)
+        if slides:
+            img = render_slider(slides)
+        elif vid:
+            img = render_video(vid)
+        elif sec.get("image"):
             img = '<div class="art-section__media"><img src="%s" alt="%s" /></div>' % (sec["image"], esc(sec.get("imageAlt") or sec["heading"]))
         secs += (
           '<section class="art-section%s">' % alt
@@ -292,6 +344,30 @@ __SCRIPTS__
       paint();
     });
     paint();
+
+    /* image sliders (gallery inside a section box) */
+    document.querySelectorAll('[data-slider]').forEach(function (sl) {
+      var track = sl.querySelector('[data-track]');
+      var n = track.children.length, idx = 0;
+      var dots = sl.querySelector('[data-dots]'), countEl = sl.querySelector('[data-count]');
+      for (var d = 0; d < n; d++) { var b = document.createElement('button'); b.type = 'button'; b.className = 'art-slider__dot'; b.setAttribute('data-dot', d); dots.appendChild(b); }
+      function go(k) {
+        idx = (k + n) % n;
+        track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+        for (var i = 0; i < dots.children.length; i++) dots.children[i].classList.toggle('is-on', i === idx);
+        if (countEl) countEl.textContent = (idx + 1) + ' / ' + n;
+      }
+      sl.querySelector('[data-slide="prev"]').addEventListener('click', function () { go(idx - 1); });
+      sl.querySelector('[data-slide="next"]').addEventListener('click', function () { go(idx + 1); });
+      dots.addEventListener('click', function (e) { var t = e.target.closest('[data-dot]'); if (t) go(+t.getAttribute('data-dot')); });
+      go(0);
+    });
+
+    /* inline videos (click to play in the section box) */
+    document.querySelectorAll('[data-video]').forEach(function (v) {
+      var el = v.querySelector('video'), play = v.querySelector('[data-video-play]');
+      if (play) play.addEventListener('click', function () { el.controls = true; el.play(); v.classList.add('is-playing'); });
+    });
   })();
   </script>
 </body>
