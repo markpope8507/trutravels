@@ -25,6 +25,11 @@ import StoryCard from "@/components/story-card";
 import FeaturedStoryCard from "@/components/featured-story-card";
 import PillButton from "@/components/pill-button";
 
+// Phase 1 launch ships WITHOUT the Content Series and Podcasts sections. Their
+// full designs are kept below, gated behind this flag — flip to true to bring
+// them back for phase 2. (Nothing is deleted; the data stays in @/lib/data.)
+const SHOW_PHASE_2_SECTIONS = false;
+
 // Region → countries taxonomy for the nested Destination filter (mirrors the
 // site's destination structure). Tagging will populate these against stories.
 const STORY_REGIONS: { region: string; countries: string[] }[] = [
@@ -376,7 +381,7 @@ export default function StoriesPage() {
         pillar="Watch"
         eyebrow="Press Play"
         title="Stories You Can Watch"
-        description="Diaries from the road and deep-dive video series. Get comfortable — these are the ones you'll want to disappear into."
+        description="Diaries from the road. Get comfortable — these are the ones you'll want to disappear into."
         accent="tru-pink"
         icon={<WatchIcon />}
       />
@@ -388,7 +393,8 @@ export default function StoriesPage() {
         </div>
       </section>
 
-      {/* Sub-section: Content Series */}
+      {/* Sub-section: Content Series — kept for phase 2, hidden at phase-1 launch */}
+      {SHOW_PHASE_2_SECTIONS && (
       <section className="pb-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-8">
           <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">
@@ -484,6 +490,7 @@ export default function StoriesPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* =========================================================
           READ — featured story + browse grid
@@ -622,6 +629,9 @@ export default function StoriesPage() {
         </div>
       </section>
 
+      {/* LISTEN — podcasts. Kept for phase 2, hidden at phase-1 launch. */}
+      {SHOW_PHASE_2_SECTIONS && (
+      <>
       {/* =========================================================
           LISTEN — podcast episodes
           ========================================================= */}
@@ -686,6 +696,8 @@ export default function StoriesPage() {
           </div>
         </div>
       </section>
+      </>
+      )}
 
       {/* Mobile filter drawer */}
       {showFilters && (
