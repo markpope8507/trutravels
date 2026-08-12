@@ -1,4 +1,4 @@
-import json, io, os
+import json, io, os, re
 
 BASE = "/Users/markpope/Claude Test/trutravels/converted"
 def lines(fn): return open(os.path.join(BASE, fn), encoding="utf-8").read().split("\n")
@@ -14,6 +14,13 @@ STORIES = json.load(open("/private/tmp/claude-501/-Users-markpope-Claude-Test-tr
 STORIES_JSON = json.dumps(STORIES, ensure_ascii=False)
 
 TV_SVG = '''<svg width="140" height="120" viewBox="0 0 140 120" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="18" width="120" height="78" rx="10"/><rect x="20" y="28" width="100" height="58" rx="4" opacity="0.4"/><path d="M60 47 L60 67 L82 57 Z" fill="currentColor" stroke="none"/><line x1="50" y1="6" x2="62" y2="18"/><line x1="90" y1="6" x2="78" y2="18"/><line x1="48" y1="108" x2="92" y2="108"/><line x1="60" y1="96" x2="56" y2="108"/><line x1="80" y1="96" x2="84" y2="108"/></svg>'''
+
+# Put the TV/video icon on the right of the "Moments From Our Community" heading
+# by wrapping the spliced .vdia__head text and appending the icon.
+def _vdia_icon(m):
+    return ('<div class="container vdia__head vdia__head--icon"><div class="vdia__head-text">'
+            + m.group(1) + '</div><div class="vdia__icon tx-pink">' + TV_SVG + '</div></div>')
+VD_SEC = re.sub(r'<div class="container vdia__head">(.*?)</div>', _vdia_icon, VD_SEC, count=1, flags=re.S)
 
 BOOK_SVG = '''<svg width="140" height="120" viewBox="0 0 140 120" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="70" y1="24" x2="70" y2="104"/><path d="M70 24 Q 50 18 18 24 L 18 100 Q 50 94 70 100 Z"/><path d="M70 24 Q 90 18 122 24 L 122 100 Q 90 94 70 100 Z"/><line x1="28" y1="40" x2="58" y2="38" opacity="0.6"/><line x1="28" y1="52" x2="58" y2="50" opacity="0.6"/><line x1="28" y1="64" x2="50" y2="62" opacity="0.6"/><line x1="82" y1="38" x2="112" y2="40" opacity="0.6"/><line x1="82" y1="50" x2="112" y2="52" opacity="0.6"/><line x1="82" y1="62" x2="104" y2="64" opacity="0.6"/><path d="M95 22 L95 56 L102 50 L109 56 L109 22" fill="currentColor" stroke="none" opacity="0.85"/></svg>'''
 
