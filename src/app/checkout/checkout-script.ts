@@ -515,21 +515,23 @@ export function runCheckout() {
     }
 
     /* Full-screen "booking your trip" processing overlay — shown while the API is
-       (mock-)called between Review & confirm and Payment. Determinate progress bar,
-       cycling status lines, then reveals the payment step. */
+       (mock-)called between Review & confirm and Payment. Indeterminate (looping)
+       progress bar — the API has no known duration — cycling status lines, then
+       reveals the payment step. In production, replace the setTimeout below with
+       the real booking-call callback (the bar loops until you hide the overlay). */
     function runProcessing(done) {
       var ov = document.querySelector('[data-processing]');
       if (!ov) { done(); return; }
       document.body.style.overflow = 'hidden';
       ov.hidden = false;
-      /* restart the fill animation each time */
+      /* (re)start the looping bar */
       ov.classList.remove('is-on');
       void ov.offsetWidth;
       ov.classList.add('is-on');
       var statusEl = ov.querySelector('[data-proc-status]');
-      var statuses = ['Securing your spot…', 'Confirming your details…', 'Reserving your adventure…', 'Almost there…'];
+      var statuses = ['Securing your spot…', 'Confirming your details…', 'Reserving your adventure…', 'Sorting the final details…'];
       var i = 0; if (statusEl) statusEl.textContent = statuses[0];
-      var timer = window.setInterval(function () { i++; if (statusEl && statuses[i]) statusEl.textContent = statuses[i]; }, 1250);
+      var timer = window.setInterval(function () { i = (i + 1) % statuses.length; if (statusEl) statusEl.textContent = statuses[i]; }, 1400);
       window.setTimeout(function () {
         window.clearInterval(timer);
         ov.hidden = true;

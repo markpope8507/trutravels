@@ -15,10 +15,12 @@
 
   <!-- ================= BOOKING PROCESSING SCREEN =================
        Full-screen dark overlay shown while a booking is placed (API call).
-       A determinate progress bar (not a spinner) so it never reads as
-       "buffering". Drop this markup over your page and toggle the [hidden]
-       attribute + `is-on` class to show it; see the checkout for how it's
-       wired into the flow. This page loops it as a standalone preview. -->
+       The progress bar is INDETERMINATE — it loops across the track because
+       the API has no known duration, so it never implies a fixed % / ETA.
+       Drop this markup over your page and toggle the [hidden] attribute +
+       `is-on` class to show it; see the checkout for how it's wired into the
+       flow. The bar animation loops in CSS; the script just cycles the
+       reassurance lines. -->
   <div class="co-processing is-on" data-processing role="status" aria-live="polite">
     <div class="co-processing__inner">
       <p class="co-processing__script">Leave ordinary behind&hellip;</p>
@@ -30,27 +32,19 @@
   </div>
 
   <script>
-  /* Standalone preview — loop the fill + cycle the status lines so the screen
-     animates continuously. In the real flow it plays once, then reveals the
-     next page (see the checkout's runProcessing()). */
+  /* Standalone preview — the bar loops on its own in CSS (indeterminate); this
+     just cycles the reassurance lines. In the real flow the checkout shows the
+     overlay, then hides it once the booking call resolves — see runProcessing(). */
   (function () {
     var ov = document.querySelector('[data-processing]');
     if (!ov) return;
     var statusEl = ov.querySelector('[data-proc-status]');
-    var statuses = ['Securing your spot…', 'Confirming your details…', 'Reserving your adventure…', 'Almost there…'];
-    var DURATION = 5200, STEP = 1250;
-    function cycle() {
-      /* restart the bar fill */
-      ov.classList.remove('is-on');
-      void ov.offsetWidth;
-      ov.classList.add('is-on');
-      /* cycle status text */
-      var i = 0; if (statusEl) statusEl.textContent = statuses[0];
-      var timer = window.setInterval(function () { i++; if (statusEl && statuses[i]) statusEl.textContent = statuses[i]; }, STEP);
-      window.setTimeout(function () { window.clearInterval(timer); }, DURATION);
-    }
-    cycle();
-    window.setInterval(cycle, DURATION + 400);
+    var statuses = ['Securing your spot…', 'Confirming your details…', 'Reserving your adventure…', 'Sorting the final details…'];
+    var i = 0;
+    window.setInterval(function () {
+      i = (i + 1) % statuses.length;
+      if (statusEl) statusEl.textContent = statuses[i];
+    }, 1600);
   })();
   </script>
 </body>
