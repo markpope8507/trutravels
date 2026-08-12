@@ -375,19 +375,18 @@ export default function StoriesPage() {
       </section>
 
       {/* =========================================================
-          WATCH — video diaries + content series
+          WATCH — video diaries (moved up in place of the WATCH pillar)
           ========================================================= */}
-      <PillarHeader
-        pillar="Watch"
-        eyebrow="Press Play"
-        title="Stories You Can Watch"
-        description="Diaries from the road. Get comfortable — these are the ones you'll want to disappear into."
-        accent="tru-pink"
-        icon={<WatchIcon />}
-      />
-
-      {/* Sub-section: Video Diaries */}
-      <section className="pb-16">
+      <section className="pt-16 pb-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Video Diaries</p>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading">
+            Moments From Our<br className="hidden sm:block" /> <span className="text-tru-pink">Community</span>
+          </h2>
+          <p className="text-gray-400 mt-4 max-w-lg">
+            Real stories from real people. Tap to play — raw, unfiltered moments from travellers, creators, and influencer partners on the road.
+          </p>
+        </div>
         <div className="mx-auto max-w-7xl pl-4 sm:pl-6 lg:pl-8 overflow-hidden">
           <VideoDiariesCarousel diaries={videoDiaries} />
         </div>
@@ -807,35 +806,6 @@ function PillarHeader({
 /* ============================================================
    LIFESTYLE SVG ICONS — playful line-art for each pillar
    ============================================================ */
-function WatchIcon() {
-  return (
-    <svg
-      width="140"
-      height="120"
-      viewBox="0 0 140 120"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      {/* TV body */}
-      <rect x="10" y="18" width="120" height="78" rx="10" />
-      {/* Screen inside */}
-      <rect x="20" y="28" width="100" height="58" rx="4" opacity="0.4" />
-      {/* Play triangle */}
-      <path d="M60 47 L60 67 L82 57 Z" fill="currentColor" stroke="none" />
-      {/* Antennae */}
-      <line x1="50" y1="6" x2="62" y2="18" />
-      <line x1="90" y1="6" x2="78" y2="18" />
-      {/* Stand */}
-      <line x1="48" y1="108" x2="92" y2="108" />
-      <line x1="60" y1="96" x2="56" y2="108" />
-      <line x1="80" y1="96" x2="84" y2="108" />
-    </svg>
-  );
-}
-
 function ReadIcon() {
   return (
     <svg

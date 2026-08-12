@@ -51,18 +51,7 @@ __NAV__
     </div>
   </section>
 
-  <!-- ================= WATCH pillar ================= -->
-  <section class="pillar" id="watch">
-    <div class="container pillar__inner">
-      <div class="pillar__text">
-        <div class="pillar__eyebrow-row"><span class="pillar__rule pillar__rule--pink"></span><p class="pillar__eyebrow pillar__eyebrow--pink">Watch &middot; Press Play</p></div>
-        <h2 class="pillar__title">Stories You Can <span class="tx-pink">Watch</span></h2>
-        <p class="pillar__desc">Diaries from the road. Get comfortable &mdash; these are the ones you&rsquo;ll want to disappear into.</p>
-      </div>
-      <div class="pillar__icon tx-pink">__TV__</div>
-    </div>
-  </section>
-
+  <!-- ================= WATCH — video diaries (moved up; no pillar header) ================= -->
 __VD_SEC__
 
   <!-- ================= READ pillar ================= -->
