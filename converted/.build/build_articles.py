@@ -12,7 +12,7 @@ SCRIPTS = block("explore.html", 594, 839)
 stories = json.load(open(SP + "/stories.json"))
 articles = json.load(open(SP + "/articles.json"))
 authors = json.load(open(SP + "/authors.json"))
-tours = json.load(open(SP + "/tours.json"))
+tourcards = json.load(open(SP + "/tourcards.json"))
 
 by_id = {s["id"]: s for s in stories}
 ARTICLE_IDS = set(articles.keys())
@@ -52,24 +52,34 @@ ICON_LINK = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-w
 ICON_WA = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>'
 ICON_MAIL = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>'
 ICON_SMS = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.86 9.86 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>'
+# --- full .tripcard renderer (ported from all-trips.html so tours match exactly) ---
+PIN = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>'
 STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>'
+CAL = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
+ACT = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>'
+CHEV = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>'
+STARS5 = STAR * 5
 
-def tour_tile(t):
-    price = '<span class="ttile__now">&pound;%d</span>' % t["price"]
-    if t.get("originalPrice"):
-        price = '<span class="ttile__was">&pound;%d</span>' % t["originalPrice"] + price
-    rating = ''
-    if t.get("rating"):
-        rating = '<span class="ttile__rating">' + STAR + ' %s <span>(%s)</span></span>' % (t["rating"], t.get("reviewCount",""))
+def tripcard(t):
+    save = ('<div class="tripcard__save"><span>Save</span><span class="tripcard__save-pct">%d%%</span><span>Off</span></div>' % t["save"]) if t.get("save") else ''
+    strike = ('<span class="tripcard__strike">&pound;%d</span>' % t["originalPrice"]) if t.get("originalPrice") else ''
+    rating = ('<div class="tripcard__rating"><div class="tripcard__stars">%s</div><span class="num">%s</span><span class="rev">(%s Reviews)</span></div>' % (STARS5, t["rating"], t["reviewCount"])) if t.get("rating") else ''
+    route = ('<p class="tripcard__route">%s %s &mdash; %s</p>' % (PIN, esc(t["start"]), esc(t["end"]))) if (t.get("start") and t.get("end")) else ''
+    facts = ('<div class="tripcard__facts"><span>%s %s</span>%s%s</div>'
+             % (CAL, esc(t["duration"]),
+                ('<span>%s %s Places</span>' % (PIN, t["places"])) if t.get("places") else '',
+                ('<span>%s %s Activities</span>' % (ACT, t["activities"])) if t.get("activities") else ''))
+    exp = ''
+    if t.get("expTypes"):
+        pills = "".join('<div class="exp-ico"><img src="assets/experience-icons/%s.png" alt="" aria-hidden="true" /><span class="name">%s</span><span class="count">%s</span></div>' % (x["icon"], esc(x["name"]), x["count"]) for x in t["expTypes"])
+        cb = 'art-exp-' + t["id"]
+        exp = ('<div class="tripcard__exp"><input type="checkbox" id="%s" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="%s"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">%s activities</span></span>%s</label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills">%s</div></div></div></div>'
+               % (cb, cb, t["activities"], CHEV, pills))
     return (
-      '<a class="ttile" href="%s" target="_blank" rel="noopener noreferrer">' % t["bookingUrl"]
-      + '<div class="ttile__media"><img src="%s" alt="%s" /><span class="ttile__dur">%s</span></div>' % (t["image"], esc(t["title"]), t["duration"])
-      + '<div class="ttile__body">'
-      + ('<p class="ttile__dest">%s</p>' % esc(t["destination"]) if t.get("destination") else '')
-      + '<h3 class="ttile__title">%s</h3>' % esc(t["title"])
-      + ('<p class="ttile__tag">%s</p>' % esc(t["tagline"]) if t.get("tagline") else '')
-      + '<div class="ttile__foot">%s<span class="ttile__price">%s</span></div>' % (rating, price)
-      + '</div></a>'
+      '<article class="tripcard"><a class="tripcard__link" href="%s" aria-label="%s"></a><div class="tripcard__inner">' % (t.get("href") or "#", esc(t["title"]))
+      + '<div class="tripcard__media"><img class="tripcard__image" src="%s" alt="%s" /><div class="tripcard__grad"></div><img class="tripcard__badge" src="assets/%s.png" alt="%s travel style" />%s</div>' % (t["image"], esc(t["title"]), t["styleLogo"], esc(t["styleLabel"]), save)
+      + '<div class="tripcard__body"><div class="tripcard__titlerow"><h3 class="tripcard__title">%s</h3><div class="tripcard__pricecol"><div class="tripcard__prices">%s<span class="tripcard__price">&pound;%d</span></div><p class="tripcard__perday"><span>&pound;%s</span> per day</p></div></div>' % (esc(t["title"]), strike, t["price"], t["perday"])
+      + route + rating + '<p class="tripcard__tagline">%s</p>' % esc(t["tagline"]) + facts + exp + '</div></div></article>'
     )
 
 def keep_card(s):
@@ -112,17 +122,17 @@ def build_article(sid):
           + img + '</section>'
         )
 
-    # tours
+    # tours (full .tripcard carousel)
     tours_html = ""
-    tids = [t for t in (art.get("tourIds") or []) if t in tours]
+    tids = [t for t in (art.get("tourIds") or []) if t in tourcards]
     if tids:
-        tiles = "".join(tour_tile(tours[t]) for t in tids)
+        cards = "".join(tripcard(tourcards[t]) for t in tids)
         tours_html = (
           '<section class="art-tours"><div class="container">'
           + '<div class="art-tours__eyebrow-row"><span class="art-tours__rule"></span><p class="art-tours__eyebrow">Tick Them Off</p></div>'
           + '<h2 class="art-tours__title">Tours With These <span class="tx-pink">Sites</span> In</h2>'
           + '<p class="art-tours__intro">Every one of these group adventures takes you to spots from this story. Find your crew and go see them for real.</p>'
-          + '<div class="rev-carousel" data-arrows><div class="carousel ttiles">%s</div>' % tiles
+          + '<div class="rev-carousel" data-arrows><div class="carousel carousel--related">%s</div>' % cards
           + '<button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous">%s</button>' % ICON_BACK
           + '<button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>'
           + '</div></div></section>'

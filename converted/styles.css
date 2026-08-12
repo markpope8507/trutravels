@@ -4169,27 +4169,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .art-tours__eyebrow { color: var(--tru-pink); font-family:'Montserrat',sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; font-size: 0.7rem; margin: 0; }
 .art-tours__title { font-family:'Montserrat',sans-serif; font-weight: 900; text-transform: uppercase; color:#fff; letter-spacing:-0.02em; line-height: 0.95; font-size: clamp(1.75rem,4vw,3rem); margin: 0 0 1rem; }
 .art-tours__intro { color: var(--text-mute); max-width: 36rem; margin: 0 0 2.5rem; }
-.ttiles { gap: 1.25rem; scrollbar-width: none; }
-.ttiles::-webkit-scrollbar { display: none; }
-.ttile { flex: 0 0 auto; width: calc(100% / 1.15 - 12px); scroll-snap-align: start; display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-soft); background: var(--tru-navy); transition: border-color 0.3s; }
-@media (min-width: 640px) { .ttile { width: calc(100% / 2.2 - 12px); } }
-@media (min-width: 1024px) { .ttile { width: calc(100% / 3 - 16px); } }
-.ttile:hover { border-color: rgba(255,63,153,0.3); }
-.ttile__media { position: relative; aspect-ratio: 16/10; overflow: hidden; }
-.ttile__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-.ttile:hover .ttile__media img { transform: scale(1.05); }
-.ttile__dur { position: absolute; top: 0.75rem; left: 0.75rem; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); color:#fff; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.625rem; border-radius: 999px; }
-.ttile__body { padding: 1.1rem; display: flex; flex-direction: column; flex: 1; }
-.ttile__dest { color: var(--tru-pink); font-family:'Montserrat',sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.7rem; margin: 0 0 0.35rem; }
-.ttile__title { color:#fff; font-family:'Montserrat',sans-serif; font-weight: 800; font-size: 1.05rem; line-height: 1.2; margin: 0 0 0.5rem; }
-.ttile__tag { color: var(--text-mute); font-size: 0.85rem; line-height: 1.5; margin: 0 0 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.ttile__foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.05); }
-.ttile__rating { display: inline-flex; align-items: center; gap: 0.25rem; color: #fbbf24; font-size: 0.8rem; font-weight: 700; }
-.ttile__rating svg { width: 0.85rem; height: 0.85rem; }
-.ttile__rating span { color: var(--text-mute); font-weight: 400; }
-.ttile__price { font-size: 0.95rem; font-weight: 700; color:#fff; display: inline-flex; align-items: baseline; gap: 0.35rem; }
-.ttile__was { color: #6b7280; text-decoration: line-through; font-weight: 400; font-size: 0.8rem; }
-.ttile__now { color: var(--tru-green); }
 
 .art-cta { padding-top: 6rem; }
 .art-cta__box { max-width: 64rem; margin: 0 auto; border-radius: 14px; border: 1px solid var(--border-soft); background: linear-gradient(135deg, rgba(255,63,153,0.15), rgba(255,255,255,0.05) 55%, rgba(33,114,213,0.1)); padding: 3rem 2rem; text-align: center; }
