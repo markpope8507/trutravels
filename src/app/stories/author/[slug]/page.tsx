@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { stories, storyArticles } from "@/lib/data";
+import { stories } from "@/lib/data";
 import { authors, getAuthorBySlug, getAuthorByName } from "@/lib/authors";
 import BackToTop from "@/components/back-to-top";
+import StoryCard from "@/components/story-card";
 
 export function generateStaticParams() {
   return authors.map((a) => ({ slug: a.slug }));
@@ -21,9 +22,6 @@ export async function generateMetadata({
     description: author.bio,
   };
 }
-
-const formatDate = (iso: string) =>
-  new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
 export default async function AuthorPage({
   params,
@@ -150,34 +148,9 @@ export default async function AuthorPage({
               </span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {authored.map((story) => {
-                const href = storyArticles[story.id] ? `/stories/${story.id}` : `/stories#${story.id}`;
-                return (
-                  <Link
-                    key={story.id}
-                    href={href}
-                    className="group block rounded-[12px] overflow-hidden border border-white/10 bg-white/5 hover:border-white/20 transition-all duration-200"
-                  >
-                    <div className="aspect-[16/10] overflow-hidden">
-                      <img
-                        src={story.image}
-                        alt={story.title}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                    </div>
-                    <div className="p-5">
-                      <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-2">
-                        {story.category} &middot; {story.readTime} min read
-                      </p>
-                      <h3 className="text-white font-black text-lg uppercase font-heading leading-tight mb-2 group-hover:text-tru-pink transition-colors">
-                        {story.title}
-                      </h3>
-                      <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 mb-3">{story.excerpt}</p>
-                      <p className="text-gray-500 text-xs">{formatDate(story.date)}</p>
-                    </div>
-                  </Link>
-                );
-              })}
+              {authored.map((story) => (
+                <StoryCard key={story.id} story={story} isLoggedIn />
+              ))}
             </div>
           </>
         ) : (

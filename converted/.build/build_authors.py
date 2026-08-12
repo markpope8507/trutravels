@@ -41,13 +41,18 @@ def social(href, label, icon):
     return '<a class="author-social" href="%s" target="_blank" rel="noopener noreferrer" aria-label="%s">%s</a>' % (href, esc(label), icon)
 
 def acard(s):
+    # Same .story-card design as the main stories page / Keep Reading.
+    locked = bool(s.get("memberOnly"))
     return (
-      '<a class="acard" href="%s">' % story_href(s)
-      + '<div class="acard__media"><img src="%s" alt="%s" /></div>' % (s["image"], esc(s["title"]))
-      + '<div class="acard__body"><p class="acard__eyebrow">%s &middot; %s min read</p>' % (esc(s["category"]), s["readTime"])
-      + '<h3 class="acard__title">%s</h3>' % esc(s["title"])
-      + '<p class="acard__excerpt">%s</p>' % esc(s["excerpt"])
-      + '<p class="acard__date">%s</p></div></a>' % fmt(s["date"])
+      '<a class="story-card%s" href="%s">' % (' story-card--locked' if locked else '', story_href(s))
+      + '<div class="story-card__media"><img class="story-card__image" src="%s" alt="%s" />' % (s["image"], esc(s["title"]))
+      + ('<span class="story-card__badge">Exclusive</span>' if locked else '')
+      + '<span class="story-card__time">%s min</span></div>' % s["readTime"]
+      + '<div class="story-card__body"><p class="story-card__category">%s</p>' % esc(s["category"])
+      + '<h3 class="story-card__title">%s</h3>' % esc(s["title"])
+      + '<p class="story-card__excerpt">%s</p>' % esc(s["excerpt"])
+      + '<div class="story-card__foot"><p class="story-card__meta"><strong>%s</strong> &middot; %s</p>' % (esc(s["author"]), fmt(s["date"]))
+      + '<span class="story-card__read">%s &rarr;</span></div></div></a>' % ('Join to read' if locked else 'Read story')
     )
 
 def build_author(a):
