@@ -11,6 +11,12 @@ is one level below the site root; for the same reason, asset/page paths inside a
 component use `../assets/…` and `../page.html`. When you paste a component into a
 page at the site root, drop the `../`.
 
+> **Full prototype inventory:** [`prototype-component-map.md`](prototype-component-map.md)
+> maps all 79 components in the Next.js prototype (nav, footer, popups, headers,
+> heroes, cards, carousels, section blocks, trip-detail, forms, page templates,
+> utilities) — everything available to assemble into new page templates. The
+> copy-in files below are the static versions of the most-used blocks.
+
 | File | Component | Needs a `<script>`? |
 |------|-----------|:---:|
 | `trip-carousel.html` | Horizontally-scrollable carousel of trip cards (style badge, save %, pricing, per-day, route, rating, facts, expandable TRU Experience Types). Used on the homepage + blog articles. | yes |
