@@ -1,5 +1,8 @@
 # Shared components
 
+**Open [`index.html`](index.html) for a visual gallery** of every component
+(links to each standalone demo).
+
 Reusable HTML/JS building blocks for the page templates. Because the static
 site has no build step, these are **copy-in snippets**: drop the marked block
 (and its `<script>`, where present) into a page/template. All styling lives in
@@ -25,6 +28,23 @@ page at the site root, drop the `../`.
 | `blog-video.html` | Click-to-play inline video inside a blog image box (poster + play button, native controls on play). Drop-in replacement for a single blog image; box size unchanged. | yes |
 | `auth-modal.html` | Log in / Create account popup (Google · Facebook · Apple + email/password, "Remember me", switchable views). | yes |
 | `fomo-toast.html` | Rotating social-proof toast for trip pages (live viewers, added-to-basket w/ nav basket icon, spots-left, saves). Aggregate counts only — no customer names (GDPR). Fixed bottom-left, dismissible for the session. | yes |
+
+### Page-template blocks
+
+Structural blocks for building whole pages (extracted from the live static pages).
+
+| File | Component | Needs a `<script>`? |
+|------|-----------|:---:|
+| `section-header.html` | Section intro — eyebrow + title + description (3 variants) | no |
+| `page-hero.html` | Full-bleed image hero with overlay title block | no |
+| `pillar-header.html` | Big pillar header — accent rule + eyebrow + accented title + line-art icon | no |
+| `cta-banner.html` | Gradient call-to-action box (heading + body + button) | no |
+| `faq-accordion.html` | Collapsible FAQ list (native `<details>`, no JS) | no |
+| `reviews-section.html` | Trustpilot rating + swipeable review-card carousel | yes (carousel) |
+| `destinations-carousel.html` | Destination-tile carousel (image + name + tagline) | yes (carousel) |
+| `departures-list.html` | Upcoming-departures rows (date, duration, status, pricing) | no |
+
+The two carousels reuse the same generic arrow-nav + drag-to-scroll scripts (copy them once per page).
 
 ## Trip carousel
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Component library (component) — TruTravels</title>
+  <meta name="description" content="Static, copy-in TruTravels components for page templates." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+  <div class="cx-wrap">
+    <p class="cx-eyebrow">TruTravels &middot; Static components</p>
+    <h1 class="cx-title">Component <span>library</span></h1>
+    <p class="cx-lead">Copy-in building blocks for page templates. Each links to a standalone demo; drop the marked block (and its script) into a page. Styling lives in <code>../styles.css</code>. See <a href="prototype-component-map.md">prototype-component-map.md</a> for the full pt inventory.</p>
+
+    <h2 class="cx-h2">Page-template blocks</h2>
+    <div class="cx-grid"><a class="cx-item" href="section-header.html"><span class="cx-item__name">section-header.html</span><span class="cx-item__desc">Section intro: eyebrow + title + description (3 variants)</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="page-hero.html"><span class="cx-item__name">page-hero.html</span><span class="cx-item__desc">Full-bleed image hero with overlay title block</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="pillar-header.html"><span class="cx-item__name">pillar-header.html</span><span class="cx-item__desc">Pillar header: rule + eyebrow + accented title + icon</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="cta-banner.html"><span class="cx-item__name">cta-banner.html</span><span class="cx-item__desc">Gradient call-to-action box (heading + body + button)</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="faq-accordion.html"><span class="cx-item__name">faq-accordion.html</span><span class="cx-item__desc">Collapsible FAQ list (native details, no JS)</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="reviews-section.html"><span class="cx-item__name">reviews-section.html</span><span class="cx-item__desc">Trustpilot rating + review-card carousel</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="destinations-carousel.html"><span class="cx-item__name">destinations-carousel.html</span><span class="cx-item__desc">Destination tiles carousel (image + name + tagline)</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="departures-list.html"><span class="cx-item__name">departures-list.html</span><span class="cx-item__desc">Upcoming-departures rows (date, status, pricing)</span><span class="cx-item__go">Open demo &rarr;</span></a></div>
+
+    <h2 class="cx-h2">Reusable widgets</h2>
+    <div class="cx-grid"><a class="cx-item" href="trip-carousel.html"><span class="cx-item__name">trip-carousel.html</span><span class="cx-item__desc">Trip-card carousel (badge, pricing, route, rating, experience types)</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="blog-card.html"><span class="cx-item__name">blog-card.html</span><span class="cx-item__desc">Story / blog card (+ members-only variant)</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="blog-image-slider.html"><span class="cx-item__name">blog-image-slider.html</span><span class="cx-item__desc">Swipeable image gallery inside a blog image box</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="blog-video.html"><span class="cx-item__name">blog-video.html</span><span class="cx-item__desc">Click-to-play inline video inside a blog image box</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="fomo-toast.html"><span class="cx-item__name">fomo-toast.html</span><span class="cx-item__desc">Rotating social-proof toast (trip pages)</span><span class="cx-item__go">Open demo &rarr;</span></a><a class="cx-item" href="auth-modal.html"><span class="cx-item__name">auth-modal.html</span><span class="cx-item__desc">Log in / Create account popup</span><span class="cx-item__go">Open demo &rarr;</span></a></div>
+  </div>
+
+  <style>
+    .cx-wrap { max-width: 72rem; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+    .cx-eyebrow { color: var(--tru-pink); font-family:'Montserrat',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; font-size:0.72rem; margin:0 0 0.75rem; }
+    .cx-title { font-family:'Montserrat',sans-serif; font-weight:900; text-transform:uppercase; color:#fff; font-size:clamp(2.5rem,6vw,4rem); line-height:0.95; margin:0 0 1rem; }
+    .cx-title span { color: var(--tru-pink); }
+    .cx-lead { color:#9ca3af; max-width:42rem; line-height:1.7; margin:0 0 3rem; }
+    .cx-lead a { color: var(--tru-pink); }
+    .cx-lead code { color:#e5e7eb; background:rgba(255,255,255,0.08); padding:0.1rem 0.35rem; border-radius:4px; }
+    .cx-h2 { font-family:'Montserrat',sans-serif; font-weight:800; text-transform:uppercase; color:#fff; letter-spacing:0.02em; font-size:1.1rem; margin:2.5rem 0 1.25rem; }
+    .cx-grid { display:grid; grid-template-columns:1fr; gap:1rem; }
+    @media (min-width:640px){ .cx-grid { grid-template-columns:repeat(2,1fr); } }
+    @media (min-width:1024px){ .cx-grid { grid-template-columns:repeat(3,1fr); } }
+    .cx-item { display:flex; flex-direction:column; gap:0.4rem; border:1px solid var(--border-soft); background:rgba(255,255,255,0.04); border-radius:12px; padding:1.25rem; transition:border-color 0.2s, background 0.2s; }
+    .cx-item:hover { border-color:rgba(255,63,153,0.4); background:rgba(255,255,255,0.06); }
+    .cx-item__name { font-family:'Montserrat',sans-serif; font-weight:800; color:#fff; font-size:0.95rem; }
+    .cx-item__desc { color:#9ca3af; font-size:0.85rem; line-height:1.5; flex:1; }
+    .cx-item__go { color:var(--tru-pink); font-family:'Montserrat',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:0.7rem; margin-top:0.5rem; }
+  </style>
+</body>
+</html>
