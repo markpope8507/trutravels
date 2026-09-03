@@ -6,8 +6,8 @@ import { DesignA as ExperienceTypesCarousel } from "@/components/experience-type
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import DropsCarousel from "@/components/drops-carousel";
 import DiscoveryPathways from "@/components/discovery-pathways";
-import SearchPrompt from "@/components/search-prompt";
 import PillButton from "@/components/pill-button";
+import ReviewsBar from "@/components/reviews-bar";
 import ReviewsSection from "@/components/reviews-section";
 import StoriesFeature from "@/components/stories-feature";
 import DestinationsCarousel from "@/components/destinations-carousel";
@@ -21,32 +21,9 @@ export default function HomePage() {
       <HeroSlider />
 
       {/* ================================================================
-          TICKER — Brand manifesto strip in hot pink
+          SOCIAL PROOF STRIP — takes the ticker slot under the hero
           ================================================================ */}
-      <section className="bg-tru-navy py-3 overflow-hidden border-y border-white/10">
-        <div className="animate-ticker flex whitespace-nowrap">
-          {[...Array(2)].map((_, i) => (
-            <span key={i} className="flex items-center gap-8 text-white text-xs font-bold uppercase tracking-[0.2em] mx-4 font-heading">
-              <span>Leave Ordinary Behind</span>
-              <span className="text-white/30">/</span>
-              <span>Find Your Extraordinary</span>
-              <span className="text-white/30">/</span>
-              <span>Chase Sunsets Not Schedules</span>
-              <span className="text-white/30">/</span>
-              <span>Strangers Who Become Family</span>
-              <span className="text-white/30">/</span>
-              <span>Step Into The Unknown</span>
-              <span className="text-white/30">/</span>
-              <span>Connect Deeply</span>
-              <span className="text-white/30">/</span>
-              <span>Make Every Journey Count</span>
-              <span className="text-white/30">/</span>
-              <span>We Don&apos;t Do Average</span>
-              <span className="text-white/30">/</span>
-            </span>
-          ))}
-        </div>
-      </section>
+      <ReviewsBar />
 
       {/* ================================================================
           2. FEATURED EXPERIENCES — Swipeable carousel
@@ -59,16 +36,11 @@ export default function HomePage() {
           className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-10 w-[260px] sm:w-[420px] md:w-[560px] lg:w-[720px] opacity-[0.08] brightness-0 invert"
         />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Experiences</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading">
-                Find Your<br /><span className="text-gradient">Extraordinary</span>
-              </h2>
-            </div>
-            <div className="hidden sm:block flex-shrink-0">
-              <PillButton href="/explore" className="whitespace-nowrap">View All Experiences</PillButton>
-            </div>
+          <div>
+            <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Experiences</p>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading">
+              Find Your<br /><span className="text-gradient">Extraordinary</span>
+            </h2>
           </div>
         </div>
 
@@ -88,10 +60,6 @@ export default function HomePage() {
             ];
             return featured.map((id) => trips.find((t) => t.id === id)).filter(Boolean) as typeof trips;
           })()} />
-        </div>
-
-        <div className="mt-8 text-center sm:hidden">
-          <PillButton href="/explore">View All Experiences</PillButton>
         </div>
 
       </section>

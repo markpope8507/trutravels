@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useScrollLock } from "@/lib/use-scroll-lock";
 import Link from "next/link";
 import { InspireMeModal } from "@/components/inspire-me";
+import SearchPrompt from "@/components/search-prompt";
 
 const lifeMoments = [
   { label: "Looking To Challenge Myself", emoji: "🏔️", href: "/life-moments/looking-to-challenge-myself" },
@@ -227,6 +228,7 @@ export default function DiscoveryPathways() {
           however you want to search&hellip;
         </p>
       </div>
+      <SearchPrompt />
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 max-w-3xl mx-auto">
         <button
           onClick={() => setLastMinuteOpen(true)}

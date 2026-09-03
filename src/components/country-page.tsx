@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
-import { Country, Trip, BucketListItem, experienceTypes, trips as allTrips, stories as allStories, videoDiaries as allVideoDiaries } from "@/lib/data";
+import { Country, Trip, BucketListItem, TravelStyle, experienceTypes, travelStyleConfig, trips as allTrips, stories as allStories, videoDiaries as allVideoDiaries } from "@/lib/data";
 import TripCard from "@/components/trip-card";
 import StoryCard from "@/components/story-card";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
@@ -12,6 +13,8 @@ import PillButton from "@/components/pill-button";
 import DestinationsCarousel from "@/components/destinations-carousel";
 import { useAuth } from "@/lib/auth-context";
 import { tripUrl } from "@/lib/utils";
+import { getAvailabilityTier } from "@/lib/availability";
+import { useToursDisclosure, toggleToursDisclosure } from "@/lib/use-tours-disclosure";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -35,88 +38,298 @@ function FunFacts({ facts }: { facts: Country["facts"] }) {
   );
 }
 
-function ExperienceTypePill({ id }: { id?: string }) {
+function ExperienceTypeMark({ id }: { id?: string }) {
   const exp = id ? experienceTypes.find((e) => e.id === id) : undefined;
   if (!exp) return null;
   return (
-    <span
-      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider font-heading text-white"
-      style={{ background: exp.color }}
-    >
-      <span className="text-sm leading-none">{exp.emoji}</span>
-      {exp.name}
-    </span>
+    <>
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{ background: `radial-gradient(80% 70% at 0% 0%, ${exp.color}1a 0%, transparent 55%)` }}
+      />
+      <div className="absolute top-3 left-3 flex items-center gap-2.5 sm:top-4 sm:left-4">
+        <img
+          src={exp.icon}
+          alt=""
+          aria-hidden="true"
+          className="h-10 w-10 shrink-0 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)] sm:h-12 sm:w-12"
+        />
+        <div>
+          <p className="font-heading text-sm font-black uppercase leading-none tracking-wide text-white sm:text-base">
+            {exp.name}
+          </p>
+          <p className="mt-1 font-heading text-[0.58rem] font-bold uppercase tracking-[0.22em] text-tru-pink">
+            Experiences
+          </p>
+        </div>
+      </div>
+    </>
   );
 }
 
-export function ActivityShowcase({ items }: { items: BucketListItem[] }) {
+function TravelStyleMark({ style }: { style?: TravelStyle }) {
+  const config = style ? travelStyleConfig[style] : undefined;
+  if (!config) return null;
   return (
-    <div className="activities-carousel relative">
-      <Swiper
-        modules={[Navigation, FreeMode]}
-        spaceBetween={16}
-        slidesPerView={1.1}
-        freeMode={{ enabled: true, sticky: false }}
-        navigation={{ nextEl: ".activities-next", prevEl: ".activities-prev" }}
-        breakpoints={{
-          480: { slidesPerView: 1.4 },
-          640: { slidesPerView: 2.1, spaceBetween: 16 },
-          1024: { slidesPerView: 3.2, spaceBetween: 24 },
-        }}
-        speed={600}
+    <>
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        style={{ background: `radial-gradient(80% 70% at 0% 0%, ${config.color}1a 0%, transparent 55%)` }}
+      />
+      {/* The logo PNGs are square canvases with the artwork as a band in the middle —
+          ~13% transparent padding at the sides but ~32% top and bottom. The negative
+          offsets cancel that padding so the visible mark sits in the card corner. */}
+      <div className="absolute -top-6 -left-1 sm:-top-8 sm:-left-1.5">
+        <img
+          src={config.logo}
+          alt={`${config.label} travel style`}
+          className="h-28 w-28 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)] sm:h-32 sm:w-32"
+        />
+      </div>
+    </>
+  );
+}
+
+function toursForActivity(item: BucketListItem, pool: Trip[]): Trip[] {
+  if (!item.tourIds?.length) return [];
+  const order = new Map(item.tourIds.map((id, i) => [id, i]));
+  return pool
+    .filter((trip) => order.has(trip.id))
+    .sort((a, b) => (order.get(a.id) ?? 0) - (order.get(b.id) ?? 0));
+}
+
+function ActivityTours({ tours }: { tours: Trip[] }) {
+  const open = useToursDisclosure();
+  if (!tours.length) return null;
+
+  return (
+    <div className="border-t border-white/10 pt-3">
+      <button
+        type="button"
+        onClick={toggleToursDisclosure}
+        aria-expanded={open}
+        className="flex w-full items-center gap-2.5 text-left font-heading text-[11px] font-bold uppercase tracking-wider text-gray-300 transition-colors hover:text-white"
       >
-        {items.map((item) => (
-          <SwiperSlide key={item.id} className="!h-auto">
-            <div className="group h-full flex flex-col overflow-hidden rounded-[10px] bg-tru-navy border border-white/10 hover:border-tru-pink/30 transition-all duration-300" style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}>
-              {/* Media */}
-              <div className="relative aspect-[4/3] overflow-hidden bg-black">
-                {item.video ? (
-                  <video
-                    src={item.video}
-                    poster={item.poster ?? item.image}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 h-full w-full object-cover"
-                  />
-                ) : (
-                  <img src={item.image} alt={item.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <ExperienceTypePill id={item.experienceType} />
-                  {item.video && (
-                    <span className="bg-white/20 backdrop-blur-sm text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full font-heading">
-                      Video
-                    </span>
-                  )}
-                </div>
-              </div>
-              {/* Content */}
-              <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-lg font-black text-white uppercase font-heading leading-tight mb-2 group-hover:text-tru-pink transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <button className="activities-prev absolute top-[calc(50%-20px)] -left-2 sm:-left-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
-        <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+        <span>
+          Featured on{" "}
+          <span className="font-semibold normal-case tracking-normal text-tru-pink">
+            {tours.length} {tours.length === 1 ? "trip" : "trips"}
+          </span>
+        </span>
+        <svg
+          className={`ml-auto h-4 w-4 shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
       </button>
-      <button className="activities-next absolute top-[calc(50%-20px)] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
-        <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-      </button>
+      <div
+        className={`grid transition-all duration-300 ease-out ${
+          open ? "mt-2.5 grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="flex flex-col">
+            {tours.map((trip) => (
+              <Link
+                key={trip.id}
+                href={tripUrl(trip)}
+                className="group/trip flex items-baseline gap-2 py-[3px] text-white transition-colors hover:text-tru-pink"
+              >
+                <span className="min-w-0 flex-1 truncate font-heading text-[10px] font-bold uppercase">
+                  {trip.title}
+                </span>
+                <span className="flex shrink-0 items-baseline gap-1 text-[9px] text-gray-500 transition-colors group-hover/trip:text-tru-pink/60">
+                  <span className="font-semibold">{trip.duration}</span>
+                  <span>from</span>
+                  <span className="font-heading text-[11px] font-bold text-white transition-colors group-hover/trip:text-tru-pink">
+                    &pound;{trip.price.toLocaleString("en-GB")}
+                  </span>
+                  {/* Touch devices get no hover cue, so show an explicit tap affordance. */}
+                  <svg
+                    className="-mr-0.5 hidden h-2.5 w-2.5 self-center text-tru-pink [@media(hover:none)]:block"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={3}
+                    aria-hidden="true"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
 
-function AccommodationShowcase({ items }: { items: NonNullable<Country["accommodation"]> }) {
+export function ActivityShowcase({
+  items,
+  trips = [],
+}: {
+  items: BucketListItem[];
+  trips?: Trip[];
+}) {
   return (
-    <div className="stays-carousel relative">
+    <div>
+      <div className="activities-carousel relative">
+        <Swiper
+          modules={[Navigation, FreeMode]}
+          spaceBetween={16}
+          slidesPerView={1.1}
+          freeMode={{ enabled: true, sticky: false }}
+          navigation={{ nextEl: ".activities-next", prevEl: ".activities-prev" }}
+          breakpoints={{
+            480: { slidesPerView: 1.4 },
+            640: { slidesPerView: 2.1, spaceBetween: 16 },
+            1024: { slidesPerView: 3.2, spaceBetween: 24 },
+          }}
+          speed={600}
+        >
+          {items.map((item) => (
+            <SwiperSlide key={item.id} className="!h-auto">
+              <div
+                className="group flex h-full flex-col overflow-hidden rounded-[10px] border border-white/10 bg-tru-navy transition-all duration-300 hover:border-tru-pink/30"
+                style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-black">
+                  {item.video ? (
+                    <video
+                      src={item.video}
+                      poster={item.poster ?? item.image}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : (
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent" />
+                  <ExperienceTypeMark id={item.experienceType} />
+                  {item.video && (
+                    <span className="absolute top-3 right-3 rounded-full bg-white/20 px-2 py-0.5 font-heading text-[9px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+                      Video
+                    </span>
+                  )}
+                </div>
+                <div className="flex flex-1 flex-col p-5">
+                  {/* Fixed line boxes keep the tours bar at the same height on every card. */}
+                  <h3 className="mb-2 line-clamp-2 min-h-[2lh] font-heading text-lg font-black uppercase leading-tight text-white transition-colors group-hover:text-tru-pink">
+                    {item.title}
+                  </h3>
+                  <p className="mb-4 line-clamp-6 min-h-[6lh] text-sm leading-relaxed text-gray-400">
+                    {item.description}
+                  </p>
+                  <ActivityTours tours={toursForActivity(item, trips)} />
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <button className="activities-prev absolute top-[calc(50%-20px)] -left-2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-tru-navy/90 transition-colors hover:border-tru-pink/40 disabled:opacity-30 sm:-left-5">
+          <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button className="activities-next absolute top-[calc(50%-20px)] -right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-tru-navy/90 transition-colors hover:border-tru-pink/40 disabled:opacity-30 sm:-right-5">
+          <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
+function usePrefersReducedMotion() {
+  return useSyncExternalStore(
+    (cb) => {
+      const mq = window.matchMedia(REDUCED_MOTION);
+      mq.addEventListener("change", cb);
+      return () => mq.removeEventListener("change", cb);
+    },
+    () => window.matchMedia(REDUCED_MOTION).matches,
+    () => false,
+  );
+}
+
+type StayItem = NonNullable<Country["accommodation"]>[number];
+
+function AccommodationShowcase({ items }: { items: NonNullable<Country["accommodation"]> }) {
+  const [playing, setPlaying] = useState<StayItem | null>(null);
+  const reduceMotion = usePrefersReducedMotion();
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  const openStay = (item: StayItem) => (e: React.MouseEvent<HTMLButtonElement>) => {
+    triggerRef.current = e.currentTarget;
+    setPlaying(item);
+  };
+
+  // Lock body scroll, trap focus, close on Escape, and pause muted card videos
+  // so the enlarged player is the only thing playing.
+  useEffect(() => {
+    if (!playing) return;
+    const cardVideos = [...(carouselRef.current?.querySelectorAll("video") ?? [])];
+    cardVideos.forEach((v) => v.pause());
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusables = () => {
+      const root = dialogRef.current;
+      if (!root) return [] as HTMLElement[];
+      return [...root.querySelectorAll<HTMLElement>(
+        "button, video, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])",
+      )].filter((el) => !el.hasAttribute("disabled"));
+    };
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setPlaying(null);
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const nodes = focusables();
+      if (nodes.length === 0) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKey);
+    closeRef.current?.focus();
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", onKey);
+      if (!reduceMotion) cardVideos.forEach((v) => v.play().catch(() => {}));
+      triggerRef.current?.focus();
+    };
+  }, [playing, reduceMotion]);
+
+  return (
+    <div className="stays-carousel relative" ref={carouselRef}>
       <Swiper
         modules={[Navigation, FreeMode]}
         spaceBetween={16}
@@ -132,118 +345,92 @@ function AccommodationShowcase({ items }: { items: NonNullable<Country["accommod
       >
         {items.map((item) => (
           <SwiperSlide key={item.title} className="!h-auto">
-            <div className="group h-full flex flex-col overflow-hidden rounded-[10px] bg-tru-navy border border-white/10 hover:border-tru-green/30 transition-all duration-300" style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}>
+            <div className="group h-full flex flex-col overflow-hidden rounded-[10px] bg-tru-navy border border-white/10 hover:border-tru-pink/30 transition-all duration-300" style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}>
               {/* Media */}
               <div className="relative aspect-[4/3] overflow-hidden bg-black">
                 {item.type === "video" ? (
                   <video
                     src={item.src}
                     poster={item.poster}
-                    autoPlay
+                    autoPlay={!reduceMotion}
                     muted
                     loop
                     playsInline
+                    preload="metadata"
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                 ) : (
                   <img src={item.src} alt={item.title} className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <div className="absolute top-3 left-3 flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider font-heading" style={{ background: "#6BD49522", border: "1px solid #6BD49580", color: "#6BD495" }}>
-                    <span className="text-sm leading-none">🛏️</span>
-                    Stay
-                  </span>
-                  {item.type === "video" && (
-                    <span className="bg-white/20 backdrop-blur-sm text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full font-heading">
-                      Video
-                    </span>
-                  )}
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent" />
+                <TravelStyleMark style={item.travelStyle} />
+                {item.type === "video" && (
+                  <button
+                    type="button"
+                    onClick={openStay(item)}
+                    aria-label={reduceMotion ? `Play video: ${item.title}` : `Enlarge video: ${item.title}`}
+                    className="absolute inset-0 z-10 flex items-center justify-center transition-colors hover:bg-black/20 focus-visible:bg-black/20 focus-visible:outline-none"
+                  >
+                    {reduceMotion && (
+                      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                        <svg className="ml-1 h-6 w-6 fill-current text-white" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                      </span>
+                    )}
+                  </button>
+                )}
               </div>
               {/* Content */}
               <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-lg font-black text-white uppercase font-heading leading-tight mb-2 group-hover:text-tru-green transition-colors">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.caption}</p>
+                <h3 className="line-clamp-2 min-h-[2lh] text-lg font-black text-white uppercase font-heading leading-tight mb-2 group-hover:text-tru-pink transition-colors">{item.title}</h3>
+                <p className="line-clamp-3 min-h-[3lh] text-gray-400 text-sm leading-relaxed">{item.caption}</p>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      <button className="stays-prev absolute top-[calc(50%-20px)] -left-2 sm:-left-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-green/40 transition-colors disabled:opacity-30">
+      <button className="stays-prev absolute top-[calc(50%-20px)] -left-2 sm:-left-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
         <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
       </button>
-      <button className="stays-next absolute top-[calc(50%-20px)] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-green/40 transition-colors disabled:opacity-30">
+      <button className="stays-next absolute top-[calc(50%-20px)] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
         <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
       </button>
-    </div>
-  );
-}
 
-function ContentSeriesSection({ series }: { series: Country["contentSeries"] }) {
-  return (
-    <div className="content-carousel relative">
-      <Swiper
-        modules={[Navigation, FreeMode]}
-        spaceBetween={16}
-        slidesPerView={1.2}
-        freeMode={{ enabled: true, sticky: false }}
-        navigation={{ nextEl: ".content-next", prevEl: ".content-prev" }}
-        breakpoints={{
-          480: { slidesPerView: 1.8 },
-          640: { slidesPerView: 2.5 },
-          1024: { slidesPerView: 3.5, spaceBetween: 20 },
-        }}
-        speed={600}
-      >
-        {series.map((s) => (
-          <SwiperSlide key={s.id} className="!h-auto">
-            <div className="group h-full flex flex-col rounded-[10px] border border-white/10 bg-tru-navy overflow-hidden hover:border-tru-pink/30 transition-all duration-300 cursor-pointer" style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}>
-              <div className="relative aspect-video overflow-hidden">
-                <img src={s.image} alt={s.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                <div className="absolute top-3 left-3">
-                  <span className="bg-tru-pink text-white text-[8px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full font-heading">{s.tag}</span>
-                </div>
-                <div className="absolute bottom-3 right-3">
-                  <span className="bg-black/60 text-white text-[10px] font-semibold px-2 py-1 rounded-full backdrop-blur-sm">{s.episodes} episodes</span>
-                </div>
-              </div>
-              <div className="p-4 flex-1">
-                <h3 className="text-white text-sm font-bold font-heading group-hover:text-tru-pink transition-colors mb-1">{s.title}</h3>
-                <p className="text-gray-400 text-xs line-clamp-2">{s.description}</p>
-              </div>
+      {/* Enlarged video player */}
+      {playing &&
+        createPortal(
+          <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={playing.title}
+            className="fixed inset-0 z-[120] flex flex-col items-center justify-center bg-black/95 p-4"
+            onClick={() => setPlaying(null)}
+          >
+            <button
+              ref={closeRef}
+              onClick={() => setPlaying(null)}
+              aria-label="Close video"
+              className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div className="w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+              <video
+                src={playing.src}
+                poster={playing.poster}
+                controls
+                autoPlay
+                playsInline
+                className="w-full max-h-[75vh] rounded-[10px] bg-black object-contain"
+              />
+              <h3 className="mt-4 font-heading text-lg font-bold text-white">{playing.title}</h3>
+              <p className="mt-1 text-sm leading-relaxed text-gray-300">{playing.caption}</p>
             </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <button className="content-prev absolute top-[calc(50%-20px)] -left-2 sm:-left-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
-        <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
-      </button>
-      <button className="content-next absolute top-[calc(50%-20px)] -right-2 sm:-right-5 z-10 h-10 w-10 rounded-full bg-tru-navy/90 border border-white/10 flex items-center justify-center hover:border-tru-pink/40 transition-colors disabled:opacity-30">
-        <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-      </button>
-    </div>
-  );
-}
-
-function PodcastSection({ episodes }: { episodes: Country["podcasts"] }) {
-  return (
-    <div className="space-y-3">
-      {episodes.map((ep) => (
-        <div key={ep.id} className="flex items-center gap-4 rounded-[10px] border border-white/10 bg-white/5 p-4 hover:border-tru-pink/20 hover:bg-white/10 transition-all duration-200 cursor-pointer group">
-          <div className="relative h-16 w-16 rounded-lg overflow-hidden flex-shrink-0">
-            <img src={ep.image} alt={ep.title} className="h-full w-full object-cover" />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/30">
-              <svg className="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
-            </div>
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-white text-sm font-bold font-heading group-hover:text-tru-pink transition-colors truncate">{ep.title}</p>
-            <p className="text-gray-400 text-xs line-clamp-1 mt-0.5">{ep.description}</p>
-          </div>
-          <span className="text-gray-500 text-xs flex-shrink-0">{ep.duration}</span>
-        </div>
-      ))}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
@@ -290,7 +477,7 @@ function DepartureRow({ trip, dep }: DepartureEntry) {
     dep.originalPrice && dep.originalPrice > dep.price
       ? Math.round(((dep.originalPrice - dep.price) / dep.originalPrice) * 100)
       : 0;
-  const almostFull = dep.status === "almost-full";
+  const availability = getAvailabilityTier(dep.spotsLeft, dep.status);
 
   return (
     <div
@@ -319,11 +506,9 @@ function DepartureRow({ trip, dep }: DepartureEntry) {
             <> &middot; {trip.startLocation} &mdash; {trip.endLocation}</>
           )}
         </p>
-        {almostFull && (
-          <span className="inline-flex items-center gap-1.5 mt-2 text-amber-400 text-[10px] font-bold uppercase tracking-wider font-heading">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber-400" /> Almost Full
-          </span>
-        )}
+        <span className={`inline-flex items-center gap-1.5 mt-2 ${availability.text} text-[10px] font-bold uppercase tracking-wider font-heading`}>
+          <span className={`h-1.5 w-1.5 rounded-full flex-shrink-0 ${availability.dot}`} /> {availability.label}
+        </span>
       </div>
 
       {/* Save + Price + CTA */}
@@ -522,18 +707,18 @@ export default function CountryPage({ country }: { country: Country }) {
         <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-4">
           Things To Do In <span className="text-tru-pink">{country.name}</span>
         </h2>
-        <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
-          A taste of the experiences waiting for you — each one tagged by type so you know exactly what you&apos;re in for. Cook with locals on a <span className="text-white font-semibold">Local Lens</span> day, push your limits with a <span className="text-white font-semibold">Rise Up</span> challenge, and tick off the <span className="text-white font-semibold">Bucket List</span> moments you came here for.
+        <p className="mb-8 max-w-2xl text-base leading-relaxed text-gray-300 sm:text-lg">
+          A taste of the experiences waiting for you — tagged by Tru Experience Type so you can find the moments that match how you want to travel.
         </p>
-        <ActivityShowcase items={country.bucketList} />
+        <ActivityShowcase items={country.bucketList} trips={countryTrips} />
       </section>
 
       {/* Where You'll Stay */}
       {country.accommodation && country.accommodation.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20">
-          <p className="text-tru-green text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">Where You&apos;ll Stay</p>
+          <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3">Where You&apos;ll Stay</p>
           <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-4">
-            Sleep Somewhere <span className="text-tru-green">Special</span>
+            Sleep Somewhere <span className="text-tru-pink">Special</span>
           </h2>
           <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
             A few of the stays our {country.name} tours call home — from floating bungalows on a jungle lake to beach resorts steps from the sand.
@@ -577,20 +762,6 @@ export default function CountryPage({ country }: { country: Country }) {
           </div>
         </section>
       )}
-
-      {/* Content Series */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20">
-        <p className="text-amber-400 text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">Watch &amp; Learn</p>
-        <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-8">Content Series</h2>
-        <ContentSeriesSection series={country.contentSeries} />
-      </section>
-
-      {/* Podcasts */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20">
-        <p className="text-tru-blue text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">Listen</p>
-        <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-8">{country.name} Podcast Episodes</h2>
-        <PodcastSection episodes={country.podcasts} />
-      </section>
 
       {/* Upcoming Departures */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-20">

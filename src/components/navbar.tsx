@@ -200,14 +200,15 @@ export default function Navbar() {
   const [hoveredItem, setHoveredItem] = useState<{ name: string; description: string; image: string; href: string; eyebrow: string } | null>(null);
   const navRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
+  const openMenu = (menu: string | null) => {
+    setActiveMenu(menu);
     setHoveredItem(null);
-  }, [activeMenu]);
+  };
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
-        setActiveMenu(null);
+        openMenu(null);
       }
     };
     const handleOpenSearch = () => setSearchOpen(true);
@@ -220,11 +221,11 @@ export default function Navbar() {
   }, []);
 
   const toggleMenu = (menu: string) => {
-    setActiveMenu(activeMenu === menu ? null : menu);
+    openMenu(activeMenu === menu ? null : menu);
   };
 
   const closeAll = () => {
-    setActiveMenu(null);
+    openMenu(null);
     setMobileOpen(false);
     setMobileSubmenu(null);
   };
@@ -241,41 +242,41 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
         <div
           className={`transition-all duration-300 ${activeMenu ? "rounded-[20px]" : "rounded-full"} bg-tru-navy/95 backdrop-blur-md border border-white/10 overflow-hidden`}
-          onMouseLeave={() => setActiveMenu(null)}
+          onMouseLeave={() => openMenu(null)}
         >
           <div className="flex items-center h-14 px-5">
             {/* Logo */}
-            <Link href="/" className="flex-shrink-0 mr-4" onClick={closeAll} onMouseEnter={() => setActiveMenu(null)}>
+            <Link href="/" className="flex-shrink-0 mr-4" onClick={closeAll} onMouseEnter={() => openMenu(null)}>
               <img src="/logo-white.png" alt="TruTravels" className="h-9" />
             </Link>
 
             {/* Desktop nav */}
             <div className="hidden xl:flex items-center gap-0.5 flex-1">
-              <Link href="/explore" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll} onMouseEnter={() => setActiveMenu(null)}>
+              <Link href="/explore" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll} onMouseEnter={() => openMenu(null)}>
                 Explore
               </Link>
-              <Link href="/deals" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll} onMouseEnter={() => setActiveMenu(null)}>
+              <Link href="/deals" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll} onMouseEnter={() => openMenu(null)}>
                 Deals
               </Link>
-              <button onMouseEnter={() => setActiveMenu("destinations")} onClick={() => toggleMenu("destinations")} className={navLinkClass("destinations")}>
+              <button onMouseEnter={() => openMenu("destinations")} onClick={() => toggleMenu("destinations")} className={navLinkClass("destinations")}>
                 Destinations
               </button>
-              <button onMouseEnter={() => setActiveMenu("styles")} onClick={() => toggleMenu("styles")} className={navLinkClass("styles")}>
+              <button onMouseEnter={() => openMenu("styles")} onClick={() => toggleMenu("styles")} className={navLinkClass("styles")}>
                 Travel Styles
               </button>
-              <button onMouseEnter={() => setActiveMenu("about")} onClick={() => toggleMenu("about")} className={navLinkClass("about")}>
+              <button onMouseEnter={() => openMenu("about")} onClick={() => toggleMenu("about")} className={navLinkClass("about")}>
                 About Us
               </button>
-              <button onMouseEnter={() => setActiveMenu("essentials")} onClick={() => toggleMenu("essentials")} className={navLinkClass("essentials")}>
+              <button onMouseEnter={() => openMenu("essentials")} onClick={() => toggleMenu("essentials")} className={navLinkClass("essentials")}>
                 Essentials
               </button>
-              <Link href="/stories" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll} onMouseEnter={() => setActiveMenu(null)}>
+              <Link href="/stories" className="px-3 py-2 text-[11px] font-semibold uppercase tracking-wider font-heading rounded-full text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-200" onClick={closeAll} onMouseEnter={() => openMenu(null)}>
                 Stories
               </Link>
             </div>
 
             {/* Right side */}
-            <div className="hidden xl:flex items-center gap-2 ml-auto" onMouseEnter={() => setActiveMenu(null)}>
+            <div className="hidden xl:flex items-center gap-2 ml-auto" onMouseEnter={() => openMenu(null)}>
               <button onClick={() => { setSearchOpen(true); closeAll(); }} className="h-8 w-8 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -323,10 +324,10 @@ export default function Navbar() {
             {/* Mobile search */}
             <button
               onClick={() => { setSearchOpen(true); closeAll(); }}
-              className="xl:hidden ml-auto h-8 w-8 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition"
+              className="xl:hidden ml-auto h-11 w-11 shrink-0 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition"
               aria-label="Search"
             >
-              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
@@ -334,7 +335,7 @@ export default function Navbar() {
             {/* Mobile hamburger */}
             <button
               className="xl:hidden text-white"
-              onClick={() => { setMobileOpen(!mobileOpen); setActiveMenu(null); setMobileSubmenu(null); }}
+              onClick={() => { setMobileOpen(!mobileOpen); openMenu(null); setMobileSubmenu(null); }}
               aria-label="Toggle menu"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} strokeLinecap="round">

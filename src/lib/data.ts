@@ -113,6 +113,8 @@ export type Trip = {
     originalPrice?: number;
     status: "available" | "almost-full" | "full" | "discount";
     discount?: string;
+    /** Remaining spots on this departure. Drives the availability tag tiers. */
+    spotsLeft?: number;
   }[];
   depositPrice?: number;
   startLocation?: string;
@@ -468,25 +470,25 @@ export const trips: Trip[] = [
       },
     },
     departures: [
-      { date: "2026-04-12", price: 736, originalPrice: 899, status: "discount", discount: "18% off" },
-      { date: "2026-04-26", price: 736, originalPrice: 899, status: "discount", discount: "18% off" },
-      { date: "2026-05-10", price: 799, originalPrice: 899, status: "available" },
-      { date: "2026-05-24", price: 799, originalPrice: 899, status: "almost-full" },
-      { date: "2026-06-07", price: 736, originalPrice: 899, status: "discount", discount: "18% off" },
-      { date: "2026-06-21", price: 799, originalPrice: 899, status: "available" },
-      { date: "2026-07-05", price: 849, originalPrice: 899, status: "available" },
-      { date: "2026-07-19", price: 849, originalPrice: 899, status: "almost-full" },
-      { date: "2026-08-02", price: 899, status: "available" },
-      { date: "2026-08-16", price: 899, status: "full" },
-      { date: "2026-08-30", price: 849, originalPrice: 899, status: "available" },
-      { date: "2026-09-13", price: 736, originalPrice: 899, status: "discount", discount: "18% off" },
-      { date: "2026-09-27", price: 799, originalPrice: 899, status: "available" },
-      { date: "2026-10-11", price: 799, originalPrice: 899, status: "available" },
-      { date: "2026-10-25", price: 849, originalPrice: 899, status: "almost-full" },
-      { date: "2026-11-08", price: 899, status: "available" },
-      { date: "2026-11-22", price: 899, status: "available" },
-      { date: "2026-12-06", price: 899, status: "full" },
-      { date: "2026-12-20", price: 899, status: "available" },
+      { date: "2026-04-12", price: 736, originalPrice: 899, status: "discount", discount: "18% off", spotsLeft: 6 },
+      { date: "2026-04-26", price: 736, originalPrice: 899, status: "discount", discount: "18% off", spotsLeft: 4 },
+      { date: "2026-05-10", price: 799, originalPrice: 899, status: "available", spotsLeft: 11 },
+      { date: "2026-05-24", price: 799, originalPrice: 899, status: "almost-full", spotsLeft: 2 },
+      { date: "2026-06-07", price: 736, originalPrice: 899, status: "discount", discount: "18% off", spotsLeft: 7 },
+      { date: "2026-06-21", price: 799, originalPrice: 899, status: "available", spotsLeft: 3 },
+      { date: "2026-07-05", price: 849, originalPrice: 899, status: "available", spotsLeft: 9 },
+      { date: "2026-07-19", price: 849, originalPrice: 899, status: "almost-full", spotsLeft: 1 },
+      { date: "2026-08-02", price: 899, status: "available", spotsLeft: 10 },
+      { date: "2026-08-16", price: 899, status: "full", spotsLeft: 0 },
+      { date: "2026-08-30", price: 849, originalPrice: 899, status: "available", spotsLeft: 5 },
+      { date: "2026-09-13", price: 736, originalPrice: 899, status: "discount", discount: "18% off", spotsLeft: 3 },
+      { date: "2026-09-27", price: 799, originalPrice: 899, status: "available", spotsLeft: 8 },
+      { date: "2026-10-11", price: 799, originalPrice: 899, status: "available", spotsLeft: 4 },
+      { date: "2026-10-25", price: 849, originalPrice: 899, status: "almost-full", spotsLeft: 2 },
+      { date: "2026-11-08", price: 899, status: "available", spotsLeft: 12 },
+      { date: "2026-11-22", price: 899, status: "available", spotsLeft: 6 },
+      { date: "2026-12-06", price: 899, status: "full", spotsLeft: 0 },
+      { date: "2026-12-20", price: 899, status: "available", spotsLeft: 14 },
     ],
     depositPrice: 200,
     accommodation: [
@@ -2078,6 +2080,8 @@ export type BucketListItem = {
   /** Optional video — when set the card plays this clip instead of the image. */
   video?: string;
   poster?: string;
+  /** Trip ids this activity appears on (destination Things To Do cards). */
+  tourIds?: string[];
 };
 
 export type ContentSeries = {
@@ -2109,7 +2113,15 @@ export type Country = {
   bucketList: BucketListItem[];
   contentSeries: ContentSeries[];
   podcasts: PodcastEpisode[];
-  accommodation?: { type: "image" | "video"; src: string; poster?: string; title: string; caption: string }[];
+  accommodation?: {
+    type: "image" | "video";
+    src: string;
+    poster?: string;
+    title: string;
+    caption: string;
+    /** Travel style this stay belongs to — shown on the card. */
+    travelStyle?: TravelStyle;
+  }[];
   faqs: { question: string; answer: string }[];
 };
 
@@ -2160,6 +2172,13 @@ export const countries: Country[] = [
         image: "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
         emoji: "🌕",
         experienceType: "bucket-list",
+        tourIds: [
+          "full-moon-party-pack",
+          "full-moon-experience",
+          "full-moon-island-hopper",
+          "total-thailand",
+          "discover-asia",
+        ],
       },
       {
         id: "bl-2",
@@ -2168,6 +2187,13 @@ export const countries: Country[] = [
         image: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80",
         emoji: "🏝️",
         experienceType: "unplugged",
+        tourIds: [
+          "thailand-island-hopper",
+          "thailand-experience",
+          "full-moon-experience",
+          "full-moon-island-hopper",
+          "thailand-backpacker",
+        ],
       },
       {
         id: "bl-3",
@@ -2176,6 +2202,13 @@ export const countries: Country[] = [
         image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80",
         emoji: "🛕",
         experienceType: "local-lens",
+        tourIds: [
+          "thailand-island-hopper",
+          "thailand-experience",
+          "full-moon-experience",
+          "northern-thailand-adventure",
+          "songkran-festival",
+        ],
       },
       {
         id: "bl-4",
@@ -2186,6 +2219,7 @@ export const countries: Country[] = [
         experienceType: "local-lens",
         video: "https://videos.pexels.com/video-files/4434242/4434242-sd_506_960_24fps.mp4",
         poster: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
+        tourIds: ["full-moon-experience", "northern-thailand-adventure"],
       },
       {
         id: "bl-5",
@@ -2194,6 +2228,7 @@ export const countries: Country[] = [
         image: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=800&q=80",
         emoji: "🛖",
         experienceType: "tru-ly-unique",
+        tourIds: ["thailand-island-hopper", "full-moon-experience", "full-moon-island-hopper"],
       },
       {
         id: "bl-6",
@@ -2202,33 +2237,38 @@ export const countries: Country[] = [
         image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80",
         emoji: "🥊",
         experienceType: "rise-up",
+        tourIds: ["thailand-island-hopper"],
       },
     ],
     accommodation: [
       {
         type: "video",
-        src: "https://videos.pexels.com/video-files/28156618/12312367_1080_1920_50fps.mp4",
+        src: "/videos/bali-this-is-your-sign.mp4",
         poster: "https://images.unsplash.com/photo-1455587734955-081b22074882?w=1200&q=80",
         title: "Tiki Beach Resort, Koh Phangan",
         caption: "Beachfront bungalows and pools steps from the sand on Thailand's legendary party island.",
+        travelStyle: "classic",
       },
       {
         type: "image",
         src: "https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1200&q=80",
         title: "Khao Sok Floating Bungalows",
         caption: "Wake up on an emerald lake ringed by limestone cliffs — floating bungalows deep in the jungle.",
+        travelStyle: "backpacker",
       },
       {
         type: "image",
         src: "https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=1200&q=80",
         title: "Krabi Mountain Views",
         caption: "Tucked beneath Krabi's dramatic karst mountains, a short hop from the beaches.",
+        travelStyle: "flashpacker",
       },
       {
         type: "image",
         src: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80",
         title: "Bangkok City Hotel",
         caption: "Central, comfortable hotels in the heart of the buzz before you head for the islands.",
+        travelStyle: "classic",
       },
     ],
     contentSeries: [

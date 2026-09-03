@@ -28,6 +28,8 @@ page at the site root, drop the `../`.
 | `blog-video.html` | Click-to-play inline video inside a blog image box (poster + play button, native controls on play). Drop-in replacement for a single blog image; box size unchanged. | yes |
 | `auth-modal.html` | Log in / Create account popup (Google · Facebook · Apple + email/password, "Remember me", switchable views). | yes |
 | `fomo-toast.html` | Rotating social-proof toast for trip pages (live viewers, added-to-basket w/ nav basket icon, spots-left, saves). Aggregate counts only — no customer names (GDPR). Fixed bottom-left, dismissible for the session. | yes |
+| `reviews-bar.html` | Flip strip under the hero: 22,000+ reviews / 4.9 / platforms ↔ Fully Protected + ABTA & ATOL. CSS-only. Mobile shortens the protection slide. | no |
+| `search-prompt.html` | Homepage search bar (above Pick Your Path) that opens the search overlay. Also wires any `[data-open-search]` control (nav magnifying glass). | yes |
 
 ### Page-template blocks
 
@@ -40,9 +42,11 @@ Structural blocks for building whole pages (extracted from the live static pages
 | `pillar-header.html` | Big pillar header — accent rule + eyebrow + accented title + line-art icon | no |
 | `cta-banner.html` | Gradient call-to-action box (heading + body + button) | no |
 | `faq-accordion.html` | Collapsible FAQ list (native `<details>`, no JS) | no |
-| `reviews-section.html` | Trustpilot rating + swipeable review-card carousel | yes (carousel) |
+| `reviews-section.html` | Trustpilot rating + swipeable review-card carousel (demo also includes the reviews-bar copy-in above it) | yes (carousel) |
 | `destinations-carousel.html` | Destination-tile carousel (image + name + tagline) | yes (carousel) |
 | `departures-list.html` | Upcoming-departures rows (date, duration, status, pricing) | no |
+| `reviews-bar.html` | Hero social-proof / protection flip strip (also listed under widgets) | no |
+| `search-prompt.html` | Homepage search bar + overlay (also listed under widgets) | yes |
 
 The two carousels reuse the same generic arrow-nav + drag-to-scroll scripts (copy them once per page).
 
@@ -78,3 +82,18 @@ Copy the `<div class="auth-modal" data-auth-modal> … </div>` block **and** its
 `<script>` once. Give any trigger a `data-auth-open` attribute
 (`"login"` or `"signup"`). Closes on the backdrop, the ✕, or Escape; the two
 views switch via their in-modal links.
+
+## Reviews bar
+
+Copy the `<section class="reviews-bar"> … </section>` under a hero (it replaced
+the homepage ticker). No script — the flip is CSS. Drop `../` from asset paths
+when pasting into a page at the site root. Edit the two `__slide` inners to
+change the reviews totals or protection copy.
+
+## Search prompt
+
+Copy the `.search-prompt` button onto a page (homepage: above Pick Your Path)
+**and** the `.search-overlay` block plus its `<script>` once. Give any extra
+trigger (nav magnifying glass) a `data-open-search` attribute. Closes on the
+backdrop, the ✕, or Escape. Drop `../` from result hrefs when pasting into a
+page at the site root.

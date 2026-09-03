@@ -6,6 +6,7 @@ import { type Trip, getTripExperienceCounts, type TripExperienceCount } from "@/
 import { useExpDisclosure, toggleExpDisclosure } from "@/lib/use-exp-disclosure";
 import { tripUrl } from "@/lib/utils";
 import TravelStyleBadge from "@/components/travel-style-badge";
+import FavouriteButton from "@/components/favourite-button";
 
 const MONTH_ABBR = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -81,7 +82,8 @@ export default function DealCard({
     >
       <div className="flex flex-col sm:flex-row">
         {/* Image */}
-        <Link href={tripUrl(trip)} className="relative block sm:w-[260px] lg:w-[320px] flex-shrink-0 group">
+        <div className="relative sm:w-[260px] lg:w-[320px] flex-shrink-0">
+        <Link href={tripUrl(trip)} className="relative block h-full group">
           <div className="relative aspect-[4/3] sm:aspect-auto sm:h-full min-h-[220px] overflow-hidden">
             <img
               src={trip.image}
@@ -104,6 +106,11 @@ export default function DealCard({
             )}
           </div>
         </Link>
+        {/* Save heart — outside the image Link so it can't trigger navigation. */}
+        <div className="absolute bottom-3 right-3 z-20">
+          <FavouriteButton tripId={trip.id} tripTitle={trip.title} variant="overlay" />
+        </div>
+        </div>
 
         {/* Body */}
         <div className="flex-1 min-w-0 flex flex-col">

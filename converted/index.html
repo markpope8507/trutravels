@@ -29,13 +29,13 @@
             <a class="site-nav__link" href="#stories">Stories</a>
           </nav>
           <div class="site-nav__actions">
-            <button class="site-nav__act" aria-label="Search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+            <button class="site-nav__act" data-open-search aria-label="Search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
             <button class="site-nav__act" aria-label="Saved"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></button>
             <button class="site-nav__act site-nav__cart" data-cart-open aria-label="Cart"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg><span class="site-nav__cart-badge" data-cart-count hidden>0</span></button>
             <a class="site-nav__join" href="#">Join / Log in</a>
           </div>
           <div class="site-nav__mobile-actions">
-            <button class="site-nav__act" aria-label="Search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
+            <button class="site-nav__act site-nav__act--m-search" data-open-search aria-label="Search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></button>
             <button class="site-nav__act site-nav__cart" data-cart-open aria-label="Cart"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg><span class="site-nav__cart-badge" data-cart-count hidden>0</span></button>
             <button class="site-nav__burger" data-nav-burger aria-label="Toggle menu"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
           </div>
@@ -98,7 +98,7 @@
     <img class="nav-bg" src="assets/bg/good-vibes.svg" alt="" aria-hidden="true" style="bottom:90px;left:-24px;width:120px;transform:rotate(-6deg);opacity:.05">
     <div class="nav-sheet__head"><span class="nav-sheet__title">Find your Extraordinary&hellip;</span><button class="nav-sheet__close" data-nav-close aria-label="Close menu"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button></div>
     <div class="nav-sheet__body">
-  <button class="nav-m__search"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span>Search</span></button>
+  <button class="nav-m__search" data-open-search><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span>Search</span></button>
   <a class="nav-m__top" href="explore.html">Explore</a>
   <a class="nav-m__top" href="#">Deals</a>
   <div class="nav-m__sec"><button class="nav-m__sec-btn" data-msec>Destinations<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__sec-body" hidden><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Asia<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/asia/thailand">Thailand</a><a class="nav-m__country" href="/destinations/asia/indonesia">Indonesia</a><a class="nav-m__country" href="/destinations/asia/philippines">Philippines</a><a class="nav-m__country" href="/destinations/asia/vietnam">Vietnam</a><a class="nav-m__country" href="/destinations/asia/cambodia">Cambodia</a><a class="nav-m__country" href="/destinations/asia/sri-lanka">Sri Lanka</a><a class="nav-m__country" href="/destinations/asia/india">India</a><a class="nav-m__country" href="/destinations/asia/japan">Japan</a><a class="nav-m__country" href="/destinations/asia/china">China</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Central &amp; South America<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/central-and-south-america/mexico">Mexico</a><a class="nav-m__country" href="/destinations/central-and-south-america/costa-rica">Costa Rica</a><a class="nav-m__country" href="/destinations/central-and-south-america/colombia">Colombia</a><a class="nav-m__country" href="/destinations/central-and-south-america/peru">Peru</a><a class="nav-m__country" href="/destinations/central-and-south-america/brazil">Brazil</a><a class="nav-m__country" href="/destinations/central-and-south-america/belize">Belize</a><a class="nav-m__country" href="/destinations/central-and-south-america/guatemala">Guatemala</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Europe<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/europe/greece">Greece</a><a class="nav-m__country" href="/destinations/europe/italy">Italy</a><a class="nav-m__country" href="/destinations/europe/albania">Albania</a><a class="nav-m__country" href="/explore">Europe By Rail</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Africa &amp; Middle East<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/africa-and-middle-east/morocco">Morocco</a><a class="nav-m__country" href="/destinations/africa-and-middle-east/jordan">Jordan</a></div></div><div class="nav-m__region"><button class="nav-m__region-btn" data-msub>Oceania<svg class="nav-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div class="nav-m__region-list" hidden><a class="nav-m__country" href="/destinations/oceania/new-zealand">New Zealand</a></div></div></div></div>
@@ -162,11 +162,63 @@
       <div class="home-hero__scroll"><span>Scroll</span><span class="home-hero__scroll-line"></span></div>
     </section>
 
-    <!-- ================= TICKER ================= -->
-    <section class="home-ticker" aria-hidden="true">
-      <div class="home-ticker__row">
-        <div class="home-ticker__group"><span>Leave Ordinary Behind</span><span class="home-ticker__sep">/</span><span>Find Your Extraordinary</span><span class="home-ticker__sep">/</span><span>Chase Sunsets Not Schedules</span><span class="home-ticker__sep">/</span><span>Strangers Who Become Family</span><span class="home-ticker__sep">/</span><span>Step Into The Unknown</span><span class="home-ticker__sep">/</span><span>Connect Deeply</span><span class="home-ticker__sep">/</span><span>Make Every Journey Count</span><span class="home-ticker__sep">/</span><span>We Don&rsquo;t Do Average</span><span class="home-ticker__sep">/</span></div>
-        <div class="home-ticker__group"><span>Leave Ordinary Behind</span><span class="home-ticker__sep">/</span><span>Find Your Extraordinary</span><span class="home-ticker__sep">/</span><span>Chase Sunsets Not Schedules</span><span class="home-ticker__sep">/</span><span>Strangers Who Become Family</span><span class="home-ticker__sep">/</span><span>Step Into The Unknown</span><span class="home-ticker__sep">/</span><span>Connect Deeply</span><span class="home-ticker__sep">/</span><span>Make Every Journey Count</span><span class="home-ticker__sep">/</span><span>We Don&rsquo;t Do Average</span><span class="home-ticker__sep">/</span></div>
+    <!-- ================= REVIEWS BAR (replaces ticker) ================= -->
+    <section class="reviews-bar" aria-label="Reviews and booking protection">
+      <div class="reviews-bar__viewport">
+        <div class="reviews-bar__slide reviews-bar__slide--a">
+          <div class="reviews-bar__inner">
+            <span class="reviews-bar__stat"><strong>22,000+</strong><span class="reviews-bar__stat-label">REVIEWS</span></span>
+            <span class="reviews-bar__rule" aria-hidden="true"></span>
+            <span class="reviews-bar__rating">
+              <span class="reviews-bar__score">4.9</span>
+              <span class="reviews-bar__stars" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path fill="#FBBC05" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path fill="#FBBC05" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path fill="#FBBC05" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24"><path fill="#FBBC05" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg viewBox="0 0 24 24">
+                  <defs>
+                    <linearGradient id="reviews-bar-star-4-9" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="70%" stop-color="#FBBC05"/>
+                      <stop offset="70%" stop-color="rgba(255,255,255,0.28)"/>
+                    </linearGradient>
+                  </defs>
+                  <path fill="url(#reviews-bar-star-4-9)" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </span>
+            </span>
+            <span class="reviews-bar__rule reviews-bar__rule--always" aria-hidden="true"></span>
+            <span class="reviews-bar__platforms">
+              <span class="reviews-bar__plat">
+                <svg viewBox="0 0 48 48" aria-label="Google" role="img"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+                <span>Google</span>
+              </span>
+              <span class="reviews-bar__plat">
+                <svg viewBox="0 0 24 24" fill="#00B67A" aria-label="Trustpilot" role="img"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <span>Trustpilot</span>
+              </span>
+              <span class="reviews-bar__plat">
+                <img src="assets/platform-logos/tourradar-favicon.png" alt="TourRadar" />
+                <span>TourRadar</span>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div class="reviews-bar__slide reviews-bar__slide--b">
+          <div class="reviews-bar__inner">
+            <span class="reviews-bar__protect-title">
+              <svg class="reviews-bar__shield" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
+              <span class="reviews-bar__protect-label">FULLY PROTECTED</span>
+            </span>
+            <span class="reviews-bar__protect-short">Book with Confidence</span>
+            <span class="reviews-bar__protect-copy">ABTA &amp; ATOL protected - Book with Confidence</span>
+            <span class="reviews-bar__rule reviews-bar__rule--desk" aria-hidden="true"></span>
+            <span class="reviews-bar__protect-logos">
+              <img src="assets/pay/atol-logo.png" alt="ATOL Protected" />
+              <img class="reviews-bar__abta" src="assets/pay/abta-logo.png" alt="ABTA — Travel With Confidence" />
+            </span>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -179,10 +231,6 @@
             <p class="eyebrow eyebrow--pink">Experiences</p>
             <h2 class="section-heading">Find Your<br /><span class="text-grad">Extraordinary</span></h2>
           </div>
-          <a class="pill-btn home-section-head__pill-desktop" href="explore.html">
-            View All Experiences
-            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
-          </a>
         </div>
       </div>
 
@@ -344,12 +392,6 @@
           <button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
         </div>
 
-        <div class="home-section-head__pill-mobile">
-          <a class="pill-btn" href="explore.html">
-            View All Experiences
-            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
-          </a>
-        </div>
       </div>
     </section>
 
@@ -375,6 +417,12 @@
           <p class="dpath__eyebrow">Your Way</p>
           <h2 class="dpath__title">Pick Your <span>Path</span></h2>
           <p class="dpath__sub">however you want to search&hellip;</p>
+        </div>
+        <div class="search-prompt">
+          <button type="button" class="search-prompt__btn" data-open-search aria-label="Search trips, destinations and stories">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            Search trips, destinations...
+          </button>
         </div>
         <div class="dpath__grid">
         <button type="button" class="dpath__btn dpath__btn--green" data-open-modal="lastminute">
@@ -537,6 +585,29 @@
         </div>
         <div class="iquiz__progress"><div class="iquiz__progress-fill" data-iquiz-progress style="width: 16.6667%"></div></div>
         <div class="iquiz__content" data-iquiz-content></div>
+      </div>
+    </div>
+
+    <div class="search-overlay" data-search-overlay hidden>
+      <div class="search-overlay__backdrop" data-search-close></div>
+      <div class="search-overlay__panel">
+        <div class="search-overlay__field">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="search" data-search-input placeholder="Search trips, destinations, blog..." autocomplete="off" />
+          <button type="button" class="search-overlay__close" data-search-close aria-label="Close search">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="search-overlay__hint" data-search-hint>
+          <p class="search-overlay__hint-label">Try searching for</p>
+          <div class="search-overlay__chips">
+            <button type="button" class="search-overlay__chip" data-search-chip>Thailand</button>
+            <button type="button" class="search-overlay__chip" data-search-chip>Bali Experience</button>
+            <button type="button" class="search-overlay__chip" data-search-chip>Tours for solo travellers</button>
+            <button type="button" class="search-overlay__chip" data-search-chip>Best Places to Travel in August</button>
+          </div>
+        </div>
+        <div class="search-overlay__results" data-search-results hidden></div>
       </div>
     </div>
 
@@ -1047,7 +1118,7 @@
             <p class="rvw-platform__count">3,600+ reviews</p>
           </div>
           <div class="rvw-platform">
-            <span class="rvw-plogo"><svg class="" viewBox="0 0 24 24" fill="none" stroke="#0CA4A5" stroke-width="2" aria-label="TourRadar" role="img"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 12l6-3"/></svg><span>TourRadar</span></span>
+            <span class="rvw-plogo"><img src="assets/platform-logos/tourradar-favicon.png" alt="TourRadar" /><span>TourRadar</span></span>
             <span class="rvw-platform__score">4.9</span>
             <div class="reviews__stars"><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
             <p class="rvw-platform__count">17,000+ reviews</p>
@@ -1090,7 +1161,7 @@
               <p class="rvw-card__text">Came on my own, left with a whole crew I still speak to every day. The Full Moon Party night was unreal. Can't recommend Tru enough.</p>
               <div class="rvw-card__foot">
                 <p class="rvw-card__meta"><strong>Priya K.</strong> &middot; Thailand Island Hopper &middot; 3 weeks ago</p>
-                <svg class="rvw-card__mark" viewBox="0 0 24 24" fill="none" stroke="#0CA4A5" stroke-width="2" aria-label="TourRadar" role="img"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 12l6-3"/></svg>
+                <img class="rvw-card__mark" src="assets/platform-logos/tourradar-favicon.png" alt="TourRadar" />
               </div>
             </div>
             <div class="rvw-card">
@@ -1117,7 +1188,7 @@
               <p class="rvw-card__text">Brilliant balance of culture, adventure and downtime. Nothing felt rushed and the group size was perfect. My favourite holiday ever.</p>
               <div class="rvw-card__foot">
                 <p class="rvw-card__meta"><strong>Tom A.</strong> &middot; Philippines East &middot; 3 weeks ago</p>
-                <svg class="rvw-card__mark" viewBox="0 0 24 24" fill="none" stroke="#0CA4A5" stroke-width="2" aria-label="TourRadar" role="img"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path stroke-linecap="round" d="M12 12l6-3"/></svg>
+                <img class="rvw-card__mark" src="assets/platform-logos/tourradar-favicon.png" alt="TourRadar" />
               </div>
             </div>
             </div>
@@ -1762,6 +1833,106 @@
         var el = document.getElementById('modal-' + openId);
         if (el) closeModal(el);
       }
+    });
+  })();
+  </script>
+  <script>/* Search overlay — homepage bar + nav magnifying glass */
+  (function () {
+    var overlay = document.querySelector('[data-search-overlay]');
+    if (!overlay) return;
+    var input = overlay.querySelector('[data-search-input]');
+    var hint = overlay.querySelector('[data-search-hint]');
+    var results = overlay.querySelector('[data-search-results]');
+    var INDEX = [
+      { title: 'Thailand Island Hopper', href: 'thailand-island-hopper.html', category: 'Trip', sub: 'Thailand · 14 Days · From £736' },
+      { title: 'Full Moon Party Pack', href: 'explore.html', category: 'Trip', sub: 'Thailand · 5 Days · From £473' },
+      { title: 'Northern Thailand Adventure', href: 'explore.html', category: 'Trip', sub: 'Thailand · 14 Days · From £986' },
+      { title: 'Bali Experience', href: 'explore.html', category: 'Trip', sub: 'Indonesia · 10 Days · From £487' },
+      { title: 'Bali Backpacker', href: 'explore.html', category: 'Trip', sub: 'Indonesia · 12 Days · From £297' },
+      { title: 'Thailand', href: 'thailand.html', category: 'Destination', sub: 'The Land of Smiles' },
+      { title: 'Indonesia', href: 'explore.html', category: 'Destination', sub: 'Emerald of the Equator' },
+      { title: 'Top 5 Places to Visit in Thailand', href: 'story-top-5-places-to-visit-in-thailand.html', category: 'Blog', sub: 'By Sophie · Destination Guides' },
+      { title: 'Best Places to Travel in August', href: 'story-best-places-to-travel-in-august.html', category: 'Blog', sub: 'By TruTravels Team · Destination Guides' },
+      { title: 'Solo Soul Searcher', href: 'explore.html', category: 'Life Moment', sub: 'Coming alone? You won\u2019t leave that way.', keywords: 'tours for solo travellers solo travel' },
+      { title: 'Backpacker Trips', href: 'explore.html', category: 'Travel Style' },
+      { title: 'Flash Sale', href: 'explore.html', category: 'Deal', sub: 'Save up to 30% on 2026 departures' }
+    ];
+    var GROUPS = [
+      { category: 'Destination', heading: 'Destination', cap: 4, moreHref: 'explore.html', moreWord: 'destinations' },
+      { category: 'Trip', heading: 'Tours', cap: 4, moreHref: 'explore.html', moreWord: 'tours' },
+      { category: 'Blog', heading: 'Stories', cap: 3, moreHref: 'stories.html', moreWord: 'stories' },
+      { category: 'Life Moment', heading: 'Life Moments', cap: 3, moreHref: null, moreWord: 'life moments' },
+      { category: 'Travel Style', heading: 'Travel Style', cap: 3, moreHref: 'explore.html', moreWord: 'styles' },
+      { category: 'Deal', heading: 'Deals', cap: 2, moreHref: 'explore.html', moreWord: 'deals' },
+      { category: 'Page', heading: 'Pages', cap: 3, moreHref: null, moreWord: 'pages' }
+    ];
+    function rowHtml(item) {
+      return '<a class="search-overlay__row" href="' + item.href + '">' +
+        '<span><p class="search-overlay__title">' + item.title + '</p>' +
+        (item.sub ? '<p class="search-overlay__sub">' + item.sub + '</p>' : '') +
+        '</span>' +
+        '<svg class="search-overlay__chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>' +
+        '</a>';
+    }
+    function lock(on) { document.body.style.overflow = on ? 'hidden' : ''; }
+    function openSearch() {
+      overlay.hidden = false;
+      lock(true);
+      input.value = '';
+      render('');
+      setTimeout(function () { input.focus(); }, 50);
+    }
+    function closeSearch() {
+      overlay.hidden = true;
+      lock(false);
+    }
+    function render(q) {
+      var query = (q || '').trim().toLowerCase();
+      if (!query) {
+        hint.hidden = false;
+        results.hidden = true;
+        results.innerHTML = '';
+        return;
+      }
+      hint.hidden = true;
+      var hits = INDEX.filter(function (item) {
+        return item.title.toLowerCase().indexOf(query) !== -1
+          || (item.sub && item.sub.toLowerCase().indexOf(query) !== -1)
+          || (item.keywords && item.keywords.toLowerCase().indexOf(query) !== -1);
+      });
+      results.hidden = false;
+      if (!hits.length) {
+        results.innerHTML = '<p class="search-overlay__empty">No results for &ldquo;' + query.replace(/[<>]/g, '') + '&rdquo;</p>';
+        return;
+      }
+      results.innerHTML = GROUPS.map(function (group) {
+        var items = hits.filter(function (item) { return item.category === group.category; });
+        if (!items.length) return '';
+        var shown = items.slice(0, group.cap);
+        var html = '<div class="search-overlay__group"><p class="search-overlay__group-label">' + group.heading + '</p>' +
+          shown.map(rowHtml).join('');
+        if (items.length > group.cap && group.moreHref) {
+          html += '<a class="search-overlay__more" href="' + group.moreHref + '">View all ' + items.length + ' ' + group.moreWord + '</a>';
+        }
+        return html + '</div>';
+      }).join('');
+    }
+    document.querySelectorAll('[data-open-search]').forEach(function (btn) {
+      btn.addEventListener('click', function () { openSearch(); });
+    });
+    overlay.querySelectorAll('[data-search-close]').forEach(function (btn) {
+      btn.addEventListener('click', closeSearch);
+    });
+    overlay.querySelectorAll('[data-search-chip]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        input.value = chip.textContent.trim();
+        render(input.value);
+        input.focus();
+      });
+    });
+    input.addEventListener('input', function () { render(input.value); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.hidden) closeSearch();
     });
   })();
   </script>

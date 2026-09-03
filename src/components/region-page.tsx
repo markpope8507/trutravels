@@ -130,10 +130,10 @@ export default function RegionPage({ region }: { region: RegionInfo }) {
             <h2 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading tracking-wide mb-4">
               Things To Do In <span className="text-tru-pink">{region.name}</span>
             </h2>
-            <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-8">
-              A taste of what&apos;s waiting across {region.name} — each one tagged by type so you know what you&apos;re in for. Cook with locals on a <span className="text-white font-semibold">Local Lens</span> day, push your limits with a <span className="text-white font-semibold">Rise Up</span> challenge, and tick off the <span className="text-white font-semibold">Bucket List</span> moments you came for.
+            <p className="mb-8 max-w-2xl text-base leading-relaxed text-gray-300 sm:text-lg">
+              A taste of what&apos;s waiting across {region.name} — tagged by Tru Experience Type so you can find the moments that match how you want to travel.
             </p>
-            <ActivityShowcase items={regionActivities} />
+            <ActivityShowcase items={regionActivities} trips={regionTrips} />
           </section>
         )}
 

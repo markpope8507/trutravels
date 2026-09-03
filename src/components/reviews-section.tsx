@@ -85,7 +85,7 @@ export default function ReviewsSection() {
   const [open, setOpen] = useState(false);
 
   return (
-    <section className="relative pt-4 pb-24 bg-gradient-to-b from-tru-pink/[0.03] to-transparent">
+    <section id="reviews" className="relative scroll-mt-24 pt-4 pb-24 bg-gradient-to-b from-tru-pink/[0.03] to-transparent">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8">

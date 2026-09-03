@@ -5,17 +5,20 @@ import { Trip, getTripExperienceCounts, type TripExperienceCount } from "@/lib/d
 import { useExpDisclosure, toggleExpDisclosure } from "@/lib/use-exp-disclosure";
 import { tripUrl } from "@/lib/utils";
 import TravelStyleBadge from "@/components/travel-style-badge";
+import FavouriteButton from "@/components/favourite-button";
 
 export default function TripCard({
   trip,
   onRemove,
   nextDeparture,
   href,
+  showFavourite = true,
 }: {
   trip: Trip;
   onRemove?: (id: string) => void;
   nextDeparture?: string;
   href?: string;
+  showFavourite?: boolean;
 }) {
   const expData = getTripExperienceCounts(trip);
   const placesCount = trip.highlights?.length ?? 0;
@@ -52,6 +55,17 @@ export default function TripCard({
             />
           </svg>
         </button>
+      )}
+
+      {/* Save heart — a sibling of the Link (not nested inside the anchor), sat in the
+          bottom corner of the image since the top corners hold the style and discount badges.
+          Redundant on the saved page, where onRemove already provides a remove control. */}
+      {showFavourite && !onRemove && (
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 aspect-[4/3]">
+          <div className="pointer-events-auto absolute bottom-3 right-3">
+            <FavouriteButton tripId={trip.id} tripTitle={trip.title} variant="overlay" />
+          </div>
+        </div>
       )}
 
       <Link href={href ?? tripUrl(trip)} className="group block h-full">

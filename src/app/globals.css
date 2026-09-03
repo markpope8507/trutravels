@@ -122,6 +122,44 @@ html, body {
 .animate-scale-in { animation: scale-in 0.6s ease-out both; }
 .animate-ticker { animation: ticker 18s linear infinite; }
 
+@keyframes reviews-bar-flip {
+  0%, 42% { transform: rotateX(0deg); opacity: 1; visibility: visible; }
+  50%, 92% { transform: rotateX(-85deg); opacity: 0; visibility: hidden; }
+  100% { transform: rotateX(0deg); opacity: 1; visibility: visible; }
+}
+
+.reviews-bar__viewport {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  perspective: 900px;
+}
+.reviews-bar {
+  overflow: hidden;
+}
+.reviews-bar__slide {
+  grid-area: 1 / 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  transform-origin: center;
+  animation: reviews-bar-flip 10s ease-in-out infinite;
+}
+.reviews-bar__slide--b { animation-delay: -5s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews-bar__slide {
+    animation: none;
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+  }
+  .reviews-bar__viewport { display: flex; flex-direction: column; gap: 0.75rem; }
+}
+
 .delay-100 { animation-delay: 0.1s; }
 .delay-200 { animation-delay: 0.2s; }
 .delay-300 { animation-delay: 0.3s; }

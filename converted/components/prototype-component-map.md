@@ -12,9 +12,9 @@ what's available to assemble into backend page templates.
 - **Logic** — no UI (providers, trackers, gates)
 
 > Copy-in **static** versions of the most common blocks already live in this
-> folder: `trip-carousel.html` (trip-card carousel), `blog-card.html`
-> (story-card), `blog-image-slider.html`, `blog-video.html`, `fomo-toast.html`,
-> `auth-modal.html`. This map is the fuller picture of everything in the pt.
+> folder: `trip-carousel.html`, `blog-card.html`, `blog-image-slider.html`,
+> `blog-video.html`, `fomo-toast.html`, `auth-modal.html`, `reviews-bar.html`.
+> This map is the fuller picture of everything in the prototype.
 
 ---
 
@@ -32,6 +32,7 @@ what's available to assemble into backend page templates.
 | `back-to-top` | Scroll-to-top button (bottom of page) | Global |
 | `back-button` | Fixed back-navigation button (`router.back()`) | Global |
 | `fomo-toast` | Rotating social-proof toast, bottom-left (trip pages) — GDPR-safe aggregate counts | Global (trip pages) |
+| `reviews-bar` | Flip strip under the hero: 22,000+ reviews / 4.9 / Google·Trustpilot·TourRadar ↔ Fully Protected + ABTA & ATOL logos | Drop-in |
 
 ## 2. Headers, heroes & section intros
 
@@ -107,7 +108,7 @@ what's available to assemble into backend page templates.
 | `stories-feature` | "Stories From The Road" — featured story + explore link | Drop-in |
 | `support-escalation` | "Talk To A Human" — live chat / email / call options | Drop-in |
 | `contact-form` | Name / email / phone / message + success state | Drop-in |
-| `search-prompt` | CTA button that opens the search overlay | Drop-in |
+| `search-prompt` | Search bar composed into Pick Your Path (between heading and pathway buttons); opens the search overlay | Drop-in |
 | `platform-logos` | Brand marks for Google / Trustpilot / TourRadar | Logic |
 
 ## 7. Trip-detail components

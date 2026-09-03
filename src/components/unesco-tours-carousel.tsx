@@ -37,7 +37,9 @@ export default function UnescoToursCarousel({
       >
         {tours.map((tour) => (
           <SwiperSlide key={tour.id} className="!h-auto">
-            <TripCard trip={tour} href={tour.bookingUrl} />
+            {/* No heart: these tours live in `unescoTours`, not `trips`, so the saved
+                page can't resolve them and they have no detail page to link back to. */}
+            <TripCard trip={tour} href={tour.bookingUrl} showFavourite={false} />
           </SwiperSlide>
         ))}
       </Swiper>

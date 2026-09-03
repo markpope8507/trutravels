@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Search prompt (component) — TruTravels</title>
+  <meta name="description" content="Homepage search bar that opens the search overlay." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 1rem;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Search prompt &mdash; demo (composed into Pick Your Path, between the heading and the pathway buttons)</p></div>
+
+  <!-- ===================================================================
+       SEARCH PROMPT — copy the .search-prompt block into Pick Your Path
+       after .dpath__head and before .dpath__grid, plus the .search-overlay
+       markup and its <script> once per page. Clicking the bar (or any
+       [data-open-search] control) opens the overlay.
+       Paths below use ../ because this demo lives in components/; drop the
+       ../ when pasting into a page at the site root.
+       Requires ../styles.css (.search-prompt*, .search-overlay*). Script.
+       =================================================================== -->
+  <div style="padding:2rem 1rem 4rem;">
+    <div class="search-prompt">
+      <button type="button" class="search-prompt__btn" data-open-search aria-label="Search trips, destinations and stories">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        Search trips, destinations...
+      </button>
+    </div>
+  </div>
+
+  <div class="search-overlay" data-search-overlay hidden>
+    <div class="search-overlay__backdrop" data-search-close></div>
+    <div class="search-overlay__panel">
+      <div class="search-overlay__field">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input type="search" data-search-input placeholder="Search trips, destinations, blog..." autocomplete="off" />
+        <button type="button" class="search-overlay__close" data-search-close aria-label="Close search">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="search-overlay__hint" data-search-hint>
+        <p class="search-overlay__hint-label">Try searching for</p>
+          <div class="search-overlay__chips">
+            <button type="button" class="search-overlay__chip" data-search-chip>Thailand</button>
+            <button type="button" class="search-overlay__chip" data-search-chip>Bali Experience</button>
+            <button type="button" class="search-overlay__chip" data-search-chip>Tours for solo travellers</button>
+            <button type="button" class="search-overlay__chip" data-search-chip>Best Places to Travel in August</button>
+          </div>
+      </div>
+      <div class="search-overlay__results" data-search-results hidden></div>
+    </div>
+  </div>
+
+  <script>/* Search overlay — homepage bar + any [data-open-search] control */
+  (function () {
+    var overlay = document.querySelector('[data-search-overlay]');
+    if (!overlay) return;
+    var input = overlay.querySelector('[data-search-input]');
+    var hint = overlay.querySelector('[data-search-hint]');
+    var results = overlay.querySelector('[data-search-results]');
+    var INDEX = [
+      { title: 'Thailand Island Hopper', href: '../thailand-island-hopper.html', category: 'Trip', sub: 'Thailand · 14 Days · From £736' },
+      { title: 'Full Moon Party Pack', href: '../explore.html', category: 'Trip', sub: 'Thailand · 5 Days · From £473' },
+      { title: 'Northern Thailand Adventure', href: '../explore.html', category: 'Trip', sub: 'Thailand · 14 Days · From £986' },
+      { title: 'Bali Experience', href: '../explore.html', category: 'Trip', sub: 'Indonesia · 10 Days · From £487' },
+      { title: 'Bali Backpacker', href: '../explore.html', category: 'Trip', sub: 'Indonesia · 12 Days · From £297' },
+      { title: 'Thailand', href: '../thailand.html', category: 'Destination', sub: 'The Land of Smiles' },
+      { title: 'Indonesia', href: '../explore.html', category: 'Destination', sub: 'Emerald of the Equator' },
+      { title: 'Top 5 Places to Visit in Thailand', href: '../story-top-5-places-to-visit-in-thailand.html', category: 'Blog', sub: 'By Sophie · Destination Guides' },
+      { title: 'Best Places to Travel in August', href: '../story-best-places-to-travel-in-august.html', category: 'Blog', sub: 'By TruTravels Team · Destination Guides' },
+      { title: 'Solo Soul Searcher', href: '../explore.html', category: 'Life Moment', sub: 'Coming alone? You won\u2019t leave that way.', keywords: 'tours for solo travellers solo travel' },
+      { title: 'Backpacker Trips', href: '../explore.html', category: 'Travel Style' },
+      { title: 'Flash Sale', href: '../explore.html', category: 'Deal', sub: 'Save up to 30% on 2026 departures' }
+    ];
+    var GROUPS = [
+      { category: 'Destination', heading: 'Destination', cap: 4, moreHref: '../explore.html', moreWord: 'destinations' },
+      { category: 'Trip', heading: 'Tours', cap: 4, moreHref: '../explore.html', moreWord: 'tours' },
+      { category: 'Blog', heading: 'Stories', cap: 3, moreHref: '../stories.html', moreWord: 'stories' },
+      { category: 'Life Moment', heading: 'Life Moments', cap: 3, moreHref: null, moreWord: 'life moments' },
+      { category: 'Travel Style', heading: 'Travel Style', cap: 3, moreHref: '../explore.html', moreWord: 'styles' },
+      { category: 'Deal', heading: 'Deals', cap: 2, moreHref: '../explore.html', moreWord: 'deals' },
+      { category: 'Page', heading: 'Pages', cap: 3, moreHref: null, moreWord: 'pages' }
+    ];
+    function rowHtml(item) {
+      return '<a class="search-overlay__row" href="' + item.href + '">' +
+        '<span><p class="search-overlay__title">' + item.title + '</p>' +
+        (item.sub ? '<p class="search-overlay__sub">' + item.sub + '</p>' : '') +
+        '</span>' +
+        '<svg class="search-overlay__chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>' +
+        '</a>';
+    }
+    function lock(on) { document.body.style.overflow = on ? 'hidden' : ''; }
+    function openSearch() {
+      overlay.hidden = false;
+      lock(true);
+      input.value = '';
+      render('');
+      setTimeout(function () { input.focus(); }, 50);
+    }
+    function closeSearch() {
+      overlay.hidden = true;
+      lock(false);
+    }
+    function render(q) {
+      var query = (q || '').trim().toLowerCase();
+      if (!query) {
+        hint.hidden = false;
+        results.hidden = true;
+        results.innerHTML = '';
+        return;
+      }
+      hint.hidden = true;
+      var hits = INDEX.filter(function (item) {
+        return item.title.toLowerCase().indexOf(query) !== -1
+          || (item.sub && item.sub.toLowerCase().indexOf(query) !== -1)
+          || (item.keywords && item.keywords.toLowerCase().indexOf(query) !== -1);
+      });
+      results.hidden = false;
+      if (!hits.length) {
+        results.innerHTML = '<p class="search-overlay__empty">No results for &ldquo;' + query.replace(/[<>]/g, '') + '&rdquo;</p>';
+        return;
+      }
+      results.innerHTML = GROUPS.map(function (group) {
+        var items = hits.filter(function (item) { return item.category === group.category; });
+        if (!items.length) return '';
+        var shown = items.slice(0, group.cap);
+        var html = '<div class="search-overlay__group"><p class="search-overlay__group-label">' + group.heading + '</p>' +
+          shown.map(rowHtml).join('');
+        if (items.length > group.cap && group.moreHref) {
+          html += '<a class="search-overlay__more" href="' + group.moreHref + '">View all ' + items.length + ' ' + group.moreWord + '</a>';
+        }
+        return html + '</div>';
+      }).join('');
+    }
+    document.querySelectorAll('[data-open-search]').forEach(function (btn) {
+      btn.addEventListener('click', openSearch);
+    });
+    overlay.querySelectorAll('[data-search-close]').forEach(function (btn) {
+      btn.addEventListener('click', closeSearch);
+    });
+    overlay.querySelectorAll('[data-search-chip]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        input.value = chip.textContent.trim();
+        render(input.value);
+        input.focus();
+      });
+    });
+    input.addEventListener('input', function () { render(input.value); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !overlay.hidden) closeSearch();
+    });
+  })();
+  </script>
+</body>
+</html>

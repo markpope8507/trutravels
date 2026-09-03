@@ -5,6 +5,7 @@ import { useScrollLock } from "@/lib/use-scroll-lock";
 import { useAuth } from "@/lib/auth-context";
 import { useAuthModal } from "@/lib/auth-modal";
 import { useCart } from "@/lib/cart-context";
+import { AVAILABILITY_TIERS, AVAILABILITY_TIER_ORDER, getAvailabilityTier } from "@/lib/availability";
 
 type Departure = {
   date: string;
@@ -12,6 +13,7 @@ type Departure = {
   originalPrice?: number;
   status: "available" | "almost-full" | "full" | "discount";
   discount?: string;
+  spotsLeft?: number;
 };
 
 type BookingModalProps = {
@@ -27,12 +29,29 @@ type BookingModalProps = {
   depositPrice: number;
 };
 
-const statusConfig = {
-  available: { label: "Available", color: "bg-tru-green", dot: "bg-tru-green" },
-  "almost-full": { label: "Almost Full", color: "bg-amber-500", dot: "bg-amber-500" },
-  full: { label: "Full", color: "bg-gray-500", dot: "bg-gray-500" },
-  discount: { label: "On Sale", color: "bg-tru-pink", dot: "bg-tru-pink" },
+/** States with no equivalent on the destination page, kept as-is. */
+const specialStatusConfig = {
+  full: { label: "Full", dot: "bg-gray-500" },
+  discount: { label: "On Sale", dot: "bg-tru-pink" },
 };
+
+/**
+ * Availability tiers come from the shared module so this popup and the
+ * destination-page departure rows always agree on labels, colours and
+ * thresholds. "Full" and "On Sale" keep their own treatment.
+ */
+function departureStatus(dep: Departure) {
+  if (dep.status === "full") return specialStatusConfig.full;
+  if (dep.status === "discount") return specialStatusConfig.discount;
+  const tier = getAvailabilityTier(dep.spotsLeft, dep.status);
+  return { label: tier.label, dot: tier.dot };
+}
+
+const legendItems = [
+  ...AVAILABILITY_TIER_ORDER.map((id) => AVAILABILITY_TIERS[id]),
+  specialStatusConfig.discount,
+  specialStatusConfig.full,
+];
 
 function formatDate(dateStr: string) {
   const d = new Date(dateStr);
@@ -89,8 +108,6 @@ export default function BookingModal({
   useScrollLock(isOpen);
 
   if (!isOpen) return null;
-
-  const available = departures.filter((d) => d.status !== "full");
 
   // Group by month
   const grouped = departures.reduce<Record<string, Departure[]>>((acc, dep) => {
@@ -173,9 +190,9 @@ export default function BookingModal({
 
               {/* Legend */}
               <div className="flex flex-wrap gap-4 mb-6">
-                {Object.entries(statusConfig).map(([key, val]) => (
-                  <div key={key} className="flex items-center gap-1.5">
-                    <div className={`h-2.5 w-2.5 rounded-full ${val.dot}`} />
+                {legendItems.map((val) => (
+                  <div key={val.label} className="flex items-center gap-1.5">
+                    <div className={`h-2.5 w-2.5 rounded-full flex-shrink-0 ${val.dot}`} />
                     <span className="text-gray-400 text-[11px]">{val.label}</span>
                   </div>
                 ))}
@@ -247,7 +264,7 @@ export default function BookingModal({
                     <h3 className="text-white font-semibold text-sm mb-3 font-heading uppercase tracking-wider">{month}</h3>
                     <div className="space-y-2">
                       {deps.map((dep) => {
-                        const config = statusConfig[dep.status];
+                        const config = departureStatus(dep);
                         const isFull = dep.status === "full";
                         return (
                           <button

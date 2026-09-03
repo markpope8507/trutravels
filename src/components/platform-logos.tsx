@@ -20,13 +20,15 @@ export function TrustpilotMark({ className = "h-5 w-5" }: { className?: string }
 }
 
 export function TourRadarMark({ className = "h-5 w-5" }: { className?: string }) {
-  // TourRadar has no widely-recognised icon mark; use a radar/pin glyph in their teal.
   return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="#0CA4A5" strokeWidth={2} aria-label="TourRadar" role="img">
-      <circle cx="12" cy="12" r="9" />
-      <circle cx="12" cy="12" r="4" />
-      <path strokeLinecap="round" d="M12 12l6-3" />
-    </svg>
+    // Official favicon is a full square, so scale it to match the G / star optically.
+    <span className={`inline-flex items-center justify-center ${className}`}>
+      <img
+        src="/images/platform-logos/tourradar-favicon.png"
+        alt="TourRadar"
+        className="h-[72%] w-[72%] object-contain"
+      />
+    </span>
   );
 }
 
