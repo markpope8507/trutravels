@@ -104,9 +104,27 @@ export default function TripPricingCard({
       </div>
 
       <SnapshotBookButton />
-      <p className="text-center text-[10px] text-gray-500 mt-2 uppercase tracking-wider font-heading">
-        &pound;{depositPrice} deposit secures your spot
+      <div className="mt-3 flex items-center justify-center gap-1.5 text-sm font-bold text-white uppercase tracking-wider font-heading">
+        <svg className="h-4 w-4 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Flexible payments
+      </div>
+      <p className="mt-1.5 text-center text-xs leading-snug text-gray-400">
+        Pay a <span className="text-white font-bold">&pound;{depositPrice} deposit</span> and spread the rest interest-free.
       </p>
+      <p className="mt-1 text-center text-xs leading-snug text-gray-400">
+        Balance due 60 days before departure.
+      </p>
+      <div className="mt-3 flex items-center justify-center gap-4">
+        <img src="/images/atol-logo.png" alt="ATOL Protected" className="h-7 w-auto" />
+        <img
+          src="/images/abta-logo.png"
+          alt="ABTA — Travel With Confidence"
+          className="h-6 w-auto"
+          style={{ filter: "brightness(0) invert(1)" }}
+        />
+      </div>
     </div>
   );
 }

@@ -1713,7 +1713,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Fixes: £53 white, deposit uppercase caps (exact) */
 .pricing-card__perday { font-size: 12px; color: lab(65.9269 -0.832707 -8.17473); }
 .pricing-card__perday span { color: #fff; font-weight: 700; }
-.pricing-card__deposit { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0.5px; text-transform: uppercase; color: lab(47.7841 -0.393182 -10.0268); text-align: center; }
+.pricing-card__deposit { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: #fff; text-align: center; }
+.pricing-card__trust { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 16px; margin-top: 8px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-mute); }
+.pricing-card__trust span { display: inline-flex; align-items: center; gap: 4px; }
+.pricing-card__trust svg { width: 12px; height: 12px; color: var(--tru-pink); }
+.pricing-card__trust--lg { margin-top: 12px; font-size: 14px; color: #fff; }
+.pricing-card__trust--lg svg { width: 16px; height: 16px; }
+.pricing-card__plan { margin: 6px 0 0; font-size: 12px; line-height: 1.4; text-align: center; color: var(--text-mute); }
+.pricing-card__plan strong { color: #fff; font-weight: 700; }
+.pricing-card__seals { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 12px; }
+.pricing-card__seals img { height: 28px; width: auto; }
+.pricing-card__seals img.abta { height: 24px; filter: brightness(0) invert(1); }
 
 /* ============================================================
    STICKY TABS — active underline + mobile fit (exact)
