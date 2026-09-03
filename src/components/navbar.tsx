@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { useAuth } from "@/lib/auth-context";
 import { useAuthModal } from "@/lib/auth-modal";
 import { useCart } from "@/lib/cart-context";
-import SearchOverlay from "@/components/search-overlay";
+import SearchOverlay, { type SearchAnchor } from "@/components/search-overlay";
 import { LIFE_MOMENTS } from "@/lib/life-moments";
 import { regionPages } from "@/lib/data";
 import { slugify } from "@/lib/utils";
@@ -197,8 +197,18 @@ export default function Navbar() {
   const [mobileSubmenu, setMobileSubmenu] = useState<string | null>(null);
   const [mobileRegion, setMobileRegion] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchAnchor, setSearchAnchor] = useState<SearchAnchor | null>(null);
   const [hoveredItem, setHoveredItem] = useState<{ name: string; description: string; image: string; href: string; eyebrow: string } | null>(null);
   const navRef = useRef<HTMLElement>(null);
+  const pillRef = useRef<HTMLDivElement>(null);
+
+  const toRect = (el: Element | null): SearchAnchor | null => {
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return { top: r.top, left: r.left, width: r.width, bottom: r.bottom };
+  };
+  // Nav triggers anchor the dropdown to the whole nav pill (full nav width).
+  const openSearchFromNav = () => { setSearchAnchor(toRect(pillRef.current)); setSearchOpen(true); };
 
   const openMenu = (menu: string | null) => {
     setActiveMenu(menu);
@@ -211,7 +221,12 @@ export default function Navbar() {
         openMenu(null);
       }
     };
-    const handleOpenSearch = () => setSearchOpen(true);
+    // Homepage search bar sends its own rect so the dropdown spans that bar.
+    const handleOpenSearch = (e: Event) => {
+      const rect = (e as CustomEvent<{ rect?: SearchAnchor }>).detail?.rect;
+      setSearchAnchor(rect ?? null);
+      setSearchOpen(true);
+    };
     document.addEventListener("click", handleClick);
     window.addEventListener("open-search", handleOpenSearch);
     return () => {
@@ -241,6 +256,7 @@ export default function Navbar() {
     <nav ref={navRef} className="absolute top-0 left-0 right-0 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
         <div
+          ref={pillRef}
           className={`transition-all duration-300 ${activeMenu ? "rounded-[20px]" : "rounded-full"} bg-tru-navy/95 backdrop-blur-md border border-white/10 overflow-hidden`}
           onMouseLeave={() => openMenu(null)}
         >
@@ -277,7 +293,7 @@ export default function Navbar() {
 
             {/* Right side */}
             <div className="hidden xl:flex items-center gap-2 ml-auto" onMouseEnter={() => openMenu(null)}>
-              <button onClick={() => { setSearchOpen(true); closeAll(); }} className="h-8 w-8 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition">
+              <button onClick={() => { closeAll(); openSearchFromNav(); }} className="h-8 w-8 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -323,7 +339,7 @@ export default function Navbar() {
 
             {/* Mobile search */}
             <button
-              onClick={() => { setSearchOpen(true); closeAll(); }}
+              onClick={() => { closeAll(); openSearchFromNav(); }}
               className="xl:hidden ml-auto h-11 w-11 shrink-0 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition"
               aria-label="Search"
             >
@@ -647,7 +663,7 @@ export default function Navbar() {
             <div className="relative z-10 flex-1 overflow-y-auto px-5 pt-2 pb-5">
           {/* Mobile search */}
           <button
-            onClick={() => { setSearchOpen(true); setMobileOpen(false); }}
+            onClick={() => { setMobileOpen(false); openSearchFromNav(); }}
             className="flex items-center gap-3 w-full text-gray-400 hover:text-white py-3 border-b border-white/10 transition"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -769,7 +785,7 @@ export default function Navbar() {
           </div>
         </div>
       )}
-      <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+      <SearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} anchor={searchAnchor} />
     </nav>
   );
 }
