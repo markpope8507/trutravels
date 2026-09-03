@@ -4,6 +4,8 @@ How the Next.js prototype is converted into the **static vanilla HTML/CSS** that
 
 Read this alongside `convert_prompt.md` (the per-page conversion brief). That brief says *what* to produce; this guide says *how to keep it consistent* across many pages.
 
+> **Workflow reminder:** every change must be committed and pushed to GitHub, and any edit to the React prototype in `src/` (the design source of truth) must be mirrored here into the matching `converted/*.html` page(s) following the conventions below. This two-way rule is also recorded in the repo-root `AGENTS.md`.
+
 ---
 
 ## 1. The mental model
