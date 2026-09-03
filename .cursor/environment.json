@@ -4,8 +4,8 @@
   "terminals": [
     {
       "name": "next-dev",
-      "command": "npm run dev",
-      "description": "Next.js dev server (Turbopack) on http://localhost:3000"
+      "command": "npm run dev -- -H 0.0.0.0",
+      "description": "Next.js dev server (Turbopack) bound to 0.0.0.0:3000 so the forwarded port is reachable"
     }
   ],
   "ports": [
