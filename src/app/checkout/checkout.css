@@ -1687,13 +1687,13 @@
 .vdiary:hover .vdiary__media img { transform: scale(1.05); }
 .vdiary__overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent 50%, rgba(0,0,0,0.3)); pointer-events: none; }
 .vdiary__tag { position: absolute; top: 1rem; left: 1rem; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #fff; padding: 0.25rem 0.625rem; border-radius: 999px; font-family: var(--font-montserrat), 'Montserrat', sans-serif; z-index: 2; }
-.vdiary__tag--traveller { background: #6BD495; }
+.vdiary__tag--traveller { background: #FF3F99; }   /* Tru pink */
 .vdiary__tag--influencer { background: #2172D5; }
-.vdiary__tag--creator { background: #FF3F99; }
+.vdiary__tag--creator { background: #FF3F99; }     /* Tru pink */
 .vdiary__tag--partner { background: #F5A623; }
-.vdiary__tag--guide { background: #14B8A6; }
+.vdiary__tag--legend { background: #09213E; }      /* Tru navy — "Local Legend" */
 .vdiary__tag--community { background: #A855F7; }
-.vdiary__tag--planeterra { background: #D4AF37; }
+.vdiary__tag--planeterra { background: #003B31; }  /* Planeterra's own brand green */
 .vdiary__handle { position: absolute; top: 1.1rem; right: 1rem; font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7); z-index: 2; }
 .vdiary__play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
 .vdiary__play span { width: 3.5rem; height: 3.5rem; border-radius: 999px; background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
@@ -2373,6 +2373,8 @@
 
 .co-main { position: relative; z-index: 1; max-width: var(--max-width); margin: 0 auto; padding: 1.5rem 1.25rem 6rem; }
 .co-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+/* display:grid outranks the UA rule for [hidden], so say it again for the no-trips view */
+.co-grid[hidden] { display: none; }
 @media (min-width: 1024px) { .co-grid { grid-template-columns: minmax(0, 1fr) 440px; align-items: start; gap: 2rem; } }
 
 /* Cards / steps */
@@ -2615,6 +2617,82 @@
 .co-addon__btn.is-on { background: transparent; color: var(--tru-green); border-color: var(--tru-green); }
 @media (max-width: 480px) { .co-addon__desc { display: none; } }
 
+/* No trips selected — full-page empty state, shown in place of the checkout grid
+   once every tour has been removed. Page-scale sibling of .cart-drawer__empty. */
+.co-empty { max-width: 34rem; margin: 0 auto; padding: 4.5rem 1.25rem 6rem; text-align: center; }
+.co-empty[hidden] { display: none; }
+.co-empty__ico { display: block; width: 4.25rem; height: 4.25rem; margin: 0 auto 1.5rem; color: #4b5563; }
+.co-empty__ico svg { width: 100%; height: 100%; }
+.co-empty__h { font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; font-size: clamp(1.6rem, 5vw, 2.35rem); line-height: 1.1; letter-spacing: 0.01em; color: #fff; margin: 0 0 0.9rem; }
+.co-empty__h span { color: var(--tru-pink); }
+.co-empty__s { color: #9ca3af; font-size: 0.95rem; line-height: 1.6; margin: 0 auto 2rem; max-width: 26rem; }
+.co-empty__acts { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+.co-empty__cta { display: inline-block; width: auto; min-width: 15rem; }
+.co-empty__alt { color: #9ca3af; font-size: 0.85rem; text-decoration: underline; text-underline-offset: 3px; }
+.co-empty__alt:hover { color: #fff; }
+.co-empty__trust { display: flex; flex-direction: column; align-items: center; gap: 0.55rem; margin: 2.75rem 0 0; padding-top: 1.75rem; border-top: 1px solid rgba(255,255,255,0.1); }
+.co-empty__trust li { display: flex; align-items: center; gap: 0.5rem; color: #9ca3af; font-size: 0.82rem; }
+.co-empty__trust svg { width: 1rem; height: 1rem; color: var(--tru-green); flex-shrink: 0; }
+
+/* (i) info popup beside an add-on name. Opens on hover, keyboard focus or tap.
+   Anchored upward because .co-trip clips its overflow — the rows that use it sit
+   in the lower half of the card, so there's always room above. */
+.co-info { position: relative; display: inline-flex; vertical-align: middle; margin-left: 0.35rem; }
+.co-info__btn { display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; padding: 0; border: 0; background: none; border-radius: 999px; color: #9ca3af; cursor: pointer; transition: color 0.15s; }
+.co-info__btn svg { width: 100%; height: 100%; }
+.co-info__btn:hover, .co-info.is-open .co-info__btn { color: var(--tru-pink); }
+.co-info__btn:focus-visible { outline: 2px solid var(--tru-pink); outline-offset: 2px; }
+.co-info__pop { position: absolute; z-index: 5; bottom: calc(100% + 9px); left: 50%; transform: translate(-50%, 4px); width: 250px; max-width: 62vw; padding: 0.7rem 0.8rem; border-radius: 10px; background: #0b1220; border: 1px solid rgba(255,255,255,0.16); box-shadow: 0 10px 30px -8px rgba(0,0,0,0.7); color: #d1d5db; font-family: var(--font-source-sans), 'Source Sans 3', sans-serif; font-size: 0.75rem; font-weight: 400; line-height: 1.5; letter-spacing: 0; text-transform: none; white-space: normal; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.15s, transform 0.15s, visibility 0.15s; }
+.co-info__pop::after { content: ''; position: absolute; top: 100%; left: 50%; margin-left: -6px; border: 6px solid transparent; border-top-color: rgba(255,255,255,0.16); }
+.co-info:hover .co-info__pop,
+.co-info:focus-within .co-info__pop,
+.co-info.is-open .co-info__pop { opacity: 1; visibility: visible; transform: translate(-50%, 0); pointer-events: auto; }
+@media (prefers-reduced-motion: reduce) { .co-info__pop { transition: none; } }
+/* Payment-option variant — the (i) sits inline right after the option title.
+   .co-payopt__txt styles every descendant span, so these override it back. */
+.co-payopt__title { display: inline-flex; align-items: center; }
+.co-payopt__txt .co-payopt__title { margin-top: 0; font-size: inherit; color: inherit; }
+.co-payopt__txt .co-info, .co-payopt__txt .co-info__btn, .co-payopt__txt .co-info__pop { margin-top: 0; }
+.co-info--pay { margin-left: 0.4rem; }
+.co-info--pay .co-info__pop { width: 280px; color: #d1d5db; font-size: 0.75rem; }
+
+/* Pre/post-night hotel — expands after it's added: nights + how the group rooms */
+.co-pn { display: flex; flex-direction: column; }
+.co-pn__cfg { animation: coPnIn 0.28s ease; padding: 1rem 0.25rem 0.35rem; }
+@keyframes coPnIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .co-pn__cfg { animation: none; } }
+.co-pn__lede { color: #9ca3af; font-size: 0.8rem; line-height: 1.5; margin: 0 0 1rem; }
+.co-pn__h { font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 800; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--tru-pink); margin: 0 0 0.7rem; }
+.co-pn__row { display: flex; align-items: center; gap: 0.85rem; padding: 0.45rem 0; }
+.co-pn__step { display: inline-flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+.co-pn__btn { width: 34px; height: 34px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.03); color: #fff; font-size: 1.2rem; line-height: 1; display: grid; place-items: center; cursor: pointer; transition: border-color 0.15s, color 0.15s, background 0.15s; }
+.co-pn__btn:hover { border-color: var(--tru-pink); color: var(--tru-pink); }
+.co-pn__btn:active { transform: scale(0.92); }
+/* Capped: the party is fully roomed (or already at zero) — nothing left to add */
+.co-pn__btn[disabled] { opacity: 0.3; cursor: not-allowed; }
+.co-pn__btn[disabled]:hover { border-color: rgba(255,255,255,0.18); color: #fff; }
+.co-pn__btn[disabled]:active { transform: none; }
+.co-pn__val { min-width: 2.7rem; height: 34px; display: grid; place-items: center; border-radius: 8px; border: 1px solid rgba(255,255,255,0.16); background: var(--tru-navy); font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 800; font-variant-numeric: tabular-nums; }
+.co-pn__row.is-picked .co-pn__val { border-color: var(--tru-pink); color: var(--tru-pink); }
+.co-pn__lbl { display: flex; flex-direction: column; gap: 0.1rem; font-size: 0.9rem; color: #fff; min-width: 0; }
+.co-pn__lbl strong { font-weight: 700; }
+.co-pn__name { color: #fff; }
+.co-pn__note { color: #9ca3af; font-size: 0.72rem; line-height: 1.35; }
+.co-pn__rate { color: #fff; font-weight: 700; font-size: 0.8rem; margin-left: 0.35rem; white-space: nowrap; }
+.co-pn__checkin { display: flex; align-items: center; gap: 0.4rem; color: #9ca3af; font-size: 0.78rem; margin: 0.15rem 0 0.55rem; padding-left: 0.1rem; }
+.co-pn__checkin svg { width: 13px; height: 13px; color: var(--tru-pink); flex-shrink: 0; }
+.co-pn__checkin strong { color: #fff; font-weight: 600; }
+/* "2 of 2 travellers placed" — the running check against the party size */
+.co-pn__rhead { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; margin: 1.15rem 0 0.5rem; }
+.co-pn__rhead .co-pn__h { margin: 0; }
+.co-pn__cap { margin: 0; font-size: 0.75rem; font-weight: 700; color: var(--tru-green); font-variant-numeric: tabular-nums; }
+.co-pn__cap.is-warn { color: #fbbf24; }
+.co-pn__foot { display: flex; flex-direction: column; gap: 0.45rem; margin-top: 0.9rem; padding-top: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); }
+.co-pn__total { display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: 0.88rem; }
+.co-pn__total span { color: #9ca3af; }
+.co-pn__total strong { font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 800; font-size: 1.05rem; color: #fff; font-variant-numeric: tabular-nums; }
+.co-pn__hint { margin: 0; color: #9ca3af; font-size: 0.8rem; }
+
 /* Forms */
 .co-field { margin-bottom: 0.9rem; }
 .co-field label { display: block; font-size: 0.75rem; font-weight: 600; color: #9ca3af; margin-bottom: 0.35rem; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -2766,7 +2844,11 @@
 .co-payopt__price { margin-left: auto; padding-left: 0.9rem; font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 800; font-size: 1.05rem; color: #fff; flex-shrink: 0; white-space: nowrap; }
 .co-payopt.is-active .co-payopt__price { color: var(--tru-pink); }
 /* 60-day gate — options requiring >60 days to departure are greyed out & unclickable */
-.co-payopt:disabled, .co-payopt.is-disabled { cursor: not-allowed; opacity: 0.4; }
+/* Dim the option's own content, never the whole button: group opacity on an ancestor
+   would drag the (i) tooltip down to 40% with it, and create a stacking context that
+   traps the popup behind the options above. */
+.co-payopt:disabled, .co-payopt.is-disabled { cursor: not-allowed; }
+:is(.co-payopt:disabled, .co-payopt.is-disabled) :is(.co-payopt__radio, .co-payopt__price, .co-payopt__txt > strong, .co-payopt__title > strong, .co-payopt__txt > span:not(.co-payopt__title)) { opacity: 0.4; }
 .co-payopts__note { display: flex; align-items: flex-start; gap: 0.5rem; margin: 0.85rem 0 0; font-size: 0.8rem; line-height: 1.45; color: #9ca3af; }
 .co-payopts__note svg { width: 1rem; height: 1rem; color: var(--tru-pink); flex-shrink: 0; margin-top: 0.1rem; }
 
@@ -2890,8 +2972,13 @@
 .co-summary__inner { background: var(--tru-navy); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 1.25rem; box-shadow: 0 5px 25px -5px rgba(0,0,0,0.3); }
 .co-summary__h { font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; font-size: 1rem; color: #fff; margin: 0 0 1rem; letter-spacing: 0.02em; }
 .co-oi { display: flex; align-items: flex-start; gap: 0.85rem; padding: 0.9rem 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.co-oi__img { width: 72px; height: 72px; border-radius: 8px; overflow: hidden; flex-shrink: 0; background: #000; }
+.co-oi__img { position: relative; width: 72px; height: 72px; border-radius: 8px; overflow: hidden; flex-shrink: 0; background: #000; }
 .co-oi__img img { width: 100%; height: 100%; object-fit: cover; }
+.co-oi__remove { position: absolute; top: 3px; right: 3px; z-index: 2; display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; padding: 0; border-radius: 999px; background: rgba(11,18,32,0.78); border: 1px solid rgba(255,255,255,0.2); color: #fff; cursor: pointer; transition: background 0.15s, border-color 0.15s; }
+.co-oi__remove:hover { background: var(--tru-pink); border-color: var(--tru-pink); }
+.co-oi__remove svg { width: 13px; height: 13px; }
+.co-booking .co-oi__remove { top: 10px; right: 10px; width: 30px; height: 30px; background: rgba(11,18,32,0.72); backdrop-filter: blur(4px); }
+.co-booking .co-oi__remove svg { width: 16px; height: 16px; }
 .co-oi__info { flex: 1; min-width: 0; }
 .co-oi__title { font-family: var(--font-montserrat), 'Montserrat', sans-serif; font-size: 0.92rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.15; color: #fff; margin: 0; }
 .co-oi__meta { display: flex; align-items: center; gap: 0.4rem; font-size: 0.78rem; color: #9ca3af; margin: 0.18rem 0 0; }

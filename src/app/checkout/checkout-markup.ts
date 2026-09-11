@@ -35,7 +35,25 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
   </header>
 
   <main class="co-main">
-    <div class="co-grid">
+
+    <!-- ============ NO TRIPS SELECTED ============ -->
+    <!-- Replaces the whole flow once every tour has been removed from the booking.
+         Mirrors the cart drawer's empty state (.cart-drawer__empty) at page scale. -->
+    <section class="co-empty" data-empty hidden>
+      <span class="co-empty__ico" aria-hidden="true"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg></span>
+      <h1 class="co-empty__h">No trips <span>selected</span></h1>
+      <p class="co-empty__s">There&rsquo;s nothing left in this booking &mdash; you&rsquo;ve removed every tour. Browse our adventures and pick a departure date to start planning again.</p>
+      <div class="co-empty__acts">
+        <a class="co-btn co-btn--yellow co-empty__cta" href="/explore">Explore trips &rarr;</a>
+        <a class="co-empty__alt" href="/explore/all-trips">Or see every departure</a>
+      </div>
+      <ul class="co-empty__trust">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Financially protected &amp; ATOL covered</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Free date change up to 60 days before departure</li>
+      </ul>
+    </section>
+
+    <div class="co-grid" data-grid>
 
       <!-- ============ LEFT: FLOW ============ -->
       <div class="co-flow">
@@ -123,7 +141,10 @@ export const CHECKOUT_HTML = `<!-- Background watermark icons (like the site) --
               <div class="co-payopts" data-payopts>
                 <button class="co-payopt" data-mode="hold" type="button" data-opt-hold><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Hold your spot</strong><span>Secure your spot for 48 hours</span></span><span class="co-payopt__price" data-price-hold>Free</span></button>
                 <button class="co-payopt" data-mode="deposit" type="button" data-opt-deposit><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Deposit</strong><span data-deposit-sub>Pay the balance 60 days before departure</span></span><span class="co-payopt__price" data-price-deposit>&pound;0</span></button>
-                <button class="co-payopt" data-mode="plan" type="button" data-opt-plan><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Payment plan</strong><span data-plan-sub>Spread the cost monthly</span></span><span class="co-payopt__price" data-price-plan>&pound;0</span></button>
+                <!-- (i) sits inline after the title. It's a span, not a button: .co-payopt is
+                     itself a button and can't contain one. aria-hidden keeps the explainer out
+                     of the option's accessible name — see the note beside data-plan-sub. -->
+                <button class="co-payopt" data-mode="plan" type="button" data-opt-plan><span class="co-payopt__radio"></span><span class="co-payopt__txt"><span class="co-payopt__title"><strong>Payment plan</strong><span class="co-info co-info--pay" aria-hidden="true"><span class="co-info__btn" data-info><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 11.25v4.75"/><circle cx="12" cy="7.9" r="1" fill="currentColor" stroke="none"/></svg></span><span class="co-info__pop" role="tooltip">Pay your deposit today to secure your spot, then spread the rest over monthly instalments between now and your balance due date &mdash; 60 days before departure. Your first instalment is taken a month after the deposit, and you can clear the balance early any time. Only available on departures more than 60 days away.</span></span></span><span data-plan-sub>Spread the cost monthly</span></span><span class="co-payopt__price" data-price-plan>&pound;0</span></button>
                 <button class="co-payopt" data-mode="full" type="button"><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Pay in full</strong><span>Everything paid &amp; sorted today</span></span><span class="co-payopt__price" data-price-full>&pound;0</span></button>
               </div>
               <p class="co-payopts__note" data-pay-note hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16.3v.2M12 8v5"/></svg> Your trip departs within 60 days, so the full balance is due to book. Deposit, payment plan and hold-your-spot are only available for departures more than 60 days away.</p>

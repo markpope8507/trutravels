@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>No Trips Selected &mdash; TruTravels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<!--
+  Static reference for the checkout's "no trips selected" state.
+
+  In checkout.html this same markup lives inside <main class="co-main"> as
+  <section class="co-empty" data-empty hidden>, and renderEmpty() unhides it (hiding
+  .co-grid and the .co-progress stepper) the moment the cart reaches zero tours.
+  It's split out here because checkout.html seeds a demo basket on a first visit, so
+  the state is otherwise only reachable by removing every tour by hand.
+
+  Styles: .co-empty* in styles.css. Nothing on this page needs JavaScript.
+-->
+<body class="co-body">
+
+  <!-- Background watermark icons (like the site) -->
+  <div class="co-bg" aria-hidden="true">
+    <img class="nav-bg" src="assets/bg/sun.svg" alt="" style="top:8%;right:6%;width:140px;transform:rotate(-8deg);opacity:.05">
+    <img class="nav-bg" src="assets/bg/bali-flower.svg" alt="" style="top:27%;left:4%;width:130px;transform:rotate(10deg);opacity:.05">
+    <img class="nav-bg" src="assets/bg/peru-bird.svg" alt="" style="top:52%;right:9%;width:120px;transform:rotate(-12deg);opacity:.045">
+    <img class="nav-bg" src="assets/bg/good-vibes.svg" alt="" style="bottom:9%;left:7%;width:150px;transform:rotate(8deg);opacity:.045">
+    <img class="nav-bg" src="assets/bg/lantern.svg" alt="" style="top:68%;left:44%;width:110px;transform:rotate(6deg);opacity:.04">
+    <img class="nav-bg" src="assets/bg/mask.svg" alt="" style="bottom:18%;right:28%;width:140px;transform:rotate(10deg);opacity:.04">
+    <img class="nav-bg" src="assets/bg/komodo-dragon.svg" alt="" style="top:40%;left:58%;width:150px;transform:rotate(-6deg);opacity:.04">
+    <img class="nav-bg" src="assets/bg/tru-logo.svg" alt="" style="top:14%;left:38%;width:100px;transform:rotate(-10deg);opacity:.05">
+  </div>
+
+  <!-- ============ SECURE HEADER ============ -->
+  <!-- The .co-progress stepper is omitted: with nothing booked there's no flow to step through -->
+  <header class="co-header">
+    <div class="co-header__inner">
+      <a class="co-header__logo" href="index.html" aria-label="TruTravels home">
+        <img src="assets/logo-white.png" alt="TruTravels" />
+      </a>
+      <div class="co-header__right">
+        <button class="co-header__login" data-login-open data-login><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM5 21a7 7 0 0114 0"/></svg><span data-login-label>Log in</span></button>
+        <div class="co-header__secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="10" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 018 0v4"/></svg><span>Secure checkout</span></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="co-main">
+
+    <!-- ============ NO TRIPS SELECTED ============ -->
+    <section class="co-empty">
+      <span class="co-empty__ico" aria-hidden="true"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg></span>
+      <h1 class="co-empty__h">No trips <span>selected</span></h1>
+      <p class="co-empty__s">There&rsquo;s nothing left in this booking &mdash; you&rsquo;ve removed every tour. Browse our adventures and pick a departure date to start planning again.</p>
+      <div class="co-empty__acts">
+        <a class="co-btn co-btn--yellow co-empty__cta" href="explore.html">Explore trips &rarr;</a>
+        <a class="co-empty__alt" href="all-trips.html">Or see every departure</a>
+      </div>
+      <ul class="co-empty__trust">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Financially protected &amp; ATOL covered</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Free date change up to 60 days before departure</li>
+      </ul>
+    </section>
+
+  </main>
+
+</body>
+</html>

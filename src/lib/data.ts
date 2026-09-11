@@ -3,6 +3,31 @@
 // Every page pulls from here so content is easy to update.
 // ============================================================
 
+/* Community clips are served from Vercel Blob, the same store the hero uses.
+   Two things used to break this carousel in production: "/videos/*.mp4" paths 404 once
+   deployed (public/videos/ is gitignored), and the stock URLs the rest pointed at now
+   return 403 AccessDenied. Until every diary has its own clip, the carousel cycles
+   through TruTravels footage we host ourselves so nothing depends on a third party. */
+const BLOB = "https://zfxhmfjtkhpuo90l.public.blob.vercel-storage.com";
+/* Each clip ships with a poster extracted from that same clip (ffmpeg, ~1.2s in), so a
+   card shows a real frame of the video it opens. Posters matter more than they look:
+   Chrome caps how many <video> elements may load at once, and this page has nine — six
+   carousel thumbnails as <video> simply never got a slot and stayed black. One <img>
+   per card costs nothing and always paints. */
+const clip = (name: string) => ({
+  video: `${BLOB}/${name}.mp4`,
+  poster: `${BLOB}/posters/${name}.jpg`,
+});
+export const truClips = {
+  traveller: clip("traveller-diary"),
+  creator: clip("creator-diary"),
+  influencer: clip("influencer-diary"),
+  bali: clip("bali-this-is-your-sign"),
+  jess: clip("jess-uuu-clip"),
+  orty: clip("orty-welcome-vertical"),      // 9:16 crop of the trip-hub welcome
+  ortyWide: `${BLOB}/orty-welcome.mp4`,     // 16:9 original, for the trip hub
+};
+
 export type TravelStyle = "classic" | "backpacker" | "flashpacker" | "multi_country" | "limited_edition";
 
 export const travelStyleConfig: Record<TravelStyle, { label: string; color: string; icon: string; logo: string; description: string }> = {
@@ -1542,7 +1567,7 @@ export const experienceTypes: ExperienceType[] = [
       "Direct connections with local culture, traditions, and communities. Cooking with families, exploring neighbourhoods with locals, and participating in generational cultural practices.",
     message: "Travel becomes more meaningful when you experience a place through the people who live there.",
     image: "/images/experiences/local-lens.jpg",
-    video: "https://videos.pexels.com/video-files/4434242/4434242-sd_506_960_24fps.mp4",
+    video: truClips.bali.video,
     poster: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
     color: "#2172D5",
     experiences: [
@@ -1943,14 +1968,14 @@ export type VideoDiary = {
   handle: string;
   location: string;
   avatar: string;
-  tag: "Traveller" | "Creator" | "Influencer" | "Partner" | "Guide" | "Community" | "Planeterra";
+  tag: "Traveller" | "Creator" | "Influencer" | "Partner" | "Local Legend" | "Community" | "Planeterra";
 };
 
 export const videoDiaries: VideoDiary[] = [
   {
     id: "v1",
-    video: "/videos/traveller-diary.mp4",
-    poster: "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=400&q=80",
+    video: truClips.traveller.video,
+    poster: truClips.traveller.poster,
     caption: "That moment when the boat drops you at a beach with no name and no Wi-Fi. This is what we came for.",
     author: "Sophie Chen",
     handle: "@sophietravels",
@@ -1960,8 +1985,8 @@ export const videoDiaries: VideoDiary[] = [
   },
   {
     id: "v2",
-    video: "/videos/influencer-diary.mp4",
-    poster: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400&q=80",
+    video: truClips.influencer.video,
+    poster: truClips.influencer.poster,
     caption: "Sunrise summit at Mount Batur. 15 strangers at 3am. Lifelong friends by 6am. This is TruTravels.",
     author: "Jake Morrison",
     handle: "@jakeontheroad",
@@ -1971,8 +1996,8 @@ export const videoDiaries: VideoDiary[] = [
   },
   {
     id: "v3",
-    video: "https://videos.pexels.com/video-files/3015510/3015510-sd_506_960_24fps.mp4",
-    poster: "https://images.unsplash.com/photo-1504214208698-ea1916a2195a?w=400&q=80",
+    video: truClips.bali.video,
+    poster: truClips.bali.poster,
     caption: "Lost in the lantern streets of Hoi An. Found the best bowl of cao lau of my life. No regrets.",
     author: "Priya Kapoor",
     handle: "@priyawanders",
@@ -1982,8 +2007,8 @@ export const videoDiaries: VideoDiary[] = [
   },
   {
     id: "v4",
-    video: "/videos/creator-diary.mp4",
-    poster: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80",
+    video: truClips.creator.video,
+    poster: truClips.creator.poster,
     caption: "Woke up on a junk boat in Ha Long Bay. Kayaked through caves before breakfast. Unreal.",
     author: "Nina Waves",
     handle: "@ninawaves",
@@ -1993,8 +2018,8 @@ export const videoDiaries: VideoDiary[] = [
   },
   {
     id: "v5",
-    video: "https://videos.pexels.com/video-files/5752729/5752729-sd_506_960_25fps.mp4",
-    poster: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=400&q=80",
+    video: truClips.jess.video,
+    poster: truClips.jess.poster,
     caption: "The Ella train. 7 hours of tea plantations, waterfalls, and hanging out the door. Worth every second.",
     author: "Tom Ashworth",
     handle: "@tomtravels",
@@ -2004,8 +2029,8 @@ export const videoDiaries: VideoDiary[] = [
   },
   {
     id: "v6",
-    video: "https://videos.pexels.com/video-files/4434242/4434242-sd_506_960_24fps.mp4",
-    poster: "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&q=80",
+    video: truClips.traveller.video,
+    poster: truClips.traveller.poster,
     caption: "Bangkok night market crawl with the crew. Every stall a different universe. This city never sleeps.",
     author: "Marcus Cole",
     handle: "@marcuseats",
@@ -2015,8 +2040,8 @@ export const videoDiaries: VideoDiary[] = [
   },
   {
     id: "v7",
-    video: "https://videos.pexels.com/video-files/4108807/4108807-sd_506_960_25fps.mp4",
-    poster: "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=400&q=80",
+    video: truClips.influencer.video,
+    poster: truClips.influencer.poster,
     caption: "Spent the day at our Planeterra elephant sanctuary partner. No riding, no chains — just elephants being elephants.",
     author: "Tru Crew",
     handle: "@trutravels",
@@ -2026,19 +2051,19 @@ export const videoDiaries: VideoDiary[] = [
   },
   {
     id: "v8",
-    video: "https://videos.pexels.com/video-files/5077165/5077165-sd_360_640_25fps.mp4",
-    poster: "https://images.unsplash.com/photo-1528127269322-539801943592?w=400&q=80",
+    video: truClips.orty.video,
+    poster: truClips.orty.poster,
     caption: "Meet Orty — your trip leader for Thailand. Born in Bangkok, knows every back-alley noodle stall worth its salt.",
     author: "Orty",
     handle: "@ortyleads",
     location: "Bangkok, Thailand",
     avatar: "OR",
-    tag: "Guide",
+    tag: "Local Legend",
   },
   {
     id: "v9",
-    video: "https://videos.pexels.com/video-files/2169307/2169307-sd_540_960_25fps.mp4",
-    poster: "https://images.unsplash.com/photo-1529390079861-591de354faf5?w=400&q=80",
+    video: truClips.jess.video,
+    poster: truClips.jess.poster,
     caption: "Our homestay partner in Ella has been hosting Tru travellers for 7 years. The breakfasts alone are worth the trip.",
     author: "Kamala Hewavitharana",
     handle: "@kamalahomestay",
@@ -2048,8 +2073,8 @@ export const videoDiaries: VideoDiary[] = [
   },
   {
     id: "v10",
-    video: "https://videos.pexels.com/video-files/4763824/4763824-sd_360_640_25fps.mp4",
-    poster: "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=400&q=80",
+    video: truClips.creator.video,
+    poster: truClips.creator.poster,
     caption: "The Tru Crew reunion in Lisbon. 14 countries, 23 humans, one rooftop. This is what stays after the trip ends.",
     author: "Tru Community",
     handle: "@trutravels",
@@ -2217,7 +2242,7 @@ export const countries: Country[] = [
         image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
         emoji: "👩‍🍳",
         experienceType: "local-lens",
-        video: "https://videos.pexels.com/video-files/4434242/4434242-sd_506_960_24fps.mp4",
+        video: truClips.bali.video,
         poster: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80",
         tourIds: ["full-moon-experience", "northern-thailand-adventure"],
       },
@@ -2243,7 +2268,7 @@ export const countries: Country[] = [
     accommodation: [
       {
         type: "video",
-        src: "/videos/bali-this-is-your-sign.mp4",
+        src: truClips.bali.video,
         poster: "https://images.unsplash.com/photo-1455587734955-081b22074882?w=1200&q=80",
         title: "Tiki Beach Resort, Koh Phangan",
         caption: "Beachfront bungalows and pools steps from the sand on Thailand's legendary party island.",

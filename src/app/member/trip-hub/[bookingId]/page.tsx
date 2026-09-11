@@ -27,7 +27,7 @@ mockHubs["b1"] = {
     name: "Orty",
     image: "/images/orty-thumbnail.png",
     bio: "Born and raised in Chiang Mai. Been leading TruTravels trips for 3 years. I know every hidden beach, the best street food stalls, and exactly where to watch the sunset. Can't wait to show you my Thailand.",
-    video: "/videos/orty-welcome.MOV",
+    video: "https://zfxhmfjtkhpuo90l.public.blob.vercel-storage.com/orty-welcome.mp4",
   },
   travelGroup: [
     { name: "Alex T.", avatar: "AT", trip: "Thailand Island Hopper", days: "12-25 Apr", color: "#FF3F99", flag: "🇬🇧", age: "25-29", sex: "Male", tripCount: 2 },

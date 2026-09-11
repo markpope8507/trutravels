@@ -47,7 +47,25 @@
   </header>
 
   <main class="co-main">
-    <div class="co-grid">
+
+    <!-- ============ NO TRIPS SELECTED ============ -->
+    <!-- Replaces the whole flow once every tour has been removed from the booking.
+         Mirrors the cart drawer's empty state (.cart-drawer__empty) at page scale. -->
+    <section class="co-empty" data-empty hidden>
+      <span class="co-empty__ico" aria-hidden="true"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg></span>
+      <h1 class="co-empty__h">No trips <span>selected</span></h1>
+      <p class="co-empty__s">There&rsquo;s nothing left in this booking &mdash; you&rsquo;ve removed every tour. Browse our adventures and pick a departure date to start planning again.</p>
+      <div class="co-empty__acts">
+        <a class="co-btn co-btn--yellow co-empty__cta" href="explore.html">Explore trips &rarr;</a>
+        <a class="co-empty__alt" href="all-trips.html">Or see every departure</a>
+      </div>
+      <ul class="co-empty__trust">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Financially protected &amp; ATOL covered</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Free date change up to 60 days before departure</li>
+      </ul>
+    </section>
+
+    <div class="co-grid" data-grid>
 
       <!-- ============ LEFT: FLOW ============ -->
       <div class="co-flow">
@@ -135,7 +153,10 @@
               <div class="co-payopts" data-payopts>
                 <button class="co-payopt" data-mode="hold" type="button" data-opt-hold><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Hold your spot</strong><span>Secure your spot for 48 hours</span></span><span class="co-payopt__price" data-price-hold>Free</span></button>
                 <button class="co-payopt" data-mode="deposit" type="button" data-opt-deposit><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Deposit</strong><span data-deposit-sub>Pay the balance 60 days before departure</span></span><span class="co-payopt__price" data-price-deposit>&pound;0</span></button>
-                <button class="co-payopt" data-mode="plan" type="button" data-opt-plan><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Payment plan</strong><span data-plan-sub>Spread the cost monthly</span></span><span class="co-payopt__price" data-price-plan>&pound;0</span></button>
+                <!-- (i) sits inline after the title. It's a span, not a button: .co-payopt is
+                     itself a button and can't contain one. aria-hidden keeps the explainer out
+                     of the option's accessible name — see the note beside data-plan-sub. -->
+                <button class="co-payopt" data-mode="plan" type="button" data-opt-plan><span class="co-payopt__radio"></span><span class="co-payopt__txt"><span class="co-payopt__title"><strong>Payment plan</strong><span class="co-info co-info--pay" aria-hidden="true"><span class="co-info__btn" data-info><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 11.25v4.75"/><circle cx="12" cy="7.9" r="1" fill="currentColor" stroke="none"/></svg></span><span class="co-info__pop" role="tooltip">Pay your deposit today to secure your spot, then spread the rest over monthly instalments between now and your balance due date &mdash; 60 days before departure. Your first instalment is taken a month after the deposit, and you can clear the balance early any time. Only available on departures more than 60 days away.</span></span></span><span data-plan-sub>Spread the cost monthly</span></span><span class="co-payopt__price" data-price-plan>&pound;0</span></button>
                 <button class="co-payopt" data-mode="full" type="button"><span class="co-payopt__radio"></span><span class="co-payopt__txt"><strong>Pay in full</strong><span>Everything paid &amp; sorted today</span></span><span class="co-payopt__price" data-price-full>&pound;0</span></button>
               </div>
               <p class="co-payopts__note" data-pay-note hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 16.3v.2M12 8v5"/></svg> Your trip departs within 60 days, so the full balance is due to book. Deposit, payment plan and hold-your-spot are only available for departures more than 60 days away.</p>
@@ -344,7 +365,8 @@
       clip: '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>',
       mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9 6 9-6"/></svg>',
       phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>',
-      bed: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v11M3 13h18v5M21 18v-4a3 3 0 00-3-3H8V9a2 2 0 012-2h4"/></svg>'
+      bed: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v11M3 13h18v5M21 18v-4a3 3 0 00-3-3H8V9a2 2 0 012-2h4"/></svg>',
+      info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M12 11.25v4.75"/><circle cx="12" cy="7.9" r="1" fill="currentColor" stroke="none"/></svg>'
     };
     var STAR = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
     var EXP_META = { 'Local Lens': { icon: 'local-lens', color: '#2172D5' }, 'Rise Up': { icon: 'rise-up', color: '#FF3F99' }, 'Bucket List': { icon: 'bucket-list', color: '#FCA501' }, 'Tru-ly Unique': { icon: 'tru-ly-unique', color: '#6BD495' }, 'Unplugged': { icon: 'unplugged', color: '#00BBB4' } };
@@ -357,9 +379,12 @@
        demonstrates the "full payment required" gate, and never shows past dates. */
     var _SEEDWD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], _SEEDMO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     function seedDate(days) { var d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + days); return _SEEDWD[d.getDay()] + ' ' + d.getDate() + ' ' + _SEEDMO[d.getMonth()] + ' ' + d.getFullYear(); }
-    var cart = [];
-    try { cart = JSON.parse(sessionStorage.getItem('truCart') || '[]'); } catch (e) { cart = []; }
-    if (!Array.isArray(cart) || cart.length === 0) {
+    var cart = [], storedCart = null;
+    try { storedCart = sessionStorage.getItem('truCart'); cart = JSON.parse(storedCart || '[]'); } catch (e) { cart = []; }
+    if (!Array.isArray(cart)) cart = [];
+    /* Seed the demo basket on a first visit only. Once every tour has been removed we
+       leave it empty, so the no-trips view survives a reload instead of re-seeding. */
+    if (storedCart === null && cart.length === 0) {
       cart = [
         { tripTitle: 'Thailand Island Hopper', image: 'assets/thailand-island-hopper-hero.jpg', date: seedDate(24), endDate: seedDate(37), duration: '14 Days', startLocation: 'Bangkok', endLocation: 'Phuket', travellers: 2, price: 1149, orig: 1299, deposit: 200, rating: 4.9, reviewCount: 328, places: 6, activities: 18, tagline: 'Temples, jungles, islands and legendary beach parties', expTypes: [{ name: 'Local Lens', count: 5 }, { name: 'Rise Up', count: 3 }, { name: 'Bucket List', count: 4 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] },
         { tripTitle: 'Northern Thailand Adventure', image: 'https://cdn.trutravels.com/thailand/bangkok-temple.jpg', date: seedDate(45), endDate: seedDate(53), duration: '9 Days', startLocation: 'Chiang Mai', endLocation: 'Bangkok', travellers: 2, price: 849, orig: 949, deposit: 200, rating: 4.8, reviewCount: 152, places: 4, activities: 11, tagline: 'Mountain towns, hill tribes and northern temples', expTypes: [{ name: 'Local Lens', count: 3 }, { name: 'Bucket List', count: 2 }, { name: 'Tru-ly Unique', count: 3 }, { name: 'Unplugged', count: 3 }] }
@@ -381,8 +406,10 @@
     var ADDONS = [
       { id: 'prenight', cat: 'Accommodation', name: 'Pre-Night Hotel', price: 45, icon: 'hotel', on: 'start', shift: -1, ctx: function (t) { return t.startLocation + ' &middot; ' + shiftDate(t.date, -1); } },
       { id: 'postnight', cat: 'Accommodation', name: 'Post-Night Hotel', price: 45, icon: 'hotel', on: 'end', shift: 0, ctx: function (t) { return t.endLocation + ' &middot; ' + shiftDate(t.endDate || t.date, 0); } },
-      { id: 'arrival', cat: 'Transfers', name: 'Arrival Transfer', price: 60, icon: 'van', on: 'start', shift: 0, ctx: function (t) { return 'Pick-up from ' + t.startLocation + ' Airport'; } },
-      { id: 'departure', cat: 'Transfers', name: 'Departure Transfer', price: 60, icon: 'van', on: 'end', shift: 1, ctx: function (t) { return 'Drop-off to ' + t.endLocation + ' Airport'; } }
+      /* `info` puts an (i) beside the name — hover, focus or tap for the caveat that a
+         transfer outside the tour dates depends on a pre / post-night booked with us. */
+      { id: 'arrival', cat: 'Transfers', name: 'Arrival Transfer', price: 60, icon: 'van', on: 'start', shift: 0, ctx: function (t) { return 'Pick-up from ' + t.startLocation + ' Airport'; }, info: function (t) { return 'If you are arriving before your tour start date you can still be picked up from ' + t.startLocation + ' Airport, however you will need to book a pre-night(s) accommodation with us so we have somewhere to take you. If you are arriving on your tour start date, please skip this.'; } },
+      { id: 'departure', cat: 'Transfers', name: 'Departure Transfer', price: 60, icon: 'van', on: 'end', shift: 1, ctx: function (t) { return 'Drop-off to ' + t.endLocation + ' Airport'; }, info: function (t) { return 'If you are leaving after your tour end date you can still be transferred to ' + t.endLocation + ' Airport, however you will need to book a post-night(s) accommodation with us. If you are leaving on your tour end date, please skip this.'; } }
     ];
     var ADDON_BY_ID = {}; ADDONS.forEach(function (a) { ADDON_BY_ID[a.id] = a; });
     var WD = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], MO = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -393,6 +420,46 @@
       return WD[d.getDay()] + ' ' + d.getDate() + ' ' + MO[d.getMonth()] + ' ' + d.getFullYear();
     }
     function addonDate(a, t) { return shiftDate(a.on === 'end' ? (t.endDate || t.date) : t.date, a.shift); }
+    /* Pre / post-night hotel is configurable: N nights × how the group is rooming.
+       `sleeps` is how many of the booking's travellers one unit covers, which is what
+       caps the panel — a party of 2 can never be given 3 beds. `min2` options only
+       appear once 2+ people are travelling. All four are listed so the build team can
+       see every rooming option the page has to support. */
+    var PN_NIGHTS = [1, 14];
+    var PN_ROOMS = [
+      { id: 'twin', name: 'Twin share', price: 45, sleeps: 1, rate: 'pp / night', note: 'A bed in a shared twin room' },
+      { id: 'double', name: 'Double', price: 90, sleeps: 2, rate: '/ night', note: 'One double bed for two', min2: true },
+      { id: 'single', name: 'Single', price: 75, sleeps: 1, rate: '/ night', note: 'A room to yourself' },
+      { id: 'dorm', name: 'Dorm bed', price: 25, sleeps: 1, rate: 'pp / night', note: 'A bed in a shared dorm' }
+    ];
+    var PN_FROM = PN_ROOMS.reduce(function (m, r) { return Math.min(m, r.price); }, Infinity);
+    function isHotelAddon(id) { return id === 'prenight' || id === 'postnight'; }
+    function pnRoom(id) { var f = null; PN_ROOMS.forEach(function (r) { if (r.id === id) f = r; }); return f; }
+    function pnPlaced(c) { return PN_ROOMS.reduce(function (n, r) { return n + (c[r.id] || 0) * r.sleeps; }, 0); }
+    function nightsCost(c) { return c && typeof c === 'object' ? c.nights * PN_ROOMS.reduce(function (s, r) { return s + (c[r.id] || 0) * r.price; }, 0) : 0; }
+    function addonCost(a, t) { return isHotelAddon(a.id) ? nightsCost(t.addons && t.addons[a.id]) : a.price; }
+    /* Opening position when the add-on is switched on: everyone in twin share. */
+    function pnDefault(pax) { var c = { nights: 1 }; PN_ROOMS.forEach(function (r) { c[r.id] = 0; }); c.twin = Math.max(1, pax); return c; }
+    /* Keep rooming inside the party size. If travellers are removed after rooms were
+       picked, hand back the last-listed types first so the cheapest choice survives. */
+    function pnClamp(c, pax) {
+      c.nights = Math.max(PN_NIGHTS[0], Math.min(PN_NIGHTS[1], c.nights || 1));
+      PN_ROOMS.forEach(function (r) { c[r.id] = Math.max(0, c[r.id] || 0); });
+      for (var i = PN_ROOMS.length - 1; i >= 0; i--) {
+        while (c[PN_ROOMS[i].id] > 0 && pnPlaced(c) > pax) c[PN_ROOMS[i].id]--;
+      }
+      return c;
+    }
+    function pnSync(t) {
+      var pax = t.travellers || 1;
+      ['prenight', 'postnight'].forEach(function (id) {
+        var c = t.addons && t.addons[id];
+        if (c) t.addons[id] = pnClamp(typeof c === 'object' ? c : pnDefault(pax), pax);
+      });
+    }
+    /* Pre-night guests check in ahead of the start; post-night on the tour end date. */
+    function hotelCheckin(a, t) { var c = t.addons && t.addons[a.id]; return a.id === 'prenight' ? shiftDate(t.date, -((c && c.nights) || 1)) : shiftDate(t.endDate || t.date, 0); }
+    cart.forEach(pnSync);   /* a cart restored from an earlier session may pre-date these options */
     var ADDON_CATS = ['Accommodation', 'Transfers'];
     var payMode = null; /* no default — chosen on the booking summary (deposit/full/hold) */
     var promo = 0;
@@ -412,7 +479,7 @@
         if (t.room === 'own') { roomTotal += ROOM_UPGRADE * q; ownRooms += q; }
       });
       var addonsTotal = 0;
-      cart.forEach(function (t) { if (t.addons) ADDONS.forEach(function (a) { if (t.addons[a.id]) addonsTotal += a.price; }); });
+      cart.forEach(function (t) { if (t.addons) ADDONS.forEach(function (a) { if (t.addons[a.id]) addonsTotal += addonCost(a, t); }); });
       var save = (tripsOrig - tripsTotal) + promo;
       var subtotal = tripsTotal + roomTotal + addonsTotal - promo; /* total before travel credit */
       /* Travel credit comes off the overall total (and balance / full payment) only — never the deposit. */
@@ -451,7 +518,7 @@
         var own = t.room === 'own';
         var dates = t.date + (t.endDate ? ' <span class="co-trip__arw">&rarr;</span> ' + t.endDate : '');
         var addonSum = 0;
-        if (t.addons) ADDONS.forEach(function (a) { if (t.addons[a.id]) addonSum += a.price; });
+        if (t.addons) ADDONS.forEach(function (a) { if (t.addons[a.id]) addonSum += addonCost(a, t); });
         var tripTotal = per * q + (own ? ROOM_UPGRADE * q : 0) + addonSum;
         var ratingHtml = t.rating ? '<div class="tripcard__rating"><div class="tripcard__stars">' + STAR + STAR + STAR + STAR + STAR + '</div><span class="num">' + t.rating + '</span><span class="rev">(' + t.reviewCount + ' Reviews)</span></div>' : '';
         var factsHtml = '<div class="tripcard__facts"><span>' + IC.day + t.duration + '</span>' + (t.places ? '<span>' + IC.pin + t.places + ' Places</span>' : '') + (t.activities ? '<span>' + IC.clip + t.activities + ' Activities</span>' : '') + '</div>';
@@ -481,7 +548,7 @@
           return '<p class="co-trip__adgroup">' + cat + '</p>' + rows;
         }).join('');
         var addonCostRows = '';
-        if (t.addons) ADDONS.forEach(function (a) { if (t.addons[a.id]) addonCostRows += '<div class="co-trip__costrow"><span>' + a.name + '</span><span>+' + fmt(a.price) + '</span></div>'; });
+        if (t.addons) ADDONS.forEach(function (a) { if (t.addons[a.id]) { var ac = addonCost(a, t); if (ac > 0) addonCostRows += '<div class="co-trip__costrow"><span>' + a.name + (isHotelAddon(a.id) ? ' &middot; ' + t.addons[a.id].nights + ' night' + (t.addons[a.id].nights > 1 ? 's' : '') : '') + '</span><span>+' + fmt(ac) + '</span></div>'; } });
         return '<div class="co-trip" data-trip-i="' + i + '">'
           + '<div class="co-trip__top">'
           + '<div class="co-trip__img"><img src="' + t.image + '" alt="" onerror="this.style.display=\'none\'" />' + badge + '</div>'
@@ -522,13 +589,66 @@
     }
 
     /* ---- Render add-ons (step 3): one block per tour, grouped Accommodation / Transfers ---- */
+    /* Pre / post-night hotels expand after adding — pick nights, then room the group. */
+    function pnStepper(addonId, key, val, canDec, canInc) {
+      return '<span class="co-pn__step">'
+        + '<button type="button" class="co-pn__btn" data-pn-step="' + key + '" data-pn-addon="' + addonId + '" data-pn-dir="-1" aria-label="One fewer"' + (canDec ? '' : ' disabled') + '>&minus;</button>'
+        + '<span class="co-pn__val">' + val + '</span>'
+        + '<button type="button" class="co-pn__btn" data-pn-step="' + key + '" data-pn-addon="' + addonId + '" data-pn-dir="1" aria-label="One more"' + (canInc ? '' : ' disabled') + '>+</button>'
+        + '</span>';
+    }
+    function hotelConfig(a, tr) {
+      var c = tr.addons[a.id], pax = tr.travellers || 1;
+      var pre = a.id === 'prenight';
+      var hotel = 'TruTravels ' + (pre ? tr.startLocation : tr.endLocation) + ' Hotel';
+      var cost = nightsCost(c), placed = pnPlaced(c), left = pax - placed;
+      var lede = pre
+        ? 'Arriving before your tour starts? Add the night(s) you need at our partner hotel so you\'re rested and ready for day one.'
+        : 'Leaving after your tour ends? We can still get you to the airport — just add the post-night(s) you need. Leaving on your end date? You can skip this.';
+      /* One row per room type, its + disabled as soon as the party is fully placed. */
+      var rows = PN_ROOMS.filter(function (r) { return !r.min2 || pax > 1; }).map(function (r) {
+        var n = c[r.id] || 0;
+        return '<div class="co-pn__row' + (n ? ' is-picked' : '') + '">'
+          + pnStepper(a.id, r.id, n, n > 0, left >= r.sleeps)
+          + '<span class="co-pn__lbl"><span class="co-pn__name">' + r.name + '<span class="co-pn__rate">£' + r.price + ' ' + r.rate + '</span></span>'
+          + '<small class="co-pn__note">' + r.note + '</small></span>'
+          + '</div>';
+      }).join('');
+      var msg = placed === 0
+        ? 'Choose how your group is rooming to include this stay.'
+        : (left > 0 ? left + ' traveller' + (left === 1 ? '' : 's') + ' still ' + (left === 1 ? 'needs' : 'need') + ' a bed.' : '');
+      return '<div class="co-pn__cfg">'
+        + '<p class="co-pn__lede">' + lede + '</p>'
+        + '<p class="co-pn__h">' + (pre ? 'Pre-tour accommodation' : 'Post-tour accommodation') + '</p>'
+        + '<div class="co-pn__row">' + pnStepper(a.id, 'nights', c.nights, c.nights > PN_NIGHTS[0], c.nights < PN_NIGHTS[1]) + '<span class="co-pn__lbl"><span class="co-pn__name">Nights at <strong>' + hotel + '</strong></span></span></div>'
+        + '<p class="co-pn__checkin">' + IC.cal + 'Check-in <strong>' + hotelCheckin(a, tr) + '</strong></p>'
+        + '<div class="co-pn__rhead"><p class="co-pn__h">Rooming</p>'
+        + '<p class="co-pn__cap' + (left > 0 ? ' is-warn' : '') + '">' + placed + ' of ' + pax + ' traveller' + (pax === 1 ? '' : 's') + ' placed</p></div>'
+        + rows
+        + (cost > 0 || msg
+            ? '<div class="co-pn__foot">'
+              + (cost > 0 ? '<div class="co-pn__total"><span>' + c.nights + ' night' + (c.nights > 1 ? 's' : '') + ' &middot; ' + placed + ' traveller' + (placed === 1 ? '' : 's') + '</span><strong>+' + fmt(cost) + '</strong></div>' : '')
+              + (msg ? '<p class="co-pn__hint">' + msg + '</p>' : '')
+              + '</div>'
+            : '')
+        + '</div>';
+    }
     function addonRow(a, tr, idx) {
       var on = !!(tr.addons && tr.addons[a.id]);
-      return '<div class="co-addon ' + (on ? 'is-on' : '') + '">'
-        + '<span class="co-addon__ico" style="color:' + (a.cat === 'Accommodation' ? 'var(--tru-green)' : 'var(--tru-blue)') + '">' + IC[a.icon] + '</span>'
-        + '<div class="co-addon__info"><p class="co-addon__name">' + a.name + '</p><p class="co-addon__desc">' + a.ctx(tr) + '</p></div>'
-        + '<div class="co-addon__right"><span class="co-addon__price">+' + fmt(a.price) + '</span><button type="button" class="co-addon__btn ' + (on ? 'is-on' : '') + '" data-addon-toggle="' + idx + ':' + a.id + '"' + (on ? ' aria-label="Added — tap to remove"' : '') + '>' + (on ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : 'Add') + '</button></div>'
+      var isHotel = isHotelAddon(a.id);
+      var priceTxt = isHotel ? (on && addonCost(a, tr) > 0 ? '+' + fmt(addonCost(a, tr)) : 'from £' + PN_FROM) : '+' + fmt(a.price);
+      var iconColor = a.cat === 'Accommodation' ? 'var(--tru-pink)' : 'var(--tru-blue)';
+      /* Optional (i) beside the name — shown on hover/focus by CSS, on tap by the click handler */
+      var infoHtml = a.info
+        ? '<span class="co-info"><button type="button" class="co-info__btn" data-info aria-label="More about the ' + a.name + '" aria-expanded="false">' + IC.info + '</button><span class="co-info__pop" role="tooltip">' + a.info(tr) + '</span></span>'
+        : '';
+      var row = '<div class="co-addon ' + (on ? 'is-on' : '') + '">'
+        + '<span class="co-addon__ico" style="color:' + iconColor + '">' + IC[a.icon] + '</span>'
+        + '<div class="co-addon__info"><p class="co-addon__name">' + a.name + infoHtml + '</p><p class="co-addon__desc">' + a.ctx(tr) + '</p></div>'
+        + '<div class="co-addon__right"><span class="co-addon__price">' + priceTxt + '</span><button type="button" class="co-addon__btn ' + (on ? 'is-on' : '') + '" data-addon-toggle="' + idx + ':' + a.id + '"' + (on ? ' aria-label="Added — tap to remove"' : '') + '>' + (on ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : 'Add') + '</button></div>'
         + '</div>';
+      if (isHotel) return '<div class="co-pn' + (on ? ' is-on' : '') + '">' + row + (on ? hotelConfig(a, tr) : '') + '</div>';
+      return row;
     }
     /* ---- Traveller info (step 1): per-traveller accordion ---- */
     var NATIONALITIES = ['United Kingdom', 'Ireland', 'United States', 'Canada', 'Australia', 'New Zealand', 'France', 'Germany', 'Spain', 'Italy', 'Netherlands', 'Belgium', 'Switzerland', 'Austria', 'Portugal', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Poland', 'Czech Republic', 'Greece', 'South Africa', 'India', 'China', 'Japan', 'Singapore', 'Hong Kong', 'United Arab Emirates', 'Brazil', 'Argentina', 'Mexico', 'Other'];
@@ -631,7 +751,7 @@
 
     /* ---- Render order summary (desktop + mobile share markup) ---- */
     /* One tour "summary item" — reused by the desktop aside AND the full-width booking summary */
-    function oiHtml(tr) {
+    function oiHtml(tr, i) {
       var q = tr.travellers || 1;
       var per = tr.price || 0, o = tr.orig && tr.orig > per ? tr.orig : 0;
       var range = tr.date + (tr.endDate ? ' → ' + tr.endDate : '');
@@ -639,11 +759,13 @@
       /* Extras booked on top of this tour — own room + add-ons */
       var ex = '';
       if (tr.room === 'own') ex += '<div class="co-oi__xline"><span class="co-oi__xname">' + IC.key + 'Own room upgrade' + (q > 1 ? ' × ' + q : '') + '</span><span class="co-oi__xprice">+' + fmt(ROOM_UPGRADE * q) + '</span></div>';
-      if (tr.addons) ADDONS.forEach(function (a) { if (tr.addons[a.id]) ex += '<div class="co-oi__xline"><span class="co-oi__xname">' + IC[a.icon] + '<span class="co-oi__xtext"><span>' + a.name + '</span><small class="co-oi__xdate">' + addonDate(a, tr) + '</small></span></span><span class="co-oi__xprice">+' + fmt(a.price) + '</span></div>'; });
+      if (tr.addons) ADDONS.forEach(function (a) { if (tr.addons[a.id]) { var ac = addonCost(a, tr); if (ac > 0) { var sub = isHotelAddon(a.id) ? (tr.addons[a.id].nights + ' night' + (tr.addons[a.id].nights > 1 ? 's' : '') + ' · check-in ' + hotelCheckin(a, tr)) : addonDate(a, tr); ex += '<div class="co-oi__xline"><span class="co-oi__xname">' + IC[a.icon] + '<span class="co-oi__xtext"><span>' + a.name + '</span><small class="co-oi__xdate">' + sub + '</small></span></span><span class="co-oi__xprice">+' + fmt(ac) + '</span></div>'; } } });
       var days = parseInt(tr.duration, 10) || 1;
       var perDay = Math.round(per / days);
       return '<div class="co-oi">'
-        + '<div class="co-oi__img"><img src="' + tr.image + '" alt="" onerror="this.style.display=\'none\'" /></div>'
+        + '<div class="co-oi__img"><img src="' + tr.image + '" alt="" onerror="this.style.display=\'none\'" />'
+        + '<button type="button" class="co-oi__remove" data-remove-tour="' + i + '" aria-label="Remove ' + tr.tripTitle + ' from your booking" title="Remove tour"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>'
+        + '</div>'
         + '<div class="co-oi__info">'
         + '<div class="co-oi__toprow"><p class="co-oi__title">' + tr.tripTitle + '</p><div class="co-oi__price"><span class="co-oi__priceline">' + (o ? '<s>' + fmt(o * q) + '</s>' : '') + '<strong>' + fmt(per * q) + '</strong></span><span class="co-oi__perday">' + fmt(perDay) + ' per day</span></div></div>'
         + '<p class="co-oi__meta">' + IC.pin + tr.startLocation + ' — ' + tr.endLocation + '</p>'
@@ -752,7 +874,7 @@
         var roomLabel = tr.room === 'own' ? (q > 1 ? 'Own rooms' : 'Own room') : (tr.doubleReq ? 'Double (requested)' : 'Shared room');
         var ad = '';
         if (tr.room === 'own') ad += '<li>Own room upgrade' + (q > 1 ? ' × ' + q : '') + '<span>+' + fmt(ROOM_UPGRADE * q) + '</span></li>';
-        if (tr.addons) ADDONS.forEach(function (a) { if (tr.addons[a.id]) ad += '<li>' + a.name + ' &middot; ' + addonDate(a, tr) + '<span>+' + fmt(a.price) + '</span></li>'; });
+        if (tr.addons) ADDONS.forEach(function (a) { if (tr.addons[a.id]) { var ac = addonCost(a, tr); if (ac > 0) ad += '<li>' + a.name + ' &middot; ' + (isHotelAddon(a.id) ? tr.addons[a.id].nights + ' night' + (tr.addons[a.id].nights > 1 ? 's' : '') : addonDate(a, tr)) + '<span>+' + fmt(ac) + '</span></li>'; } });
         return '<div class="co-revtrip"><p class="co-revtrip__t">' + tr.tripTitle + '</p>'
           + '<p class="co-revtrip__m">' + IC.cal + ' ' + range + ' &middot; ' + q + ' traveller' + (q === 1 ? '' : 's') + ' &middot; ' + roomLabel + '</p>'
           + (ad ? '<ul class="co-revtrip__x">' + ad + '</ul>' : '<p class="co-revtrip__none">No add-ons</p>') + '</div>';
@@ -783,12 +905,40 @@
       var q = (cart[0] && cart[0].travellers) || 1;
       var nq = inc ? Math.min(12, q + 1) : Math.max(1, q - 1);
       if (nq === q) return;
-      cart.forEach(function (t) { t.travellers = nq; });   /* same group on every tour */
+      /* same group on every tour — and rooming can't outlive the travellers it was for */
+      cart.forEach(function (t) { t.travellers = nq; pnSync(t); });
       persist();
       renderAll();
     });
 
-    function renderAll() { renderPax(); renderTravellers(); renderTrips(); renderSummary(); renderCredit(); }
+    /* ---- Remove a tour from the booking summary. Removing the last one is allowed —
+       the booking then falls back to the no-trips view. ---- */
+    document.addEventListener('click', function (e) {
+      var rm = e.target.closest('[data-remove-tour]');
+      if (!rm) return;
+      var i = +rm.dataset.removeTour;
+      if (isNaN(i) || i < 0 || i >= cart.length) return;
+      cart.splice(i, 1);
+      persist();
+      renderAll();
+    });
+
+    /* With nothing in the booking there's no flow to render — swap in the no-trips view
+       and stop, since every renderer below assumes at least one tour. */
+    function renderEmpty() {
+      var isEmpty = cart.length === 0;
+      var empty = document.querySelector('[data-empty]');
+      var grid = document.querySelector('[data-grid]');
+      var prog = document.querySelector('.co-progress');
+      if (empty) empty.hidden = !isEmpty;
+      if (grid) grid.hidden = isEmpty;
+      if (prog) prog.hidden = isEmpty;
+      return isEmpty;
+    }
+    function renderAll() {
+      if (renderEmpty()) return;
+      renderPax(); renderTravellers(); renderTrips(); renderSummary(); renderCredit();
+    }
     renderAll();
 
     /* ---- Step navigation (all steps open/clickable for design review) ---- */
@@ -895,18 +1045,59 @@
       b.addEventListener('click', function () { openStep(+b.dataset.edit); });
     });
 
+    /* ---- (i) popups. CSS handles hover/focus; this adds tap-to-open for touch. ---- */
+    function closeInfo() {
+      document.querySelectorAll('.co-info.is-open').forEach(function (w) {
+        w.classList.remove('is-open');
+        var b = w.querySelector('[data-info]'); if (b) b.setAttribute('aria-expanded', 'false');
+      });
+    }
+    /* One document-level handler so every (i) behaves the same wherever it sits */
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('.co-info__pop')) return;      /* clicks inside the bubble leave it open */
+      var ib = e.target.closest('[data-info]');
+      if (!ib) { closeInfo(); return; }
+      var wrap = ib.parentNode, wasOpen = wrap.classList.contains('is-open');
+      closeInfo();
+      if (!wasOpen) { wrap.classList.add('is-open'); ib.setAttribute('aria-expanded', 'true'); }
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeInfo(); });
+
     /* ---- Per-trip rooming + add-ons (step 2). Passenger count is fixed from the basket. ---- */
     document.querySelector('[data-trip-list]').addEventListener('click', function (e) {
+      /* Info popups are handled globally — nothing here should read them as cart input */
+      if (e.target.closest('[data-info]') || e.target.closest('.co-info__pop')) return;
       var card = e.target.closest('[data-trip-i]'); if (!card) return;
       var it = cart[+card.dataset.tripI]; if (!it) return;
       if (e.target.closest('[data-double-req]')) { it.doubleReq = !it.doubleReq; renderTrips(); renderSummary(); persist(); return; }
       var room = e.target.closest('[data-room-opt]');
       if (room) { it.room = room.dataset.roomOpt; if (it.room !== 'shared') it.doubleReq = false; renderTrips(); renderSummary(); persist(); return; }
+      /* Pre / post-night nights + rooming steppers */
+      var pn = e.target.closest('[data-pn-step]');
+      if (pn) {
+        var c = it.addons && it.addons[pn.dataset.pnAddon];
+        if (c) {
+          var pk = pn.dataset.pnStep, pdir = +pn.dataset.pnDir;
+          if (pk === 'nights') {
+            c.nights = Math.max(PN_NIGHTS[0], Math.min(PN_NIGHTS[1], c.nights + pdir));
+          } else {
+            /* never place more travellers in beds than are on the booking */
+            var pr = pnRoom(pk);
+            if (pr && (pdir < 0 ? c[pk] > 0 : pnPlaced(c) + pr.sleeps <= (it.travellers || 1))) c[pk] += pdir;
+          }
+          renderTrips(); renderSummary(); persist();
+        }
+        return;
+      }
       var addon = e.target.closest('[data-addon-toggle]');
       if (addon) {
         var id = addon.dataset.addonToggle.split(':')[1];
         it.addons = it.addons || {};
-        it.addons[id] = !it.addons[id];
+        if (isHotelAddon(id)) {
+          it.addons[id] = it.addons[id] ? false : pnDefault(it.travellers || 1);
+        } else {
+          it.addons[id] = !it.addons[id];
+        }
         renderTrips(); renderSummary(); persist();
         return;
       }
@@ -1030,7 +1221,12 @@
       refreshPayDisplay();
     }
     document.querySelectorAll('[data-mode]').forEach(function (b) {
-      b.addEventListener('click', function () { setPayMode(b.dataset.mode); });
+      /* the inline (i) lives inside this button — tapping it explains, it doesn't select */
+      b.addEventListener('click', function (e) {
+        if (e.target.closest('[data-info]')) return;   /* the inline (i) explains, it doesn't select */
+        if (b.getAttribute('aria-disabled') === 'true') return;
+        setPayMode(b.dataset.mode);
+      });
     });
     /* Default selection: Pay in full */
     setPayMode('full');
@@ -1041,7 +1237,10 @@
       ['hold', 'deposit', 'plan'].forEach(function (mode) {
         var b = document.querySelector('[data-mode="' + mode + '"]');
         if (!b) return;
-        b.disabled = within60;
+        /* aria-disabled rather than the disabled property: a disabled button swallows all
+           pointer events, which would make the (i) tooltip unreachable exactly when a
+           traveller most wants to know what the payment plan is. */
+        b.setAttribute('aria-disabled', within60 ? 'true' : 'false');
         b.classList.toggle('is-disabled', within60);
       });
       var note = document.querySelector('[data-pay-note]');

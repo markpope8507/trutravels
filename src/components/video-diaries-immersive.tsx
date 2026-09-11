@@ -4,9 +4,9 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { VideoDiary } from "@/lib/data";
 
 const tagColors: Record<string, string> = {
-  Traveller: "#6BD495",
-  Creator: "#FF3F99",
-  Influencer: "#2172D5",
+  Traveller: "#FF3F99",   // Tru pink
+  Creator: "#FF3F99",     // Tru pink
+  Influencer: "#2172D5",  // Tru blue
 };
 
 export default function VideoDiariesImmersive({ diaries }: { diaries: VideoDiary[] }) {
