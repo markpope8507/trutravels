@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { trips, drops, videoDiaries, experienceTypes } from "@/lib/data";
+import { trips, videoDiaries, experienceTypes } from "@/lib/data";
 import HeroSlider from "@/components/hero-slider";
 import ExperienceCarousel from "@/components/experience-carousel";
 import { DesignA as ExperienceTypesCarousel } from "@/components/experience-types-v2";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
-import DropsCarousel from "@/components/drops-carousel";
 import DiscoveryPathways from "@/components/discovery-pathways";
 import PillButton from "@/components/pill-button";
 import ReviewsBar from "@/components/reviews-bar";
@@ -199,40 +198,11 @@ export default function HomePage() {
           ================================================================ */}
       <ReviewsSection />
 
-      {/* ================================================================
-          5. THE DROP — Limited experiences & events carousel
-          ================================================================ */}
-      <section className="relative overflow-hidden py-24 bg-gradient-to-b from-transparent via-tru-green/[0.03] to-transparent">
-        <img
-          src="/bg-assets/lantern.svg"
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 -bottom-8 w-[240px] sm:w-[380px] md:w-[500px] lg:w-[640px] opacity-[0.08] brightness-0 invert"
-        />
-        <img
-          src="/bg-assets/community.svg"
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 top-6 w-[200px] sm:w-[300px] md:w-[400px] lg:w-[520px] opacity-[0.08] brightness-0 invert"
-        />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="text-tru-green text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Coming Soon</p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading">
-                The Drop
-              </h2>
-              <p className="text-gray-400 mt-4 max-w-lg">
-                Limited spots. Exclusive launches. Members get first access.
-              </p>
-            </div>
-          </div>
-        </div>
 
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <DropsCarousel drops={drops} />
-        </div>
-      </section>
+      {/* 5. THE DROP — parked for phase 2. The section was lifted off the homepage
+          until the drops programme launches; <DropsCarousel> and the `drops` data
+          are both still in the repo, and the static copy-in version lives at
+          converted/components/drops-carousel.html. */}
 
       {/* ================================================================
           6. STORIES — "Stories From The Road" feature

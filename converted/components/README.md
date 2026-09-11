@@ -44,6 +44,7 @@ Structural blocks for building whole pages (extracted from the live static pages
 | `faq-accordion.html` | Collapsible FAQ list (native `<details>`, no JS) | no |
 | `reviews-section.html` | Trustpilot rating + swipeable review-card carousel (demo also includes the reviews-bar copy-in above it) | yes (carousel) |
 | `destinations-carousel.html` | Destination-tile carousel (image + name + tagline) | yes (carousel) |
+| `drops-carousel.html` | **The Drop** — limited-release carousel (tag badge, date, title, subtitle, spots left, "Get access"). **Phase 2:** lifted off the homepage and parked here until the drops programme launches. | yes (carousel) |
 | `departures-list.html` | Upcoming-departures rows (date, duration, status, pricing) | no |
 | `reviews-bar.html` | Hero social-proof / protection flip strip (also listed under widgets) | no |
 | `search-prompt.html` | Homepage search bar + overlay (also listed under widgets) | yes |
