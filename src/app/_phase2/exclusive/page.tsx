@@ -1,13 +1,13 @@
 "use client";
 
-import MemberGate from "@/components/member-gate";
+import AccountGate from "@/components/account-gate";
 import { stories, trips } from "@/lib/data";
 
 export default function ExclusivePage() {
   return (
-    <MemberGate>
+    <AccountGate>
       <ExclusiveContent />
-    </MemberGate>
+    </AccountGate>
   );
 }
 

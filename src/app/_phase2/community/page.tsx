@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import MemberGate from "@/components/member-gate";
+import AccountGate from "@/components/account-gate";
 import { useAuth } from "@/lib/auth-context";
 
 const mockPosts = [
@@ -45,9 +45,9 @@ const mockPosts = [
 
 export default function CommunityPage() {
   return (
-    <MemberGate>
+    <AccountGate>
       <CommunityContent />
-    </MemberGate>
+    </AccountGate>
   );
 }
 
@@ -56,7 +56,7 @@ function CommunityContent() {
 
   return (
     <div className="pt-28 mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12">
-      <Link href="/member/dashboard" className="flex items-center gap-1.5 text-gray-400 text-xs hover:text-white transition mb-6">
+      <Link href="/my-account/dashboard" className="flex items-center gap-1.5 text-gray-400 text-xs hover:text-white transition mb-6">
         <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
         Dashboard
       </Link>

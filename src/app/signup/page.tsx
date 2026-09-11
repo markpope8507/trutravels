@@ -25,7 +25,7 @@ export default function SignupPage() {
 
   const finish = (name: string, withEmail: string) => {
     signup(name, withEmail, password || "social-signup");
-    router.push("/member/dashboard");
+    router.push("/my-account/dashboard");
   };
 
   const handleEmailSignup = (e: React.FormEvent) => {

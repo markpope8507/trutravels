@@ -1,9 +1,22 @@
+/* ============================================================================
+   PHASE 2 REFERENCE — the full member dashboard as it stood before the phase 1
+   trim. Kept verbatim (not routed: `_phase2` is a Next.js private folder) so the
+   sections we pulled can be lifted straight back:
+
+     · Community quick-action tile        -> _phase2/community
+     · Messages & Notifications panel     -> NotificationsSection, at the foot
+     · Exclusive Content section          -> _phase2/exclusive
+     · Podcast Episodes section
+
+   The live phase 1 dashboard is src/app/my-account/dashboard/page.tsx.
+   ============================================================================ */
+
 "use client";
 
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/lib/auth-context";
-import MemberGate from "@/components/member-gate";
+import AccountGate from "@/components/account-gate";
 import { trips, stories } from "@/lib/data";
 import TripCard from "@/components/trip-card";
 import { mockBookings } from "@/components/booking-history";
@@ -16,9 +29,9 @@ import "swiper/css/free-mode";
 
 export default function DashboardPage() {
   return (
-    <MemberGate>
+    <AccountGate>
       <DashboardContent />
-    </MemberGate>
+    </AccountGate>
   );
 }
 
@@ -33,7 +46,7 @@ function DashboardContent() {
       {/* Welcome + VIP */}
       <div className="mb-10">
         <div className="flex items-center gap-4 mb-6">
-          <Link href="/member/profile" className="relative group flex-shrink-0">
+          <Link href="/my-account/profile" className="relative group flex-shrink-0">
             <div className="h-14 w-14 sm:h-16 sm:w-16 rounded-full bg-tru-pink text-white flex items-center justify-center text-xl sm:text-2xl font-bold border-2 border-tru-pink/50">
               {user?.avatar}
             </div>
@@ -175,10 +188,10 @@ function DashboardContent() {
       {/* Quick actions */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-12">
         {[
-          { label: "My Bookings", value: mockBookings.length.toString(), href: "/member/bookings", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" },
-          { label: "Saved Trips", value: "3", href: "/member/saved", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
+          { label: "My Bookings", value: mockBookings.length.toString(), href: "/my-account/bookings", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" },
+          { label: "Saved Trips", value: "3", href: "/my-account/saved", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
           { label: "Community", value: "Active", href: "/member/community", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
-          { label: "My Profile", value: "Edit", href: "/member/profile", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
+          { label: "My Profile", value: "Edit", href: "/my-account/profile", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
         ].map((action) => (
           <Link
             key={action.label}

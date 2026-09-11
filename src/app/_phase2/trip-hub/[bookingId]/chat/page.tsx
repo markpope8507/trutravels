@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
-import MemberGate from "@/components/member-gate";
+import AccountGate from "@/components/account-gate";
 
 const mockMessages = [
   { id: 1, from: "Tru.D", avatar: "✨", color: "#FF3F99", text: "Hey everyone! Welcome to your Thailand Island Hopper group chat 🎉 I'm Tru.D — your AI travel assistant. Tag me anytime with @Tru.D and I can help with visa info, packing tips, currency questions, or anything about your trip. If I can't help, I'll get the team on it! Let's get excited! 🌴", time: "4 days ago", isBot: true },
@@ -94,7 +94,7 @@ function ChatContent({ bookingId }: { bookingId: string }) {
     <div className="flex flex-col h-screen">
       {/* Header */}
       <div className="flex-shrink-0 border-b border-white/10 bg-tru-navy/95 backdrop-blur-md px-4 py-3 flex items-center gap-3 pt-20">
-        <Link href={`/member/trip-hub/${bookingId}`} className="text-gray-400 hover:text-white transition">
+        <Link href={`/my-account/trip-hub/${bookingId}`} className="text-gray-400 hover:text-white transition">
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
         </Link>
         <div className="flex-1 min-w-0">
@@ -212,8 +212,8 @@ export default function ChatPage() {
   const bookingId = params.bookingId as string;
 
   return (
-    <MemberGate>
+    <AccountGate>
       <ChatContent bookingId={bookingId} />
-    </MemberGate>
+    </AccountGate>
   );
 }

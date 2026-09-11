@@ -319,7 +319,7 @@ export default function Navbar() {
               </button>
               {isLoggedIn ? (
                 <div className="flex items-center gap-2 ml-1">
-                  <Link href="/member/dashboard" className="h-8 w-8 rounded-full bg-tru-pink text-white flex items-center justify-center text-[10px] font-bold" onClick={closeAll}>
+                  <Link href="/my-account/dashboard" className="h-8 w-8 rounded-full bg-tru-pink text-white flex items-center justify-center text-[10px] font-bold" onClick={closeAll}>
                     {user?.avatar}
                   </Link>
                   <button onClick={() => { logout(); closeAll(); }} className="text-[10px] text-gray-400 hover:text-white transition uppercase tracking-wider font-heading">
@@ -773,7 +773,7 @@ export default function Navbar() {
             {/* Footer */}
             <div className="relative z-10 flex-shrink-0 px-5 py-4 border-t border-white/10">
               {isLoggedIn ? (
-                <Link href="/member/dashboard" onClick={closeAll} className="block rounded-full bg-tru-pink px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-tru-pink-light transition">
+                <Link href="/my-account/dashboard" onClick={closeAll} className="block rounded-full bg-tru-pink px-5 py-2.5 text-center text-sm font-semibold text-white hover:bg-tru-pink-light transition">
                   Dashboard
                 </Link>
               ) : (

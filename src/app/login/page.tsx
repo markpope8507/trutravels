@@ -24,7 +24,7 @@ export default function LoginPage() {
 
   const finish = (withEmail: string) => {
     login(withEmail, password || "social-login");
-    router.push("/member/dashboard");
+    router.push("/my-account/dashboard");
   };
 
   const handleLogin = (e: React.FormEvent) => {

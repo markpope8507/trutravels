@@ -62,7 +62,7 @@ const tiers = [
 export default function VipProgrammePage() {
   return (
     <div className="pt-28 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12">
-      <Link href="/member/dashboard" className="flex items-center gap-1.5 text-gray-400 text-xs hover:text-white transition mb-8">
+      <Link href="/my-account/dashboard" className="flex items-center gap-1.5 text-gray-400 text-xs hover:text-white transition mb-8">
         <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
         Dashboard
       </Link>

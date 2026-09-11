@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Trip, getTripExperienceCounts, type TripExperienceCount } from "@/lib/data";
+import { Trip, getTripExperienceCounts, type TripExperienceCount, MEMBER_CONTENT_ENABLED } from "@/lib/data";
 import { useExpDisclosure, toggleExpDisclosure } from "@/lib/use-exp-disclosure";
 import { tripUrl } from "@/lib/utils";
 import TravelStyleBadge from "@/components/travel-style-badge";
@@ -106,7 +106,7 @@ export default function TripCard({
             )}
 
             {/* Member badge — bottom-left fallback when no discount */}
-            {trip.memberOnly && !discountPct && !onRemove && (
+            {MEMBER_CONTENT_ENABLED && trip.memberOnly && !discountPct && !onRemove && (
               <div
                 className="absolute top-3 right-3 bg-tru-pink text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading"
                 style={{ filter: "drop-shadow(2px 2px 3px rgba(0,0,0,0.5))" }}

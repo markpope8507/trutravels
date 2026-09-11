@@ -14,7 +14,7 @@ const FOOTER_COLUMNS = [
       { name: "Deals", href: "/deals" },
       { name: "Stories", href: "/stories" },
       { name: "VIP Club", href: "/about/vip-programme" },
-      { name: "My Account", href: "/member/dashboard" },
+      { name: "My Account", href: "/my-account/dashboard" },
     ],
   },
   {

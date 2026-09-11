@@ -37,7 +37,7 @@ export function LoginModal({ onClose, onSignup }: { onClose: () => void; onSignu
   const finish = (withEmail: string) => {
     login(withEmail, password || "social-login");
     onClose();
-    router.push("/member/dashboard");
+    router.push("/my-account/dashboard");
   };
 
   const handleLogin = (e: React.FormEvent) => {

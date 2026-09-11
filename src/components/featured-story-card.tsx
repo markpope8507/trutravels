@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { storyArticles, type Story } from "@/lib/data";
+import { storyArticles, type Story, MEMBER_CONTENT_ENABLED } from "@/lib/data";
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
@@ -13,7 +13,7 @@ export default function FeaturedStoryCard({
   story: Story;
   isLoggedIn: boolean;
 }) {
-  const isLocked = !!story.memberOnly && !isLoggedIn;
+  const isLocked = MEMBER_CONTENT_ENABLED && !!story.memberOnly && !isLoggedIn;
   const hasArticle = !!storyArticles[story.id];
   const readHref = isLocked
     ? "/signup"
@@ -37,7 +37,7 @@ export default function FeaturedStoryCard({
               }`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-black/30" />
-            {story.memberOnly && (
+            {MEMBER_CONTENT_ENABLED && story.memberOnly && (
               <span className="absolute top-4 right-4 bg-amber-400 text-black text-[10px] font-bold uppercase tracking-wider font-heading px-3 py-1 rounded-full">
                 Exclusive
               </span>

@@ -62,7 +62,7 @@ const searchIndex: SearchItem[] = [
   { title: "Stories & Blog", href: "/stories", category: "Page" },
   { title: "Log In", href: "/login", category: "Page" },
   { title: "Sign Up", href: "/signup", category: "Page" },
-  { title: "Member Dashboard", href: "/member/dashboard", category: "Page" },
+  { title: "My Account", href: "/my-account/dashboard", category: "Page" },
 
   ...trips.map((t) => ({
     title: t.title,

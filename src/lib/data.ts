@@ -359,11 +359,21 @@ export const storyTopicEmojis: Record<string, string> = {
   "Local Stories": "📍",
 };
 
+/**
+ * Member-gated content is phase 2. While this is false, `memberOnly` is ignored
+ * everywhere — no locks, no "Exclusive" badges, no signup redirects, and the
+ * "Member Exclusive" story type is dropped from the filters. The flags stay on
+ * the data so gating can be switched back on without re-tagging anything.
+ */
+export const MEMBER_CONTENT_ENABLED = false;
+
 export const storyTypes: { value: StoryType; label: string }[] = [
   { value: "story", label: "Stories" },
   { value: "guide", label: "Guides" },
   { value: "tips", label: "Tips" },
-  { value: "exclusive", label: "Member Exclusive" },
+  ...(MEMBER_CONTENT_ENABLED
+    ? [{ value: "exclusive" as StoryType, label: "Member Exclusive" }]
+    : []),
 ];
 
 export const trips: Trip[] = [

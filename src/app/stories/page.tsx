@@ -17,6 +17,7 @@ import {
   storyContentSeries,
   storyPodcasts,
   type Story,
+  MEMBER_CONTENT_ENABLED,
 } from "@/lib/data";
 import { useAuth } from "@/lib/auth-context";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
@@ -95,7 +96,7 @@ export default function StoriesPage() {
 
   // Only suggest what this visitor can actually open.
   const visibleStories = useMemo(
-    () => sorted.filter((s) => !s.memberOnly || isLoggedIn),
+    () => sorted.filter((s) => !MEMBER_CONTENT_ENABLED || !s.memberOnly || isLoggedIn),
     [sorted, isLoggedIn],
   );
 

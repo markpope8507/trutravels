@@ -1,11 +1,11 @@
-import { stories } from "@/lib/data";
+import { stories, MEMBER_CONTENT_ENABLED } from "@/lib/data";
 import FeaturedStoryCard from "@/components/featured-story-card";
 import PillButton from "@/components/pill-button";
 
 // "Stories From The Road" feature block — shared by the homepage and FAQs page.
 export default function StoriesFeature() {
   const featuredStory = [...stories]
-    .filter((s) => !s.memberOnly)
+    .filter((s) => !MEMBER_CONTENT_ENABLED || !s.memberOnly)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())[0];
 
   return (

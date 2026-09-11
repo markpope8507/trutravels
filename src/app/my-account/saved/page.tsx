@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import { trips, Trip } from "@/lib/data";
-import MemberGate from "@/components/member-gate";
+import AccountGate from "@/components/account-gate";
 import TripCard from "@/components/trip-card";
 
 import "swiper/css";
@@ -43,7 +43,7 @@ function SavedContent() {
 
   return (
     <div className="pt-28 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-      <Link href="/member/dashboard" className="flex items-center gap-1.5 text-gray-400 text-xs hover:text-white transition mb-6">
+      <Link href="/my-account/dashboard" className="flex items-center gap-1.5 text-gray-400 text-xs hover:text-white transition mb-6">
         <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
         Dashboard
       </Link>
@@ -127,8 +127,8 @@ function SavedContent() {
 
 export default function SavedPage() {
   return (
-    <MemberGate>
+    <AccountGate>
       <SavedContent />
-    </MemberGate>
+    </AccountGate>
   );
 }

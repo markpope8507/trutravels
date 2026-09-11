@@ -1,4 +1,4 @@
-import { trips, getTripExperienceCounts, videoDiaries } from "@/lib/data";
+import { trips, getTripExperienceCounts, videoDiaries, MEMBER_CONTENT_ENABLED } from "@/lib/data";
 import TravelStylePill from "@/components/travel-style-pill";
 import ActivitiesTabs from "@/components/activities-tabs";
 import Link from "next/link";
@@ -79,7 +79,7 @@ export default async function TripDetailPage({
         <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black via-black/70 to-transparent" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-24 w-full">
-          {trip.memberOnly && (
+          {MEMBER_CONTENT_ENABLED && trip.memberOnly && (
             <span className="animate-fade-up inline-block bg-amber-400 text-black text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading mb-4">
               Members Only
             </span>
