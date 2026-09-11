@@ -1,13 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { useAuth } from "@/lib/auth-context";
 import AccountGate from "@/components/account-gate";
-import { trips } from "@/lib/data";
+import { trips, type Trip } from "@/lib/data";
 import TripCard from "@/components/trip-card";
 import { mockBookings } from "@/components/booking-history";
 import SavedReads from "@/components/saved-reads";
+import SuggestedReads from "@/components/suggested-reads";
+import SectionHeading from "@/components/section-heading";
+import PageStickers from "@/components/page-stickers";
+import {
+  subscribeSavedTrips,
+  getSavedTripsSnapshot,
+  getServerSnapshot,
+} from "@/lib/saved-trips";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import "swiper/css";
@@ -25,10 +33,22 @@ export default function DashboardPage() {
 function DashboardContent() {
   const { user, logout } = useAuth();
   const [showBenefits, setShowBenefits] = useState(false);
-  const recommendedTrips = trips.slice(0, 8);
+
+  // Saved trips come from the same store the heart buttons write to, so the
+  // shortlist below updates the moment a trip is saved or removed.
+  const savedRaw = useSyncExternalStore(subscribeSavedTrips, getSavedTripsSnapshot, getServerSnapshot);
+  const savedIds: string[] = JSON.parse(savedRaw);
+  const savedTrips = savedIds
+    .map((id) => trips.find((t) => t.id === id))
+    .filter((t): t is Trip => Boolean(t));
+
+  // Don't recommend what's already on the shortlist right above it.
+  const recommendedTrips = trips.filter((t) => !savedIds.includes(t.id)).slice(0, 8);
 
   return (
-    <div className="pt-28 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <div className="relative">
+      <PageStickers />
+      <div className="relative pt-28 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
       {/* Welcome + VIP */}
       <div className="mb-10">
         <div className="flex items-center gap-4 mb-6">
@@ -61,6 +81,7 @@ function DashboardContent() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* VIP Card */}
           <div className="lg:col-span-2 rounded-[10px] border border-white/10 bg-white/5 p-5">
+            <p className="text-white font-black text-sm uppercase font-heading tracking-wider mb-4">VIP Status</p>
             <div className="flex items-center gap-2 mb-3">
               <svg className="h-5 w-5 text-tru-green" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -172,10 +193,9 @@ function DashboardContent() {
       </div>
 
       {/* Quick actions */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-12">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-12">
         {[
           { label: "My Bookings", value: mockBookings.length.toString(), href: "/my-account/bookings", icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" },
-          { label: "Saved Trips", value: "3", href: "/my-account/saved", icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" },
           { label: "My Profile", value: "Edit", href: "/my-account/profile", icon: "M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" },
         ].map((action) => (
           <Link
@@ -193,23 +213,51 @@ function DashboardContent() {
                 {action.value}
               </span>
             </div>
-            <p className="text-white font-semibold group-hover:text-tru-pink transition">{action.label}</p>
+            <p className="text-white font-black text-sm uppercase font-heading tracking-wider group-hover:text-tru-pink transition">{action.label}</p>
           </Link>
         ))}
       </div>
 
 
-      {/* Recommended trips */}
-      <section className="mb-12">
-        <div className="flex items-end justify-between mb-6">
-          <div>
-            <p className="text-tru-pink text-sm font-semibold uppercase tracking-wider mb-1">For You</p>
-            <h2 className="text-2xl font-bold text-white">Recommended Trips</h2>
+      {/* Saved trips — promoted out of the quick-action tiles so the trips
+          themselves are on the dashboard, not just a count behind a link. */}
+      <section className="relative mb-12">
+        <div className="relative">
+        <SectionHeading eyebrow="Your Shortlist" title="Saved Trips" href="/my-account/saved" linkLabel="Manage saved" />
+        {savedTrips.length > 0 ? (
+          <Swiper
+            modules={[Navigation, FreeMode]}
+            spaceBetween={16}
+            slidesPerView={1.2}
+            freeMode
+            navigation
+            breakpoints={{ 640: { slidesPerView: 2.2 }, 1024: { slidesPerView: 3.2 } }}
+            className="experience-carousel"
+          >
+            {savedTrips.map((trip) => (
+              <SwiperSlide key={trip.id}>
+                <TripCard trip={trip} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <div className="rounded-xl border border-dashed border-white/10 bg-white/5 p-8 text-center">
+            <p className="text-gray-400 text-sm mb-3">You haven&apos;t saved any trips yet.</p>
+            <Link
+              href="/explore"
+              className="text-tru-pink hover:text-tru-pink-light text-sm font-semibold uppercase tracking-wider transition"
+            >
+              Explore trips
+            </Link>
           </div>
-          <Link href="/explore" className="text-sm text-tru-pink hover:text-tru-pink-light transition">
-            View all &rarr;
-          </Link>
+        )}
         </div>
+      </section>
+
+      {/* Recommended trips */}
+      <section className="relative mb-12">
+        <div className="relative">
+        <SectionHeading eyebrow="For You" title="Recommended Trips" href="/explore" />
         <Swiper
           modules={[Navigation, FreeMode]}
           spaceBetween={16}
@@ -228,15 +276,18 @@ function DashboardContent() {
             </SwiperSlide>
           ))}
         </Swiper>
+        </div>
       </section>
 
-      {/* Saved reads (blog stories saved to the account) */}
+      {/* Reads we think you'd like, then the ones you've kept */}
+      <SuggestedReads />
       <SavedReads />
 
       {/* Phase 2 — Messages & Notifications, Exclusive Content and Podcast
           Episodes all sat here. The full layout is kept verbatim at
           src/app/_phase2/dashboard-full/page.tsx. */}
 
+      </div>
     </div>
   );
 }

@@ -4571,3 +4571,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .st-sugg__title { display: block; font-size: 0.875rem; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .st-sugg__meta { display: block; font-size: 11px; color: #6b7280; }
 .st-sugg__none { margin: 0; padding: 1.25rem; font-size: 0.875rem; color: #9ca3af; }
+
+/* Save heart on a story card (mirrors SaveStoryButton's overlay variant).
+   A <span role="button">, not a <button>, because .story-card is an <a> and a
+   button can't be nested inside an anchor. Injected by the enhancer script. */
+.story-card__save { position: absolute; bottom: 0.75rem; right: 0.75rem; z-index: 3; display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; border-radius: 999px; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); color: #fff; cursor: pointer; transition: background 0.2s, color 0.2s; }
+.story-card__save:hover { background: rgba(0,0,0,0.7); color: var(--tru-pink); }
+.story-card__save:focus-visible { outline: 2px solid var(--tru-pink); outline-offset: 2px; }
+.story-card__save.is-saved { color: var(--tru-pink); }
+.story-card__save svg { width: 1.25rem; height: 1.25rem; }

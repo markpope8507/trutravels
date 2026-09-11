@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SaveStoryButton from "@/components/save-story-button";
 import { storyArticles, type Story, MEMBER_CONTENT_ENABLED } from "@/lib/data";
 
 const formatDate = (iso: string) =>
@@ -19,7 +20,19 @@ export default function StoryCard({
       ? `/stories/${story.id}`
       : `/stories#${story.id}`;
   return (
-    <Link href={cardHref} className="group relative block h-full">
+    <div className="relative h-full">
+      {/* Save heart — a sibling of the Link (a button can't live inside an anchor),
+          in the image's bottom-right since the read-time pill holds bottom-left.
+          Hidden on a locked card, where the whole card sends you to sign up. */}
+      {!isLocked && (
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-20 aspect-[3/2]">
+          <div className="pointer-events-auto absolute bottom-3 right-3">
+            <SaveStoryButton storyId={story.id} variant="overlay" />
+          </div>
+        </div>
+      )}
+
+      <Link href={cardHref} className="group relative block h-full">
       <div
         className="relative overflow-hidden rounded-[10px] bg-tru-navy border border-white/10 hover:border-tru-pink/30 transition-all duration-300 h-full flex flex-col"
         style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
@@ -84,6 +97,7 @@ export default function StoryCard({
           </div>
         </div>
       </div>
-    </Link>
+      </Link>
+    </div>
   );
 }

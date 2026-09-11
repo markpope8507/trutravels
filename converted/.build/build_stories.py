@@ -174,9 +174,14 @@ __SCRIPTS__
   (function () {
     var STORIES = __STORIES_JSON__;
     var ARTICLE_IDS = new Set(["top-unesco-world-heritage-sites","is-it-safe-to-visit-south-korea","top-5-places-to-visit-in-thailand","top-5-things-to-do-in-indonesia","best-places-to-travel-in-august","top-6-places-to-visit-in-morocco"]);
+    /* Member-gated content is phase 2 — while this is false, memberOnly is ignored:
+       no locks, no "Exclusive" badges, no signup redirects, and the Member
+       Exclusive facet drops out of the filters. Mirrors MEMBER_CONTENT_ENABLED
+       in src/lib/data.ts. */
+    var MEMBER_CONTENT_ENABLED = false;
     var TOPIC_OPTIONS = [
       { id: "story", label: "Stories" }, { id: "guide", label: "Guides" },
-      { id: "tips", label: "Tips" }, { id: "exclusive", label: "Member Exclusive" },
+      { id: "tips", label: "Tips" },
       { id: "Adventure", label: "Adventure" }, { id: "Food & Culture", label: "Food & Culture" },
       { id: "Solo Travel", label: "Solo Travel" }, { id: "Wellness", label: "Wellness" },
       { id: "Sustainability", label: "Sustainability" }, { id: "Nightlife", label: "Nightlife" },
@@ -229,7 +234,7 @@ __SCRIPTS__
     function hasActive() { return activeCount() > 0 || state.query.trim().length > 0; }
 
     function hrefFor(s) {
-      if (s.memberOnly) return "signup.html";           // static demo treats visitor as logged-out
+      if (MEMBER_CONTENT_ENABLED && s.memberOnly) return "signup.html";
       if (ARTICLE_IDS.has(s.id)) return "story-" + s.id + ".html";
       return "stories.html#" + s.id;
     }
@@ -237,11 +242,11 @@ __SCRIPTS__
     var LOCK = '<div class="story-card__lock"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg><span>Members Only</span></div>';
 
     function cardHTML(s) {
-      var locked = !!s.memberOnly;
+      var locked = MEMBER_CONTENT_ENABLED && !!s.memberOnly;
       return '<a class="story-card' + (locked ? ' story-card--locked' : '') + '" id="' + s.id + '" href="' + hrefFor(s) + '">'
         + '<div class="story-card__media">'
         +   '<img class="story-card__image" src="' + s.image + '" alt="' + esc(s.title) + '" />'
-        +   (s.memberOnly ? '<span class="story-card__badge">Exclusive</span>' : '')
+        +   (MEMBER_CONTENT_ENABLED && s.memberOnly ? '<span class="story-card__badge">Exclusive</span>' : '')
         +   (locked ? LOCK : '')
         +   '<span class="story-card__time">' + s.readTime + ' min</span>'
         + '</div>'
@@ -258,12 +263,12 @@ __SCRIPTS__
     }
 
     function featuredHTML(s) {
-      var locked = !!s.memberOnly;
+      var locked = MEMBER_CONTENT_ENABLED && !!s.memberOnly;
       return '<a class="fstory__card" href="' + hrefFor(s) + '">'
         + '<div class="fstory__media">'
         +   '<img class="fstory__img' + (locked ? ' is-blur' : '') + '" src="' + s.image + '" alt="' + esc(s.title) + '" />'
         +   '<div class="fstory__grad"></div>'
-        +   (s.memberOnly ? '<span class="story-card__badge">Exclusive</span>' : '')
+        +   (MEMBER_CONTENT_ENABLED && s.memberOnly ? '<span class="story-card__badge">Exclusive</span>' : '')
         +   (locked ? LOCK : '')
         + '</div>'
         + '<div class="fstory__body">'
@@ -492,6 +497,62 @@ __SCRIPTS__
     onScroll();
   })();
   </script>
+<script>/* Save-a-read heart on every .story-card — mirrors SaveStoryButton.
+   Injected rather than written into each card's markup so it reaches the
+   JS-rendered grids too (a MutationObserver re-runs it after a re-render).
+   Shares the "trutravels-saved-stories" key with the prototype's dashboard. */
+(function () {
+  var KEY = 'trutravels-saved-stories';
+  var OUT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/></svg>';
+  var FILL = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"/></svg>';
+  function ids() { try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { return []; } }
+  function idFor(card) {
+    var h = card.getAttribute('href') || '';
+    var m = h.match(/story-([a-z0-9-]+)\.html/);
+    if (m) return m[1];
+    m = h.match(/#([a-z0-9-]+)$/);
+    return m ? m[1] : null;
+  }
+  function paint(el, saved) {
+    el.innerHTML = saved ? FILL : OUT;
+    el.classList.toggle('is-saved', saved);
+    el.setAttribute('aria-label', saved ? 'Remove from saved reads' : 'Save this read');
+    el.setAttribute('aria-pressed', saved ? 'true' : 'false');
+  }
+  function enhance() {
+    document.querySelectorAll('.story-card').forEach(function (card) {
+      var media = card.querySelector('.story-card__media');
+      if (!media || media.querySelector('.story-card__save')) return;
+      var id = idFor(card);
+      if (!id) return;
+      var btn = document.createElement('span');
+      btn.className = 'story-card__save';
+      btn.setAttribute('role', 'button');
+      btn.tabIndex = 0;
+      paint(btn, ids().indexOf(id) > -1);
+      function toggle(e) {
+        e.preventDefault(); e.stopPropagation();   /* don't follow the card's link */
+        var list = ids(), i = list.indexOf(id);
+        if (i > -1) list.splice(i, 1); else list.push(id);
+        localStorage.setItem(KEY, JSON.stringify(list));
+        paint(btn, i === -1);
+      }
+      btn.addEventListener('click', toggle);
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') toggle(e); });
+      media.appendChild(btn);
+    });
+  }
+  enhance();
+  /* browse grids re-render on filter/search, so pick up new cards as they appear */
+  var pending = null;
+  new MutationObserver(function () {
+    if (pending) return;
+    /* setTimeout, not requestAnimationFrame — rAF is throttled to a standstill
+       in a background tab, which would leave re-rendered cards without hearts. */
+    pending = setTimeout(function () { pending = null; enhance(); }, 0);
+  }).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
 </body>
 </html>
 '''

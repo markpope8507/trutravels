@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useScrollLock } from "@/lib/use-scroll-lock";
 import Link from "next/link";
+import BookingAddons from "@/components/booking-addons";
 
 const mockBookings = [
   {
@@ -892,92 +893,7 @@ function BookingHistory() {
 
                   {/* ADD-ONS TAB */}
                   {manageTab === "addons" && isUpcoming && (
-                    <div className="space-y-3">
-                      <p className="text-gray-400 text-xs mb-2">Enhance your trip with optional extras. Add before you go and we&apos;ll have everything sorted when you arrive.</p>
-
-                      {/* Pre-Night Hotel */}
-                      <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-[10px] bg-tru-blue/20 flex items-center justify-center flex-shrink-0">
-                          <svg className="h-6 w-6 text-tru-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-white text-sm font-semibold">Pre-Night Hotel</p>
-                          <p className="text-gray-400 text-xs">Arrive a day early and stay at our start hotel in {booking.startLocation}. Beat the jet lag and be fresh for Day 1.</p>
-                        </div>
-                        <div className="flex-shrink-0 text-right">
-                          <p className="text-white text-sm font-semibold">&pound;45</p>
-                          {booking.extras?.preNightHotel ? (
-                            <span className="text-tru-green text-[9px] font-bold uppercase">Booked ✓</span>
-                          ) : (
-                            <button className="rounded-[10px] bg-tru-pink px-4 py-2 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading mt-1">Add</button>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Post-Night Hotel */}
-                      <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-[10px] bg-tru-green/20 flex items-center justify-center flex-shrink-0">
-                          <svg className="h-6 w-6 text-tru-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-white text-sm font-semibold">Post-Night Hotel</p>
-                          <p className="text-gray-400 text-xs">Not ready to leave? Stay an extra night at our end hotel in {booking.endLocation} before heading home.</p>
-                        </div>
-                        <div className="flex-shrink-0 text-right">
-                          <p className="text-white text-sm font-semibold">&pound;45</p>
-                          <button className="rounded-[10px] bg-tru-pink px-4 py-2 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading mt-1">Add</button>
-                        </div>
-                      </div>
-
-                      {/* My Own Room */}
-                      <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-[10px] bg-tru-pink/20 flex items-center justify-center flex-shrink-0">
-                          <svg className="h-6 w-6 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" /></svg>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-white text-sm font-semibold">My Own Room Upgrade</p>
-                          <p className="text-gray-400 text-xs">Upgrade from twin-share to your own private room throughout the trip. Subject to availability.</p>
-                        </div>
-                        <div className="flex-shrink-0 text-right">
-                          <p className="text-white text-sm font-semibold">POA</p>
-                          <button className="rounded-[10px] bg-tru-pink px-4 py-2 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading mt-1">Enquire</button>
-                        </div>
-                      </div>
-
-                      {/* Airport Transfer - Arrival */}
-                      <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-[10px] bg-tru-blue/20 flex items-center justify-center flex-shrink-0">
-                          <svg className="h-6 w-6 text-tru-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H6.375m11.25 0h3.375c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 00-.879-2.121l-3.496-3.496A2.999 2.999 0 0014.25 8.25H6.375c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125z" /></svg>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-white text-sm font-semibold">Airport Arrival Transfer</p>
-                          <p className="text-gray-400 text-xs">We&apos;ll pick you up from {booking.startLocation} airport and take you straight to the hotel. No stress, no scams.</p>
-                        </div>
-                        <div className="flex-shrink-0 text-right">
-                          <p className="text-white text-sm font-semibold">&pound;60</p>
-                          {booking.extras?.airportTransfer ? (
-                            <span className="text-tru-green text-[9px] font-bold uppercase">Booked ✓</span>
-                          ) : (
-                            <button className="rounded-[10px] bg-tru-pink px-4 py-2 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading mt-1">Add</button>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Airport Transfer - Departure */}
-                      <div className="rounded-[10px] border border-white/10 bg-white/5 p-4 flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-[10px] bg-tru-blue/20 flex items-center justify-center flex-shrink-0">
-                          <svg className="h-6 w-6 text-tru-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0H6.375m11.25 0h3.375c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 00-.879-2.121l-3.496-3.496A2.999 2.999 0 0014.25 8.25H6.375c-.621 0-1.125.504-1.125 1.125v8.25c0 .621.504 1.125 1.125 1.125z" /></svg>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-white text-sm font-semibold">Airport Departure Transfer</p>
-                          <p className="text-gray-400 text-xs">Transfer from your end hotel in {booking.endLocation} to the airport on your last day.</p>
-                        </div>
-                        <div className="flex-shrink-0 text-right">
-                          <p className="text-white text-sm font-semibold">&pound;60</p>
-                          <button className="rounded-[10px] bg-tru-pink px-4 py-2 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading mt-1">Add</button>
-                        </div>
-                      </div>
-                    </div>
+                    <BookingAddons booking={booking} />
                   )}
 
                   {/* ACCESS TAB */}

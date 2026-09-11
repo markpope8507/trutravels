@@ -1,11 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import { trips, Trip } from "@/lib/data";
 import AccountGate from "@/components/account-gate";
+import {
+  subscribeSavedTrips,
+  getSavedTripsSnapshot,
+  getServerSnapshot,
+  toggleSavedTrip,
+} from "@/lib/saved-trips";
 import TripCard from "@/components/trip-card";
 
 import "swiper/css";
@@ -14,20 +20,14 @@ import "swiper/css/free-mode";
 
 
 function SavedContent() {
-  const [savedIds, setSavedIds] = useState<string[]>([]);
-
-  useEffect(() => {
-    const favs: string[] = JSON.parse(localStorage.getItem("trutravels-favourites") || "[]");
-    setSavedIds(favs);
-  }, []);
+  // Same store the heart buttons and the dashboard shortlist read, so removing a
+  // trip here updates everywhere without a reload.
+  const raw = useSyncExternalStore(subscribeSavedTrips, getSavedTripsSnapshot, getServerSnapshot);
+  const savedIds: string[] = JSON.parse(raw);
 
   const savedTrips = savedIds.map((id) => trips.find((t) => t.id === id)).filter(Boolean) as Trip[];
 
-  const handleRemove = (id: string) => {
-    const updated = savedIds.filter((sid) => sid !== id);
-    setSavedIds(updated);
-    localStorage.setItem("trutravels-favourites", JSON.stringify(updated));
-  };
+  const handleRemove = (id: string) => toggleSavedTrip(id);
 
   // Generate recommendations based on saved trips
   const savedRegions = [...new Set(savedTrips.map((t) => t.region))];
