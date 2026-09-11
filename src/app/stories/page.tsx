@@ -24,6 +24,7 @@ import FilterSection from "@/components/filter-section";
 import StoryCard from "@/components/story-card";
 import FeaturedStoryCard from "@/components/featured-story-card";
 import PillButton from "@/components/pill-button";
+import StoriesSearch, { storyMatchesQuery } from "@/components/stories-search";
 
 // Phase 1 launch ships WITHOUT the Content Series and Podcasts sections. Their
 // full designs are kept below, gated behind this flag — flip to true to bring
@@ -46,6 +47,8 @@ const TOPIC_OPTIONS: { id: string; label: string }[] = [
   ...storyTopics.map((t) => ({ id: t, label: t })),
 ];
 
+const ALL_STORY_COUNTRIES = STORY_REGIONS.flatMap((r) => r.countries);
+
 const countryStoryCount = (country: string) =>
   stories.filter((s) => s.destinations.includes(country)).length;
 
@@ -58,7 +61,6 @@ export default function StoriesPage() {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
   const [selectedCountries, setSelectedCountries] = useState<Set<string>>(new Set());
   const [selectedMoments, setSelectedMoments] = useState<Set<string>>(new Set());
-  const [sort, setSort] = useState<"latest" | "oldest">("latest");
   const [showFilters, setShowFilters] = useState(false);
   const [openSections, setOpenSections] = useState<Set<string>>(new Set(["topics"]));
   const [openRegions, setOpenRegions] = useState<Set<string>>(new Set());
@@ -71,7 +73,7 @@ export default function StoriesPage() {
     };
   }, [showFilters]);
 
-  // Slide in the fixed filter/sort bar once the in-flow bar scrolls out of view
+  // Slide in the fixed filter bar once the in-flow bar scrolls out of view
   // (mobile) — same behaviour as the tour & explore sticky menus.
   const [navSticky, setNavSticky] = useState(false);
   useEffect(() => {
@@ -85,14 +87,16 @@ export default function StoriesPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Newest first. The Sort By control was removed from the filters; ordering is fixed.
   const sorted = useMemo(
-    () =>
-      [...stories].sort((a, b) =>
-        sort === "latest"
-          ? new Date(b.date).getTime() - new Date(a.date).getTime()
-          : new Date(a.date).getTime() - new Date(b.date).getTime(),
-      ),
-    [sort],
+    () => [...stories].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()),
+    [],
+  );
+
+  // Only suggest what this visitor can actually open.
+  const visibleStories = useMemo(
+    () => sorted.filter((s) => !s.memberOnly || isLoggedIn),
+    [sorted, isLoggedIn],
   );
 
   const featured = sorted[0];
@@ -110,15 +114,8 @@ export default function StoriesPage() {
           return false;
         if (selectedMoments.size && !s.lifeMoments.some((m) => selectedMoments.has(m)))
           return false;
-        if (query.trim()) {
-          const q = query.toLowerCase();
-          if (
-            !s.title.toLowerCase().includes(q) &&
-            !s.excerpt.toLowerCase().includes(q)
-          ) {
-            return false;
-          }
-        }
+        // Same matcher the search dropdown uses, so the grid and its suggestions agree.
+        if (!storyMatchesQuery(s, query)) return false;
         return true;
       }),
     [rest, selectedTags, selectedCountries, selectedMoments, query],
@@ -127,13 +124,12 @@ export default function StoriesPage() {
   const activeFilterCount = selectedTags.size + selectedCountries.size + selectedMoments.size;
   const hasActiveFilters = activeFilterCount > 0 || query.trim().length > 0;
 
-  // Reset the visible count back to one page whenever the filters/sort change.
+  // Reset the visible count back to one page whenever the filters change.
   const filterKey = JSON.stringify([
     [...selectedTags].sort(),
     [...selectedCountries].sort(),
     [...selectedMoments].sort(),
     query.trim(),
-    sort,
   ]);
   const [prevFilterKey, setPrevFilterKey] = useState(filterKey);
   if (filterKey !== prevFilterKey) {
@@ -155,6 +151,15 @@ export default function StoriesPage() {
   const toggleSection = makeToggle(setOpenSections);
   const toggleRegion = makeToggle(setOpenRegions);
 
+  // A dropdown suggestion applies the matching filter (and opens its section so the
+  // tick is visible) rather than just dumping text into the query box.
+  const applyFacet = (f: { kind: "topic" | "country" | "moment"; value: string }) => {
+    if (f.kind === "topic") { toggleTag(f.value); setOpenSections((p) => new Set(p).add("topics")); }
+    if (f.kind === "country") { toggleCountry(f.value); setOpenSections((p) => new Set(p).add("destination")); }
+    if (f.kind === "moment") { toggleMoment(f.value); setOpenSections((p) => new Set(p).add("moment")); }
+    setQuery("");
+  };
+
   const clearAll = () => {
     setSelectedTags(new Set());
     setSelectedCountries(new Set());
@@ -170,15 +175,16 @@ export default function StoriesPage() {
   const mobileBarContent = (
     <div className="flex items-center gap-3">
       <div className="relative flex-1">
-        <svg className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+        <StoriesSearch
+          variant="mobile"
           placeholder="Search stories…"
-          className="w-full bg-white/5 border border-white/15 rounded-full pl-10 pr-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
+          query={query}
+          onQueryChange={setQuery}
+          stories={visibleStories}
+          topics={TOPIC_OPTIONS}
+          countries={ALL_STORY_COUNTRIES}
+          moments={storyLifeMoments}
+          onApplyFacet={applyFacet}
         />
       </div>
       <button
@@ -200,24 +206,6 @@ export default function StoriesPage() {
 
   const FilterPanel = (
     <div className="space-y-4">
-      {/* Sort By — matches the Deals filter */}
-      <div>
-        <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-2">Sort By</p>
-        <div className="relative">
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as "latest" | "oldest")}
-            className="w-full appearance-none bg-tru-navy border border-white/15 rounded-[10px] px-3 py-2.5 text-sm text-white font-semibold focus:outline-none focus:border-tru-pink/50 cursor-pointer"
-          >
-            <option value="latest">Latest</option>
-            <option value="oldest">Oldest</option>
-          </select>
-          <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
-        </div>
-      </div>
-
       {/* Topics — content types + editorial topics, combined */}
       <FilterSection
         title="Topics"
@@ -573,17 +561,16 @@ export default function StoriesPage() {
                 {mobileBarContent}
               </div>
 
-              {/* Desktop: search (sort + filters live in the sidebar) */}
+              {/* Desktop: search (filters live in the sidebar) */}
               <div className="relative hidden lg:block mb-6">
-                <svg className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search stories, guides, destinations…"
-                  className="w-full bg-white/5 border border-white/10 rounded-[10px] pl-12 pr-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
+                <StoriesSearch
+                  query={query}
+                  onQueryChange={setQuery}
+                  stories={visibleStories}
+                  topics={TOPIC_OPTIONS}
+                  countries={ALL_STORY_COUNTRIES}
+                  moments={storyLifeMoments}
+                  onApplyFacet={applyFacet}
                 />
               </div>
 

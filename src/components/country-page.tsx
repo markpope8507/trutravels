@@ -13,7 +13,7 @@ import PillButton from "@/components/pill-button";
 import DestinationsCarousel from "@/components/destinations-carousel";
 import { useAuth } from "@/lib/auth-context";
 import { tripUrl } from "@/lib/utils";
-import { getAvailabilityTier } from "@/lib/availability";
+import { getAvailabilityTier, getDepartureMode, DEPARTURE_MODES } from "@/lib/availability";
 import { useToursDisclosure, toggleToursDisclosure } from "@/lib/use-tours-disclosure";
 
 import "swiper/css";
@@ -478,6 +478,10 @@ function DepartureRow({ trip, dep }: DepartureEntry) {
       ? Math.round(((dep.originalPrice - dep.price) / dep.originalPrice) * 100)
       : 0;
   const availability = getAvailabilityTier(dep.spotsLeft, dep.status);
+  // A departure can be unbookable for two different reasons — sold out, or too
+  // close to departure to sell instantly. Show which, not just "unavailable".
+  const mode = getDepartureMode(dep.date, dep.status);
+  const modeCopy = mode === "instant" ? null : DEPARTURE_MODES[mode];
 
   return (
     <div
@@ -506,8 +510,12 @@ function DepartureRow({ trip, dep }: DepartureEntry) {
             <> &middot; {trip.startLocation} &mdash; {trip.endLocation}</>
           )}
         </p>
-        <span className={`inline-flex items-center gap-1.5 mt-2 ${availability.text} text-[10px] font-bold uppercase tracking-wider font-heading`}>
-          <span className={`h-1.5 w-1.5 rounded-full flex-shrink-0 ${availability.dot}`} /> {availability.label}
+        <span
+          className={`inline-flex items-center gap-1.5 mt-2 ${modeCopy ? modeCopy.text : availability.text} text-[10px] font-bold uppercase tracking-wider font-heading`}
+          title={modeCopy?.hint}
+        >
+          <span className={`h-1.5 w-1.5 rounded-full flex-shrink-0 ${modeCopy ? modeCopy.dot : availability.dot}`} />{" "}
+          {modeCopy ? modeCopy.label : availability.label}
         </span>
       </div>
 
@@ -532,7 +540,7 @@ function DepartureRow({ trip, dep }: DepartureEntry) {
           className="rounded-[10px] px-4 sm:px-5 py-2.5 text-xs font-bold uppercase tracking-wider font-heading border whitespace-nowrap flex-shrink-0 transition-all duration-200"
           style={{ backgroundColor: "#FFD814", borderColor: "#FCD200", color: "#0F1111" }}
         >
-          View Trip &rarr;
+          {modeCopy ? modeCopy.action : "View Trip"} &rarr;
         </Link>
       </div>
     </div>

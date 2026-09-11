@@ -68,3 +68,75 @@ export function getAvailabilityTier(
   }
   return status === "almost-full" ? AVAILABILITY_TIERS["almost-full"] : AVAILABILITY_TIERS.good;
 }
+
+/* ------------------------------------------------------------------------
+   Two different reasons a departure can't be booked instantly. They are NOT
+   interchangeable, and the UI must never let them read the same way:
+
+   FULL        — every place is gone. Nothing to sell. The traveller joins a
+                 waitlist and only hears from us if someone cancels.
+   ON REQUEST  — there may well be places, but we can't promise them. Inside
+                 ON_REQUEST_DAYS of departure we hand unsold inventory back to
+                 our local suppliers, so the seat count we hold is no longer
+                 authoritative. Instant book is switched off and the team
+                 confirms with the supplier by hand before anything is paid.
+
+   Short version: full = "no space, queue for a cancellation";
+                  on request = "maybe space, let us check".
+   ------------------------------------------------------------------------ */
+
+/** Inside this many days of departure, instant booking is switched off. */
+export const ON_REQUEST_DAYS = 10;
+
+export type DepartureBookingMode = "instant" | "on-request" | "full";
+
+export type DepartureModeCopy = {
+  /** Status shown beside the date. */
+  label: string;
+  /** The call to action on the row and its button. */
+  action: string;
+  /** One line explaining what the traveller is actually doing. */
+  hint: string;
+  dot: string;
+  text: string;
+};
+
+export const DEPARTURE_MODES: Record<Exclude<DepartureBookingMode, "instant">, DepartureModeCopy> = {
+  "on-request": {
+    label: "On request",
+    action: "Check availability",
+    hint: "Close to departure, so we confirm places with our local team before you pay.",
+    dot: "bg-tru-blue",
+    text: "text-tru-blue",
+  },
+  full: {
+    label: "Fully booked",
+    action: "Join waitlist",
+    hint: "Every place is taken — we'll call you first if a cancellation frees one up.",
+    dot: "bg-gray-500",
+    text: "text-gray-400",
+  },
+};
+
+/** Whole days between today and a departure date. Negative once it has left. */
+export function daysUntilDeparture(date: string, from: Date = new Date()): number {
+  const dep = new Date(date);
+  dep.setHours(0, 0, 0, 0);
+  const today = new Date(from);
+  today.setHours(0, 0, 0, 0);
+  return Math.round((dep.getTime() - today.getTime()) / 86_400_000);
+}
+
+/**
+ * How a departure can be booked. "full" always wins — a sold-out departure
+ * close to departure is still sold out, not something we can go and check.
+ */
+export function getDepartureMode(
+  date: string,
+  status?: string,
+  from: Date = new Date(),
+): DepartureBookingMode {
+  if (status === "full") return "full";
+  const days = daysUntilDeparture(date, from);
+  return days >= 0 && days <= ON_REQUEST_DAYS ? "on-request" : "instant";
+}

@@ -5,7 +5,15 @@ import { useScrollLock } from "@/lib/use-scroll-lock";
 import { useAuth } from "@/lib/auth-context";
 import { useAuthModal } from "@/lib/auth-modal";
 import { useCart } from "@/lib/cart-context";
-import { AVAILABILITY_TIERS, AVAILABILITY_TIER_ORDER, getAvailabilityTier } from "@/lib/availability";
+import {
+  AVAILABILITY_TIERS,
+  AVAILABILITY_TIER_ORDER,
+  getAvailabilityTier,
+  getDepartureMode,
+  daysUntilDeparture,
+  DEPARTURE_MODES,
+  ON_REQUEST_DAYS,
+} from "@/lib/availability";
 
 type Departure = {
   date: string;
@@ -31,7 +39,7 @@ type BookingModalProps = {
 
 /** States with no equivalent on the destination page, kept as-is. */
 const specialStatusConfig = {
-  full: { label: "Full", dot: "bg-gray-500" },
+  full: { label: DEPARTURE_MODES.full.label, dot: DEPARTURE_MODES.full.dot },
   discount: { label: "On Sale", dot: "bg-tru-pink" },
 };
 
@@ -50,6 +58,7 @@ function departureStatus(dep: Departure) {
 const legendItems = [
   ...AVAILABILITY_TIER_ORDER.map((id) => AVAILABILITY_TIERS[id]),
   specialStatusConfig.discount,
+  { label: DEPARTURE_MODES["on-request"].label, dot: DEPARTURE_MODES["on-request"].dot },
   specialStatusConfig.full,
 ];
 
@@ -88,7 +97,7 @@ export default function BookingModal({
   const [selected, setSelected] = useState<Departure | null>(null);
   const [notifySignedUp, setNotifySignedUp] = useState(false);
   const [travellers, setTravellers] = useState(1);
-  const [step, setStep] = useState<"dates" | "confirm" | "waitlist">("dates");
+  const [step, setStep] = useState<"dates" | "confirm" | "waitlist" | "request">("dates");
   const [selectedYear, setSelectedYear] = useState(2026);
   const [waitlistDone, setWaitlistDone] = useState(false);
   const [waitlist, setWaitlist] = useState({ name: "", email: "", phone: "", message: "" });
@@ -119,12 +128,12 @@ export default function BookingModal({
 
   const handleSelect = (dep: Departure) => {
     setSelected(dep);
-    if (dep.status === "full") {
-      setWaitlistDone(false);
-      setStep("waitlist");
-    } else {
-      setStep("confirm");
-    }
+    const mode = getDepartureMode(dep.date, dep.status);
+    if (mode === "instant") { setStep("confirm"); return; }
+    // Full and on-request both collect details, but they are different asks —
+    // a waitlist place versus an availability check — so they are separate steps.
+    setWaitlistDone(false);
+    setStep(mode === "full" ? "waitlist" : "request");
   };
 
   const handleBack = () => {
@@ -157,7 +166,13 @@ export default function BookingModal({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-white/10">
           <div>
-            <p className="text-white font-bold text-base">{step === "dates" ? "Choose Your Date" : step === "waitlist" ? "Join The Waitlist" : "Confirm Booking"}</p>
+            <p className="text-white font-bold text-base">{step === "dates"
+                ? "Choose Your Date"
+                : step === "waitlist"
+                ? "Join The Waitlist"
+                : step === "request"
+                ? "Check Availability"
+                : "Confirm Booking"}</p>
             <p className="text-gray-400 text-xs">{tripTitle} &middot; {duration}</p>
           </div>
           <button onClick={onClose} className="text-gray-400 hover:text-white transition">
@@ -265,7 +280,15 @@ export default function BookingModal({
                     <div className="space-y-2">
                       {deps.map((dep) => {
                         const config = departureStatus(dep);
-                        const isFull = dep.status === "full";
+                        const mode = getDepartureMode(dep.date, dep.status);
+                        const isFull = mode === "full";
+                        const isOnRequest = mode === "on-request";
+                        const modeCopy = isFull
+                          ? DEPARTURE_MODES.full
+                          : isOnRequest
+                          ? DEPARTURE_MODES["on-request"]
+                          : null;
+                        const daysAway = daysUntilDeparture(dep.date);
                         return (
                           <button
                             key={dep.date}
@@ -273,18 +296,25 @@ export default function BookingModal({
                             className={`w-full flex items-center justify-between rounded-[10px] border px-4 py-3 transition-all duration-200 text-left ${
                               isFull
                                 ? "border-white/10 bg-white/[0.03] hover:border-tru-pink/40 hover:bg-tru-pink/[0.06]"
+                                : isOnRequest
+                                ? "border-tru-blue/30 bg-tru-blue/[0.06] hover:border-tru-blue/60 hover:bg-tru-blue/10"
                                 : selected?.date === dep.date
                                 ? "border-tru-pink bg-tru-pink/10"
                                 : "border-white/10 bg-white/5 hover:border-white/20 hover:bg-white/10"
                             }`}
                           >
                             <div className="flex items-center gap-3">
-                              <div className={`h-2.5 w-2.5 rounded-full flex-shrink-0 ${config.dot}`} />
+                              <div className={`h-2.5 w-2.5 rounded-full flex-shrink-0 ${isOnRequest ? DEPARTURE_MODES["on-request"].dot : config.dot}`} />
                               <div>
                                 <p className={`text-sm font-medium ${isFull ? "text-gray-300" : "text-white"}`}>{formatDate(dep.date)}</p>
                                 <p className="text-gray-400 text-[11px]">
-                                  {config.label}
-                                  {isFull && <span className="text-tru-pink ml-1.5">&middot; Join the waitlist</span>}
+                                  {isOnRequest ? DEPARTURE_MODES["on-request"].label : config.label}
+                                  {isFull && <span className="text-tru-pink ml-1.5">&middot; no spots left</span>}
+                                  {isOnRequest && (
+                                    <span className="text-tru-blue ml-1.5">
+                                      &middot; leaves in {daysAway === 0 ? "today" : daysAway === 1 ? "1 day" : `${daysAway} days`}
+                                    </span>
+                                  )}
                                   {dep.discount && (
                                     <span className="text-tru-pink ml-1.5">
                                       &middot; {dep.discount}
@@ -297,9 +327,9 @@ export default function BookingModal({
                               </div>
                             </div>
                             <div className="text-right">
-                              {isFull ? (
-                                <span className="inline-flex items-center gap-1 text-tru-pink text-[11px] font-bold uppercase tracking-wider font-heading">
-                                  Request Spot
+                              {modeCopy ? (
+                                <span className={`inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider font-heading ${isFull ? "text-tru-pink" : "text-tru-blue"}`}>
+                                  {modeCopy.action}
                                   <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                                   </svg>
@@ -328,8 +358,11 @@ export default function BookingModal({
                 );
               })()}
             </div>
-          ) : step === "waitlist" && selected ? (
-            /* Waitlist step — request a spot on a full date */
+          ) : (step === "waitlist" || step === "request") && selected ? (
+            /* Two different asks share this form. "waitlist" = the departure is full
+               and you are queuing for a cancellation. "request" = the departure is
+               inside the instant-book cut-off and we have to confirm places with the
+               supplier. The copy below must keep them clearly apart. */
             <div className="p-6">
               <button onClick={handleBack} className="flex items-center gap-1 text-gray-400 hover:text-white transition text-sm mb-6">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -346,18 +379,53 @@ export default function BookingModal({
                     </svg>
                   </div>
                   <h3 className="text-2xl font-black text-white uppercase font-heading tracking-tight mb-2">
-                    You&apos;re On The <span className="text-tru-pink">Waitlist</span>
+                    {step === "waitlist" ? (
+                      <>You&apos;re On The <span className="text-tru-pink">Waitlist</span></>
+                    ) : (
+                      <>We&apos;re <span className="text-tru-blue">Checking</span></>
+                    )}
                   </h3>
                   <p className="text-gray-300 text-sm leading-relaxed max-w-sm mx-auto">
-                    Thanks{waitlist.name ? `, ${waitlist.name.split(" ")[0]}` : ""} — {formatDate(selected.date)} is currently full, but we&apos;ve passed your details to the team. If a spot frees up from a cancellation, you&apos;ll be the first we call.
+                    {step === "waitlist" ? (
+                      <>Thanks{waitlist.name ? `, ${waitlist.name.split(" ")[0]}` : ""} — {formatDate(selected.date)} is fully booked, so we&apos;ve added you to the waitlist. If a cancellation frees up a place, you&apos;ll be the first we call. Nothing is held or charged in the meantime.</>
+                    ) : (
+                      <>Thanks{waitlist.name ? `, ${waitlist.name.split(" ")[0]}` : ""} — we&apos;re confirming places on {formatDate(selected.date)} with our local team now. We&apos;ll come back to you within 24 hours either way. Nothing is charged until a place is confirmed.</>
+                    )}
                   </p>
                 </div>
               ) : (
                 <>
-                  <div className="rounded-[10px] border border-tru-pink/25 bg-tru-pink/[0.06] p-4 mb-6">
-                    <p className="text-white text-sm font-bold">{formatDate(selected.date)} &middot; Full</p>
+                  <div
+                    className={`rounded-[10px] border p-4 mb-6 ${
+                      step === "waitlist"
+                        ? "border-tru-pink/25 bg-tru-pink/[0.06]"
+                        : "border-tru-blue/30 bg-tru-blue/[0.08]"
+                    }`}
+                  >
+                    <p className="text-white text-sm font-bold">
+                      {formatDate(selected.date)} &middot;{" "}
+                      {step === "waitlist" ? DEPARTURE_MODES.full.label : DEPARTURE_MODES["on-request"].label}
+                    </p>
                     <p className="text-gray-300 text-xs leading-relaxed mt-1">
-                      This departure is fully booked. Leave your details and we&apos;ll keep them on file — if a spot opens up from a cancellation, you&apos;ll be first to know.
+                      {step === "waitlist" ? (
+                        <>
+                          Every place on this departure is taken. Leave your details and we&apos;ll hold them on
+                          file — if someone cancels, you&apos;ll be the first we call. This doesn&apos;t reserve a
+                          place or charge you anything.
+                        </>
+                      ) : (
+                        <>
+                          This departure leaves in{" "}
+                          <span className="text-white font-semibold">
+                            {daysUntilDeparture(selected.date)} day
+                            {daysUntilDeparture(selected.date) === 1 ? "" : "s"}
+                          </span>
+                          , so it&apos;s come off instant booking. Within {ON_REQUEST_DAYS}{" "}
+                          days of departure we
+                          release unsold places back to our local partners, so we need to check what&apos;s still
+                          available before you pay. Send a request and we&apos;ll confirm within 24 hours.
+                        </>
+                      )}
                     </p>
                   </div>
 
@@ -376,13 +444,17 @@ export default function BookingModal({
                     </div>
                     <div>
                       <label className="block text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-2">Message</label>
-                      <textarea rows={3} value={waitlist.message} onChange={updateWaitlist("message")} placeholder="Anything we should know? (flexible on dates, group size, etc.)" className={`${waitlistInput} resize-none`} />
+                      <textarea rows={3} value={waitlist.message} onChange={updateWaitlist("message")} placeholder={step === "waitlist" ? "Anything we should know? (flexible on dates, group size, etc.)" : "How many travellers, and any flexibility on dates?"} className={`${waitlistInput} resize-none`} />
                     </div>
                     <button
                       type="submit"
-                      className="w-full inline-flex items-center justify-center gap-2 rounded-[10px] bg-tru-pink hover:bg-tru-pink-light text-white px-6 py-3 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200"
+                      className={`w-full inline-flex items-center justify-center gap-2 rounded-[10px] text-white px-6 py-3 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200 ${
+                        step === "waitlist"
+                          ? "bg-tru-pink hover:bg-tru-pink-light"
+                          : "bg-tru-blue hover:bg-tru-blue/80"
+                      }`}
                     >
-                      Request A Spot
+                      {step === "waitlist" ? "Join The Waitlist" : "Request Availability"}
                       <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                       </svg>

@@ -275,6 +275,7 @@
             <div class="st-search st-search--pill">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
               <input type="text" data-search placeholder="Search stories&hellip;" />
+              <div class="st-sugg" data-sugg hidden></div>
             </div>
             <button class="st-filter-btn" data-open-drawer type="button"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4h18M6 12h12M10 20h4"/></svg> Filters <span class="st-filter-btn__count" data-mobile-filter-count hidden>0</span></button>
           </div>
@@ -283,6 +284,7 @@
           <div class="st-search st-search--desktop">
             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             <input type="text" data-search placeholder="Search stories, guides, destinations&hellip;" />
+            <div class="st-sugg" data-sugg hidden></div>
           </div>
 
           <p class="st-count">Showing <span data-showing>0</span> of <span data-total>0</span> <span data-total-label>stories</span><button class="st-count__clear" data-clear-all hidden type="button">Clear all</button></p>
@@ -872,7 +874,7 @@
   </script>
   <script>/* ===================== STORIES hub — data + browse ===================== */
   (function () {
-    var STORIES = [{"id": "top-unesco-world-heritage-sites", "title": "Top UNESCO World Heritage Sites You Need to Visit", "excerpt": "From the Great Barrier Reef to the Treasury at Petra — 10 of the most jaw-dropping UNESCO World Heritage Sites on the planet, and how to add them to your bucket list.", "image": "https://cdn.trutravels.com/jordan-tours/jordan-uncovered-desert-petra-walking-tour.jpg", "author": "Sophie", "date": "2026-06-13", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Local Stories"], "lifeMoments": ["First Big Trip", "Gap Year"], "destinations": ["Asia", "Indonesia", "Africa", "Morocco", "Jordan"], "readTime": 4}, {"id": "is-it-safe-to-visit-south-korea", "title": "Is It Safe to Visit South Korea?", "excerpt": "K-pop, neon-lit streets and some of the safest cities on Earth. Here's everything you need to know about staying safe in South Korea — and why it's perfect for first-time travellers.", "image": "https://cdn.trutravels.com/south-korea/seoul-exploring-day-1.jpg", "author": "Sophie", "date": "2026-06-09", "category": "Travel Tips", "type": "tips", "topics": ["Solo Travel", "Food & Culture"], "lifeMoments": ["First Big Trip", "Post-Uni"], "destinations": ["Asia", "South Korea"], "readTime": 5}, {"id": "top-5-places-to-visit-in-thailand", "title": "Top 5 Places to Visit in Thailand", "excerpt": "Turquoise water, jungle hideaways and full moon parties. These are the five Thailand spots you cannot miss — and how to string them together into the ultimate island-hopping trip.", "image": "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg", "author": "Sophie", "date": "2026-06-05", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Nightlife", "Food & Culture"], "lifeMoments": ["Gap Year", "First Big Trip"], "destinations": ["Asia", "Thailand"], "readTime": 5}, {"id": "top-5-things-to-do-in-indonesia", "title": "Top 5 Things to Do in Indonesia", "excerpt": "Beyond Bali lie 17,000 islands of volcanoes, jungle and pink-sand beaches. Here are five unmissable Indonesian experiences — from cooking with locals to sunrise on Mount Batur.", "image": "https://cdn.trutravels.com/indonesia-images/surfing-lesson-bali.jpg", "author": "Sophie", "date": "2026-06-03", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Sustainability"], "lifeMoments": ["Gap Year", "First Big Trip"], "destinations": ["Asia", "Indonesia", "Bali"], "readTime": 4}, {"id": "best-places-to-travel-in-august", "title": "Best Places to Travel in August", "excerpt": "Dry-season Bali, the jungles of Northern Thailand and Greek island-hopping under the summer sun. Where to point your compass for the best month of the year.", "image": "https://cdn.trutravels.com/greece/greece-island-hopper-026.jpg", "author": "TruTravels Team", "date": "2026-06-02", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Nightlife"], "lifeMoments": ["Gap Year", "First Big Trip", "Career Break"], "destinations": ["Asia", "Indonesia", "Bali", "Thailand", "Europe", "Greece"], "readTime": 4}, {"id": "top-6-places-to-visit-in-morocco", "title": "Top 6 Places to Visit in Morocco", "excerpt": "Marrakech medinas, the blue streets of Chefchaouen, the dunes of the Sahara and the peaks of the High Atlas. Six unmissable Moroccan stops for culture and adventure.", "image": "https://cdn.trutravels.com/morocco-images/morocco-uncovered-marrakech-jardin-group-picture.jpg", "author": "Sophie", "date": "2026-05-20", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Local Stories"], "lifeMoments": ["First Big Trip", "Gap Year"], "destinations": ["Africa", "Morocco"], "readTime": 4}, {"id": "why-i-quit-my-job-to-travel", "title": "Why I Quit My Job to Travel Southeast Asia", "excerpt": "I was 26, burnt out, and stuck in a cycle. One email changed everything. Here's what happened when I booked a one-way ticket.", "image": "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=800&q=80", "author": "Sophie Chen", "date": "2025-12-15", "category": "Travel Stories", "type": "story", "topics": ["Solo Travel", "Local Stories"], "lifeMoments": ["Career Break", "Quarter-Life Reset"], "destinations": ["Asia", "Thailand"], "readTime": 7}, {"id": "hidden-gems-of-bali", "title": "10 Hidden Gems in Bali Most Tourists Miss", "excerpt": "Skip the crowds and discover secret waterfalls, empty surf breaks, and local warungs that'll change how you see Bali.", "image": "https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=800&q=80", "author": "Jake Morrison", "date": "2025-11-28", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Local Stories", "Food & Culture"], "lifeMoments": ["Gap Year", "First Big Trip"], "destinations": ["Asia", "Indonesia", "Bali"], "readTime": 9}, {"id": "solo-female-travel-tips", "title": "Solo Female Travel: What I Wish I Knew Before My First Trip", "excerpt": "From safety tips to the unexpected friendships, here's the honest guide I wish someone had given me.", "image": "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80", "author": "Priya Kapoor", "date": "2025-11-10", "category": "Travel Tips", "type": "tips", "topics": ["Solo Travel", "Wellness"], "lifeMoments": ["First Big Trip", "Post-Uni"], "destinations": ["Asia"], "readTime": 6}, {"id": "best-hostels-in-thailand", "title": "The Best Hostels in Thailand for Group Travellers", "excerpt": "Not all hostels are created equal. These are the ones where you'll make lifelong friends and actually get a good night's sleep.", "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80", "author": "Tom Ashworth", "date": "2025-10-22", "category": "Destination Guides", "type": "guide", "topics": ["Budget Tips", "Nightlife"], "lifeMoments": ["Gap Year", "First Big Trip", "Post-Uni"], "destinations": ["Asia", "Thailand"], "readTime": 8}, {"id": "member-secret-itinerary-vietnam", "title": "The Secret Vietnam Itinerary Only Locals Know", "excerpt": "Our local guides shared the spots they take their own friends. This is the Vietnam you won't find on Google.", "image": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80", "author": "TruTravels Team", "date": "2025-10-05", "category": "Member Exclusive", "memberOnly": true, "type": "exclusive", "topics": ["Local Stories", "Food & Culture", "Adventure"], "lifeMoments": ["Sabbatical", "Career Break"], "destinations": ["Asia", "Vietnam"], "readTime": 12}, {"id": "member-packing-guide", "title": "The Ultimate Packing Guide for 2+ Weeks in Asia", "excerpt": "Pack like a pro. Our tried-and-tested list for travelling light without missing a thing.", "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80", "author": "TruTravels Team", "date": "2025-09-18", "category": "Member Exclusive", "memberOnly": true, "type": "exclusive", "topics": ["Budget Tips"], "lifeMoments": ["First Big Trip", "Gap Year"], "destinations": ["Asia"], "readTime": 5}, {"id": "planeterra-elephant-sanctuary", "title": "Inside Our Planeterra Project: A Day at the Elephant Sanctuary", "excerpt": "How one Chiang Mai sanctuary is rewriting the rules of ethical tourism — and what it's like to spend a day there.", "image": "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=800&q=80", "author": "TruTravels Team", "date": "2025-09-02", "category": "Sustainability", "type": "story", "topics": ["Sustainability", "Local Stories"], "lifeMoments": ["Sabbatical", "First Big Trip"], "destinations": ["Asia", "Thailand"], "readTime": 8}, {"id": "wellness-reset-bali", "title": "A Two-Week Wellness Reset in Ubud", "excerpt": "Yoga at sunrise, rice-paddy walks, and the cleanest food of your life. Here's how to do Ubud properly.", "image": "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800&q=80", "author": "Nina Waves", "date": "2025-08-20", "category": "Wellness", "type": "guide", "topics": ["Wellness", "Food & Culture"], "lifeMoments": ["Quarter-Life Reset", "Sabbatical", "Career Break"], "destinations": ["Asia", "Indonesia", "Bali"], "readTime": 10}, {"id": "top-things-to-do-in-peru", "title": "Top Things to Do in Peru", "excerpt": "Machu Picchu at sunrise, the Rainbow Mountains, and ceviche in Lima. How to make the most of Peru — from the Sacred Valley to the edge of the Amazon.", "image": "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80", "author": "Marcus Cole", "date": "2026-05-28", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Local Stories"], "lifeMoments": ["Gap Year", "First Big Trip"], "destinations": ["Central & South America", "Peru"], "readTime": 6}, {"id": "mexico-for-first-timers", "title": "Mexico for First-Timers", "excerpt": "Tacos al pastor, cenote swims and Mayan ruins. Everything a first-timer needs to know to fall in love with Mexico.", "image": "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80", "author": "Priya Kapoor", "date": "2026-05-12", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Nightlife"], "lifeMoments": ["First Big Trip", "Post-Uni"], "destinations": ["Central & South America", "Mexico"], "readTime": 5}, {"id": "costa-rica-pura-vida", "title": "Costa Rica: A Pura Vida Adventure", "excerpt": "Cloud forests, volcano hikes and surf towns where the only plan is no plan. Why Costa Rica is the ultimate reset.", "image": "https://cdn.trutravels.com/images/costarica.jpg", "author": "Nina Waves", "date": "2026-04-30", "category": "Travel Stories", "type": "story", "topics": ["Adventure", "Sustainability", "Wellness"], "lifeMoments": ["Career Break", "Quarter-Life Reset"], "destinations": ["Central & South America", "Costa Rica"], "readTime": 7}, {"id": "greek-island-hopping-guide", "title": "The Ultimate Greek Island-Hopping Guide", "excerpt": "Whitewashed villages, midnight ferries and beaches you'll never want to leave. How to island-hop the Cyclades like a pro.", "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80", "author": "Sophie Chen", "date": "2026-05-20", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Nightlife"], "lifeMoments": ["First Big Trip", "Gap Year"], "destinations": ["Europe", "Greece"], "readTime": 6}, {"id": "albania-europes-secret", "title": "Why Albania Is Europe's Best-Kept Secret", "excerpt": "Turquoise coastlines, mountain villages and prices that feel like a glitch. Albania is the Europe trip your mates haven't done yet.", "image": "https://cdn.trutravels.com/albania/kayaking-1.jpeg", "author": "Tom Ashworth", "date": "2026-04-22", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Budget Tips", "Local Stories"], "lifeMoments": ["Gap Year", "First Big Trip"], "destinations": ["Europe", "Albania"], "readTime": 5}, {"id": "italy-backpacker-budget", "title": "Italy on a Backpacker Budget", "excerpt": "Yes, you can do Italy without going broke. Cheap eats, free sights and the trains that make it all work.", "image": "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80", "author": "Tom Ashworth", "date": "2026-03-30", "category": "Travel Tips", "type": "tips", "topics": ["Budget Tips", "Food & Culture"], "lifeMoments": ["Post-Uni", "First Big Trip"], "destinations": ["Europe", "Italy"], "readTime": 6}];
+    var STORIES = [{"id": "top-unesco-world-heritage-sites", "title": "Top UNESCO World Heritage Sites You Need to Visit", "excerpt": "From the Great Barrier Reef to the Treasury at Petra — 10 of the most jaw-dropping UNESCO World Heritage Sites on the planet, and how to add them to your bucket list.", "image": "https://cdn.trutravels.com/jordan-tours/jordan-uncovered-desert-petra-walking-tour.jpg", "author": "Sophie", "date": "2026-06-13", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Local Stories"], "lifeMoments": ["Gap Year", "Looking To Challenge Myself"], "destinations": ["Asia", "Indonesia", "Africa", "Morocco", "Jordan"], "readTime": 4}, {"id": "is-it-safe-to-visit-south-korea", "title": "Is It Safe to Visit South Korea?", "excerpt": "K-pop, neon-lit streets and some of the safest cities on Earth. Here's everything you need to know about staying safe in South Korea — and why it's perfect for first-time travellers.", "image": "https://cdn.trutravels.com/south-korea/seoul-exploring-day-1.jpg", "author": "Sophie", "date": "2026-06-09", "category": "Travel Tips", "type": "tips", "topics": ["Solo Travel", "Food & Culture"], "lifeMoments": ["Just Left Uni", "Solo Soul Searcher"], "destinations": ["Asia", "South Korea"], "readTime": 5}, {"id": "top-5-places-to-visit-in-thailand", "title": "Top 5 Places to Visit in Thailand", "excerpt": "Turquoise water, jungle hideaways and full moon parties. These are the five Thailand spots you cannot miss — and how to string them together into the ultimate island-hopping trip.", "image": "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg", "author": "Sophie", "date": "2026-06-05", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Nightlife", "Food & Culture"], "lifeMoments": ["Gap Year", "Just Left Uni"], "destinations": ["Asia", "Thailand"], "readTime": 5}, {"id": "top-5-things-to-do-in-indonesia", "title": "Top 5 Things to Do in Indonesia", "excerpt": "Beyond Bali lie 17,000 islands of volcanoes, jungle and pink-sand beaches. Here are five unmissable Indonesian experiences — from cooking with locals to sunrise on Mount Batur.", "image": "https://cdn.trutravels.com/indonesia-images/surfing-lesson-bali.jpg", "author": "Sophie", "date": "2026-06-03", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Sustainability"], "lifeMoments": ["Gap Year", "Looking To Challenge Myself"], "destinations": ["Asia", "Indonesia", "Bali"], "readTime": 4}, {"id": "best-places-to-travel-in-august", "title": "Best Places to Travel in August", "excerpt": "Dry-season Bali, the jungles of Northern Thailand and Greek island-hopping under the summer sun. Where to point your compass for the best month of the year.", "image": "https://cdn.trutravels.com/greece/greece-island-hopper-026.jpg", "author": "TruTravels Team", "date": "2026-06-02", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Nightlife"], "lifeMoments": ["Gap Year", "Just Left Uni", "Work Break Recharge"], "destinations": ["Asia", "Indonesia", "Bali", "Thailand", "Europe", "Greece"], "readTime": 4}, {"id": "top-6-places-to-visit-in-morocco", "title": "Top 6 Places to Visit in Morocco", "excerpt": "Marrakech medinas, the blue streets of Chefchaouen, the dunes of the Sahara and the peaks of the High Atlas. Six unmissable Moroccan stops for culture and adventure.", "image": "https://cdn.trutravels.com/morocco-images/morocco-uncovered-marrakech-jardin-group-picture.jpg", "author": "Sophie", "date": "2026-05-20", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Local Stories"], "lifeMoments": ["Looking To Challenge Myself", "Gap Year"], "destinations": ["Africa", "Morocco"], "readTime": 4}, {"id": "why-i-quit-my-job-to-travel", "title": "Why I Quit My Job to Travel Southeast Asia", "excerpt": "I was 26, burnt out, and stuck in a cycle. One email changed everything. Here's what happened when I booked a one-way ticket.", "image": "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=800&q=80", "author": "Sophie Chen", "date": "2025-12-15", "category": "Travel Stories", "type": "story", "topics": ["Solo Travel", "Local Stories"], "lifeMoments": ["Work Break Recharge", "Turning 30"], "destinations": ["Asia", "Thailand"], "readTime": 7}, {"id": "hidden-gems-of-bali", "title": "10 Hidden Gems in Bali Most Tourists Miss", "excerpt": "Skip the crowds and discover secret waterfalls, empty surf breaks, and local warungs that'll change how you see Bali.", "image": "https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=800&q=80", "author": "Jake Morrison", "date": "2025-11-28", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Local Stories", "Food & Culture"], "lifeMoments": ["Gap Year", "Solo Soul Searcher"], "destinations": ["Asia", "Indonesia", "Bali"], "readTime": 9}, {"id": "solo-female-travel-tips", "title": "Solo Female Travel: What I Wish I Knew Before My First Trip", "excerpt": "From safety tips to the unexpected friendships, here's the honest guide I wish someone had given me.", "image": "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=800&q=80", "author": "Priya Kapoor", "date": "2025-11-10", "category": "Travel Tips", "type": "tips", "topics": ["Solo Travel", "Wellness"], "lifeMoments": ["Solo Soul Searcher", "Just Left Uni"], "destinations": ["Asia"], "readTime": 6}, {"id": "best-hostels-in-thailand", "title": "The Best Hostels in Thailand for Group Travellers", "excerpt": "Not all hostels are created equal. These are the ones where you'll make lifelong friends and actually get a good night's sleep.", "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80", "author": "Tom Ashworth", "date": "2025-10-22", "category": "Destination Guides", "type": "guide", "topics": ["Budget Tips", "Nightlife"], "lifeMoments": ["Gap Year", "Just Left Uni"], "destinations": ["Asia", "Thailand"], "readTime": 8}, {"id": "member-secret-itinerary-vietnam", "title": "The Secret Vietnam Itinerary Only Locals Know", "excerpt": "Our local guides shared the spots they take their own friends. This is the Vietnam you won't find on Google.", "image": "https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=800&q=80", "author": "TruTravels Team", "date": "2025-10-05", "category": "Member Exclusive", "memberOnly": true, "type": "exclusive", "topics": ["Local Stories", "Food & Culture", "Adventure"], "lifeMoments": ["Work Break Recharge", "Solo Soul Searcher"], "destinations": ["Asia", "Vietnam"], "readTime": 12}, {"id": "member-packing-guide", "title": "The Ultimate Packing Guide for 2+ Weeks in Asia", "excerpt": "Pack like a pro. Our tried-and-tested list for travelling light without missing a thing.", "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80", "author": "TruTravels Team", "date": "2025-09-18", "category": "Member Exclusive", "memberOnly": true, "type": "exclusive", "topics": ["Budget Tips"], "lifeMoments": ["Just Left Uni", "Gap Year"], "destinations": ["Asia"], "readTime": 5}, {"id": "planeterra-elephant-sanctuary", "title": "Inside Our Planeterra Project: A Day at the Elephant Sanctuary", "excerpt": "How one Chiang Mai sanctuary is rewriting the rules of ethical tourism — and what it's like to spend a day there.", "image": "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=800&q=80", "author": "TruTravels Team", "date": "2025-09-02", "category": "Sustainability", "type": "story", "topics": ["Sustainability", "Local Stories"], "lifeMoments": ["Solo Soul Searcher", "Gap Year"], "destinations": ["Asia", "Thailand"], "readTime": 8}, {"id": "wellness-reset-bali", "title": "A Two-Week Wellness Reset in Ubud", "excerpt": "Yoga at sunrise, rice-paddy walks, and the cleanest food of your life. Here's how to do Ubud properly.", "image": "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=800&q=80", "author": "Nina Waves", "date": "2025-08-20", "category": "Wellness", "type": "guide", "topics": ["Wellness", "Food & Culture"], "lifeMoments": ["Solo Soul Searcher", "Work Break Recharge", "Turning 30"], "destinations": ["Asia", "Indonesia", "Bali"], "readTime": 10}, {"id": "top-things-to-do-in-peru", "title": "Top Things to Do in Peru", "excerpt": "Machu Picchu at sunrise, the Rainbow Mountains, and ceviche in Lima. How to make the most of Peru — from the Sacred Valley to the edge of the Amazon.", "image": "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80", "author": "Marcus Cole", "date": "2026-05-28", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Local Stories"], "lifeMoments": ["Looking To Challenge Myself", "Gap Year"], "destinations": ["Central & South America", "Peru"], "readTime": 6}, {"id": "mexico-for-first-timers", "title": "Mexico for First-Timers", "excerpt": "Tacos al pastor, cenote swims and Mayan ruins. Everything a first-timer needs to know to fall in love with Mexico.", "image": "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80", "author": "Priya Kapoor", "date": "2026-05-12", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Nightlife"], "lifeMoments": ["Just Left Uni", "Solo Soul Searcher"], "destinations": ["Central & South America", "Mexico"], "readTime": 5}, {"id": "costa-rica-pura-vida", "title": "Costa Rica: A Pura Vida Adventure", "excerpt": "Cloud forests, volcano hikes and surf towns where the only plan is no plan. Why Costa Rica is the ultimate reset.", "image": "https://cdn.trutravels.com/images/costarica.jpg", "author": "Nina Waves", "date": "2026-04-30", "category": "Travel Stories", "type": "story", "topics": ["Adventure", "Sustainability", "Wellness"], "lifeMoments": ["Looking To Challenge Myself", "Turning 30"], "destinations": ["Central & South America", "Costa Rica"], "readTime": 7}, {"id": "greek-island-hopping-guide", "title": "The Ultimate Greek Island-Hopping Guide", "excerpt": "Whitewashed villages, midnight ferries and beaches you'll never want to leave. How to island-hop the Cyclades like a pro.", "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80", "author": "Sophie Chen", "date": "2026-05-20", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Food & Culture", "Nightlife"], "lifeMoments": ["Just Left Uni", "Gap Year"], "destinations": ["Europe", "Greece"], "readTime": 6}, {"id": "albania-europes-secret", "title": "Why Albania Is Europe's Best-Kept Secret", "excerpt": "Turquoise coastlines, mountain villages and prices that feel like a glitch. Albania is the Europe trip your mates haven't done yet.", "image": "https://cdn.trutravels.com/albania/kayaking-1.jpeg", "author": "Tom Ashworth", "date": "2026-04-22", "category": "Destination Guides", "type": "guide", "topics": ["Adventure", "Budget Tips", "Local Stories"], "lifeMoments": ["Gap Year", "Looking To Challenge Myself"], "destinations": ["Europe", "Albania"], "readTime": 5}, {"id": "italy-backpacker-budget", "title": "Italy on a Backpacker Budget", "excerpt": "Yes, you can do Italy without going broke. Cheap eats, free sights and the trains that make it all work.", "image": "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80", "author": "Tom Ashworth", "date": "2026-03-30", "category": "Travel Tips", "type": "tips", "topics": ["Budget Tips", "Food & Culture"], "lifeMoments": ["Just Left Uni", "Gap Year"], "destinations": ["Europe", "Italy"], "readTime": 6}];
     var ARTICLE_IDS = new Set(["top-unesco-world-heritage-sites","is-it-safe-to-visit-south-korea","top-5-places-to-visit-in-thailand","top-5-things-to-do-in-indonesia","best-places-to-travel-in-august","top-6-places-to-visit-in-morocco"]);
     var TOPIC_OPTIONS = [
       { id: "story", label: "Stories" }, { id: "guide", label: "Guides" },
@@ -889,11 +891,13 @@
       { region: "Africa & Middle East", countries: ["Morocco","Jordan"] },
       { region: "Oceania", countries: ["New Zealand"] },
     ];
-    var LIFE_MOMENTS = ["Gap Year","First Big Trip","Career Break","Quarter-Life Reset","Post-Uni","Sabbatical"];
+    var ALL_COUNTRIES = STORY_REGIONS.reduce(function (a, r) { return a.concat(r.countries); }, []);
+    var MOMENT_EMOJI = {"Looking To Challenge Myself": "🏔️", "Solo Soul Searcher": "🧭", "Just Left Uni": "🎓", "Work Break Recharge": "🔋", "Turning 30": "🎂", "Gap Year": "🌍"};
+    var LIFE_MOMENTS = ["Looking To Challenge Myself","Solo Soul Searcher","Just Left Uni","Work Break Recharge","Turning 30","Gap Year"];
     var PAGE = 6;
 
     var state = {
-      query: "", sort: "latest", visible: PAGE,
+      query: "", visible: PAGE,
       tags: new Set(), countries: new Set(), moments: new Set(),
       openSections: new Set(["topics"]), openRegions: new Set(),
     };
@@ -903,12 +907,9 @@
     function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
     function countryCount(c) { return STORIES.filter(function (s) { return s.destinations.indexOf(c) > -1; }).length; }
 
+    /* Newest first. The Sort By control was removed from the filters; ordering is fixed. */
     function sorted() {
-      return STORIES.slice().sort(function (a, b) {
-        return state.sort === "latest"
-          ? new Date(b.date) - new Date(a.date)
-          : new Date(a.date) - new Date(b.date);
-      });
+      return STORIES.slice().sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
     }
     function filteredRest() {
       var rest = sorted().slice(1);
@@ -916,12 +917,15 @@
         if (state.tags.size && !(state.tags.has(s.type) || s.topics.some(function (t) { return state.tags.has(t); }))) return false;
         if (state.countries.size && !s.destinations.some(function (d) { return state.countries.has(d); })) return false;
         if (state.moments.size && !s.lifeMoments.some(function (m) { return state.moments.has(m); })) return false;
-        if (state.query.trim()) {
-          var q = state.query.toLowerCase();
-          if (s.title.toLowerCase().indexOf(q) === -1 && s.excerpt.toLowerCase().indexOf(q) === -1) return false;
-        }
+        /* Same matcher the search dropdown uses, so grid and suggestions agree. */
+        if (!storyMatchesQuery(s, state.query)) return false;
         return true;
       });
+    }
+    function storyMatchesQuery(s, query) {
+      var toks = suggTokens(query);
+      if (!toks.length) return true;
+      return suggHits([s.title, s.excerpt, s.category].concat(s.topics, s.destinations, s.lifeMoments).join(" "), toks);
     }
     function activeCount() { return state.tags.size + state.countries.size + state.moments.size; }
     function hasActive() { return activeCount() > 0 || state.query.trim().length > 0; }
@@ -976,7 +980,6 @@
         + '</a>';
     }
 
-    var CHEV = '<svg class="fp-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
     function chev(open) { return '<svg class="fp-chev' + (open ? ' is-open' : '') + '" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>'; }
 
     function fpSection(key, title, count, inner) {
@@ -988,10 +991,6 @@
 
     function filterPanelHTML() {
       var h = '';
-      h += '<div class="fp-block"><p class="fp-mini-label">Sort By</p><div class="fp-select">'
-        + '<select data-sort><option value="latest"' + (state.sort === "latest" ? " selected" : "") + '>Latest</option>'
-        + '<option value="oldest"' + (state.sort === "oldest" ? " selected" : "") + '>Oldest</option></select>' + CHEV + '</div></div>';
-
       h += fpSection("topics", "Topics", state.tags.size, TOPIC_OPTIONS.map(function (o) {
         var ck = state.tags.has(o.id);
         return '<label class="fp-row' + (ck ? ' is-on' : '') + '"><input type="checkbox" data-tag="' + esc(o.id) + '"' + (ck ? ' checked' : '') + ' /><span>' + o.label + '</span></label>';
@@ -1072,18 +1071,96 @@
     }
     function toggleSet(set, val) { if (set.has(val)) set.delete(val); else set.add(val); }
 
+
+    /* ----- Search typeahead: recommendations as you type, like the homepage bar.
+       Story suggestions open the article; a topic/destination/life-moment
+       suggestion ticks that filter instead. The grid still filters live. ----- */
+    var SUGG_STOP = { the:1, a:1, an:1, "in":1, on:1, to:1, of:1, "for":1, and:1, is:1, it:1, my:1, i:1 };
+    function suggTokens(q) {
+      return String(q).toLowerCase().split(/[^a-z0-9]+/).filter(function (t) { return t.length > 1 && !SUGG_STOP[t]; });
+    }
+    function suggHits(hay, toks) {
+      var h = String(hay).toLowerCase();
+      return toks.every(function (t) { return h.indexOf(t) > -1; });
+    }
+    function suggestionsFor(q) {
+      var toks = suggTokens(q);
+      if (!toks.length) return { facets: [], stories: sorted().slice(0, 4), empty: true };
+      var st = STORIES.filter(function (s) {
+        return suggHits([s.title, s.excerpt, s.category].concat(s.topics, s.destinations, s.lifeMoments).join(" "), toks);
+      }).slice(0, 5);
+      var facets = [];
+      TOPIC_OPTIONS.forEach(function (o) { if (suggHits(o.label, toks)) facets.push({ kind: "tag", value: o.id, label: o.label }); });
+      ALL_COUNTRIES.forEach(function (c) { if (suggHits(c, toks)) facets.push({ kind: "country", value: c, label: c }); });
+      LIFE_MOMENTS.forEach(function (m) { if (suggHits(m, toks)) facets.push({ kind: "moment", value: m, label: m }); });
+      return { facets: facets.slice(0, 5), stories: st, empty: false };
+    }
+    var FACET_ICON = { tag: "\uD83C\uDFF7\uFE0F", country: "\uD83D\uDCCD", moment: "\u2728" };
+    var FACET_KIND = { tag: "Topic", country: "Destination", moment: "Life moment" };
+    function suggHTML(q) {
+      var r = suggestionsFor(q), h = "";
+      if (!r.facets.length && !r.stories.length) {
+        return '<p class="st-sugg__none">No stories match &ldquo;' + esc(q) + '&rdquo;. Try a destination, a topic, or a life moment.</p>';
+      }
+      if (r.facets.length) {
+        h += '<p class="st-sugg__h">Filter by</p>';
+        r.facets.forEach(function (f) {
+          h += '<button type="button" class="st-sugg__row" data-sugg-facet="' + f.kind + '" data-sugg-value="' + esc(f.value) + '">'
+            + '<span class="st-sugg__ico">' + (f.kind === "moment" ? (MOMENT_EMOJI[f.value] || FACET_ICON.moment) : FACET_ICON[f.kind]) + '</span>'
+            + '<span class="st-sugg__label">' + esc(f.label) + '</span>'
+            + '<span class="st-sugg__kind">' + FACET_KIND[f.kind] + '</span></button>';
+        });
+      }
+      if (r.stories.length) {
+        h += '<p class="st-sugg__h">' + (r.empty ? "Latest stories" : "Stories") + '</p>';
+        r.stories.forEach(function (s) {
+          h += '<a class="st-sugg__row" href="' + hrefFor(s) + '">'
+            + '<img class="st-sugg__thumb" src="' + esc(s.image) + '" alt="" />'
+            + '<span class="st-sugg__text"><span class="st-sugg__title">' + esc(s.title) + '</span>'
+            + '<span class="st-sugg__meta">' + esc(s.category) + ' &middot; ' + s.readTime + ' min read</span></span></a>';
+        });
+      }
+      return h;
+    }
+    function openSugg(q) {
+      $$('[data-sugg]').forEach(function (el) {
+        if (!el.closest('.st-search').querySelector('[data-search]').offsetParent) return;
+        el.innerHTML = suggHTML(q);
+        el.hidden = false;
+        el.closest('.st-search').classList.add('is-open');
+      });
+    }
+    function closeSugg() {
+      $$('[data-sugg]').forEach(function (el) { el.hidden = true; el.closest('.st-search').classList.remove('is-open'); });
+    }
+    document.addEventListener('focusin', function (e) { if (e.target.matches('[data-search]')) openSugg(e.target.value); });
+    document.addEventListener('pointerdown', function (e) { if (!e.target.closest('.st-search')) closeSugg(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSugg(); });
+    document.addEventListener('click', function (e) {
+      var f = e.target.closest('[data-sugg-facet]');
+      if (!f) return;
+      var kind = f.getAttribute('data-sugg-facet'), val = f.getAttribute('data-sugg-value');
+      if (kind === 'tag') { toggleSet(state.tags, val); state.openSections.add('topics'); }
+      if (kind === 'country') { toggleSet(state.countries, val); state.openSections.add('destination'); }
+      if (kind === 'moment') { toggleSet(state.moments, val); state.openSections.add('moment'); }
+      state.query = ""; state.visible = PAGE;
+      $$('[data-search]').forEach(function (i) { i.value = ""; });
+      closeSugg();
+      renderAll();
+    });
+
     // ----- events (delegated on document) -----
     document.addEventListener('input', function (e) {
       var t = e.target;
       if (t.matches('[data-search]')) {
         state.query = t.value; state.visible = PAGE;
         $$('[data-search]').forEach(function (i) { if (i !== t) i.value = t.value; });
+        openSugg(t.value);
         renderResults();
       }
     });
     document.addEventListener('change', function (e) {
       var t = e.target;
-      if (t.matches('[data-sort]')) { state.sort = t.value; renderResults(); return; }
       if (t.matches('[data-tag]'))    { toggleSet(state.tags, t.getAttribute('data-tag')); state.visible = PAGE; renderAll(); return; }
       if (t.matches('[data-country]')){ toggleSet(state.countries, t.getAttribute('data-country')); state.visible = PAGE; renderAll(); return; }
       if (t.matches('[data-moment]')) { toggleSet(state.moments, t.getAttribute('data-moment')); state.visible = PAGE; renderAll(); return; }

@@ -112,6 +112,7 @@ __VD_SEC__
             <div class="st-search st-search--pill">
               ''' + SEARCH_SVG + '''
               <input type="text" data-search placeholder="Search stories&hellip;" />
+              <div class="st-sugg" data-sugg hidden></div>
             </div>
             <button class="st-filter-btn" data-open-drawer type="button">''' + FILTER_SVG + ''' Filters <span class="st-filter-btn__count" data-mobile-filter-count hidden>0</span></button>
           </div>
@@ -120,6 +121,7 @@ __VD_SEC__
           <div class="st-search st-search--desktop">
             ''' + SEARCH_SVG + '''
             <input type="text" data-search placeholder="Search stories, guides, destinations&hellip;" />
+            <div class="st-sugg" data-sugg hidden></div>
           </div>
 
           <p class="st-count">Showing <span data-showing>0</span> of <span data-total>0</span> <span data-total-label>stories</span><button class="st-count__clear" data-clear-all hidden type="button">Clear all</button></p>
@@ -187,11 +189,13 @@ __SCRIPTS__
       { region: "Africa & Middle East", countries: ["Morocco","Jordan"] },
       { region: "Oceania", countries: ["New Zealand"] },
     ];
-    var LIFE_MOMENTS = ["Gap Year","First Big Trip","Career Break","Quarter-Life Reset","Post-Uni","Sabbatical"];
+    var ALL_COUNTRIES = STORY_REGIONS.reduce(function (a, r) { return a.concat(r.countries); }, []);
+    var MOMENT_EMOJI = {"Looking To Challenge Myself": "🏔️", "Solo Soul Searcher": "🧭", "Just Left Uni": "🎓", "Work Break Recharge": "🔋", "Turning 30": "🎂", "Gap Year": "🌍"};
+    var LIFE_MOMENTS = ["Looking To Challenge Myself","Solo Soul Searcher","Just Left Uni","Work Break Recharge","Turning 30","Gap Year"];
     var PAGE = 6;
 
     var state = {
-      query: "", sort: "latest", visible: PAGE,
+      query: "", visible: PAGE,
       tags: new Set(), countries: new Set(), moments: new Set(),
       openSections: new Set(["topics"]), openRegions: new Set(),
     };
@@ -201,12 +205,9 @@ __SCRIPTS__
     function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
     function countryCount(c) { return STORIES.filter(function (s) { return s.destinations.indexOf(c) > -1; }).length; }
 
+    /* Newest first. The Sort By control was removed from the filters; ordering is fixed. */
     function sorted() {
-      return STORIES.slice().sort(function (a, b) {
-        return state.sort === "latest"
-          ? new Date(b.date) - new Date(a.date)
-          : new Date(a.date) - new Date(b.date);
-      });
+      return STORIES.slice().sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
     }
     function filteredRest() {
       var rest = sorted().slice(1);
@@ -214,12 +215,15 @@ __SCRIPTS__
         if (state.tags.size && !(state.tags.has(s.type) || s.topics.some(function (t) { return state.tags.has(t); }))) return false;
         if (state.countries.size && !s.destinations.some(function (d) { return state.countries.has(d); })) return false;
         if (state.moments.size && !s.lifeMoments.some(function (m) { return state.moments.has(m); })) return false;
-        if (state.query.trim()) {
-          var q = state.query.toLowerCase();
-          if (s.title.toLowerCase().indexOf(q) === -1 && s.excerpt.toLowerCase().indexOf(q) === -1) return false;
-        }
+        /* Same matcher the search dropdown uses, so grid and suggestions agree. */
+        if (!storyMatchesQuery(s, state.query)) return false;
         return true;
       });
+    }
+    function storyMatchesQuery(s, query) {
+      var toks = suggTokens(query);
+      if (!toks.length) return true;
+      return suggHits([s.title, s.excerpt, s.category].concat(s.topics, s.destinations, s.lifeMoments).join(" "), toks);
     }
     function activeCount() { return state.tags.size + state.countries.size + state.moments.size; }
     function hasActive() { return activeCount() > 0 || state.query.trim().length > 0; }
@@ -274,7 +278,6 @@ __SCRIPTS__
         + '</a>';
     }
 
-    var CHEV = '<svg class="fp-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
     function chev(open) { return '<svg class="fp-chev' + (open ? ' is-open' : '') + '" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>'; }
 
     function fpSection(key, title, count, inner) {
@@ -286,10 +289,6 @@ __SCRIPTS__
 
     function filterPanelHTML() {
       var h = '';
-      h += '<div class="fp-block"><p class="fp-mini-label">Sort By</p><div class="fp-select">'
-        + '<select data-sort><option value="latest"' + (state.sort === "latest" ? " selected" : "") + '>Latest</option>'
-        + '<option value="oldest"' + (state.sort === "oldest" ? " selected" : "") + '>Oldest</option></select>' + CHEV + '</div></div>';
-
       h += fpSection("topics", "Topics", state.tags.size, TOPIC_OPTIONS.map(function (o) {
         var ck = state.tags.has(o.id);
         return '<label class="fp-row' + (ck ? ' is-on' : '') + '"><input type="checkbox" data-tag="' + esc(o.id) + '"' + (ck ? ' checked' : '') + ' /><span>' + o.label + '</span></label>';
@@ -370,18 +369,96 @@ __SCRIPTS__
     }
     function toggleSet(set, val) { if (set.has(val)) set.delete(val); else set.add(val); }
 
+
+    /* ----- Search typeahead: recommendations as you type, like the homepage bar.
+       Story suggestions open the article; a topic/destination/life-moment
+       suggestion ticks that filter instead. The grid still filters live. ----- */
+    var SUGG_STOP = { the:1, a:1, an:1, "in":1, on:1, to:1, of:1, "for":1, and:1, is:1, it:1, my:1, i:1 };
+    function suggTokens(q) {
+      return String(q).toLowerCase().split(/[^a-z0-9]+/).filter(function (t) { return t.length > 1 && !SUGG_STOP[t]; });
+    }
+    function suggHits(hay, toks) {
+      var h = String(hay).toLowerCase();
+      return toks.every(function (t) { return h.indexOf(t) > -1; });
+    }
+    function suggestionsFor(q) {
+      var toks = suggTokens(q);
+      if (!toks.length) return { facets: [], stories: sorted().slice(0, 4), empty: true };
+      var st = STORIES.filter(function (s) {
+        return suggHits([s.title, s.excerpt, s.category].concat(s.topics, s.destinations, s.lifeMoments).join(" "), toks);
+      }).slice(0, 5);
+      var facets = [];
+      TOPIC_OPTIONS.forEach(function (o) { if (suggHits(o.label, toks)) facets.push({ kind: "tag", value: o.id, label: o.label }); });
+      ALL_COUNTRIES.forEach(function (c) { if (suggHits(c, toks)) facets.push({ kind: "country", value: c, label: c }); });
+      LIFE_MOMENTS.forEach(function (m) { if (suggHits(m, toks)) facets.push({ kind: "moment", value: m, label: m }); });
+      return { facets: facets.slice(0, 5), stories: st, empty: false };
+    }
+    var FACET_ICON = { tag: "\uD83C\uDFF7\uFE0F", country: "\uD83D\uDCCD", moment: "\u2728" };
+    var FACET_KIND = { tag: "Topic", country: "Destination", moment: "Life moment" };
+    function suggHTML(q) {
+      var r = suggestionsFor(q), h = "";
+      if (!r.facets.length && !r.stories.length) {
+        return '<p class="st-sugg__none">No stories match &ldquo;' + esc(q) + '&rdquo;. Try a destination, a topic, or a life moment.</p>';
+      }
+      if (r.facets.length) {
+        h += '<p class="st-sugg__h">Filter by</p>';
+        r.facets.forEach(function (f) {
+          h += '<button type="button" class="st-sugg__row" data-sugg-facet="' + f.kind + '" data-sugg-value="' + esc(f.value) + '">'
+            + '<span class="st-sugg__ico">' + (f.kind === "moment" ? (MOMENT_EMOJI[f.value] || FACET_ICON.moment) : FACET_ICON[f.kind]) + '</span>'
+            + '<span class="st-sugg__label">' + esc(f.label) + '</span>'
+            + '<span class="st-sugg__kind">' + FACET_KIND[f.kind] + '</span></button>';
+        });
+      }
+      if (r.stories.length) {
+        h += '<p class="st-sugg__h">' + (r.empty ? "Latest stories" : "Stories") + '</p>';
+        r.stories.forEach(function (s) {
+          h += '<a class="st-sugg__row" href="' + hrefFor(s) + '">'
+            + '<img class="st-sugg__thumb" src="' + esc(s.image) + '" alt="" />'
+            + '<span class="st-sugg__text"><span class="st-sugg__title">' + esc(s.title) + '</span>'
+            + '<span class="st-sugg__meta">' + esc(s.category) + ' &middot; ' + s.readTime + ' min read</span></span></a>';
+        });
+      }
+      return h;
+    }
+    function openSugg(q) {
+      $$('[data-sugg]').forEach(function (el) {
+        if (!el.closest('.st-search').querySelector('[data-search]').offsetParent) return;
+        el.innerHTML = suggHTML(q);
+        el.hidden = false;
+        el.closest('.st-search').classList.add('is-open');
+      });
+    }
+    function closeSugg() {
+      $$('[data-sugg]').forEach(function (el) { el.hidden = true; el.closest('.st-search').classList.remove('is-open'); });
+    }
+    document.addEventListener('focusin', function (e) { if (e.target.matches('[data-search]')) openSugg(e.target.value); });
+    document.addEventListener('pointerdown', function (e) { if (!e.target.closest('.st-search')) closeSugg(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeSugg(); });
+    document.addEventListener('click', function (e) {
+      var f = e.target.closest('[data-sugg-facet]');
+      if (!f) return;
+      var kind = f.getAttribute('data-sugg-facet'), val = f.getAttribute('data-sugg-value');
+      if (kind === 'tag') { toggleSet(state.tags, val); state.openSections.add('topics'); }
+      if (kind === 'country') { toggleSet(state.countries, val); state.openSections.add('destination'); }
+      if (kind === 'moment') { toggleSet(state.moments, val); state.openSections.add('moment'); }
+      state.query = ""; state.visible = PAGE;
+      $$('[data-search]').forEach(function (i) { i.value = ""; });
+      closeSugg();
+      renderAll();
+    });
+
     // ----- events (delegated on document) -----
     document.addEventListener('input', function (e) {
       var t = e.target;
       if (t.matches('[data-search]')) {
         state.query = t.value; state.visible = PAGE;
         $$('[data-search]').forEach(function (i) { if (i !== t) i.value = t.value; });
+        openSugg(t.value);
         renderResults();
       }
     });
     document.addEventListener('change', function (e) {
       var t = e.target;
-      if (t.matches('[data-sort]')) { state.sort = t.value; renderResults(); return; }
       if (t.matches('[data-tag]'))    { toggleSet(state.tags, t.getAttribute('data-tag')); state.visible = PAGE; renderAll(); return; }
       if (t.matches('[data-country]')){ toggleSet(state.countries, t.getAttribute('data-country')); state.visible = PAGE; renderAll(); return; }
       if (t.matches('[data-moment]')) { toggleSet(state.moments, t.getAttribute('data-moment')); state.visible = PAGE; renderAll(); return; }
