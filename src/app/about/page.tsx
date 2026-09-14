@@ -28,18 +28,47 @@ export default function AboutPage() {
       </section>
 
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
-        {/* Story */}
+        {/* Story — the opening of the founder story. The full version lives at
+            /about/our-story; this is the hook, not a second copy of it. */}
         <section className="mb-16">
           <h2 className="text-2xl font-black text-white mb-6 uppercase font-heading">Our Story</h2>
           <div className="space-y-4 text-gray-300 leading-relaxed">
-            <p>
-              TruTravels started with a simple idea: travel should be about real experiences, not tourist traps. We began as a group tour operator for 18-35s, running adventures across Southeast Asia, and quickly built a community of thousands who shared our belief that the best trips are the ones you can&apos;t plan on paper.
+            <p className="text-2xl sm:text-3xl text-white font-black uppercase font-heading leading-tight">
+              Back in 2006, I was saving for a house in London.
             </p>
+
+            <p>That was the plan. Work hard. Save money. Follow the path.</p>
+
             <p>
-              Now we&apos;re evolving into something bigger. TruTravels is becoming a lifestyle platform — a place where travel-obsessed people can discover their next adventure, access exclusive content and member-only deals, and connect with a global community of like-minded travellers.
+              And it was all coming together. I&apos;d found a house, had an offer agreed and was
+              getting ready to move in.
             </p>
+
+            <p>Then, at the eleventh hour, it fell through.</p>
+
             <p>
-              Whether you&apos;re planning your first big trip or your fifteenth, TruTravels is your home for leaving ordinary behind.
+              After all that saving and planning, I was back where I&apos;d started. Only now, I
+              wasn&apos;t so sure I wanted the same thing anymore.
+            </p>
+
+            <p>
+              So instead of finding another house, I booked a one-way ticket to Australia. What I
+              thought would be a few months away became three years.
+            </p>
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Link
+              href="/about/our-story"
+              className="inline-flex items-center gap-2 rounded-[10px] bg-tru-pink hover:bg-tru-pink-light text-white px-6 py-3 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200"
+            >
+              Read The Full Story
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+            <p className="text-gray-500 text-xs uppercase tracking-wider font-heading">
+              Mark &middot; Co-founder
             </p>
           </div>
         </section>

@@ -40,24 +40,25 @@ export default function OurStoryPage() {
             Back in 2006, I was saving for a house in London.
           </p>
 
-          <p className="text-lg sm:text-xl text-gray-200 italic leading-snug">
-            That was the plan.
+          <p>That was the plan. Work hard. Save money. Follow the path.</p>
+
+          <p>
+            And it was all coming together. I&apos;d found a house, had an offer agreed and was
+            getting ready to move in.
+          </p>
+
+          <p>Then, at the eleventh hour, it fell through.</p>
+
+          <p>
+            After all that saving and planning, I was back where I&apos;d started. Only now, I
+            wasn&apos;t so sure I wanted the same thing anymore.
           </p>
 
           <p>
-            Work hard.<br />
-            Save money.<br />
-            Follow the path.
+            So instead of finding another house, I booked a one-way ticket to Australia. What I
+            thought would be a few months away became three years. During that time, I discovered
+            something that would change my life forever.
           </p>
-
-          <p>Then one day, the plan fell apart.</p>
-
-          <p>
-            And instead of finding another house, I booked a one-way ticket to Australia.<br />
-            What I thought would be a few months away became three years.
-          </p>
-
-          <p>During that time, I discovered something that would change my life forever.</p>
 
           <p>
             Travel isn&apos;t really about the places you visit. It&apos;s about the person you become because of them. The confidence you build. The people you meet. The perspectives you gain. The moments that remind you there&apos;s a bigger world beyond your comfort zone.
