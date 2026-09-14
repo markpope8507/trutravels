@@ -65,7 +65,7 @@ function DashboardContent() {
               Hey, {user?.name?.split(" ")[0]}
             </h1>
             <p className="text-gray-400 text-sm">
-              Member since {user?.memberSince}
+              Joined Tru Community in {user?.memberSince}
             </p>
           </div>
           <button

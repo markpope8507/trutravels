@@ -64,7 +64,7 @@ function ProfileContent() {
           <div>
             <h2 className="text-xl font-bold text-white">{user?.name}</h2>
             <p className="text-gray-400 text-sm">{user?.email}</p>
-            <p className="text-tru-pink text-xs mt-1">Member since {user?.memberSince}</p>
+            <p className="text-tru-pink text-xs mt-1">Joined Tru Community in {user?.memberSince}</p>
             <button
               onClick={() => fileInputRef.current?.click()}
               className="flex items-center gap-1.5 text-tru-blue text-[10px] font-semibold uppercase tracking-wider hover:text-white transition mt-2"
