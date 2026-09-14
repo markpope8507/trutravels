@@ -63,7 +63,9 @@ export default function VisasAndPassportsPage() {
             <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-6">
               Review entry requirements and restrictions using the tool below, powered by Sherpa. Make sure you check the rules for both directions of travel.
             </p>
-            <div className="rounded-[16px] border border-white/10 bg-white/[0.03] p-4 sm:p-6">
+            {/* The Sherpa embed ships its own light theme, so it needs a white
+                surface — the same treatment the checkout's Good to Go embed gets. */}
+            <div className="rounded-[16px] border border-white/10 bg-white overflow-hidden p-4 sm:p-6">
               <SherpaVisaWidget />
             </div>
             <p className="text-gray-500 text-xs leading-relaxed mt-4">
