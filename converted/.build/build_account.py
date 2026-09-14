@@ -90,8 +90,11 @@ STICKERS = [
     ("lantern", "top:62%;left:3%", "clamp(120px,12vw,220px)", 6, 0.05),
     ("mask", "top:74%;right:8%", "clamp(150px,16vw,280px)", 10, 0.05),
     ("eyes", "top:84%;left:6%", "clamp(140px,15vw,250px)", -8, 0.05),
+    ("ramen", "bottom:2%;right:5%", "clamp(150px,16vw,280px)", -10, 0.05),
+    # a few mid-page so the middle of wide screens isn't empty
     ("tru-logo", "top:20%;left:44%", "clamp(110px,11vw,190px)", -10, 0.04),
     ("brazil", "top:56%;left:48%", "clamp(120px,12vw,210px)", 6, 0.04),
+    ("community", "top:90%;left:40%", "clamp(130px,13vw,230px)", 8, 0.04),
 ]
 
 def sticker_layer():
@@ -119,9 +122,8 @@ def shell(title, description, body, page_script=""):
 
 {NAV}
 
-{sticker_layer()}
-
   <main class="acct">
+{sticker_layer()}
 {body}
   </main>
 
@@ -183,7 +185,7 @@ def dashboard():
         <a class="acct-welcome__avatar" href="my-account-profile.html" aria-label="Edit your profile"><span>AT</span></a>
         <div class="acct-welcome__text">
           <h1 class="acct-welcome__h">Hey, Alex</h1>
-          <p class="acct-welcome__sub">Member since 2025</p>
+          <p class="acct-welcome__sub">Joined Tru Community in 2025</p>
         </div>
       </div>
 
@@ -223,7 +225,7 @@ def dashboard():
 
       <div class="acct-tiles">
         <a class="acct-tile" href="my-account-bookings.html">
-          <div class="acct-tile__top"><span class="acct-tile__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></span><span class="acct-tile__pill">3</span></div>
+          <div class="acct-tile__top"><span class="acct-tile__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></span><span class="acct-tile__pill">{len(BOOKINGS)}</span></div>
           <p class="acct-tile__label">My Bookings</p></a>
         <a class="acct-tile" href="my-account-profile.html">
           <div class="acct-tile__top"><span class="acct-tile__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg></span><span class="acct-tile__pill">Edit</span></div>
@@ -357,7 +359,7 @@ def profile_page():
         <div>
           <h2 class="acct-profile__name">Alex Traveller</h2>
           <p class="acct-profile__meta">alex@example.com</p>
-          <p class="acct-profile__meta">Member since 2025</p>
+          <p class="acct-profile__meta">Joined Tru Community in 2025</p>
         </div>
       </div>
 
@@ -405,29 +407,72 @@ def profile_page():
 
 
 # ---------------------------------------------------------------- bookings --
-# Mirrors mockBookings in src/components/booking-history.tsx.
+# Mirrors mockBookings in src/components/booking-history.tsx — same five
+# bookings, same statuses, same money. Departure dates are held as offsets from
+# today (`departsIn`) so the demo never goes stale; the cancelled booking keeps
+# its literal narrative dates instead, since its story is fixed in the past.
 BOOKINGS = [
     {"id": "b1", "ref": "TRU-2026-04871", "title": "Thailand Island Hopper",
      "image": "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
      "duration": "14 Days", "start": "Bangkok", "end": "Phuket",
-     "departsIn": 24, "lasts": 13,
-     "status": "upcoming", "price": 1727, "paid": 1727, "balance": 0, "balanceDue": "",
+     "departsIn": 24, "lasts": 13, "bookedIn": -95,
+     "status": "upcoming", "price": 1727, "deposit": 300, "paid": 1727, "balance": 0, "balanceDue": "",
      "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"],
-     "leader": "Tommy", "goodToGo": True, "extras": {"prenight": True, "arrival": True}},
-    {"id": "b2", "ref": "TRU-2026-05120", "title": "Vietnam Explorer",
+     "emails": ["alex@trutravels.com", "sarah@trutravels.com"],
+     "leader": "Tommy",
+     "goodToGo": {"flightDetails": True, "travelInsurance": True, "dietaryRequirements": True,
+                  "emergencyContact": True, "passportDetails": True, "visaCheck": True},
+     "extras": {"prenight": True, "arrival": True},
+     "flight": {"airline": "Thai Airways", "flightNo": "TG917",
+                "departs": "London Heathrow (LHR) Sat 11 Apr at 21:30",
+                "arrives": "Bangkok Suvarnabhumi (BKK) Sun 12 Apr at 15:30"},
+     "insurance": {"provider": "World Nomads", "type": "Explorer Plan", "policyNo": "TRV-2026-88421"},
+     "promo": {"code": "BLACKFRIDAY", "discount": 150, "originalPrice": 1877}},
+
+    {"id": "b2", "ref": "TRU-2026-05912", "title": "Vietnam Explorer",
      "image": "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
      "duration": "13 Days", "start": "Ho Chi Minh City", "end": "Hanoi",
-     "departsIn": 118, "lasts": 12,
-     "status": "upcoming", "price": 1299, "paid": 300, "balance": 999, "balanceDueIn": 58,
-     "travellers": 1, "passengers": ["Alex Traveller"],
-     "leader": "Linh", "goodToGo": False, "extras": {}},
-    {"id": "b3", "ref": "TRU-2025-03318", "title": "Bali & Gili Islands",
-     "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
-     "duration": "10 Days", "start": "Kuta", "end": "Ubud",
-     "departsIn": -362, "lasts": 9,
-     "status": "completed", "price": 1150, "paid": 1150, "balance": 0, "balanceDue": "",
+     "departsIn": 118, "lasts": 12, "bookedIn": -40,
+     "status": "upcoming", "price": 875, "deposit": 875, "paid": 875, "balance": 0, "balanceDue": "",
+     "travellers": 1, "passengers": ["Alex Traveller"], "emails": ["alex@trutravels.com"],
+     "leader": "TBC",
+     "goodToGo": {"flightDetails": False, "travelInsurance": False, "dietaryRequirements": False,
+                  "emergencyContact": False, "passportDetails": False, "visaCheck": False},
+     "extras": {}},
+
+    {"id": "b3", "ref": "TRU-2026-07341", "title": "Costa Rica Adventure",
+     "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
+     "duration": "10 Days", "start": "San Jos\u00e9", "end": "Santa Teresa",
+     "departsIn": 180, "lasts": 9, "bookedIn": -12,
+     "status": "upcoming", "price": 945, "deposit": 150, "paid": 150, "balance": 795, "balanceDueIn": 120,
      "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"],
-     "leader": "Wayan", "goodToGo": True, "extras": {}},
+     "emails": ["alex@trutravels.com", "sarah@trutravels.com"],
+     "leader": "TBC",
+     "goodToGo": {"flightDetails": False, "travelInsurance": False, "dietaryRequirements": False,
+                  "emergencyContact": False, "passportDetails": False, "visaCheck": False},
+     "extras": {}},
+
+    {"id": "b4", "ref": "TRU-2025-03214", "title": "Bali Experience",
+     "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+     "duration": "10 Days", "start": "Canggu", "end": "Gili Trawangan",
+     "departsIn": -364, "lasts": 9, "bookedIn": -500,
+     "status": "completed", "price": 487, "deposit": 487, "paid": 487, "balance": 0, "balanceDue": "",
+     "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"],
+     "emails": ["alex@trutravels.com", "sarah@trutravels.com"],
+     "leader": "Milin", "goodToGo": None, "extras": {},
+     "feedbackCompleted": False, "reviewLeft": False},
+
+    {"id": "b5", "ref": "TRU-2026-06183", "title": "Jordan Explorer",
+     "image": "https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=800&q=80",
+     "duration": "8 Days", "start": "Amman", "end": "Aqaba",
+     "departsOn": "2026-06-20", "endsOn": "2026-06-27",
+     "status": "cancelled", "price": 695, "deposit": 200, "paid": 695, "balance": 0, "balanceDue": "",
+     "travellers": 1, "passengers": ["Alex Traveller"], "emails": ["alex@trutravels.com"],
+     "leader": "TBC", "goodToGo": None, "extras": {},
+     "cancellation": {"dateBooked": "3 Jan 2026", "dateCancelled": "18 Mar 2026",
+                      "reason": "Change of personal circumstances", "refundAmount": 495,
+                      "nonRefundableDeposit": 200, "refundStatus": "Refunded",
+                      "refundDate": "25 Mar 2026"}},
 ]
 
 # Mirrors ROOM_TYPES / ADDONS in src/lib/addons.ts. Keep in step with that file.
@@ -451,7 +496,9 @@ def bookings_page():
     body = f"""    <div class="container acct__inner">
       {page_head("Your Account", "My Bookings", "Everything you&rsquo;ve booked with us &mdash; and everything you can still add.")}
       <div class="acct-bookings" data-bookings></div>
-    </div>"""
+    </div>
+    <!-- video-review modal renders here -->
+    <div data-video-root></div>"""
 
     data = ("  <script>\n"
             "    var BOOKINGS = " + json.dumps(BOOKINGS, ensure_ascii=False) + ";\n"

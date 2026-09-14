@@ -5,6 +5,18 @@ import { useScrollLock } from "@/lib/use-scroll-lock";
 import Link from "next/link";
 import BookingAddons from "@/components/booking-addons";
 
+const gbp = (n: number) => n.toLocaleString("en-GB");
+
+// Departure dates are held as offsets from today so the demo never shows a trip
+// that has already been and gone. The static mirror in converted/.build uses the
+// same offsets, so both builds display the same dates — keep them in step.
+function daysOut(offset: number) {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + offset);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
 const mockBookings = [
   {
     id: "b1",
@@ -14,8 +26,8 @@ const mockBookings = [
     duration: "14 Days",
     description: "From the neon buzz of Bangkok to the crystal waters of the Andaman Sea. Explore hidden lagoons, sleep under stars on the beach, and discover why Thailand is every traveller's first love.",
     image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80",
-    departureDate: "2026-04-12",
-    endDate: "2026-04-25",
+    departureDate: daysOut(24),
+    endDate: daysOut(37),
     startLocation: "Bangkok",
     endLocation: "Phuket",
     status: "upcoming" as const,
@@ -66,8 +78,8 @@ const mockBookings = [
     duration: "13 Days",
     description: "13 days exploring Vietnam's highlights and hidden gems from south to north.",
     image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
-    departureDate: "2026-07-05",
-    endDate: "2026-07-17",
+    departureDate: daysOut(118),
+    endDate: daysOut(130),
     startLocation: "Ho Chi Minh City",
     endLocation: "Hanoi",
     status: "upcoming" as const,
@@ -97,8 +109,8 @@ const mockBookings = [
     duration: "10 Days",
     description: "10 days exploring Costa Rica's hotspots. Zip-lining, volcanic hot springs, wildlife safaris, and Pacific beaches.",
     image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
-    departureDate: "2026-11-12",
-    endDate: "2026-11-21",
+    departureDate: daysOut(180),
+    endDate: daysOut(189),
     startLocation: "San José",
     endLocation: "Santa Teresa",
     status: "upcoming" as const,
@@ -115,7 +127,7 @@ const mockBookings = [
     depositPaid: 150,
     paymentsMade: 150,
     balanceDue: 795,
-    balanceDueDate: "2026-09-12",
+    balanceDueDate: daysOut(120),
     travellers: 2,
     bookingRef: "TRU-2026-07341",
     tourLeader: "TBC",
@@ -128,8 +140,8 @@ const mockBookings = [
     duration: "10 Days",
     description: "The essential Bali experience. Surf, temples, rice terraces, and the Gili Islands.",
     image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
-    departureDate: "2025-09-15",
-    endDate: "2025-09-24",
+    departureDate: daysOut(-364),
+    endDate: daysOut(-355),
     startLocation: "Canggu",
     endLocation: "Gili Trawangan",
     status: "completed" as const,
@@ -343,10 +355,10 @@ function BookingHistory() {
                       <p className="text-white text-xs font-semibold mt-1">{booking.bookingRef}</p>
                     </div>
                     <div className="text-right flex-shrink-0 ml-4 hidden sm:block">
-                      <p className="text-white font-black text-xl font-heading">&pound;{booking.pricePaid}</p>
+                      <p className="text-white font-black text-xl font-heading">&pound;{gbp(booking.pricePaid)}</p>
                       {booking.balanceDue > 0 && (
                         <div>
-                          <p className="text-tru-pink text-xs font-semibold">&pound;{booking.balanceDue} due in {daysUntil(booking.balanceDueDate)} days</p>
+                          <p className="text-tru-pink text-xs font-semibold">&pound;{gbp(booking.balanceDue)} due in {daysUntil(booking.balanceDueDate)} days</p>
                         </div>
                       )}
                     </div>
@@ -375,7 +387,7 @@ function BookingHistory() {
 
                   {/* Manage + Action buttons */}
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-auto pt-4">
-                    {booking.status !== "completed" && booking.status !== "cancelled" && (
+                    {booking.status !== "cancelled" && (
                       <button
                         onClick={() => handleExpand(booking.id)}
                         className="rounded-[10px] border border-white/20 px-5 py-2.5 text-[10px] font-semibold text-white hover:border-white/40 hover:bg-white/5 transition uppercase tracking-wider font-heading flex items-center justify-center gap-2"
@@ -393,7 +405,6 @@ function BookingHistory() {
                         <svg className={`h-3.5 w-3.5 transition-transform ${isExpanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                       </button>
                     )}
-                    {booking.status === "completed" && <div />}
                     {isUpcoming && booking.balanceDue > 0 && (
                       <button className="rounded-[10px] bg-tru-pink px-5 py-2.5 text-[10px] font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading text-center">
                         Make a Payment
@@ -446,15 +457,15 @@ function BookingHistory() {
                       <div className="divide-y divide-white/5">
                         <div className="flex items-center justify-between px-4 py-3">
                           <p className="text-gray-400 text-xs">Total Paid</p>
-                          <p className="text-white text-xs font-semibold">&pound;{booking.paymentsMade}</p>
+                          <p className="text-white text-xs font-semibold">&pound;{gbp(booking.paymentsMade)}</p>
                         </div>
                         <div className="flex items-center justify-between px-4 py-3">
                           <p className="text-gray-400 text-xs">Non-refundable Deposit</p>
-                          <p className="text-red-400 text-xs font-semibold">-&pound;{(booking as any).cancellation.nonRefundableDeposit}</p>
+                          <p className="text-red-400 text-xs font-semibold">-&pound;{gbp((booking as any).cancellation.nonRefundableDeposit)}</p>
                         </div>
                         <div className="flex items-center justify-between px-4 py-3 bg-tru-green/5">
                           <p className="text-white text-xs font-bold">Refund Amount</p>
-                          <p className="text-tru-green text-xs font-bold">&pound;{(booking as any).cancellation.refundAmount}</p>
+                          <p className="text-tru-green text-xs font-bold">&pound;{gbp((booking as any).cancellation.refundAmount)}</p>
                         </div>
                       </div>
                       <div className="px-4 py-3 border-t border-white/5 flex items-center justify-between">
@@ -478,10 +489,10 @@ function BookingHistory() {
                           <span className="text-right">Balance</span>
                         </div>
                         {[
-                          { date: (booking as any).cancellation.dateBooked, desc: "Deposit payment", ref: "2504891", amount: `£${(booking as any).cancellation.nonRefundableDeposit}`, amountColor: "text-tru-green", balance: `£${booking.pricePaid - (booking as any).cancellation.nonRefundableDeposit}` },
-                          { date: "20 Jan 2026", desc: "Balance payment", ref: "2511247", amount: `£${booking.pricePaid - (booking as any).cancellation.nonRefundableDeposit}`, amountColor: "text-tru-green", balance: "£0" },
+                          { date: (booking as any).cancellation.dateBooked, desc: "Deposit payment", ref: "2504891", amount: `£${gbp((booking as any).cancellation.nonRefundableDeposit)}`, amountColor: "text-tru-green", balance: `£${gbp(booking.pricePaid - (booking as any).cancellation.nonRefundableDeposit)}` },
+                          { date: "20 Jan 2026", desc: "Balance payment", ref: "2511247", amount: `£${gbp(booking.pricePaid - (booking as any).cancellation.nonRefundableDeposit)}`, amountColor: "text-tru-green", balance: "£0" },
                           { date: (booking as any).cancellation.dateCancelled, desc: "Booking cancelled", ref: "2538102", amount: "—", amountColor: "text-red-400", balance: "£0" },
-                          { date: (booking as any).cancellation.refundDate, desc: "Refund processed", ref: "2542679", amount: `+£${(booking as any).cancellation.refundAmount}`, amountColor: "text-tru-green", balance: "£0" },
+                          { date: (booking as any).cancellation.refundDate, desc: "Refund processed", ref: "2542679", amount: `+£${gbp((booking as any).cancellation.refundAmount)}`, amountColor: "text-tru-green", balance: "£0" },
                         ].map((row, i) => (
                           <div key={i} className={`grid grid-cols-2 sm:grid-cols-5 gap-2 px-4 py-3 border-b border-white/5 last:border-0 ${row.desc === "Booking cancelled" ? "bg-red-500/5" : row.desc === "Refund processed" ? "bg-tru-green/5" : ""}`}>
                             <div>
@@ -509,8 +520,8 @@ function BookingHistory() {
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 px-4 py-3 bg-white/5">
                           <p className="text-white text-xs font-bold">Net Result</p>
                           <p className="text-gray-300 text-xs font-semibold">Non-refundable deposit</p>
-                          <p className="text-red-400 text-xs font-bold">-&pound;{(booking as any).cancellation.nonRefundableDeposit}</p>
-                          <p className="text-tru-green text-xs font-bold sm:text-right">&pound;{(booking as any).cancellation.refundAmount} refunded</p>
+                          <p className="text-red-400 text-xs font-bold">-&pound;{gbp((booking as any).cancellation.nonRefundableDeposit)}</p>
+                          <p className="text-tru-green text-xs font-bold sm:text-right">&pound;{gbp((booking as any).cancellation.refundAmount)} refunded</p>
                         </div>
                       </div>
                     </div>
@@ -598,16 +609,16 @@ function BookingHistory() {
                         <div className="grid grid-cols-3 divide-x divide-white/5">
                           <div className="px-4 py-3">
                             <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Total Price</p>
-                            <p className="text-white text-sm font-semibold">&pound;{booking.pricePaid}</p>
+                            <p className="text-white text-sm font-semibold">&pound;{gbp(booking.pricePaid)}</p>
                           </div>
                           <div className="px-4 py-3">
                             <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Paid</p>
-                            <p className="text-tru-green text-sm font-semibold">&pound;{booking.paymentsMade || booking.depositPaid}</p>
+                            <p className="text-tru-green text-sm font-semibold">&pound;{gbp(booking.paymentsMade || booking.depositPaid)}</p>
                           </div>
                           <div className="px-4 py-3">
                             <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Balance</p>
                             <p className={`text-sm font-semibold ${booking.balanceDue > 0 ? "text-tru-pink" : "text-tru-green"}`}>
-                              {booking.balanceDue > 0 ? `£${booking.balanceDue}` : "£0 ✓"}
+                              {booking.balanceDue > 0 ? `£${gbp(booking.balanceDue)}` : "£0 ✓"}
                             </p>
                           </div>
                         </div>
@@ -615,7 +626,7 @@ function BookingHistory() {
                         {(booking as any).promo && (
                           <div className="px-4 py-3 bg-tru-green/5 flex items-center gap-2">
                             <svg className="h-4 w-4 text-tru-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" /></svg>
-                            <p className="text-tru-green text-xs font-semibold">{(booking as any).promo.code} &middot; -&pound;{(booking as any).promo.discount} off <span className="text-gray-500 font-normal line-through">&pound;{(booking as any).promo.originalPrice}</span></p>
+                            <p className="text-tru-green text-xs font-semibold">{(booking as any).promo.code} &middot; -&pound;{gbp((booking as any).promo.discount)} off <span className="text-gray-500 font-normal line-through">&pound;{gbp((booking as any).promo.originalPrice)}</span></p>
                           </div>
                         )}
                       </div>
@@ -628,7 +639,7 @@ function BookingHistory() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <p className="text-white text-sm font-semibold">You have &pound;50 travel credit</p>
-                            <p className="text-gray-400 text-xs">Apply towards your remaining balance of &pound;{booking.balanceDue}</p>
+                            <p className="text-gray-400 text-xs">Apply towards your remaining balance of &pound;{gbp(booking.balanceDue)}</p>
                           </div>
                           <button className="rounded-[10px] bg-tru-green px-4 py-2.5 text-[10px] font-semibold text-tru-navy hover:bg-tru-green-light transition uppercase tracking-wider font-heading flex-shrink-0">
                             Apply Credit
@@ -731,7 +742,7 @@ function BookingHistory() {
                               </div>
                               <div>
                                 <p className="text-gray-500 text-[9px] uppercase sm:hidden">Amount</p>
-                                <p className="text-tru-green text-xs font-semibold">&pound;{payment.amount}</p>
+                                <p className="text-tru-green text-xs font-semibold">&pound;{gbp(payment.amount)}</p>
                               </div>
                               <div>
                                 <p className="text-gray-500 text-[9px] uppercase sm:hidden">Reference</p>
@@ -739,7 +750,7 @@ function BookingHistory() {
                               </div>
                               <div className="sm:text-right">
                                 <p className="text-gray-500 text-[9px] uppercase sm:hidden">Balance</p>
-                                <p className={`text-xs font-semibold ${payment.balance > 0 ? "text-tru-pink" : "text-tru-green"}`}>&pound;{payment.balance}</p>
+                                <p className={`text-xs font-semibold ${payment.balance > 0 ? "text-tru-pink" : "text-tru-green"}`}>&pound;{gbp(payment.balance)}</p>
                               </div>
                             </div>
                           ))}
@@ -747,10 +758,10 @@ function BookingHistory() {
                           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 px-4 py-3 bg-white/5">
                             <p className="text-white text-xs font-bold">Total Paid</p>
                             <p className="hidden sm:block" />
-                            <p className="text-tru-green text-xs font-bold">&pound;{booking.paymentsMade || booking.depositPaid}</p>
+                            <p className="text-tru-green text-xs font-bold">&pound;{gbp(booking.paymentsMade || booking.depositPaid)}</p>
                             <p className="hidden sm:block" />
                             <p className={`text-xs font-bold sm:text-right ${booking.balanceDue > 0 ? "text-tru-pink" : "text-tru-green"}`}>
-                              {booking.balanceDue > 0 ? `£${booking.balanceDue} remaining` : "Paid in full ✓"}
+                              {booking.balanceDue > 0 ? `£${gbp(booking.balanceDue)} remaining` : "Paid in full ✓"}
                             </p>
                           </div>
                         </div>
