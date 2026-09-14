@@ -29,25 +29,11 @@ Run:  python3 converted/.build/build_account.py
 
 import json, os, re
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-BASE = os.path.join(HERE, "..")
-
-def read(fn):
-    return open(os.path.join(BASE, fn), encoding="utf-8").read()
-
-def lines(fn):
-    return read(fn).split("\n")
-
-def block(fn, a, b):
-    return "\n".join(lines(fn)[a - 1 : b])
+from shell import HERE, BASE, read, lines, block, NAV_SOLID, FOOTER, SCRIPTS
 
 # ------------------------------------------------------------------ chrome --
 # Solid nav — these pages have no hero image behind it.
-NAV = block("explore.html", 17, 114).replace(
-    '<header class="site-nav site-nav--over" data-nav>', '<header class="site-nav" data-nav>'
-)
-FOOTER = block("explore.html", 517, 593)
-SCRIPTS = block("explore.html", 594, 839)
+NAV = NAV_SOLID
 
 # ------------------------------------------------------- data + renderers --
 ALL_TRIPS = json.loads(re.search(r"var TRIPS = (\[.*?\]);\n", read("all-trips.html"), re.S).group(1))
