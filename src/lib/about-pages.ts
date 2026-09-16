@@ -34,9 +34,9 @@ export const ABOUT_PAGES: AboutPage[] = [
   },
   {
     name: "Our Community",
-    href: "/about",
+    href: "/about/our-community",
     description: "The travellers, leaders, and creators in our world.",
-    image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
+    image: "https://cdn.trutravels.com/greece/greece-island-hopper-026.jpg",
   },
   {
     name: "Our Brand",

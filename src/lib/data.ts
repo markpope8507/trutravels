@@ -2092,6 +2092,65 @@ export const videoDiaries: VideoDiary[] = [
     avatar: "TC",
     tag: "Community",
   },
+
+  // Local Legends — the guides carousel on /about/our-community. Orty (v8)
+  // opens it. Clips are reused from the existing set until each guide has been
+  // filmed; the names and locations are prototype placeholders.
+  {
+    id: "v11",
+    video: truClips.bali.video,
+    poster: truClips.bali.poster,
+    caption: "Meet Mai — your trip leader in the Philippines. Grew up island-hopping El Nido and still finds lagoons the boats don't stop at.",
+    author: "Mai Villanueva",
+    handle: "@mai.leads",
+    location: "El Nido, Philippines",
+    avatar: "MV",
+    tag: "Local Legend",
+  },
+  {
+    id: "v12",
+    video: truClips.creator.video,
+    poster: truClips.creator.poster,
+    caption: "Wayan has led our Bali trips since day one. Ask him about the ceremony calendar and clear your afternoon.",
+    author: "Wayan Sudira",
+    handle: "@wayanleads",
+    location: "Ubud, Indonesia",
+    avatar: "WS",
+    tag: "Local Legend",
+  },
+  {
+    id: "v13",
+    video: truClips.traveller.video,
+    poster: truClips.traveller.poster,
+    caption: "Linh runs the northern Vietnam route. Born in Hanoi, and she'll have you eating bún chả like a local by day two.",
+    author: "Linh Tran",
+    handle: "@linhonroute",
+    location: "Hanoi, Vietnam",
+    avatar: "LT",
+    tag: "Local Legend",
+  },
+  {
+    id: "v14",
+    video: truClips.jess.video,
+    poster: truClips.jess.poster,
+    caption: "Kamal knows every tea estate path between Ella and Nuwara Eliya — including the ones with no signposts.",
+    author: "Kamal Perera",
+    handle: "@kamalguides",
+    location: "Ella, Sri Lanka",
+    avatar: "KP",
+    tag: "Local Legend",
+  },
+  {
+    id: "v15",
+    video: truClips.influencer.video,
+    poster: truClips.influencer.poster,
+    caption: "Youssef leads our Morocco trips. Third-generation Marrakech, and he'll get you tea with the artisans, not just a photo.",
+    author: "Youssef Benali",
+    handle: "@youssefleads",
+    location: "Marrakech, Morocco",
+    avatar: "YB",
+    tag: "Local Legend",
+  },
 ];
 
 // ============================================================
