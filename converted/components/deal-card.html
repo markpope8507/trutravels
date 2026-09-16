@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Deal card (component) &mdash; TruTravels</title>
+  <meta name="description" content="The deal card used on the deals page: trip summary, next on-sale departure, and an expandable list of further dates." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Deal card component &mdash; demo (with and without further dates)</p></div>
+
+  <!-- ===================================================================
+       DEAL CARD COMPONENT — copy an <article class="deal"> into a
+       .deal-list (or any column). Requires styles.css (.deal-*, .tripcard__exp-*).
+
+       Structure:
+         .deal__top      image + trip summary, side by side from 640px
+         .deal-deps      the next on-sale departure, full width
+         .deal-more      optional — further dates behind a checkbox toggle
+
+       Every checkbox id must be unique on the page: the experience-types
+       disclosure uses dx-N and the more-dates toggle dm-N. Bump N per card.
+
+       Drop .deal-more entirely if the trip has only one date on sale, and
+       drop .deal-roundel if there is no headline discount to show.
+       =================================================================== -->
+  <section style="padding:2rem 0 4rem;">
+    <div class="container">
+      <div class="deal-list">
+      <article class="deal" data-region="Asia" data-days="16" data-price="487" data-save="30">
+        <div class="deal__top">
+          <div class="deal__media">
+            <a class="deal__imglink" href="../explore.html">
+              <img src="https://images.unsplash.com/photo-1537956965359-7573183d1f57?w=800&q=80" alt="Full Moon Island Hopper" loading="lazy" />
+              <span class="deal__scrim"></span>
+              <img class="deal__style" src="../assets/classic-logo.png" alt="Classic" />
+              <span class="deal-roundel"><span class="deal-roundel__up">Up to</span><span class="deal-roundel__pc">30%</span><span class="deal-roundel__off">Off</span></span>
+            </a>
+            <button class="deal__save" type="button" data-fav="full-moon-island-hopper" aria-label="Save Full Moon Island Hopper"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></button>
+          </div>
+
+          <div class="deal__body">
+            <div class="deal__head">
+              <a class="deal__titlelink" href="../explore.html"><h3 class="deal__title">Full Moon Island Hopper</h3></a>
+              <div class="deal__price">
+                <span class="deal-price__row"><span class="deal-price__was">&pound;695</span><span class="deal-price__now">&pound;487</span></span>
+                <p class="deal-price__perday"><span>&pound;30</span> per day</p>
+              </div>
+            </div>
+            <p class="deal__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Bangkok &mdash; Phuket</p>
+            <div class="deal-rating"><span class="deal-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="deal-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="deal-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="deal-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="deal-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="deal-rating__v">4.8</span><span class="deal-rating__n">(167 Reviews)</span></div>
+            <p class="deal__tagline">Southern beaches plus the legendary party</p>
+            <div class="deal__facts"><span class="deal-fact"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>16 Days</span><span class="deal-fact"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>4 Places</span><span class="deal-fact"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>4 Activities</span></div>
+            <div class="tripcard__exp"><input type="checkbox" id="deal-exp-full-moon-island-hopper" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="deal-exp-full-moon-island-hopper"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="../assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">3</span></div><div class="exp-ico"><img src="../assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">1</span></div></div></div></div></div>
+          </div>
+        </div>
+
+        <div class="deal-deps">
+          <p class="deal-deps__eyebrow">Departures</p>
+          <p class="deal-deps__h">On Sale</p>
+          <div class="deal-dep">
+            <div class="deal-dep__cols">
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">Start</p><p class="deal-dep__v">19 Sep 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">End</p><p class="deal-dep__v">04 Oct 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--save"><p class="deal-dep__k deal-dep__k--save">Save</p><p class="deal-dep__v deal-dep__v--save">20%</p></div>
+              <div class="deal-dep__c deal-dep__c--price"><p class="deal-dep__k">Price</p><p class="deal-dep__v">&pound;556</p></div>
+            </div>
+            <a class="deal-go" href="../explore.html">Go &rarr;</a>
+          </div>
+        </div>
+      <div class="deal-more">
+        <input class="deal-more__cb" id="dm-1" type="checkbox" />
+        <label class="deal-more__open" for="dm-1">More Dates <span>&middot; 2 on sale</span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label>
+        <div class="deal-more__inner">
+          <div class="deal-more__rows">
+          <div class="deal-dep">
+            <div class="deal-dep__cols">
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">Start</p><p class="deal-dep__v">10 Oct 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">End</p><p class="deal-dep__v">25 Oct 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--save"><p class="deal-dep__k deal-dep__k--save">Save</p><p class="deal-dep__v deal-dep__v--save">10%</p></div>
+              <div class="deal-dep__c deal-dep__c--price"><p class="deal-dep__k">Price</p><p class="deal-dep__v">&pound;625</p></div>
+            </div>
+            <a class="deal-go" href="../explore.html">Go &rarr;</a>
+          </div>
+          <div class="deal-dep">
+            <div class="deal-dep__cols">
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">Start</p><p class="deal-dep__v">07 Nov 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">End</p><p class="deal-dep__v">22 Nov 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--save"><p class="deal-dep__k deal-dep__k--save">Save</p><p class="deal-dep__v deal-dep__v--save">30%</p></div>
+              <div class="deal-dep__c deal-dep__c--price"><p class="deal-dep__k">Price</p><p class="deal-dep__v">&pound;487</p></div>
+            </div>
+            <a class="deal-go" href="../explore.html">Go &rarr;</a>
+          </div>
+            <label class="deal-more__close" for="dm-1">Hide Dates<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label>
+          </div>
+        </div>
+      </div>
+      </article>
+      <article class="deal" data-region="Asia" data-days="27" data-price="487" data-save="30">
+        <div class="deal__top">
+          <div class="deal__media">
+            <a class="deal__imglink" href="../explore.html">
+              <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80" alt="Total Thailand" loading="lazy" />
+              <span class="deal__scrim"></span>
+              <img class="deal__style" src="../assets/classic-logo.png" alt="Classic" />
+              <span class="deal-roundel"><span class="deal-roundel__up">Up to</span><span class="deal-roundel__pc">30%</span><span class="deal-roundel__off">Off</span></span>
+            </a>
+            <button class="deal__save" type="button" data-fav="total-thailand" aria-label="Save Total Thailand"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></button>
+          </div>
+
+          <div class="deal__body">
+            <div class="deal__head">
+              <a class="deal__titlelink" href="../explore.html"><h3 class="deal__title">Total Thailand</h3></a>
+              <div class="deal__price">
+                <span class="deal-price__row"><span class="deal-price__was">&pound;695</span><span class="deal-price__now">&pound;487</span></span>
+                <p class="deal-price__perday"><span>&pound;18</span> per day</p>
+              </div>
+            </div>
+            <p class="deal__route"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Bangkok &mdash; Phuket</p>
+            <div class="deal-rating"><span class="deal-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="deal-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="deal-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="deal-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="deal-star"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></span><span class="deal-rating__v">4.9</span><span class="deal-rating__n">(89 Reviews)</span></div>
+            <p class="deal__tagline">The complete Thailand experience</p>
+            <div class="deal__facts"><span class="deal-fact"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>27 Days</span><span class="deal-fact"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>4 Places</span><span class="deal-fact"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>4 Activities</span></div>
+            <div class="tripcard__exp"><input type="checkbox" id="deal-exp-total-thailand" class="tripcard__exp-cb" /><label class="tripcard__exp-sum" for="deal-exp-total-thailand"><span>TRU Experience Types &middot; <span class="tripcard__exp-count">4 activities</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label><div class="tripcard__exp-wrap"><div class="tripcard__exp-inner"><div class="tripcard__pills"><div class="exp-ico"><img src="../assets/experience-icons/local-lens.png" alt="" aria-hidden="true" /><span class="name">Local Lens</span><span class="count">2</span></div><div class="exp-ico"><img src="../assets/experience-icons/rise-up.png" alt="" aria-hidden="true" /><span class="name">Rise Up</span><span class="count">1</span></div><div class="exp-ico"><img src="../assets/experience-icons/bucket-list.png" alt="" aria-hidden="true" /><span class="name">Bucket List</span><span class="count">1</span></div></div></div></div></div>
+          </div>
+        </div>
+
+        <div class="deal-deps">
+          <p class="deal-deps__eyebrow">Departures</p>
+          <p class="deal-deps__h">On Sale</p>
+          <div class="deal-dep">
+            <div class="deal-dep__cols">
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">Start</p><p class="deal-dep__v">19 Sep 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">End</p><p class="deal-dep__v">15 Oct 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--save"><p class="deal-dep__k deal-dep__k--save">Save</p><p class="deal-dep__v deal-dep__v--save">20%</p></div>
+              <div class="deal-dep__c deal-dep__c--price"><p class="deal-dep__k">Price</p><p class="deal-dep__v">&pound;556</p></div>
+            </div>
+            <a class="deal-go" href="../explore.html">Go &rarr;</a>
+          </div>
+        </div>
+      <div class="deal-more">
+        <input class="deal-more__cb" id="dm-2" type="checkbox" />
+        <label class="deal-more__open" for="dm-2">More Dates <span>&middot; 2 on sale</span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label>
+        <div class="deal-more__inner">
+          <div class="deal-more__rows">
+          <div class="deal-dep">
+            <div class="deal-dep__cols">
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">Start</p><p class="deal-dep__v">10 Oct 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">End</p><p class="deal-dep__v">05 Nov 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--save"><p class="deal-dep__k deal-dep__k--save">Save</p><p class="deal-dep__v deal-dep__v--save">10%</p></div>
+              <div class="deal-dep__c deal-dep__c--price"><p class="deal-dep__k">Price</p><p class="deal-dep__v">&pound;625</p></div>
+            </div>
+            <a class="deal-go" href="../explore.html">Go &rarr;</a>
+          </div>
+          <div class="deal-dep">
+            <div class="deal-dep__cols">
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">Start</p><p class="deal-dep__v">07 Nov 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--date"><p class="deal-dep__k">End</p><p class="deal-dep__v">03 Dec 2026</p></div>
+              <div class="deal-dep__c deal-dep__c--save"><p class="deal-dep__k deal-dep__k--save">Save</p><p class="deal-dep__v deal-dep__v--save">30%</p></div>
+              <div class="deal-dep__c deal-dep__c--price"><p class="deal-dep__k">Price</p><p class="deal-dep__v">&pound;487</p></div>
+            </div>
+            <a class="deal-go" href="../explore.html">Go &rarr;</a>
+          </div>
+            <label class="deal-more__close" for="dm-2">Hide Dates<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label>
+          </div>
+        </div>
+      </div>
+      </article>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

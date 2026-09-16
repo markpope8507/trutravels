@@ -23,6 +23,7 @@ page at the site root, drop the `../`.
 | File | Component | Needs a `<script>`? |
 |------|-----------|:---:|
 | `trip-carousel.html` | Horizontally-scrollable carousel of trip cards (style badge, save %, pricing, per-day, route, rating, facts, expandable TRU Experience Types). Used on the homepage + blog articles. | yes |
+| `deal-card.html` | Deal card — trip summary, the next on-sale departure (start / end / save / price + Go), and an expandable list of further dates. Bump the `deal-exp-*` / `dm-N` ids per card so each toggle works alone. | no |
 | `blog-card.html` | Story / blog card — read-time pill, category, title, excerpt, author · date, "Read story". Includes a members-only variant. Used on the stories hub, Keep Reading, and author pages. | no |
 | `blog-image-slider.html` | Swipeable image gallery inside a blog image box (arrows, dots, 1/N counter). Drop-in replacement for a single blog image; box size unchanged. | yes |
 | `blog-video.html` | Click-to-play inline video inside a blog image box (poster + play button, native controls on play). Drop-in replacement for a single blog image; box size unchanged. | yes |
