@@ -115,7 +115,7 @@ export const CTES: Cte[] = [
           "The heart of the project is simple: to create meaningful tourism experiences where visitors do not just observe Moroccan culture from the outside, but are welcomed into it.",
           "That happens through food, craft, storytelling and human connection — with the artisans, cooks and hosts who do this every day.",
         ],
-        image: "https://images.unsplash.com/photo-1517821362941-f7f753200cfa?w=1200&q=80",
+        image: "https://images.unsplash.com/photo-1548013146-72479768bada?w=1200&q=80",
         imageAlt: "A Moroccan artisan at work",
       },
       {
