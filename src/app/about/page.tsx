@@ -27,7 +27,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="relative overflow-hidden py-16">
+        <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[520px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-1/3 w-[220px] sm:w-[340px] lg:w-[440px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/eyes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -bottom-8 w-[200px] sm:w-[320px] lg:w-[420px] opacity-[0.05] brightness-0 invert" />
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Story — the opening of the founder story. The full version lives at
             /about/our-story; this is the hook, not a second copy of it. */}
         <section className="mb-16">
@@ -89,11 +93,14 @@ export default function AboutPage() {
             ))}
           </div>
         </section>
+        </div>
       </div>
 
       {/* We Believe — Brand Pillars Carousel (full width) */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
+      <section className="relative overflow-hidden py-24">
+        <img src="/bg-assets/komodo-dragon.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[6%] w-[240px] sm:w-[380px] lg:w-[500px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -bottom-10 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
           <div>
             <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">We Believe</p>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading">
@@ -111,8 +118,10 @@ export default function AboutPage() {
       </section>
 
       {/* Led By Locals */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
+      <section className="relative overflow-hidden py-24">
+        <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 top-[6%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/community.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 -bottom-10 w-[240px] sm:w-[360px] lg:w-[480px] opacity-[0.05] brightness-0 invert" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
           <div>
             <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-3 font-heading">Led By Locals</p>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 uppercase font-heading">
@@ -130,7 +139,9 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pb-16">
+      <div className="relative overflow-hidden pb-16">
+        <img src="/bg-assets/tru-logo.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -bottom-8 w-[200px] sm:w-[300px] lg:w-[400px] opacity-[0.04] brightness-0 invert" />
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <section className="text-center">
           <h2 className="text-2xl font-black text-white mb-4 uppercase font-heading">Ready to Leave Ordinary Behind?</h2>
           <p className="text-gray-400 mb-8">Join the TruTravels community and start exploring.</p>
@@ -149,6 +160,7 @@ export default function AboutPage() {
             </Link>
           </div>
         </section>
+        </div>
       </div>
     </>
   );

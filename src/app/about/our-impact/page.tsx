@@ -111,8 +111,10 @@ export default function OurImpactPage() {
       {/* ========================================================
           OPENING STATEMENT
           ======================================================== */}
-      <section className="pt-24 pb-20 border-t border-white/5">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
+      <section className="relative overflow-hidden pt-24 pb-20 border-t border-white/5">
+        <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[520px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-1/2 w-[220px] sm:w-[340px] lg:w-[440px] opacity-[0.05] brightness-0 invert" />
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
           <p className="text-2xl sm:text-3xl text-white font-black uppercase font-heading leading-tight">
             Always give more than we take.
           </p>
@@ -134,8 +136,11 @@ export default function OurImpactPage() {
       {/* ========================================================
           THE THREE PROMISES
           ======================================================== */}
-      <section className="pt-20 pb-24 border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden pt-20 pb-24 border-t border-white/5">
+        <img src="/bg-assets/komodo-dragon.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[8%] w-[240px] sm:w-[380px] lg:w-[500px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 top-[48%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 -bottom-10 w-[200px] sm:w-[320px] lg:w-[420px] opacity-[0.05] brightness-0 invert" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-16 max-w-2xl">
             <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
               The Promises
@@ -287,8 +292,10 @@ export default function OurImpactPage() {
       {/* ========================================================
           COMMUNITY TOURISM ENTERPRISES
           ======================================================== */}
-      <section className="pt-20 pb-24 border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden pt-20 pb-24 border-t border-white/5">
+        <img src="/bg-assets/community.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 -top-10 w-[240px] sm:w-[360px] lg:w-[480px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -bottom-10 w-[200px] sm:w-[320px] lg:w-[440px] opacity-[0.06] brightness-0 invert" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 max-w-3xl">
             <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
               On The Ground
@@ -365,8 +372,10 @@ export default function OurImpactPage() {
       {/* ========================================================
           CHARITY PROJECTS
           ======================================================== */}
-      <section className="pt-20 pb-24 border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden pt-20 pb-24 border-t border-white/5">
+        <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/eyes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 -bottom-8 w-[200px] sm:w-[320px] lg:w-[420px] opacity-[0.05] brightness-0 invert" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-16 max-w-2xl">
             <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
               Who We Support
@@ -407,7 +416,9 @@ export default function OurImpactPage() {
       {/* ========================================================
           CLOSING NOTE
           ======================================================== */}
-      <section className="pb-24 border-t border-white/5 pt-20">
+      <section className="relative overflow-hidden pb-24 border-t border-white/5 pt-20">
+        <img src="/bg-assets/tru-logo.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -bottom-8 w-[200px] sm:w-[300px] lg:w-[420px] opacity-[0.04] brightness-0 invert" />
+
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed text-center">
           <p className="border-l-2 border-tru-pink pl-6 my-8 text-4xl sm:text-5xl font-black uppercase font-heading leading-[0.95] text-left">
             <span className="block text-white">Always give</span>

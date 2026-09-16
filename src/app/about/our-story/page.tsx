@@ -34,8 +34,18 @@ export default function OurStoryPage() {
       {/* ========================================================
           STORY CONTENT
           ======================================================== */}
-      <section className="pt-24 pb-24 border-t border-white/5">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
+      <section className="relative overflow-hidden pt-24 pb-24 border-t border-white/5">
+        {/* Line-art watermarks behind the column, spread down the length of the
+            story — same treatment as the Essentials and account pages. */}
+        <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[14%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/eyes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 top-[32%] w-[200px] sm:w-[320px] lg:w-[420px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/komodo-dragon.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-32 top-[50%] w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-28 top-[68%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/peru-bird.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[84%] w-[200px] sm:w-[320px] lg:w-[440px] opacity-[0.05] brightness-0 invert" />
+        <img src="/bg-assets/tru-logo.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -bottom-8 w-[200px] sm:w-[300px] lg:w-[420px] opacity-[0.04] brightness-0 invert" />
+
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
           <p className="text-2xl sm:text-3xl text-white font-black uppercase font-heading leading-tight">
             Back in 2006, I was saving for a house in London.
           </p>
@@ -99,9 +109,13 @@ export default function OurStoryPage() {
 
           <p>Today, we&apos;re driven by the same belief that inspired us from the very beginning:</p>
 
+          {/* Break after "power" so this sits on two lines — "power to" on the
+              first wrapped to three. The pink stays on "change lives". */}
           <p className="border-l-2 border-tru-pink pl-6 my-8 text-4xl sm:text-5xl font-black uppercase font-heading leading-[0.95]">
-            <span className="block text-white">Travel has the power to</span>
-            <span className="block text-tru-pink">change lives.</span>
+            <span className="block text-white">Travel has the power</span>
+            <span className="block text-white">
+              to <span className="text-tru-pink">change lives.</span>
+            </span>
           </p>
 
           <p>
