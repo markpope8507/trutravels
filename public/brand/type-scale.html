@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="description" content="TruTravels typography reference — the three faces, every type role with its live size at each breakpoint, colour tokens and house rules." />
+<title>TruTravels Type Scale</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Source+Sans+3:wght@300;400;600;700&family=Caveat:wght@400;600;700&display=swap">
+<style>
+  /* TruTravels runs a single dark identity — this specimen commits to it
+     rather than inventing a light counterpart the brand doesn't have.
+     Every colour is painted explicitly so the page holds on any host ground. */
+  :root {
+    --ground:  #060D18;
+    --surface: #0D2038;
+    --navy:    #09213E;
+    --line:    rgba(255,255,255,0.10);
+    --line-2:  rgba(255,255,255,0.05);
+    --ink:     #EDEDED;
+    --muted:   #8497AD;   /* grey biased toward the navy, not neutral */
+    --dim:     #5C6E86;
+    --pink:    #FF3F99;
+    --green:   #6BD495;
+    --blue:    #2172D5;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    background-image:
+      radial-gradient(ellipse at 12% 8%,  rgba(255,63,153,0.10) 0%, transparent 42%),
+      radial-gradient(ellipse at 88% 4%,  rgba(33,114,213,0.09) 0%, transparent 40%),
+      radial-gradient(ellipse at 45% 92%, rgba(107,212,149,0.06) 0%, transparent 44%);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: 'Source Sans 3', 'Source Sans Pro', Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.625;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+  @media (min-width: 768px) { .wrap { padding: 0 40px; } }
+
+  /* ---------- masthead ---------- */
+  .masthead { padding: 72px 0 40px; border-bottom: 1px solid var(--line); }
+  .eyebrow {
+    margin: 0 0 20px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 11px; font-weight: 700; line-height: 1;
+    text-transform: uppercase; letter-spacing: 0.3em; color: var(--pink);
+  }
+  .masthead h1 {
+    margin: 0 0 24px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 900; text-transform: uppercase;
+    font-size: 48px; line-height: 0.95; letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  @media (min-width: 640px)  { .masthead h1 { font-size: 60px; } }
+  @media (min-width: 1024px) { .masthead h1 { font-size: 72px; } }
+  .masthead h1 span { color: var(--pink); }
+  .standfirst { margin: 0; max-width: 62ch; color: var(--muted); font-size: 18px; }
+  .standfirst strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- section frame ---------- */
+  section { padding: 64px 0; border-bottom: 1px solid var(--line-2); }
+  .sec-head { margin-bottom: 40px; }
+  .sec-head h2 {
+    margin: 0;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 900; text-transform: uppercase;
+    font-size: 30px; line-height: 0.95; letter-spacing: -0.01em;
+  }
+  @media (min-width: 640px) { .sec-head h2 { font-size: 36px; } }
+  .sec-head h2 span { color: var(--pink); }
+  .sec-head p { margin: 14px 0 0; max-width: 62ch; color: var(--muted); }
+
+  /* ---------- typefaces ---------- */
+  .faces { display: grid; gap: 20px; }
+  @media (min-width: 900px) { .faces { grid-template-columns: repeat(3, 1fr); } }
+  .face {
+    border: 1px solid var(--line); border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    padding: 28px 24px 24px;
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .face__role {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.22em; color: var(--pink); line-height: 1;
+  }
+  .face__name { font-family: 'Montserrat', Arial, sans-serif; font-size: 26px; font-weight: 900; line-height: 1; }
+  .face--body .face__name { font-family: 'Source Sans 3', Arial, sans-serif; font-weight: 700; }
+  .face--hand .face__name { font-family: 'Caveat', cursive; font-size: 38px; font-weight: 700; color: var(--pink); }
+  .face__glyphs {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 30px; font-weight: 900; line-height: 1.15; letter-spacing: -0.01em;
+    color: var(--ink); word-break: break-word;
+  }
+  .face--body .face__glyphs { font-family: 'Source Sans 3', Arial, sans-serif; font-weight: 400; font-size: 26px; }
+  .face--hand .face__glyphs { font-family: 'Caveat', cursive; font-size: 34px; font-weight: 500; }
+  .face__weights { margin-top: auto; padding-top: 16px; border-top: 1px solid var(--line-2); }
+  .face__weights dt {
+    font-family: 'Montserrat', Arial, sans-serif; font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.18em; color: var(--dim); margin-bottom: 8px;
+  }
+  .face__weights dd { margin: 0; color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+  .face__css { margin-top: 12px; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; color: var(--blue); }
+
+  /* ---------- the scale ---------- */
+  .rows { display: flex; flex-direction: column; }
+  .row {
+    display: grid; gap: 20px 32px;
+    padding: 32px 0; border-top: 1px solid var(--line-2);
+    align-items: start;
+  }
+  .row:first-child { border-top: 0; padding-top: 0; }
+  @media (min-width: 900px) { .row { grid-template-columns: 250px 1fr; } }
+
+  .spec { display: flex; flex-direction: column; gap: 10px; }
+  .spec__role {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 13px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.04em;
+    line-height: 1.2; color: var(--ink);
+  }
+  .steps { display: flex; flex-wrap: wrap; gap: 6px; }
+  .step {
+    display: inline-flex; align-items: baseline; gap: 5px;
+    border: 1px solid rgba(255,63,153,0.35); border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 12px; color: var(--pink); font-variant-numeric: tabular-nums;
+  }
+  .step b { font-weight: 700; }
+  .step i { font-style: normal; color: var(--dim); font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .attrs { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; font-size: 12.5px; }
+  .attrs dt { color: var(--dim); }
+  .attrs dd { margin: 0; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .util { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 11.5px; color: var(--blue); line-height: 1.5; word-break: break-word; }
+
+  /* live samples — each set at the size it actually renders on the site */
+  .sample { min-width: 0; }
+  .s-display { font-family: 'Montserrat', Arial, sans-serif; font-weight: 900; text-transform: uppercase; }
+  .s-body    { font-family: 'Source Sans 3', Arial, sans-serif; }
+  .s-hand    { font-family: 'Caveat', cursive; }
+  .pink { color: var(--pink); }
+
+  .s-h1    { font-size: 48px; line-height: 0.95; margin: 0; }
+  @media (min-width: 640px)  { .s-h1 { font-size: 60px; } }
+  @media (min-width: 1024px) { .s-h1 { font-size: 72px; } }
+  .s-h2    { font-size: 36px; line-height: 0.95; margin: 0; }
+  @media (min-width: 640px)  { .s-h2 { font-size: 48px; } }
+  .s-lead  { font-size: 24px; line-height: 1.25; margin: 0; }
+  @media (min-width: 640px)  { .s-lead { font-size: 30px; } }
+  .s-card  { font-size: 20px; line-height: 1.15; margin: 0; }
+  @media (min-width: 640px)  { .s-card { font-size: 24px; } }
+  .s-eyebrow-lg { font-size: 12px; line-height: 1; letter-spacing: 0.3em; margin: 0; color: var(--pink); font-weight: 700; }
+  .s-eyebrow-sm { font-size: 11px; line-height: 1; letter-spacing: 0.3em; margin: 0; color: var(--pink); font-weight: 700; }
+  .s-kicker { font-size: 10px; line-height: 1; letter-spacing: 0.22em; margin: 0; color: var(--pink); font-weight: 700; }
+  .s-quote { font-size: 16px; line-height: 1.625; font-style: italic; font-weight: 300; margin: 0; color: #E5E7EB; max-width: 34ch; }
+  @media (min-width: 640px) { .s-quote { font-size: 18px; } }
+  .s-copy  { font-size: 16px; line-height: 1.625; margin: 0; color: #D1D5DB; max-width: 62ch; }
+  @media (min-width: 640px) { .s-copy { font-size: 18px; } }
+  .s-small { font-size: 14px; line-height: 1.625; margin: 0; color: #9CA3AF; max-width: 62ch; }
+  @media (min-width: 640px) { .s-small { font-size: 16px; } }
+  .s-micro { font-size: 14px; line-height: 1.625; margin: 0; color: #9CA3AF; max-width: 62ch; }
+  .s-hand-lg { font-size: 30px; line-height: 1.2; margin: 0; color: var(--pink); font-weight: 500; }
+  @media (min-width: 640px) { .s-hand-lg { font-size: 36px; } }
+  .s-stat { font-size: 48px; line-height: 0.9; margin: 0; font-variant-numeric: tabular-nums; }
+  @media (min-width: 640px)  { .s-stat { font-size: 60px; } }
+  @media (min-width: 1024px) { .s-stat { font-size: 72px; } }
+
+  .s-pull {
+    border-left: 2px solid var(--pink); padding-left: 24px;
+    font-size: 36px; line-height: 0.95; margin: 0;
+  }
+  @media (min-width: 640px) { .s-pull { font-size: 48px; } }
+  .s-pull span { display: block; }
+
+  .s-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--pink); color: #fff; border-radius: 10px;
+    padding: 12px 24px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+
+  /* ---------- colour ---------- */
+  .swatches { display: grid; gap: 14px; grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 700px) { .swatches { grid-template-columns: repeat(4, 1fr); } }
+  .sw { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .sw__chip { height: 76px; }
+  .sw__meta { padding: 12px 14px 14px; background: rgba(255,255,255,0.03); }
+  .sw__name { font-family: 'Montserrat', Arial, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 4px; }
+  .sw__hex { margin: 0; font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; color: var(--muted); }
+  .sw__var { margin: 4px 0 0; font-size: 11px; color: var(--dim); }
+
+  /* ---------- rules ---------- */
+  .rules { display: grid; gap: 16px; }
+  @media (min-width: 800px) { .rules { grid-template-columns: repeat(2, 1fr); } }
+  .rule { border-left: 2px solid var(--pink); padding: 2px 0 2px 18px; }
+  .rule h3 { margin: 0 0 6px; font-family: 'Montserrat', Arial, sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.03em; }
+  .rule p { margin: 0; color: var(--muted); font-size: 15px; }
+  .rule code { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 13px; color: var(--blue); }
+
+  footer { padding: 40px 0 72px; color: var(--dim); font-size: 13px; }
+  footer p { margin: 0 0 6px; }
+
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Brand Kit &middot; Typography</p>
+    <h1>Type <span>Scale</span></h1>
+    <p class="standfirst">
+      Every size below is what the site actually renders, measured against the build.
+      Three faces, three jobs: <strong>Montserrat</strong> for anything that shouts,
+      <strong>Source Sans 3</strong> for anything you read, <strong>Caveat</strong> for the
+      moments that need a human hand. Sizes step at <strong>640px</strong> and
+      <strong>1024px</strong> — no fluid scaling in between.
+    </p>
+  </header>
+
+  <section>
+    <div class="sec-head">
+      <h2>The Three <span>Faces</span></h2>
+      <p>Loaded from Google Fonts. Only the weights listed are shipped — anything else falls back and breaks the look.</p>
+    </div>
+
+    <div class="faces">
+      <div class="face">
+        <p class="face__role">Display</p>
+        <p class="face__name">Montserrat</p>
+        <p class="face__glyphs">AaBbGg 0123</p>
+        <dl class="face__weights">
+          <dt>Weights shipped</dt>
+          <dd>400 &middot; 600 &middot; 700 &middot; <strong>900</strong></dd>
+          <p class="face__css">--font-heading</p>
+        </dl>
+      </div>
+
+      <div class="face face--body">
+        <p class="face__role">Body</p>
+        <p class="face__name">Source Sans 3</p>
+        <p class="face__glyphs">AaBbGg 0123</p>
+        <dl class="face__weights">
+          <dt>Weights shipped</dt>
+          <dd>300 &middot; <strong>400</strong> &middot; 600 &middot; 700</dd>
+          <p class="face__css">--font-body</p>
+        </dl>
+      </div>
+
+      <div class="face face--hand">
+        <p class="face__role">Accent</p>
+        <p class="face__name">Caveat</p>
+        <p class="face__glyphs">Find your Extraordinary…</p>
+        <dl class="face__weights">
+          <dt>Weights shipped</dt>
+          <dd>400 &middot; <strong>500</strong> &middot; 600 &middot; 700</dd>
+          <p class="face__css">--font-handwriting</p>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>The <span>Scale</span></h2>
+      <p>Each sample is set at its live size — measure it on screen and it will match the site. Pink chips are the size at each breakpoint.</p>
+    </div>
+
+    <div class="rows">
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Page Title — H1</p>
+          <div class="steps">
+            <span class="step"><b>48</b><i>base</i></span>
+            <span class="step"><b>60</b><i>640</i></span>
+            <span class="step"><b>72</b><i>1024</i></span>
+          </div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Montserrat</dd>
+            <dt>Weight</dt><dd>900 Black</dd>
+            <dt>Case</dt><dd>Uppercase</dd>
+            <dt>Leading</dt><dd>0.95</dd>
+          </dl>
+          <p class="util">text-5xl sm:text-6xl lg:text-7xl font-black uppercase leading-[0.95]</p>
+        </div>
+        <div class="sample">
+          <p class="s-display s-h1">Leave Ordinary<br><span class="pink">Behind</span></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Hero Eyebrow</p>
+          <div class="steps"><span class="step"><b>12</b><i>all</i></span></div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Montserrat</dd>
+            <dt>Weight</dt><dd>700 Bold</dd>
+            <dt>Tracking</dt><dd>0.3em</dd>
+            <dt>Colour</dt><dd>Pink</dd>
+          </dl>
+          <p class="util">text-xs font-bold uppercase tracking-[0.3em]</p>
+        </div>
+        <div class="sample">
+          <p class="s-display s-eyebrow-lg">Essentials &middot; The Serious Stuff</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Hero Pull-Quote</p>
+          <div class="steps">
+            <span class="step"><b>16</b><i>base</i></span>
+            <span class="step"><b>18</b><i>640</i></span>
+          </div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Source Sans 3</dd>
+            <dt>Weight</dt><dd>300 Light</dd>
+            <dt>Style</dt><dd>Italic</dd>
+            <dt>Leading</dt><dd>1.625</dd>
+          </dl>
+          <p class="util">text-base sm:text-lg italic font-light leading-relaxed</p>
+        </div>
+        <div class="sample">
+          <p class="s-body s-quote">&ldquo;Getting lost is half the fun &mdash; though usually we mean somewhere more interesting than this.&rdquo;</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Section Heading — H2</p>
+          <div class="steps">
+            <span class="step"><b>36</b><i>base</i></span>
+            <span class="step"><b>48</b><i>640</i></span>
+          </div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Montserrat</dd>
+            <dt>Weight</dt><dd>900 Black</dd>
+            <dt>Case</dt><dd>Uppercase</dd>
+            <dt>Leading</dt><dd>0.95</dd>
+          </dl>
+          <p class="util">text-4xl sm:text-5xl font-black uppercase leading-[0.95]</p>
+        </div>
+        <div class="sample">
+          <p class="s-display s-h2">People &amp; Planet <span class="pink">Promise</span></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Section Eyebrow</p>
+          <div class="steps"><span class="step"><b>11</b><i>all</i></span></div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Montserrat</dd>
+            <dt>Weight</dt><dd>700 Bold</dd>
+            <dt>Tracking</dt><dd>0.3em</dd>
+            <dt>Colour</dt><dd>Pink</dd>
+          </dl>
+          <p class="util">text-[11px] font-bold uppercase tracking-[0.3em]</p>
+        </div>
+        <div class="sample">
+          <p class="s-display s-eyebrow-sm">What We Live By</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Statement Lead</p>
+          <div class="steps">
+            <span class="step"><b>24</b><i>base</i></span>
+            <span class="step"><b>30</b><i>640</i></span>
+          </div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Montserrat</dd>
+            <dt>Weight</dt><dd>900 Black</dd>
+            <dt>Case</dt><dd>Uppercase</dd>
+            <dt>Leading</dt><dd>1.25</dd>
+          </dl>
+          <p class="util">text-2xl sm:text-3xl font-black uppercase leading-tight</p>
+        </div>
+        <div class="sample">
+          <p class="s-display s-lead">A bunch of fun loving legends with <span class="pink">a passion for travel.</span></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Body Copy</p>
+          <div class="steps">
+            <span class="step"><b>16</b><i>base</i></span>
+            <span class="step"><b>18</b><i>640</i></span>
+          </div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Source Sans 3</dd>
+            <dt>Weight</dt><dd>400 Regular</dd>
+            <dt>Leading</dt><dd>1.625</dd>
+            <dt>Measure</dt><dd>~62ch</dd>
+          </dl>
+          <p class="util">text-base sm:text-lg leading-relaxed</p>
+        </div>
+        <div class="sample">
+          <p class="s-body s-copy">Travel isn&rsquo;t really about the places you visit. It&rsquo;s about the person you become because of them. The confidence you build. The people you meet. The perspectives you gain.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Supporting Copy</p>
+          <div class="steps">
+            <span class="step"><b>14</b><i>base</i></span>
+            <span class="step"><b>16</b><i>640</i></span>
+          </div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Source Sans 3</dd>
+            <dt>Weight</dt><dd>400 Regular</dd>
+            <dt>Leading</dt><dd>1.625</dd>
+            <dt>Use</dt><dd>Cards, captions</dd>
+          </dl>
+          <p class="util">text-sm sm:text-base leading-relaxed</p>
+        </div>
+        <div class="sample">
+          <p class="s-body s-small">We only do mind-blowingly awesome. We pride ourselves on excellence and go over and above to provide life-changing experiences.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Pull-Quote</p>
+          <div class="steps">
+            <span class="step"><b>36</b><i>base</i></span>
+            <span class="step"><b>48</b><i>640</i></span>
+          </div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Montserrat</dd>
+            <dt>Weight</dt><dd>900 Black</dd>
+            <dt>Leading</dt><dd>0.95</dd>
+            <dt>Rule</dt><dd>2px pink, left</dd>
+          </dl>
+          <p class="util">border-l-2 border-tru-pink pl-6 text-4xl sm:text-5xl font-black uppercase</p>
+        </div>
+        <div class="sample">
+          <p class="s-display s-pull"><span>Travel has the power</span><span>to <span class="pink">change lives.</span></span></p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Card Title</p>
+          <div class="steps">
+            <span class="step"><b>20</b><i>base</i></span>
+            <span class="step"><b>24</b><i>640</i></span>
+          </div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Montserrat</dd>
+            <dt>Weight</dt><dd>900 Black</dd>
+            <dt>Case</dt><dd>Uppercase</dd>
+            <dt>Hover</dt><dd>&rarr; Pink</dd>
+          </dl>
+          <p class="util">text-xl sm:text-2xl font-black uppercase leading-tight</p>
+        </div>
+        <div class="sample">
+          <p class="s-display s-card">Horses of Gili</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Card Kicker</p>
+          <div class="steps"><span class="step"><b>10</b><i>all</i></span></div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Montserrat</dd>
+            <dt>Weight</dt><dd>700 Bold</dd>
+            <dt>Tracking</dt><dd>0.22em</dd>
+            <dt>Colour</dt><dd>Pink</dd>
+          </dl>
+          <p class="util">text-[10px] font-bold uppercase tracking-[0.22em]</p>
+        </div>
+        <div class="sample">
+          <p class="s-display s-kicker">Indonesia &middot; Community Tourism</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Button / Action</p>
+          <div class="steps"><span class="step"><b>12</b><i>all</i></span></div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Montserrat</dd>
+            <dt>Weight</dt><dd>700 Bold</dd>
+            <dt>Tracking</dt><dd>0.05em</dd>
+            <dt>Radius</dt><dd>10px</dd>
+          </dl>
+          <p class="util">text-xs font-bold uppercase tracking-wider rounded-[10px]</p>
+        </div>
+        <div class="sample">
+          <span class="s-btn">Explore Trips &rarr;</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Statistic</p>
+          <div class="steps">
+            <span class="step"><b>48</b><i>base</i></span>
+            <span class="step"><b>60</b><i>640</i></span>
+            <span class="step"><b>72</b><i>1024</i></span>
+          </div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Montserrat</dd>
+            <dt>Weight</dt><dd>900 Black</dd>
+            <dt>Leading</dt><dd>0.9</dd>
+            <dt>Figures</dt><dd>Tabular</dd>
+          </dl>
+          <p class="util">text-5xl sm:text-6xl lg:text-7xl font-black tabular-nums</p>
+        </div>
+        <div class="sample">
+          <p class="s-display s-stat">332,482</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="spec">
+          <p class="spec__role">Handwritten Accent</p>
+          <div class="steps">
+            <span class="step"><b>30</b><i>base</i></span>
+            <span class="step"><b>36</b><i>640</i></span>
+          </div>
+          <dl class="attrs">
+            <dt>Face</dt><dd>Caveat</dd>
+            <dt>Weight</dt><dd>500 Medium</dd>
+            <dt>Case</dt><dd>Sentence</dd>
+            <dt>Use</dt><dd>Sparingly</dd>
+          </dl>
+          <p class="util">font-handwriting text-3xl sm:text-4xl</p>
+        </div>
+        <div class="sample">
+          <p class="s-hand s-hand-lg">and find your Extraordinary&hellip;</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>Type <span>Colour</span></h2>
+      <p>Headlines sit in white; the pink carries the emphasis word. Green and blue are reserved — green for responsibility and impact, blue for informational states.</p>
+    </div>
+    <div class="swatches">
+      <div class="sw">
+        <div class="sw__chip" style="background:#FF3F99"></div>
+        <div class="sw__meta">
+          <p class="sw__name">Tru Pink</p>
+          <p class="sw__hex">#FF3F99</p>
+          <p class="sw__var">--tru-pink &middot; emphasis, CTAs</p>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#09213E"></div>
+        <div class="sw__meta">
+          <p class="sw__name">Tru Navy</p>
+          <p class="sw__hex">#09213E</p>
+          <p class="sw__var">--tru-navy &middot; ground, cards</p>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#6BD495"></div>
+        <div class="sw__meta">
+          <p class="sw__name">Tru Green</p>
+          <p class="sw__hex">#6BD495</p>
+          <p class="sw__var">--tru-green &middot; impact, success</p>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#2172D5"></div>
+        <div class="sw__meta">
+          <p class="sw__name">Tru Blue</p>
+          <p class="sw__hex">#2172D5</p>
+          <p class="sw__var">--tru-blue &middot; info, links</p>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#EDEDED"></div>
+        <div class="sw__meta">
+          <p class="sw__name">Ink</p>
+          <p class="sw__hex">#EDEDED</p>
+          <p class="sw__var">Headlines, emphasis</p>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#D1D5DB"></div>
+        <div class="sw__meta">
+          <p class="sw__name">Body</p>
+          <p class="sw__hex">#D1D5DB</p>
+          <p class="sw__var">Running copy</p>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#9CA3AF"></div>
+        <div class="sw__meta">
+          <p class="sw__name">Muted</p>
+          <p class="sw__hex">#9CA3AF</p>
+          <p class="sw__var">Captions, card copy</p>
+        </div>
+      </div>
+      <div class="sw">
+        <div class="sw__chip" style="background:#6B7280"></div>
+        <div class="sw__meta">
+          <p class="sw__name">Dim</p>
+          <p class="sw__hex">#6B7280</p>
+          <p class="sw__var">Metadata, labels</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>House <span>Rules</span></h2>
+      <p>The conventions that keep pages looking like one site rather than six.</p>
+    </div>
+    <div class="rules">
+      <div class="rule">
+        <h3>Black, never bold, for headlines</h3>
+        <p>Display type is Montserrat <strong>900</strong>. Weight 700 in a headline reads as a different brand.</p>
+      </div>
+      <div class="rule">
+        <h3>One pink word per headline</h3>
+        <p>Split the line so the emphasis falls on the payoff — <em>People &amp; Planet <span class="pink">Promise</span></em>. Two pink phrases and neither lands.</p>
+      </div>
+      <div class="rule">
+        <h3>Step, don't scale</h3>
+        <p>Sizes jump at <code>640px</code> and <code>1024px</code>. No <code>clamp()</code> or <code>vw</code> units — they drift from the scale between breakpoints.</p>
+      </div>
+      <div class="rule">
+        <h3>Tight display, relaxed body</h3>
+        <p>Headlines run <code>0.95</code> leading, leads <code>1.25</code>, running copy <code>1.625</code>. Never the same value for both.</p>
+      </div>
+      <div class="rule">
+        <h3>Uppercase gets tracking</h3>
+        <p>Eyebrows <code>0.3em</code>, kickers <code>0.22em</code>, buttons <code>0.05em</code>. Uppercase at default tracking looks cramped.</p>
+      </div>
+      <div class="rule">
+        <h3>Caveat is a garnish</h3>
+        <p>One handwritten line per page at most, and only for brand voice — <em>Find your Extraordinary…</em> Never for information.</p>
+      </div>
+      <div class="rule">
+        <h3>Figures line up</h3>
+        <p>Any number in a column or next to another number takes <code>tabular-nums</code>.</p>
+      </div>
+      <div class="rule">
+        <h3>Measure caps at ~62ch</h3>
+        <p>Prose columns are <code>max-w-3xl</code>. Full-width running text is unreadable on a wide screen.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Sizes verified against the running build — prototype and static HTML agree at every breakpoint.</p>
+    <p>Tokens live in <code>src/app/globals.css</code>; the static mirror is <code>converted/styles.css</code>.</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
