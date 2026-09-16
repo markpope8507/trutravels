@@ -1,61 +1,51 @@
+import Link from "next/link";
+import { CTES, CTE_DEFINITION } from "@/lib/ctes";
 export const metadata = {
   title: "Our Impact — TruTravels",
   description: "Our People & Planet Promise — the commitments we've made, the progress so far, and the projects we support.",
 };
 
+// The three People & Planet Promise goals, mirroring the brand artwork and the
+// wording that goes with each one. The badges are the supplied lock-ups, so the
+// goal reads exactly as it does everywhere else it appears.
 const threePromises = [
   {
     number: "01",
-    eyebrow: "Impact On Lives",
-    title: "250,000 lives by 2030",
+    badge: "/images/impact/impact-250000-lives.png",
+    alt: "01 — Positively impact 250k lives by 2030",
+    title: "Positively impact 250k lives by 2030",
     description:
-      "80,000 customers and staff plus 170,000 beneficiaries from charitable donations and community projects. Every trip helps move the needle.",
+      "We have calculated this number in two ways. First, the total number of people our brand comes into contact with by 2030 will mean we will have positively impacted 80,000 customers and staff who travel or work with us. The second contribution to this number is the number of people who will stand to benefit from our charitable donations and the community projects we create, which will be 170,000 by 2030.",
   },
   {
     number: "02",
-    eyebrow: "Revenue Commitment",
-    title: "1% of our yearly revenue",
+    badge: "/images/impact/generate-millions-for-initiatives.png",
+    alt: "02 — Generate £1.25million for people & planet initiatives by 2030",
+    title: "Generate £1.25million for people & planet initiatives by 2030",
     description:
-      "Dedicated to people and planet initiatives — built directly into our business model, not added on after profits. It's a line on the spreadsheet, every year.",
+      "We have committed to gifting 1% of our yearly revenue to be spent on people and planet initiatives. Meaning our impact is not reliant on donations post profit, it is directly built into our business model.",
   },
   {
     number: "03",
-    eyebrow: "Climate Action",
-    title: "Halve emissions by 2030",
+    badge: "/images/impact/be-climate-positive.png",
+    alt: "03 — Be climate positive now",
+    title: "Be climate positive now",
     description:
-      "We signed the Glasgow Declaration on Climate Action in Tourism in 2022. Goal: halve emissions by 2030, net zero before 2050. We measure our carbon footprint monthly and offset through projects and tree planting.",
+      "In 2022 we signed the Glasgow Declaration on Climate Action in Tourism and created our own Climate Action plan to help support the global commitment to halve emissions by 2030 and reach net zero before 2050. In doing so, we now measure and declare our carbon footprint as a business every month and decarbonise by offsetting all carbon emissions through a variety of projects and tree planting initiatives.",
   },
 ];
 
-const progressStats = [
-  { value: "296,368", label: "Trees Planted" },
-  { value: "£113,957", label: "Donated to 29 initiatives across 12 countries" },
-  { value: "6,687", label: "Tonnes of Carbon Offset" },
-];
-
-const communityEnterprises = [
-  {
-    name: "Salaam Baalak Trust",
-    location: "Delhi, India",
-    description:
-      "A street-children support organisation that gives our travellers a chance to meet, learn from and contribute to the kids they look after.",
-    image: "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80",
-  },
-  {
-    name: "Jarvis's Jungle Trek",
-    location: "Chiang Mai, Thailand",
-    description:
-      "A Karen Hill Tribe village trek led by local guides — community-owned tourism that funnels income directly back to the families running it.",
-    image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
-  },
-  {
-    name: "Hul's Family Farm",
-    location: "Rural Cambodia",
-    description:
-      "A countryside homestay with Hul and his family. You sleep in his home, eat at his table, and learn what daily life actually looks like in rural Cambodia.",
-    image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80",
-  },
-];
+// Live figures from trutravels.com/people-planet-promise. These are the numbers
+// edited in the CMS on the current site, so they sit together here as the one
+// place to update rather than being scattered through the markup.
+const progress = {
+  trees: "332,482",
+  donated: "£320,123",
+  initiatives: "29",
+  countries: "12",
+  carbon: "8,903",
+  miles: "10,000,000",
+};
 
 const charityProjects = [
   {
@@ -124,19 +114,19 @@ export default function OurImpactPage() {
       <section className="pt-24 pb-20 border-t border-white/5">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
           <p className="text-2xl sm:text-3xl text-white font-black uppercase font-heading leading-tight">
-            Our founding goal has always been simple.
+            Always give more than we take.
           </p>
 
           <p>
-            Always give more than we take. Every customer, every supplier, every community we touch — we want them to be better off because of us, not worse.
+            Our goal since we started has been to always give more than we take. In 2022, we decided to double down on our efforts of doing good and really put our money where our mouth is.
           </p>
 
           <p>
-            In 2022, we made that goal a lot more specific. We committed to weighting people and planet equally, set ourselves three measurable promises, and started publishing our progress.
+            But instead of just focusing on the climate crisis, we wanted to put equal emphasis on both people and the planet.
           </p>
 
           <p className="text-white font-bold">
-            Here&apos;s what we said we&apos;d do, and where we are with it now.
+            Here is an overview of the promises we have made and our progress so far.
           </p>
         </div>
       </section>
@@ -148,34 +138,39 @@ export default function OurImpactPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-16 max-w-2xl">
             <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
-              The Three Promises
+              The Promises
             </p>
             <h2 className="text-4xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
-              What We&apos;ve <span className="text-tru-pink">Committed</span> To
+              People &amp; Planet <span className="text-tru-pink">Promise</span>
             </h2>
             <p className="text-gray-300 mt-5 text-base sm:text-lg leading-relaxed">
               Three measurable promises that shape how we run the business — not nice-to-haves bolted on afterwards.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
-            {threePromises.map((p) => (
+          {/* Badge and copy alternate sides, the way the promise artwork is laid
+              out. On mobile the badge always leads. */}
+          <div className="space-y-16 lg:space-y-24">
+            {threePromises.map((p, i) => (
               <div
                 key={p.number}
-                className="rounded-[14px] border border-white/10 bg-white/[0.04] p-6 sm:p-8 hover:border-tru-pink/30 hover:bg-white/[0.06] transition"
+                className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center"
               >
-                <p className="text-5xl font-black font-heading text-tru-pink leading-none mb-5">
-                  {p.number}
-                </p>
-                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-400 font-heading mb-2">
-                  {p.eyebrow}
-                </p>
-                <h3 className="text-2xl sm:text-3xl font-black uppercase text-white font-heading leading-[0.95] mb-4">
-                  {p.title}
-                </h3>
-                <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
-                  {p.description}
-                </p>
+                <div className={i % 2 === 1 ? "lg:order-1" : "lg:order-2"}>
+                  <img
+                    src={p.badge}
+                    alt={p.alt}
+                    className="w-full max-w-[420px] mx-auto lg:mx-0 h-auto"
+                  />
+                </div>
+                <div className={i % 2 === 1 ? "lg:order-2" : "lg:order-1"}>
+                  {/* The badge carries the goal visually; this keeps it available
+                      to screen readers and to anyone with images off. */}
+                  <h3 className="sr-only">{p.title}</h3>
+                  <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+                    {p.description}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -185,29 +180,106 @@ export default function OurImpactPage() {
       {/* ========================================================
           PROGRESS SO FAR — BIG STATS
           ======================================================== */}
-      <section className="pt-20 pb-24 border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-14 max-w-2xl">
-            <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
-              Progress So Far
-            </p>
-            <h2 className="text-4xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
-              The <span className="text-tru-pink">Numbers</span> That Count
-            </h2>
-          </div>
+      <section className="pt-20 pb-24 border-t border-white/5 overflow-hidden">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          {/* The pink thread that links the figures on the printed version.
+              Drawn behind the stats and only on wide screens, where the
+              zig-zag layout it follows actually applies. */}
+          <svg
+            className="hidden lg:block absolute inset-0 h-full w-full text-tru-pink pointer-events-none"
+            viewBox="0 0 1000 760"
+            fill="none"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            {/* Coordinates are tuned to the gaps between the four blocks —
+                the row gutter at y≈185, the empty right column, and the
+                gutter at y≈480 — so the thread never crosses any text. */}
+            <g stroke="currentColor" strokeWidth={3} strokeLinecap="round" vectorEffect="non-scaling-stroke">
+              {/* trees → donated, out right then back through the row gutter */}
+              <path d="M900 152 C 980 168, 978 204, 880 210 C 650 222, 400 174, 200 194 C 120 202, 80 204, 55 220" />
+              {/* donated → carbon, down the left and along the lower gutter */}
+              <path d="M55 448 C 55 502, 150 522, 252 530 C 292 533, 316 530, 336 522" />
+              {/* flourish out to the right of the mileage line */}
+              <path d="M900 566 C 976 578, 990 644, 934 692 C 900 722, 862 732, 828 744" />
+            </g>
+          </svg>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14">
-            {progressStats.map((s) => (
-              <div key={s.label} className="text-center md:text-left">
-                <p className="text-6xl sm:text-7xl lg:text-8xl font-black font-heading text-tru-pink leading-[0.9] mb-3">
-                  {s.value}
-                </p>
-                <div className="h-px w-12 bg-tru-pink mb-3 mx-auto md:mx-0" />
-                <p className="text-gray-300 text-sm sm:text-base uppercase tracking-wider font-heading">
-                  {s.label}
-                </p>
+          <div className="relative lg:grid lg:grid-cols-12 lg:gap-y-20 space-y-14 lg:space-y-0">
+            {/* Heading */}
+            <div className="lg:col-span-5 lg:row-start-1">
+              <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
+                Progress So Far
+              </p>
+              <h2 className="text-4xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
+                Our Progress<br />So Far<span className="text-tru-pink">&hellip;</span>
+              </h2>
+            </div>
+
+            {/* Trees planted */}
+            <div className="lg:col-span-6 lg:col-start-7 lg:row-start-1">
+              <div className="flex items-start gap-4">
+                <div>
+                  <p className="text-5xl sm:text-6xl lg:text-7xl font-black font-heading text-white leading-[0.9] tabular-nums">
+                    {progress.trees}
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-black uppercase font-heading text-white leading-tight mt-1">
+                    Trees Planted
+                  </p>
+                </div>
+                {/* seedling */}
+                <svg className="h-14 w-14 sm:h-20 sm:w-20 flex-shrink-0 text-tru-pink" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+                  <path d="M32 60V28" stroke="currentColor" strokeWidth={6} strokeLinecap="round" />
+                  <path d="M32 30C32 18 24 10 10 10c0 14 8 22 22 20Z" fill="currentColor" />
+                  <path d="M34 26c0-10 7-17 19-17 0 12-7 19-19 17Z" fill="currentColor" />
+                </svg>
               </div>
-            ))}
+            </div>
+
+            {/* Donated */}
+            <div className="lg:col-span-6 lg:row-start-2">
+              <p className="text-5xl sm:text-6xl lg:text-7xl font-black font-heading text-white leading-[0.9] tabular-nums">
+                {progress.donated}
+              </p>
+              <p className="text-2xl sm:text-3xl font-black uppercase font-heading text-white leading-tight mt-1">
+                Donated to {progress.initiatives} Initiatives
+              </p>
+              <div className="mt-5 inline-flex items-center gap-3 rounded-full border border-tru-pink/40 bg-tru-pink/10 pl-4 pr-5 py-2">
+                <svg className="h-6 w-6 text-tru-pink flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9S9.5 5.6 12 3Z" />
+                </svg>
+                <span className="font-heading uppercase tracking-wider text-sm text-white">
+                  Across <span className="text-tru-pink font-black text-lg">{progress.countries}</span> Countries
+                </span>
+              </div>
+            </div>
+
+            {/* Carbon offset */}
+            <div className="lg:col-span-7 lg:col-start-5 lg:row-start-3">
+              <div className="flex items-start gap-4">
+                <div>
+                  <p className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase font-heading text-white leading-[0.9] tabular-nums">
+                    {progress.carbon} Tonnes
+                  </p>
+                  <p className="text-2xl sm:text-3xl font-black uppercase font-heading text-white leading-tight mt-1">
+                    Of Carbon Offset
+                  </p>
+                </div>
+                {/* car */}
+                <svg className="h-10 w-10 sm:h-14 sm:w-14 flex-shrink-0 text-tru-pink mt-2" viewBox="0 0 64 40" fill="none" aria-hidden="true">
+                  <path d="M6 26h52v-6c0-3-2-5-5-5h-4l-5-8c-1-2-2-3-4-3H21c-2 0-3 1-4 3l-5 8H9c-2 0-3 2-3 4v7Z" fill="currentColor" />
+                  <circle cx="18" cy="30" r="6" fill="currentColor" />
+                  <circle cx="46" cy="30" r="6" fill="currentColor" />
+                </svg>
+              </div>
+              <p className="text-gray-300 text-sm uppercase tracking-[0.2em] font-heading mt-5">
+                Equivalent to driving over
+              </p>
+              <p className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase font-heading text-tru-pink leading-tight mt-1 tabular-nums">
+                {progress.miles} Miles
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -217,7 +289,7 @@ export default function OurImpactPage() {
           ======================================================== */}
       <section className="pt-20 pb-24 border-t border-white/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-16 max-w-2xl">
+          <div className="mb-12 max-w-3xl">
             <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
               On The Ground
             </p>
@@ -225,33 +297,66 @@ export default function OurImpactPage() {
               Community Tourism <span className="text-tru-pink">Enterprises</span>
             </h2>
             <p className="text-gray-300 mt-5 text-base sm:text-lg leading-relaxed">
-              Real experiences run by real people, where the money you spend stays where you spent it.
+              {CTE_DEFINITION.lead}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {communityEnterprises.map((c) => (
+          {/* What makes something a CTE */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
+            {CTE_DEFINITION.characteristics.map((c) => (
               <div
-                key={c.name}
-                className="group rounded-[12px] overflow-hidden border border-white/10 bg-white/[0.04] hover:border-tru-pink/30 transition"
+                key={c.title}
+                className="rounded-[10px] border border-white/10 bg-white/[0.04] p-5"
               >
-                <div className="relative aspect-[5/3] overflow-hidden">
-                  <img
-                    src={c.image}
-                    alt={c.name}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="p-5 sm:p-6">
-                  <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-tru-pink font-heading mb-2">
-                    {c.location}
-                  </p>
-                  <h3 className="text-xl sm:text-2xl font-black uppercase text-white font-heading leading-tight mb-3 group-hover:text-tru-pink transition-colors">
-                    {c.name}
-                  </h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">{c.description}</p>
-                </div>
+                <p className="font-heading text-sm font-black uppercase tracking-wide text-tru-pink mb-2">
+                  {c.title}
+                </p>
+                <p className="text-gray-300 text-sm leading-relaxed">{c.description}</p>
               </div>
+            ))}
+          </div>
+
+          {/* The enterprises themselves — same card as the country pages. */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {CTES.map((cte) => (
+              <Link
+                key={cte.slug}
+                href={`/about/our-impact/${cte.slug}`}
+                className="group flex h-full flex-col overflow-hidden rounded-[10px] border border-white/10 bg-tru-navy transition-all duration-300 hover:border-tru-pink/30"
+                style={{ boxShadow: "0px 5px 25px -5px rgba(0,0,0,0.3)" }}
+              >
+                <div className="relative aspect-[4/3] overflow-hidden bg-black">
+                  <img
+                    src={cte.image}
+                    alt={cte.imageAlt}
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/20 to-transparent" />
+                  <p className="absolute top-4 left-5 font-heading text-sm font-black uppercase leading-none tracking-wide text-white">
+                    {cte.country}
+                    <span className="mt-1 block font-heading text-[0.58rem] font-bold uppercase tracking-[0.22em] text-tru-pink">
+                      Community Tourism
+                    </span>
+                  </p>
+                </div>
+
+                <div className="flex flex-1 flex-col p-5">
+                  {/* Fixed line boxes keep the footer bar level across cards. */}
+                  <h3 className="mb-2 line-clamp-2 min-h-[2lh] font-heading text-lg font-black uppercase leading-tight text-white transition-colors group-hover:text-tru-pink">
+                    {cte.name}
+                  </h3>
+                  <p className="mb-4 line-clamp-4 min-h-[4lh] text-sm leading-relaxed text-gray-400">
+                    {cte.summary}
+                  </p>
+
+                  {/* Same treatment as the "Read story" link on a blog card. */}
+                  <div className="mt-auto border-t border-white/10 pt-3 text-right">
+                    <span className="text-xs text-tru-pink font-semibold uppercase tracking-wider group-hover:text-tru-pink-light transition whitespace-nowrap">
+                      Read their story &rarr;
+                    </span>
+                  </div>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
