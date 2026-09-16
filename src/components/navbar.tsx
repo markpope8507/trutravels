@@ -7,6 +7,7 @@ import { useAuthModal } from "@/lib/auth-modal";
 import { useCart } from "@/lib/cart-context";
 import SearchOverlay, { type SearchAnchor } from "@/components/search-overlay";
 import { LIFE_MOMENTS } from "@/lib/life-moments";
+import { ABOUT_PAGES } from "@/lib/about-pages";
 import { regionPages } from "@/lib/data";
 import { slugify } from "@/lib/utils";
 
@@ -139,43 +140,9 @@ const dealsNav = [
   },
 ];
 
-const aboutNav: {
-  name: string;
-  href: string;
-  description: string;
-  image: string;
-}[] = [
-  {
-    name: "Our Story",
-    href: "/about/our-story",
-    description: "How TruTravels started — straight from the founders.",
-    image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80",
-  },
-  {
-    name: "Our Values",
-    href: "/about/our-values",
-    description: "What we stand for and how we travel.",
-    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80",
-  },
-  {
-    name: "Our Impact",
-    href: "/about/our-impact",
-    description: "Local guides, Planeterra projects, real change.",
-    image: "https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=600&q=80",
-  },
-  {
-    name: "Our Community",
-    href: "/about",
-    description: "The travellers, leaders, and creators in our world.",
-    image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=600&q=80",
-  },
-  {
-    name: "Our Brand",
-    href: "/about/our-brand",
-    description: "Logo, voice, and the look of TruTravels.",
-    image: "https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=600&q=80",
-  },
-];
+// One list, shared with the cross-links at the foot of each About page.
+// The Tru Way has its own place in the nav, so it is not repeated here.
+const aboutNav = ABOUT_PAGES.filter((p) => p.href !== "/the-tru-way");
 
 const essentialsNav = [
   { name: "Travel Insurance", href: "/travel-insurance", description: "Stay covered on the road.", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" },

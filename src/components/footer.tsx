@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { ABOUT_PAGES } from "@/lib/about-pages";
 
 const FOOTER_COLUMNS = [
   {
@@ -19,12 +20,14 @@ const FOOTER_COLUMNS = [
   },
   {
     title: "About",
+    // Driven off ABOUT_PAGES so these can't drift from the real routes again —
+    // they had been pointing at /about/story, /about/values and friends, none
+    // of which exist. Careers has no page of its own yet.
     links: [
-      { name: "Our Story", href: "/about/story" },
-      { name: "Our Values", href: "/about/values" },
-      { name: "Our Impact", href: "/about/impact" },
-      { name: "Our Community", href: "/about/community" },
-      { name: "Our Brand", href: "/about/brand" },
+      ...ABOUT_PAGES.filter((p) => p.href !== "/the-tru-way").map((p) => ({
+        name: p.name,
+        href: p.href,
+      })),
       { name: "Contact Us", href: "/support" },
       { name: "Careers", href: "/about" },
     ],

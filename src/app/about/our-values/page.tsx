@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { otherAboutPages } from "@/lib/about-pages";
+
 export const metadata = {
   title: "Our Values — TruTravels",
   description: "What we stand for and how we travel — the TruTravels mission.",
@@ -36,7 +39,16 @@ export default function OurValuesPage() {
           ======================================================== */}
       <section className="pt-24 pb-24 border-t border-white/5">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
-          <p className="text-2xl sm:text-3xl text-white font-black uppercase font-heading leading-tight">
+          <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading">
+            Our Mission
+          </p>
+
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black uppercase font-heading leading-[0.95] !mt-3">
+            <span className="block text-white">Change Lives</span>
+            <span className="block text-tru-pink">Through Travel</span>
+          </h2>
+
+          <p className="text-2xl sm:text-3xl text-white font-black uppercase font-heading leading-tight !mt-8">
             Our mission is simple.
           </p>
 
@@ -48,11 +60,23 @@ export default function OurValuesPage() {
             To do what we love, and to use our energy and experience to give our customers the best time of their lives.
           </p>
 
-          <p>
-            To use our business as a force for good — one that leverages the travel industry&apos;s huge potential to alter perspective and to address issues of inequality, ethics, social and environmental responsibility.
-          </p>
+          {/* The force-for-good commitment is the one we lead on — given its own
+              panel rather than sitting as the third paragraph in a run. */}
+          <div className="!mt-10 rounded-[16px] border border-tru-green/25 bg-tru-green/[0.06] p-6 sm:p-8">
+            <p className="text-tru-green text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-4">
+              Business As A Force For Good
+            </p>
+            <p className="text-white text-xl sm:text-2xl font-bold font-heading leading-snug mb-4">
+              To use our business as a force for good.
+            </p>
+            <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+              One that leverages the travel industry&apos;s huge potential to alter perspective
+              and to address issues of inequality, ethics, social and environmental
+              responsibility.
+            </p>
+          </div>
 
-          <p className="text-white text-xl sm:text-2xl font-bold font-heading pt-4">
+          <p className="text-white text-xl sm:text-2xl font-bold font-heading !mt-10">
             And above all else,
           </p>
 
@@ -151,6 +175,52 @@ export default function OurValuesPage() {
                 Love what you do and you&apos;ll never work a day in your life. Fun is built into everything we do — if we&apos;re not enjoying ourselves, we can&apos;t give our customers the best experience. We aim to inspire people to live the dream.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================
+          MORE ABOUT US — same card treatment as Life Moments
+          ======================================================== */}
+      <section className="relative overflow-hidden pb-24 border-t border-white/5 pt-20">
+        <img src="/bg-assets/mask.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 -top-8 w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.06] brightness-0 invert" />
+        <img src="/bg-assets/ramen.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 -bottom-10 w-[200px] sm:w-[320px] lg:w-[440px] opacity-[0.07] brightness-0 invert" />
+
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 max-w-2xl">
+            <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
+              More About Us
+            </p>
+            <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
+              The Rest Of <span className="text-tru-pink">The Story</span>
+            </h2>
+            <p className="text-gray-300 mt-5 text-base sm:text-lg leading-relaxed">
+              Values are only half of it. Here&apos;s where we came from, the work we back, the
+              people in our world and how we actually run a trip.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {otherAboutPages("/about/our-values").map((page) => (
+              <Link
+                key={page.href}
+                href={page.href}
+                className="group relative overflow-hidden rounded-[10px] aspect-[5/3] block"
+              >
+                <img
+                  src={page.image}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/50 to-tru-navy/15" />
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <h3 className="text-xl sm:text-2xl font-black uppercase text-white font-heading leading-tight mb-2 group-hover:text-tru-pink transition-colors">
+                    {page.name}
+                  </h3>
+                  <p className="text-[12px] text-gray-200 leading-snug">{page.description}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
