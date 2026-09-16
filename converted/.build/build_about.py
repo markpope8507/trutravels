@@ -314,7 +314,7 @@ def our_values():
           <p class="ab-force__h">To use our business as a force for good.</p>
           <p class="ab-force__d">One that leverages the travel industry&rsquo;s huge potential to alter perspective and to address issues of inequality, ethics, social and environmental responsibility.</p>
         </div>
-        <p class="ab-beat">And above all else,</p>
+        <p class="ab-beat--loose">And above all else,</p>
         <p class="ab-pull"><span>To make a</span><span><em>positive difference.</em></span></p>
       </div>
     </section>
@@ -610,7 +610,7 @@ def cte_page(c):
     sections = "\n".join(
         f'''          <section class="ab-alt{' is-flip' if i % 2 else ''}">
             <div class="ab-alt__text">
-              {'<p class="ess-eyebrow">' + s["kicker"] + "</p>" if s.get("kicker") else ""}
+              {'<p class="ab-alt__k">' + s["kicker"] + "</p>" if s.get("kicker") else ""}
               <h2 class="ab-alt__h">{s["heading"]}</h2>
               {"".join(f"<p>{p}</p>" for p in s["body"])}
             </div>
@@ -836,7 +836,7 @@ def about_hub():
 {watermarks([("sun", "right:-4rem;top:-2rem;width:clamp(260px,34vw,520px);opacity:0.06"),
              ("bali-flower", "left:-4rem;top:33%;width:clamp(220px,28vw,440px);opacity:0.05"),
              ("eyes", "right:-4rem;bottom:-2rem;width:clamp(200px,26vw,420px);opacity:0.05")])}
-      <div class="ess-col ab-prose">
+      <div class="ess-col ab-prose ab-prose--base">
         <h2 class="ab-hub-h">Our Story</h2>
         <p class="ab-lead">Back in 2006, I was saving for a house in London.</p>
         <p>That was the plan. Work hard. Save money. Follow the path.</p>

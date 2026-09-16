@@ -1828,7 +1828,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .vdiary:hover .vdiary__play span { transform: scale(1.1); }
 .vdiary__play svg { width: 1.5rem; height: 1.5rem; color: #fff; margin-left: 2px; }
 .vdiary__caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 1rem; z-index: 2; }
-.vdiary__text { color: #fff; font-size: 14px; line-height: 1.6; margin: 0 0 0.75rem; }
+.vdiary__text { color: #fff; font-size: 14px; line-height: 1.625; margin: 0 0 0.75rem; }
 .vdiary__author { display: flex; align-items: center; gap: 0.75rem; }
 .vdiary__avatar { width: 2rem; height: 2rem; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; font-family: 'Montserrat', sans-serif; flex-shrink: 0; }
 .vdiary__name { color: #fff; font-size: 12px; font-weight: 600; margin: 0; line-height: 1.2; }
@@ -3631,8 +3631,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 768px) { .tru-exp__komodo { width: 640px; } }
 @media (min-width: 1024px) { .tru-exp__komodo { left: -10rem; width: 820px; } }
 .tru-exp__head { position: relative; margin-bottom: 3rem; }
-.tru-exp__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; margin-bottom: 0.75rem; }
-.tru-exp__title { font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: -0.025em; line-height: 1.05; font-size: 1.875rem; margin: 0; }
+.tru-exp__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; line-height: 1rem; margin-bottom: 0.75rem; }
+.tru-exp__title { font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: -0.025em; line-height: 1.2; font-size: 1.875rem; margin: 0; }
 @media (min-width: 640px) { .tru-exp__title { font-size: 3rem; } }
 .tru-exp__intro { color: var(--text-mute); margin-top: 1rem; max-width: 32rem; line-height: 1.6; }
 .tru-exp__carousel { position: relative; }
@@ -3686,11 +3686,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 768px) { .vdia__goodvibes { width: 520px; } }
 @media (min-width: 1024px) { .vdia__goodvibes { right: -8rem; width: 680px; } }
 .vdia__head { position: relative; margin-bottom: 3rem; }
-.vdia__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; margin-bottom: 0.75rem; }
-.vdia__title { font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: -0.025em; line-height: 1.05; font-size: 1.875rem; margin: 0; }
-@media (min-width: 640px) { .vdia__title { font-size: 3rem; } }
+.vdia__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; line-height: 1rem; margin-bottom: 0.75rem; }
+.vdia__title { font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: -0.025em; line-height: 1.2; font-size: 1.875rem; margin: 0; }
+@media (min-width: 640px) { .vdia__title { font-size: 3rem; line-height: 1; } }
 .vdia__title span { color: var(--tru-pink); }
-.vdia__intro { color: var(--text-mute); margin-top: 1rem; max-width: 32rem; line-height: 1.6; }
+.vdia__intro { color: var(--text-mute); margin-top: 1rem; max-width: 32rem; font-size: 1rem; line-height: 1.5; }
 .vdia__carousel { position: relative; }
 .br-sm { display: none; }
 @media (min-width: 640px) { .br-sm { display: block; } }
@@ -5197,6 +5197,9 @@ ul { margin: 0; padding: 0; list-style: none; }
    `.ab-prose > p` base rule on specificity. */
 .ab-prose > p { color: #d1d5db; font-size: 1rem; line-height: 1.625; margin: 0 0 1.25rem; }
 @media (min-width: 640px) { .ab-prose > p { font-size: 1.125rem; } }
+/* the hub column is text-base throughout, with no sm step */
+.ab-prose--base > p { font-size: 1rem; }
+@media (min-width: 640px) { .ab-prose--base > p { font-size: 1rem; } }
 
 .ab-prose > p.ab-lead, .ab-lead { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 1.25; margin: 0 0 1.25rem; }
 @media (min-width: 640px) { .ab-prose > p.ab-lead, .ab-lead { font-size: 1.875rem; } }
@@ -5213,10 +5216,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 .ab-prose > p.ab-sign, .ab-sign { color: #fff; font-family: 'Caveat', cursive; font-size: 1.875rem; line-height: 2.25rem; margin-top: 2rem; }
 @media (min-width: 640px) { .ab-prose > p.ab-sign, .ab-sign { font-size: 2.25rem; line-height: 2.5rem; } }
 
-.ab-prose > p.ab-hand, .ab-hand { color: var(--tru-pink); font-family: 'Caveat', cursive; font-size: 1.875rem; line-height: 2.25rem; }
-@media (min-width: 640px) { .ab-prose > p.ab-hand, .ab-hand { font-size: 2.25rem; line-height: 2.5rem; } }
+.ab-prose > p.ab-hand, .ab-hand { color: var(--tru-pink); font-family: 'Caveat', cursive; font-size: 1.875rem; line-height: 1.25; }
+@media (min-width: 640px) { .ab-prose > p.ab-hand, .ab-hand { font-size: 2.25rem; line-height: 1.25; } }
 
 .ab-light { font-style: normal; font-weight: 300; }
+
+/* Same size as .ab-beat but on the normal line box — the values page sets no
+   leading class where the story uses leading-tight. */
+.ab-prose > p.ab-beat--loose, .ab-beat--loose { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.25rem; line-height: 1.75rem; font-weight: 700; }
+@media (min-width: 640px) { .ab-prose > p.ab-beat--loose, .ab-beat--loose { font-size: 1.5rem; line-height: 2rem; } }
 
 /* The bordered pull-quote both the story and the brand manifesto use */
 .ab-prose > p.ab-pull, .ab-pull { border-left: 2px solid var(--tru-pink); padding-left: 1.5rem; margin: 2rem 0; font-family: 'Montserrat', sans-serif; font-size: 2.25rem; font-weight: 900; text-transform: uppercase; line-height: 0.95; }
@@ -5228,7 +5236,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .ab-polaroid img { width: min(100%, 640px); transform: rotate(-2deg); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
 
 /* Brand hero handwriting line */
-.ab-hero__hand { color: var(--tru-pink); font-family: 'Caveat', cursive; font-size: 1.875rem; line-height: 1.2; margin: 0; }
+.ab-hero__hand { color: var(--tru-pink); font-family: 'Caveat', cursive; font-size: 1.875rem; line-height: 1.25; margin: 0; }
 @media (min-width: 640px) { .ab-hero__hand { font-size: 2.25rem; } }
 .ess-hero__title em { font-style: normal; font-weight: 300; }
 
@@ -5240,7 +5248,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .ab-force { border: 1px solid rgba(107,212,149,0.25); background: rgba(107,212,149,0.06); border-radius: 16px; padding: 1.5rem; margin: 2.5rem 0; }
 @media (min-width: 640px) { .ab-force { padding: 2rem; } }
 .ab-force__eyebrow { color: var(--tru-green); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; margin: 0 0 1rem; }
-.ab-force__h { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 700; line-height: 1.35; margin: 0 0 1rem; }
+.ab-force__h { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 700; line-height: 1.375; margin: 0 0 1rem; }
 @media (min-width: 640px) { .ab-force__h { font-size: 1.5rem; } }
 .ab-force__d { color: #d1d5db; font-size: 1rem; line-height: 1.625; margin: 0; }
 @media (min-width: 640px) { .ab-force__d { font-size: 1.125rem; } }
@@ -5250,8 +5258,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 768px) { .ab-vals { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .ab-vals { grid-template-columns: repeat(3, 1fr); gap: 2.5rem 2.5rem; } }
 .ab-val__h { margin: 0 0 1rem; font-family: 'Montserrat', sans-serif; line-height: 0.95; }
-.ab-val__w, .ab-val__p, .ab-val__b { font-size: 1.875rem; font-weight: 900; text-transform: uppercase; }
-@media (min-width: 640px) { .ab-val__w, .ab-val__p, .ab-val__b { font-size: 2.25rem; } }
+.ab-val__w, .ab-val__p, .ab-val__b { font-size: 1.875rem; line-height: 2.25rem; font-weight: 900; text-transform: uppercase; }
+@media (min-width: 640px) { .ab-val__w, .ab-val__p, .ab-val__b { font-size: 2.25rem; line-height: 2.5rem; } }
 .ab-val__w { display: block; color: #fff; }
 .ab-val__p { display: inline-block; color: var(--tru-pink); }
 .ab-val__b { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--tru-blue); }
@@ -5260,7 +5268,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .ab-val__ico { display: inline-flex; align-items: center; gap: 0.5rem; }
 .ab-val__ico svg { width: 1.75rem; height: 1.75rem; }
 @media (min-width: 640px) { .ab-val__ico svg { width: 2rem; height: 2rem; } }
-.ab-val__hand { display: block; color: var(--tru-green); font-family: 'Caveat', cursive; font-size: 3rem; line-height: 0.9; }
+.ab-val__hand { display: block; color: var(--tru-green); font-family: 'Caveat', cursive; font-size: 3rem; line-height: 1; font-weight: 400; }
 @media (min-width: 640px) { .ab-val__hand { font-size: 3.75rem; } }
 .ab-val__d { color: #d1d5db; font-size: 0.875rem; line-height: 1.625; margin: 0; }
 @media (min-width: 640px) { .ab-val__d { font-size: 1rem; } }
@@ -5277,11 +5285,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 640px) { .ab-pillar__body { padding: 1.75rem; } }
 .ab-pillar__n { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; margin: 0 0 0.75rem; }
 .ab-pillar__h { margin: 0 0 1rem; font-family: 'Montserrat', sans-serif; line-height: 0.9; }
-.ab-pillar__h span { display: block; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #fff; }
-@media (min-width: 640px) { .ab-pillar__h span { font-size: 1.875rem; } }
+.ab-pillar__h span { display: block; font-size: 1.5rem; line-height: 2rem; font-weight: 900; text-transform: uppercase; color: #fff; }
+@media (min-width: 640px) { .ab-pillar__h span { font-size: 1.875rem; line-height: 2.25rem; } }
 .ab-pillar__h span + span { color: var(--tru-pink); }
-.ab-pillar__tag { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 700; margin: 0 0 1rem; }
-@media (min-width: 640px) { .ab-pillar__tag { font-size: 1.125rem; } }
+.ab-pillar__tag { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1rem; line-height: 1.5rem; font-weight: 700; margin: 0 0 1rem; }
+@media (min-width: 640px) { .ab-pillar__tag { font-size: 1.125rem; line-height: 1.75rem; } }
 .ab-pillar__p { color: #d1d5db; font-size: 0.875rem; line-height: 1.625; margin: 0 0 0.75rem; }
 @media (min-width: 640px) { .ab-pillar__p { font-size: 1rem; } }
 .ab-pillars--compact .ab-pillar__body { padding-bottom: 1.5rem; }
@@ -5385,7 +5393,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .ab-chero__back { display: inline-flex; align-items: center; gap: 0.5rem; color: #d1d5db; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 1.5rem; transition: color 0.2s; }
 .ab-chero__back:hover { color: #fff; }
 .ab-chero__back svg { width: 1rem; height: 1rem; }
-.ab-chero__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; margin: 0 0 1rem; }
+.ab-chero__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; line-height: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; margin: 0 0 1rem; }
 .ab-chero__title { font-family: 'Montserrat', sans-serif; font-size: 2.25rem; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 0.95; margin: 0 0 1.5rem; max-width: 48rem; }
 @media (min-width: 640px) { .ab-chero__title { font-size: 3rem; } }
 @media (min-width: 1024px) { .ab-chero__title { font-size: 3.75rem; } }
@@ -5401,7 +5409,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .ab-stat { border: 1px solid var(--border-soft); background: rgba(255,255,255,0.04); border-radius: 10px; padding: 1.25rem; text-align: center; }
 .ab-stat__v { font-family: 'Montserrat', sans-serif; font-size: 1.875rem; font-weight: 900; color: var(--tru-pink); line-height: 1; margin: 0; font-variant-numeric: tabular-nums; }
 @media (min-width: 640px) { .ab-stat__v { font-size: 2.25rem; } }
-.ab-stat__l { color: #d1d5db; font-size: 0.8rem; line-height: 1.4; margin: 0.5rem 0 0; }
+.ab-stat__l { color: #d1d5db; font-size: 0.875rem; line-height: 1.375; margin: 0.5rem 0 0; }
 
 /* Alternating text/image sections */
 .ab-alts { display: flex; flex-direction: column; gap: 5rem; }
@@ -5409,7 +5417,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 1024px) { .ab-alt { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
   .ab-alt.is-flip .ab-alt__text { order: 2; }
   .ab-alt.is-flip .ab-alt__media { order: 1; } }
-.ab-alt__h { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 1.15; margin: 0 0 1.25rem; }
+.ab-alt__text p.ab-alt__k, .ab-alt__k { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; line-height: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin: 0 0 0.75rem; }
+.ab-alt__h { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 1.25; margin: 0 0 1.25rem; }
 @media (min-width: 640px) { .ab-alt__h { font-size: 1.875rem; } }
 .ab-alt__text p { color: #d1d5db; font-size: 1rem; line-height: 1.625; margin: 0 0 1rem; }
 @media (min-width: 640px) { .ab-alt__text p { font-size: 1.125rem; } }
@@ -5439,17 +5448,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 .ab-hub-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ab-hub-hero__grad { position: absolute; inset: 0; background: rgba(9,33,62,0.7); }
 .ab-hub-hero__text { position: relative; z-index: 1; text-align: center; padding: 0 1rem; }
-.ab-hub-hero__title { font-family: 'Montserrat', sans-serif; font-size: 2.25rem; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 1.1; margin: 0; }
+.ab-hub-hero__title { font-family: 'Montserrat', sans-serif; font-size: 2.25rem; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 1; margin: 0; }
 @media (min-width: 640px) { .ab-hub-hero__title { font-size: 2.5rem; } }
 @media (min-width: 1024px) { .ab-hub-hero__title { font-size: 3rem; } }
-.ab-hub-h { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #fff; margin: 0 0 1.5rem; }
+.ab-hub-h { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; line-height: 2rem; font-weight: 900; text-transform: uppercase; color: #fff; margin: 0 0 1.5rem; }
 .ab-hub-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin: 2rem 0 3rem; }
-.ab-hub-cta__by { color: #6b7280; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0; }
+.ab-hub-cta__by { color: #6b7280; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; line-height: 1rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0; }
 .ab-hstats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; border: 1px solid var(--border-soft); background: rgba(255,255,255,0.05); border-radius: 10px; padding: 2rem; }
 @media (min-width: 768px) { .ab-hstats { grid-template-columns: repeat(4, 1fr); } }
 .ab-hstat { text-align: center; }
-.ab-hstat__v { font-family: 'Montserrat', sans-serif; font-size: 1.875rem; font-weight: 900; color: var(--tru-pink); margin: 0; }
-.ab-hstat__l { color: #9ca3af; font-size: 0.875rem; margin: 0.25rem 0 0; }
+.ab-hstat__v { font-family: 'Montserrat', sans-serif; font-size: 1.875rem; line-height: 2.25rem; font-weight: 900; color: var(--tru-pink); margin: 0; }
+.ab-hstat__l { color: #9ca3af; font-size: 0.875rem; line-height: 1.25rem; margin: 0.25rem 0 0; }
 
 /* Local Legends carousel shares the video-diaries treatment */
 .ab-legends { padding-top: 1rem; }
