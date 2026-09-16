@@ -145,22 +145,23 @@
         </div>
 
         <div class="deal-side__grp">
-          <p class="deal-side__label">Length</p>
-          <label class="deal-opt"><input type="radio" name="deal-len" value="any" checked /><span>Any length</span></label>
-          <label class="deal-opt"><input type="radio" name="deal-len" value="u1" /><span>Under 1 week</span></label>
-          <label class="deal-opt"><input type="radio" name="deal-len" value="1-2" /><span>1&ndash;2 weeks</span></label>
-          <label class="deal-opt"><input type="radio" name="deal-len" value="2-4" /><span>2&ndash;4 weeks</span></label>
-          <label class="deal-opt"><input type="radio" name="deal-len" value="4+" /><span>4 weeks+</span></label>
+          <p class="deal-side__label">Trip length</p>
+          <div class="deal-range">
+            <div class="deal-range__head">
+              <span class="deal-range__lbl">Up to</span>
+              <span class="deal-range__val" data-deal-len-out>27+ days</span>
+            </div>
+            <input type="range" min="3" max="27" step="1" value="27" data-deal-len aria-label="Maximum trip length in days" />
+            <div class="deal-range__scale"><span>3 days</span><span>27+ days</span></div>
+          </div>
         </div>
 
         <div class="deal-side__grp">
           <p class="deal-side__label">Region</p>
-          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="Asia" /><span>Asia</span></label>
-          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="South Asia" /><span>South Asia</span></label>
-          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="Central & South America" /><span>Central & South America</span></label>
-          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="Africa & Middle East" /><span>Africa & Middle East</span></label>
-          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="Europe" /><span>Europe</span></label>
-          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="Oceania" /><span>Oceania</span></label>
+          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="Asia" /><span>Asia</span><span class="deal-opt__n">20</span></label>
+          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="Central & South America" /><span>Central & South America</span><span class="deal-opt__n">4</span></label>
+          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="Europe" /><span>Europe</span><span class="deal-opt__n">1</span></label>
+          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="South Asia" /><span>South Asia</span><span class="deal-opt__n">1</span></label>
         </div>
 
         <button class="deal-reset" type="button" data-deal-reset>Reset filters</button>
@@ -2047,24 +2048,22 @@
     var countEl = document.querySelector('[data-deal-count]');
     var empty = document.querySelector('[data-deal-empty]');
 
-    function lengthOk(days, band) {
-      if (band === 'any') return true;
-      if (band === 'u1') return days < 7;
-      if (band === '1-2') return days >= 7 && days < 14;
-      if (band === '2-4') return days >= 14 && days < 28;
-      return days >= 28;
-    }
+    var lenInput = document.querySelector('[data-deal-len]');
+    var lenOut = document.querySelector('[data-deal-len-out]');
+    var lenMax = lenInput ? +lenInput.max : 99;
 
     function apply() {
-      var band = (document.querySelector('input[name="deal-len"]:checked') || {}).value || 'any';
+      var maxDays = lenInput ? +lenInput.value : 99;
+      var atCap = maxDays >= lenMax;   /* at the top of the range, don't filter */
       var regions = [].slice.call(document.querySelectorAll('input[name="deal-region"]:checked')).map(function (i) { return i.value; });
       var shown = 0;
       cards.forEach(function (c) {
-        var ok = lengthOk(+c.dataset.days, band) &&
+        var ok = (atCap || +c.dataset.days <= maxDays) &&
                  (regions.length === 0 || regions.indexOf(c.dataset.region) > -1);
         c.hidden = !ok;
         if (ok) shown++;
       });
+      if (lenOut) lenOut.textContent = atCap ? (lenMax + '+ days') : (maxDays + ' days');
       if (countEl) countEl.textContent = shown;
       if (empty) empty.hidden = shown > 0;
     }
@@ -2080,13 +2079,16 @@
 
     document.addEventListener('change', function (e) {
       if (e.target.closest('[data-deal-sort]')) { sort(); return; }
-      if (e.target.name === 'deal-len' || e.target.name === 'deal-region') apply();
+      if (e.target.closest('[data-deal-len]') || e.target.name === 'deal-region') apply();
+    });
+    /* live update while dragging, not just on release */
+    document.addEventListener('input', function (e) {
+      if (e.target.closest('[data-deal-len]')) apply();
     });
     document.addEventListener('click', function (e) {
       if (!e.target.closest('[data-deal-reset]')) return;
       document.querySelectorAll('input[name="deal-region"]').forEach(function (i) { i.checked = false; });
-      var any = document.querySelector('input[name="deal-len"][value="any"]');
-      if (any) any.checked = true;
+      if (lenInput) lenInput.value = lenInput.max;
       apply();
     });
   })();

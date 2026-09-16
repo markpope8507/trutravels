@@ -206,31 +206,45 @@ def deal_card(trip, deps, idx):
 
 
 def deals():
-    cards, n = [], 0
+    """Rendered cards plus the metadata the sidebar needs to build its filters."""
+    cards, meta, n = [], [], 0
     for trip in TRIPS:
         deps = deal_departures(trip["id"], trip.get("days") or 1)
         if not deps:
             continue
         n += 1
         cards.append(deal_card(trip, deps, n))
-    return cards
+        meta.append({"region": trip.get("region", ""), "days": trip.get("days") or 1})
+    return cards, meta
 
 
 # --------------------------------------------------------------- the page --
-REGIONS = ["Asia", "South Asia", "Central & South America", "Africa & Middle East", "Europe", "Oceania"]
-LENGTHS = [("any", "Any length"), ("u1", "Under 1 week"), ("1-2", "1&ndash;2 weeks"),
-           ("2-4", "2&ndash;4 weeks"), ("4+", "4 weeks+")]
+def region_counts(cards_meta):
+    """Only regions that actually have deals — a hardcoded list left empty
+    entries in the filter that could never match anything."""
+    counts = {}
+    for m in cards_meta:
+        counts[m["region"]] = counts.get(m["region"], 0) + 1
+    return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
 
 
-def sidebar(count):
-    lengths = "\n".join(
-        f'          <label class="deal-opt"><input type="radio" name="deal-len" value="{v}"{" checked" if v == "any" else ""} /><span>{label}</span></label>'
-        for v, label in LENGTHS
-    )
+def sidebar(cards_meta):
+    count = len(cards_meta)
+    longest = max((m["days"] for m in cards_meta), default=28)
+    cap = min(28, max(7, longest))
     regions = "\n".join(
-        f'          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="{r}" /><span>{r}</span></label>'
-        for r in REGIONS
+        f'          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="{r}" />'
+        f'<span>{r}</span><span class="deal-opt__n">{n}</span></label>'
+        for r, n in region_counts(cards_meta)
     )
+    lengths = f'''          <div class="deal-range">
+            <div class="deal-range__head">
+              <span class="deal-range__lbl">Up to</span>
+              <span class="deal-range__val" data-deal-len-out>{cap}+ days</span>
+            </div>
+            <input type="range" min="3" max="{cap}" step="1" value="{cap}" data-deal-len aria-label="Maximum trip length in days" />
+            <div class="deal-range__scale"><span>3 days</span><span>{cap}+ days</span></div>
+          </div>'''
     return f'''      <aside class="deal-side">
         <p class="deal-side__h">Filter Results</p>
         <p class="deal-side__count">Found <b data-deal-count>{count}</b> results</p>
@@ -248,7 +262,7 @@ def sidebar(count):
         </div>
 
         <div class="deal-side__grp">
-          <p class="deal-side__label">Length</p>
+          <p class="deal-side__label">Trip length</p>
 {lengths}
         </div>
 
@@ -271,24 +285,22 @@ FILTER_JS = """
     var countEl = document.querySelector('[data-deal-count]');
     var empty = document.querySelector('[data-deal-empty]');
 
-    function lengthOk(days, band) {
-      if (band === 'any') return true;
-      if (band === 'u1') return days < 7;
-      if (band === '1-2') return days >= 7 && days < 14;
-      if (band === '2-4') return days >= 14 && days < 28;
-      return days >= 28;
-    }
+    var lenInput = document.querySelector('[data-deal-len]');
+    var lenOut = document.querySelector('[data-deal-len-out]');
+    var lenMax = lenInput ? +lenInput.max : 99;
 
     function apply() {
-      var band = (document.querySelector('input[name="deal-len"]:checked') || {}).value || 'any';
+      var maxDays = lenInput ? +lenInput.value : 99;
+      var atCap = maxDays >= lenMax;   /* at the top of the range, don't filter */
       var regions = [].slice.call(document.querySelectorAll('input[name="deal-region"]:checked')).map(function (i) { return i.value; });
       var shown = 0;
       cards.forEach(function (c) {
-        var ok = lengthOk(+c.dataset.days, band) &&
+        var ok = (atCap || +c.dataset.days <= maxDays) &&
                  (regions.length === 0 || regions.indexOf(c.dataset.region) > -1);
         c.hidden = !ok;
         if (ok) shown++;
       });
+      if (lenOut) lenOut.textContent = atCap ? (lenMax + '+ days') : (maxDays + ' days');
       if (countEl) countEl.textContent = shown;
       if (empty) empty.hidden = shown > 0;
     }
@@ -304,13 +316,16 @@ FILTER_JS = """
 
     document.addEventListener('change', function (e) {
       if (e.target.closest('[data-deal-sort]')) { sort(); return; }
-      if (e.target.name === 'deal-len' || e.target.name === 'deal-region') apply();
+      if (e.target.closest('[data-deal-len]') || e.target.name === 'deal-region') apply();
+    });
+    /* live update while dragging, not just on release */
+    document.addEventListener('input', function (e) {
+      if (e.target.closest('[data-deal-len]')) apply();
     });
     document.addEventListener('click', function (e) {
       if (!e.target.closest('[data-deal-reset]')) return;
       document.querySelectorAll('input[name="deal-region"]').forEach(function (i) { i.checked = false; });
-      var any = document.querySelector('input[name="deal-len"][value="any"]');
-      if (any) any.checked = true;
+      if (lenInput) lenInput.value = lenInput.max;
       apply();
     });
   })();
@@ -318,7 +333,7 @@ FILTER_JS = """
 
 
 def deals_page():
-    cards = deals()
+    cards, meta = deals()
     body = f"""    <section class="ess-hero" id="top">
       <img class="ess-hero__img" src="assets/deals-hero.jpg" alt="TruTravels deals &mdash; pack and go" />
       <div class="ess-hero__grad"></div>
@@ -334,7 +349,7 @@ def deals_page():
 
     <section class="deal-sec" id="deals">
       <div class="container deal-layout">
-{sidebar(len(cards))}
+{sidebar(meta)}
         <div class="deal-list" data-deal-list>
 {chr(10).join(cards)}
         </div>
@@ -367,7 +382,7 @@ def deals_page():
 
 # ---------------------------------------------------------- the component --
 def component():
-    cards = deals()[:2]
+    cards = deals()[0][:2]
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -415,7 +430,7 @@ def component():
 if __name__ == "__main__":
     out = deals_page()
     open(os.path.join(BASE, "deals.html"), "w", encoding="utf-8").write(out)
-    print(f"  wrote deals.html  ({len(out.splitlines())} lines, {len(deals())} deals)")
+    print(f"  wrote deals.html  ({len(out.splitlines())} lines, {len(deals()[0])} deals)")
     out = component()
     open(os.path.join(BASE, "components", "deal-card.html"), "w", encoding="utf-8").write(out)
     print(f"  wrote components/deal-card.html  ({len(out.splitlines())} lines)")
