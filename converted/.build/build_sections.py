@@ -6,6 +6,7 @@ Build the homepage/community section components.
   converted/components/tru-way.html                  "How We Do Things"
   converted/components/overlay-hero.html             the right-aligned page hero
   converted/components/cross-links.html              "the rest of the story" grid
+  converted/components/reviews-section.html          reviews + the read-more collapse
 
 Both are the same card and carousel; what differs is the head, the watermark,
 who is in it, and whether the "Share Yours" CTA card is on the end. They are
@@ -358,6 +359,58 @@ def build_cross_links():
     open(os.path.join(COMP, "cross-links.html"), "w", encoding="utf-8").write(out)
     return len(re.findall(r'<a class="ab-xcard"', block_html))
 
+
+REVIEWS_NOTE = """  <!-- ===================================================================
+       REVIEWS — platform scores, and the reviews behind a collapse.
+
+       Rebuilt from the homepage. The previous version of this component was
+       extracted before the section was redesigned and had drifted badly:
+       it used `.reviews` as an inner <div> inside a `.section` + `.container`
+       when `.reviews` had since become the section itself with its own
+       padding, so the two paddings fought; and it was missing the head, the
+       platform row and the collapse entirely.
+
+       THE COLLAPSE IS CSS-ONLY. A hidden checkbox drives it:
+
+         <input type="checkbox" id="reviews-toggle" class="reviews__cb" hidden />
+         <div class="reviews__toggle"><label class="pill-btn" for="reviews-toggle">…</label></div>
+         <div class="reviews__grid"><div class="reviews__grid-inner">…</div></div>
+
+       `.reviews__cb:checked ~ …` does the rest — swaps the button label
+       (Read The Reviews / Hide Reviews), spins the chevron, and animates
+       `grid-template-rows` from 0fr to 1fr.
+
+       TWO THINGS THAT BREAK IT
+       1. The checkbox must be a SIBLING of the toggle and the grid, and come
+          before them — the whole thing is `~` selectors.
+       2. `grid-template-rows: 0fr` only collapses the FIRST row, so the cards
+          must sit inside ONE wrapper (`.reviews__grid-inner`, which carries
+          the `overflow: hidden`). Add a second child and the panel stops
+          collapsing.
+
+       If you put two of these on one page, change the id and the `for` on
+       both, or the second label will drive the first checkbox.
+
+       Requires ../styles.css (.reviews*, .rvw-*, .pill-btn). No script.
+       =================================================================== -->"""
+
+
+def build_reviews():
+    sec = reroot(slice_section("index.html", '<section class="reviews" id="reviews">'))
+    out = (
+        HEAD.format(
+            title="Reviews section",
+            desc="Platform scores plus the reviews themselves behind a CSS-only collapse.",
+            label="Reviews &mdash; demo (hit “Read The Reviews” to expand)",
+        )
+        + REVIEWS_NOTE
+        + "\n"
+        + sec
+        + "\n</body>\n</html>\n"
+    )
+    open(os.path.join(COMP, "reviews-section.html"), "w", encoding="utf-8").write(out)
+    return len(re.findall(r'<div class="rvw-card">', sec)), len(re.findall(r'rvw-platform"', sec))
+
 if __name__ == "__main__":
     c, m = build_video_diaries()
     print(f"  wrote components/video-diaries-carousel.html  ({c} cards, {m} viewers)")
@@ -369,3 +422,5 @@ if __name__ == "__main__":
     print(f"  wrote components/overlay-hero.html            ({n} hero parts)")
     n = build_cross_links()
     print(f"  wrote components/cross-links.html             ({n} cards)")
+    c, pl = build_reviews()
+    print(f"  wrote components/reviews-section.html         ({c} reviews, {pl} platforms)")

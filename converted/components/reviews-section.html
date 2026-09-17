@@ -4,225 +4,147 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Reviews section (component) — TruTravels</title>
-  <meta name="description" content="Trustpilot rating + swipeable carousel of review cards." />
+  <title>Reviews section (component) &mdash; TruTravels</title>
+  <meta name="description" content="Platform scores plus the reviews themselves behind a CSS-only collapse." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
-  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Reviews bar + reviews section &mdash; demo</p></div>
-
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Reviews &mdash; demo (hit “Read The Reviews” to expand)</p></div>
   <!-- ===================================================================
-       REVIEWS BAR — copy this <section> under a hero (replaces the ticker).
-       CSS-only flip. Paths use ../ in this folder; drop ../ at the site root.
-       Same markup as reviews-bar.html. Requires ../styles.css (.reviews-bar*).
-       =================================================================== -->
-  <section class="reviews-bar" aria-label="Reviews and booking protection">
-    <div class="reviews-bar__viewport">
-      <div class="reviews-bar__slide reviews-bar__slide--a">
-        <div class="reviews-bar__inner">
-          <span class="reviews-bar__stat"><strong>22,000+</strong><span class="reviews-bar__stat-label">REVIEWS</span></span>
-          <span class="reviews-bar__rule" aria-hidden="true"></span>
-          <span class="reviews-bar__rating">
-            <span class="reviews-bar__score">4.9</span>
-            <span class="reviews-bar__stars" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path fill="#FBBC05" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              <svg viewBox="0 0 24 24"><path fill="#FBBC05" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              <svg viewBox="0 0 24 24"><path fill="#FBBC05" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              <svg viewBox="0 0 24 24"><path fill="#FBBC05" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              <svg viewBox="0 0 24 24">
-                <defs>
-                  <linearGradient id="reviews-bar-star-4-9-section" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="70%" stop-color="#FBBC05"/>
-                    <stop offset="70%" stop-color="rgba(255,255,255,0.28)"/>
-                  </linearGradient>
-                </defs>
-                <path fill="url(#reviews-bar-star-4-9-section)" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-            </span>
-          </span>
-          <span class="reviews-bar__rule reviews-bar__rule--always" aria-hidden="true"></span>
-          <span class="reviews-bar__platforms">
-            <span class="reviews-bar__plat">
-              <svg viewBox="0 0 48 48" aria-label="Google" role="img"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
-              <span>Google</span>
-            </span>
-            <span class="reviews-bar__plat">
-              <svg viewBox="0 0 24 24" fill="#00B67A" aria-label="Trustpilot" role="img"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              <span>Trustpilot</span>
-            </span>
-            <span class="reviews-bar__plat">
-              <img src="../assets/platform-logos/tourradar-favicon.png" alt="TourRadar" />
-              <span>TourRadar</span>
-            </span>
-          </span>
-        </div>
-      </div>
-      <div class="reviews-bar__slide reviews-bar__slide--b">
-        <div class="reviews-bar__inner">
-          <span class="reviews-bar__protect-title">
-            <svg class="reviews-bar__shield" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"/></svg>
-            <span class="reviews-bar__protect-label">FULLY PROTECTED</span>
-          </span>
-          <span class="reviews-bar__protect-short">Book with Confidence</span>
-          <span class="reviews-bar__protect-copy">ABTA &amp; ATOL protected - Book with Confidence</span>
-          <span class="reviews-bar__rule reviews-bar__rule--desk" aria-hidden="true"></span>
-          <span class="reviews-bar__protect-logos">
-            <img src="../assets/pay/atol-logo.png" alt="ATOL Protected" />
-            <img class="reviews-bar__abta" src="../assets/pay/abta-logo.png" alt="ABTA — Travel With Confidence" />
-          </span>
-        </div>
-      </div>
-    </div>
-  </section>
+       REVIEWS — platform scores, and the reviews behind a collapse.
 
-  <!-- ===================================================================
-       REVIEWS SECTION — Trustpilot header + .rev-carousel of .rev-card items. Copy the carousel arrow + drag scripts (below).
-       Requires ../styles.css. The flip strip above is separate (hero); this #reviews block stays as-is.
+       Rebuilt from the homepage. The previous version of this component was
+       extracted before the section was redesigned and had drifted badly:
+       it used `.reviews` as an inner <div> inside a `.section` + `.container`
+       when `.reviews` had since become the section itself with its own
+       padding, so the two paddings fought; and it was missing the head, the
+       platform row and the collapse entirely.
+
+       THE COLLAPSE IS CSS-ONLY. A hidden checkbox drives it:
+
+         <input type="checkbox" id="reviews-toggle" class="reviews__cb" hidden />
+         <div class="reviews__toggle"><label class="pill-btn" for="reviews-toggle">…</label></div>
+         <div class="reviews__grid"><div class="reviews__grid-inner">…</div></div>
+
+       `.reviews__cb:checked ~ …` does the rest — swaps the button label
+       (Read The Reviews / Hide Reviews), spins the chevron, and animates
+       `grid-template-rows` from 0fr to 1fr.
+
+       TWO THINGS THAT BREAK IT
+       1. The checkbox must be a SIBLING of the toggle and the grid, and come
+          before them — the whole thing is `~` selectors.
+       2. `grid-template-rows: 0fr` only collapses the FIRST row, so the cards
+          must sit inside ONE wrapper (`.reviews__grid-inner`, which carries
+          the `overflow: hidden`). Add a second child and the panel stops
+          collapsing.
+
+       If you put two of these on one page, change the id and the `for` on
+       both, or the second label will drive the first checkbox.
+
+       Requires ../styles.css (.reviews*, .rvw-*, .pill-btn). No script.
        =================================================================== -->
-  <section style="padding:1.5rem 0 4rem;">
-    <div class="container">    <section class="section" id="reviews">
-      <h2 class="section-heading">Reviews</h2>
-      <div class="reviews">
-        <div class="rev-tp">
-          <div class="rev-tp__rating">
-            <div class="tp-tiles tp-tiles--md"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i></div>
-            <span class="rev-tp__count">305 reviews</span>
+<section class="reviews" id="reviews">
+      <div class="container">
+        <div class="reviews__head">
+          <p class="reviews__eyebrow">The Reviews</p>
+          <h2 class="reviews__title">Don&rsquo;t Just Take <span>Our Word For It</span></h2>
+        </div>
+
+        <div class="reviews__platforms">
+          <div class="rvw-platform">
+            <span class="rvw-plogo"><svg class="" viewBox="0 0 48 48" aria-label="Google" role="img"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg><span>Google</span></span>
+            <span class="rvw-platform__score">4.8</span>
+            <div class="reviews__stars"><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <p class="rvw-platform__count">1,300+ reviews</p>
           </div>
-          <div class="rev-tp__rated">
-            <span class="rev-tp__mute">Rated</span>
-            <span class="rev-tp__excellent">Excellent</span>
-            <span class="rev-tp__mute">on</span>
-            <svg class="rev-tp__logo" viewBox="0 0 120 30" fill="none"><path d="M16.5 0L20.2 11.4H32.1L22.5 18.4L26.1 29.8L16.5 22.8L6.9 29.8L10.5 18.4L0.9 11.4H12.8L16.5 0Z" fill="#00B67A"/><text x="38" y="21" fill="white" font-size="14" font-weight="700" font-family="system-ui">Trustpilot</text></svg>
+          <div class="rvw-platform">
+            <span class="rvw-plogo"><svg class="" viewBox="0 0 24 24" fill="#00B67A" aria-label="Trustpilot" role="img"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><span>Trustpilot</span></span>
+            <span class="rvw-platform__score">4.9</span>
+            <div class="reviews__stars"><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <p class="rvw-platform__count">3,600+ reviews</p>
+          </div>
+          <div class="rvw-platform">
+            <span class="rvw-plogo"><img src="../assets/platform-logos/tourradar-favicon.png" alt="TourRadar" /><span>TourRadar</span></span>
+            <span class="rvw-platform__score">4.9</span>
+            <div class="reviews__stars"><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+            <p class="rvw-platform__count">17,000+ reviews</p>
           </div>
         </div>
-        <div class="rev-carousel" data-arrows>
-        <div class="rev-bleed">
-          <div class="carousel carousel--reviews">
-        <article class="rev-card">
-          <div class="tp-tiles tp-tiles--sm"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i></div>
-          <h4 class="rev-card__title">Memories for a lifetime</h4>
-          <p class="rev-card__body">Smile was the best tour guide and nurse! Always taking care of me and looking out for the whole group. Always had clear daily plans with timings on the WhatsApp chat and information about the local area. We had a mix of culture with the temples then beaches and nightlife. It was perfect for me and met the most amazing people.</p>
-          <p class="rev-card__author">Emily <span>&mdash; Apr 2026</span></p>
-        </article>
-        <article class="rev-card">
-          <div class="tp-tiles tp-tiles--sm"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i></div>
-          <h4 class="rev-card__title">SMILE is the best</h4>
-          <p class="rev-card__body">Smile was a great tour guide on the Thailand island tour! Would always go out his way to help with everything!</p>
-          <p class="rev-card__author">Hannah <span>&mdash; Apr 2026</span></p>
-        </article>
-        <article class="rev-card">
-          <div class="tp-tiles tp-tiles--sm"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i></div>
-          <h4 class="rev-card__title">Best trip of my life</h4>
-          <p class="rev-card__body">Honestly, this trip exceeded every expectation. From the boat parties to the floating bungalows in Khao Sok, every day was an absolute highlight. The group of strangers became my closest mates by day three. Worth every penny.</p>
-          <p class="rev-card__author">Tom <span>&mdash; Mar 2026</span></p>
-        </article>
-        <article class="rev-card">
-          <div class="tp-tiles tp-tiles--sm"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i></div>
-          <h4 class="rev-card__title">Unforgettable two weeks</h4>
-          <p class="rev-card__body">I came solo and never felt alone for a second. The mix of structured days and free time was spot on. Koh Tao, Koh Phangan, Khao Sok — every stop felt different. Already looking at the next Tru trip.</p>
-          <p class="rev-card__author">Priya <span>&mdash; Mar 2026</span></p>
-        </article>
-        <article class="rev-card">
-          <div class="tp-tiles tp-tiles--sm"><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i><i><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></i></div>
-          <h4 class="rev-card__title">Couldn't recommend more</h4>
-          <p class="rev-card__body">Brilliant trip. Brilliant leaders. Brilliant group. The Full Moon Party was wild but the small moments — sunrise on the ferry, beach BBQs — are what I keep coming back to.</p>
-          <p class="rev-card__author">Marcus <span>&mdash; Feb 2026</span></p>
-        </article>
-          </div>
+
+        <input type="checkbox" id="reviews-toggle" class="reviews__cb" hidden />
+        <div class="reviews__toggle">
+          <label class="pill-btn" for="reviews-toggle">
+            <span class="reviews__toggle-show">Read The Reviews</span>
+            <span class="reviews__toggle-hide">Hide Reviews</span>
+            <svg class="reviews__toggle-chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
+          </label>
         </div>
-        <button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous reviews"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
-        <button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next reviews"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+
+        <div class="reviews__grid">
+          <div class="reviews__grid-inner">
+            <div class="reviews__grid-cards">
+            <div class="rvw-card">
+              <div class="reviews__stars rvw-card__stars"><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+              <h3 class="rvw-card__title">Best trip of my life</h3>
+              <p class="rvw-card__text">Everything was sorted from the second we landed. The group felt like family within a day and our leader was an absolute legend.</p>
+              <div class="rvw-card__foot">
+                <p class="rvw-card__meta"><strong>Sophie C.</strong> &middot; Thailand Island Hopper &middot; 2 weeks ago</p>
+                <svg class="rvw-card__mark" viewBox="0 0 24 24" fill="#00B67A" aria-label="Trustpilot" role="img"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+            </div>
+            <div class="rvw-card">
+              <div class="reviews__stars rvw-card__stars"><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+              <h3 class="rvw-card__title">Zero stress, all adventure</h3>
+              <p class="rvw-card__text">I was nervous travelling solo but never felt alone for a second. Every detail was handled so I could just enjoy it. Worth every penny.</p>
+              <div class="rvw-card__foot">
+                <p class="rvw-card__meta"><strong>Jake M.</strong> &middot; Bali Experience &middot; 1 month ago</p>
+                <svg class="rvw-card__mark" viewBox="0 0 48 48" aria-label="Google" role="img"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+              </div>
+            </div>
+            <div class="rvw-card">
+              <div class="reviews__stars rvw-card__stars"><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+              <h3 class="rvw-card__title">Met friends for life</h3>
+              <p class="rvw-card__text">Came on my own, left with a whole crew I still speak to every day. The Full Moon Party night was unreal. Can't recommend Tru enough.</p>
+              <div class="rvw-card__foot">
+                <p class="rvw-card__meta"><strong>Priya K.</strong> &middot; Thailand Island Hopper &middot; 3 weeks ago</p>
+                <img class="rvw-card__mark" src="../assets/platform-logos/tourradar-favicon.png" alt="TourRadar" />
+              </div>
+            </div>
+            <div class="rvw-card">
+              <div class="reviews__stars rvw-card__stars"><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+              <h3 class="rvw-card__title">Seamless from start to finish</h3>
+              <p class="rvw-card__text">Flights, transfers, hotels, activities — all handled. Our guide knew every hidden spot. This is how travel should be done.</p>
+              <div class="rvw-card__foot">
+                <p class="rvw-card__meta"><strong>Marcus R.</strong> &middot; Vietnam Explorer &middot; 1 month ago</p>
+                <svg class="rvw-card__mark" viewBox="0 0 24 24" fill="#00B67A" aria-label="Trustpilot" role="img"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+            </div>
+            <div class="rvw-card">
+              <div class="reviews__stars rvw-card__stars"><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+              <h3 class="rvw-card__title">Absolutely unforgettable</h3>
+              <p class="rvw-card__text">The floating bungalows in Khao Sok were a dream and the local food tour blew me away. The little TruExclusive moments made it.</p>
+              <div class="rvw-card__foot">
+                <p class="rvw-card__meta"><strong>Hannah B.</strong> &middot; Sri Lanka Uncovered &middot; 2 months ago</p>
+                <svg class="rvw-card__mark" viewBox="0 0 48 48" aria-label="Google" role="img"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+              </div>
+            </div>
+            <div class="rvw-card">
+              <div class="reviews__stars rvw-card__stars"><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#FBBC05"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+              <h3 class="rvw-card__title">10/10 would book again</h3>
+              <p class="rvw-card__text">Brilliant balance of culture, adventure and downtime. Nothing felt rushed and the group size was perfect. My favourite holiday ever.</p>
+              <div class="rvw-card__foot">
+                <p class="rvw-card__meta"><strong>Tom A.</strong> &middot; Philippines East &middot; 3 weeks ago</p>
+                <img class="rvw-card__mark" src="../assets/platform-logos/tourradar-favicon.png" alt="TourRadar" />
+              </div>
+            </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section></div>
-<script>/* carousel nav arrows (reviews + you might like) */
-  (function () {
-    document.querySelectorAll('[data-arrows]').forEach(function (wrap) {
-      var track = wrap.querySelector('.carousel, .side-stays, .vdiaries');
-      var prev = wrap.querySelector('[data-rev="prev"]');
-      var next = wrap.querySelector('[data-rev="next"]');
-      if (!track || !prev || !next) return;
-      function step() {
-        var card = track.firstElementChild;
-        var gap = parseFloat(getComputedStyle(track).columnGap) || 20;
-        return card ? card.getBoundingClientRect().width + gap : track.clientWidth;
-      }
-      function sync() {
-        var max = track.scrollWidth - track.clientWidth;
-        prev.disabled = track.scrollLeft <= 1;
-        next.disabled = track.scrollLeft >= max - 1;
-      }
-      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
-      track.addEventListener('scroll', sync, { passive: true });
-      window.addEventListener('resize', sync);
-      sync();
-    });
-  })();
-  </script>
-<script>/* experience-types disclosure — opening one card opens all (shared state, like the prototype) */
-  (function () {
-    var boxes = document.querySelectorAll('.tripcard__exp-cb');
-    if (!boxes.length) return;
-    boxes.forEach(function (cb) {
-      cb.addEventListener('change', function () {
-        boxes.forEach(function (other) {
-          if (other !== cb) other.checked = cb.checked;
-        });
-      });
-    });
-  })();
-  </script>
-<script>/* drag-to-scroll with momentum — click/one-finger drag on every horizontal carousel (like Swiper) */
-  (function () {
-    document.querySelectorAll('.side-stays, .carousel, .vdiaries').forEach(function (track) {
-      var down = false, startX = 0, startLeft = 0, moved = false, snap = '';
-      var lastX = 0, lastT = 0, vx = 0, raf = null;
-      track.style.cursor = 'grab';
-      track.querySelectorAll('img').forEach(function (im) { im.setAttribute('draggable', 'false'); });
-      track.addEventListener('dragstart', function (e) { e.preventDefault(); });
-      function stopMomentum() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
-      track.addEventListener('mousedown', function (e) {
-        if (e.button !== 0) return;
-        stopMomentum();
-        down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
-        lastX = e.clientX; lastT = performance.now(); vx = 0;
-        snap = track.style.scrollSnapType; track.style.scrollSnapType = 'none';
-        track.style.cursor = 'grabbing';
-        e.preventDefault();
-      });
-      document.addEventListener('mousemove', function (e) {
-        if (!down) return;
-        var dx = e.clientX - startX;
-        if (Math.abs(dx) > 3) moved = true;
-        track.scrollLeft = startLeft - dx;
-        var now = performance.now(), dt = now - lastT;
-        if (dt > 0) { vx = (e.clientX - lastX) / dt; lastX = e.clientX; lastT = now; }
-      });
-      document.addEventListener('mouseup', function () {
-        if (!down) return; down = false; track.style.cursor = 'grab';
-        if (moved) {
-          var block = function (ev) { ev.preventDefault(); ev.stopPropagation(); };
-          track.addEventListener('click', block, true);
-          setTimeout(function () { track.removeEventListener('click', block, true); }, 0);
-        }
-        var v = -vx * 16;
-        function step() {
-          v *= 0.95;
-          track.scrollLeft += v;
-          if (Math.abs(v) > 0.4) { raf = requestAnimationFrame(step); }
-          else { raf = null; track.style.scrollSnapType = snap; }
-        }
-        if (moved && Math.abs(v) > 1.5) { raf = requestAnimationFrame(step); }
-        else { track.style.scrollSnapType = snap; }
-      });
-    });
-  })();
-  </script>
-  </section>
-
+    </section>
 </body>
 </html>
