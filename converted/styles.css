@@ -1346,11 +1346,35 @@ ul { margin: 0; padding: 0; list-style: none; }
 .modal__title { color: #fff; font-family: Montserrat, sans-serif; font-weight: 900; text-transform: uppercase; font-size: 1.25rem; margin: 0 0 1rem; }
 .modal video, .modal__panel--wide > img { width: 100%; border-radius: 12px; display: block; }
 
-/* Forms (waitlist / enquiry) */
+/* ------------------------------------------------------------------
+   FORM FIELDS — the site's general field system. Waitlist, enquiry,
+   contact us and anything new use this. The values were previously
+   duplicated as `.bkg-wl` descendant overrides; they live here now and
+   `.bkg-wl` keeps only what is genuinely local to the booking modal.
+   Checkout (.co-field) and the account pages (.acct-field, .acct-fld)
+   keep their own tighter treatments — see components/form-fields.html.
+   ------------------------------------------------------------------ */
 .field { margin-bottom: 1rem; }
-.field label { display: block; color: var(--tru-pink); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; font-family: Montserrat, sans-serif; margin-bottom: 0.4rem; }
-.field input, .field textarea { width: 100%; background: var(--surface-soft); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 0.65rem 0.85rem; color: #fff; font: inherit; }
+.field label { display: block; color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.5rem; }
+.field label span { color: #6b7280; }
+.field input, .field select, .field textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border-soft); border-radius: 10px; padding: 0.625rem 1rem; color: #fff; font-family: inherit; font-size: 0.875rem; transition: border-color 0.2s; }
+.field input::placeholder, .field textarea::placeholder { color: #6b7280; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: rgba(255,63,153,0.5); }
 .field textarea { resize: vertical; }
+.field select { appearance: none; -webkit-appearance: none; padding-right: 2.25rem; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/></svg>"); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1rem 1rem; }
+.field select option { background: var(--tru-navy); color: #fff; }
+/* hint / error, and the error state on the control itself */
+.field__hint { color: #6b7280; font-size: 0.75rem; line-height: 1.5; margin: 0.4rem 0 0; }
+.field__err { color: #f87171; font-size: 0.75rem; line-height: 1.5; margin: 0.4rem 0 0; }
+.field.is-err input, .field.is-err select, .field.is-err textarea { border-color: #ef4444; }
+/* two fields side by side from 640px up */
+.field-row { display: grid; grid-template-columns: 1fr; column-gap: 0.75rem; }
+@media (min-width: 640px) { .field-row { grid-template-columns: 1fr 1fr; } }
+/* consent / opt-in checkbox row */
+.form-check { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0 0 1rem; color: #9ca3af; font-size: 0.82rem; line-height: 1.45; cursor: pointer; }
+.form-check input { flex-shrink: 0; margin-top: 0.15rem; width: 1rem; height: 1rem; accent-color: var(--tru-pink); }
+.form-check a { color: #d1d5db; text-decoration: underline; }
+.form-check a:hover { color: var(--tru-pink); }
 .note-box { border: 1px solid rgba(255,63,153,0.25); background: rgba(255,63,153,0.06); border-radius: var(--radius); padding: 1rem; margin-bottom: 1.25rem; }
 .note-box p { margin: 0; }
 .note-box p + p { margin-top: 0.25rem; }
@@ -2149,22 +2173,26 @@ ul { margin: 0; padding: 0; list-style: none; }
 .bkg-wl__note { border: 1px solid rgba(255,63,153,0.25); background: rgba(255,63,153,0.06); border-radius: 10px; padding: 1rem; margin-bottom: 1.5rem; }
 .bkg-wl__note-t { color: #fff; font-size: 0.875rem; font-weight: 700; margin: 0; }
 .bkg-wl__note-s { color: #d1d5db; font-size: 0.75rem; line-height: 1.5; margin: 0.25rem 0 0; }
-.bkg-wl .field { margin-bottom: 1rem; }
-.bkg-wl label { display: block; color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 0.5rem; }
-.bkg-wl label span { color: #6b7280; }
-.bkg-wl input, .bkg-wl textarea { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--border-soft); border-radius: 10px; padding: 0.625rem 1rem; color: #fff; font-size: 0.875rem; }
-.bkg-wl input::placeholder, .bkg-wl textarea::placeholder { color: #6b7280; }
-.bkg-wl input:focus, .bkg-wl textarea:focus { outline: none; border-color: rgba(255,63,153,0.5); }
+/* Fields come from the general `.field` system above — only what is
+   specific to the booking modal is set here. */
 .bkg-wl textarea { resize: none; }
-.bkg-wl__submit { width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 10px; background: var(--tru-pink); color: #fff; border: none; cursor: pointer; padding: 0.75rem 1.5rem; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; }
-.bkg-wl__submit:hover { background: #ff5bab; }
-.bkg-wl__submit svg { width: 1rem; height: 1rem; }
-.bkg-wl__done { text-align: center; padding: 2rem 0; }
-.bkg-wl__done-ico { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 999px; background: rgba(255,63,153,0.15); border: 1px solid rgba(255,63,153,0.3); margin: 0 auto 1rem; }
-.bkg-wl__done-ico svg { width: 1.75rem; height: 1.75rem; color: var(--tru-pink); }
-.bkg-wl__done-t { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -0.025em; font-size: 1.5rem; margin: 0 0 0.5rem; }
-.bkg-wl__done-t span { color: var(--tru-pink); }
-.bkg-wl__done-s { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; max-width: 24rem; margin: 0 auto; }
+
+/* Submit button and success panel are shared: the booking modal's names
+   and the generic ones are two labels on one implementation, so a new
+   form gets the same button without a second copy of these rules. */
+.form-submit, .bkg-wl__submit { width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 10px; background: var(--tru-pink); color: #fff; border: none; cursor: pointer; padding: 0.75rem 1.5rem; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; }
+.form-submit:hover, .bkg-wl__submit:hover { background: #ff5bab; }
+.form-submit svg, .bkg-wl__submit svg { width: 1rem; height: 1rem; }
+.form-submit--auto { width: auto; padding-left: 2rem; padding-right: 2rem; }
+
+.form-done, .bkg-wl__done { text-align: center; padding: 2rem 0; }
+.form-done--boxed { border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03); border-radius: 16px; padding: 2.5rem; }
+.form-done__ico, .bkg-wl__done-ico { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 999px; background: rgba(255,63,153,0.15); border: 1px solid rgba(255,63,153,0.3); margin: 0 auto 1rem; }
+.form-done__ico svg, .bkg-wl__done-ico svg { width: 1.75rem; height: 1.75rem; color: var(--tru-pink); }
+.form-done__t, .bkg-wl__done-t { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -0.025em; font-size: 1.5rem; margin: 0 0 0.5rem; }
+.form-done__t span, .bkg-wl__done-t span { color: var(--tru-pink); }
+.form-done__s, .bkg-wl__done-s { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; max-width: 24rem; margin: 0 auto; }
+.form-done[hidden], .form-submit[hidden] { display: none; }
 /* footer */
 .bkg__foot { padding: 1rem 1.5rem; border-top: 1px solid var(--border-soft); flex-shrink: 0; }
 .bkg__foot-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
@@ -4591,9 +4619,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 .bkg-dep__req { display: inline-flex; align-items: center; gap: 0.25rem; color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
 .bkg-dep__req svg { width: 0.875rem; height: 0.875rem; }
 .bkg-dep__req--blue { color: var(--tru-blue); }
+/* "On request" variant — blue rather than pink, because it's a different ask:
+   checking availability, not queuing for a cancellation. */
 .bkg-wl__note.is-request { border-color: rgba(33,114,213,0.3); background: rgba(33,114,213,0.08); }
-.bkg-wl__submit.is-request { background: var(--tru-blue); }
-.bkg-wl__submit.is-request:hover { background: #1b62b8; }
+.form-submit.is-request, .bkg-wl__submit.is-request { background: var(--tru-blue); }
+.form-submit.is-request:hover, .bkg-wl__submit.is-request:hover { background: #1b62b8; }
 .bkg-wl__done-t span { color: var(--tru-pink); }
 
 /* Back a diary in the full-screen viewer — was next-only, so there was no way
@@ -5176,6 +5206,31 @@ ul { margin: 0; padding: 0; list-style: none; }
 .nf-route__go { flex-shrink: 0; color: #6b7280; transition: color 0.2s; }
 .nf-route__go svg { width: 1rem; height: 1rem; }
 .nf-route:hover .nf-route__go { color: var(--tru-pink); }
+
+/* ============================================================
+   SUPPORT — "Talk To A Human" channel cards (mirrors
+   src/components/support-escalation.tsx). The panel around them is
+   the shared .ess-card; only the cards themselves are new.
+   ============================================================ */
+.chan-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 640px) { .chan-grid { grid-template-columns: repeat(3, 1fr); } }
+/* flex column, not block: a <button> vertically centres its own content when
+   the grid stretches it, which misaligns a card whose value wraps to two lines. */
+.chan-card { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; width: 100%; text-align: center; border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+.chan-card:hover { border-color: rgba(255,63,153,0.3); background: rgba(255,255,255,0.05); }
+.chan-card__ico { display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; border-radius: 999px; background: rgba(255,63,153,0.15); border: 1px solid rgba(255,63,153,0.3); margin: 0 auto 1rem; }
+.chan-card__ico svg { width: 1.5rem; height: 1.5rem; color: var(--tru-pink); }
+.chan-card__l { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.025em; margin: 0 0 0.25rem; }
+.chan-card__v { color: #9ca3af; font-size: 0.75rem; line-height: 1.5; margin: 0 0 0.75rem; }
+.chan-card__go { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.2s; }
+.chan-card:hover .chan-card__go { color: #ff5bab; }
+/* the regional phone list inside the "Call Us" panel */
+.chan-tel { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03); border-radius: 10px; padding: 0.75rem 1rem; margin-bottom: 0.5rem; transition: border-color 0.2s, background 0.2s; }
+.chan-tel:hover { border-color: rgba(255,63,153,0.3); background: rgba(255,255,255,0.05); }
+.chan-tel__c { display: flex; align-items: center; gap: 0.75rem; min-width: 0; color: #fff; font-size: 0.875rem; }
+.chan-tel__flag { font-size: 1.125rem; line-height: 1; flex-shrink: 0; }
+.chan-tel__n { flex-shrink: 0; color: #9ca3af; font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+.chan-tel:hover .chan-tel__n { color: var(--tru-pink); }
 
 /* ============================================================
    ABOUT SECTION — mirrors src/app/about/*

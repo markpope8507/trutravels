@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Account details form (component) &mdash; TruTravels</title>
+  <meta name="description" content="Account forms — profile details, travel preferences, and the Good to Go fieldset editor." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* Demo chrome only — never copy .cxa-*. */
+    .cxa-wrap { max-width: 34rem; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+    .cxa-kicker { color: #9ca3af; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.72rem; margin: 0 0 0.5rem; }
+    .cxa-note { color: #6b7280; font-size: 0.8125rem; line-height: 1.6; margin: 0 0 2.25rem; }
+    .cxa-note code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #e5e7eb; }
+    .cxa-sec { margin-top: 2.75rem; }
+    .cxa-sec__t { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.22em; margin: 0 0 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.12); }
+  </style>
+</head>
+<body>
+  <div class="cxa-wrap">
+    <p class="cxa-kicker">Account details form &mdash; demo</p>
+    <p class="cxa-note">The account pages run two field families, and they are not interchangeable: <code>.acct-field</code> for settings rows, and the compact <code>.acct-fld</code> inside an <code>.acct-fs</code> fieldset for the Good to Go editor, which has to fit many short fields in a card inside a tab. See <a href="form-fields.html" style="color:var(--tru-pink)">form-fields</a> for the comparison.</p>
+
+    <!-- ===================================================================
+         ACCOUNT DETAILS FORMS — the three account form blocks
+         (converted/my-account-profile.html and .build/account_bookings.js).
+
+           A. Profile details  — `.acct-field` rows in an `.acct-card`
+           B. Travel prefs     — toggle pills, not a field at all
+           C. Good to Go       — `.acct-fs` fieldsets of `.acct-fld` inputs
+
+         C is the one to copy for any long "fill in your paperwork" form:
+         each `<fieldset class="acct-fs">` is a labelled group, and
+         `.acct-fs__2` puts two inputs side by side inside it. The inputs
+         carry no <label> — the placeholder is the label, which is only
+         acceptable here because every field is pre-filled with the
+         traveller's own saved value and the legend names the group.
+         Don't copy that pattern to an empty form; use `.field` instead.
+
+         Requires ../styles.css. No script — the real page wires save and
+         cancel in account_bookings.js.
+         =================================================================== -->
+
+    <!-- ---------- A. Profile details ---------- -->
+    <div class="cxa-sec">
+      <p class="cxa-sec__t">A &middot; Profile details</p>
+      <form class="acct-card" onsubmit="return false">
+        <p class="acct-card__h">Details</p>
+        <div class="acct-field"><label for="acct-name">Full Name</label><input id="acct-name" type="text" value="Alex Traveller" autocomplete="name" /></div>
+        <div class="acct-field"><label for="acct-email">Email</label><input id="acct-email" type="email" value="alex@example.com" autocomplete="email" /></div>
+        <div class="acct-field"><label for="acct-phone">Contact Number</label><input id="acct-phone" type="tel" value="+44 7700 900000" autocomplete="tel" /></div>
+      </form>
+    </div>
+
+    <!-- ---------- B. Travel preferences ---------- -->
+    <div class="cxa-sec">
+      <p class="cxa-sec__t">B &middot; Travel preferences</p>
+      <div class="acct-card">
+        <p class="acct-card__h">Travel Preferences</p>
+        <p class="acct-note">Tell us what you&rsquo;re into and we&rsquo;ll tailor what we show you.</p>
+        <div class="acct-prefs">
+          <button class="acct-pref" type="button" data-pref>Adventure</button>
+          <button class="acct-pref" type="button" data-pref>Beaches</button>
+          <button class="acct-pref" type="button" data-pref>Culture</button>
+          <button class="acct-pref" type="button" data-pref>Nightlife</button>
+          <button class="acct-pref" type="button" data-pref>Wellness</button>
+          <button class="acct-pref" type="button" data-pref>Food</button>
+        </div>
+      </div>
+      <button class="acct-save" type="button">Save Changes</button>
+    </div>
+
+    <!-- ---------- C. Good to Go editor ---------- -->
+    <div class="cxa-sec">
+      <p class="cxa-sec__t">C &middot; Good to Go editor</p>
+      <form class="acct-form" onsubmit="return false">
+        <div class="acct-form__head">
+          <p class="acct-h is-flush">Edit Good to Go</p>
+          <button type="button" class="acct-form__cancel">Cancel</button>
+        </div>
+
+        <fieldset class="acct-fs">
+          <legend>Flight Details</legend>
+          <div class="acct-fs__2">
+            <input class="acct-fld" name="flightAirline" placeholder="Airline" value="Thai Airways" />
+            <input class="acct-fld" name="flightNo" placeholder="Flight No." value="TG911" />
+          </div>
+          <input class="acct-fld" name="flightDeparts" placeholder="Departs from (e.g. London Heathrow, Sat 11 Apr at 21:30)" value="" />
+          <input class="acct-fld" name="flightArrives" placeholder="Arrives at (e.g. Bangkok BKK, Sun 12 Apr at 15:30)" value="" />
+        </fieldset>
+
+        <fieldset class="acct-fs">
+          <legend>Travel Insurance</legend>
+          <div class="acct-fs__2">
+            <input class="acct-fld" name="insProvider" placeholder="Provider" value="" />
+            <input class="acct-fld" name="insType" placeholder="Plan type" value="" />
+          </div>
+          <input class="acct-fld" name="insPolicy" placeholder="Policy number" value="" />
+        </fieldset>
+
+        <fieldset class="acct-fs">
+          <legend>Passport Details</legend>
+          <input class="acct-fld" name="ppName" placeholder="Full name (as on passport)" value="" />
+          <div class="acct-fs__2">
+            <input class="acct-fld" name="ppNo" placeholder="Passport number" value="" />
+            <input class="acct-fld" name="ppExp" placeholder="Expiry date" value="" />
+          </div>
+        </fieldset>
+
+        <fieldset class="acct-fs">
+          <legend>Emergency Contact</legend>
+          <input class="acct-fld" name="emName" placeholder="Full name" value="Sarah Traveller" />
+          <div class="acct-fs__2">
+            <input class="acct-fld" name="emPhone" placeholder="Phone number" value="+44 7700 900123" />
+            <input class="acct-fld" name="emRel" placeholder="Relationship" value="Mother" />
+          </div>
+        </fieldset>
+
+        <fieldset class="acct-fs">
+          <legend>Dietary Requirements</legend>
+          <input class="acct-fld" name="diet" placeholder="Allergies, dietary preferences etc." value="No allergies &middot; Vegetarian" />
+        </fieldset>
+
+        <!-- A fieldset can hold explanatory copy and an embed rather than
+             inputs — the Sherpa visa tool is one of these. -->
+        <fieldset class="acct-fs">
+          <legend>Visa &amp; Entry Requirements</legend>
+          <p class="acct-fs__p">Check your visa requirements for this destination using the Sherpa travel tool below.</p>
+          <p class="acct-fs__fine">Powered by Sherpa. This portal should be used for information purposes only and is not associated with TruTravels.</p>
+        </fieldset>
+
+        <div class="acct-form__foot">
+          <button type="button" class="acct-btn is-ghost">Cancel</button>
+          <button type="button" class="acct-btn is-green">Save All</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>/* preference pills — demo only; the real page persists the choice. */
+  (function () {
+    document.querySelectorAll('[data-pref]').forEach(function (b) {
+      b.addEventListener('click', function () { b.classList.toggle('is-on'); });
+    });
+  })();
+  </script>
+</body>
+</html>

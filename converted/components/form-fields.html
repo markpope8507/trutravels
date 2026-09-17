@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Form fields (component) &mdash; TruTravels</title>
+  <meta name="description" content="The form field kit — label, input, select, textarea, checkbox, hint, error, submit and success panel." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* Demo chrome only — NOT part of any block below. Never copy the .cxf-* rules. */
+    .cxf-wrap { max-width: 64rem; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+    .cxf-kicker { color: #9ca3af; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.72rem; margin: 0 0 0.75rem; }
+    .cxf-intro { color: #9ca3af; font-size: 0.9375rem; line-height: 1.7; max-width: 46rem; margin: 0 0 1rem; }
+    .cxf-intro code, .cxf-spec code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #e5e7eb; }
+    .cxf-group { margin-top: 3.5rem; }
+    .cxf-group__t { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.22em; margin: 0 0 0.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .cxf-item { padding: 1.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .cxf-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1rem; margin-bottom: 1rem; }
+    .cxf-cls { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; color: var(--tru-pink); background: rgba(255,63,153,0.1); border: 1px solid rgba(255,63,153,0.25); border-radius: 6px; padding: 0.15rem 0.5rem; }
+    .cxf-spec { color: #6b7280; font-size: 0.75rem; line-height: 1.5; }
+    .cxf-demo { max-width: 28rem; }
+    .cxf-demo--wide { max-width: 36rem; }
+    .cxf-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; margin-top: 1rem; }
+    .cxf-table th, .cxf-table td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.08); vertical-align: top; }
+    .cxf-table th { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 700; }
+    .cxf-table td { color: #9ca3af; line-height: 1.55; }
+    .cxf-table td code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--tru-pink); }
+    .cxf-scroll { overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="cxf-wrap">
+    <p class="cxf-kicker">Form fields &mdash; the control kit</p>
+    <p class="cxf-intro">Every form control, with the class to write. <code>.field</code> is the site&rsquo;s general field system &mdash; use it for any new form. The finished forms built on it each have their own component: <a href="contact-form.html" style="color:var(--tru-pink)">contact-form</a>, <a href="waitlist-form.html" style="color:var(--tru-pink)">waitlist-form</a>, <a href="newsletter-signup.html" style="color:var(--tru-pink)">newsletter-signup</a>.</p>
+
+    <!-- ===================================================================
+         FORM FIELDS — the control kit.
+
+         SHAPE OF A FIELD
+           <div class="field">
+             <label for="x">Label <span>*</span></label>   <span> = the grey asterisk
+             <input id="x" type="text" placeholder="…" />
+           </div>
+
+         Always pair `for` on the label with `id` on the control — clicking
+         the label should focus the field, and screen readers need it.
+
+         Requires ../styles.css. The success panel needs three lines of JS
+         (see the foot of this file) or nothing at all if the form posts.
+         =================================================================== -->
+
+    <!-- =============== 1. CONTROLS =============== -->
+    <div class="cxf-group">
+      <p class="cxf-group__t">1 &middot; Controls</p>
+
+      <div class="cxf-item">
+        <div class="cxf-head"><span class="cxf-cls">.field</span><span class="cxf-spec">text input. Label 10px/.2em pink Montserrat &middot; control 14px, 10px radius, white/5 on a 1px border, pink border on focus.</span></div>
+        <div class="cxf-demo">
+          <div class="field">
+            <label for="f-name">Name <span>*</span></label>
+            <input id="f-name" type="text" required placeholder="Your name" />
+          </div>
+        </div>
+      </div>
+
+      <div class="cxf-item">
+        <div class="cxf-head"><span class="cxf-cls">type="email" / "tel"</span><span class="cxf-spec">same field, typed. Gets the right mobile keyboard and free browser validation &mdash; always type an input rather than leaving it <code>text</code>.</span></div>
+        <div class="cxf-demo">
+          <div class="field">
+            <label for="f-email">Email <span>*</span></label>
+            <input id="f-email" type="email" required placeholder="you@email.com" autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="f-phone">Contact Number <span>*</span></label>
+            <input id="f-phone" type="tel" required placeholder="+44 &hellip;" autocomplete="tel" />
+          </div>
+        </div>
+      </div>
+
+      <div class="cxf-item">
+        <div class="cxf-head"><span class="cxf-cls">textarea</span><span class="cxf-spec">same field. Resizes vertically by default; add <code>style="resize:none"</code> inside a modal where the box can&rsquo;t grow.</span></div>
+        <div class="cxf-demo">
+          <div class="field">
+            <label for="f-msg">Message</label>
+            <textarea id="f-msg" rows="4" placeholder="What&rsquo;s on your mind? There are no stupid questions &mdash; ask away."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="cxf-item">
+        <div class="cxf-head"><span class="cxf-cls">select</span><span class="cxf-spec">same field with the native arrow replaced by the house chevron. Options render on navy so the open list matches the page.</span></div>
+        <div class="cxf-demo">
+          <div class="field">
+            <label for="f-topic">What&rsquo;s it about?</label>
+            <select id="f-topic">
+              <option>An existing booking</option>
+              <option>A trip I&rsquo;m thinking about</option>
+              <option>Payments and refunds</option>
+              <option>Visas, insurance and paperwork</option>
+              <option>Something else</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="cxf-item">
+        <div class="cxf-head"><span class="cxf-cls">.field-row</span><span class="cxf-spec">two fields side by side from 640px up, stacked below it. Only for genuinely paired values &mdash; first/last name, expiry/CVC.</span></div>
+        <div class="cxf-demo cxf-demo--wide">
+          <div class="field-row">
+            <div class="field"><label for="f-first">First Name <span>*</span></label><input id="f-first" type="text" placeholder="Alex" autocomplete="given-name" /></div>
+            <div class="field"><label for="f-last">Last Name <span>*</span></label><input id="f-last" type="text" placeholder="Morgan" autocomplete="family-name" /></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cxf-item">
+        <div class="cxf-head"><span class="cxf-cls">.form-check</span><span class="cxf-spec">consent / opt-in row. Wrap the whole thing in the <code>&lt;label&gt;</code> so the text is part of the hit area.</span></div>
+        <div class="cxf-demo cxf-demo--wide">
+          <label class="form-check">
+            <input type="checkbox" />
+            <span>Keep me posted on trips, deals and stories. No spam, unsubscribe anytime.</span>
+          </label>
+          <label class="form-check">
+            <input type="checkbox" required />
+            <span>I&rsquo;ve read and accept the <a href="../terms-conditions.html">booking conditions</a>. <span style="color:#6b7280">*</span></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- =============== 2. STATES =============== -->
+    <div class="cxf-group">
+      <p class="cxf-group__t">2 &middot; States &mdash; hint, error, success</p>
+
+      <div class="cxf-item">
+        <div class="cxf-head"><span class="cxf-cls">.field__hint</span><span class="cxf-spec">12px grey under a control. Say what you need <em>before</em> they get it wrong &mdash; a hint beats an error.</span></div>
+        <div class="cxf-demo">
+          <div class="field">
+            <label for="f-pass">Password <span>*</span></label>
+            <input id="f-pass" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
+            <p class="field__hint">At least 8 characters.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cxf-item">
+        <div class="cxf-head"><span class="cxf-cls">.field.is-err + .field__err</span><span class="cxf-spec">red border on the control, red message under it. Say what went wrong <em>and</em> how to fix it &mdash; never just &ldquo;invalid&rdquo;.</span></div>
+        <div class="cxf-demo">
+          <div class="field is-err">
+            <label for="f-bad">Email <span>*</span></label>
+            <input id="f-bad" type="email" value="alex@" />
+            <p class="field__err">That email is missing everything after the @ &mdash; try alex@example.com.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cxf-item">
+        <div class="cxf-head"><span class="cxf-cls">.form-submit</span><span class="cxf-spec">pink, full width, uppercase 12px. Add <code>.form-submit--auto</code> to shrink it to its content. The label says what happens &mdash; &ldquo;Join The Waitlist&rdquo;, not &ldquo;Submit&rdquo;.</span></div>
+        <div class="cxf-demo">
+          <button type="button" class="form-submit">Send Message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+          <div style="height:0.75rem"></div>
+          <button type="button" class="form-submit form-submit--auto">Save Changes</button>
+        </div>
+      </div>
+
+      <div class="cxf-item">
+        <div class="cxf-head"><span class="cxf-cls">.form-done</span><span class="cxf-spec">replaces the form once it&rsquo;s sent &mdash; tick in a pink disc, title, one reassuring line. Add <code>.form-done--boxed</code> when it sits on the page rather than inside a modal.</span></div>
+        <div class="cxf-demo cxf-demo--wide">
+          <div class="form-done form-done--boxed">
+            <span class="form-done__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+            <h3 class="form-done__t">Message <span>Sent</span></h3>
+            <p class="form-done__s">Thanks for reaching out &mdash; one of the team will get back to you shortly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =============== 3. THE OTHER FAMILIES =============== -->
+    <div class="cxf-group">
+      <p class="cxf-group__t">3 &middot; The page-specific families</p>
+      <p class="cxf-intro" style="margin-top:1rem">Three pages predate <code>.field</code> and keep their own, deliberately different treatments. Don&rsquo;t mix them, and don&rsquo;t reach for them on a new page &mdash; they exist to match the page around them.</p>
+      <div class="cxf-scroll">
+        <table class="cxf-table">
+          <thead><tr><th>Family</th><th>Used by</th><th>How it differs</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td><code>.field</code></td><td>Waitlist, enquiry, contact us, anything new</td><td>Pink 10px caps label, 14px control</td><td>The default. Start here.</td></tr>
+            <tr><td><code>.co-field</code></td><td>Checkout</td><td>Grey 12px label, 16px control, 8px radius</td><td>Reads as a retail checkout, not a brand page &mdash; the bigger control is easier to fill on a phone mid-purchase.</td></tr>
+            <tr><td><code>.acct-field</code></td><td>Account &rarr; profile</td><td>Grey 13px sentence-case label, 14px control</td><td>Settings, not a pitch &mdash; quieter labels sit better in a long list of rows.</td></tr>
+            <tr><td><code>.acct-fld</code> in <code>.acct-fs</code></td><td>Account &rarr; bookings, &ldquo;good to go&rdquo;</td><td>Compact 12px control in a bordered fieldset</td><td>Many short fields inside a card inside a tab &mdash; the normal size wouldn&rsquo;t fit.</td></tr>
+            <tr><td><code>.footer__form</code></td><td>Footer mailing list</td><td>Pill input + pill button, no label</td><td>One field on a dark band; the placeholder carries it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- =============== 4. WORKING EXAMPLE =============== -->
+    <div class="cxf-group">
+      <p class="cxf-group__t">4 &middot; Assembled &mdash; a working form</p>
+      <p class="cxf-intro" style="margin-top:1rem">Submit it &mdash; the success panel swaps in. That&rsquo;s the script at the foot of this file; it&rsquo;s eight lines and works for any form marked <code>data-demo-form</code>.</p>
+      <div class="cxf-demo cxf-demo--wide" style="margin-top:1.5rem">
+        <form data-demo-form>
+          <div class="field-row">
+            <div class="field"><label for="a-first">First Name <span>*</span></label><input id="a-first" type="text" required placeholder="Alex" /></div>
+            <div class="field"><label for="a-last">Last Name <span>*</span></label><input id="a-last" type="text" required placeholder="Morgan" /></div>
+          </div>
+          <div class="field"><label for="a-email">Email <span>*</span></label><input id="a-email" type="email" required placeholder="you@email.com" /></div>
+          <div class="field"><label for="a-topic">What&rsquo;s it about?</label><select id="a-topic"><option>A trip I&rsquo;m thinking about</option><option>An existing booking</option><option>Something else</option></select></div>
+          <div class="field"><label for="a-msg">Message</label><textarea id="a-msg" rows="4" placeholder="Ask away."></textarea></div>
+          <label class="form-check"><input type="checkbox" /><span>Keep me posted on trips, deals and stories.</span></label>
+          <button type="submit" class="form-submit">Send Message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+        </form>
+        <div class="form-done form-done--boxed" data-demo-done hidden>
+          <span class="form-done__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+          <h3 class="form-done__t">Message <span>Sent</span></h3>
+          <p class="form-done__s">Thanks for reaching out &mdash; one of the team will get back to you shortly.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>/* form -> success panel. Copy once per page; it wires every [data-demo-form].
+     Swap the body of the handler for a real fetch() when there's an endpoint. */
+  (function () {
+    document.querySelectorAll('[data-demo-form]').forEach(function (form) {
+      var done = form.parentElement.querySelector('[data-demo-done]');
+      if (!done) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        form.hidden = true;
+        done.hidden = false;
+        done.scrollIntoView({ block: 'nearest' });
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

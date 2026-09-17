@@ -33,6 +33,22 @@ page at the site root, drop the `../`.
 | `reviews-bar.html` | Flip strip under the hero: 22,000+ reviews / 4.9 / platforms ↔ Fully Protected + ABTA & ATOL. CSS-only. Mobile shortens the protection slide. | no |
 | `search-prompt.html` | Homepage search bar (above Pick Your Path) that opens the search overlay. Also wires any `[data-open-search]` control (nav magnifying glass). | yes |
 
+### Forms
+
+Every form on the site. `.field` is the general field system — use it for anything new; the
+checkout and account pages keep their own families for the reasons given in `form-fields.html`.
+
+| File | Component | Needs a `<script>`? |
+|------|-----------|:---:|
+| `form-fields.html` | **Form field kit** — every control with its class and spec: `.field` label/input/select/textarea, `.field-row`, `.form-check`, `.field__hint`, `.field.is-err`, `.form-submit`, `.form-done`. Also tables the five field families and which page each belongs to. Start here. | no |
+| `contact-form.html` | Contact Us — name / email / phone / message with a success panel, plus the **Talk To A Human** channel cards (chat · email · call) and the regional phone list. From help &amp; support. | yes |
+| `newsletter-signup.html` | Mailing-list capture in two shapes: the **footer strip** (pill input, already on every built page) and a **standalone panel** for a landing page or article foot. Both swap in a confirmation. | yes |
+| `waitlist-form.html` | The booking-modal details capture, in both asks: **waitlist** (pink — departure full, queuing for a cancellation) and **on request** (blue — departure close, availability must be checked). Same fields, deliberately different colour and copy. | yes |
+| `checkout-details-form.html` | The four checkout form blocks: log-in-to-autofill, collapsible **traveller details** cards (`.co-field` + `.co-req` / `.co-opt`, DOB and dialling-code selects), card payment, and the consent checkboxes. | yes |
+| `account-details-form.html` | Account forms: **profile details** rows (`.acct-field`), **travel preference** pills, and the **Good to Go** editor — `.acct-fs` fieldsets of compact `.acct-fld` inputs for a long paperwork form. | yes |
+
+Log in / create account is not here — it's `auth-modal.html` under Widgets.
+
 ### Page-template blocks
 
 Structural blocks for building whole pages (extracted from the live static pages).

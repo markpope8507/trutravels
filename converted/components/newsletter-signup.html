@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Newsletter signup (component) &mdash; TruTravels</title>
+  <meta name="description" content="Mailing-list signup — the footer strip plus a standalone panel variant." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Newsletter signup &mdash; demo (enter an email and hit Sign Up)</p></div>
+
+  <!-- ===================================================================
+       NEWSLETTER SIGNUP — the mailing-list capture.
+
+       A. Footer strip — `.footer__mailing`. Already on every built page as
+          part of the footer; it's here so the block is findable on its own.
+          The input is a pill with no visible label, so the `aria-label` is
+          doing real work — keep it.
+       B. Panel variant — the same capture as a standalone block for a
+          landing page or the end of an article, built on `.ess-card` and
+          the shared `.field` system.
+
+       Both swap in a confirmation line in place of the form. One script
+       at the foot of this file wires every `[data-mailform]`, and it is
+       the same script the built pages already carry — so if you paste the
+       footer strip into a built page, don't copy the script again.
+
+       Requires ../styles.css.
+       =================================================================== -->
+
+  <section class="ess-body">
+    <div class="ess-col">
+
+      <!-- ---------- A. Footer strip ---------- -->
+      <p class="ess-eyebrow">As it appears in the footer</p>
+      <h2 class="ess-h2">Footer <span>Strip</span></h2>
+      <div class="footer__mailing" style="border-bottom:0;">
+        <div class="footer__mailing-head">
+          <p class="footer__mailing-t">Join the mailing list</p>
+          <p class="footer__mailing-s">Trips, deals and stories &mdash; no account needed. Unsubscribe anytime.</p>
+        </div>
+        <div class="footer__mailing-form">
+          <form class="footer__form" data-mailform>
+            <input type="email" required placeholder="your@email.com" aria-label="Email address" />
+            <button type="submit">Sign Up</button>
+          </form>
+          <p class="footer__form-done" data-maildone hidden><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> You&rsquo;re on the list!</p>
+          <p class="footer__form-note">Want the full experience? <a href="../signup.html">Create an account</a> for saved trips, member deals and more.</p>
+        </div>
+      </div>
+
+      <!-- ---------- B. Standalone panel ---------- -->
+      <div class="ess-sec" style="margin-top:4rem">
+        <p class="ess-eyebrow">For a page or an article foot</p>
+        <h2 class="ess-h2">Panel <span>Variant</span></h2>
+        <div class="ess-card ess-card--cta" data-nl>
+          <form data-nl-form novalidate>
+            <h3 class="ess-cta__h">Never Miss A <span>Drop</span></h3>
+            <p class="ess-cta__p">New trips, member-only deals and the odd story from the road. One email a fortnight, no filler.</p>
+            <div style="max-width:24rem;margin:0 auto;text-align:left;">
+              <div class="field">
+                <label for="nl-email">Email <span>*</span></label>
+                <input id="nl-email" name="email" type="email" required placeholder="you@email.com" autocomplete="email" />
+              </div>
+              <label class="form-check"><input type="checkbox" /><span>Also send me deals for trips I&rsquo;ve saved.</span></label>
+              <button type="submit" class="form-submit">Sign Me Up <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+            </div>
+            <p class="ess-fine" style="max-width:24rem;margin:1rem auto 0;text-align:center;">Unsubscribe in one click, any time. We never pass your details on.</p>
+          </form>
+
+          <div class="form-done" data-nl-done hidden>
+            <span class="form-done__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+            <h3 class="form-done__t">You&rsquo;re On The <span>List</span></h3>
+            <p class="form-done__s">Check your inbox &mdash; there&rsquo;s a welcome email on its way with the trips people are booking right now.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>/* A — footer strip. This is the script every built page already carries;
+     don't copy it again if you're pasting the strip into a built page. */
+  (function () {
+    document.querySelectorAll('[data-mailform]').forEach(function (form) {
+      var done = form.parentElement.querySelector('[data-maildone]');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        form.hidden = true;
+        if (done) done.hidden = false;
+      });
+    });
+  })();
+
+  /* B — panel variant. */
+  (function () {
+    document.querySelectorAll('[data-nl]').forEach(function (wrap) {
+      var form = wrap.querySelector('[data-nl-form]');
+      var done = wrap.querySelector('[data-nl-done]');
+      if (!form || !done) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        form.hidden = true;
+        done.hidden = false;
+      });
+    });
+  })();
+  </script>
+</body>
+</html>
