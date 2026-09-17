@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Text blocks (component) &mdash; TruTravels</title>
+  <meta name="description" content="Text micro-layouts — the column, the section head and every body-copy block used to build page content." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* Demo chrome only — NOT part of any block below. Never copy the .cxt-* rules. */
+    .cxt-wrap { max-width: 72rem; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+    .cxt-kicker { color: #9ca3af; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.72rem; margin: 0 0 0.75rem; }
+    .cxt-intro { color: #9ca3af; font-size: 0.9375rem; line-height: 1.7; max-width: 46rem; margin: 0 0 1rem; }
+    .cxt-intro code, .cxt-spec code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #e5e7eb; }
+    .cxt-group { margin-top: 3.5rem; }
+    .cxt-group__t { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.22em; margin: 0 0 0.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .cxt-item { padding: 1.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .cxt-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1rem; margin-bottom: 1rem; }
+    .cxt-cls { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; color: var(--tru-pink); background: rgba(255,63,153,0.1); border: 1px solid rgba(255,63,153,0.25); border-radius: 6px; padding: 0.15rem 0.5rem; }
+    .cxt-spec { color: #6b7280; font-size: 0.75rem; line-height: 1.5; }
+    .cxt-demo { border-left: 2px solid rgba(255,255,255,0.08); padding-left: 1.5rem; }
+    /* the column specimen needs its real centred width, so no left rule on it */
+    .cxt-demo--full { border-left: 0; padding-left: 0; }
+    .cxt-ruler { position: relative; border: 1px dashed rgba(255,255,255,0.18); border-radius: 8px; padding: 1.25rem 0; }
+    .cxt-ruler::after { content: 'container edge'; position: absolute; top: -0.6rem; left: 0.75rem; background: var(--tru-navy, #09213e); color: #6b7280; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.18em; padding: 0 0.4rem; }
+  </style>
+</head>
+<body>
+  <div class="cxt-wrap">
+    <p class="cxt-kicker">Text blocks &mdash; micro-layouts for page content</p>
+    <p class="cxt-intro">Every text box used to build a page body, in the order you&rsquo;d reach for them: the <strong style="color:#fff">column</strong> that holds the copy, the <strong style="color:#fff">section head</strong> that opens a block, and the <strong style="color:#fff">body blocks</strong> that go inside. Each specimen is copy-in as shown &mdash; the pink class name is the only class you need.</p>
+    <p class="cxt-intro">Sizes are written as <code>base &rarr; sm</code>, meaning the mobile size and the size from 640px up. They mirror the prototype&rsquo;s Tailwind steps exactly, so the two builds agree at every width &mdash; don&rsquo;t re-set <code>font-size</code> on these by hand.</p>
+
+    <!-- ===================================================================
+         TEXT BLOCKS — the micro-layout kit for page content.
+
+         HOW A PAGE BODY IS ASSEMBLED
+           <section class="ess-body">            full-bleed dark band + padding
+             <div class="ess-col ab-prose">      48rem reading column
+               <p class="ab-lead">…</p>          opening statement
+               <p>…</p>                          body copy
+             </div>
+           </section>
+
+         Use `ess-col` when the content is prose you read top to bottom, and
+         `container` when the section holds a grid, cards or a carousel that
+         wants the full page width.
+
+         ONE GOTCHA: on the About pages the section head runs a step larger.
+         That comes from `.ab` on an ancestor (`<main class="ab">`), which
+         bumps `.ess-h2` from 30→36 to 36→48 and tightens `.ess-eyebrow`.
+         Both specimens are shown below — add or drop the `ab` class on the
+         page wrapper to pick one; never restyle the heading itself.
+
+         Requires ../styles.css. No script.
+         =================================================================== -->
+
+    <!-- =============== 1. COLUMNS =============== -->
+    <div class="cxt-group">
+      <p class="cxt-group__t">1 &middot; Columns &mdash; what holds the text</p>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ess-col</span><span class="cxt-spec">max-width 48rem, centred &middot; padding 1rem &rarr; 1.5rem &rarr; 2rem. The standard reading column &mdash; use it for any run of prose.</span></div>
+        <div class="cxt-demo cxt-demo--full">
+          <div class="cxt-ruler">
+            <div class="ess-col">
+              <p class="ess-p">This is the standard page text column. It stops at 48rem so a line never runs past a comfortable reading measure, and it sits in the middle of the band whatever the screen width. The dashed rule is the section edge, drawn here only to show the column sitting inside it.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ess-col.ab-prose</span><span class="cxt-spec">the same column, with body-copy styling applied to every direct <code>&lt;p&gt;</code> &mdash; 16 &rarr; 18px, line-height 1.625, 1.25rem apart. Long-form pages use this.</span></div>
+        <div class="cxt-demo cxt-demo--full">
+          <div class="ess-col ab-prose">
+            <p>Inside <code style="font-family:ui-monospace,Menlo,monospace;color:#e5e7eb">.ab-prose</code> you write plain paragraphs &mdash; no class per line. The column styles them.</p>
+            <p>Every paragraph gets the same size, leading and spacing, so a story page is just a stack of <code style="font-family:ui-monospace,Menlo,monospace;color:#e5e7eb">&lt;p&gt;</code> tags with the occasional block from section 3 dropped in.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-prose--base</span><span class="cxt-spec">modifier &mdash; holds body copy at 16px with no step up at 640px. For denser index / hub columns.</span></div>
+        <div class="cxt-demo">
+          <div class="ab-prose ab-prose--base">
+            <p>Same column, one size throughout. Use it where the page is a list of links or summaries rather than something you settle in and read.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.container</span><span class="cxt-spec">full page width. Use instead of <code>.ess-col</code> when the section holds a grid, cards or a carousel.</span></div>
+        <div class="cxt-demo">
+          <p class="ess-p">Wider than the reading column &mdash; text set this wide is hard to read, so keep <code style="font-family:ui-monospace,Menlo,monospace;color:#e5e7eb">.container</code> for section heads and anything laid out in columns.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- =============== 2. HEADS =============== -->
+    <div class="cxt-group">
+      <p class="cxt-group__t">2 &middot; Heads &mdash; what opens a section</p>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ess-eyebrow + .ess-h2 + .ess-p.ab-lede</span><span class="cxt-spec">the standard section head. Eyebrow 12px/.2em pink &middot; title 30 &rarr; 36px Montserrat 900 &middot; lede 16 &rarr; 18px capped at 42rem. Wrap words in <code>&lt;span&gt;</code> to turn them pink.</span></div>
+        <div class="cxt-demo">
+          <p class="ess-eyebrow">Before You Go</p>
+          <h2 class="ess-h2">Travel <span>Insurance</span></h2>
+          <p class="ess-p ab-lede">The lede sits under the title and sets up the section in a sentence or two. It stops at 42rem so it stays narrower than the heading above it.</p>
+        </div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab &hellip; .ess-h2</span><span class="cxt-spec">the same markup inside <code>&lt;main class="ab"&gt;</code> &mdash; title steps up to 36 &rarr; 48px, eyebrow tightens to 11px/.3em. This is the About-page head; nothing extra to write.</span></div>
+        <div class="cxt-demo">
+          <div class="ab">
+            <p class="ess-eyebrow">What We Live By</p>
+            <h2 class="ess-h2">Our Core <span>Values</span></h2>
+            <p class="ess-p ab-lede">Our values are what guide us in our decision-making and how we show up &mdash; for each other and for the communities we visit.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ess-h3</span><span class="cxt-spec">sub-head, one step down &mdash; 18 &rarr; 20px Montserrat 900 uppercase. For headings <em>inside</em> a section.</span></div>
+        <div class="cxt-demo">
+          <h3 class="ess-h3">What Good Cover <span>Looks Like</span></h3>
+          <p class="ess-p">Follow it with body copy as normal.</p>
+        </div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ess-sec</span><span class="cxt-spec">spacer &mdash; 4rem below. Wrap each head-plus-body group in it to space a stack of sections evenly.</span></div>
+        <div class="cxt-demo"><p class="ess-p">No visible styling of its own; it only sets the rhythm between blocks.</p></div>
+      </div>
+    </div>
+
+    <!-- =============== 3. BODY BLOCKS =============== -->
+    <div class="cxt-group">
+      <p class="cxt-group__t">3 &middot; Body blocks &mdash; what goes in the column</p>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">&lt;p&gt;</span><span class="cxt-spec">standard page text &mdash; 16 &rarr; 18px, line-height 1.625, #d1d5db. Unclassed inside <code>.ab-prose</code>; use <code>.ess-p</code> anywhere else.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p>The default. Most of a page is this &mdash; no class needed inside the prose column.</p>
+        </div></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ess-p--sm</span><span class="cxt-spec">14 &rarr; 16px. Supporting copy under a card or an aside.</span></div>
+        <div class="cxt-demo"><p class="ess-p ess-p--sm">A smaller size for secondary copy that shouldn&rsquo;t compete with the main text.</p></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-lead</span><span class="cxt-spec">24 &rarr; 30px Montserrat 900 uppercase white, line-height 1.25. The opening statement of a page. <code>&lt;em&gt;</code> inside turns pink.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p class="ab-lead">A bunch of fun loving legends with a <em>passion for travel</em>.</p>
+        </div></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-strong</span><span class="cxt-spec">body size, white and bold. Lifts one paragraph out of a run without changing the rhythm.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p>Ordinary copy running along at the usual weight and colour.</p>
+          <p class="ab-strong">And the line you actually want them to take away.</p>
+        </div></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-beat</span><span class="cxt-spec">20 &rarr; 24px Montserrat 700 white, tight leading (1.25). A short beat between passages &mdash; one or two lines, not a paragraph.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p class="ab-beat">Travel has the power to change lives.</p>
+        </div></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-beat--loose</span><span class="cxt-spec">the same size on the normal line box (28 &rarr; 32px leading). Use when the beat runs to several lines.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p class="ab-beat--loose">The same weight and size, but with room to breathe when the thought needs more than a single line to land.</p>
+        </div></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-closer</span><span class="cxt-spec">20 &rarr; 24px Montserrat 900 uppercase pink. Closes a section &mdash; one per block at most.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p class="ab-closer">And that is still why we do it.</p>
+        </div></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-pull</span><span class="cxt-spec">36 &rarr; 48px Montserrat 900 uppercase, 2px pink rule on the left. Each <code>&lt;span&gt;</code> is one white line; <code>&lt;em&gt;</code> turns a line pink.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p class="ab-pull"><span>To make a</span><span><em>positive difference.</em></span></p>
+        </div></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-hand</span><span class="cxt-spec">Caveat, pink, 30 &rarr; 36px. The handwritten aside &mdash; use it sparingly, once a page.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p class="ab-hand">Still the best decision I ever made.</p>
+        </div></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-sign</span><span class="cxt-spec">Caveat, white, 30 &rarr; 36px with 2rem above. Sign-off at the foot of a first-person page.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p class="ab-sign">Mark, co-founder</p>
+        </div></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-light</span><span class="cxt-spec">inline &mdash; weight 300, upright. Put it on an <code>&lt;em&gt;</code> to soften part of a heading instead of italicising it.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p class="ab-beat">Small group trips, <em class="ab-light">run by people who live there</em></p>
+        </div></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ess-fine</span><span class="cxt-spec">12px #6b7280. Disclaimers, caveats, source notes.</span></div>
+        <div class="cxt-demo"><p class="ess-fine">Prices shown are per person and exclude flights. Cover levels vary by policy &mdash; check the certificate before you travel.</p></div>
+      </div>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ab-polaroid</span><span class="cxt-spec">photo insert for a prose column &mdash; centred, tilted 2&deg;, dropped shadow. Sits between paragraphs as a <code>&lt;figure&gt;</code>.</span></div>
+        <div class="cxt-demo"><div class="ab-prose">
+          <p>A photo lands better mid-story than at the top of it.</p>
+          <figure class="ab-polaroid"><img src="../assets/about/mark-joe-story-2025.png" alt="Mark and Joe on the road, 2007" /></figure>
+          <p>Then the story carries on underneath.</p>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- =============== 4. DENSE / LEGAL =============== -->
+    <div class="cxt-group">
+      <p class="cxt-group__t">4 &middot; Dense flow &mdash; terms, conditions, policy</p>
+
+      <div class="cxt-item">
+        <div class="cxt-head"><span class="cxt-cls">.ess-terms__h + .ess-terms__p</span><span class="cxt-spec">heading 18 &rarr; 20px with 2.5rem above (none on the first), body 14 &rarr; 15px. A long numbered document, not a story &mdash; tighter than the blocks above.</span></div>
+        <div class="cxt-demo">
+          <h3 class="ess-terms__h">1. Your Booking</h3>
+          <p class="ess-terms__p">A booking is confirmed once we have received your deposit and issued a confirmation invoice. At that point a contract exists between you and TruTravels.</p>
+          <h3 class="ess-terms__h">2. Payment</h3>
+          <p class="ess-terms__p">The balance is due 60 days before departure. Bookings made inside 60 days are payable in full at the time of booking.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- =============== 5. A WHOLE BODY =============== -->
+    <div class="cxt-group">
+      <p class="cxt-group__t">5 &middot; Assembled &mdash; the blocks in a real page body</p>
+      <p class="cxt-intro" style="margin-top:1rem">Nothing new below &mdash; just the blocks above in the order a page actually uses them. Copy this as the starting skeleton for a new page.</p>
+    </div>
+  </div>
+
+  <section class="ess-body">
+    <div class="ess-col ab-prose">
+      <p class="ess-eyebrow">Our Story</p>
+      <h2 class="ess-h2">How It <span>Started</span></h2>
+      <p class="ab-lead">Back in 2006, I was saving for a house in <em>London</em>.</p>
+      <p>That was the plan. Work hard. Save money. Follow the path. And it was all coming together &mdash; I&rsquo;d found a house, had the deposit ready, and was days away from signing.</p>
+      <p>Then, at the eleventh hour, it fell through.</p>
+      <p class="ab-strong">So instead of finding another house, I booked a one-way ticket.</p>
+      <figure class="ab-polaroid"><img src="../assets/about/mark-joe-story-2025.png" alt="Mark and Joe on the road, 2007" /></figure>
+      <p class="ab-beat">Travel isn&rsquo;t really about the places you visit.</p>
+      <p>It&rsquo;s about who you become along the way, and the people you meet while you&rsquo;re busy becoming them.</p>
+      <p class="ab-pull"><span>To make a</span><span><em>positive difference.</em></span></p>
+      <p class="ab-closer">And that is still why we do it.</p>
+      <p class="ab-sign">Mark, co-founder</p>
+    </div>
+  </section>
+
+</body>
+</html>

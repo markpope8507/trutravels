@@ -5117,9 +5117,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 640px) { .ess-sherpa { padding: 1.5rem; } }
 .ess-sherpa #sherpa-trip-element { min-height: 320px; }
 
-/* Booking conditions — long-form prose */
-.ess-terms__h { font-family: 'Montserrat', sans-serif; font-size: 1.125rem; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: 0.025em; margin: 2.5rem 0 0.75rem; }
-@media (min-width: 640px) { .ess-terms__h { font-size: 1.25rem; } }
+/* Sub-heading — the step below .ess-h2. `.ess-terms__h` is the same type on a
+   terms-flow rhythm (space above each heading), so they share one rule. */
+.ess-h3, .ess-terms__h { font-family: 'Montserrat', sans-serif; font-size: 1.125rem; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: 0.025em; margin: 0 0 0.75rem; }
+@media (min-width: 640px) { .ess-h3, .ess-terms__h { font-size: 1.25rem; } }
+.ess-h3 span, .ess-terms__h span { color: var(--tru-pink); }
+.ess-terms__h { margin-top: 2.5rem; }
 .ess-terms__h:first-child { margin-top: 0; }
 .ess-terms__p { color: #d1d5db; font-size: 0.875rem; line-height: 1.625; margin: 0 0 1rem; }
 @media (min-width: 640px) { .ess-terms__p { font-size: 0.9375rem; } }

@@ -39,6 +39,7 @@ Structural blocks for building whole pages (extracted from the live static pages
 
 | File | Component | Needs a `<script>`? |
 |------|-----------|:---:|
+| `text-blocks.html` | **Text micro-layouts** — the reading column, the section head, and every body-copy block (lead, beat, pull-quote, closer, handwriting, sign-off, fine print, polaroid) with its class and type spec. The kit for building page content. | no |
 | `section-header.html` | Section intro — eyebrow + title + description (3 variants) | no |
 | `page-hero.html` | Full-bleed image hero with overlay title block | no |
 | `pillar-header.html` | Big pillar header — accent rule + eyebrow + accented title + line-art icon | no |
