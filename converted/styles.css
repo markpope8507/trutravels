@@ -5617,3 +5617,25 @@ ul { margin: 0; padding: 0; list-style: none; }
 .deal-more__cb:checked ~ .deal-more__open { display: none; }
 .deal-more__cb:checked ~ .deal-more__inner { grid-template-rows: 1fr; opacity: 1; }
 .deal-more__cb:focus-visible ~ .deal-more__open { outline: 2px solid var(--tru-pink); outline-offset: -2px; }
+
+/* ============================================================
+   BLOG IMAGE STRIP — the multi-up gallery from the live blog
+   articles: three 4:3 images at a time, arrows outside the
+   track. See components/blog-image-strip.html.
+   ============================================================ */
+.img-strip { position: relative; }
+.img-strip__track { display: flex; gap: 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 0; }
+.img-strip__track::-webkit-scrollbar { display: none; }
+.img-strip__item { flex: 0 0 auto; width: 78%; margin: 0; scroll-snap-align: start; }
+@media (min-width: 640px)  { .img-strip__item { width: calc((100% - 1.25rem) / 2); } }
+@media (min-width: 1024px) { .img-strip__item { width: calc((100% - 2.5rem) / 3); } }
+.img-strip__item img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; }
+.img-strip__item figcaption { color: #9ca3af; font-size: 0.8rem; line-height: 1.5; margin-top: 0.625rem; }
+
+/* The arrows sit outside the images, as on the live articles. On narrow
+   screens there is no room beside the track, so they tuck onto it. */
+.img-strip .rev-arrow { top: calc((100% - 1.5rem) / 2); }
+@media (min-width: 1200px) {
+  .img-strip .rev-arrow--prev { left: -3.25rem; }
+  .img-strip .rev-arrow--next { right: -3.25rem; }
+}

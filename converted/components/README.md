@@ -26,6 +26,7 @@ page at the site root, drop the `../`.
 | `deal-card.html` | Deal card — trip summary, the next on-sale departure (start / end / save / price + Go), and an expandable list of further dates. Bump the `deal-exp-*` / `dm-N` ids per card so each toggle works alone. | no |
 | `blog-card.html` | Story / blog card — read-time pill, category, title, excerpt, author · date, "Read story". Includes a members-only variant. Used on the stories hub, Keep Reading, and author pages. | no |
 | `blog-image-slider.html` | Swipeable image gallery inside a blog image box (arrows, dots, 1/N counter). Drop-in replacement for a single blog image; box size unchanged. | yes |
+| `blog-image-strip.html` | Multi-up image strip for article bodies — three 4:3 images at a time, arrows sitting outside the track, optional captions. Mirrors the gallery on the live blog articles. Use `blog-image-slider.html` instead for a single framed image. | yes |
 | `blog-video.html` | Click-to-play inline video inside a blog image box (poster + play button, native controls on play). Drop-in replacement for a single blog image; box size unchanged. | yes |
 | `auth-modal.html` | Log in / Create account popup (Google · Facebook · Apple + email/password, "Remember me", switchable views). | yes |
 | `fomo-toast.html` | Rotating social-proof toast for trip pages (live viewers, added-to-basket w/ nav basket icon, spots-left, saves). Aggregate counts only — no customer names (GDPR). Fixed bottom-left, dismissible for the session. | yes |
