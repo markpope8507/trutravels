@@ -22,14 +22,14 @@ const FOOTER_COLUMNS = [
     title: "About",
     // Driven off ABOUT_PAGES so these can't drift from the real routes again —
     // they had been pointing at /about/story, /about/values and friends, none
-    // of which exist. Careers has no page of its own yet.
+    // of which exist.
     links: [
       ...ABOUT_PAGES.filter((p) => p.href !== "/the-tru-way").map((p) => ({
         name: p.name,
         href: p.href,
       })),
       { name: "Contact Us", href: "/support" },
-      { name: "Careers", href: "/about" },
+      { name: "Careers", href: "/join-the-crew" },
     ],
   },
   {
