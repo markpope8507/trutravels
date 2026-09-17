@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Video diaries carousel (component) &mdash; TruTravels</title>
+  <meta name="description" content="Community video-diary gallery — tap-to-play cards with fullscreen :target viewers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Video diaries carousel &mdash; demo (tap a card to open the viewer)</p></div>
+  <!-- ===================================================================
+       VIDEO DIARIES CAROUSEL — the community-stories gallery.
+
+       Used on the homepage, the stories hub and trip pages. Mixed cast —
+       travellers, creators, Planeterra projects, partners, the crew.
+
+       HOW IT WORKS
+       Each card is an <a href="#hvd-N"> pointing at a .vid-modal further
+       down the page. The modal opens on :target and closes via a link back out
+       — so the gallery needs NO JavaScript at all. The only script is the
+       shared carousel arrows + drag-to-scroll, already on every built page;
+       don't copy it twice.
+
+       Copy the <section class="vdia"> block AND the matching .vid-modal
+       blocks, and keep their ids in step — a card whose href has no modal
+       silently does nothing.
+
+       VIEWER STYLE: stories-style — progress bars, no prev/next.
+       Heads up — the site currently ships TWO viewers under the same
+       .vid-modal class, and both are styled in styles.css:
+         stories-style  __controls / __btn / __bars / __main / __meta
+                        index.html, stories.html, trip pages
+         lightbox       __scrim / __inner / __chev (prev/next)
+                        about-our-community.html
+       Each component carries the viewer its source page uses, so the pair
+       always matches. Don't mix a card set from one with viewers from the
+       other. Worth collapsing to one, but that changes behaviour on live
+       pages, so it hasn't been done here.
+
+       CARD TAGS pick the pill colour and label:
+         --traveller  --creator  --legend  --planeterra  --partner  --community
+
+       The last tile is the "Share Yours" CTA (.vdiary--cta), not a video.
+       Drop it if the section isn't asking for submissions.
+
+       For the guides-only variant with its own head and no CTA card,
+       use local-legends-carousel.html instead.
+
+       Requires ../styles.css (.vdia*, .vdiary*, .vid-modal*, .rev-carousel).
+       =================================================================== -->
+<section class="vdia" id="video-diaries">
+      <img class="vdia__goodvibes" src="../assets/bg-assets/good-vibes.svg" alt="" aria-hidden="true" />
+      <div class="container vdia__head">
+        <p class="vdia__eyebrow">Video Diaries</p>
+        <h2 class="vdia__title">Moments From Our<br class="br-sm" /> <span>Community</span></h2>
+        <p class="vdia__intro">Real stories from real people. Tap to play — raw, unfiltered moments from travellers, creators, and influencer partners on the road.</p>
+      </div>
+      <div class="container">
+        <div class="rev-carousel vdia__carousel" data-arrows>
+          <div class="vdiaries">
+        <a class="vdiary" href="#hvd-1">
+          <div class="vdiary__media">
+            <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=400&q=80" alt="Sophie Chen" loading="lazy" />
+            <div class="vdiary__overlay"></div>
+            <span class="vdiary__tag vdiary__tag--traveller">Traveller</span>
+            <span class="vdiary__handle">@sophietravels</span>
+            <div class="vdiary__play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <div class="vdiary__caption">
+              <p class="vdiary__text">That moment when the boat drops you at a beach with no name and no Wi-Fi. This is what we came for.</p>
+            </div>
+          </div>
+        </a>
+        <a class="vdiary" href="#hvd-2">
+          <div class="vdiary__media">
+            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80" alt="Nina Waves" loading="lazy" />
+            <div class="vdiary__overlay"></div>
+            <span class="vdiary__tag vdiary__tag--creator">Creator</span>
+            <span class="vdiary__handle">@ninawaves</span>
+            <div class="vdiary__play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <div class="vdiary__caption">
+              <p class="vdiary__text">Woke up on a junk boat in Ha Long Bay. Kayaked through caves before breakfast. Unreal.</p>
+            </div>
+          </div>
+        </a>
+        <a class="vdiary" href="#hvd-3">
+          <div class="vdiary__media">
+            <img src="https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=400&q=80" alt="Tru Crew" loading="lazy" />
+            <div class="vdiary__overlay"></div>
+            <span class="vdiary__tag vdiary__tag--planeterra">Planeterra</span>
+            <span class="vdiary__handle">@trutravels</span>
+            <div class="vdiary__play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <div class="vdiary__caption">
+              <p class="vdiary__text">Spent the day at our Planeterra elephant sanctuary partner. No riding, no chains — just elephants being elephants.</p>
+            </div>
+          </div>
+        </a>
+        <a class="vdiary" href="#hvd-4">
+          <div class="vdiary__media">
+            <img src="https://images.unsplash.com/photo-1528127269322-539801943592?w=400&q=80" alt="Orty" loading="lazy" />
+            <div class="vdiary__overlay"></div>
+            <span class="vdiary__tag vdiary__tag--legend">Local Legend</span>
+            <span class="vdiary__handle">@ortyleads</span>
+            <div class="vdiary__play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <div class="vdiary__caption">
+              <p class="vdiary__text">Meet Orty — your trip leader for Thailand. Born in Bangkok, knows every back-alley noodle stall worth its salt.</p>
+            </div>
+          </div>
+        </a>
+        <a class="vdiary" href="#hvd-5">
+          <div class="vdiary__media">
+            <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=400&q=80" alt="Kamala Hewavitharana" loading="lazy" />
+            <div class="vdiary__overlay"></div>
+            <span class="vdiary__tag vdiary__tag--partner">Partner</span>
+            <span class="vdiary__handle">@kamalahomestay</span>
+            <div class="vdiary__play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <div class="vdiary__caption">
+              <p class="vdiary__text">Our homestay partner in Ella has been hosting Tru travellers for 7 years. The breakfasts alone are worth the trip.</p>
+            </div>
+          </div>
+        </a>
+        <a class="vdiary" href="#hvd-6">
+          <div class="vdiary__media">
+            <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=400&q=80" alt="Tru Community" loading="lazy" />
+            <div class="vdiary__overlay"></div>
+            <span class="vdiary__tag vdiary__tag--community">Community</span>
+            <span class="vdiary__handle">@trutravels</span>
+            <div class="vdiary__play"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></div>
+            <div class="vdiary__caption">
+              <p class="vdiary__text">The Tru Crew reunion in Lisbon. 14 countries, 23 humans, one rooftop. This is what stays after the trip ends.</p>
+            </div>
+          </div>
+        </a>
+        <div class="vdiary vdiary--cta">
+          <div>
+            <div class="vdiary--cta__icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg></div>
+            <p class="vdiary--cta__title">Share Yours</p>
+            <p class="vdiary--cta__sub">Tag @trutravels and your video could be here.</p>
+            <a class="vdiary--cta__link" href="../signup.html">Join free &rarr;</a>
+          </div>
+        </div>
+          </div>
+          <button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+          <button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </section>
+
+  <!-- The fullscreen viewers the cards link to. One per card, opened by
+       :target — no script. Keep the ids in step with the card hrefs. -->
+<div class="vid-modal" id="hvd-1">
+      <div class="vid-modal__controls">
+        <a class="vid-modal__btn" href="#video-diaries" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+        <span class="vid-modal__btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg></span>
+      </div>
+      <div class="vid-modal__stage">
+        <div class="vid-modal__main">
+          <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=400&q=80" alt="Sophie Chen" />
+          <div class="vid-modal__grad"></div>
+          <div class="vid-modal__bars"><span class="vid-modal__bar"><i style="width:45%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span></div>
+          <div class="vid-modal__meta">
+            <span class="vdiary__tag vdiary__tag--traveller">Traveller</span>
+            <span class="vdiary__handle" style="position:static">@sophietravels</span>
+          </div>
+          <a class="vid-modal__chev vid-modal__chev--prev" href="#hvd-6" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></a><a class="vid-modal__chev" href="#hvd-2" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+          <div class="vid-modal__caption">
+            <p class="vdiary__text">That moment when the boat drops you at a beach with no name and no Wi-Fi. This is what we came for.</p>
+            <div class="vdiary__author">
+              <span class="vdiary__avatar vdiary__tag--traveller" style="width:2.25rem;height:2.25rem">SC</span>
+              <div>
+                <p class="vdiary__name">Sophie Chen</p>
+                <p class="vdiary__loc">Koh Tao, Thailand</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="vid-modal__peek" href="#hvd-2">
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80" alt="Nina Waves" />
+          <div class="vid-modal__peek-grad"></div>
+          <div class="vid-modal__peek-info">
+            <span class="vdiary__tag vdiary__tag--creator" style="position:static;font-size:8px;padding:0.125rem 0.5rem">Creator</span>
+            <p class="vdiary__name">Nina Waves</p>
+          </div>
+        </a>
+      </div>
+    </div>
+<div class="vid-modal" id="hvd-2">
+      <div class="vid-modal__controls">
+        <a class="vid-modal__btn" href="#video-diaries" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+        <span class="vid-modal__btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg></span>
+      </div>
+      <div class="vid-modal__stage">
+        <div class="vid-modal__main">
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80" alt="Nina Waves" />
+          <div class="vid-modal__grad"></div>
+          <div class="vid-modal__bars"><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:45%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span></div>
+          <div class="vid-modal__meta">
+            <span class="vdiary__tag vdiary__tag--creator">Creator</span>
+            <span class="vdiary__handle" style="position:static">@ninawaves</span>
+          </div>
+          <a class="vid-modal__chev vid-modal__chev--prev" href="#hvd-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></a><a class="vid-modal__chev" href="#hvd-3" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+          <div class="vid-modal__caption">
+            <p class="vdiary__text">Woke up on a junk boat in Ha Long Bay. Kayaked through caves before breakfast. Unreal.</p>
+            <div class="vdiary__author">
+              <span class="vdiary__avatar vdiary__tag--creator" style="width:2.25rem;height:2.25rem">NW</span>
+              <div>
+                <p class="vdiary__name">Nina Waves</p>
+                <p class="vdiary__loc">Ha Long Bay, Vietnam</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="vid-modal__peek" href="#hvd-3">
+          <img src="https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=400&q=80" alt="Tru Crew" />
+          <div class="vid-modal__peek-grad"></div>
+          <div class="vid-modal__peek-info">
+            <span class="vdiary__tag vdiary__tag--planeterra" style="position:static;font-size:8px;padding:0.125rem 0.5rem">Planeterra</span>
+            <p class="vdiary__name">Tru Crew</p>
+          </div>
+        </a>
+      </div>
+    </div>
+<div class="vid-modal" id="hvd-3">
+      <div class="vid-modal__controls">
+        <a class="vid-modal__btn" href="#video-diaries" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+        <span class="vid-modal__btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg></span>
+      </div>
+      <div class="vid-modal__stage">
+        <div class="vid-modal__main">
+          <img src="https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=400&q=80" alt="Tru Crew" />
+          <div class="vid-modal__grad"></div>
+          <div class="vid-modal__bars"><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:45%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span></div>
+          <div class="vid-modal__meta">
+            <span class="vdiary__tag vdiary__tag--planeterra">Planeterra</span>
+            <span class="vdiary__handle" style="position:static">@trutravels</span>
+          </div>
+          <a class="vid-modal__chev vid-modal__chev--prev" href="#hvd-2" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></a><a class="vid-modal__chev" href="#hvd-4" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+          <div class="vid-modal__caption">
+            <p class="vdiary__text">Spent the day at our Planeterra elephant sanctuary partner. No riding, no chains — just elephants being elephants.</p>
+            <div class="vdiary__author">
+              <span class="vdiary__avatar vdiary__tag--planeterra" style="width:2.25rem;height:2.25rem">TC</span>
+              <div>
+                <p class="vdiary__name">Tru Crew</p>
+                <p class="vdiary__loc">Chiang Mai, Thailand</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="vid-modal__peek" href="#hvd-4">
+          <img src="https://images.unsplash.com/photo-1528127269322-539801943592?w=400&q=80" alt="Orty" />
+          <div class="vid-modal__peek-grad"></div>
+          <div class="vid-modal__peek-info">
+            <span class="vdiary__tag vdiary__tag--legend" style="position:static;font-size:8px;padding:0.125rem 0.5rem">Local Legend</span>
+            <p class="vdiary__name">Orty</p>
+          </div>
+        </a>
+      </div>
+    </div>
+<div class="vid-modal" id="hvd-4">
+      <div class="vid-modal__controls">
+        <a class="vid-modal__btn" href="#video-diaries" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+        <span class="vid-modal__btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg></span>
+      </div>
+      <div class="vid-modal__stage">
+        <div class="vid-modal__main">
+          <img src="https://images.unsplash.com/photo-1528127269322-539801943592?w=400&q=80" alt="Orty" />
+          <div class="vid-modal__grad"></div>
+          <div class="vid-modal__bars"><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:45%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span></div>
+          <div class="vid-modal__meta">
+            <span class="vdiary__tag vdiary__tag--legend">Local Legend</span>
+            <span class="vdiary__handle" style="position:static">@ortyleads</span>
+          </div>
+          <a class="vid-modal__chev vid-modal__chev--prev" href="#hvd-3" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></a><a class="vid-modal__chev" href="#hvd-5" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+          <div class="vid-modal__caption">
+            <p class="vdiary__text">Meet Orty — your trip leader for Thailand. Born in Bangkok, knows every back-alley noodle stall worth its salt.</p>
+            <div class="vdiary__author">
+              <span class="vdiary__avatar vdiary__tag--legend" style="width:2.25rem;height:2.25rem">OR</span>
+              <div>
+                <p class="vdiary__name">Orty</p>
+                <p class="vdiary__loc">Bangkok, Thailand</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="vid-modal__peek" href="#hvd-5">
+          <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=400&q=80" alt="Kamala Hewavitharana" />
+          <div class="vid-modal__peek-grad"></div>
+          <div class="vid-modal__peek-info">
+            <span class="vdiary__tag vdiary__tag--partner" style="position:static;font-size:8px;padding:0.125rem 0.5rem">Partner</span>
+            <p class="vdiary__name">Kamala Hewavitharana</p>
+          </div>
+        </a>
+      </div>
+    </div>
+<div class="vid-modal" id="hvd-5">
+      <div class="vid-modal__controls">
+        <a class="vid-modal__btn" href="#video-diaries" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+        <span class="vid-modal__btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg></span>
+      </div>
+      <div class="vid-modal__stage">
+        <div class="vid-modal__main">
+          <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=400&q=80" alt="Kamala Hewavitharana" />
+          <div class="vid-modal__grad"></div>
+          <div class="vid-modal__bars"><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:45%"></i></span><span class="vid-modal__bar"><i style="width:0%"></i></span></div>
+          <div class="vid-modal__meta">
+            <span class="vdiary__tag vdiary__tag--partner">Partner</span>
+            <span class="vdiary__handle" style="position:static">@kamalahomestay</span>
+          </div>
+          <a class="vid-modal__chev vid-modal__chev--prev" href="#hvd-4" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></a><a class="vid-modal__chev" href="#hvd-6" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+          <div class="vid-modal__caption">
+            <p class="vdiary__text">Our homestay partner in Ella has been hosting Tru travellers for 7 years. The breakfasts alone are worth the trip.</p>
+            <div class="vdiary__author">
+              <span class="vdiary__avatar vdiary__tag--partner" style="width:2.25rem;height:2.25rem">KH</span>
+              <div>
+                <p class="vdiary__name">Kamala Hewavitharana</p>
+                <p class="vdiary__loc">Ella, Sri Lanka</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="vid-modal__peek" href="#hvd-6">
+          <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=400&q=80" alt="Tru Community" />
+          <div class="vid-modal__peek-grad"></div>
+          <div class="vid-modal__peek-info">
+            <span class="vdiary__tag vdiary__tag--community" style="position:static;font-size:8px;padding:0.125rem 0.5rem">Community</span>
+            <p class="vdiary__name">Tru Community</p>
+          </div>
+        </a>
+      </div>
+    </div>
+<div class="vid-modal" id="hvd-6">
+      <div class="vid-modal__controls">
+        <a class="vid-modal__btn" href="#video-diaries" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+        <span class="vid-modal__btn" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg></span>
+      </div>
+      <div class="vid-modal__stage">
+        <div class="vid-modal__main">
+          <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=400&q=80" alt="Tru Community" />
+          <div class="vid-modal__grad"></div>
+          <div class="vid-modal__bars"><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:100%"></i></span><span class="vid-modal__bar"><i style="width:45%"></i></span></div>
+          <div class="vid-modal__meta">
+            <span class="vdiary__tag vdiary__tag--community">Community</span>
+            <span class="vdiary__handle" style="position:static">@trutravels</span>
+          </div>
+          <a class="vid-modal__chev vid-modal__chev--prev" href="#hvd-6" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></a><a class="vid-modal__chev" href="#hvd-1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+          <div class="vid-modal__caption">
+            <p class="vdiary__text">The Tru Crew reunion in Lisbon. 14 countries, 23 humans, one rooftop. This is what stays after the trip ends.</p>
+            <div class="vdiary__author">
+              <span class="vdiary__avatar vdiary__tag--community" style="width:2.25rem;height:2.25rem">TC</span>
+              <div>
+                <p class="vdiary__name">Tru Community</p>
+                <p class="vdiary__loc">Lisbon, Portugal</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="vid-modal__peek" href="#hvd-1">
+          <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=400&q=80" alt="Sophie Chen" />
+          <div class="vid-modal__peek-grad"></div>
+          <div class="vid-modal__peek-info">
+            <span class="vdiary__tag vdiary__tag--traveller" style="position:static;font-size:8px;padding:0.125rem 0.5rem">Traveller</span>
+            <p class="vdiary__name">Sophie Chen</p>
+          </div>
+        </a>
+      </div>
+    </div>
+
+<script>/* carousel nav arrows (reviews + you might like) */
+  (function () {
+    document.querySelectorAll('[data-arrows]').forEach(function (wrap) {
+      var track = wrap.querySelector('.carousel, .side-stays, .vdiaries');
+      var prev = wrap.querySelector('[data-rev="prev"]');
+      var next = wrap.querySelector('[data-rev="next"]');
+      if (!track || !prev || !next) return;
+      function step() {
+        var card = track.firstElementChild;
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 20;
+        return card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+      }
+      function sync() {
+        var max = track.scrollWidth - track.clientWidth;
+        prev.disabled = track.scrollLeft <= 1;
+        next.disabled = track.scrollLeft >= max - 1;
+      }
+      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+      track.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    });
+  })();
+  </script>
+<script>/* experience-types disclosure — opening one card opens all (shared state, like the prototype) */
+  (function () {
+    var boxes = document.querySelectorAll('.tripcard__exp-cb');
+    if (!boxes.length) return;
+    boxes.forEach(function (cb) {
+      cb.addEventListener('change', function () {
+        boxes.forEach(function (other) {
+          if (other !== cb) other.checked = cb.checked;
+        });
+      });
+    });
+  })();
+  </script>
+<script>/* drag-to-scroll with momentum — click/one-finger drag on every horizontal carousel (like Swiper) */
+  (function () {
+    document.querySelectorAll('.side-stays, .carousel, .vdiaries').forEach(function (track) {
+      var down = false, startX = 0, startLeft = 0, moved = false, snap = '';
+      var lastX = 0, lastT = 0, vx = 0, raf = null;
+      track.style.cursor = 'grab';
+      track.querySelectorAll('img').forEach(function (im) { im.setAttribute('draggable', 'false'); });
+      track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+      function stopMomentum() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+      track.addEventListener('mousedown', function (e) {
+        if (e.button !== 0) return;
+        stopMomentum();
+        down = true; moved = false; startX = e.clientX; startLeft = track.scrollLeft;
+        lastX = e.clientX; lastT = performance.now(); vx = 0;
+        snap = track.style.scrollSnapType; track.style.scrollSnapType = 'none';
+        track.style.cursor = 'grabbing';
+        e.preventDefault();
+      });
+      document.addEventListener('mousemove', function (e) {
+        if (!down) return;
+        var dx = e.clientX - startX;
+        if (Math.abs(dx) > 3) moved = true;
+        track.scrollLeft = startLeft - dx;
+        var now = performance.now(), dt = now - lastT;
+        if (dt > 0) { vx = (e.clientX - lastX) / dt; lastX = e.clientX; lastT = now; }
+      });
+      document.addEventListener('mouseup', function () {
+        if (!down) return; down = false; track.style.cursor = 'grab';
+        if (moved) {
+          var block = function (ev) { ev.preventDefault(); ev.stopPropagation(); };
+          track.addEventListener('click', block, true);
+          setTimeout(function () { track.removeEventListener('click', block, true); }, 0);
+        }
+        var v = -vx * 16;
+        function step() {
+          v *= 0.95;
+          track.scrollLeft += v;
+          if (Math.abs(v) > 0.4) { raf = requestAnimationFrame(step); }
+          else { raf = null; track.style.scrollSnapType = snap; }
+        }
+        if (moved && Math.abs(v) > 1.5) { raf = requestAnimationFrame(step); }
+        else { track.style.scrollSnapType = snap; }
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

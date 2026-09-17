@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>How we do things (component) &mdash; TruTravels</title>
+  <meta name="description" content="The Tru Way — four-up icon grid explaining how a TruTravels trip is run." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">How we do things &mdash; demo</p></div>
+  <!-- ===================================================================
+       HOW WE DO THINGS — the four reasons a Tru trip works.
+
+       An icon / heading / paragraph grid, not a carousel: four fixed
+       points, no scroll, no script. On the homepage it sits at the foot of
+       the Tru Experience section, after the experience-type carousel — the
+       carousel says what you'll do, this says how the trip is run.
+
+       It is a plain <div class="container tru-way">, so it drops into any
+       section without one. Add or remove a grid cell freely; the grid is
+       1 / 2 / 4 columns as the viewport allows, so three or six work too.
+
+       Each cell is: .tru-way__ico-row (a 24x24 stroked SVG + an h3), then
+       a .tru-way__p. Keep the icons stroked and 1.5 weight — filled icons
+       read much heavier at this size and break the row.
+
+       Requires ../styles.css (.tru-way*). No script.
+       =================================================================== -->
+  <section style="padding:3rem 0 5rem;">
+<div class="container tru-way">
+        <p class="tru-way__eyebrow">The Tru Way</p>
+        <h2 class="tru-way__title">How We Do <span class="text-grad">Things</span></h2>
+        <div class="tru-way__grid">
+          <div>
+            <div class="tru-way__ico-row">
+              <svg class="tru-way__ico" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-1a4 4 0 0 0-4-4h-1m-4 5H2v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1Zm-2-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6-1a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" /></svg>
+              <h3 class="tru-way__h3">Find Your People</h3>
+            </div>
+            <p class="tru-way__p">Small groups of 10&ndash;20 like-minded travellers — the kind of crew that turns into friends for life.</p>
+          </div>
+          <div>
+            <div class="tru-way__ico-row">
+              <svg class="tru-way__ico" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>
+              <h3 class="tru-way__h3">Logistics Locked In</h3>
+            </div>
+            <p class="tru-way__p">Accommodation, activities and transport all included — every detail sorted before you even pack your bag.</p>
+          </div>
+          <div>
+            <div class="tru-way__ico-row">
+              <svg class="tru-way__ico" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657 13.414 20.9a2 2 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+              <h3 class="tru-way__h3">Local Legends</h3>
+            </div>
+            <p class="tru-way__p">Your guide — we call them Local Legends. Knows places inside out and feels more like a mate who happens to know the way.</p>
+          </div>
+          <div>
+            <div class="tru-way__ico-row">
+              <svg class="tru-way__ico" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+              <h3 class="tru-way__h3">Fully Protected</h3>
+            </div>
+            <p class="tru-way__p">ABTA &amp; ATOL protected, low deposits and flexible payments — book with total confidence.</p>
+          </div>
+        </div>
+      </div>
+  </section>
+</body>
+</html>
