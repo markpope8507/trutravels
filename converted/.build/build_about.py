@@ -130,6 +130,20 @@ def shell_page(title, description, body, page_script=""):
 """
 
 
+def static_image(src):
+    """Map a prototype image path to its static-build equivalent.
+
+    ABOUT_PAGES stores images as they are served by Next, i.e. root-relative
+    out of public/. The static build has no /images/ — its assets live under
+    assets/ — so a path copied straight through 404s on every page that
+    renders the cross-link grid. This is how /images/the-tru-way-hero.jpg
+    was broken on six About pages.
+    """
+    if src.startswith("/images/"):
+        return "assets/about/" + src[len("/images/"):]
+    return src
+
+
 def hero(image, alt, eyebrow, title_html, quote_html="", quote_class="ess-hero__quote"):
     quote = f'\n          <p class="{quote_class}">{quote_html}</p>' if quote_html else ""
     return f"""    <section class="ess-hero" id="top">
@@ -164,7 +178,7 @@ def more_about(current_route):
     """The cross-link grid at the foot of each About page."""
     cards = "\n".join(
         f'''          <a class="ab-xcard" href="{static_href(p["href"])}">
-            <img src="{p["image"]}" alt="" loading="lazy" />
+            <img src="{static_image(p["image"])}" alt="" loading="lazy" />
             <span class="ab-xcard__grad"></span>
             <span class="ab-xcard__body">
               <span class="ab-xcard__t">{p["name"]}</span>

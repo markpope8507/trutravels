@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Overlay hero (component) &mdash; TruTravels</title>
+  <meta name="description" content="The right-aligned page hero used across About, Essentials, 404 and careers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Overlay hero &mdash; demo</p></div>
+  <!-- ===================================================================
+       OVERLAY HERO — the right-aligned page hero.
+
+       The opener on every About and Essentials page, the 404 and the
+       careers page — ten pages. Full-bleed photo, a left-to-right navy
+       gradient, and the text block pushed to the RIGHT and right-aligned,
+       which is what makes it read as a Tru page rather than a stock hero.
+
+       Order inside .ess-hero__text is fixed and worth keeping:
+         eyebrow -> title -> rule -> quote
+       The rule is a 4rem pink hairline with `margin-left: auto`; it only
+       sits under the title because the block is right-aligned, so don't
+       centre the text and expect it to survive.
+
+       THE PICTURE NEEDS SPACE ON THE RIGHT. The gradient is only 40-95%
+       opaque, so a subject on the right-hand side fights the words. Pick a
+       landscape with its interest on the left.
+
+       <br /> in the title is deliberate — these are two-line display
+       headings and the break is art-directed, not a wrap. `<span>` turns a
+       line pink.
+
+       Add `id="top"` if the page has a "back to top" link, as the About
+       pages do.
+
+       Requires ../styles.css (.ess-hero*). No script.
+       =================================================================== -->
+<section class="ess-hero" id="top">
+      <img class="ess-hero__img" src="https://cdn.trutravels.com/greece/greece-island-hopper-026.jpg" alt="A TruTravels group together on the road" />
+      <div class="ess-hero__grad"></div>
+      <div class="container ess-hero__inner">
+        <div class="ess-hero__text">
+          <p class="ess-hero__eyebrow">Our Community</p>
+          <h1 class="ess-hero__title">The People<br /><span>Who Make It</span></h1>
+          <div class="ess-hero__rule"></div>
+          <p class="ess-hero__quote">&ldquo;Bound by how we show up &mdash; for each other, and for the places we visit.&rdquo;</p>
+        </div>
+      </div>
+    </section>
+</body>
+</html>

@@ -4,6 +4,8 @@ Build the homepage/community section components.
   converted/components/video-diaries-carousel.html   the community-stories one
   converted/components/local-legends-carousel.html   the guides one
   converted/components/tru-way.html                  "How We Do Things"
+  converted/components/overlay-hero.html             the right-aligned page hero
+  converted/components/cross-links.html              "the rest of the story" grid
 
 Both are the same card and carousel; what differs is the head, the watermark,
 who is in it, and whether the "Share Yours" CTA card is on the end. They are
@@ -262,6 +264,100 @@ def build_tru_way():
     open(os.path.join(COMP, "tru-way.html"), "w", encoding="utf-8").write(out)
     return len(re.findall(r'<h3 class="tru-way__h3">', block_html))
 
+
+OVERLAY_HERO_NOTE = """  <!-- ===================================================================
+       OVERLAY HERO — the right-aligned page hero.
+
+       The opener on every About and Essentials page, the 404 and the
+       careers page — ten pages. Full-bleed photo, a left-to-right navy
+       gradient, and the text block pushed to the RIGHT and right-aligned,
+       which is what makes it read as a Tru page rather than a stock hero.
+
+       Order inside .ess-hero__text is fixed and worth keeping:
+         eyebrow -> title -> rule -> quote
+       The rule is a 4rem pink hairline with `margin-left: auto`; it only
+       sits under the title because the block is right-aligned, so don't
+       centre the text and expect it to survive.
+
+       THE PICTURE NEEDS SPACE ON THE RIGHT. The gradient is only 40-95%
+       opaque, so a subject on the right-hand side fights the words. Pick a
+       landscape with its interest on the left.
+
+       <br /> in the title is deliberate — these are two-line display
+       headings and the break is art-directed, not a wrap. `<span>` turns a
+       line pink.
+
+       Add `id="top"` if the page has a "back to top" link, as the About
+       pages do.
+
+       Requires ../styles.css (.ess-hero*). No script.
+       =================================================================== -->"""
+
+
+def build_overlay_hero():
+    hero = reroot(slice_section("about-our-community.html", '<section class="ess-hero" id="top">'))
+    out = (
+        HEAD.format(
+            title="Overlay hero",
+            desc="The right-aligned page hero used across About, Essentials, 404 and careers.",
+            label="Overlay hero &mdash; demo",
+        )
+        + OVERLAY_HERO_NOTE
+        + "\n"
+        + hero
+        + "\n</body>\n</html>\n"
+    )
+    open(os.path.join(COMP, "overlay-hero.html"), "w", encoding="utf-8").write(out)
+    return hero.count("ess-hero__")
+
+
+CROSS_LINKS_NOTE = """  <!-- ===================================================================
+       CROSS-LINKS — "the rest of the story" grid.
+
+       The closing block on every About page, and on the careers page. Image
+       cards that send the reader on rather than letting the page dead-end.
+       Ten pages use it. The About pages show every sibling page (five on the
+       demo below); the careers page hand-picks three.
+
+       A card is a single <a> wrapping image + gradient + body, so the whole
+       tile is the hit area — not just the title. Keep it that way.
+
+       5:3 tiles, image `object-cover` so any crop works, scaling 105% on
+       hover with the title going pink. The gradient is what makes white
+       text safe over an unknown photo — never drop it.
+
+       LEAVE OUT THE PAGE YOU ARE ON. On the real pages the list is filtered
+       against the current route, so a page never links to itself. In the
+       prototype that's `otherAboutPages(currentHref)` in lib/about-pages.ts;
+       in the static build the generator filters the same list.
+
+       Three across at 1024px, two at 640, one below. Three or six cards
+       fill the rows exactly; four or five leave a gap on the last row, which
+       is fine — they stay left-aligned rather than centring.
+
+       Requires ../styles.css (.ab-more, .ab-xgrid, .ab-xcard*, .ess-*).
+       No script.
+       =================================================================== -->"""
+
+
+def build_cross_links():
+    block_html = reroot(
+        slice_section("about-our-community.html", '<section class="ess-body ab-more">')
+    )
+    out = (
+        HEAD.format(
+            title="Cross-links",
+            desc="Closing 'more to read' grid — three image cards sending the reader on.",
+            label="Cross-links &mdash; demo",
+        )
+        + CROSS_LINKS_NOTE
+        + "\n"
+        + block_html
+        + "\n</body>\n</html>\n"
+    )
+    open(os.path.join(COMP, "cross-links.html"), "w", encoding="utf-8").write(out)
+    return len(re.findall(r'<a class="ab-xcard"', block_html))
+
 if __name__ == "__main__":
     c, m = build_video_diaries()
     print(f"  wrote components/video-diaries-carousel.html  ({c} cards, {m} viewers)")
@@ -269,3 +365,7 @@ if __name__ == "__main__":
     print(f"  wrote components/local-legends-carousel.html  ({c} cards, {m} viewers)")
     n = build_tru_way()
     print(f"  wrote components/tru-way.html                 ({n} grid cells)")
+    n = build_overlay_hero()
+    print(f"  wrote components/overlay-hero.html            ({n} hero parts)")
+    n = build_cross_links()
+    print(f"  wrote components/cross-links.html             ({n} cards)")

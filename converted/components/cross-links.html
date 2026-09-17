@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Cross-links (component) &mdash; TruTravels</title>
+  <meta name="description" content="Closing 'more to read' grid — three image cards sending the reader on." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Cross-links &mdash; demo</p></div>
+  <!-- ===================================================================
+       CROSS-LINKS — "the rest of the story" grid.
+
+       The closing block on every About page, and on the careers page. Image
+       cards that send the reader on rather than letting the page dead-end.
+       Ten pages use it. The About pages show every sibling page (five on the
+       demo below); the careers page hand-picks three.
+
+       A card is a single <a> wrapping image + gradient + body, so the whole
+       tile is the hit area — not just the title. Keep it that way.
+
+       5:3 tiles, image `object-cover` so any crop works, scaling 105% on
+       hover with the title going pink. The gradient is what makes white
+       text safe over an unknown photo — never drop it.
+
+       LEAVE OUT THE PAGE YOU ARE ON. On the real pages the list is filtered
+       against the current route, so a page never links to itself. In the
+       prototype that's `otherAboutPages(currentHref)` in lib/about-pages.ts;
+       in the static build the generator filters the same list.
+
+       Three across at 1024px, two at 640, one below. Three or six cards
+       fill the rows exactly; four or five leave a gap on the last row, which
+       is fine — they stay left-aligned rather than centring.
+
+       Requires ../styles.css (.ab-more, .ab-xgrid, .ab-xcard*, .ess-*).
+       No script.
+       =================================================================== -->
+<section class="ess-body ab-more">
+      <img class="ess-wm" style="left:-4rem;top:-2rem;width:clamp(260px,34vw,560px);opacity:0.06" src="../assets/bg-assets/mask.svg" alt="" aria-hidden="true" />
+      <img class="ess-wm" style="right:-3rem;bottom:-2.5rem;width:clamp(200px,26vw,440px);opacity:0.07" src="../assets/bg-assets/ramen.svg" alt="" aria-hidden="true" />
+      <div class="container">
+        <p class="ess-eyebrow">More About Us</p>
+        <h2 class="ess-h2">The Rest Of <span>The Story</span></h2>
+        <div class="ab-xgrid">
+          <a class="ab-xcard" href="../about-our-story.html">
+            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" alt="" loading="lazy" />
+            <span class="ab-xcard__grad"></span>
+            <span class="ab-xcard__body">
+              <span class="ab-xcard__t">Our Story</span>
+              <span class="ab-xcard__d">How TruTravels started — straight from the founders.</span>
+            </span>
+          </a>
+          <a class="ab-xcard" href="../about-our-values.html">
+            <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" alt="" loading="lazy" />
+            <span class="ab-xcard__grad"></span>
+            <span class="ab-xcard__body">
+              <span class="ab-xcard__t">Our Values</span>
+              <span class="ab-xcard__d">What we stand for and how we travel.</span>
+            </span>
+          </a>
+          <a class="ab-xcard" href="../about-our-impact.html">
+            <img src="https://images.unsplash.com/photo-1571406761758-9a3eed5338ef?w=800&q=80" alt="" loading="lazy" />
+            <span class="ab-xcard__grad"></span>
+            <span class="ab-xcard__body">
+              <span class="ab-xcard__t">Our Impact</span>
+              <span class="ab-xcard__d">Local guides, Planeterra projects, real change.</span>
+            </span>
+          </a>
+          <a class="ab-xcard" href="../about-our-brand.html">
+            <img src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=800&q=80" alt="" loading="lazy" />
+            <span class="ab-xcard__grad"></span>
+            <span class="ab-xcard__body">
+              <span class="ab-xcard__t">Our Brand</span>
+              <span class="ab-xcard__d">Logo, voice, and the look of TruTravels.</span>
+            </span>
+          </a>
+          <a class="ab-xcard" href="../index.html">
+            <img src="../assets/about/the-tru-way-hero.jpg" alt="" loading="lazy" />
+            <span class="ab-xcard__grad"></span>
+            <span class="ab-xcard__body">
+              <span class="ab-xcard__t">The Tru Way</span>
+              <span class="ab-xcard__d">How we run trips, and why they feel different.</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+</body>
+</html>
