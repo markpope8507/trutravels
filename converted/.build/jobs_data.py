@@ -26,20 +26,21 @@ Shared by build_careers.py (the page) and the job-listing component demo.
 APPLY_EMAIL = "recruitment@trutravels.com"
 APPLY_CONTACT = "Roxanne"
 
-# The five core values, with the mark each one carries on the Our Values page.
-# Only two have an icon (heart, palm); the other three ARE typographic marks —
-# a wavy underline, a pill, handwriting — so those are what the chips reproduce
-# rather than inventing icons the brand doesn't have. `mark` is the word the
-# treatment lands on. Chips link through to the values page.
+# The five core values, each with its real brand lockup (pink circular icon +
+# navy-boxed wordmark) from the shared Drive folder. The navy keylines drop out
+# against the dark page, leaving white type and a pink icon — so the artwork
+# needs no dark-background variant. Source PNGs were trimmed of their
+# transparent margin and normalised to a 360px height, so a fixed CSS height
+# keeps every icon the same size while each wordmark keeps its own width.
 #
 # NOTE: the job posting on the live site lists four values and omits "Live The
 # Dream". Included here because the values page has five.
 VALUES = [
-    {"lead": "We Don't Do", "mark": "Average", "style": "wavy"},
-    {"lead": "For The", "mark": "Benefit", "tail": "Of All", "style": "pill"},
-    {"lead": "Create", "mark": "Opportunity", "style": "hand"},
-    {"lead": "We Are", "mark": "Family", "style": "icon", "icon": "heart"},
-    {"lead": "Live The", "mark": "Dream", "style": "icon", "icon": "palm", "blue": True},
+    {"name": "We Don't Do Average",    "asset": "we-dont-do-average"},
+    {"name": "For The Benefit Of All", "asset": "for-the-benefit-of-all"},
+    {"name": "Create Opportunity",     "asset": "create-opportunity"},
+    {"name": "We Are Family",          "asset": "we-are-family"},
+    {"name": "Live The Dream",         "asset": "live-the-dream"},
 ]
 
 EQUAL_OPPS = (

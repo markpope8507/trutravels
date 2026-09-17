@@ -45,16 +45,6 @@ TEAM = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width
         '20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283'
         '.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 '
         '014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>')
-# The two core-value icons, exactly as they appear on the Our Values page.
-HEART = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32'
-         'C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3'
-         ' 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>')
-PALM = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"'
-        ' stroke-linejoin="round" aria-hidden="true"><path d="M12 22V11"/><path d="M12 11 Q 6 6 2 9"/>'
-        '<path d="M12 11 Q 18 6 22 9"/><path d="M12 11 Q 9 4 6 3"/><path d="M12 11 Q 15 4 18 3"/>'
-        '<path d="M12 11 Q 12 5 12 2"/></svg>')
-VALUE_ICONS = {"heart": HEART, "palm": PALM}
-
 CLOCK = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">'
          '<circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" '
          'd="M12 7v5l3 2"/></svg>')
@@ -84,16 +74,12 @@ def section(heading, inner):
             f'          <h4 class="job__h">{heading}</h4>\n{inner}\n        </div>')
 
 
-def value_chip(v):
-    """One core value, wearing the mark it wears on the Our Values page."""
-    inner = VALUE_ICONS.get(v.get("icon"), "")
-    inner += f'<span class="job__value__w">{v["lead"]}</span>'
-    inner += f'<span class="job__value__m job__value__m--{v["style"]}">{v["mark"]}</span>'
-    if v.get("tail"):
-        inner += f'<span class="job__value__w">{v["tail"]}</span>'
-    blue = " job__value--blue" if v.get("blue") else ""
-    return (f'            <a class="job__value{blue}" href="about-our-values.html">'
-            f'{inner}</a>')
+def value_chip(v, prefix=""):
+    """One core value, as its brand lockup. `prefix` fixes the asset path when
+    the same markup is emitted into components/, a directory deeper."""
+    return (f'            <a class="job__value" href="{prefix}about-our-values.html">'
+            f'<img src="{prefix}assets/values/{v["asset"]}.png" alt="{v["name"]}" '
+            f'loading="lazy" /></a>')
 
 
 def job_detail(j):
@@ -430,8 +416,12 @@ COMPONENT_NOTE = """  <!-- =====================================================
 
 
 def component():
-    cards = "\n".join(job_card(j).replace("about-our-values.html", "../about-our-values.html")
-                      for j in JOBS)
+    # The component lives in components/, one level deeper than the page, so
+    # every root-relative asset and link in a card needs a ../ prefix.
+    cards = "\n".join(
+        job_card(j).replace('href="about-our-values.html"', 'href="../about-our-values.html"')
+                   .replace('src="assets/values/', 'src="../assets/values/')
+        for j in JOBS)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
