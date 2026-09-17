@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Media + text rows (component) &mdash; TruTravels</title>
+  <meta name="description" content="Alternating image/text rows — the article body layout. Text left, image right, and the reverse." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    /* Demo chrome only — never copy the .cxm-* rules. */
+    .cxm-kicker { color: #9ca3af; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.72rem; margin: 0 0 0.75rem; }
+    .cxm-intro { color: #9ca3af; font-size: 0.9375rem; line-height: 1.7; max-width: 46rem; margin: 0 0 1rem; }
+    .cxm-intro code, .cxm-spec code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #e5e7eb; }
+    .cxm-head { max-width: 64rem; margin: 0 auto; padding: 2.5rem 1.5rem 0; }
+    .cxm-label { max-width: 64rem; margin: 3.5rem auto 0; padding: 0 1.5rem; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1rem; }
+    .cxm-cls { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.8125rem; color: var(--tru-pink); background: rgba(255,63,153,0.1); border: 1px solid rgba(255,63,153,0.25); border-radius: 6px; padding: 0.15rem 0.5rem; }
+    .cxm-spec { color: #6b7280; font-size: 0.75rem; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <div class="cxm-head">
+    <p class="cxm-kicker">Media + text rows &mdash; demo</p>
+    <p class="cxm-intro">The article body layout: a column of rows, each half text and half picture, alternating sides down the page. Used on every story page &mdash; see <a href="../story-is-it-safe-to-visit-south-korea.html" style="color:var(--tru-pink)">Is It Safe To Visit South Korea</a>.</p>
+    <p class="cxm-intro">Below 1024px both halves stack, picture under text, and the alternation stops &mdash; on a phone a reversed row would just look like an inconsistent one.</p>
+  </div>
+
+  <!-- ===================================================================
+       MEDIA + TEXT ROWS — the alternating article body.
+
+       SHAPE
+         <div class="art-sections">
+           <div class="art-sections__inner">          64rem, 5rem between rows
+             <section class="art-section">…</section>       text left, image right
+             <section class="art-section art-section--alt">…</section>  reversed
+           </div>
+         </div>
+
+       A row is always written text-first in the markup:
+
+         <section class="art-section">
+           <div class="art-section__text">
+             <p class="art-section__kicker">Eyebrow</p>
+             <h2 class="art-section__h">Heading</h2>
+             <p>Body copy…</p>
+           </div>
+           <div class="art-section__media"><img src="…" alt="…" /></div>
+         </section>
+
+       `--alt` flips it with grid `order`, not by moving the markup — so the
+       reading order stays text-then-image for a screen reader however the
+       row is laid out. Never reorder the source to flip a row.
+
+       ALTERNATE STRICTLY. The rhythm is the point; two rows the same way
+       round reads as a mistake rather than a choice.
+
+       THE MEDIA BOX is 4:3, rounded and `overflow: hidden`, with the image
+       absolutely filling it — so every row lines up regardless of what you
+       put in. It also takes, instead of an <img>:
+         .art-slider   a swipeable gallery  → blog-image-slider.html
+         .art-video    click-to-play video  → blog-video.html
+
+       HEADS UP — the site has a SECOND implementation of this same layout:
+       `.ab-alt` / `.ab-alt__text` / `.ab-alt__media` on the three CTE pages
+       under About → Our Impact. Same grid, same 4:3 media, same stacking,
+       but a smaller type scale (h 24px vs 24–30px, body 16/1.625 vs
+       16.8/1.7) and no `--alt` modifier — those pages alternate by writing
+       the markup the other way round. Use `.art-section` for anything new.
+
+       Requires ../styles.css (.art-section*). No script.
+       =================================================================== -->
+
+  <div class="art-sections">
+    <div class="art-sections__inner">
+
+      <!-- ---------- Default: text left, image right ---------- -->
+      <section class="art-section">
+        <div class="art-section__text">
+          <p class="art-section__kicker">The Big Question</p>
+          <h2 class="art-section__h">So, Is South Korea Safe?</h2>
+          <p>South Korea consistently ranks among the safest countries on earth, and it holds up in practice, not just in the statistics.</p>
+          <p>Crime rates are exceptionally low, public transport is spotless and runs late, and it is entirely normal to see someone leave a laptop on a caf&eacute; table while they order.</p>
+        </div>
+        <div class="art-section__media">
+          <img src="https://cdn.trutravels.com/south-korea/seoul-day-4.jpg" alt="Exploring the streets of Seoul, South Korea" />
+        </div>
+      </section>
+
+      <!-- ---------- Reversed: image left, text right ---------- -->
+      <section class="art-section art-section--alt">
+        <div class="art-section__text">
+          <p class="art-section__kicker">Getting Around</p>
+          <h2 class="art-section__h">The Subway Does Everything</h2>
+          <p>Seoul&rsquo;s metro is signed in English throughout, runs until well past midnight and costs about a pound a journey. You will not need a taxi.</p>
+          <p>Pick up a T-money card at any convenience store on day one &mdash; it works on the subway, the buses and, usefully, in the convenience stores themselves.</p>
+        </div>
+        <div class="art-section__media">
+          <img src="https://cdn.trutravels.com/south-korea/south-korea-seoul-day-2.jpg" alt="The Seoul metro" />
+        </div>
+      </section>
+
+      <!-- ---------- Back to default, keeping the rhythm ---------- -->
+      <section class="art-section">
+        <div class="art-section__text">
+          <p class="art-section__kicker">Solo Travel</p>
+          <h2 class="art-section__h">Going Alone Is Normal Here</h2>
+          <p>Solo dining is completely unremarkable &mdash; many restaurants have single-seat counters built for it, and there is no awkwardness about eating on your own.</p>
+          <p>Walking home late is ordinary too. Streets stay busy and well lit long after midnight, which is not something you can say of most capital cities.</p>
+        </div>
+        <div class="art-section__media">
+          <img src="https://cdn.trutravels.com/south-korea/seoul-exploring-day-1.jpg" alt="Exploring Seoul on foot" />
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Labels below, so the rows above read as they would on a real page -->
+  <div class="cxm-label"><span class="cxm-cls">.art-section</span><span class="cxm-spec">text left, image right &mdash; the default. Row 1 and row 3 above.</span></div>
+  <div class="cxm-label" style="margin-top:0.75rem"><span class="cxm-cls">.art-section--alt</span><span class="cxm-spec">image left, text right. Flips with grid <code>order</code> at 1024px; the markup stays text-first. Row 2 above.</span></div>
+  <div class="cxm-label" style="margin-top:0.75rem"><span class="cxm-cls">.art-sections__inner</span><span class="cxm-spec">the wrapper &mdash; 64rem centred, 5rem between rows.</span></div>
+  <div class="cxm-label" style="margin-top:0.75rem;margin-bottom:5rem"><span class="cxm-cls">.art-section__media</span><span class="cxm-spec">4:3, rounded, clipped. Takes an <code>&lt;img&gt;</code>, or an <code>.art-slider</code> / <code>.art-video</code> instead &mdash; see blog-image-slider.html and blog-video.html.</span></div>
+</body>
+</html>

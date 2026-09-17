@@ -60,6 +60,7 @@ Structural blocks for building whole pages (extracted from the live static pages
 | `video-diaries-carousel.html` | **Video-diary carousel** — the community-stories gallery from the homepage. Tap-to-play cards (traveller / creator / Planeterra / partner / community tags) with fullscreen `:target` viewers and a "Share Yours" CTA tile. No JS for the gallery itself. | yes (carousel) |
 | `local-legends-carousel.html` | **Local Legends carousel** — the same card and carousel cast entirely from guides, with its own head and no CTA tile. Sits straight after the video diaries on the community page. Carries the lightbox viewer (scrim + prev/next), not the stories-style one. | yes (carousel) |
 | `tru-way.html` | **How We Do Things** — the Tru Way four-up icon grid: find your people, logistics locked in, Local Legends, fully protected. Plain `<div>`, 1 / 2 / 4 columns, no script. | no |
+| `media-text-rows.html` | **Alternating image/text rows** — the article body layout. `.art-section` is text left / image right; `--alt` flips it with grid `order` (markup stays text-first, so reading order survives). Stacks below 1024px. The media box also takes the image slider or inline video. | no |
 | `section-header.html` | Section intro — eyebrow + title + description (3 variants) | no |
 | `page-hero.html` | Full-bleed image hero with overlay title block | no |
 | `pillar-header.html` | Big pillar header — accent rule + eyebrow + accented title + line-art icon | no |
