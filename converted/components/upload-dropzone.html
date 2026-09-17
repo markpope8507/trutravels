@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Upload dropzone (component) &mdash; TruTravels</title>
+  <meta name="description" content="Drag-and-drop photo and video upload with thumbnails, validation and a consent step." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Upload dropzone &mdash; demo (drop real files on it, or click to browse)</p></div>
+
+  <!-- ===================================================================
+       UPLOAD DROPZONE — pick photos and videos, see them, send them.
+
+       WHY IT WORKS THIS WAY
+       The page this replaces takes your name and email and then emails you
+       a Dropbox link: two steps, a wait, and a context switch before anyone
+       has uploaded anything. Here the drop zone is the first thing on the
+       page and the details sit beside it, so the thing you came to do is
+       the thing on screen.
+
+       THE ZONE IS A <label> wrapping a visually-hidden <input type="file">.
+       That gets click-to-browse, keyboard focus and screen-reader labelling
+       for free — no click handler forwarding to a hidden input, which is
+       the usual way this is built and the usual way it breaks for keyboard
+       users. `:focus-within` is why the label lights up on tab.
+
+       FILES ARE HELD IN JS, NOT IN THE INPUT. A file input's FileList is
+       read-only, so "remove this one" is impossible if the input is the
+       source of truth — picking again would also replace the whole
+       selection rather than adding to it. The script keeps its own array
+       and rebuilds a DataTransfer on submit.
+
+       VALIDATION IS SHOWN, NOT ENFORCED SILENTLY. Oversize or wrong-type
+       files still appear in the list, marked in red with the reason, rather
+       than being dropped without explanation. Submit is blocked while any
+       are bad.
+
+       OBJECT URLs ARE REVOKED when a file is removed — thumbnails of videos
+       and large photos otherwise hold their decoded data for the life of
+       the page.
+
+       CONSENT IS A REQUIRED CHECKBOX, not buried in terms. You're asking to
+       publish someone's face; make the ask visible.
+
+       NO BACKEND. `submit` is intercepted and the success panel shown. To
+       wire it up, POST the FormData at the marked line — the file field is
+       `photos[]`.
+
+       Requires ../styles.css (.upl-*, .field, .form-*) and the script below.
+       =================================================================== -->
+  <section class="ess-body">
+    <div class="container" style="max-width:66rem;">
+
+      <div data-upl>
+        <form class="upl" data-upl-form novalidate>
+
+          <!-- ---------- left: the zone and what's in it ---------- -->
+          <div>
+            <label class="upl-drop" data-upl-zone>
+              <input type="file" name="photos[]" accept="image/*,video/*" multiple data-upl-input />
+              <span class="upl-drop__ico" aria-hidden="true"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 15V3m0 0L8 7m4-4l4 4"/></svg></span>
+              <p class="upl-drop__t">Drop Your Photos <span>Here</span></p>
+              <p class="upl-drop__s">Or click to browse. Photos and videos both welcome &mdash; selfies, group shots, the 10/10 stuff.</p>
+              <p class="upl-drop__fine">JPG, PNG, HEIC, MP4 or MOV &middot; up to 25 files &middot; 200MB each</p>
+            </label>
+
+            <ul class="upl-list" data-upl-list></ul>
+            <p class="upl-err" data-upl-err hidden></p>
+            <div class="upl-tally" data-upl-tally hidden>
+              <span><b data-upl-count>0</b> selected &middot; <b data-upl-size>0 MB</b> total</span>
+              <button type="button" class="upl-clear" data-upl-clear>Remove all</button>
+            </div>
+          </div>
+
+          <!-- ---------- right: who it's from ---------- -->
+          <div>
+            <div class="upl-prize">
+              <p class="upl-prize__k">Every Three Months</p>
+              <p class="upl-prize__n">&pound;250 <span>Travel Credit</span></p>
+              <p class="upl-prize__p">Everyone who uploads goes into the draw. It literally pays to show off your holiday photos for once.</p>
+            </div>
+
+            <div class="field">
+              <label for="upl-name">First Name <span>*</span></label>
+              <input id="upl-name" name="name" type="text" required placeholder="Your first name" autocomplete="given-name" />
+            </div>
+            <div class="field">
+              <label for="upl-email">Email <span>*</span></label>
+              <input id="upl-email" name="email" type="email" required placeholder="you@email.com" autocomplete="email" />
+              <p class="field__hint">Only so we can tell you if you win.</p>
+            </div>
+            <div class="field">
+              <label for="upl-trip">Which Trip?</label>
+              <select id="upl-trip" name="trip">
+                <option value="">Pick your trip&hellip;</option>
+                <option>Thailand Island Hopper</option>
+                <option>Bali Experience</option>
+                <option>Vietnam Express</option>
+                <option>Philippines Island Hopper</option>
+                <option>Sri Lanka Experience</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="upl-insta">Instagram Handle</label>
+              <input id="upl-insta" name="instagram" type="text" placeholder="@yourhandle" />
+              <p class="field__hint">So we can tag you if we post it.</p>
+            </div>
+
+            <label class="form-check">
+              <input type="checkbox" name="consent" required data-upl-consent />
+              <span>I&rsquo;m happy for TruTravels to use these on the website and social, and everyone in them is happy too. <span style="color:#6b7280">*</span></span>
+            </label>
+
+            <button type="submit" class="form-submit" data-upl-submit>Send My Photos <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+            <p class="ess-fine">By uploading you accept the <a href="../terms-conditions.html" style="color:#d1d5db;text-decoration:underline">terms</a>. We&rsquo;ll never sell your photos or pass them on.</p>
+          </div>
+        </form>
+
+        <!-- ---------- the state after sending ---------- -->
+        <div class="form-done form-done--boxed" data-upl-done hidden>
+          <span class="form-done__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+          <h3 class="form-done__t">Got Them &mdash; <span>Thank You</span></h3>
+          <p class="form-done__s"><b data-upl-done-n>0</b> files on their way. You&rsquo;re in the next &pound;250 draw, and if we post one of yours we&rsquo;ll tag you.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>/* Upload dropzone. Copy once per page; it wires every [data-upl]. */
+  (function () {
+    var MAX_FILES = 25;
+    var MAX_BYTES = 200 * 1024 * 1024;               /* 200MB per file */
+    var OK = /^(image\/|video\/)/;
+
+    function mb(bytes) {
+      return bytes >= 1024 * 1024
+        ? (bytes / 1024 / 1024).toFixed(1) + ' MB'
+        : Math.max(1, Math.round(bytes / 1024)) + ' KB';
+    }
+
+    document.querySelectorAll('[data-upl]').forEach(function (wrap) {
+      var form    = wrap.querySelector('[data-upl-form]');
+      var zone    = wrap.querySelector('[data-upl-zone]');
+      var input   = wrap.querySelector('[data-upl-input]');
+      var list    = wrap.querySelector('[data-upl-list]');
+      var tally   = wrap.querySelector('[data-upl-tally]');
+      var errBox  = wrap.querySelector('[data-upl-err]');
+      var done    = wrap.querySelector('[data-upl-done]');
+      if (!form || !zone || !input) return;
+
+      /* The input's FileList is read-only, so we keep our own array —
+         otherwise you can't remove one file, and picking again replaces
+         the selection instead of adding to it. */
+      var files = [];
+      var urls  = [];
+
+      function problem(f) {
+        if (!OK.test(f.type)) return 'not a photo or video';
+        if (f.size > MAX_BYTES) return 'over 200MB';
+        return '';
+      }
+
+      function render() {
+        urls.forEach(URL.revokeObjectURL);            /* don't leak decoded frames */
+        urls = [];
+        list.innerHTML = '';
+        var total = 0, bad = 0;
+
+        files.forEach(function (f, i) {
+          total += f.size;
+          var why = problem(f);
+          if (why) bad++;
+          var url = URL.createObjectURL(f);
+          urls.push(url);
+
+          var li = document.createElement('li');
+          li.className = 'upl-item' + (why ? ' is-bad' : '');
+          var isVid = /^video\//.test(f.type);
+          li.innerHTML =
+            '<div class="upl-item__media">' +
+              (isVid
+                ? '<video src="' + url + '" muted playsinline preload="metadata"></video>' +
+                  '<span class="upl-item__badge">Video</span>'
+                : '<img src="' + url + '" alt="" />') +
+              '<button type="button" class="upl-item__x" aria-label="Remove ' + f.name + '">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">' +
+                '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>' +
+              '</button>' +
+            '</div>' +
+            '<span class="upl-item__name">' + f.name + '</span>' +
+            '<span class="upl-item__size">' + (why || mb(f.size)) + '</span>';
+          li.querySelector('.upl-item__x').addEventListener('click', function () {
+            files.splice(i, 1);
+            render();
+          });
+          list.appendChild(li);
+        });
+
+        tally.hidden = files.length === 0;
+        wrap.querySelector('[data-upl-count]').textContent = files.length;
+        wrap.querySelector('[data-upl-size]').textContent = mb(total);
+
+        var msg = '';
+        if (bad) msg = bad + (bad === 1 ? ' file can' : ' files can') + '’t be sent — remove the ones marked in red.';
+        else if (files.length > MAX_FILES) msg = 'That’s ' + files.length + ' files. The limit is ' + MAX_FILES + ' at a time.';
+        errBox.textContent = msg;
+        errBox.hidden = !msg;
+        wrap.querySelector('[data-upl-submit]').disabled = !!msg;
+      }
+
+      function add(picked) {
+        Array.prototype.forEach.call(picked, function (f) {
+          /* same name and size twice over is a re-pick, not a second photo */
+          var dupe = files.some(function (g) { return g.name === f.name && g.size === f.size; });
+          if (!dupe) files.push(f);
+        });
+        render();
+      }
+
+      input.addEventListener('change', function () { add(input.files); input.value = ''; });
+      wrap.querySelector('[data-upl-clear]').addEventListener('click', function () {
+        files = []; render();
+      });
+
+      /* Drag and drop. preventDefault on dragover is what stops the browser
+         navigating away to the dropped file. */
+      ['dragenter', 'dragover'].forEach(function (e) {
+        zone.addEventListener(e, function (ev) {
+          ev.preventDefault(); zone.classList.add('is-over');
+        });
+      });
+      ['dragleave', 'drop'].forEach(function (e) {
+        zone.addEventListener(e, function (ev) {
+          ev.preventDefault(); zone.classList.remove('is-over');
+        });
+      });
+      zone.addEventListener('drop', function (ev) {
+        if (ev.dataTransfer && ev.dataTransfer.files) add(ev.dataTransfer.files);
+      });
+
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        if (!files.length) {
+          errBox.textContent = 'Pick at least one photo or video first.';
+          errBox.hidden = false;
+          return;
+        }
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+
+        /* Put our array back on the input so FormData picks the files up. */
+        var dt = new DataTransfer();
+        files.forEach(function (f) { dt.items.add(f); });
+        input.files = dt.files;
+
+        /* ---- wire the real upload here ----------------------------
+           var body = new FormData(form);
+           fetch('/api/uploads', { method: 'POST', body: body })
+             .then(...)
+           ---------------------------------------------------------- */
+
+        wrap.querySelector('[data-upl-done-n]').textContent = files.length;
+        form.hidden = true;
+        done.hidden = false;
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

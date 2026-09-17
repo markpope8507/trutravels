@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Sherpa visa checker (component) &mdash; TruTravels</title>
+  <meta name="description" content="Third-party entry-requirements widget, with the two mounting quirks handled." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Sherpa visa checker &mdash; demo (loads the live widget)</p></div>
+  <!-- ===================================================================
+       SHERPA VISA CHECKER — the third-party entry-requirements widget.
+
+       Live on the Visas & Passports page, and inside the "Good to Go"
+       fieldset on an account booking.
+
+       TWO QUIRKS, both of which cost real debugging time and are the reason
+       this is a component rather than three lines of embed code:
+
+       1. The SDK publishes itself as `window.$sherpa`, NOT `window.sherpa`,
+          and it does so a beat AFTER the script's onload fires. Calling
+          straight from onload finds nothing, so the mount polls — 25 tries,
+          200ms apart, then gives up quietly.
+
+       2. Mounting into the same node twice leaves the widget's iframe stuck
+          at height 0 — it renders, but invisibly. The `childElementCount`
+          guard is what prevents that. It matters in React, where StrictMode
+          double-invokes effects in dev; here it guards against the script
+          being copied onto a page twice.
+
+       THE SURFACE MUST BE WHITE. The embed ships a light theme with no dark
+       option, so on the navy page it is unreadable without a white card
+       under it — that is what `.ess-sherpa` is for. Don't drop it onto the
+       page background.
+
+       The appId is the live site's. Swap `#sherpa-trip-element` and the
+       mount selector together if you need two on one page.
+
+       Keep the disclaimer: the portal isn't ours, and people should apply
+       through official government channels.
+
+       Mirrors src/components/sherpa-visa-widget.tsx.
+
+       Requires ../styles.css (.ess-sherpa, .ess-p, .ess-fine) and the
+       script at the foot of this file.
+       =================================================================== -->
+  <section class="ess-body">
+    <div class="ess-col">
+      <p class="ess-eyebrow">Before You Go</p>
+      <h2 class="ess-h2">Check Your <span>Entry Requirements</span></h2>
+      <p class="ess-p">Review entry requirements and restrictions using the tool below, powered by Sherpa. Make sure you check the rules for both directions of travel.</p>
+          <div class="ess-sherpa"><div id="sherpa-trip-element"></div></div>
+          <p class="ess-fine">The Sherpa visa portal isn&rsquo;t associated with TruTravels and is for information purposes only &mdash; we recommend applying for any visa through official government channels.</p>
+    </div>
+  </section>
+
+<script>/* Sherpa visa-requirements widget — same appId as the live site.
+     Two quirks, matching src/components/sherpa-visa-widget.tsx:
+       · the SDK publishes itself as window.$sherpa, not window.sherpa, and
+         does so a beat after onload — hence the short poll
+       · mounting into the same node twice leaves its iframe stuck at height 0 */
+  (function () {
+    var tries = 0;
+    function mount() {
+      var host = document.getElementById('sherpa-trip-element');
+      if (!host || host.childElementCount > 0) return;   /* already mounted */
+      var sherpa = window.$sherpa;
+      if (sherpa && sherpa.V2) {
+        try { sherpa.V2.createElement('trip').mount('#sherpa-trip-element'); }
+        catch (e) { /* the widget reports its own errors */ }
+      } else if (tries++ < 25) {
+        setTimeout(mount, 200);
+      }
+    }
+    var s = document.createElement('script');
+    s.src = 'https://sdk.joinsherpa.io/widget.js?appId=spA4MzM1Mz&02072026B';
+    s.async = true;
+    s.onload = mount;
+    document.body.appendChild(s);
+  })();
+  </script>
+</body>
+</html>

@@ -5830,3 +5830,69 @@ ul { margin: 0; padding: 0; list-style: none; }
 .job__apply-p a { color: var(--tru-pink); font-weight: 600; }
 .job__apply-acts { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
 .job__fine { color: #6b7280; font-size: 0.75rem; line-height: 1.7; margin: 1.25rem 0 0; }
+
+/* ============================================================
+   PHOTO / VIDEO UPLOAD — mirrors trutravels.com/trutravels-tour-
+   photo-uploads, rebuilt.
+
+   The live page collects your details and emails you a Dropbox
+   link: two steps, a wait, and a context switch before anyone
+   has uploaded anything. Here the drop zone IS the page — you
+   pick files first and give details alongside, so the thing you
+   came to do is the thing on screen.
+   ============================================================ */
+
+.upl { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+@media (min-width: 1024px) { .upl { grid-template-columns: 1.15fr 1fr; gap: 3rem; align-items: start; } }
+
+/* --- the drop zone ------------------------------------------------ */
+.upl-drop { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 15rem; border: 2px dashed rgba(255,255,255,0.18); border-radius: 16px; background: rgba(255,255,255,0.03); padding: 2rem 1.25rem; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+@media (min-width: 640px) { .upl-drop { min-height: 18rem; padding: 2.5rem; } }
+.upl-drop:hover { border-color: rgba(255,63,153,0.5); background: rgba(255,255,255,0.05); }
+/* dragover and keyboard focus get the same emphasis — the zone is a label
+   wrapping a visually-hidden input, so focus has to be visible on the label */
+.upl-drop.is-over, .upl-drop:focus-within { border-color: var(--tru-pink); background: rgba(255,63,153,0.08); }
+.upl-drop input[type="file"] { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.upl-drop__ico { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 999px; background: rgba(255,63,153,0.15); border: 1px solid rgba(255,63,153,0.3); margin-bottom: 1rem; }
+.upl-drop__ico svg { width: 1.75rem; height: 1.75rem; color: var(--tru-pink); }
+.upl-drop__t { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.125rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; margin: 0 0 0.4rem; }
+.upl-drop__t span { color: var(--tru-pink); }
+.upl-drop__s { color: #9ca3af; font-size: 0.875rem; line-height: 1.6; margin: 0; max-width: 24rem; }
+.upl-drop__fine { color: #6b7280; font-size: 0.75rem; line-height: 1.5; margin: 1rem 0 0; }
+
+/* --- the picked files -------------------------------------------- */
+.upl-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr)); gap: 0.75rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+.upl-list:empty { display: none; }
+.upl-item { position: relative; border: 1px solid var(--border-soft); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.04); }
+.upl-item__media { position: relative; aspect-ratio: 1; background: rgba(0,0,0,0.3); }
+.upl-item__media img, .upl-item__media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.upl-item__badge { position: absolute; left: 0.35rem; top: 0.35rem; z-index: 2; display: inline-flex; align-items: center; gap: 0.2rem; background: rgba(0,0,0,0.65); color: #fff; border-radius: 999px; padding: 0.15rem 0.45rem; font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+.upl-item__x { position: absolute; right: 0.35rem; top: 0.35rem; z-index: 2; display: flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; border: 0; border-radius: 999px; background: rgba(0,0,0,0.65); color: #fff; cursor: pointer; transition: background 0.2s; }
+.upl-item__x:hover { background: var(--tru-pink); }
+.upl-item__x svg { width: 0.75rem; height: 0.75rem; }
+.upl-item__name { display: block; color: #d1d5db; font-size: 0.7rem; line-height: 1.3; padding: 0.4rem 0.5rem 0.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.upl-item__size { display: block; color: #6b7280; font-size: 0.65rem; padding: 0 0.5rem 0.45rem; font-variant-numeric: tabular-nums; }
+.upl-item.is-bad { border-color: rgba(239,68,68,0.6); }
+.upl-item.is-bad .upl-item__size { color: #f87171; }
+
+/* --- running total / errors --------------------------------------- */
+.upl-tally { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; margin-top: 1rem; color: #9ca3af; font-size: 0.8125rem; }
+.upl-tally b { color: #fff; font-variant-numeric: tabular-nums; }
+.upl-tally[hidden] { display: none; }
+.upl-err { color: #f87171; font-size: 0.8125rem; line-height: 1.5; margin: 0.75rem 0 0; }
+.upl-err[hidden] { display: none; }
+.upl-clear { border: 0; background: none; color: #6b7280; font-size: 0.8125rem; text-decoration: underline; cursor: pointer; padding: 0; }
+.upl-clear:hover { color: #fff; }
+
+/* --- the prize / what-we-want panel ------------------------------- */
+.upl-prize { border: 1px solid rgba(255,63,153,0.3); background: rgba(255,63,153,0.07); border-radius: 14px; padding: 1.25rem; margin-bottom: 1.5rem; }
+@media (min-width: 640px) { .upl-prize { padding: 1.5rem; } }
+.upl-prize__k { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin: 0 0 0.5rem; }
+.upl-prize__n { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.875rem; font-weight: 900; line-height: 1; margin: 0 0 0.5rem; }
+.upl-prize__n span { color: var(--tru-pink); }
+.upl-prize__p { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; margin: 0; }
+
+/* --- the hero photo strip ----------------------------------------- */
+.upl-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.25rem; border-radius: 14px; overflow: hidden; }
+.upl-strip img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+@media (max-width: 639px) { .upl-strip img:nth-child(n+3) { display: none; } .upl-strip { grid-template-columns: repeat(2, 1fr); } }

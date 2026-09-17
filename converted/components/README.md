@@ -40,6 +40,8 @@ checkout and account pages keep their own families for the reasons given in `for
 
 | File | Component | Needs a `<script>`? |
 |------|-----------|:---:|
+| `upload-dropzone.html` | **Upload dropzone** — drag-and-drop (or browse) photos and videos with live thumbnails, per-file validation shown in place, remove-one, a running total and a required consent checkbox. The zone is a `<label>` wrapping a hidden input, so keyboard and screen readers work; files are held in JS because a `FileList` is read-only. Used by `share-your-photos.html`. | yes |
+| `sherpa-visa-checker.html` | **Sherpa visa checker** — the entry-requirements embed from the Visas &amp; Passports page and the Good to Go tab. Handles the two quirks that cost real debugging: the SDK publishes as `window.$sherpa` *after* onload, and a second mount into the same node pins the iframe at height 0. Needs a white surface; the embed has no dark theme. | yes |
 | `form-fields.html` | **Form field kit** — every control with its class and spec: `.field` label/input/select/textarea, `.field-row`, `.form-check`, `.field__hint`, `.field.is-err`, `.form-submit`, `.form-done`. Also tables the five field families and which page each belongs to. Start here. | no |
 | `contact-form.html` | Contact Us — name / email / phone / message with a success panel, plus the **Talk To A Human** channel cards (chat · email · call) and the regional phone list. From help &amp; support. | yes |
 | `newsletter-signup.html` | Mailing-list capture in two shapes: the **footer strip** (pill input, already on every built page) and a **standalone panel** for a landing page or article foot. Both swap in a confirmation. | yes |
