@@ -28,6 +28,7 @@ Run:  python3 converted/.build/build_careers.py
 """
 
 import os
+import struct
 
 from shell import BASE, NAV_OVER, FOOTER, SCRIPTS, HEAD
 from jobs_data import JOBS, APPLY_EMAIL, APPLY_CONTACT, VALUES, EQUAL_OPPS
@@ -74,12 +75,26 @@ def section(heading, inner):
             f'          <h4 class="job__h">{heading}</h4>\n{inner}\n        </div>')
 
 
+def png_size(asset):
+    """Intrinsic pixel size of a value lockup, read off the PNG header.
+
+    Without width/height attributes an <img> with `height` set and `width:auto`
+    has NO intrinsic size until it loads — it lays out at zero width and the
+    section reflows when the image arrives. These attributes reserve the box.
+    """
+    path = os.path.join(BASE, "assets", "values", asset + ".png")
+    head = open(path, "rb").read(26)
+    w, h = struct.unpack(">II", head[16:24])
+    return w, h
+
+
 def value_chip(v, prefix=""):
     """One core value, as its brand lockup. `prefix` fixes the asset path when
     the same markup is emitted into components/, a directory deeper."""
+    w, h = png_size(v["asset"])
     return (f'            <a class="job__value" href="{prefix}about-our-values.html">'
             f'<img src="{prefix}assets/values/{v["asset"]}.png" alt="{v["name"]}" '
-            f'loading="lazy" /></a>')
+            f'width="{w}" height="{h}" loading="lazy" /></a>')
 
 
 def job_detail(j):

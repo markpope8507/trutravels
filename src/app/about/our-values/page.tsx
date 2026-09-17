@@ -110,6 +110,8 @@ export default function OurValuesPage() {
               <h3 className="mb-4">
                 <img
                   src="/values/we-dont-do-average.png"
+                  width={1390}
+                  height={360}
                   alt="We Don&apos;t Do Average"
                   className="block h-14 sm:h-[4.25rem] lg:h-[4.75rem] w-auto max-w-full"
                 />
@@ -124,6 +126,8 @@ export default function OurValuesPage() {
               <h3 className="mb-4">
                 <img
                   src="/values/for-the-benefit-of-all.png"
+                  width={1639}
+                  height={360}
                   alt="For The Benefit Of All"
                   className="block h-14 sm:h-[4.25rem] lg:h-[4.75rem] w-auto max-w-full"
                 />
@@ -138,6 +142,8 @@ export default function OurValuesPage() {
               <h3 className="mb-4">
                 <img
                   src="/values/create-opportunity.png"
+                  width={1502}
+                  height={360}
                   alt="Create Opportunity"
                   className="block h-14 sm:h-[4.25rem] lg:h-[4.75rem] w-auto max-w-full"
                 />
@@ -152,6 +158,8 @@ export default function OurValuesPage() {
               <h3 className="mb-4">
                 <img
                   src="/values/we-are-family.png"
+                  width={1047}
+                  height={360}
                   alt="We Are Family"
                   className="block h-14 sm:h-[4.25rem] lg:h-[4.75rem] w-auto max-w-full"
                 />
@@ -166,6 +174,8 @@ export default function OurValuesPage() {
               <h3 className="mb-4">
                 <img
                   src="/values/live-the-dream.png"
+                  width={1262}
+                  height={360}
                   alt="Live The Dream"
                   className="block h-14 sm:h-[4.25rem] lg:h-[4.75rem] w-auto max-w-full"
                 />
