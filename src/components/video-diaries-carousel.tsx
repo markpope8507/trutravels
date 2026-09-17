@@ -464,9 +464,9 @@ export default function VideoDiariesCarousel({
                   </svg>
                 </div>
                 <p className="text-white font-bold mb-1 uppercase text-sm font-heading">Share Yours</p>
-                <p className="text-gray-500 text-xs mb-4">Tag @trutravels and your video could be here.</p>
-                <Link href="/signup" className="text-tru-pink text-sm font-semibold hover:text-tru-pink-light transition">
-                  Join free &rarr;
+                <p className="text-gray-500 text-xs mb-4">Send us your photos and videos &mdash; yours could be here.</p>
+                <Link href="/share-your-photos" className="text-tru-pink text-sm font-semibold hover:text-tru-pink-light transition">
+                  Upload yours &rarr;
                 </Link>
               </div>
             </div>
