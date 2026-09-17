@@ -64,12 +64,12 @@
          .art-slider   a swipeable gallery  → blog-image-slider.html
          .art-video    click-to-play video  → blog-video.html
 
-       HEADS UP — the site has a SECOND implementation of this same layout:
-       `.ab-alt` / `.ab-alt__text` / `.ab-alt__media` on the three CTE pages
-       under About → Our Impact. Same grid, same 4:3 media, same stacking,
-       but a smaller type scale (h 24px vs 24–30px, body 16/1.625 vs
-       16.8/1.7) and no `--alt` modifier — those pages alternate by writing
-       the markup the other way round. Use `.art-section` for anything new.
+       THIS IS THE ONLY IMPLEMENTATION. There used to be a second, `.ab-alt`,
+       on the three CTE pages under About → Our Impact — same grid, same 4:3
+       media, same flip-by-order, differing only in class names and a slightly
+       smaller type scale. Those pages now use this, and the .ab-alt rules
+       have been deleted, so there is one layout to maintain rather than two
+       that drift.
 
        Requires ../styles.css (.art-section*). No script.
        =================================================================== -->

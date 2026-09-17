@@ -621,14 +621,19 @@ def cte_page(c):
       </div>
     </section>'''
 
+    # `.art-section` — the same alternating row the story pages use. This used
+    # to emit a near-identical `.ab-alt` family: same grid, same 4:3 media, same
+    # flip-by-order, differing only in class names and a slightly smaller type
+    # scale. Two implementations of one layout, so the CTE pages now use the
+    # story-page one and the .ab-alt rules are gone.
     sections = "\n".join(
-        f'''          <section class="ab-alt{' is-flip' if i % 2 else ''}">
-            <div class="ab-alt__text">
-              {'<p class="ab-alt__k">' + s["kicker"] + "</p>" if s.get("kicker") else ""}
-              <h2 class="ab-alt__h">{s["heading"]}</h2>
+        f'''          <section class="art-section{' art-section--alt' if i % 2 else ''}">
+            <div class="art-section__text">
+              {'<p class="art-section__kicker">' + s["kicker"] + "</p>" if s.get("kicker") else ""}
+              <h2 class="art-section__h">{s["heading"]}</h2>
               {"".join(f"<p>{p}</p>" for p in s["body"])}
             </div>
-            {'<div class="ab-alt__media"><img src="' + s["image"] + '" alt="' + s.get("imageAlt", s["heading"]) + '" loading="lazy" /></div>' if s.get("image") else ""}
+            {'<div class="art-section__media"><img src="' + s["image"] + '" alt="' + s.get("imageAlt", s["heading"]) + '" loading="lazy" /></div>' if s.get("image") else ""}
           </section>'''
         for i, s in enumerate(c["sections"])
     )
@@ -672,7 +677,7 @@ def cte_page(c):
     <section class="ess-body ab-sec">
 {watermarks([("bali-flower", "left:-4rem;top:25%;width:clamp(220px,28vw,440px);opacity:0.05"),
              ("lantern", "right:-4rem;bottom:20%;width:clamp(220px,28vw,440px);opacity:0.05")])}
-      <div class="container ab-alts">
+      <div class="art-sections__inner">
 {sections}
       </div>
     </section>
@@ -724,30 +729,94 @@ def diary_card(d, vid):
         </a>'''
 
 
-def diary_viewers(diaries, prefix):
-    """:target viewers, chained prev/next — the same no-JS pattern the homepage uses."""
+CHEV_L = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+          '<path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>')
+CHEV_R = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+          '<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>')
+X_ICON = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+          '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>')
+MUTE_ICON = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'
+             '<path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828'
+             '-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 '
+             '12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>')
+
+
+def initials(name):
+    parts = [w for w in name.split() if w[:1].isalpha()]
+    return (parts[0][0] + (parts[-1][0] if len(parts) > 1 else "")).upper()
+
+
+def progress_bars(i, n):
+    """N-of-total position, not decoration: every diary before this one is
+    full, this one sits mid-play, the rest are empty."""
+    return "".join(
+        '<span class="vid-modal__bar"><i style="width:%s%%"></i></span>'
+        % (100 if k < i else 45 if k == i else 0)
+        for k in range(n)
+    )
+
+
+def diary_viewers(diaries, prefix, close="#top"):
+    """:target viewers, chained prev/next — the same no-JS pattern the homepage
+    uses, and now literally the same markup.
+
+    There used to be two of these: this file emitted a lightbox (scrim, figure,
+    caption under the frame) while index.html / stories.html / the trip pages
+    carried a stories-style viewer (position bars, author block, a peek at the
+    next diary). Both answered to `.vid-modal`, so styles.css had to carry two
+    sets of rules that could drift apart.
+
+    The stories-style one survives — it says more (who, where, how far through,
+    what's next) — with the one thing the lightbox did better folded in: a
+    full-bleed scrim so clicking anywhere outside the frame closes it.
+    """
     out = []
     n = len(diaries)
     for i, d in enumerate(diaries):
         vid = f"{prefix}-{i + 1}"
         prev = f"{prefix}-{(i - 1) % n + 1}"
-        nxt = f"{prefix}-{(i + 1) % n + 1}"
-        out.append(f'''    <div class="vid-modal" id="{vid}">
-      <a class="vid-modal__scrim" href="#top" aria-label="Close"></a>
-      <div class="vid-modal__inner">
-        <a class="vid-modal__chev vid-modal__chev--prev" href="#{prev}" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></a>
-        <figure class="vid-modal__stage">
-          <img src="{poster(d)}" alt="{d["author"]}" />
-          <figcaption class="vid-modal__cap">
-            <span class="vdiary__tag vdiary__tag--{TAG_CLASS.get(d["tag"], "traveller")}">{d["tag"]}</span>
-            <p class="vid-modal__text">{d["caption"]}</p>
-            <p class="vid-modal__by">{d["author"]} &middot; {d["location"]}</p>
-          </figcaption>
-        </figure>
-        <a class="vid-modal__chev vid-modal__chev--next" href="#{nxt}" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
-        <a class="vid-modal__x" href="#top" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+        nxt_i = (i + 1) % n
+        nxt = f"{prefix}-{nxt_i + 1}"
+        up = diaries[nxt_i]
+        tag = TAG_CLASS.get(d["tag"], "traveller")
+        up_tag = TAG_CLASS.get(up["tag"], "traveller")
+        out.append(f"""    <div class="vid-modal" id="{vid}">
+      <a class="vid-modal__scrim" href="{close}" aria-label="Close"></a>
+      <div class="vid-modal__controls">
+        <a class="vid-modal__btn" href="{close}" aria-label="Close">{X_ICON}</a>
+        <span class="vid-modal__btn" aria-hidden="true">{MUTE_ICON}</span>
       </div>
-    </div>''')
+      <div class="vid-modal__stage">
+        <div class="vid-modal__main">
+          <img src="{poster(d)}" alt="{d["author"]}" />
+          <div class="vid-modal__grad"></div>
+          <div class="vid-modal__bars">{progress_bars(i, n)}</div>
+          <div class="vid-modal__meta">
+            <span class="vdiary__tag vdiary__tag--{tag}">{d["tag"]}</span>
+            <span class="vdiary__handle" style="position:static">{d["handle"]}</span>
+          </div>
+          <a class="vid-modal__chev vid-modal__chev--prev" href="#{prev}" aria-label="Previous">{CHEV_L}</a><a class="vid-modal__chev" href="#{nxt}" aria-label="Next">{CHEV_R}</a>
+          <div class="vid-modal__caption">
+            <p class="vdiary__text">{d["caption"]}</p>
+            <div class="vdiary__author">
+              <span class="vdiary__avatar vdiary__tag--{tag}" style="width:2.25rem;height:2.25rem">{initials(d["author"])}</span>
+              <div>
+                <p class="vdiary__name">{d["author"]}</p>
+                <p class="vdiary__loc">{d["location"]}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="vid-modal__peek" href="#{nxt}">
+          <img src="{poster(up)}" alt="{up["author"]}" />
+          <div class="vid-modal__peek-grad"></div>
+          <div class="vid-modal__peek-info">
+            <span class="vdiary__tag vdiary__tag--{up_tag}" style="position:static;font-size:8px;padding:0.125rem 0.5rem">{up["tag"]}</span>
+            <p class="vdiary__name">{up["author"]}</p>
+          </div>
+        </a>
+      </div>
+    </div>""")
     return "\n".join(out)
 
 
