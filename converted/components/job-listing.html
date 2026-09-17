@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Job listing (component) &mdash; TruTravels</title>
+  <meta name="description" content="Open-roles board — filterable job cards that expand to a full, typed job description." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Job listing &mdash; demo (filter the chips, open a role)</p></div>
+
+  <!-- ===================================================================
+       JOB LISTING — the open-roles board.
+
+       Copy the <div class="jobs"> block (and one <details class="job"> per
+       role) into a careers page, plus the filter bars above it if the board
+       is long enough to need them, and the script at the foot of this file.
+
+       WHY IT IS SHAPED THIS WAY
+       The board this replaces showed a job title and nothing else until you
+       clicked. A candidate's first three questions are where is it, which
+       team, and what kind of contract — so those sit on the closed card as
+       tags, with a one-line hook. Opening a role should confirm a decision,
+       not start one.
+
+       The detail is typed rather than run as one block of prose:
+         .job__facts   the Location / Department / Reports to rail
+         .job__wins    named outcomes — "what success looks like"
+         .job__list    tick list for responsibilities and requirements
+         .job__grp     a sub-heading inside a section
+         .job__two     Essential beside Nice To Have, so the difference
+                       between a must and a preference is visible
+         .job__quote   the one line worth pulling out
+         .job__apply   the CTA panel, repeated at the foot of every role
+
+       NO SCRIPT NEEDED to open and close — that is native <details>. The
+       script only powers the filter chips and the deep links, so
+       /join-the-crew.html#accounts-payable-assistant opens that role.
+
+       Requires ../styles.css (.jobs-*, .job-*, .nf-btn).
+       =================================================================== -->
+  <section class="ess-body">
+    <div class="container">
+      <p class="ess-eyebrow">Open Roles</p>
+      <h2 class="ess-h2">What We&rsquo;re <span>Hiring For</span></h2>
+
+      <div style="margin-top:2rem">
+        <div class="jobs-bar">
+          <p class="jobs-bar__l">Team</p>
+        <button type="button" class="jobs-chip is-on" data-filter="department" data-value="">All Teams<span class="jobs-chip__n">3</span></button>
+        <button type="button" class="jobs-chip" data-filter="department" data-value="Finance">Finance<span class="jobs-chip__n">1</span></button>
+        <button type="button" class="jobs-chip" data-filter="department" data-value="On-Tour Experience">On-Tour Experience<span class="jobs-chip__n">1</span></button>
+        <button type="button" class="jobs-chip" data-filter="department" data-value="Operations">Operations<span class="jobs-chip__n">1</span></button>
+        </div>
+        <div class="jobs-bar">
+          <p class="jobs-bar__l">Where</p>
+        <button type="button" class="jobs-chip is-on" data-filter="location" data-value="">All Locations<span class="jobs-chip__n">3</span></button>
+        <button type="button" class="jobs-chip" data-filter="location" data-value="Bali / Thailand">Bali / Thailand<span class="jobs-chip__n">1</span></button>
+        <button type="button" class="jobs-chip" data-filter="location" data-value="Dalung, Bali">Dalung, Bali<span class="jobs-chip__n">1</span></button>
+        <button type="button" class="jobs-chip" data-filter="location" data-value="Malaybalay, Philippines">Malaybalay, Philippines<span class="jobs-chip__n">1</span></button>
+        </div>
+
+        <div class="jobs">
+      <details class="job" id="accounts-payable-assistant" data-job data-dept="Finance" data-loc="Dalung, Bali">
+        <summary class="job__head">
+          <div class="job__top">
+            <h3 class="job__t">Accounts Payable Assistant<span>Fixed-Term Maternity Cover</span></h3>
+            <span class="job__chev" aria-hidden="true"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+          </div>
+          <p class="job__hook">Keep the day-to-day finance operation running &mdash; supplier invoices, payments, reconciliations and month-end &mdash; covering maternity leave from September 2026.</p>
+          <div class="job__tags">
+            <span class="job__tag"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Dalung, Bali</span>
+            <span class="job__tag"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>Finance</span>
+            <span class="job__tag"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>Fixed-term</span>
+          </div>
+        </summary>
+        <div class="job__body">
+          <div class="job__rule"></div>
+        <dl class="job__facts">
+            <div class="job__fact"><dt>Location</dt><dd>Dalung, Bali</dd></div>
+            <div class="job__fact"><dt>Department</dt><dd>Finance</dd></div>
+            <div class="job__fact"><dt>Reports to</dt><dd>Junior Accountant</dd></div>
+            <div class="job__fact"><dt>Role type</dt><dd>Fixed-term maternity cover</dd></div>
+            <div class="job__fact"><dt>Contract period</dt><dd>September 2026 &ndash; January 2027</dd></div>
+            <div class="job__fact"><dt>Start date</dt><dd>September 2026, or as soon as possible</dd></div>
+        </dl>
+
+        <div class="job__sec">
+          <h4 class="job__h">The Role In A Nutshell</h4>
+          <p class="job__p">We&rsquo;re looking for a motivated, organised and detail-oriented Accounts Payable Assistant to join our Finance team in Bali on a fixed-term basis, providing maternity cover from September 2026 to January 2027.</p>
+          <p class="job__p">You&rsquo;ll play an important role in keeping our day-to-day finance operations running smoothly, supporting the team with supplier invoices, payments, reconciliations, expense tracking and month-end activities.</p>
+          <p class="job__p">This is a brilliant opportunity for someone who enjoys working with numbers, has a keen eye for detail and wants to build hands-on experience within a fast-paced, international travel business. You&rsquo;ll work closely with colleagues across Finance, Reservations and other teams, giving you great exposure to how finance supports the wider operation.</p>
+          <p class="job__p"><strong>You don&rsquo;t need to know everything from day one.</strong> We&rsquo;re looking for someone who is organised, curious, reliable and keen to learn, with the confidence to ask questions and take ownership of their work.</p>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">What Success Looks Like</h4>
+          <div class="job__wins">
+            <div class="job__win"><p class="job__win__t">Accurate Accounts Payable</p><p class="job__win__d">Supplier invoices are reviewed, processed and recorded accurately, with the right supporting documentation and account coding.</p></div>
+            <div class="job__win"><p class="job__win__t">Payments Stay On Track</p><p class="job__win__d">Payment information is organised and up to date, helping the team make accurate and timely supplier payments.</p></div>
+            <div class="job__win"><p class="job__win__t">Records We Can Rely On</p><p class="job__win__d">Expense trackers, payment records and financial documentation are complete, organised and easy to follow.</p></div>
+            <div class="job__win"><p class="job__win__t">A Smooth Month-End</p><p class="job__win__d">Actual costs, accruals and supporting information are recorded accurately and provided on time to support month-end reporting.</p></div>
+            <div class="job__win"><p class="job__win__t">Great Cross-Team Communication</p><p class="job__win__d">You build positive working relationships with Finance, Reservations and other teams, following up on missing information and helping resolve queries quickly.</p></div>
+            <div class="job__win"><p class="job__win__t">Continuous Improvement</p><p class="job__win__d">You spot opportunities to make everyday finance processes simpler, clearer and more efficient &mdash; and aren&rsquo;t afraid to share your ideas.</p></div>
+          </div>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">Key Responsibilities</h4>
+          <p class="job__p">As our Accounts Payable Assistant, you&rsquo;ll support the day-to-day accounts payable function and the wider Finance team. Your responsibilities will include:</p>
+          <ul class="job__list">
+            <li>Reviewing supplier invoices to ensure they are accurate, complete and supported by the appropriate documentation.</li>
+            <li>Supporting the processing, tracking and recording of supplier invoices and payments.</li>
+            <li>Checking invoice information against internal records and following up on any discrepancies or missing details.</li>
+            <li>Coordinating with the Reservations, Finance and wider operational teams to obtain invoices, approvals and supporting documentation.</li>
+            <li>Uploading approved supplier invoices into Xero, ensuring the correct supplier and account coding.</li>
+            <li>Providing general administrative support to the Finance team when required.</li>
+            <li>Working collaboratively with colleagues across the business to help keep finance processes running smoothly.</li>
+            <li>Identifying and sharing ideas for improving accounts payable processes, accuracy and efficiency.</li>
+            <li>Carrying out other reasonable finance-related duties in support of the team during the maternity cover period.</li>
+          </ul>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">Who This Role Is Perfect For</h4>
+          <p class="job__p">You&rsquo;ll probably love this role if you:</p>
+          <ul class="job__list">
+            <li>Have an interest in accounting, finance or business operations and want to develop your practical experience.</li>
+            <li>Enjoy working with numbers and have a strong eye for detail.</li>
+            <li>Are organised and comfortable managing multiple tasks and deadlines.</li>
+            <li>Take pride in getting things right, and will double-check something rather than simply assuming.</li>
+            <li>Are confident using spreadsheets and working with financial information.</li>
+            <li>Communicate clearly and professionally with different teams and stakeholders.</li>
+            <li>Are comfortable following up when information or documentation is missing.</li>
+            <li>Are curious and willing to learn new systems, processes and ways of working.</li>
+            <li>Can handle confidential and sensitive information responsibly.</li>
+            <li>Are comfortable in a fast-moving environment where priorities can occasionally change.</li>
+            <li>Enjoy working as part of a collaborative team while also being comfortable working independently.</li>
+          </ul>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">What You&rsquo;ll Need</h4>
+          <div class="job__two">
+            <div>
+              <p class="job__col-h">Essential</p>
+          <ul class="job__list">
+            <li>Based in Bali, or able to work from our Dalung, Bali location for the duration of the contract.</li>
+            <li>Available for the full maternity cover period, September 2026 to January 2027.</li>
+            <li>Good numerical skills and strong attention to detail.</li>
+            <li>Good written and verbal communication skills.</li>
+            <li>Basic to intermediate knowledge of Microsoft Excel and/or Google Sheets.</li>
+            <li>Comfortable working with digital systems and learning new software.</li>
+            <li>Able to organise your workload, meet deadlines and maintain accurate records.</li>
+            <li>Professional approach to handling confidential financial and business information.</li>
+            <li>Working proficiency in English.</li>
+          </ul>
+            </div>
+            <div>
+              <p class="job__col-h">Nice To Have <span>&mdash; don&rsquo;t let a gap stop you</span></p>
+          <ul class="job__list job__list--plain">
+            <li>A qualification, ongoing study or recent graduation in Accounting, Finance, Business Administration or a related field.</li>
+            <li>Previous experience in an accounts payable, finance, bookkeeping or administrative role.</li>
+            <li>Experience processing invoices, payments or expense records.</li>
+            <li>Previous experience using Xero or another accounting system.</li>
+            <li>Experience working with spreadsheets, including basic formulas and data management.</li>
+            <li>Experience within travel, tourism, hospitality or another fast-paced international business.</li>
+          </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">Why This Role Matters At Tru</h4>
+          <p class="job__p">Behind every incredible TruTravels experience is a huge amount happening behind the scenes, and strong financial processes are a big part of keeping everything moving.</p>
+          <p class="job__p">Our suppliers and partners are essential to the experiences we create around the world, and accurate invoice processing, reliable financial records and timely payments help keep those relationships strong.</p>
+          <p class="job__p">As our Accounts Payable Assistant, you&rsquo;ll help make sure the detail is taken care of &mdash; supporting accurate reporting, strong supplier relationships and a Finance team that can rely on its numbers.</p>
+          <p class="job__quote">It might all happen behind the scenes, but the impact reaches right across Tru.</p>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">Our Values</h4>
+          <p class="job__p">Our values shape how we work, lead and grow. If they resonate with you, you&rsquo;ll probably feel at home here.</p>
+          <div class="job__values">
+            <a class="job__value" href="../about-our-values.html">We Don't Do Average</a>
+            <a class="job__value" href="../about-our-values.html">For The Benefit Of All</a>
+            <a class="job__value" href="../about-our-values.html">Create Opportunity</a>
+            <a class="job__value" href="../about-our-values.html">We Are Family</a>
+          </div>
+        </div>
+
+        <div class="job__apply">
+          <h4 class="job__apply-h">Ready To Join <span>The Adventure?</span></h4>
+          <p class="job__apply-p">Send your application to Roxanne at <a href="mailto:recruitment@trutravels.com?subject=Accounts%20Payable%20Assistant">recruitment@trutravels.com</a> and include your CV plus a short introduction about yourself and what excites you about this opportunity.</p>
+          <div class="job__apply-acts">
+            <a class="nf-btn nf-btn--pink" href="mailto:recruitment@trutravels.com?subject=Accounts%20Payable%20Assistant">Apply For This Role<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+            <a class="nf-btn nf-btn--ghost" href="#roles">Back To All Roles</a>
+          </div>
+          <p class="job__fine">We read every application carefully. If you haven&rsquo;t heard from us within three weeks, please assume your application hasn&rsquo;t been successful this time.</p>
+          <p class="job__fine">We are committed to building a team that reflects the diverse communities we serve. A wide range of perspectives, backgrounds and experiences makes us stronger, and we actively encourage applications from candidates of all backgrounds. If you&rsquo;re excited about this role but your experience doesn&rsquo;t line up with every point above, we&rsquo;d still love to hear from you &mdash; skills can be developed; curiosity, ownership and a willingness to learn matter just as much.</p>
+        </div>
+        </div>
+      </details>
+      <details class="job" id="philippines-reservations-assistant" data-job data-dept="Operations" data-loc="Malaybalay, Philippines">
+        <summary class="job__head">
+          <div class="job__top">
+            <h3 class="job__t">Philippines Reservations Assistant<span>Fixed-Term Contract</span></h3>
+            <span class="job__chev" aria-hidden="true"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+          </div>
+          <p class="job__hook">Book and confirm everything a Philippines tour runs on &mdash; accommodation, transport, domestic flights and activities &mdash; on a six-month contract.</p>
+          <div class="job__tags">
+            <span class="job__tag"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Malaybalay, Philippines</span>
+            <span class="job__tag"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>Operations</span>
+            <span class="job__tag"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>Fixed-term</span>
+          </div>
+        </summary>
+        <div class="job__body">
+          <div class="job__rule"></div>
+        <dl class="job__facts">
+            <div class="job__fact"><dt>Location</dt><dd>Malaybalay, Philippines</dd></div>
+            <div class="job__fact"><dt>Department</dt><dd>Operations / Reservations</dd></div>
+            <div class="job__fact"><dt>Role type</dt><dd>Fixed-term contract</dd></div>
+            <div class="job__fact"><dt>Contract length</dt><dd>6 months</dd></div>
+        </dl>
+
+        <div class="job__sec">
+          <h4 class="job__h">The Role In A Nutshell</h4>
+          <p class="job__p">The Philippines Reservations Assistant is responsible for supporting the accurate and timely booking of all services required for tours operating across the Philippines. Working closely with the Reservations, Operations and Sales teams, the role helps ensure that accommodation, transport, domestic flights, activities and other tour services are correctly reserved and confirmed in line with each itinerary.</p>
+          <p class="job__p">This is a detail-focused operational role requiring strong organisation, accuracy and communication. The Reservations Assistant acts as an important link between internal teams, local suppliers, Tour Leaders and managers.</p>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">What You&rsquo;ll Be Doing</h4>
+          <div class="job__grp">
+            <p class="job__grp-h">Reservations &amp; Booking Management</p>
+          <ul class="job__list">
+            <li>Work closely with the Operations teams to secure and confirm accurate bookings for all Philippines tours.</li>
+            <li>Book and manage accommodation, domestic flights, transportation, activities and transfers according to each itinerary.</li>
+            <li>Input and update reservations received through all booking channels, ensuring information is accurate and complete.</li>
+            <li>Process booking amendments, cancellations and changes, communicating updates promptly to relevant teams and suppliers.</li>
+            <li>Monitor outstanding reservations and follow up with suppliers so services are confirmed within required timelines.</li>
+          </ul>
+          </div>
+          <div class="job__grp">
+            <p class="job__grp-h">Supplier &amp; Operational Coordination</p>
+          <ul class="job__list">
+            <li>Communicate regularly with hotels, transport providers, activity suppliers and other local partners regarding availability and confirmations.</li>
+            <li>Maintain clear communication with suppliers so tour requirements are understood and met.</li>
+          </ul>
+          </div>
+          <div class="job__grp">
+            <p class="job__grp-h">Administration &amp; Documentation</p>
+          <ul class="job__list">
+            <li>Keep customer and tour information &mdash; flight details, arrival times, check-in dates &mdash; accurate and up to date.</li>
+          </ul>
+          </div>
+          <div class="job__grp">
+            <p class="job__grp-h">Cross-Team Communication</p>
+          <ul class="job__list">
+            <li>Act as the link between Reservations, Operations, Sales, Tour Leaders and managers on anything affecting a booking.</li>
+          </ul>
+          </div>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">Our Values</h4>
+          <p class="job__p">Our values shape how we work, lead and grow. If they resonate with you, you&rsquo;ll probably feel at home here.</p>
+          <div class="job__values">
+            <a class="job__value" href="../about-our-values.html">We Don't Do Average</a>
+            <a class="job__value" href="../about-our-values.html">For The Benefit Of All</a>
+            <a class="job__value" href="../about-our-values.html">Create Opportunity</a>
+            <a class="job__value" href="../about-our-values.html">We Are Family</a>
+          </div>
+        </div>
+
+        <div class="job__apply">
+          <h4 class="job__apply-h">Ready To Join <span>The Adventure?</span></h4>
+          <p class="job__apply-p">Send your application to Roxanne at <a href="mailto:recruitment@trutravels.com?subject=Philippines%20Reservations%20Assistant">recruitment@trutravels.com</a> and include your CV plus a short introduction about yourself and what excites you about this opportunity.</p>
+          <div class="job__apply-acts">
+            <a class="nf-btn nf-btn--pink" href="mailto:recruitment@trutravels.com?subject=Philippines%20Reservations%20Assistant">Apply For This Role<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+            <a class="nf-btn nf-btn--ghost" href="#roles">Back To All Roles</a>
+          </div>
+          <p class="job__fine">We read every application carefully. If you haven&rsquo;t heard from us within three weeks, please assume your application hasn&rsquo;t been successful this time.</p>
+          <p class="job__fine">We are committed to building a team that reflects the diverse communities we serve. A wide range of perspectives, backgrounds and experiences makes us stronger, and we actively encourage applications from candidates of all backgrounds. If you&rsquo;re excited about this role but your experience doesn&rsquo;t line up with every point above, we&rsquo;d still love to hear from you &mdash; skills can be developed; curiosity, ownership and a willingness to learn matter just as much.</p>
+        </div>
+        </div>
+      </details>
+      <details class="job" id="local-legend-team-lead" data-job data-dept="On-Tour Experience" data-loc="Bali / Thailand">
+        <summary class="job__head">
+          <div class="job__top">
+            <h3 class="job__t">Local Legend Team Lead<span>Indonesia / Thailand</span></h3>
+            <span class="job__chev" aria-hidden="true"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></span>
+          </div>
+          <p class="job__hook">Keep leading trips, and start leading the people who lead them &mdash; coaching, onboarding and backing the Local Legends in your destination.</p>
+          <div class="job__tags">
+            <span class="job__tag"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>Bali / Thailand</span>
+            <span class="job__tag"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>On-Tour Experience</span>
+            <span class="job__tag"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>Contractor</span>
+          </div>
+        </summary>
+        <div class="job__body">
+          <div class="job__rule"></div>
+        <dl class="job__facts">
+            <div class="job__fact"><dt>Location</dt><dd>In destination (Bali / Thailand)</dd></div>
+            <div class="job__fact"><dt>Department</dt><dd>On-Tour Experience</dd></div>
+            <div class="job__fact"><dt>Role type</dt><dd>Independent contractor</dd></div>
+            <div class="job__fact"><dt>Start date</dt><dd>August / September 2026</dd></div>
+        </dl>
+
+        <div class="job__sec">
+          <h4 class="job__h">The Role In A Nutshell</h4>
+          <p class="job__p">At TruTravels, we believe unforgettable trips start with unforgettable people. We&rsquo;re looking for passionate, energetic and experienced Team Leads to help us keep raising the bar for our travellers and our Local Legend community.</p>
+          <p class="job__p">This is a brilliant opportunity for someone who loves being on the road, thrives on creating incredible experiences and wants to take the next step into leadership &mdash; <strong>without stepping away from the part of the job they love most.</strong></p>
+          <p class="job__p">You&rsquo;ll be leading amazing TruTravels tours while taking on greater responsibility for supporting, coaching and developing the Local Legends around you.</p>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">What You&rsquo;ll Be Doing</h4>
+          <div class="job__grp">
+            <p class="job__grp-h">Leading Unforgettable Tours</p>
+          <ul class="job__list">
+            <li>Keep doing what our Local Legends do best &mdash; delivering incredible trips and creating memorable experiences for travellers.</li>
+          </ul>
+          </div>
+          <div class="job__grp">
+            <p class="job__grp-h">Supporting &amp; Developing Our Local Legends</p>
+          <ul class="job__list">
+            <li>Act as a trusted point of support for Local Legends in your destination, helping people navigate challenges on the road.</li>
+          </ul>
+          </div>
+          <div class="job__grp">
+            <p class="job__grp-h">Training &amp; Onboarding</p>
+          <ul class="job__list">
+            <li>Welcome and develop new Local Legends, supporting onboarding and refresher training and sharing what you know.</li>
+          </ul>
+          </div>
+          <div class="job__grp">
+            <p class="job__grp-h">Championing The Guest Experience</p>
+          <ul class="job__list">
+            <li>Help review guest feedback and keep the traveller experience at the heart of every decision.</li>
+          </ul>
+          </div>
+          <div class="job__grp">
+            <p class="job__grp-h">Supporting Smooth Operations</p>
+          <ul class="job__list">
+            <li>Help keep things running behind the scenes, supporting Local Legends with day-to-day operational questions.</li>
+          </ul>
+          </div>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">Who This Role Is Perfect For</h4>
+          <p class="job__p">We&rsquo;re much more interested in how you show up than in ticking every box on a traditional job description. You&rsquo;ll probably thrive here if:</p>
+          <ul class="job__list">
+            <li>People naturally turn to you for advice, and you lead by example rather than by title.</li>
+            <li>You still love being on the road and have no interest in leaving it behind.</li>
+            <li>You&rsquo;re experienced enough to coach others through a bad day on tour.</li>
+          </ul>
+        </div>
+
+        <div class="job__sec">
+          <h4 class="job__h">Our Values</h4>
+          <p class="job__p">Our values shape how we work, lead and grow. If they resonate with you, you&rsquo;ll probably feel at home here.</p>
+          <div class="job__values">
+            <a class="job__value" href="../about-our-values.html">We Don't Do Average</a>
+            <a class="job__value" href="../about-our-values.html">For The Benefit Of All</a>
+            <a class="job__value" href="../about-our-values.html">Create Opportunity</a>
+            <a class="job__value" href="../about-our-values.html">We Are Family</a>
+          </div>
+        </div>
+
+        <div class="job__apply">
+          <h4 class="job__apply-h">Ready To Join <span>The Adventure?</span></h4>
+          <p class="job__apply-p">Send your application to Roxanne at <a href="mailto:recruitment@trutravels.com?subject=Local%20Legend%20Team%20Lead">recruitment@trutravels.com</a> and include your CV plus a short introduction about yourself and what excites you about this opportunity.</p>
+          <div class="job__apply-acts">
+            <a class="nf-btn nf-btn--pink" href="mailto:recruitment@trutravels.com?subject=Local%20Legend%20Team%20Lead">Apply For This Role<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+            <a class="nf-btn nf-btn--ghost" href="#roles">Back To All Roles</a>
+          </div>
+          <p class="job__fine">We read every application carefully. If you haven&rsquo;t heard from us within three weeks, please assume your application hasn&rsquo;t been successful this time.</p>
+          <p class="job__fine">We are committed to building a team that reflects the diverse communities we serve. A wide range of perspectives, backgrounds and experiences makes us stronger, and we actively encourage applications from candidates of all backgrounds. If you&rsquo;re excited about this role but your experience doesn&rsquo;t line up with every point above, we&rsquo;d still love to hear from you &mdash; skills can be developed; curiosity, ownership and a willingness to learn matter just as much.</p>
+        </div>
+        </div>
+      </details>
+        </div>
+        <p class="jobs-empty" data-jobs-empty hidden>No roles match that combination right now.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  /* Jobs board. The accordion itself is native <details> and needs none of
+     this — the script only adds the filter chips and the deep links that the
+     live site's #anchor URLs rely on. */
+  (function () {
+    var jobs = [].slice.call(document.querySelectorAll('[data-job]'));
+    if (!jobs.length) return;
+    var empty = document.querySelector('[data-jobs-empty]');
+    var active = { dept: '', loc: '' };
+
+    function apply() {
+      var shown = 0;
+      jobs.forEach(function (j) {
+        var ok = (!active.dept || j.dataset.dept === active.dept)
+              && (!active.loc || j.dataset.loc === active.loc);
+        j.hidden = !ok;
+        if (ok) shown++;
+      });
+      if (empty) empty.hidden = shown > 0;
+    }
+
+    document.querySelectorAll('[data-filter]').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var key = chip.dataset.filter === 'department' ? 'dept' : 'loc';
+        active[key] = chip.dataset.value;
+        document.querySelectorAll('[data-filter="' + chip.dataset.filter + '"]')
+          .forEach(function (c) { c.classList.toggle('is-on', c === chip); });
+        apply();
+      });
+    });
+
+    /* Deep link: #slug opens that role and scrolls to it. Also keeps the URL
+       in step as roles are opened, so a link can be copied from the address
+       bar — which is what the live site's anchors are for. */
+    function openFromHash() {
+      var id = location.hash.replace(/^#_?/, '');
+      if (!id) return;
+      var job = document.getElementById(id);
+      if (!job || !job.matches('[data-job]')) return;
+      job.open = true;
+      job.scrollIntoView({ block: 'start' });
+    }
+    jobs.forEach(function (j) {
+      j.addEventListener('toggle', function () {
+        if (j.open && history.replaceState) history.replaceState(null, '', '#' + j.id);
+      });
+    });
+    window.addEventListener('hashchange', openFromHash);
+    openFromHash();
+  })();
+  </script>
+</body>
+</html>

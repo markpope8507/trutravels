@@ -5697,3 +5697,116 @@ ul { margin: 0; padding: 0; list-style: none; }
   .img-strip .rev-arrow--prev { left: -3.25rem; }
   .img-strip .rev-arrow--next { right: -3.25rem; }
 }
+
+/* ============================================================
+   JOBS BOARD — mirrors trutravels.com/join-the-crew/jobs, rebuilt.
+
+   The live board is a bare accordion: title only, nothing else
+   visible until you open it, and the body is one long wall of
+   text. Here each role shows what a candidate actually filters
+   on — location, team, contract — before they open anything,
+   and the detail is broken into typed sections so it can be
+   skimmed. Collapse is native <details>, so it works with no JS;
+   the script only handles deep links and the filter chips.
+   ============================================================ */
+
+/* --- filter chips ------------------------------------------------ */
+.jobs-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0 0 1.5rem; }
+.jobs-bar__l { color: #6b7280; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin: 0 0.25rem 0 0; }
+.jobs-chip { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--border-soft); background: rgba(255,255,255,0.04); border-radius: 999px; padding: 0.4rem 0.9rem; color: #d1d5db; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s; }
+.jobs-chip:hover { border-color: rgba(255,63,153,0.4); color: #fff; }
+.jobs-chip.is-on { border-color: var(--tru-pink); background: rgba(255,63,153,0.12); color: #fff; }
+.jobs-chip__n { color: #6b7280; font-variant-numeric: tabular-nums; }
+.jobs-chip.is-on .jobs-chip__n { color: var(--tru-pink); }
+.jobs-empty { color: #9ca3af; font-size: 0.9375rem; line-height: 1.7; padding: 2rem 0; margin: 0; }
+.jobs-empty[hidden] { display: none; }
+
+/* --- the list ---------------------------------------------------- */
+.jobs { display: flex; flex-direction: column; gap: 0.75rem; }
+.job { border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03); border-radius: 14px; transition: border-color 0.2s, background 0.2s; scroll-margin-top: 6rem; }
+.job:hover { border-color: rgba(255,63,153,0.3); }
+.job[open] { border-color: rgba(255,63,153,0.45); background: rgba(255,255,255,0.05); }
+.job[hidden] { display: none; }
+
+/* --- the head, always visible ------------------------------------ */
+.job__head { display: block; list-style: none; cursor: pointer; padding: 1.5rem; }
+.job__head::-webkit-details-marker { display: none; }
+.job__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.job__t { font-family: 'Montserrat', sans-serif; font-size: 1.125rem; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: -0.005em; line-height: 1.2; margin: 0; transition: color 0.2s; }
+@media (min-width: 640px) { .job__t { font-size: 1.375rem; } }
+.job:hover .job__t { color: var(--tru-pink); }
+.job__t span { display: block; color: var(--tru-pink); font-size: 0.75em; margin-top: 0.15rem; }
+.job__chev { flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 999px; border: 1px solid var(--border-soft); background: rgba(255,255,255,0.05); color: #9ca3af; transition: transform 0.25s, color 0.2s, border-color 0.2s, background 0.2s; }
+.job__chev svg { width: 1rem; height: 1rem; }
+.job:hover .job__chev { color: #fff; border-color: rgba(255,63,153,0.4); }
+.job[open] .job__chev { transform: rotate(180deg); background: var(--tru-pink); border-color: var(--tru-pink); color: #fff; }
+.job__hook { color: #9ca3af; font-size: 0.875rem; line-height: 1.6; margin: 0.75rem 0 0; max-width: 46rem; }
+.job__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.job__tag { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--border-soft); background: rgba(255,255,255,0.04); border-radius: 999px; padding: 0.3rem 0.75rem; color: #d1d5db; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.job__tag svg { width: 0.8rem; height: 0.8rem; color: var(--tru-pink); flex-shrink: 0; }
+.job__tag--closing { border-color: rgba(255,63,153,0.4); background: rgba(255,63,153,0.1); color: #fff; }
+.job__tag--closing svg { color: var(--tru-pink); }
+
+/* --- the detail -------------------------------------------------- */
+.job__body { padding: 0 1.5rem 1.75rem; }
+.job__rule { height: 1px; background: rgba(255,255,255,0.08); margin: 0 0 1.75rem; }
+
+/* the facts rail — what the live page buries in a paragraph */
+.job__facts { display: grid; grid-template-columns: 1fr; gap: 1rem 1.5rem; border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1.25rem; margin: 0 0 2rem; }
+@media (min-width: 640px) { .job__facts { grid-template-columns: repeat(3, 1fr); } }
+.job__fact dt { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; margin: 0 0 0.3rem; }
+.job__fact dd { color: #fff; font-size: 0.875rem; line-height: 1.45; margin: 0; }
+
+.job__sec { margin: 0 0 2rem; }
+.job__h { display: flex; align-items: center; gap: 0.75rem; font-family: 'Montserrat', sans-serif; font-size: 0.9375rem; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: 0.04em; margin: 0 0 1rem; }
+.job__h::before { content: ''; flex-shrink: 0; width: 1.5rem; height: 2px; background: var(--tru-pink); }
+/* Cap the reading measure. The board sits in a full-width .container so the
+   cards and grids can breathe, but running text set that wide is unreadable. */
+.job__p, .job__list { max-width: 46rem; }
+.job__p { color: #d1d5db; font-size: 0.9375rem; line-height: 1.75; margin: 0 0 1rem; }
+.job__p:last-child { margin-bottom: 0; }
+.job__p strong { color: #fff; }
+
+/* tick list — responsibilities, requirements, who it suits */
+.job__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 0.6rem; }
+.job__list li { display: flex; align-items: flex-start; gap: 0.65rem; color: #d1d5db; font-size: 0.875rem; line-height: 1.6; }
+.job__list li::before { content: ''; flex-shrink: 0; width: 1.05rem; height: 1.05rem; margin-top: 0.2rem; border-radius: 999px; background: rgba(255,63,153,0.15) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff3f99' stroke-width='3'><path stroke-linecap='round' stroke-linejoin='round' d='M5 13l4 4L19 7'/></svg>") center / 0.65rem no-repeat; }
+.job__list--plain li::before { background-image: none; background-color: rgba(255,255,255,0.15); width: 0.35rem; height: 0.35rem; margin-top: 0.55rem; }
+
+/* grouped responsibilities — a sub-heading inside a section */
+.job__grp { margin-top: 1.5rem; }
+.job__grp:first-child { margin-top: 0; }
+.job__grp-h { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.75rem; }
+
+/* "what success looks like" — the live page runs these as bullets;
+   they are really named outcomes, so they get their own cards. */
+.job__wins { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+@media (min-width: 768px) { .job__wins { grid-template-columns: repeat(2, 1fr); } }
+.job__win { border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1.1rem; }
+.job__win__t { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.8125rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.03em; margin: 0 0 0.4rem; }
+.job__win__d { color: #9ca3af; font-size: 0.8125rem; line-height: 1.6; margin: 0; }
+
+/* requirements vs nice-to-have, side by side */
+.job__two { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 768px) { .job__two { grid-template-columns: repeat(2, 1fr); } }
+.job__col-h { display: flex; align-items: center; gap: 0.5rem; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 0.85rem; }
+.job__col-h span { color: #6b7280; font-weight: 600; letter-spacing: 0.04em; text-transform: none; font-size: 0.75rem; }
+
+/* why the role matters — reuses the About pull-quote language */
+.job__quote { border-left: 2px solid var(--tru-pink); padding-left: 1.25rem; margin: 0; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.125rem; font-weight: 700; line-height: 1.45; }
+@media (min-width: 640px) { .job__quote { font-size: 1.25rem; } }
+
+/* values chips — link out to the values page rather than restating it */
+.job__values { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.job__value { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,63,153,0.3); background: rgba(255,63,153,0.08); border-radius: 999px; padding: 0.45rem 1rem; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; transition: background 0.2s, border-color 0.2s; }
+.job__value:hover { background: rgba(255,63,153,0.18); border-color: var(--tru-pink); }
+
+/* apply panel */
+.job__apply { border: 1px solid var(--border-soft); border-radius: 14px; background: linear-gradient(to bottom right, var(--tru-navy), var(--tru-navy) 60%, rgba(255,63,153,0.08)); padding: 1.5rem; }
+@media (min-width: 640px) { .job__apply { padding: 2rem; } }
+.job__apply-h { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: -0.01em; margin: 0 0 0.5rem; }
+.job__apply-h span { color: var(--tru-pink); }
+.job__apply-p { color: #d1d5db; font-size: 0.875rem; line-height: 1.7; margin: 0 0 1.25rem; }
+.job__apply-p a { color: var(--tru-pink); font-weight: 600; }
+.job__apply-acts { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+.job__fine { color: #6b7280; font-size: 0.75rem; line-height: 1.7; margin: 1.25rem 0 0; }

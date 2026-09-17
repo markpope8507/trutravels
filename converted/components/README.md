@@ -56,6 +56,7 @@ Structural blocks for building whole pages (extracted from the live static pages
 | File | Component | Needs a `<script>`? |
 |------|-----------|:---:|
 | `text-blocks.html` | **Text micro-layouts** — the reading column, the section head, and every body-copy block (lead, beat, pull-quote, closer, handwriting, sign-off, fine print, polaroid) with its class and type spec. The kit for building page content. | no |
+| `job-listing.html` | **Open-roles board** — filterable job cards showing location, team and contract before you open one, expanding to a typed job description (facts rail, named outcomes, tick lists, Essential beside Nice To Have, apply panel). Collapse is native `<details>`; the script only does filters and `#slug` deep links. Built by `.build/build_careers.py` alongside `join-the-crew.html`. | yes |
 | `section-header.html` | Section intro — eyebrow + title + description (3 variants) | no |
 | `page-hero.html` | Full-bleed image hero with overlay title block | no |
 | `pillar-header.html` | Big pillar header — accent rule + eyebrow + accented title + line-art icon | no |
