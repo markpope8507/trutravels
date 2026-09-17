@@ -5722,7 +5722,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .jobs-empty[hidden] { display: none; }
 
 /* --- the list ---------------------------------------------------- */
-.jobs { display: flex; flex-direction: column; gap: 0.75rem; }
+/* overflow-anchor: opening a card inserts a tall panel ABOVE whatever node the
+   browser has anchored the viewport to (the next card down), so scroll
+   anchoring compensates by scrolling the same distance — landing the reader at
+   the END of the section they just opened. Turning it off here, and aligning
+   the card head ourselves on toggle, means opening a role shows its start. */
+.jobs { display: flex; flex-direction: column; gap: 0.75rem; overflow-anchor: none; }
 .job { border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03); border-radius: 14px; transition: border-color 0.2s, background 0.2s; scroll-margin-top: 6rem; }
 .job:hover { border-color: rgba(255,63,153,0.3); }
 .job[open] { border-color: rgba(255,63,153,0.45); background: rgba(255,255,255,0.05); }
@@ -5798,8 +5803,21 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* values chips — link out to the values page rather than restating it */
 .job__values { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-.job__value { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,63,153,0.3); background: rgba(255,63,153,0.08); border-radius: 999px; padding: 0.45rem 1rem; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; transition: background 0.2s, border-color 0.2s; }
+/* Each chip carries the value's own mark from the Our Values page rather than
+   a generic bullet: the wavy underline, the pill, the handwriting, the heart,
+   the palm. Only two of the five have an icon — the other three ARE
+   typographic marks, so they scale down rather than get invented icons. */
+.job__value { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid rgba(255,63,153,0.3); background: rgba(255,63,153,0.08); border-radius: 999px; padding: 0.5rem 1rem; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.2; transition: background 0.2s, border-color 0.2s; }
 .job__value:hover { background: rgba(255,63,153,0.18); border-color: var(--tru-pink); }
+.job__value svg { width: 0.95rem; height: 0.95rem; flex-shrink: 0; color: var(--tru-pink); }
+.job__value__w { color: #d1d5db; }
+.job__value__m { color: var(--tru-pink); }
+.job__value__m--wavy { text-decoration: underline wavy var(--tru-pink); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.job__value__m--pill { border: 1.5px solid var(--tru-pink); border-radius: 999px; padding: 0.05rem 0.5rem; }
+.job__value__m--hand { color: var(--tru-green); font-family: 'Caveat', cursive; font-size: 1.5em; font-weight: 700; text-transform: none; letter-spacing: 0; line-height: 1; }
+.job__value--blue svg, .job__value--blue .job__value__m { color: var(--tru-blue); }
+.job__value--blue { border-color: rgba(33,114,213,0.35); background: rgba(33,114,213,0.08); }
+.job__value--blue:hover { background: rgba(33,114,213,0.18); border-color: var(--tru-blue); }
 
 /* apply panel */
 .job__apply { border: 1px solid var(--border-soft); border-radius: 14px; background: linear-gradient(to bottom right, var(--tru-navy), var(--tru-navy) 60%, rgba(255,63,153,0.08)); padding: 1.5rem; }

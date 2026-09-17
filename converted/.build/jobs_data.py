@@ -26,13 +26,20 @@ Shared by build_careers.py (the page) and the job-listing component demo.
 APPLY_EMAIL = "recruitment@trutravels.com"
 APPLY_CONTACT = "Roxanne"
 
-# The five values, matching src/app/about/our-values — chips link there rather
-# than restating the list inside every posting.
+# The five core values, with the mark each one carries on the Our Values page.
+# Only two have an icon (heart, palm); the other three ARE typographic marks —
+# a wavy underline, a pill, handwriting — so those are what the chips reproduce
+# rather than inventing icons the brand doesn't have. `mark` is the word the
+# treatment lands on. Chips link through to the values page.
+#
+# NOTE: the job posting on the live site lists four values and omits "Live The
+# Dream". Included here because the values page has five.
 VALUES = [
-    "We Don't Do Average",
-    "For The Benefit Of All",
-    "Create Opportunity",
-    "We Are Family",
+    {"lead": "We Don't Do", "mark": "Average", "style": "wavy"},
+    {"lead": "For The", "mark": "Benefit", "tail": "Of All", "style": "pill"},
+    {"lead": "Create", "mark": "Opportunity", "style": "hand"},
+    {"lead": "We Are", "mark": "Family", "style": "icon", "icon": "heart"},
+    {"lead": "Live The", "mark": "Dream", "style": "icon", "icon": "palm", "blue": True},
 ]
 
 EQUAL_OPPS = (
