@@ -1370,6 +1370,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* two fields side by side from 640px up */
 .field-row { display: grid; grid-template-columns: 1fr; column-gap: 0.75rem; }
 @media (min-width: 640px) { .field-row { grid-template-columns: 1fr 1fr; } }
+/* three short inputs across — the socials row on the partner forms. Stays
+   one column on phones, where three handles side by side would be unusable. */
+.field-row--3 { column-gap: 0.75rem; }
+@media (min-width: 640px) { .field-row--3 { grid-template-columns: repeat(3, 1fr); } }
 /* consent / opt-in checkbox row */
 .form-check { display: flex; align-items: flex-start; gap: 0.6rem; margin: 0 0 1rem; color: #9ca3af; font-size: 0.82rem; line-height: 1.45; cursor: pointer; }
 .form-check input { flex-shrink: 0; margin-top: 0.15rem; width: 1rem; height: 1rem; accent-color: var(--tru-pink); }
@@ -6071,3 +6075,176 @@ ul { margin: 0; padding: 0; list-style: none; }
    present in the outline, which is the point */
 .wwd__sub { display: block; color: #9ca3af; font-family: 'Source Sans 3', sans-serif; font-size: 0.9375rem; font-weight: 400; line-height: 1.5; text-transform: none; letter-spacing: 0; margin-top: 0.6rem; }
 @media (min-width: 640px) { .wwd__sub { font-size: 1rem; } }
+
+/* ==========================================================================
+   PARTNERS — partner-with-us.html, affiliates.html, host-a-trip.html
+   ========================================================================== */
+
+/* -- choice pills ---------------------------------------------------------
+   The partner application asks four closed questions (over 18, audience age
+   bands, travelled with us before, what you're interested in). As <select>s
+   they'd hide their own options behind a tap; as bare radios they'd read as
+   a different, lower-effort control than the rest of the form. Pills show
+   every option at once and carry the same pink focus/selected treatment as
+   .field.
+
+   The input is visually hidden rather than display:none so it keeps keyboard
+   focus — :focus-visible on it draws the ring on the label beside it.
+   Works for radio and checkbox alike; the only difference is which one the
+   markup uses, and .ptn-opts--multi widens the hit area for the longer
+   labels a checkbox group tends to carry. */
+.ptn-opts { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ptn-opt { position: relative; display: inline-flex; }
+.ptn-opt input {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.ptn-opt span {
+  display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer;
+  border: 1px solid var(--border-soft); border-radius: 999px;
+  background: rgba(255,255,255,0.05); color: #d1d5db;
+  padding: 0.5rem 0.95rem; font-size: 0.8125rem; line-height: 1.2;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.ptn-opt span:hover { border-color: rgba(255,63,153,0.4); color: #fff; }
+.ptn-opt input:checked + span {
+  background: rgba(255,63,153,0.16); border-color: var(--tru-pink); color: #fff; font-weight: 600;
+}
+.ptn-opt input:focus-visible + span { outline: 2px solid var(--tru-pink); outline-offset: 2px; }
+
+/* -- the form shell -------------------------------------------------------
+   Boxed so it reads as one task on a page that is otherwise prose. The
+   fields themselves are the shared .field system — see form-fields.html. */
+.ptn-form {
+  border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03);
+  border-radius: 16px; padding: 1.5rem;
+}
+@media (min-width: 640px) { .ptn-form { padding: 2rem; } }
+.ptn-form__h {
+  color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900;
+  text-transform: uppercase; font-size: 1.125rem; letter-spacing: -0.01em; margin: 0 0 0.4rem;
+}
+.ptn-form__h span { color: var(--tru-pink); }
+.ptn-form__s { color: #9ca3af; font-size: 0.875rem; line-height: 1.6; margin: 0 0 1.75rem; }
+/* group heading for a pill question — same size as a .field label but not a
+   <label>, because it labels a fieldset rather than one control */
+/* The fieldset reset lives HERE, not in a separate `.ptn-form fieldset` rule.
+   As its own rule it outranked `.ptn-q` on specificity and its `margin: 0`
+   silently cancelled the gap below every pill question — the questions ran
+   straight into each other. Every fieldset in this form is a .ptn-q, so one
+   rule owns both jobs and nothing can fight it. */
+.ptn-q { border: 0; padding: 0; margin: 0 0 1.25rem; }
+.ptn-q legend {
+  display: block; color: var(--tru-pink); font-family: 'Montserrat', sans-serif;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.2em; margin-bottom: 0.5rem; padding: 0;
+}
+.ptn-q legend span { color: #6b7280; }
+/* the "please specify" field, revealed by the Other pill */
+.ptn-reveal[hidden] { display: none; }
+.ptn-form .form-submit { margin-top: 0.75rem; }
+/* the nested socials row already carries .field's own bottom margin */
+.ptn-q .field-row--3 .field:last-child { margin-bottom: 0; }
+
+/* -- partner logo wall ----------------------------------------------------
+   Every logo is a different colour and two of the six are solid black, so
+   none of them can sit straight on the navy. White tiles are the only
+   treatment that works for all six without altering anyone's mark. */
+.ptn-logos {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-top: 2rem;
+}
+@media (min-width: 640px) { .ptn-logos { grid-template-columns: repeat(3, 1fr); gap: 1rem; } }
+@media (min-width: 1024px) { .ptn-logos { grid-template-columns: repeat(6, 1fr); } }
+.ptn-logo {
+  display: flex; align-items: center; justify-content: center;
+  background: #fff; border-radius: 12px; padding: 1rem; min-height: 6.5rem;
+}
+.ptn-logo img { display: block; max-width: 100%; max-height: 4.25rem; width: auto; height: auto; }
+
+/* -- testimonial card -----------------------------------------------------
+   Same white tile for the logo so a partner's mark reads identically here
+   and in the wall above. */
+.ptn-quote {
+  border: 1px solid var(--border-soft); background: var(--surface-soft);
+  border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column;
+  height: 100%;
+}
+.ptn-quote__logo {
+  background: #fff; border-radius: 10px; padding: 0.6rem 0.9rem; margin-bottom: 1.25rem;
+  align-self: flex-start; display: flex; align-items: center;
+}
+.ptn-quote__logo img { display: block; height: 2.5rem; max-width: 9rem; width: auto; object-fit: contain; }
+.ptn-quote__body { color: #d1d5db; font-size: 0.9375rem; line-height: 1.7; margin: 0 0 1.25rem; flex: 1; }
+.ptn-quote__who { color: #fff; font-weight: 700; font-size: 0.875rem; margin: 0; }
+.ptn-quote__who span { display: block; color: var(--text-mute); font-weight: 400; font-size: 0.8125rem; margin-top: 0.15rem; }
+/* Awaiting copy. The partners and their marks are real; the quotes have not
+   been collected yet, so the slot says so rather than carrying invented
+   words under a real organisation's logo. Delete .ptn-quote__todo and drop
+   the quote into .ptn-quote__body when the copy lands. */
+.ptn-quote__todo {
+  display: inline-block; border: 1px dashed rgba(255,255,255,0.25); border-radius: 999px;
+  color: #6b7280; font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.2em; padding: 0.3rem 0.7rem; margin-bottom: 0.9rem;
+  /* the card is a flex column, so inline-block alone still stretches it edge to edge */
+  align-self: flex-start;
+}
+.carousel--quotes { gap: 1rem; scrollbar-width: none; align-items: stretch; }
+.carousel--quotes::-webkit-scrollbar { display: none; }
+.carousel--quotes > * { width: calc(100% / 1.1 - 0.1rem); }
+@media (min-width: 640px) { .carousel--quotes > * { width: calc((100% - 1rem) / 2); } }
+@media (min-width: 1024px) { .carousel--quotes > * { width: calc((100% - 2rem) / 3); } }
+
+/* -- the three routes, on partner-with-us.html ---------------------------- */
+.ptn-routes { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 2.5rem; }
+@media (min-width: 768px) { .ptn-routes { grid-template-columns: repeat(3, 1fr); } }
+.ptn-route {
+  display: flex; flex-direction: column; border: 1px solid var(--border-soft);
+  background: rgba(255,255,255,0.03); border-radius: 16px; padding: 1.5rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+a.ptn-route:hover { border-color: rgba(255,63,153,0.45); background: rgba(255,255,255,0.05); }
+.ptn-route__ico {
+  display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem;
+  border-radius: 12px; background: rgba(255,63,153,0.14); border: 1px solid rgba(255,63,153,0.3);
+  color: var(--tru-pink); margin-bottom: 1rem;
+}
+.ptn-route__ico svg { width: 1.375rem; height: 1.375rem; }
+.ptn-route__t {
+  color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase;
+  font-size: 1rem; letter-spacing: -0.01em; margin: 0 0 0.5rem;
+}
+.ptn-route__d { color: #9ca3af; font-size: 0.875rem; line-height: 1.6; margin: 0 0 1.25rem; flex: 1; }
+.ptn-route__go {
+  color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.6875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 0.35rem;
+}
+.ptn-route__go svg { width: 0.875rem; height: 0.875rem; }
+
+/* -- numbered how-it-works rail ------------------------------------------ */
+/* five benefits in a two-up grid leaves the last one alone in its row;
+   spanning it reads as deliberate rather than as a hole. Scoped to the
+   partner pages so the jobs board's even-numbered .job__wins are untouched. */
+.ptn-wins .job__win:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+.ptn-steps { counter-reset: ptnstep; display: grid; gap: 1.25rem; margin-top: 2rem; }
+@media (min-width: 768px) { .ptn-steps { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } }
+.ptn-step { position: relative; padding-top: 3rem; }
+.ptn-step::before {
+  counter-increment: ptnstep; content: counter(ptnstep, decimal-leading-zero);
+  position: absolute; top: 0; left: 0;
+  display: flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem;
+  border-radius: 999px; background: rgba(255,63,153,0.14); border: 1px solid rgba(255,63,153,0.35);
+  color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 900;
+}
+/* connector to the next step — never after the last one */
+@media (min-width: 768px) {
+  .ptn-step:not(:last-child)::after {
+    content: ""; position: absolute; top: 1.125rem; left: 2.75rem; right: -1.5rem; height: 1px;
+    background: linear-gradient(to right, rgba(255,63,153,0.35), rgba(255,255,255,0.06));
+  }
+}
+.ptn-step__t {
+  color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase;
+  font-size: 0.875rem; letter-spacing: 0.01em; margin: 0 0 0.5rem;
+}
+.ptn-step__d { color: #9ca3af; font-size: 0.875rem; line-height: 1.6; margin: 0; }

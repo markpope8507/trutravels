@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Partner application form (component) &mdash; TruTravels</title>
+  <meta name="description" content="The partner application — one shared base of seven questions, plus the two to four that differ per route." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Partner application form &mdash; demo (all three variants; submit one)</p></div>
+
+  <!-- ===================================================================
+       PARTNER APPLICATION FORM — partner-with-us.html, affiliates.html and
+       host-a-trip.html.
+
+       ONE FORM, THREE ROUTES
+       All three Partners pages ask the same seven questions:
+
+         name / email  ·  over 18?  ·  socials  ·  travelled with us before?
+         ·  key audience  ·  why Tru?
+
+       and then two to four more that only make sense for that route:
+
+         PARTNER WITH US   I'm interested in (multi) + "tell us about it",
+                           revealed only when "Something else" is ticked.
+         AFFILIATES        followers and engagement; why the programme fits.
+         HOST A TRIP       followers and engagement; why host; dream
+                           destination; existing community.
+
+       Build it from the base outwards. If a question belongs on all three,
+       it goes in the shared block — three near-identical forms that drift
+       apart is the failure this codebase keeps repeating.
+
+       CLOSED QUESTIONS ARE PILLS, NOT SELECTS
+       A <select> hides its options behind a tap, and on a form that is
+       otherwise open text that's exactly the wrong trade: these four
+       questions are the quick ones. The radio/checkbox inside each pill is
+       visually hidden, not display:none, so it keeps keyboard focus and
+       :focus-visible draws the ring on the label.
+
+       Text inputs are the shared `.field` system (see form-fields.html);
+       the button is `.form-submit` and the success panel `.form-done`.
+
+       Requires ../styles.css and the script at the foot of this file.
+       =================================================================== -->
+  <section class="ess-body">
+    <div class="ess-col">
+      <p class="ess-eyebrow">Variant 1 of 3</p>
+      <h2 class="ess-h2">Partner <span>With Us</span></h2>
+      <div style="margin-top:1.5rem">
+      <div class="ptn-form" data-ptn id="c-hub">
+        <h3 class="ptn-form__h">Partner <span>With Us</span></h3>
+        <p class="ptn-form__s">The hub variant &mdash; the base plus the routing question. Tick &ldquo;Something else&rdquo; to see the reveal.</p>
+        <form data-ptn-form novalidate>
+          <div class="field-row">
+          <div class="field">
+            <label for="c1-name">Your Name <span>*</span></label>
+            <input id="c1-name" name="c1-name" type="text" required placeholder="First and last" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="c1-email">Email <span>*</span></label>
+            <input id="c1-email" name="c1-email" type="email" required placeholder="you@email.com" autocomplete="email" />
+          </div>
+          </div>
+          <fieldset class="ptn-q">
+            <legend>Are you over 18? <span>*</span></legend>
+            <div class="ptn-opts">
+              <label class="ptn-opt"><input type="radio" id="c1-over18-yes" name="c1-over18" value="Yes" required /><span>Yes</span></label>
+              <label class="ptn-opt"><input type="radio" id="c1-over18-no" name="c1-over18" value="No" /><span>No</span></label>
+            </div>
+            <p class="field__hint">Every TruTravels trip is 18+, so we can only work with partners who are too.</p>
+          </fieldset>
+          <fieldset class="ptn-q">
+            <legend>Socials <span>&mdash; wherever your community lives, all optional</span></legend>
+            <div class="field-row field-row--3">
+          <div class="field">
+            <label for="c1-instagram">Instagram</label>
+            <input id="c1-instagram" name="c1-instagram" type="text" placeholder="@handle" />
+          </div>
+          <div class="field">
+            <label for="c1-tiktok">TikTok</label>
+            <input id="c1-tiktok" name="c1-tiktok" type="text" placeholder="@handle" />
+          </div>
+          <div class="field">
+            <label for="c1-youtube">YouTube</label>
+            <input id="c1-youtube" name="c1-youtube" type="text" placeholder="@channel" />
+          </div>
+            </div>
+          </fieldset>
+          <fieldset class="ptn-q">
+            <legend>Have you travelled with TruTravels before?</legend>
+            <div class="ptn-opts">
+              <label class="ptn-opt"><input type="radio" id="c1-travelled-yes" name="c1-travelled" value="Yes" /><span>Yes</span></label>
+              <label class="ptn-opt"><input type="radio" id="c1-travelled-no" name="c1-travelled" value="No" /><span>No</span></label>
+            </div>
+            <p class="field__hint">Not a requirement &mdash; it just tells us how much of the pitch you already know.</p>
+          </fieldset>
+          <fieldset class="ptn-q">
+            <legend>Who is your key audience? <span>(select all that apply)</span></legend>
+            <div class="ptn-opts">
+              <label class="ptn-opt"><input type="checkbox" id="c1-audience-a1" name="c1-audience" value="18&ndash;24" /><span>18&ndash;24</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c1-audience-a2" name="c1-audience" value="25&ndash;30" /><span>25&ndash;30</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c1-audience-a3" name="c1-audience" value="31&ndash;35" /><span>31&ndash;35</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c1-audience-a4" name="c1-audience" value="36&ndash;40" /><span>36&ndash;40</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="c1-why">Why do you want to work with Tru? <span>*</span></label>
+            <textarea id="c1-why" name="c1-why" rows="4" required placeholder="What is it about how we travel that fits what you&rsquo;ve built?"></textarea>
+          </div>
+          <fieldset class="ptn-q">
+            <legend>I&rsquo;m interested in <span>(select all that apply)</span></legend>
+            <div class="ptn-opts">
+              <label class="ptn-opt"><input type="checkbox" id="c-interest-host" name="c-interest" value="Hosting a trip" /><span>Hosting a trip</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c-interest-aff" name="c-interest" value="Affiliates programme" /><span>Affiliates programme</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c-interest-other" name="c-interest" value="Something else" data-reveal="c-interest-other-detail" /><span>Something else</span></label>
+            </div>
+          </fieldset>
+          <div class="field ptn-reveal" id="c-interest-other-detail" hidden>
+            <label for="c-interest-detail">Tell us about it <span>*</span></label>
+            <textarea id="c-interest-detail" name="c-interest-detail" rows="3" placeholder="A collaboration, an event, a campaign &mdash; whatever you had in mind."></textarea>
+          </div>
+          <button type="submit" class="form-submit form-submit--auto">Send My Application<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+        </form>
+        <div class="form-done" data-ptn-done hidden>
+          <span class="form-done__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+          <h3 class="form-done__t">Thanks &mdash; <span>We&rsquo;re On It</span></h3>
+          <p class="form-done__s">Your application is with the partnerships team.</p>
+        </div>
+      </div>
+      </div>
+
+      <p class="ess-eyebrow" style="margin-top:4rem">Variant 2 of 3</p>
+      <h2 class="ess-h2">Tru <span>Affiliates</span></h2>
+      <div style="margin-top:1.5rem">
+      <div class="ptn-form" data-ptn id="c-aff">
+        <h3 class="ptn-form__h">Tru <span>Affiliates</span></h3>
+        <p class="ptn-form__s">The affiliates variant &mdash; the base plus reach and fit.</p>
+        <form data-ptn-form novalidate>
+          <div class="field-row">
+          <div class="field">
+            <label for="c2-name">Your Name <span>*</span></label>
+            <input id="c2-name" name="c2-name" type="text" required placeholder="First and last" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="c2-email">Email <span>*</span></label>
+            <input id="c2-email" name="c2-email" type="email" required placeholder="you@email.com" autocomplete="email" />
+          </div>
+          </div>
+          <fieldset class="ptn-q">
+            <legend>Are you over 18? <span>*</span></legend>
+            <div class="ptn-opts">
+              <label class="ptn-opt"><input type="radio" id="c2-over18-yes" name="c2-over18" value="Yes" required /><span>Yes</span></label>
+              <label class="ptn-opt"><input type="radio" id="c2-over18-no" name="c2-over18" value="No" /><span>No</span></label>
+            </div>
+            <p class="field__hint">Every TruTravels trip is 18+, so we can only work with partners who are too.</p>
+          </fieldset>
+          <fieldset class="ptn-q">
+            <legend>Socials <span>&mdash; wherever your community lives, all optional</span></legend>
+            <div class="field-row field-row--3">
+          <div class="field">
+            <label for="c2-instagram">Instagram</label>
+            <input id="c2-instagram" name="c2-instagram" type="text" placeholder="@handle" />
+          </div>
+          <div class="field">
+            <label for="c2-tiktok">TikTok</label>
+            <input id="c2-tiktok" name="c2-tiktok" type="text" placeholder="@handle" />
+          </div>
+          <div class="field">
+            <label for="c2-youtube">YouTube</label>
+            <input id="c2-youtube" name="c2-youtube" type="text" placeholder="@channel" />
+          </div>
+            </div>
+          </fieldset>
+          <fieldset class="ptn-q">
+            <legend>Have you travelled with TruTravels before?</legend>
+            <div class="ptn-opts">
+              <label class="ptn-opt"><input type="radio" id="c2-travelled-yes" name="c2-travelled" value="Yes" /><span>Yes</span></label>
+              <label class="ptn-opt"><input type="radio" id="c2-travelled-no" name="c2-travelled" value="No" /><span>No</span></label>
+            </div>
+            <p class="field__hint">Not a requirement &mdash; it just tells us how much of the pitch you already know.</p>
+          </fieldset>
+          <fieldset class="ptn-q">
+            <legend>Who is your key audience? <span>(select all that apply)</span></legend>
+            <div class="ptn-opts">
+              <label class="ptn-opt"><input type="checkbox" id="c2-audience-a1" name="c2-audience" value="18&ndash;24" /><span>18&ndash;24</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c2-audience-a2" name="c2-audience" value="25&ndash;30" /><span>25&ndash;30</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c2-audience-a3" name="c2-audience" value="31&ndash;35" /><span>31&ndash;35</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c2-audience-a4" name="c2-audience" value="36&ndash;40" /><span>36&ndash;40</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="c2-why">Why do you want to work with Tru? <span>*</span></label>
+            <textarea id="c2-why" name="c2-why" rows="4" required placeholder="What is it about how we travel that fits what you&rsquo;ve built?"></textarea>
+          </div>
+          <div class="field">
+            <label for="c2-reach">Followers and engagement <span>*</span></label>
+            <input id="c2-reach" name="c2-reach" type="text" required placeholder="e.g. 42k on Instagram, ~6% engagement" />
+            <p class="field__hint">Rough numbers are fine. We care far more about how engaged your community is than how big it is.</p>
+          </div>
+          <div class="field">
+            <label for="c2-fit">Why is the affiliate programme a perfect fit for you? <span>*</span></label>
+            <textarea id="c2-fit" name="c2-fit" rows="3" required placeholder="How do you usually talk about travel with your community?"></textarea>
+          </div>
+          <button type="submit" class="form-submit form-submit--auto">Apply To The Programme<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+        </form>
+        <div class="form-done" data-ptn-done hidden>
+          <span class="form-done__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+          <h3 class="form-done__t">Application <span>Received</span></h3>
+          <p class="form-done__s">We&rsquo;ll come back to you within a few days.</p>
+        </div>
+      </div>
+      </div>
+
+      <p class="ess-eyebrow" style="margin-top:4rem">Variant 3 of 3</p>
+      <h2 class="ess-h2">Host <span>A Trip</span></h2>
+      <div style="margin-top:1.5rem">
+      <div class="ptn-form" data-ptn id="c-host">
+        <h3 class="ptn-form__h">Host <span>A Trip</span></h3>
+        <p class="ptn-form__s">The host variant &mdash; the base plus reach, motivation, destination and community.</p>
+        <form data-ptn-form novalidate>
+          <div class="field-row">
+          <div class="field">
+            <label for="c3-name">Your Name <span>*</span></label>
+            <input id="c3-name" name="c3-name" type="text" required placeholder="First and last" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="c3-email">Email <span>*</span></label>
+            <input id="c3-email" name="c3-email" type="email" required placeholder="you@email.com" autocomplete="email" />
+          </div>
+          </div>
+          <fieldset class="ptn-q">
+            <legend>Are you over 18? <span>*</span></legend>
+            <div class="ptn-opts">
+              <label class="ptn-opt"><input type="radio" id="c3-over18-yes" name="c3-over18" value="Yes" required /><span>Yes</span></label>
+              <label class="ptn-opt"><input type="radio" id="c3-over18-no" name="c3-over18" value="No" /><span>No</span></label>
+            </div>
+            <p class="field__hint">Every TruTravels trip is 18+, so we can only work with partners who are too.</p>
+          </fieldset>
+          <fieldset class="ptn-q">
+            <legend>Socials <span>&mdash; wherever your community lives, all optional</span></legend>
+            <div class="field-row field-row--3">
+          <div class="field">
+            <label for="c3-instagram">Instagram</label>
+            <input id="c3-instagram" name="c3-instagram" type="text" placeholder="@handle" />
+          </div>
+          <div class="field">
+            <label for="c3-tiktok">TikTok</label>
+            <input id="c3-tiktok" name="c3-tiktok" type="text" placeholder="@handle" />
+          </div>
+          <div class="field">
+            <label for="c3-youtube">YouTube</label>
+            <input id="c3-youtube" name="c3-youtube" type="text" placeholder="@channel" />
+          </div>
+            </div>
+          </fieldset>
+          <fieldset class="ptn-q">
+            <legend>Have you travelled with TruTravels before?</legend>
+            <div class="ptn-opts">
+              <label class="ptn-opt"><input type="radio" id="c3-travelled-yes" name="c3-travelled" value="Yes" /><span>Yes</span></label>
+              <label class="ptn-opt"><input type="radio" id="c3-travelled-no" name="c3-travelled" value="No" /><span>No</span></label>
+            </div>
+            <p class="field__hint">Not a requirement &mdash; it just tells us how much of the pitch you already know.</p>
+          </fieldset>
+          <fieldset class="ptn-q">
+            <legend>Who is your key audience? <span>(select all that apply)</span></legend>
+            <div class="ptn-opts">
+              <label class="ptn-opt"><input type="checkbox" id="c3-audience-a1" name="c3-audience" value="18&ndash;24" /><span>18&ndash;24</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c3-audience-a2" name="c3-audience" value="25&ndash;30" /><span>25&ndash;30</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c3-audience-a3" name="c3-audience" value="31&ndash;35" /><span>31&ndash;35</span></label>
+              <label class="ptn-opt"><input type="checkbox" id="c3-audience-a4" name="c3-audience" value="36&ndash;40" /><span>36&ndash;40</span></label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="c3-why">Why do you want to work with Tru? <span>*</span></label>
+            <textarea id="c3-why" name="c3-why" rows="4" required placeholder="What is it about how we travel that fits what you&rsquo;ve built?"></textarea>
+          </div>
+          <div class="field">
+            <label for="c3-reach">Followers and engagement <span>*</span></label>
+            <input id="c3-reach" name="c3-reach" type="text" required placeholder="e.g. 42k on Instagram, ~6% engagement" />
+            <p class="field__hint">Rough numbers are fine. We care far more about how engaged your community is than how big it is.</p>
+          </div>
+          <div class="field">
+            <label for="c3-why-host">Why do you want to host a trip? <span>*</span></label>
+            <textarea id="c3-why-host" name="c3-why-host" rows="3" required placeholder="What would this trip mean for the people who&rsquo;d come on it?"></textarea>
+          </div>
+          <div class="field">
+            <label for="c3-dream">Do you have a dream destination? <span>(optional)</span></label>
+            <input id="c3-dream" name="c3-dream" type="text" placeholder="Somewhere specific, or a region" />
+          </div>
+          <div class="field">
+            <label for="c3-community">Do you have a pre-existing in-person or virtual community? <span>*</span></label>
+            <textarea id="c3-community" name="c3-community" rows="3" required placeholder="A Discord, a run club, a group chat, a class you teach &mdash; anything counts."></textarea>
+          </div>
+          <button type="submit" class="form-submit form-submit--auto">Pitch My Trip<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+        </form>
+        <div class="form-done" data-ptn-done hidden>
+          <span class="form-done__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+          <h3 class="form-done__t">Pitch <span>Received</span></h3>
+          <p class="form-done__s">Someone will be in touch within a few days.</p>
+        </div>
+      </div>
+      </div>
+
+      <p class="ess-eyebrow" style="margin-top:4rem">Supporting Blocks</p>
+      <h2 class="ess-h2">Partner <span>Logo Wall</span></h2>
+      <p class="ess-p">Every mark is a different colour and two of the six are solid black, so none of them can sit straight on the navy &mdash; white tiles are the only treatment that works for all six without altering anyone&rsquo;s logo.</p>
+        <div class="ptn-logos">
+          <div class="ptn-logo"><img src="../assets/partners/gals-who.png" alt="Gals Who Travel" width="480" height="373" loading="lazy" /></div>
+          <div class="ptn-logo"><img src="../assets/partners/sea-gals.png" alt="Sea Gals" width="480" height="292" loading="lazy" /></div>
+          <div class="ptn-logo"><img src="../assets/partners/amigas-y-mas.png" alt="Amigas Y M&aacute;s Social" width="480" height="480" loading="lazy" /></div>
+          <div class="ptn-logo"><img src="../assets/partners/someday-travel-club.png" alt="Someday Travel Club" width="480" height="171" loading="lazy" /></div>
+          <div class="ptn-logo"><img src="../assets/partners/dwh.png" alt="DWH" width="378" height="480" loading="lazy" /></div>
+          <div class="ptn-logo"><img src="../assets/partners/we-got-you-boo.png" alt="We Got You Boo" width="480" height="480" loading="lazy" /></div>
+        </div>
+
+      <h2 class="ess-h2" style="margin-top:3rem">Testimonial <span>Carousel</span></h2>
+      <p class="ess-p">The partners are real; the quotes have not been collected yet, so each card carries an &ldquo;awaiting copy&rdquo; tag rather than invented words under a real organisation&rsquo;s mark. Delete <code>.ptn-quote__todo</code> and drop the quote into <code>.ptn-quote__body</code> when the copy lands.</p>
+      <div class="rev-carousel" data-arrows style="margin-top:1.5rem">
+        <div class="carousel carousel--quotes">
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/gals-who.png" alt="Gals Who Travel" width="480" height="373" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked Gals Who Travel for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">Gals Who Travel<span>Community &amp; events</span></p>
+            </article>
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/sea-gals.png" alt="Sea Gals" width="480" height="292" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked Sea Gals for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">Sea Gals<span>Surf &amp; ocean community</span></p>
+            </article>
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/amigas-y-mas.png" alt="Amigas Y M&aacute;s Social" width="480" height="480" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked Amigas Y M&aacute;s Social for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">Amigas Y M&aacute;s Social<span>Latina travel social</span></p>
+            </article>
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/someday-travel-club.png" alt="Someday Travel Club" width="480" height="171" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked Someday Travel Club for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">Someday Travel Club<span>Solo travel club</span></p>
+            </article>
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/dwh.png" alt="DWH" width="378" height="480" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked DWH for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">DWH<span>Creator collective</span></p>
+            </article>
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/we-got-you-boo.png" alt="We Got You Boo" width="480" height="480" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked We Got You Boo for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">We Got You Boo<span>Womens travel community</span></p>
+            </article>
+        </div>
+        <button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+        <button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </section>
+
+<script>/* carousel nav arrows (reviews + you might like) */
+  (function () {
+    document.querySelectorAll('[data-arrows]').forEach(function (wrap) {
+      var track = wrap.querySelector('.carousel, .side-stays, .vdiaries');
+      var prev = wrap.querySelector('[data-rev="prev"]');
+      var next = wrap.querySelector('[data-rev="next"]');
+      if (!track || !prev || !next) return;
+      function step() {
+        var card = track.firstElementChild;
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 20;
+        return card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+      }
+      function sync() {
+        var max = track.scrollWidth - track.clientWidth;
+        prev.disabled = track.scrollLeft <= 1;
+        next.disabled = track.scrollLeft >= max - 1;
+      }
+      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+      track.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    });
+  })();
+
+  <script>
+  /* Partner application form. Two jobs: reveal the "please specify" field when
+     Other is ticked, and swap the form for the success panel on submit.
+     Copy once per page — it wires every [data-ptn] on it. */
+  (function () {
+    document.querySelectorAll('[data-reveal]').forEach(function (input) {
+      var target = document.getElementById(input.dataset.reveal);
+      if (!target) return;
+      var group = document.getElementsByName(input.name);
+      /* A hidden required field blocks checkValidity() with a control the
+         user can't see, so `required` rides the reveal rather than sitting
+         in the markup — the label's * is only true while it's showing. */
+      function sync() {
+        target.hidden = !input.checked;
+        target.querySelectorAll('input, textarea, select').forEach(function (el) {
+          if (input.checked) el.setAttribute('required', '');
+          else el.removeAttribute('required');
+        });
+      }
+      [].forEach.call(group, function (i) { i.addEventListener('change', sync); });
+      sync();
+    });
+
+    document.querySelectorAll('[data-ptn]').forEach(function (wrap) {
+      var form = wrap.querySelector('[data-ptn-form]');
+      var done = wrap.querySelector('[data-ptn-done]');
+      if (!form || !done) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        form.hidden = true;
+        done.hidden = false;
+        wrap.scrollIntoView({ block: 'center' });
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

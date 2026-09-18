@@ -45,9 +45,9 @@ const FOOTER_COLUMNS = [
   {
     title: "Partners",
     links: [
-      { name: "Partner With Us", href: "/about" },
-      { name: "Affiliate Program", href: "/about" },
-      { name: "Host A Trip", href: "/about" },
+      { name: "Partner With Us", href: "/partner-with-us" },
+      { name: "Affiliate Program", href: "/affiliates" },
+      { name: "Host A Trip", href: "/host-a-trip" },
       { name: "Agent Registration", href: "/about" },
       { name: "Agents Login", href: "/login" },
     ],

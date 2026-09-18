@@ -295,3 +295,33 @@ html, body {
     grid-template-columns: repeat(3, minmax(0, 360px));
   }
 }
+
+/* ============================================================
+   PARTNER APPLICATION PILLS — components/partner-form.tsx
+
+   Written as real CSS rather than a stack of `peer-checked:` utilities so the
+   pill has ONE definition per build, matching .ptn-opt in
+   converted/styles.css line for line. The two builds describe the same object;
+   spelling it two different ways is how they drift.
+
+   The input is visually hidden rather than display:none so it keeps keyboard
+   focus — :focus-visible on it draws the ring on the label beside it.
+   ============================================================ */
+.ptn-opt { position: relative; display: inline-flex; }
+.ptn-opt input {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.ptn-opt span {
+  display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05); color: #d1d5db;
+  padding: 0.5rem 0.95rem; font-size: 0.8125rem; line-height: 1.2;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.ptn-opt span:hover { border-color: rgba(255, 63, 153, 0.4); color: #fff; }
+.ptn-opt input:checked + span {
+  background: rgba(255, 63, 153, 0.16); border-color: var(--tru-pink);
+  color: #fff; font-weight: 600;
+}
+.ptn-opt input:focus-visible + span { outline: 2px solid var(--tru-pink); outline-offset: 2px; }
