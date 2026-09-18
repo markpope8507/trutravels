@@ -5921,3 +5921,70 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* the native date picker indicator is black-on-navy without this */
 .acct-field input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.5; cursor: pointer; }
 .acct-field input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
+
+/* ============================================================
+   STUDENT DISCOUNT MODAL — replica of the Student Beans popup
+   on trutravels.com/essentials, in the new design.
+
+   The original is an 800x720 iframe served by studentbeans.com:
+   white card, photo left, offer and a three-step explainer right,
+   blue CTA. This rebuilds that layout on navy with the Tru type
+   and pink accent, so it stops looking like a third-party panel
+   dropped onto the page.
+
+   Opens on :target, like the video-diary viewers — no script.
+   ============================================================ */
+
+.sbd { position: fixed; inset: 0; z-index: 140; display: none; }
+.sbd:target { display: block; }
+/* scrim: click anywhere outside the card to close */
+.sbd__scrim { position: absolute; inset: 0; background: rgba(9,33,62,0.82); backdrop-filter: blur(4px); }
+.sbd__card { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(calc(100vw - 2rem), 56rem); max-height: min(92vh, 44rem); overflow: auto; display: grid; grid-template-columns: 1fr; border: 1px solid var(--border-soft); border-radius: 16px; background: var(--tru-navy); box-shadow: 0 30px 80px -20px rgba(0,0,0,0.7); }
+@media (min-width: 768px) { .sbd__card { grid-template-columns: 1fr 1fr; max-height: min(92vh, 38rem); } }
+
+.sbd__media { position: relative; min-height: 12rem; }
+@media (min-width: 768px) { .sbd__media { min-height: 100%; } }
+.sbd__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* fades the photo into the panel so the two halves read as one card */
+.sbd__media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, var(--tru-navy) 0%, rgba(9,33,62,0.15) 45%, transparent 100%); }
+@media (min-width: 768px) { .sbd__media::after { background: linear-gradient(to right, transparent 55%, rgba(9,33,62,0.5) 80%, var(--tru-navy) 100%); } }
+
+.sbd__body { padding: 1.5rem; }
+@media (min-width: 640px) { .sbd__body { padding: 2rem; } }
+.sbd__x { position: absolute; top: 0.75rem; right: 0.75rem; z-index: 3; display: flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 999px; background: rgba(9,33,62,0.7); border: 1px solid var(--border-soft); color: #fff; transition: background 0.2s, border-color 0.2s; }
+.sbd__x:hover { background: var(--tru-pink); border-color: var(--tru-pink); }
+.sbd__x svg { width: 1.1rem; height: 1.1rem; }
+
+.sbd__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.22em; margin: 0 0 0.6rem; }
+.sbd__title { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 0.95; letter-spacing: -0.01em; margin: 0 0 0.75rem; }
+@media (min-width: 640px) { .sbd__title { font-size: 2.5rem; } }
+.sbd__title span { color: var(--tru-pink); }
+.sbd__terms { display: inline-block; color: #9ca3af; font-size: 0.8125rem; text-decoration: underline; margin-bottom: 1.25rem; transition: color 0.2s; }
+.sbd__terms:hover { color: #fff; }
+.sbd__rule { height: 1px; background: rgba(255,255,255,0.1); margin: 0 0 1.25rem; }
+
+.sbd__h { display: flex; align-items: center; gap: 0.6rem; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: 0.04em; margin: 0 0 1.1rem; }
+.sbd__h::before { content: ''; flex-shrink: 0; width: 1rem; height: 2px; background: var(--tru-pink); }
+
+/* the three steps — numbered discs joined by a line, as on the original */
+.sbd__steps { list-style: none; margin: 0 0 1.5rem; padding: 0; counter-reset: sbd; }
+.sbd__step { position: relative; display: flex; gap: 0.85rem; padding-bottom: 1rem; }
+.sbd__step:last-child { padding-bottom: 0; }
+.sbd__step::before { counter-increment: sbd; content: counter(sbd); flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; border-radius: 999px; background: var(--tru-pink); color: #fff; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; }
+/* the connector runs between discs, so it stops at the last one */
+.sbd__step:not(:last-child)::after { content: ''; position: absolute; left: 0.71rem; top: 1.75rem; bottom: 0.35rem; width: 2px; background: rgba(255,63,153,0.25); }
+.sbd__step span { color: #d1d5db; font-size: 0.875rem; line-height: 1.5; padding-top: 0.15rem; }
+
+.sbd__cta { display: flex; width: 100%; align-items: center; justify-content: center; gap: 0.5rem; border-radius: 10px; background: var(--tru-pink); color: #fff; padding: 0.85rem 1.5rem; font-family: 'Montserrat', sans-serif; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; }
+.sbd__cta:hover { background: #ff5bab; }
+.sbd__cta svg { width: 1rem; height: 1rem; }
+.sbd__timing { display: flex; align-items: center; justify-content: center; gap: 0.4rem; color: #6b7280; font-size: 0.75rem; margin: 0.75rem 0 0; }
+.sbd__timing svg { width: 0.9rem; height: 0.9rem; }
+
+.sbd__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.1); }
+.sbd__by { display: flex; align-items: center; gap: 0.4rem; color: #6b7280; font-size: 0.75rem; }
+.sbd__by b { color: #a78bfa; font-weight: 700; }
+.sbd__help { display: inline-flex; align-items: center; gap: 0.35rem; color: #9ca3af; font-size: 0.75rem; transition: color 0.2s; }
+.sbd__help:hover { color: #fff; }
+.sbd__help svg { width: 0.9rem; height: 0.9rem; }
+.sbd__help u { text-underline-offset: 2px; }

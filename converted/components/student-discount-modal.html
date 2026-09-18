@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Student discount modal (component) &mdash; TruTravels</title>
+  <meta name="description" content="Student Beans discount popup, rebuilt in the Tru design — opens on :target, no script." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body id="top">
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Student discount modal &mdash; demo (open it below)</p></div>
+
+  <!-- ===================================================================
+       STUDENT DISCOUNT MODAL — replica of the Student Beans popup on
+       trutravels.com/essentials, in the new design.
+
+       THE ORIGINAL is an 800x720 iframe served by studentbeans.com: white
+       card, photo left, and on the right the offer, a terms link, a
+       three-step "How to get your code" explainer with numbered discs, a
+       blue Sign up / Log in button, "2 mins to verify", and a Powered by
+       Student Beans footer.
+
+       The layout and copy are kept — that flow is the product, and Student
+       Beans owns the verification. What changes is that it stops looking
+       like a third-party panel dropped onto the site: navy card, Tru type,
+       pink accent, and the photo bled into the panel with a gradient so the
+       two halves read as one card rather than two boxes.
+
+       OPENS ON :target — no script. The trigger is any link to
+       `#student-discount`; the scrim and the ✕ link back out. Give the
+       close links a real target (`#top`, or the section the trigger sits
+       in) rather than `#`, which jumps to the top of the page.
+
+       THE NUMBERS ARE CSS COUNTERS, not typed into the markup, so
+       reordering or adding a step renumbers itself. The connector line is
+       drawn on `:not(:last-child)`, so it stops at the last disc instead of
+       trailing off under it.
+
+       THE HAND-OFF is the Sign Up / Log In button: everything above it is
+       ours, verification is Student Beans'. Point it at the real
+       beansid-connect URL for the account.
+
+       Requires ../styles.css (.sbd-*). No script.
+       =================================================================== -->
+  <section class="ess-body">
+    <div class="ess-col">
+      <p class="ess-eyebrow">Trigger</p>
+      <h2 class="ess-h2">Any Link To <span>#student-discount</span></h2>
+      <p class="ess-p ab-lede" style="margin-bottom:1.5rem">The modal below is closed until the hash matches. Drop the trigger anywhere &mdash; a card, a nav item, a button.</p>
+      <a class="nf-btn nf-btn--pink" href="#student-discount">Get 10% Student Discount<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+    </div>
+  </section>
+
+  <div class="sbd" id="student-discount">
+    <a class="sbd__scrim" href="#top" aria-label="Close"></a>
+    <div class="sbd__card" role="dialog" aria-modal="true" aria-label="10% student discount">
+      <a class="sbd__x" href="#top" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></a>
+
+      <div class="sbd__media">
+        <img src="https://cdn.trutravels.com/greece/greece-island-hopper-026.jpg" alt="" aria-hidden="true" />
+      </div>
+
+      <div class="sbd__body">
+        <p class="sbd__eyebrow">Students &amp; Apprentices</p>
+        <h2 class="sbd__title">10% <span>Student Discount</span></h2>
+        <a class="sbd__terms" href="../terms-conditions.html">See discount terms &amp; conditions</a>
+        <div class="sbd__rule"></div>
+
+        <h3 class="sbd__h">How To Get Your Code</h3>
+        <ol class="sbd__steps">
+            <li class="sbd__step"><span>Create a free Student Beans account.</span></li>
+            <li class="sbd__step"><span>Verify your student status in 2 minutes.</span></li>
+            <li class="sbd__step"><span>Reveal your code and enter it at checkout.</span></li>
+        </ol>
+
+        <!-- In the real integration this is the hand-off to the Student Beans
+             iframe — everything above is ours, verification is theirs. -->
+        <a class="sbd__cta" href="https://www.studentbeans.com/en-gb/uk/beansid-connect/embedded/trutravels" target="_blank" rel="noopener">Sign Up / Log In<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+        <p class="sbd__timing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg> About 2 minutes to verify</p>
+
+        <div class="sbd__foot">
+          <span class="sbd__by">Powered by <b>Student Beans</b></span>
+          <a class="sbd__help" href="../travel-insurance.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.1 9a3 3 0 015.8 1c0 2-3 2.5-3 4"/><path stroke-linecap="round" d="M12 17h.01"/></svg>Need help? <u>Visit our help centre</u></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
