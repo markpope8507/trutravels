@@ -59,12 +59,17 @@ CHEV_R = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-wid
 TICK = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">'
         '<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>')
 
-ICO_FLAG = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">'
-            '<path stroke-linecap="round" stroke-linejoin="round" d="M4 21V4m0 0h11l-1.5 3L15 10H4"/></svg>')
-ICO_LINK = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">'
+# A planted flag, drawn across the whole frame. The first version was a small
+# pennant tucked into the top-left corner, so next to the homepage's icons —
+# which all fill their 24x24 box — it read as a weaker mark rather than a
+# quieter one.
+ICO_FLAG = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">'
+            '<path stroke-linecap="round" stroke-linejoin="round" '
+            'd="M4 22V3m0 1.6c5.6-3 10.4 3 16 0v10.4c-5.6 3-10.4-3-16 0"/></svg>')
+ICO_LINK = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">'
             '<path stroke-linecap="round" stroke-linejoin="round" d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 '
             '0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>')
-ICO_SPARK = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">'
+ICO_SPARK = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">'
              '<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v4m0 10v4M3 12h4m10 0h4'
              'M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8m0-12.8-2.8 2.8m-7.2 7.2-2.8 2.8"/></svg>')
 

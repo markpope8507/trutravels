@@ -6203,12 +6203,17 @@ ul { margin: 0; padding: 0; list-style: none; }
   transition: border-color 0.2s, background 0.2s;
 }
 a.ptn-route:hover { border-color: rgba(255,63,153,0.45); background: rgba(255,255,255,0.05); }
+/* Bare, like the homepage stat icons (.wwd__fact-ico) — no chip. The chip that
+   used to sit here was a filled box inside a card that is already a box, and
+   it shrank the icon to 1.375rem to fit, so the mark read smaller and weaker
+   than anything on the homepage. Same 1.75rem/2rem sizing as the homepage now;
+   stroke is 1.75 in the markup rather than the homepage's 1.5, because this
+   one sits above a heading rather than above a big number. */
 .ptn-route__ico {
-  display: flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem;
-  border-radius: 12px; background: rgba(255,63,153,0.14); border: 1px solid rgba(255,63,153,0.3);
-  color: var(--tru-pink); margin-bottom: 1rem;
+  display: block; width: 1.75rem; height: 1.75rem; color: var(--tru-pink); margin-bottom: 0.9rem;
 }
-.ptn-route__ico svg { width: 1.375rem; height: 1.375rem; }
+@media (min-width: 640px) { .ptn-route__ico { width: 2rem; height: 2rem; } }
+.ptn-route__ico svg { display: block; width: 100%; height: 100%; }
 .ptn-route__t {
   color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase;
   font-size: 1rem; letter-spacing: -0.01em; margin: 0 0 0.5rem;

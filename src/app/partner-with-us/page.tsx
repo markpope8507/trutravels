@@ -31,7 +31,17 @@ const ROUTES = [
     cta: "Host A Trip",
     title: "Host A Trip",
     desc: "You bring your community, we handle the planning, the guides, the logistics and the safety. You get your own page on this site and commission on every booking.",
-    icon: <path strokeLinecap="round" strokeLinejoin="round" d="M4 21V4m0 0h11l-1.5 3L15 10H4" />,
+    /* A planted flag drawn across the whole frame. The first version was a
+       small pennant in the top-left corner, so next to the homepage's icons —
+       which all fill their 24x24 box — it read as a weaker mark, not a
+       quieter one. */
+    icon: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4 22V3m0 1.6c5.6-3 10.4 3 16 0v10.4c-5.6 3-10.4-3-16 0"
+      />
+    ),
   },
   {
     href: "/affiliates",
@@ -124,8 +134,12 @@ export default function PartnerWithUsPage() {
                 href={r.href}
                 className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-tru-pink/45 hover:bg-white/[0.05]"
               >
-                <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-tru-pink/15 border border-tru-pink/30 text-tru-pink">
-                  <svg className="h-[1.375rem] w-[1.375rem]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
+                {/* Bare, like the homepage stat icons — no chip. The chip that used
+                    to sit here was a filled box inside a card that is already a box,
+                    and it shrank the icon to fit, so the mark read smaller and weaker
+                    than anything on the homepage. */}
+                <span className="mb-[0.9rem] block h-7 w-7 sm:h-8 sm:w-8 text-tru-pink">
+                  <svg className="block h-full w-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}>
                     {r.icon}
                   </svg>
                 </span>
