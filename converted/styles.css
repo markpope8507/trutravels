@@ -6004,14 +6004,8 @@ ul { margin: 0; padding: 0; list-style: none; }
    here is Intro Travel's: statement left, paragraph right.
    ============================================================ */
 
-/* Navy, not the page's near-black (#060d18) — the block has to read as its own
-   thing, and --tru-navy is a genuinely bluer, lighter ground. The pink hairline
-   on the top edge and the two soft glows stop it being a flat slab. */
-.wwd { position: relative; overflow: hidden; padding: 4rem 0; background: var(--tru-navy); border-top: 2px solid var(--tru-pink); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.wwd { position: relative; overflow: hidden; padding: 4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
 @media (min-width: 1024px) { .wwd { padding: 5.5rem 0; } }
-.wwd::before, .wwd::after { content: ''; position: absolute; pointer-events: none; border-radius: 50%; }
-.wwd::before { width: 42rem; height: 42rem; top: -22rem; right: -14rem; background: radial-gradient(circle, rgba(255,63,153,0.16) 0%, transparent 62%); }
-.wwd::after { width: 36rem; height: 36rem; bottom: -20rem; left: -12rem; background: radial-gradient(circle, rgba(33,114,213,0.18) 0%, transparent 62%); }
 .wwd > .container { position: relative; z-index: 1; }
 .wwd__grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; }
 @media (min-width: 1024px) { .wwd__grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
@@ -6024,18 +6018,24 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 1024px) { .wwd__h1 { font-size: 3.5rem; } }
 .wwd__h1 span { display: block; color: var(--tru-pink); }
 
-.wwd__body p { color: #dbe3ec; font-size: 1rem; line-height: 1.75; margin: 0 0 1.25rem; }
+.wwd__body p { color: #d1d5db; font-size: 1rem; line-height: 1.75; margin: 0 0 1.25rem; }
 @media (min-width: 640px) { .wwd__body p { font-size: 1.125rem; } }
 .wwd__body p:last-of-type { margin-bottom: 1.75rem; }
 .wwd__body strong { color: #fff; font-weight: 600; }
 .wwd__acts { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
 /* the proof row — the three facts a reader (or a model) can quote */
-.wwd__facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem 1.5rem; margin-top: 3rem; padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.12); }
-@media (min-width: 768px) { .wwd__facts { grid-template-columns: repeat(4, 1fr); gap: 2rem; } }
+/* Only this row is navy — it lifts off the page's near-black (#060d18) as a
+   panel of its own, which is the point: the four numbers are the quotable bit.
+   Pink rule on the top edge, and two soft glows so it isn't a flat slab. */
+.wwd__facts { position: relative; overflow: hidden; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem 1.5rem; margin-top: 3rem; padding: 2rem 1.5rem; border: 1px solid rgba(255,255,255,0.1); border-top: 2px solid var(--tru-pink); border-radius: 14px; background: var(--tru-navy); }
+@media (min-width: 768px) { .wwd__facts { grid-template-columns: repeat(4, 1fr); gap: 2rem; padding: 2.25rem 2rem; } }
+.wwd__facts::before, .wwd__facts::after { content: ''; position: absolute; pointer-events: none; border-radius: 50%; }
+.wwd__facts::before { width: 26rem; height: 26rem; top: -16rem; right: -8rem; background: radial-gradient(circle, rgba(255,63,153,0.18) 0%, transparent 62%); }
+.wwd__facts::after { width: 22rem; height: 22rem; bottom: -14rem; left: -7rem; background: radial-gradient(circle, rgba(33,114,213,0.2) 0%, transparent 62%); }
 /* Each fact takes a different brand colour, with a matching rule above it, so
    the row reads as four things rather than one grey block of numbers. */
-.wwd__fact { position: relative; padding-top: 1rem; }
+.wwd__fact { position: relative; z-index: 1; padding-top: 1rem; }
 .wwd__fact::before { content: ''; position: absolute; top: 0; left: 0; width: 2rem; height: 3px; border-radius: 2px; background: currentColor; }
 .wwd__fact--pink { color: var(--tru-pink); }
 .wwd__fact--green { color: var(--tru-green); }
