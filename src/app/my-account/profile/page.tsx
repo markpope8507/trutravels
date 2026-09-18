@@ -5,6 +5,13 @@ import Link from "next/link";
 import AccountGate from "@/components/account-gate";
 import { useAuth } from "@/lib/auth-context";
 
+const LABEL = "block text-sm font-medium text-gray-400 mb-2";
+const INPUT =
+  "w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-tru-pink transition";
+
+const NATIONALITIES = ["British", "Irish", "Australian", "New Zealander", "Canadian", "American", "South African"];
+const COUNTRIES = ["United Kingdom", "Ireland", "Australia", "New Zealand", "Canada", "United States", "South Africa"];
+
 export default function ProfilePage() {
   return (
     <AccountGate>
@@ -16,6 +23,15 @@ export default function ProfilePage() {
 function ProfileContent() {
   const { user } = useAuth();
   const [profileImage, setProfileImage] = useState<string | null>(null);
+
+  /* The account stores one `name`; the form wants first and surname. Everything
+     before the last space is the first name, so double-barrelled first names
+     survive and a single-word name leaves the surname blank rather than
+     guessing. */
+  const parts = (user?.name ?? "").trim().split(/\s+/);
+  const surname = parts.length > 1 ? parts[parts.length - 1] : "";
+  const first = parts.length > 1 ? parts.slice(0, -1).join(" ") : parts[0] ?? "";
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,24 +91,82 @@ function ProfileContent() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-400 mb-2">Full Name</label>
-            <input
-              type="text"
-              defaultValue={user?.name}
-              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-tru-pink transition"
-            />
+        {/* Modify Profile. Mirrors the fields on the live account area, with one
+            change: middle name is NOT required there, which it is on the live
+            form — plenty of people don't have one, and a required field you
+            can't satisfy is a dead end. Optional fields say so rather than
+            leaving the asterisk to carry the whole meaning. */}
+        <p className="text-gray-400 text-sm mb-5">
+          The name and date of birth here have to match your passport — they go on your booking.
+        </p>
+
+        <div className="mb-4">
+          <label htmlFor="pf-email" className={LABEL}>
+            Email Address <span className="text-tru-pink">*</span>
+          </label>
+          <input id="pf-email" type="email" required defaultValue={user?.email} autoComplete="email" className={INPUT} />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+          <div className="mb-4">
+            <label htmlFor="pf-first" className={LABEL}>
+              First Name <span className="text-tru-pink">*</span>
+            </label>
+            <input id="pf-first" type="text" required defaultValue={first} autoComplete="given-name" className={INPUT} />
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-400 mb-2">Email</label>
-            <input
-              type="email"
-              defaultValue={user?.email}
-              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 text-white focus:outline-none focus:border-tru-pink transition"
-            />
+          <div className="mb-4">
+            <label htmlFor="pf-middle" className={LABEL}>
+              Middle Name <span className="text-gray-600 font-normal">(optional)</span>
+            </label>
+            <input id="pf-middle" type="text" placeholder="As shown on passport" autoComplete="additional-name" className={INPUT} />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="pf-surname" className={LABEL}>
+              Surname <span className="text-tru-pink">*</span>
+            </label>
+            <input id="pf-surname" type="text" required defaultValue={surname} autoComplete="family-name" className={INPUT} />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="pf-gender" className={LABEL}>
+              Gender <span className="text-gray-600 font-normal">(optional)</span>
+            </label>
+            <select id="pf-gender" className={INPUT}>
+              <option value="">Prefer not to say</option>
+              <option>Female</option>
+              <option>Male</option>
+              <option>Non-binary</option>
+              <option>Self-describe</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="pf-nat" className={LABEL}>
+              Nationality <span className="text-tru-pink">*</span>
+            </label>
+            <input id="pf-nat" type="text" required list="pf-nationalities" defaultValue="British" placeholder="Start typing…" className={INPUT} />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="pf-country" className={LABEL}>Country Of Residence</label>
+            <input id="pf-country" type="text" list="pf-countries" defaultValue="United Kingdom" placeholder="Start typing…" autoComplete="country-name" className={INPUT} />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="pf-phone" className={LABEL}>Contact Number</label>
+            <input id="pf-phone" type="tel" defaultValue="+44 7700 900000" autoComplete="tel" className={INPUT} />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="pf-dob" className={LABEL}>Date Of Birth</label>
+            <input id="pf-dob" type="date" defaultValue="1998-07-22" autoComplete="bday" className={`${INPUT} [&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-50`} />
           </div>
         </div>
+
+        <datalist id="pf-nationalities">
+          {NATIONALITIES.map((n) => <option key={n}>{n}</option>)}
+        </datalist>
+        <datalist id="pf-countries">
+          {COUNTRIES.map((c) => <option key={c}>{c}</option>)}
+        </datalist>
       </div>
 
       {/* Travel preferences */}

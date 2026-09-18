@@ -489,15 +489,21 @@
         '<div class="tripcard__body"><div class="tripcard__titlerow"><h3 class="tripcard__title">' + esc(t.title) + '</h3><div class="tripcard__pricecol"><div class="tripcard__prices">' + strike + '<span class="tripcard__price">£' + t.price + '</span></div><p class="tripcard__perday"><span>£' + t.perday + '</span> per day</p></div></div>' +
         route + rating + '<p class="tripcard__tagline">' + esc(t.tagline) + '</p>' + facts + exp + '</div></div></article>';
     }
-    var ARTICLE_IDS = new Set(["top-unesco-world-heritage-sites","is-it-safe-to-visit-south-korea","top-5-places-to-visit-in-thailand","top-5-things-to-do-in-indonesia","best-places-to-travel-in-august","top-6-places-to-visit-in-morocco"]);
-    function fmtDate(iso) { var d = new Date(iso); return d.getUTCDate() + " " + MONTHS[d.getUTCMonth()] + " " + d.getUTCFullYear(); }
+    });
+      query: "", visible: PAGE,
+      if (!toks.length) return true;
+      return suggHits([s.title, s.excerpt, s.category].concat(s.topics, s.destinations, s.lifeMoments).join(" "), toks);
+    }
+    function activeCount() { return state.tags.size + state.countries.size + state.moments.size; }
+    function hasActive() { return activeCount() > 0 || state.query.trim().length > 0; }
+
     function hrefFor(s) {
-      if (MEMBER_CONTENT_ENABLED && s.memberOnly) return "signup.html";
       if (ARTICLE_IDS.has(s.id)) return "story-" + s.id + ".html";
       return "stories.html#" + s.id;
     }
 
     var LOCK = '<div class="story-card__lock"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg><span>Members Only</span></div>';
+
     function cardHTML(s) {
       var locked = MEMBER_CONTENT_ENABLED && !!s.memberOnly;
       return '<a class="story-card' + (locked ? ' story-card--locked' : '') + '" id="' + s.id + '" href="' + hrefFor(s) + '">'
@@ -512,12 +518,6 @@
         +   '<h3 class="story-card__title">' + esc(s.title) + '</h3>'
         +   '<p class="story-card__excerpt">' + esc(s.excerpt) + '</p>'
         +   '<div class="story-card__foot">'
-        +     '<p class="story-card__meta"><strong>' + esc(s.author) + '</strong> &middot; ' + fmtDate(s.date) + '</p>'
-        +     '<span class="story-card__read">' + (locked ? 'Join to read' : 'Read story') + ' &rarr;</span>'
-        +   '</div>'
-        + '</div>'
-        + '</a>';
-    }
     function read(key) { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch (e) { return []; } }
   </script>
   <script>

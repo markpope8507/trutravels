@@ -16,6 +16,9 @@ export function LoginModal({ onClose, onSignup }: { onClose: () => void; onSignu
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  /* "reset" is a third view of this modal, not a separate route — the person is
+     mid-login, so bouncing them to another page loses that context. */
+  const [reset, setReset] = useState<null | "form" | "sent">(null);
 
   // Close on Escape + lock background scroll while open.
   useEffect(() => {
@@ -71,6 +74,67 @@ export function LoginModal({ onClose, onSignup }: { onClose: () => void; onSignu
             </svg>
           </button>
 
+          {/* Reset view. Replaces the login card rather than sitting beside it,
+              so the person isn't looking at two forms at once. Says "if that
+              address is registered" rather than confirming the account exists —
+              telling an anonymous visitor which emails have accounts is an
+              account-enumeration leak. */}
+          {reset && (
+            <>
+              <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 font-heading">
+                No Bother
+              </p>
+              <h2 className="text-xl font-black text-white uppercase font-heading leading-tight mb-1">
+                Reset Your Password
+              </h2>
+
+              {reset === "form" ? (
+                <>
+                  <p className="text-gray-400 text-sm mb-5">
+                    Give us the email you signed up with and we&apos;ll send a link to set a new one.
+                  </p>
+                  <form
+                    onSubmit={(e) => { e.preventDefault(); if (email.trim()) setReset("sent"); }}
+                    className="space-y-3"
+                  >
+                    <Field label="Email" type="email" value={email} onChange={setEmail} placeholder="you@example.com" autoComplete="email" />
+                    <button
+                      type="submit"
+                      disabled={!email.trim()}
+                      className="w-full rounded-[10px] bg-tru-pink hover:bg-tru-pink-light disabled:opacity-40 disabled:cursor-not-allowed text-white py-3 text-sm font-bold uppercase tracking-wider font-heading transition"
+                    >
+                      Send Reset Link &rarr;
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <div className="text-center py-4">
+                  <div className="mx-auto mb-3.5 flex h-12 w-12 items-center justify-center rounded-full border border-tru-pink/30 bg-tru-pink/15">
+                    <svg className="h-6 w-6 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <p className="font-heading text-lg font-black uppercase tracking-tight text-white mb-1.5">
+                    Check Your Inbox
+                  </p>
+                  <p className="text-gray-400 text-[0.8125rem] leading-relaxed">
+                    If <b className="text-white break-all">{email.trim()}</b> is registered with us, a reset link is on
+                    its way. It expires in an hour.
+                  </p>
+                </div>
+              )}
+
+              <p className="text-center text-xs text-gray-400 mt-5">
+                Remembered it?{" "}
+                <button type="button" onClick={() => setReset(null)} className="text-tru-pink hover:text-tru-pink-light font-semibold transition">
+                  Back to log in
+                </button>
+              </p>
+            </>
+          )}
+
+          {!reset && (
+          <>
           <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.2em] mb-1.5 font-heading">
             Welcome Back
           </p>
@@ -124,7 +188,11 @@ export function LoginModal({ onClose, onSignup }: { onClose: () => void; onSignu
                 />
                 <span className="text-xs text-gray-300">Remember me</span>
               </label>
-              <button type="button" className="text-xs text-tru-pink hover:text-tru-pink-light transition">
+              <button
+                type="button"
+                onClick={() => setReset("form")}
+                className="text-xs text-tru-pink hover:text-tru-pink-light transition"
+              >
                 Forgot password?
               </button>
             </div>
@@ -145,6 +213,8 @@ export function LoginModal({ onClose, onSignup }: { onClose: () => void; onSignu
               Create an account
             </button>
           </p>
+          </>
+          )}
         </div>
       </div>
     </div>

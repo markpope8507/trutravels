@@ -141,11 +141,34 @@
       </div>
 
       <form class="acct-card" onsubmit="return false">
-        <p class="acct-card__h">Details</p>
-        <div class="acct-field"><label for="acct-name">Full Name</label><input id="acct-name" type="text" value="Alex Traveller" /></div>
-        <div class="acct-field"><label for="acct-email">Email</label><input id="acct-email" type="email" value="alex@example.com" /></div>
-        <div class="acct-field"><label for="acct-phone">Contact Number</label><input id="acct-phone" type="tel" value="+44 7700 900000" /></div>
+        <p class="acct-card__h">Modify Profile</p>
+        <p class="acct-note">The name and date of birth here have to match your passport &mdash; they go on your booking.</p>
+
+        <div class="acct-field"><label for="acct-email">Email Address <span class="acct-req">*</span></label><input id="acct-email" type="email" required value="alex@example.com" autocomplete="email" /></div>
+
+        <div class="acct-field2">
+          <div class="acct-field"><label for="acct-first">First Name <span class="acct-req">*</span></label><input id="acct-first" type="text" required value="Alex" autocomplete="given-name" /></div>
+          <div class="acct-field"><label for="acct-middle">Middle Name <span class="acct-opt">(optional)</span></label><input id="acct-middle" type="text" value="" placeholder="As shown on passport" autocomplete="additional-name" /></div>
+        </div>
+
+        <div class="acct-field2">
+          <div class="acct-field"><label for="acct-surname">Surname <span class="acct-req">*</span></label><input id="acct-surname" type="text" required value="Traveller" autocomplete="family-name" /></div>
+          <div class="acct-field"><label for="acct-gender">Gender <span class="acct-opt">(optional)</span></label><select id="acct-gender"><option value="">Prefer not to say</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Self-describe</option></select></div>
+        </div>
+
+        <div class="acct-field2">
+          <div class="acct-field"><label for="acct-nat">Nationality <span class="acct-req">*</span></label><input id="acct-nat" type="text" required list="acct-nationalities" value="British" placeholder="Start typing&hellip;" /></div>
+          <div class="acct-field"><label for="acct-country">Country Of Residence</label><input id="acct-country" type="text" list="acct-countries" value="United Kingdom" placeholder="Start typing&hellip;" autocomplete="country-name" /></div>
+        </div>
+
+        <div class="acct-field2">
+          <div class="acct-field"><label for="acct-phone">Contact Number</label><input id="acct-phone" type="tel" value="+44 7700 900000" autocomplete="tel" /></div>
+          <div class="acct-field"><label for="acct-dob">Date Of Birth</label><input id="acct-dob" type="date" value="1998-07-22" autocomplete="bday" /></div>
+        </div>
       </form>
+
+      <datalist id="acct-nationalities"><option>British</option><option>Irish</option><option>Australian</option><option>New Zealander</option><option>Canadian</option><option>American</option><option>South African</option></datalist>
+      <datalist id="acct-countries"><option>United Kingdom</option><option>Ireland</option><option>Australia</option><option>New Zealand</option><option>Canada</option><option>United States</option><option>South Africa</option></datalist>
 
       <div class="acct-card">
         <p class="acct-card__h">Travel Preferences</p>
@@ -519,15 +542,21 @@
         '<div class="tripcard__body"><div class="tripcard__titlerow"><h3 class="tripcard__title">' + esc(t.title) + '</h3><div class="tripcard__pricecol"><div class="tripcard__prices">' + strike + '<span class="tripcard__price">£' + t.price + '</span></div><p class="tripcard__perday"><span>£' + t.perday + '</span> per day</p></div></div>' +
         route + rating + '<p class="tripcard__tagline">' + esc(t.tagline) + '</p>' + facts + exp + '</div></div></article>';
     }
-    var ARTICLE_IDS = new Set(["top-unesco-world-heritage-sites","is-it-safe-to-visit-south-korea","top-5-places-to-visit-in-thailand","top-5-things-to-do-in-indonesia","best-places-to-travel-in-august","top-6-places-to-visit-in-morocco"]);
-    function fmtDate(iso) { var d = new Date(iso); return d.getUTCDate() + " " + MONTHS[d.getUTCMonth()] + " " + d.getUTCFullYear(); }
+    });
+      query: "", visible: PAGE,
+      if (!toks.length) return true;
+      return suggHits([s.title, s.excerpt, s.category].concat(s.topics, s.destinations, s.lifeMoments).join(" "), toks);
+    }
+    function activeCount() { return state.tags.size + state.countries.size + state.moments.size; }
+    function hasActive() { return activeCount() > 0 || state.query.trim().length > 0; }
+
     function hrefFor(s) {
-      if (MEMBER_CONTENT_ENABLED && s.memberOnly) return "signup.html";
       if (ARTICLE_IDS.has(s.id)) return "story-" + s.id + ".html";
       return "stories.html#" + s.id;
     }
 
     var LOCK = '<div class="story-card__lock"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg><span>Members Only</span></div>';
+
     function cardHTML(s) {
       var locked = MEMBER_CONTENT_ENABLED && !!s.memberOnly;
       return '<a class="story-card' + (locked ? ' story-card--locked' : '') + '" id="' + s.id + '" href="' + hrefFor(s) + '">'
@@ -542,12 +571,6 @@
         +   '<h3 class="story-card__title">' + esc(s.title) + '</h3>'
         +   '<p class="story-card__excerpt">' + esc(s.excerpt) + '</p>'
         +   '<div class="story-card__foot">'
-        +     '<p class="story-card__meta"><strong>' + esc(s.author) + '</strong> &middot; ' + fmtDate(s.date) + '</p>'
-        +     '<span class="story-card__read">' + (locked ? 'Join to read' : 'Read story') + ' &rarr;</span>'
-        +   '</div>'
-        + '</div>'
-        + '</a>';
-    }
     function read(key) { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch (e) { return []; } }
   </script>
   <script>/* Profile — preference chips + live saved-trips count */
