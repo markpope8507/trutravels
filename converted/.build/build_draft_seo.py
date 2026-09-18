@@ -80,9 +80,6 @@ FACTS = [
     ("65", "+", "Trips", "trips"),
 ]
 
-CHEV = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">'
-        '<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>')
-
 DRAFT_BAR = (
     '  <div class="draft-bar">'
     '<span>Draft &mdash; homepage heading structure for SEO. Not live.</span>'
@@ -93,11 +90,11 @@ DRAFT_BAR = (
 
 def what_we_do():
     facts = "\n".join(
-        f'''              <div class="wwd__fact">
-                <span class="wwd__fact-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">{ICONS[icon]}</svg></span>
-                <p class="wwd__fact-n">{n}{suffix}</p>
-                <p class="wwd__fact-l">{label}</p>
-              </div>'''
+        f'''            <div class="wwd__fact">
+              <span class="wwd__fact-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">{ICONS[icon]}</svg></span>
+              <p class="wwd__fact-n">{n}{suffix}</p>
+              <p class="wwd__fact-l">{label}</p>
+            </div>'''
         for n, suffix, label, icon in FACTS
     )
     body = "\n".join(f"            <p>{p}</p>" for p in BODY)
@@ -111,20 +108,16 @@ def what_we_do():
             <!-- The page's ONE h1. Names the product and, in the body beside
                  it, the audience — the two things the old outline never said. -->
             <h1 class="wwd__h1">{H1_TOP}<span>{H1_REST}</span></h1>
-
-            <!-- Under the title, in the left column — which was otherwise a
-                 large empty space beside the paragraphs. Four across at every
-                 width, including mobile. -->
-            <div class="wwd__facts">
-{facts}
-            </div>
           </div>
           <div class="wwd__body">
 {body}
-            <div class="wwd__acts">
-              <a class="nf-btn nf-btn--pink" href="all-trips.html">Browse All Trips{CHEV}</a>
-              <a class="nf-btn nf-btn--ghost" href="about-our-story.html">How We Started</a>
-            </div>
+          </div>
+
+          <!-- Third grid child, not nested in the heading column. On desktop
+               it's placed back under the h1; on mobile the grid is one column
+               so it falls last, under the body copy. -->
+          <div class="wwd__facts">
+{facts}
           </div>
         </div>
 
