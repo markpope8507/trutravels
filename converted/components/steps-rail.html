@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Steps rail (component) &mdash; TruTravels</title>
+  <meta name="description" content="Numbered how-it-works rail — CSS counters with a connector line." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Steps rail &mdash; demo (numbered sequence)</p></div>
+  <!-- ===================================================================
+       STEPS RAIL — the numbered "how it works" block from affiliates.html
+       and host-a-trip.html.
+
+       Numbers, not icons, and that is the point: this block is for content
+       that genuinely IS a sequence, where the order carries information the
+       reader needs. If the items could be read in any order, use the benefit
+       cards instead — numbering them would assert a sequence that isn't
+       there.
+
+       The number comes from a CSS counter, so steps can be added or removed
+       without renumbering anything by hand. The connector line is drawn with
+       ::after on :not(:last-child), so the last step never trails a line into
+       empty space, and it only appears from 768px where the rail is actually
+       horizontal.
+
+       Requires ../styles.css (.ptn-steps, .ptn-step*). No JS.
+       =================================================================== -->
+  <section class="ess-body">
+    <div class="container">
+      <p class="ess-eyebrow">How It Works</p>
+      <h2 class="ess-h2">From Application <span>To Commission</span></h2>
+        <div class="ptn-steps">
+          <div class="ptn-step"><p class="ptn-step__t">Apply</p><p class="ptn-step__d">Fill in the form below. We want to understand your community more than your follower count.</p></div>
+          <div class="ptn-step"><p class="ptn-step__t">Get Set Up</p><p class="ptn-step__d">We build your bespoke URL and your trackable links, and send over the asset pack.</p></div>
+          <div class="ptn-step"><p class="ptn-step__t">Post</p><p class="ptn-step__d">Share the trips that suit your people. Everything booked through your links is attributed to you.</p></div>
+          <div class="ptn-step"><p class="ptn-step__t">Get Paid</p><p class="ptn-step__d">Commission on every completed booking, at minimum 5%, plus whatever incentives are running.</p></div>
+        </div>
+    </div>
+  </section>
+
+</body>
+</html>

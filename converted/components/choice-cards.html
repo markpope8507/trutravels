@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Choice cards (component) &mdash; TruTravels</title>
+  <meta name="description" content="Three-up routing block — icon, title, one paragraph and a CTA line." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Choice cards &mdash; demo (three-up routing block)</p></div>
+  <!-- ===================================================================
+       CHOICE CARDS — the three-up "pick the one that sounds like you" block
+       from partner-with-us.html.
+
+       For a page whose job is to route people rather than sell one thing.
+       Each card is icon / title / one paragraph / a CTA line, and the CTA is
+       the last thing in the card so all three line up however long the
+       paragraphs run (the card is a flex column and the paragraph takes
+       flex:1).
+
+       A CARD WITH NOWHERE TO GO IS A <div>, NOT AN <a>
+       The third card here has no page of its own — it points at the form
+       further down the same page — so it is a <div>. An <a> with no href, or
+       one pointing at "#", is reachable by keyboard and does nothing when
+       activated. Give a card an href or make it a div; never an empty anchor.
+
+       The icon is bare — no chip behind it. Same treatment as the homepage
+       stat icons: a chip here would be a filled box inside a card that is
+       already a box, and it forces the icon smaller to fit.
+
+       Requires ../styles.css (.ptn-routes, .ptn-route*). No JS.
+       =================================================================== -->
+  <section class="ess-body">
+    <div class="container">
+      <p class="ess-eyebrow">Three Ways In</p>
+      <h2 class="ess-h2">Pick The One That <span>Sounds Like You</span></h2>
+        <div class="ptn-routes">
+          <a class="ptn-route" href="../host-a-trip.html">
+            <span class="ptn-route__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M4 22V3m0 1.6c5.6-3 10.4 3 16 0v10.4c-5.6 3-10.4-3-16 0"/></svg></span>
+            <p class="ptn-route__t">Host A Trip</p>
+            <p class="ptn-route__d">You bring your community, we handle the planning, the guides, the logistics and the safety. You get your own page on this site and commission on every booking.</p>
+            <span class="ptn-route__go">Host A Trip<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+          </a>
+          <a class="ptn-route" href="../affiliates.html">
+            <span class="ptn-route__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span>
+            <p class="ptn-route__t">Tru Affiliates</p>
+            <p class="ptn-route__d">Your own bespoke URL and trackable links, a minimum 5% commission, incentives through the year, and the assets and templates to post with.</p>
+            <span class="ptn-route__go">See The Programme<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+          </a>
+          <div class="ptn-route">
+            <span class="ptn-route__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v4m0 10v4M3 12h4m10 0h4M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8m0-12.8-2.8 2.8m-7.2 7.2-2.8 2.8"/></svg></span>
+            <p class="ptn-route__t">Something Else</p>
+            <p class="ptn-route__d">A campaign, an event, a collaboration nobody has done yet. If it doesn&rsquo;t fit either box above, it probably belongs here. Tell us what you had in mind.</p>
+            <span class="ptn-route__go">Use The Form Below<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+          </div>
+        </div>
+    </div>
+  </section>
+
+</body>
+</html>

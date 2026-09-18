@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Partner logos (component) &mdash; TruTravels</title>
+  <meta name="description" content="Partner logo wall on white tiles, plus the testimonial carousel." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Partner logos &mdash; demo (logo wall + testimonial carousel)</p></div>
+  <!-- ===================================================================
+       PARTNER LOGOS + TESTIMONIALS — the logo wall from partner-with-us.html
+       and the quote carousel from affiliates.html.
+
+       WHITE TILES ARE NOT A STYLE CHOICE
+       Every partner mark is a different colour and two of the six are solid
+       black, so none of them can sit straight on the navy. A white tile is
+       the only treatment that works for all six without altering anyone's
+       logo — don't recolour or knock back a partner's mark to make it fit.
+
+       Each <img> carries explicit width/height. A lazy image with width:auto
+       has no intrinsic size until it loads, so without them the tile lays out
+       at zero width and the grid reflows when the logo arrives.
+
+       QUOTES THAT DON'T EXIST YET SAY SO
+       The partners are real; no quotes have been collected. Each card carries
+       an "awaiting copy" tag rather than invented words under a real
+       organisation's mark. Delete .ptn-quote__todo and drop the quote into
+       .ptn-quote__body when the copy lands.
+
+       The carousel is the shared .rev-carousel/[data-arrows] pattern — the
+       arrow buttons must be in the markup, the script finds them rather than
+       creating them.
+
+       Requires ../styles.css and the script at the foot of this file.
+       =================================================================== -->
+  <section class="ess-body">
+    <div class="container">
+      <p class="ess-eyebrow">In Good Company</p>
+      <h2 class="ess-h2">Communities We&rsquo;ve <span>Travelled With</span></h2>
+        <div class="ptn-logos">
+          <div class="ptn-logo"><img src="../assets/partners/gals-who.png" alt="Gals Who Travel" width="480" height="373" loading="lazy" /></div>
+          <div class="ptn-logo"><img src="../assets/partners/sea-gals.png" alt="Sea Gals" width="480" height="292" loading="lazy" /></div>
+          <div class="ptn-logo"><img src="../assets/partners/amigas-y-mas.png" alt="Amigas Y M&aacute;s Social" width="480" height="480" loading="lazy" /></div>
+          <div class="ptn-logo"><img src="../assets/partners/someday-travel-club.png" alt="Someday Travel Club" width="480" height="171" loading="lazy" /></div>
+          <div class="ptn-logo"><img src="../assets/partners/dwh.png" alt="DWH" width="378" height="480" loading="lazy" /></div>
+          <div class="ptn-logo"><img src="../assets/partners/we-got-you-boo.png" alt="We Got You Boo" width="480" height="480" loading="lazy" /></div>
+        </div>
+
+      <h2 class="ess-h2" style="margin-top:3.5rem">Insight From <span>Partners</span></h2>
+      <div class="rev-carousel" data-arrows style="margin-top:1.5rem">
+        <div class="carousel carousel--quotes">
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/gals-who.png" alt="Gals Who Travel" width="480" height="373" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked Gals Who Travel for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">Gals Who Travel<span>Community &amp; events</span></p>
+            </article>
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/sea-gals.png" alt="Sea Gals" width="480" height="292" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked Sea Gals for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">Sea Gals<span>Surf &amp; ocean community</span></p>
+            </article>
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/amigas-y-mas.png" alt="Amigas Y M&aacute;s Social" width="480" height="480" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked Amigas Y M&aacute;s Social for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">Amigas Y M&aacute;s Social<span>Latina travel social</span></p>
+            </article>
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/someday-travel-club.png" alt="Someday Travel Club" width="480" height="171" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked Someday Travel Club for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">Someday Travel Club<span>Solo travel club</span></p>
+            </article>
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/dwh.png" alt="DWH" width="378" height="480" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked DWH for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">DWH<span>Creator collective</span></p>
+            </article>
+            <article class="ptn-quote">
+              <span class="ptn-quote__logo"><img src="../assets/partners/we-got-you-boo.png" alt="We Got You Boo" width="480" height="480" loading="lazy" /></span>
+              <span class="ptn-quote__todo">Awaiting copy</span>
+              <p class="ptn-quote__body">We&rsquo;ve asked We Got You Boo for a few words about working with us. Their quote goes here.</p>
+              <p class="ptn-quote__who">We Got You Boo<span>Womens travel community</span></p>
+            </article>
+        </div>
+        <button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+        <button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </section>
+<script>/* carousel nav arrows (reviews + you might like) */
+  (function () {
+    document.querySelectorAll('[data-arrows]').forEach(function (wrap) {
+      var track = wrap.querySelector('.carousel, .side-stays, .vdiaries');
+      var prev = wrap.querySelector('[data-rev="prev"]');
+      var next = wrap.querySelector('[data-rev="next"]');
+      if (!track || !prev || !next) return;
+      function step() {
+        var card = track.firstElementChild;
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 20;
+        return card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+      }
+      function sync() {
+        var max = track.scrollWidth - track.clientWidth;
+        prev.disabled = track.scrollLeft <= 1;
+        next.disabled = track.scrollLeft >= max - 1;
+      }
+      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+      track.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    });
+  })();
+</body>
+</html>

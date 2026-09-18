@@ -398,6 +398,42 @@ def shell(title, desc, hero_img, eyebrow, h1_a, h1_b, quote, body):
 """
 
 
+ICONS_BY_NAME = {"ICO_FLAG": ICO_FLAG, "ICO_LINK": ICO_LINK, "ICO_SPARK": ICO_SPARK}
+
+ROUTES = [
+    ("host-a-trip.html", "ICO_FLAG", "Host A Trip",
+     "You bring your community, we handle the planning, the guides, the logistics and the safety. "
+     "You get your own page on this site and commission on every booking.", "Host A Trip"),
+    ("affiliates.html", "ICO_LINK", "Tru Affiliates",
+     "Your own bespoke URL and trackable links, a minimum 5% commission, incentives through the year, "
+     "and the assets and templates to post with.", "See The Programme"),
+    # No href: "Something else" has no page of its own, it's the form on this
+    # one. A card with nowhere to go is a <div>, not an <a> — an anchor that
+    # navigates nowhere is a trap for keyboard and screen-reader users.
+    (None, "ICO_SPARK", "Something Else",
+     "A campaign, an event, a collaboration nobody has done yet. If it doesn&rsquo;t fit either box "
+     "above, it probably belongs here. Tell us what you had in mind.", "Use The Form Below"),
+]
+
+
+def routes(prefix=""):
+    """The three-up choice block. Shared by the page and choice-cards.html so
+    the component can't drift from what the page actually ships."""
+    out = []
+    for href, ico, title, desc, cta in ROUTES:
+        tag = "a" if href else "div"
+        attr = f' href="{prefix}{href}"' if href else ""
+        out.append(
+            f'          <{tag} class="ptn-route"{attr}>\n'
+            f'            <span class="ptn-route__ico">{ICONS_BY_NAME[ico]}</span>\n'
+            f'            <p class="ptn-route__t">{title}</p>\n'
+            f'            <p class="ptn-route__d">{desc}</p>\n'
+            f'            <span class="ptn-route__go">{cta}{CHEV_R}</span>\n'
+            f'          </{tag}>')
+    block = "\n".join(out)
+    return f'        <div class="ptn-routes">\n{block}\n        </div>'
+
+
 # ================================================================== pages ====
 
 HERO_HUB = "https://cdn.trutravels.com/morocco-images/morocco-uncovered-desert-group-picture.jpg"
@@ -433,26 +469,7 @@ def partner_with_us():
         <p class="ess-eyebrow">Three Ways In</p>
         <h2 class="ess-h2">Pick The One That <span>Sounds Like You</span></h2>
         <p class="ess-p ab-lede">Not sure which? Say so on the form below and we&rsquo;ll work it out together &mdash; plenty of partners start in one and end up in both.</p>
-        <div class="ptn-routes">
-          <a class="ptn-route" href="host-a-trip.html">
-            <span class="ptn-route__ico">{ICO_FLAG}</span>
-            <p class="ptn-route__t">Host A Trip</p>
-            <p class="ptn-route__d">You bring your community, we handle the planning, the guides, the logistics and the safety. You get your own page on this site and commission on every booking.</p>
-            <span class="ptn-route__go">Host A Trip{CHEV_R}</span>
-          </a>
-          <a class="ptn-route" href="affiliates.html">
-            <span class="ptn-route__ico">{ICO_LINK}</span>
-            <p class="ptn-route__t">Tru Affiliates</p>
-            <p class="ptn-route__d">Your own bespoke URL and trackable links, a minimum 5% commission, incentives through the year, and the assets and templates to post with.</p>
-            <span class="ptn-route__go">See The Programme{CHEV_R}</span>
-          </a>
-          <div class="ptn-route">
-            <span class="ptn-route__ico">{ICO_SPARK}</span>
-            <p class="ptn-route__t">Something Else</p>
-            <p class="ptn-route__d">A campaign, an event, a collaboration nobody has done yet. If it doesn&rsquo;t fit either box above, it probably belongs here. Tell us what you had in mind.</p>
-            <span class="ptn-route__go">Use The Form Below{CHEV_R}</span>
-          </div>
-        </div>
+{routes()}
       </div>
     </section>
 
@@ -712,7 +729,9 @@ COMPONENT_NOTE = """  <!-- =====================================================
        :focus-visible draws the ring on the label.
 
        Text inputs are the shared `.field` system (see form-fields.html);
-       the button is `.form-submit` and the success panel `.form-done`.
+       the button is `.form-submit` and the success panel `.form-done`. The
+       logo wall and testimonial carousel that sit alongside these forms on
+       the live pages are their own component — partner-logos.html.
 
        Requires ../styles.css and the script at the foot of this file.
        =================================================================== -->"""
@@ -795,13 +814,201 @@ def component():
 {host}
       </div>
 
-      <p class="ess-eyebrow" style="margin-top:4rem">Supporting Blocks</p>
-      <h2 class="ess-h2">Partner <span>Logo Wall</span></h2>
-      <p class="ess-p">Every mark is a different colour and two of the six are solid black, so none of them can sit straight on the navy &mdash; white tiles are the only treatment that works for all six without altering anyone&rsquo;s logo.</p>
+    </div>
+  </section>
+
+{PTN_SCRIPT}
+</body>
+</html>
+"""
+
+
+# ---------------------------------------------------------------------------
+# The Partners section's other reusable blocks, each as its own copy-in file.
+# Every one is rendered by the SAME function the pages call, so a component
+# here cannot drift from what the site actually ships — the recurring failure
+# in this repo is a component that quietly stops matching its page.
+# ---------------------------------------------------------------------------
+
+def comp_shell(title, desc, demo, body, scripts=""):
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>{title} (component) &mdash; TruTravels</title>
+  <meta name="description" content="{desc}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">{demo}</p></div>
+{body}
+{scripts}
+</body>
+</html>
+"""
+
+
+CHOICE_NOTE = """  <!-- ===================================================================
+       CHOICE CARDS — the three-up "pick the one that sounds like you" block
+       from partner-with-us.html.
+
+       For a page whose job is to route people rather than sell one thing.
+       Each card is icon / title / one paragraph / a CTA line, and the CTA is
+       the last thing in the card so all three line up however long the
+       paragraphs run (the card is a flex column and the paragraph takes
+       flex:1).
+
+       A CARD WITH NOWHERE TO GO IS A <div>, NOT AN <a>
+       The third card here has no page of its own — it points at the form
+       further down the same page — so it is a <div>. An <a> with no href, or
+       one pointing at "#", is reachable by keyboard and does nothing when
+       activated. Give a card an href or make it a div; never an empty anchor.
+
+       The icon is bare — no chip behind it. Same treatment as the homepage
+       stat icons: a chip here would be a filled box inside a card that is
+       already a box, and it forces the icon smaller to fit.
+
+       Requires ../styles.css (.ptn-routes, .ptn-route*). No JS.
+       =================================================================== -->"""
+
+STEPS_NOTE = """  <!-- ===================================================================
+       STEPS RAIL — the numbered "how it works" block from affiliates.html
+       and host-a-trip.html.
+
+       Numbers, not icons, and that is the point: this block is for content
+       that genuinely IS a sequence, where the order carries information the
+       reader needs. If the items could be read in any order, use the benefit
+       cards instead — numbering them would assert a sequence that isn't
+       there.
+
+       The number comes from a CSS counter, so steps can be added or removed
+       without renumbering anything by hand. The connector line is drawn with
+       ::after on :not(:last-child), so the last step never trails a line into
+       empty space, and it only appears from 768px where the rail is actually
+       horizontal.
+
+       Requires ../styles.css (.ptn-steps, .ptn-step*). No JS.
+       =================================================================== -->"""
+
+BENEFIT_NOTE = """  <!-- ===================================================================
+       BENEFIT CARDS — the "what you'll receive" grid from affiliates.html
+       and host-a-trip.html.
+
+       Unordered, unlike the steps rail: these can be read in any order, so
+       they get icons rather than numbers.
+
+       FIVE CARDS IN A TWO-UP GRID
+       An odd last card would sit alone in a half-width row, which reads as a
+       hole rather than as a card, so `.ptn-wins .job__win:last-child:
+       nth-child(odd)` spans it full width. That rule is scoped to .ptn-wins
+       so the jobs board's own .job__wins are untouched.
+
+       Shares .job__win with the job listing — same object, one definition.
+       The icon is the only thing added here, via .ptn-win__ico.
+
+       Requires ../styles.css (.job__wins, .job__win*, .ptn-wins,
+       .ptn-win__ico). No JS.
+       =================================================================== -->"""
+
+LOGOS_NOTE = """  <!-- ===================================================================
+       PARTNER LOGOS + TESTIMONIALS — the logo wall from partner-with-us.html
+       and the quote carousel from affiliates.html.
+
+       WHITE TILES ARE NOT A STYLE CHOICE
+       Every partner mark is a different colour and two of the six are solid
+       black, so none of them can sit straight on the navy. A white tile is
+       the only treatment that works for all six without altering anyone's
+       logo — don't recolour or knock back a partner's mark to make it fit.
+
+       Each <img> carries explicit width/height. A lazy image with width:auto
+       has no intrinsic size until it loads, so without them the tile lays out
+       at zero width and the grid reflows when the logo arrives.
+
+       QUOTES THAT DON'T EXIST YET SAY SO
+       The partners are real; no quotes have been collected. Each card carries
+       an "awaiting copy" tag rather than invented words under a real
+       organisation's mark. Delete .ptn-quote__todo and drop the quote into
+       .ptn-quote__body when the copy lands.
+
+       The carousel is the shared .rev-carousel/[data-arrows] pattern — the
+       arrow buttons must be in the markup, the script finds them rather than
+       creating them.
+
+       Requires ../styles.css and the script at the foot of this file.
+       =================================================================== -->"""
+
+
+def comp_choice_cards():
+    return comp_shell(
+        "Choice cards", "Three-up routing block — icon, title, one paragraph and a CTA line.",
+        "Choice cards &mdash; demo (three-up routing block)",
+        f'''{CHOICE_NOTE}
+  <section class="ess-body">
+    <div class="container">
+      <p class="ess-eyebrow">Three Ways In</p>
+      <h2 class="ess-h2">Pick The One That <span>Sounds Like You</span></h2>
+{routes("../")}
+    </div>
+  </section>''')
+
+
+def comp_steps_rail():
+    return comp_shell(
+        "Steps rail", "Numbered how-it-works rail — CSS counters with a connector line.",
+        "Steps rail &mdash; demo (numbered sequence)",
+        f'''{STEPS_NOTE}
+  <section class="ess-body">
+    <div class="container">
+      <p class="ess-eyebrow">How It Works</p>
+      <h2 class="ess-h2">From Application <span>To Commission</span></h2>
+{steps([
+    ("Apply", "Fill in the form below. We want to understand your community more than your follower count."),
+    ("Get Set Up", "We build your bespoke URL and your trackable links, and send over the asset pack."),
+    ("Post", "Share the trips that suit your people. Everything booked through your links is attributed to you."),
+    ("Get Paid", "Commission on every completed booking, at minimum 5%, plus whatever incentives are running."),
+])}
+    </div>
+  </section>''')
+
+
+def comp_benefit_cards():
+    return comp_shell(
+        "Benefit cards", "Unordered what-you-get grid — icon, title, description; odd last card spans.",
+        "Benefit cards &mdash; demo (five cards, odd last one spans)",
+        f'''{BENEFIT_NOTE}
+  <section class="ess-body">
+    <div class="ess-col">
+      <p class="ess-eyebrow">The Deal</p>
+      <h2 class="ess-h2">What You&rsquo;ll <span>Receive</span></h2>
+{wins([
+    ("Your Own Bespoke URL", "A TruTravels landing page that is yours, so you can send people somewhere that already speaks to your community rather than a generic homepage.", "window"),
+    ("Trackable Links", "Personalised links across every trip, so every booking is attributed to you automatically. No codes to remember, nothing to claim after the fact.", "link"),
+    ("Minimum 5% Commission", "Five per cent is the floor, not the target. It goes up with volume and it goes up with the incentives below.", "percent"),
+    ("Commission Incentives", "Boosted rates run through the year, tied to launches, seasons and specific trips. You&rsquo;ll know about them before they go public.", "trend"),
+    ("Bespoke Assets &amp; Templates", "Imagery, trip information and post templates made for your platforms, so posting about a trip takes minutes rather than an afternoon.", "assets"),
+])}
+    </div>
+  </section>''')
+
+
+def comp_partner_logos():
+    return comp_shell(
+        "Partner logos", "Partner logo wall on white tiles, plus the testimonial carousel.",
+        "Partner logos &mdash; demo (logo wall + testimonial carousel)",
+        f'''{LOGOS_NOTE}
+  <section class="ess-body">
+    <div class="container">
+      <p class="ess-eyebrow">In Good Company</p>
+      <h2 class="ess-h2">Communities We&rsquo;ve <span>Travelled With</span></h2>
 {logo_wall("../")}
 
-      <h2 class="ess-h2" style="margin-top:3rem">Testimonial <span>Carousel</span></h2>
-      <p class="ess-p">The partners are real; the quotes have not been collected yet, so each card carries an &ldquo;awaiting copy&rdquo; tag rather than invented words under a real organisation&rsquo;s mark. Delete <code>.ptn-quote__todo</code> and drop the quote into <code>.ptn-quote__body</code> when the copy lands.</p>
+      <h2 class="ess-h2" style="margin-top:3.5rem">Insight From <span>Partners</span></h2>
       <div class="rev-carousel" data-arrows style="margin-top:1.5rem">
         <div class="carousel carousel--quotes">
 {quote_cards("../")}
@@ -809,14 +1016,8 @@ def component():
 {ARROWS}
       </div>
     </div>
-  </section>
-
-{CAROUSEL_JS}
-
-{PTN_SCRIPT}
-</body>
-</html>
-"""
+  </section>''',
+        scripts=CAROUSEL_JS)
 
 
 if __name__ == "__main__":
@@ -827,7 +1028,11 @@ if __name__ == "__main__":
         open(os.path.join(BASE, fn), "w", encoding="utf-8").write(out)
         print(f"  wrote {fn:<26} ({len(out.splitlines())} lines)")
 
-    out = component()
-    open(os.path.join(BASE, "components", "partner-application-form.html"), "w",
-         encoding="utf-8").write(out)
-    print(f"  wrote components/partner-application-form.html ({len(out.splitlines())} lines)")
+    for fn, fx in (("partner-application-form.html", component),
+                   ("choice-cards.html", comp_choice_cards),
+                   ("steps-rail.html", comp_steps_rail),
+                   ("benefit-cards.html", comp_benefit_cards),
+                   ("partner-logos.html", comp_partner_logos)):
+        out = fx()
+        open(os.path.join(BASE, "components", fn), "w", encoding="utf-8").write(out)
+        print(f"  wrote components/{fn:<30} ({len(out.splitlines())} lines)")

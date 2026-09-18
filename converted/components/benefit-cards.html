@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Benefit cards (component) &mdash; TruTravels</title>
+  <meta name="description" content="Unordered what-you-get grid — icon, title, description; odd last card spans." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Benefit cards &mdash; demo (five cards, odd last one spans)</p></div>
+  <!-- ===================================================================
+       BENEFIT CARDS — the "what you'll receive" grid from affiliates.html
+       and host-a-trip.html.
+
+       Unordered, unlike the steps rail: these can be read in any order, so
+       they get icons rather than numbers.
+
+       FIVE CARDS IN A TWO-UP GRID
+       An odd last card would sit alone in a half-width row, which reads as a
+       hole rather than as a card, so `.ptn-wins .job__win:last-child:
+       nth-child(odd)` spans it full width. That rule is scoped to .ptn-wins
+       so the jobs board's own .job__wins are untouched.
+
+       Shares .job__win with the job listing — same object, one definition.
+       The icon is the only thing added here, via .ptn-win__ico.
+
+       Requires ../styles.css (.job__wins, .job__win*, .ptn-wins,
+       .ptn-win__ico). No JS.
+       =================================================================== -->
+  <section class="ess-body">
+    <div class="ess-col">
+      <p class="ess-eyebrow">The Deal</p>
+      <h2 class="ess-h2">What You&rsquo;ll <span>Receive</span></h2>
+        <div class="job__wins ptn-wins" style="margin-top:2rem">
+          <div class="job__win">
+            <span class="ptn-win__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path stroke-linecap="round" d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01"/></svg></span>
+            <p class="job__win__t">Your Own Bespoke URL</p>
+            <p class="job__win__d">A TruTravels landing page that is yours, so you can send people somewhere that already speaks to your community rather than a generic homepage.</p>
+          </div>
+          <div class="job__win">
+            <span class="ptn-win__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg></span>
+            <p class="job__win__t">Trackable Links</p>
+            <p class="job__win__d">Personalised links across every trip, so every booking is attributed to you automatically. No codes to remember, nothing to claim after the fact.</p>
+          </div>
+          <div class="job__win">
+            <span class="ptn-win__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" d="m19 5-14 14"/><circle cx="7.5" cy="7.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/></svg></span>
+            <p class="job__win__t">Minimum 5% Commission</p>
+            <p class="job__win__d">Five per cent is the floor, not the target. It goes up with volume and it goes up with the incentives below.</p>
+          </div>
+          <div class="job__win">
+            <span class="ptn-win__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m3 17 6-6 4 4 8-8M15 7h6v6"/></svg></span>
+            <p class="job__win__t">Commission Incentives</p>
+            <p class="job__win__d">Boosted rates run through the year, tied to launches, seasons and specific trips. You&rsquo;ll know about them before they go public.</p>
+          </div>
+          <div class="job__win">
+            <span class="ptn-win__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="13" height="13" rx="2"/><path stroke-linecap="round" d="M8 21h11a2 2 0 0 0 2-2V8"/><circle cx="7.5" cy="7.5" r="1.25"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 13 3.5-3.5 2.5 2.5L13 8l3 3"/></svg></span>
+            <p class="job__win__t">Bespoke Assets &amp; Templates</p>
+            <p class="job__win__d">Imagery, trip information and post templates made for your platforms, so posting about a trip takes minutes rather than an afternoon.</p>
+          </div>
+        </div>
+    </div>
+  </section>
+
+</body>
+</html>
