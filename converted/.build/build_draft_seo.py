@@ -100,7 +100,9 @@ def what_we_do():
     body = "\n".join(f"            <p>{p}</p>" for p in BODY)
     return f'''
     <section class="wwd">
-      <img class="ess-wm" style="right:-4rem;top:-2rem;width:clamp(240px,30vw,500px);opacity:0.05" src="assets/bg-assets/sun.svg" alt="" aria-hidden="true" />
+      <!-- The logo smile. Wider than the sun it replaces, so it sits lower and
+           runs a bit larger to read as a mark rather than a stripe. -->
+      <img class="ess-wm" style="right:-5rem;top:8%;width:clamp(280px,34vw,580px);opacity:0.05" src="assets/bg-assets/tru-logo.svg" alt="" aria-hidden="true" />
       <div class="container">
         <div class="wwd__grid">
           <div>
