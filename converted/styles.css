@@ -6220,6 +6220,14 @@ a.ptn-route:hover { border-color: rgba(255,63,153,0.45); background: rgba(255,25
 }
 .ptn-route__go svg { width: 0.875rem; height: 0.875rem; }
 
+/* -- benefit card icon ----------------------------------------------------
+   Same treatment as the homepage stat icons (.wwd__fact-ico): bare line art
+   in pink with nothing behind it. No chip — the card already has a border,
+   and a filled chip inside it would be a box in a box. The route cards get
+   the chip instead, because they're a larger clickable object. */
+.ptn-win__ico { display: block; width: 1.75rem; height: 1.75rem; color: var(--tru-pink); margin-bottom: 0.7rem; }
+.ptn-win__ico svg { display: block; width: 100%; height: 100%; }
+
 /* -- numbered how-it-works rail ------------------------------------------ */
 /* five benefits in a two-up grid leaves the last one alone in its row;
    spanning it reads as deliberate rather than as a hole. Scoped to the

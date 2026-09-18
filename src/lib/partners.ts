@@ -47,49 +47,62 @@ export const PARTNER_HERO = {
   host: "https://cdn.trutravels.com/morocco-images/morocco-uncovered-marrakech-jardin-group-picture.jpg",
 };
 
-export const AFFILIATE_BENEFITS: [string, string][] = [
+/** [title, description, icon key from BENEFIT_ICONS in partner-blocks.tsx] */
+export type Benefit = [string, string, string];
+
+export const AFFILIATE_BENEFITS: Benefit[] = [
   [
     "Your Own Bespoke URL",
     "A TruTravels landing page that is yours, so you can send people somewhere that already speaks to your community rather than a generic homepage.",
+    "window",
   ],
   [
     "Trackable Links",
     "Personalised links across every trip, so every booking is attributed to you automatically. No codes to remember, nothing to claim after the fact.",
+    "link",
   ],
   [
     "Minimum 5% Commission",
     "Five per cent is the floor, not the target. It goes up with volume and it goes up with the incentives below.",
+    "percent",
   ],
   [
     "Commission Incentives",
     "Boosted rates run through the year, tied to launches, seasons and specific trips. You’ll know about them before they go public.",
+    "trend",
   ],
   [
     "Bespoke Assets & Templates",
     "Imagery, trip information and post templates made for your platforms, so posting about a trip takes minutes rather than an afternoon.",
+    "assets",
   ],
 ];
 
-export const HOST_BENEFITS: [string, string][] = [
+export const HOST_BENEFITS: Benefit[] = [
   [
     "Your Community, In Person",
     "The chance to turn a comment section into a group of people who’ve watched the same sunrise. That’s the whole point of it.",
+    "group",
   ],
   [
     "You Travel Too",
     "You’re on the trip, not running it. Your Local Legend handles the days; you get to actually be there with your people.",
+    "plane",
   ],
   [
     "A Bespoke Website Page",
     "Your own page on this site, built around your trip and your audience, that you can send people straight to.",
+    "window",
   ],
   [
     "Commission On Bookings",
     "You earn on every place sold on your trip — paid on completed bookings, with nothing to chase.",
+    "money",
   ],
   [
     "A Scalable Structure",
     "The more of your community comes, the higher the rate goes. A full departure pays considerably better than a half-full one.",
+    "bars",
   ],
 ];
 

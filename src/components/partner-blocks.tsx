@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PARTNERS } from "@/lib/partners";
+import { PARTNERS, type Benefit } from "@/lib/partners";
 
 /**
  * The furniture the three Partners pages share: background watermarks, section
@@ -37,19 +37,92 @@ export function H2({ children, accent }: { children: React.ReactNode; accent: st
 }
 
 /**
+ * Benefit-card icons. Same treatment as the homepage stat icons
+ * (components/what-we-do.tsx): bare line art at stroke-width 1.5 in pink, with
+ * nothing behind it. No chip — the card already has a border, and a filled chip
+ * inside it would be a box in a box. The route cards on /partner-with-us do get
+ * a chip, because they're a larger, clickable object.
+ *
+ * `group` is lifted from the homepage on purpose: it means the same thing in
+ * both places. Mirrored by BENEFIT_ICONS in converted/.build/build_partners.py
+ * — edit both or they drift.
+ */
+const BENEFIT_ICONS: Record<string, React.ReactNode> = {
+  // a browser window — your own page / your own URL
+  window: (
+    <>
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path strokeLinecap="round" d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01" />
+    </>
+  ),
+  // chain link — trackable links
+  link: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"
+    />
+  ),
+  // percent — commission rate
+  percent: (
+    <>
+      <path strokeLinecap="round" d="m19 5-14 14" />
+      <circle cx="7.5" cy="7.5" r="2.5" />
+      <circle cx="16.5" cy="16.5" r="2.5" />
+    </>
+  ),
+  // rising line — incentives that go up through the year
+  trend: <path strokeLinecap="round" strokeLinejoin="round" d="m3 17 6-6 4 4 8-8M15 7h6v6" />,
+  // stacked images — the asset and template pack
+  assets: (
+    <>
+      <rect x="3" y="3" width="13" height="13" rx="2" />
+      <path strokeLinecap="round" d="M8 21h11a2 2 0 0 0 2-2V8" />
+      <circle cx="7.5" cy="7.5" r="1.25" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="m3 13 3.5-3.5 2.5 2.5L13 8l3 3" />
+    </>
+  ),
+  // the homepage's "per group" icon — your community, together
+  group: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M17 20h5v-1a4 4 0 0 0-4-4h-1m-4 5H2v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1Zm-2-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6-1a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+    />
+  ),
+  // paper plane — you're on the trip too
+  plane: <path strokeLinecap="round" strokeLinejoin="round" d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z" />,
+  // banknote — commission paid on bookings
+  money: (
+    <>
+      <rect x="2" y="6" width="20" height="12" rx="2" />
+      <circle cx="12" cy="12" r="2.5" />
+      <path strokeLinecap="round" d="M6 12h.01M18 12h.01" />
+    </>
+  ),
+  // rising bars — a rate that scales with how many come
+  bars: <path strokeLinecap="round" d="M5 20v-5M10 20V9M15 20v-8M20 20V5" />,
+};
+
+/**
  * Five benefits in a two-up grid leaves the last one alone in a half-width
  * row, which reads as a hole rather than a card — so an odd last child spans.
  */
-export function Benefits({ items }: { items: [string, string][] }) {
+export function Benefits({ items }: { items: Benefit[] }) {
   return (
     <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-3">
-      {items.map(([t, d], i) => (
+      {items.map(([t, d, ico], i) => (
         <div
           key={t}
           className={`rounded-xl border border-white/10 bg-white/[0.03] p-4 sm:p-[1.1rem] ${
             i === items.length - 1 && items.length % 2 === 1 ? "md:col-span-2" : ""
           }`}
         >
+          <span aria-hidden className="block h-7 w-7 text-tru-pink mb-[0.7rem]">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="block h-full w-full">
+              {BENEFIT_ICONS[ico]}
+            </svg>
+          </span>
           <p className="font-heading text-[0.8125rem] font-black uppercase tracking-[0.03em] text-tru-pink mb-1.5">{t}</p>
           <p className="text-[0.8125rem] leading-relaxed text-gray-400">{d}</p>
         </div>

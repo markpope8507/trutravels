@@ -68,6 +68,46 @@ ICO_SPARK = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-
              '<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v4m0 10v4M3 12h4m10 0h4'
              'M5.6 5.6l2.8 2.8m7.2 7.2 2.8 2.8m0-12.8-2.8 2.8m-7.2 7.2-2.8 2.8"/></svg>')
 
+# ---------------------------------------------------------- benefit icons --
+# Same treatment as the homepage stat icons (.wwd__fact-ico): bare line art at
+# stroke-width 1.5 in pink, with nothing behind it. The route cards on
+# partner-with-us keep their filled chip — they're a larger, clickable object,
+# whereas these sit inside a card that already has its own border, and a chip
+# there would be a box in a box.
+#
+# `group` is lifted from the homepage deliberately: it means the same thing in
+# both places. Mirrored by BENEFIT_ICONS in src/components/partner-blocks.tsx —
+# edit both or they drift.
+BENEFIT_ICONS = {
+    # a browser window — your own page / your own URL
+    "window": '<rect x="3" y="4" width="18" height="16" rx="2"/>'
+              '<path stroke-linecap="round" d="M3 9h18M6.5 6.5h.01M9.5 6.5h.01"/>',
+    # chain link — trackable links
+    "link": '<path stroke-linecap="round" stroke-linejoin="round" d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 '
+            '0-7-7l-1.7 1.7M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/>',
+    # percent — commission rate
+    "percent": '<path stroke-linecap="round" d="m19 5-14 14"/>'
+               '<circle cx="7.5" cy="7.5" r="2.5"/><circle cx="16.5" cy="16.5" r="2.5"/>',
+    # rising line — incentives that go up through the year
+    "trend": '<path stroke-linecap="round" stroke-linejoin="round" d="m3 17 6-6 4 4 8-8M15 7h6v6"/>',
+    # stacked images — the asset and template pack
+    "assets": '<rect x="3" y="3" width="13" height="13" rx="2"/>'
+              '<path stroke-linecap="round" d="M8 21h11a2 2 0 0 0 2-2V8"/>'
+              '<circle cx="7.5" cy="7.5" r="1.25"/>'
+              '<path stroke-linecap="round" stroke-linejoin="round" d="m3 13 3.5-3.5 2.5 2.5L13 8l3 3"/>',
+    # the homepage's "per group" icon — your community, together
+    "group": '<path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-1a4 4 0 0 0-4-4h-1m-4 '
+             '5H2v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1Zm-2-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6-1a2.5 2.5 0 '
+             '1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>',
+    # paper plane — you're on the trip too
+    "plane": '<path stroke-linecap="round" stroke-linejoin="round" d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7Z"/>',
+    # banknote — commission paid on bookings
+    "money": '<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>'
+             '<path stroke-linecap="round" d="M6 12h.01M18 12h.01"/>',
+    # rising bars — a rate that scales with how many come
+    "bars": '<path stroke-linecap="round" d="M5 20v-5M10 20V9M15 20v-8M20 20V5"/>',
+}
+
 # ---------------------------------------------------------------- partners --
 # Real partners, from the shared Drive folder. Name and logo only — no quotes
 # have been collected, so none are invented here.
@@ -274,8 +314,12 @@ def watermarks(items):
 
 def wins(items):
     cards = "\n".join(
-        f'          <div class="job__win"><p class="job__win__t">{t}</p>'
-        f'<p class="job__win__d">{d}</p></div>' for t, d in items)
+        f'          <div class="job__win">\n'
+        f'            <span class="ptn-win__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" '
+        f'stroke="currentColor" stroke-width="1.5">{BENEFIT_ICONS[ico]}</svg></span>\n'
+        f'            <p class="job__win__t">{t}</p>\n'
+        f'            <p class="job__win__d">{d}</p>\n'
+        f'          </div>' for t, d, ico in items)
     return f'        <div class="job__wins ptn-wins" style="margin-top:2rem">\n{cards}\n        </div>' 
 
 
@@ -474,11 +518,11 @@ def affiliates():
         <p class="ess-eyebrow">The Deal</p>
         <h2 class="ess-h2">What You&rsquo;ll <span>Receive</span></h2>
 {wins([
-    ("Your Own Bespoke URL", "A TruTravels landing page that is yours, so you can send people somewhere that already speaks to your community rather than a generic homepage."),
-    ("Trackable Links", "Personalised links across every trip, so every booking is attributed to you automatically. No codes to remember, nothing to claim after the fact."),
-    ("Minimum 5% Commission", "Five per cent is the floor, not the target. It goes up with volume and it goes up with the incentives below."),
-    ("Commission Incentives", "Boosted rates run through the year, tied to launches, seasons and specific trips. You&rsquo;ll know about them before they go public."),
-    ("Bespoke Assets &amp; Templates", "Imagery, trip information and post templates made for your platforms, so posting about a trip takes minutes rather than an afternoon."),
+    ("Your Own Bespoke URL", "A TruTravels landing page that is yours, so you can send people somewhere that already speaks to your community rather than a generic homepage.", "window"),
+    ("Trackable Links", "Personalised links across every trip, so every booking is attributed to you automatically. No codes to remember, nothing to claim after the fact.", "link"),
+    ("Minimum 5% Commission", "Five per cent is the floor, not the target. It goes up with volume and it goes up with the incentives below.", "percent"),
+    ("Commission Incentives", "Boosted rates run through the year, tied to launches, seasons and specific trips. You&rsquo;ll know about them before they go public.", "trend"),
+    ("Bespoke Assets &amp; Templates", "Imagery, trip information and post templates made for your platforms, so posting about a trip takes minutes rather than an afternoon.", "assets"),
 ])}
       </div>
     </section>
@@ -573,11 +617,11 @@ def host_a_trip():
         <p class="ess-eyebrow">The Deal</p>
         <h2 class="ess-h2">What You&rsquo;ll <span>Receive</span></h2>
 {wins([
-    ("Your Community, In Person", "The chance to turn a comment section into a group of people who&rsquo;ve watched the same sunrise. That&rsquo;s the whole point of it."),
-    ("You Travel Too", "You&rsquo;re on the trip, not running it. Your Local Legend handles the days; you get to actually be there with your people."),
-    ("A Bespoke Website Page", "Your own page on this site, built around your trip and your audience, that you can send people straight to."),
-    ("Commission On Bookings", "You earn on every place sold on your trip &mdash; paid on completed bookings, with nothing to chase."),
-    ("A Scalable Structure", "The more of your community comes, the higher the rate goes. A full departure pays considerably better than a half-full one."),
+    ("Your Community, In Person", "The chance to turn a comment section into a group of people who&rsquo;ve watched the same sunrise. That&rsquo;s the whole point of it.", "group"),
+    ("You Travel Too", "You&rsquo;re on the trip, not running it. Your Local Legend handles the days; you get to actually be there with your people.", "plane"),
+    ("A Bespoke Website Page", "Your own page on this site, built around your trip and your audience, that you can send people straight to.", "window"),
+    ("Commission On Bookings", "You earn on every place sold on your trip &mdash; paid on completed bookings, with nothing to chase.", "money"),
+    ("A Scalable Structure", "The more of your community comes, the higher the rate goes. A full departure pays considerably better than a half-full one.", "bars"),
 ])}
       </div>
     </section>
