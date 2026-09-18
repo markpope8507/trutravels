@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Request availability form (component) &mdash; TruTravels</title>
+  <meta name="description" content="On-request capture — the departure is close and availability must be checked before payment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Request availability &mdash; demo (submit it)</p></div>
+
+  <!-- ===================================================================
+       REQUEST AVAILABILITY FORM — the details capture when a departure is
+       ON REQUEST (src/components/booking-modal.tsx, step "request").
+
+       WHY THIS IS SEPARATE FROM the waitlist form
+       Same four fields, deliberately different colour and copy, because they
+       are different asks:
+
+         WAITLIST (pink)     the departure is FULL. They are queuing for a
+                             cancellation. Nothing is reserved or charged.
+         ON REQUEST (blue)   the departure is CLOSE. Places go back to the
+                             local partner inside the on-request window, so
+                             availability has to be checked before payment.
+
+       A traveller must not read "we'll confirm within 24 hours" as "you have
+       a place", which is why they never share a screen or a colour. See
+       waitlist-form.html for the other one.
+
+       This one is the BLUE variant: add `is-request` to BOTH the note
+       (`.bkg-wl__note`) and the submit button (`.form-submit`). Miss
+       either and it reads as a waitlist. On the live trip page the JS
+       toggles that class from the departure's status.
+       Fields come from the shared `.field` system; the button is
+       `.form-submit` and the success state `.form-done` —
+       see form-fields.html.
+
+       Requires ../styles.css and the script at the foot of this file.
+       =================================================================== -->
+  <section class="ess-body">
+    <div class="ess-col">
+
+      <!-- ---------- B. On request (departure close) ---------- -->
+      <div class="ess-sec" style="margin-top:4rem">
+        <p class="ess-eyebrow">Departure is close</p>
+        <h2 class="ess-h2">On-Request <span>Variant</span></h2>
+        <div style="max-width:26rem;margin-top:1.5rem" data-wl>
+          <form class="bkg-wl" data-wl-form novalidate>
+            <div class="bkg-wl__note is-request">
+              <p class="bkg-wl__note-t">Sun, 5 Oct 2026 &middot; On request</p>
+              <p class="bkg-wl__note-s">This departure leaves in <strong>21 days</strong>, so it&rsquo;s come off instant booking. Within 30 days of departure we release unsold places back to our local partners, so we need to check what&rsquo;s still available before you pay. Send a request and we&rsquo;ll confirm within 24 hours.</p>
+            </div>
+            <div class="field"><label for="rq-name">Name <span>*</span></label><input id="rq-name" name="name" type="text" required placeholder="Your name" autocomplete="name" /></div>
+            <div class="field"><label for="rq-email">Email <span>*</span></label><input id="rq-email" name="email" type="email" required placeholder="you@email.com" autocomplete="email" /></div>
+            <div class="field"><label for="rq-phone">Contact Number <span>*</span></label><input id="rq-phone" name="phone" type="tel" required placeholder="+44 &hellip;" autocomplete="tel" /></div>
+            <div class="field"><label for="rq-msg">Message</label><textarea id="rq-msg" name="message" rows="3" placeholder="How many travellers, and any flexibility on dates?"></textarea></div>
+            <button type="submit" class="form-submit is-request">Request Availability <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+          </form>
+          <div class="form-done" data-wl-done hidden>
+            <span class="form-done__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+            <h3 class="form-done__t">Request <span>Sent</span></h3>
+            <p class="form-done__s">We&rsquo;re checking what&rsquo;s left on Sun, 5 Oct 2026 with our local partner and will come back to you within 24 hours. Nothing has been charged.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>/* form -> success panel. Copy once per page; wires every [data-wl]. */
+  (function () {
+    document.querySelectorAll('[data-wl]').forEach(function (wrap) {
+      var form = wrap.querySelector('[data-wl-form]');
+      var done = wrap.querySelector('[data-wl-done]');
+      if (!form || !done) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        form.hidden = true;
+        done.hidden = false;
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

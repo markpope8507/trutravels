@@ -411,6 +411,85 @@ def build_reviews():
     open(os.path.join(COMP, "reviews-section.html"), "w", encoding="utf-8").write(out)
     return len(re.findall(r'<div class="rvw-card">', sec)), len(re.findall(r'rvw-platform"', sec))
 
+
+def build_account_form():
+    """Refresh the Modify Profile block inside account-details-form.html.
+
+    The component had drifted: it still carried the old three-field form (full
+    name / email / phone) long after the page moved to the full profile set.
+    The block is now lifted straight out of my-account-profile.html between two
+    markers, so the next change to the page lands here too.
+    """
+    page = read("my-account-profile.html")
+    i = page.index('<form class="acct-card" onsubmit="return false">')
+    # There are TWO datalists after the form (nationalities, countries) — take
+    # the LAST one, or the countries list is silently dropped.
+    j = page.rindex('</datalist>', i, page.index('<!-- ---------- B.', i)
+                    if '<!-- ---------- B.' in page[i:] else len(page))
+    j = page.index('\n', j)
+    block = page[i:j]
+
+    comp_path = os.path.join(COMP, "account-details-form.html")
+    comp = open(comp_path, encoding="utf-8").read()
+    a = comp.index("<!-- ---------- A. Profile details ---------- -->")
+    a = comp.index("<form class=", a)
+    b = comp.index("</div>", comp.index("</form>", a))
+    fresh = comp[:a] + block + "\n      " + comp[b:]
+    open(comp_path, "w", encoding="utf-8").write(fresh)
+    return len(re.findall(r'<label for="acct-', block))
+
+
+PASSWORD_RESET_NOTE = """  <!-- ===================================================================
+       PASSWORD RESET — the standalone card.
+
+       Two places this flow lives, deliberately:
+
+         IN A MODAL   a third view of auth-modal.html, reached from "Forgot
+                      password?". Someone who opened the modal is mid-task;
+                      throwing them onto another page loses that context.
+         AS A PAGE    this. For people who land on login.html directly, and
+                      so the link in a reset email has somewhere to point.
+
+       THE WORDING IS THE SECURITY CONTROL. It says "if that address is
+       registered" rather than confirming the account exists. Confirming it
+       lets an anonymous visitor test addresses one by one and learn who has
+       an account — account enumeration. Don't "improve" this to "We've sent
+       you an email".
+
+       No backend: submit swaps the form for the confirmation. Wire the real
+       POST where the script says.
+
+       Requires ../styles.css (.auth-*). Script at the foot of this file.
+       =================================================================== -->"""
+
+
+def build_password_reset():
+    """The reset card on its own, lifted from reset-password.html."""
+    page = read("reset-password.html")
+    i = page.index('<div class="auth-modal__card">')
+    j = page.index('</div>', page.index('auth-modal__switch', i))
+    j = page.index('</div>', j + 6) + len('</div>')
+    card = page[i:j]
+
+    a = page.index("  <script>\n  /* Reset form -> confirmation.")
+    script = page[a:page.index("</script>", a) + len("</script>")]
+
+    out = (
+        HEAD.format(
+            title="Password reset",
+            desc="Standalone reset card — email in, confirmation out, with the enumeration-safe wording.",
+            label="Password reset &mdash; demo (submit to see the confirmation)",
+        )
+        + PASSWORD_RESET_NOTE
+        + '\n  <div class="auth-page">\n    '
+        + card
+        + "\n  </div>\n\n"
+        + script
+        + "\n</body>\n</html>\n"
+    )
+    open(os.path.join(COMP, "password-reset.html"), "w", encoding="utf-8").write(out)
+    return 1
+
 if __name__ == "__main__":
     c, m = build_video_diaries()
     print(f"  wrote components/video-diaries-carousel.html  ({c} cards, {m} viewers)")
@@ -424,3 +503,7 @@ if __name__ == "__main__":
     print(f"  wrote components/cross-links.html             ({n} cards)")
     c, pl = build_reviews()
     print(f"  wrote components/reviews-section.html         ({c} reviews, {pl} platforms)")
+    n = build_account_form()
+    print(f"  refreshed components/account-details-form.html ({n} profile fields)")
+    build_password_reset()
+    print("  wrote components/password-reset.html")

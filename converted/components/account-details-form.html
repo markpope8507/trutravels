@@ -50,12 +50,35 @@
     <div class="cxa-sec">
       <p class="cxa-sec__t">A &middot; Profile details</p>
       <form class="acct-card" onsubmit="return false">
-        <p class="acct-card__h">Details</p>
-        <div class="acct-field"><label for="acct-name">Full Name</label><input id="acct-name" type="text" value="Alex Traveller" autocomplete="name" /></div>
-        <div class="acct-field"><label for="acct-email">Email</label><input id="acct-email" type="email" value="alex@example.com" autocomplete="email" /></div>
-        <div class="acct-field"><label for="acct-phone">Contact Number</label><input id="acct-phone" type="tel" value="+44 7700 900000" autocomplete="tel" /></div>
+        <p class="acct-card__h">Modify Profile</p>
+        <p class="acct-note">The name and date of birth here have to match your passport &mdash; they go on your booking.</p>
+
+        <div class="acct-field"><label for="acct-email">Email Address <span class="acct-req">*</span></label><input id="acct-email" type="email" required value="alex@example.com" autocomplete="email" /></div>
+
+        <div class="acct-field2">
+          <div class="acct-field"><label for="acct-first">First Name <span class="acct-req">*</span></label><input id="acct-first" type="text" required value="Alex" autocomplete="given-name" /></div>
+          <div class="acct-field"><label for="acct-middle">Middle Name <span class="acct-opt">(optional)</span></label><input id="acct-middle" type="text" value="" placeholder="As shown on passport" autocomplete="additional-name" /></div>
+        </div>
+
+        <div class="acct-field2">
+          <div class="acct-field"><label for="acct-surname">Surname <span class="acct-req">*</span></label><input id="acct-surname" type="text" required value="Traveller" autocomplete="family-name" /></div>
+          <div class="acct-field"><label for="acct-gender">Gender <span class="acct-opt">(optional)</span></label><select id="acct-gender"><option value="">Prefer not to say</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Self-describe</option></select></div>
+        </div>
+
+        <div class="acct-field2">
+          <div class="acct-field"><label for="acct-nat">Nationality <span class="acct-req">*</span></label><input id="acct-nat" type="text" required list="acct-nationalities" value="British" placeholder="Start typing&hellip;" /></div>
+          <div class="acct-field"><label for="acct-country">Country Of Residence</label><input id="acct-country" type="text" list="acct-countries" value="United Kingdom" placeholder="Start typing&hellip;" autocomplete="country-name" /></div>
+        </div>
+
+        <div class="acct-field2">
+          <div class="acct-field"><label for="acct-phone">Contact Number</label><input id="acct-phone" type="tel" value="+44 7700 900000" autocomplete="tel" /></div>
+          <div class="acct-field"><label for="acct-dob">Date Of Birth</label><input id="acct-dob" type="date" value="1998-07-22" autocomplete="bday" /></div>
+        </div>
       </form>
-    </div>
+
+      <datalist id="acct-nationalities"><option>British</option><option>Irish</option><option>Australian</option><option>New Zealander</option><option>Canadian</option><option>American</option><option>South African</option></datalist>
+      <datalist id="acct-countries"><option>United Kingdom</option><option>Ireland</option><option>Australia</option><option>New Zealand</option><option>Canada</option><option>United States</option><option>South Africa</option></datalist>
+      </div>
 
     <!-- ---------- B. Travel preferences ---------- -->
     <div class="cxa-sec">
