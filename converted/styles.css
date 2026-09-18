@@ -6064,10 +6064,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 640px) { .wwd__fact-l { font-size: 0.75rem; } }
 
 /* draft-only banner, so a shared link can't be mistaken for the live page */
-/* static, not sticky: a sticky bar overlays 40px of the page at every
-   scroll position, which gets in the way of the thing being reviewed */
-.draft-bar { position: relative; z-index: 200; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.5rem 1rem; background: var(--tru-pink); color: #fff; padding: 0.6rem 1rem; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; text-align: center; }
-.draft-bar a { color: #fff; text-decoration: underline; }
 /* the plain-language half of a brand-voice heading — smaller, quieter, but
    present in the outline, which is the point */
 .wwd__sub { display: block; color: #9ca3af; font-family: 'Source Sans 3', sans-serif; font-size: 0.9375rem; font-weight: 400; line-height: 1.5; text-transform: none; letter-spacing: 0; margin-top: 0.6rem; }

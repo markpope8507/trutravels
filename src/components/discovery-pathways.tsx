@@ -225,7 +225,7 @@ export default function DiscoveryPathways() {
           Pick Your <span className="text-tru-pink">Path</span>
         </h2>
         <p className="mt-4 text-base sm:text-lg font-handwriting text-gray-300">
-          however you want to search&hellip;
+          Search small group trips by destination, travel style or the moment you&rsquo;re in.
         </p>
       </div>
       <SearchPrompt />

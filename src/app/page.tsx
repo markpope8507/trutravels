@@ -7,6 +7,7 @@ import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import DiscoveryPathways from "@/components/discovery-pathways";
 import PillButton from "@/components/pill-button";
 import ReviewsBar from "@/components/reviews-bar";
+import WhatWeDo from "@/components/what-we-do";
 import ReviewsSection from "@/components/reviews-section";
 import StoriesFeature from "@/components/stories-feature";
 import DestinationsCarousel from "@/components/destinations-carousel";
@@ -23,6 +24,12 @@ export default function HomePage() {
           SOCIAL PROOF STRIP — takes the ticker slot under the hero
           ================================================================ */}
       <ReviewsBar />
+
+      {/* ================================================================
+          WHAT WE DO — the page's one <h1>. Directly below the hero, which
+          is where every comparable operator puts it.
+          ================================================================ */}
+      <WhatWeDo />
 
       {/* ================================================================
           2. FEATURED EXPERIENCES — Swipeable carousel
@@ -88,7 +95,7 @@ export default function HomePage() {
                 The Tru <span className="text-gradient">Experience</span>
               </h2>
               <p className="text-gray-400 mt-4 max-w-lg">
-                Every TruTravels trip is built around five intentional experience types. This isn&apos;t just travel — it&apos;s a framework for moments that actually matter.
+                Every TruTravels small group adventure is built around five intentional experience types. This isn&apos;t just travel — it&apos;s a framework for moments that actually matter.
               </p>
             </div>
           </div>
@@ -104,6 +111,11 @@ export default function HomePage() {
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading mb-10 text-center">
             How We Do <span className="text-gradient">Things</span>
           </h2>
+          {/* Plain-language line under the brand headline — the heading alone
+              says nothing about what the section covers. */}
+          <p className="text-gray-400 text-base leading-relaxed mb-10 text-center max-w-xl mx-auto -mt-6">
+            What every TruTravels small group tour includes, and who you&rsquo;ll travel with.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
             {/* Find Your People */}
             <div>

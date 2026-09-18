@@ -25,9 +25,9 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "TruTravels — Leave Ordinary Behind",
+  title: "TruTravels — Small Group Adventure Tours For 18–40 Somethings",
   description:
-    "Life changing experiences. Game changing travel. Group adventures for 18-35s across Southeast Asia, Central & South America, and beyond.",
+    "Unforgettable small group adventures for 18 to 40-somethings across Asia, Europe and Latin America. Travel solo, leave with a crew — led by Local Legends who live there.",
   // Prototype/demo — keep it out of search indexes so it never competes with the
   // live site (trutravels.com) as duplicate content.
   robots: {

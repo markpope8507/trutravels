@@ -240,9 +240,12 @@ function SlideContent({
               </p>
             )}
             {s.headline && (
-              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[1.05] mb-6 tracking-tight uppercase font-heading">
+              /* NOT an <h1>. These are rotating promo slides — the page's one
+                 <h1> is the statement block under the hero on the homepage.
+                 Same classes, so this is a semantics change, not a visual one. */
+              <p className="text-5xl sm:text-7xl lg:text-8xl font-black text-white leading-[1.05] mb-6 tracking-tight uppercase font-heading">
                 {s.headline}
-              </h1>
+              </p>
             )}
             {s.tagline && (
               <p
