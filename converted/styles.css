@@ -6032,9 +6032,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .wwd__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; margin: 0 0 1rem; }
 /* The page's one h1. Sized off .ess-h2's About step so it reads as the
    largest thing on the page after the hero art. */
-.wwd__h1 { font-family: 'Montserrat', sans-serif; font-size: 2.25rem; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 0.95; letter-spacing: -0.01em; margin: 0; }
+/* Same ramp as every other section heading on the homepage — .tru-way__title
+   and .vdia__title are both 1.875rem stepping to 3rem at 640. This was 36 ->
+   48 -> 56, which made the h1 8px larger than its siblings on desktop and
+   broke the rhythm. It's the page's h1 by position and content, not by size. */
+.wwd__h1 { font-family: 'Montserrat', sans-serif; font-size: 1.875rem; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 0.95; letter-spacing: -0.01em; margin: 0; }
 @media (min-width: 640px) { .wwd__h1 { font-size: 3rem; } }
-@media (min-width: 1024px) { .wwd__h1 { font-size: 3.5rem; } }
 .wwd__h1 span { display: block; color: var(--tru-pink); }
 
 .wwd__body p { color: #d1d5db; font-size: 1rem; line-height: 1.75; margin: 0 0 1.25rem; }

@@ -88,7 +88,7 @@ export default function WhatWeDo() {
             <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-4">
               Small Group Adventure Travel
             </p>
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-[3.5rem] font-black uppercase leading-[0.95] tracking-tight text-white">
+            <h1 className="font-heading text-3xl sm:text-5xl font-black uppercase leading-[0.95] tracking-tight text-white">
               Unforgettable
               <span className="block text-tru-pink">Small Group Adventures</span>
             </h1>
