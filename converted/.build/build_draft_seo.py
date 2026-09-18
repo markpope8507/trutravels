@@ -74,10 +74,10 @@ ICONS = {
 }
 
 FACTS = [
-    ("10&ndash;20", "", "Travellers per group, never more", "group"),
-    ("18&ndash;45", "", "The age range our trips are built for", "age"),
-    ("35", "+", "Countries across the globe", "globe"),
-    ("65", "+", "Trips to choose from", "trips"),
+    ("10&ndash;20", "", "Per group", "group"),
+    ("18&ndash;45", "", "Age range", "age"),
+    ("35", "+", "Countries", "globe"),
+    ("65", "+", "Trips", "trips"),
 ]
 
 CHEV = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">'
@@ -93,11 +93,11 @@ DRAFT_BAR = (
 
 def what_we_do():
     facts = "\n".join(
-        f'''          <div class="wwd__fact">
-            <span class="wwd__fact-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">{ICONS[icon]}</svg></span>
-            <p class="wwd__fact-n">{n}{suffix}</p>
-            <p class="wwd__fact-l">{label}</p>
-          </div>'''
+        f'''              <div class="wwd__fact">
+                <span class="wwd__fact-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">{ICONS[icon]}</svg></span>
+                <p class="wwd__fact-n">{n}{suffix}</p>
+                <p class="wwd__fact-l">{label}</p>
+              </div>'''
         for n, suffix, label, icon in FACTS
     )
     body = "\n".join(f"            <p>{p}</p>" for p in BODY)
@@ -111,6 +111,13 @@ def what_we_do():
             <!-- The page's ONE h1. Names the product and, in the body beside
                  it, the audience — the two things the old outline never said. -->
             <h1 class="wwd__h1">{H1_TOP}<span>{H1_REST}</span></h1>
+
+            <!-- Under the title, in the left column — which was otherwise a
+                 large empty space beside the paragraphs. Four across at every
+                 width, including mobile. -->
+            <div class="wwd__facts">
+{facts}
+            </div>
           </div>
           <div class="wwd__body">
 {body}
@@ -121,15 +128,6 @@ def what_we_do():
           </div>
         </div>
 
-      </div>
-
-      <!-- Outside the .container so the navy band runs the full width of the
-           screen; the stats inside are still held to the container width so
-           they line up with the statement above. -->
-      <div class="wwd__band">
-        <div class="container wwd__facts">
-{facts}
-        </div>
       </div>
     </section>
 '''
