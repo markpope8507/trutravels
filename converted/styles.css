@@ -6025,25 +6025,39 @@ ul { margin: 0; padding: 0; list-style: none; }
 .wwd__acts { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
 /* the proof row — the three facts a reader (or a model) can quote */
-/* Only this row is navy — it lifts off the page's near-black (#060d18) as a
-   panel of its own, which is the point: the four numbers are the quotable bit.
-   Pink rule on the top edge, and two soft glows so it isn't a flat slab. */
-.wwd__facts { position: relative; overflow: hidden; display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem 1.5rem; margin-top: 3rem; padding: 2rem 1.5rem; border: 1px solid rgba(255,255,255,0.1); border-top: 2px solid var(--tru-pink); border-radius: 14px; background: var(--tru-navy); }
-@media (min-width: 768px) { .wwd__facts { grid-template-columns: repeat(4, 1fr); gap: 2rem; padding: 2.25rem 2rem; } }
-.wwd__facts::before, .wwd__facts::after { content: ''; position: absolute; pointer-events: none; border-radius: 50%; }
-.wwd__facts::before { width: 26rem; height: 26rem; top: -16rem; right: -8rem; background: radial-gradient(circle, rgba(255,63,153,0.18) 0%, transparent 62%); }
-.wwd__facts::after { width: 22rem; height: 22rem; bottom: -14rem; left: -7rem; background: radial-gradient(circle, rgba(33,114,213,0.2) 0%, transparent 62%); }
-/* Each fact takes a different brand colour, with a matching rule above it, so
-   the row reads as four things rather than one grey block of numbers. */
-.wwd__fact { position: relative; z-index: 1; padding-top: 1rem; }
-.wwd__fact::before { content: ''; position: absolute; top: 0; left: 0; width: 2rem; height: 3px; border-radius: 2px; background: currentColor; }
+/* The stats panel. Centred, with hairline dividers between the columns —
+   which is how the site's other stat rows work (.acct-stats, .rvw-platform are
+   both centred) and how Intrepid's equivalent row reads. The earlier version
+   was left-aligned with a small coloured rule over each number and two radial
+   glows behind: fussy at this size, and the glows muddied the navy.
+
+   Navy panel on the page's near-black so it lifts as its own block; the colour
+   is in the numbers and in the gradient top edge. */
+.wwd__facts { position: relative; display: grid; grid-template-columns: repeat(2, 1fr); margin-top: 3rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; background: var(--tru-navy); overflow: hidden; }
+@media (min-width: 768px) { .wwd__facts { grid-template-columns: repeat(4, 1fr); } }
+/* pink through to blue, rather than a flat pink line */
+.wwd__facts::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(to right, var(--tru-pink), #a855f7 55%, var(--tru-blue)); }
+
+.wwd__fact { text-align: center; padding: 1.75rem 1rem; }
+@media (min-width: 640px) { .wwd__fact { padding: 2.25rem 1.25rem; } }
+/* Dividers drawn as borders on the cells, so they land between columns and
+   never trail off the edge. 2-up on mobile, 4-up from 768. */
+.wwd__fact { border-top: 1px solid rgba(255,255,255,0.08); border-left: 1px solid rgba(255,255,255,0.08); }
+.wwd__fact:nth-child(-n+2) { border-top: 0; }
+.wwd__fact:nth-child(odd) { border-left: 0; }
+@media (min-width: 768px) {
+  .wwd__fact { border-top: 0; border-left: 1px solid rgba(255,255,255,0.08); }
+  .wwd__fact:first-child { border-left: 0; }
+  .wwd__fact:nth-child(odd) { border-left: 1px solid rgba(255,255,255,0.08); }
+  .wwd__fact:first-child { border-left: 0; }
+}
+
+.wwd__fact-n { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 900; line-height: 1; margin: 0 0 0.5rem; font-variant-numeric: tabular-nums; color: currentColor; }
+@media (min-width: 640px) { .wwd__fact-n { font-size: 2.75rem; } }
 .wwd__fact--pink { color: var(--tru-pink); }
 .wwd__fact--green { color: var(--tru-green); }
 .wwd__fact--blue { color: #4b94e8; }
-.wwd__fact-n { font-family: 'Montserrat', sans-serif; font-size: 1.875rem; font-weight: 900; color: #fff; line-height: 1; margin: 0 0 0.35rem; font-variant-numeric: tabular-nums; }
-@media (min-width: 640px) { .wwd__fact-n { font-size: 2.5rem; } }
-.wwd__fact-n span { color: currentColor; }
-.wwd__fact-l { color: #b6c2d1; font-size: 0.8125rem; line-height: 1.5; margin: 0; }
+.wwd__fact-l { color: #9ca3af; font-size: 0.8125rem; line-height: 1.5; margin: 0 auto; max-width: 13rem; }
 
 /* draft-only banner, so a shared link can't be mistaken for the live page */
 /* static, not sticky: a sticky bar overlays 40px of the page at every
