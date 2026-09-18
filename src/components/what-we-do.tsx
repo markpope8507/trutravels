@@ -72,14 +72,15 @@ const FACTS: { n: string; suffix?: string; label: string; icon: React.ReactNode 
 export default function WhatWeDo() {
   return (
     <section className="relative overflow-hidden pt-16 pb-6 lg:pt-22 lg:pb-8">
-      {/* The logo smile. Wider than a square mark, so it sits lower and runs
-          larger — otherwise it reads as a stripe across the corner. */}
+      {/* The logo smile, on the LEFT. It was on the right, where it collided
+          with the big sun the next section hangs top-right — two large
+          line-art marks overlapping in both axes. This band's left is empty. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/bg-assets/tru-logo.svg"
         alt=""
         aria-hidden="true"
-        className="pointer-events-none select-none absolute -right-20 top-[8%] w-[280px] sm:w-[420px] lg:w-[580px] opacity-[0.05] brightness-0 invert"
+        className="pointer-events-none select-none absolute -left-24 top-[6%] w-[260px] sm:w-[380px] lg:w-[520px] opacity-[0.05] brightness-0 invert"
       />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

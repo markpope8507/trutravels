@@ -80,9 +80,11 @@ def statement_block():
          directly below the hero.
          ================================================================ -->
     <section class="wwd">
-      <!-- The logo smile. Wider than a square mark, so it sits lower and runs
-           larger, otherwise it reads as a stripe across the corner. -->
-      <img class="ess-wm" style="right:-5rem;top:8%;width:clamp(280px,34vw,580px);opacity:0.05" src="assets/bg-assets/tru-logo.svg" alt="" aria-hidden="true" />
+      <!-- The logo smile, on the LEFT. It was on the right, where it collided
+           with the big sun the next section (.home-exp) hangs top-right — two
+           large line-art marks overlapping in both axes. The left of this band
+           is empty, so it goes here. -->
+      <img class="ess-wm" style="left:-6rem;top:6%;width:clamp(260px,30vw,520px);opacity:0.05" src="assets/bg-assets/tru-logo.svg" alt="" aria-hidden="true" />
       <div class="container">
         <div class="wwd__grid">
           <div>
