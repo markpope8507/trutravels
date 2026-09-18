@@ -60,11 +60,14 @@ BODY = [
     "Travel with TruTravels and <strong>Leave Ordinary Behind.</strong>",
 ]
 
+# Four facts, each in a different brand colour so the row carries some life.
+# Reviews came out — that number already has its own section further down the
+# page, and repeating it here spent a slot without adding anything.
 FACTS = [
-    ("10&ndash;20", "", "Travellers per group, never more"),
-    ("18&ndash;35", "", "The age range our trips are built for"),
-    ("22,000", "+", "Reviews, rated 4.9 out of 5"),
-    ("15", "", "Countries across Asia, Europe and Latin America"),
+    ("10&ndash;20", "", "Travellers per group, never more", "pink"),
+    ("18&ndash;45", "", "The age range our trips are built for", "green"),
+    ("35", "+", "Countries across the globe", "blue"),
+    ("65", "+", "Trips to choose from", "pink"),
 ]
 
 CHEV = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">'
@@ -80,11 +83,11 @@ DRAFT_BAR = (
 
 def what_we_do():
     facts = "\n".join(
-        f'''            <div>
+        f'''            <div class="wwd__fact wwd__fact--{tone}">
               <p class="wwd__fact-n">{n}<span>{suffix}</span></p>
               <p class="wwd__fact-l">{label}</p>
             </div>'''
-        for n, suffix, label in FACTS
+        for n, suffix, label, tone in FACTS
     )
     body = "\n".join(f"            <p>{p}</p>" for p in BODY)
     return f'''
