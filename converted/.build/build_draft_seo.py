@@ -19,7 +19,7 @@ with the campaign, and no heading anywhere says what the company sells. The
 h2s that follow are all brand voice — "Find Your Extraordinary", "Pick Your
 Path", "The Tru Experience", "How We Do Things" — evocative, but a search
 engine or a language model reading that outline learns nothing about small
-group adventure tours for 18-30s.
+group adventure tours for 18-40s.
 
 WHAT THIS DRAFT CHANGES
 1. The three hero h1s become <p>, styled identically. They are promos; they
@@ -46,7 +46,7 @@ import re
 from shell import BASE
 
 # Copy supplied by Mark. The phrase that does the work for search and for a
-# language model is "small group adventures for 18 to 30-somethings" — it names
+# language model is "small group adventures for 18 to 40-somethings" — it names
 # the product and the audience in one line, which is what no heading did before.
 H1_TOP = "Unforgettable"
 H1_REST = "Small Group Adventures"
@@ -54,7 +54,7 @@ H1_REST = "Small Group Adventures"
 BODY = [
     "You deserve more from your travels. Start your journey solo, and leave with unforgettable "
     "memories, incredible new connections, a full camera roll and a brand new version of yourself.",
-    "<strong>TruTravels&rsquo; small group adventures for 18 to 30-somethings</strong> are built to remind "
+    "<strong>TruTravels&rsquo; small group adventures for 18 to 40-somethings</strong> are built to remind "
     "you what it is to feel inspired, connected and completely alive. Let your Local Legend show you "
     "the version of the place most travellers miss.",
     "Travel with TruTravels and <strong>Leave Ordinary Behind.</strong>",
@@ -164,11 +164,11 @@ def build():
     # 4. Title and description carry the category too — they are the first thing
     #    a crawler reads, and the old ones were brand-only.
     src = re.sub(r"<title>.*?</title>",
-                 "<title>TruTravels — Small Group Adventure Tours For 18–30 Somethings</title>",
+                 "<title>TruTravels — Small Group Adventure Tours For 18–40 Somethings</title>",
                  src, count=1)
     src = re.sub(r'<meta name="description" content="[^"]*"',
                  '<meta name="description" content="Unforgettable small group adventures for 18 to '
-                 '30-somethings across Asia, Europe and Latin America. Travel solo, leave with a crew '
+                 '40-somethings across Asia, Europe and Latin America. Travel solo, leave with a crew '
                  '— led by Local Legends who live there."',
                  src, count=1)
 
