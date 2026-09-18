@@ -63,11 +63,21 @@ BODY = [
 # Four facts, each in a different brand colour so the row carries some life.
 # Reviews came out — that number already has its own section further down the
 # page, and repeating it here spent a slot without adding anything.
+# Icons follow the .tru-way treatment already on the homepage: 24x24, stroked,
+# 1.5 weight, single pink accent. One accent colour, not four — the numbers
+# themselves stay white so the row reads as one band rather than a paint chart.
+ICONS = {
+    "group": '<path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-1a4 4 0 0 0-4-4h-1m-4 5H2v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1Zm-2-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6-1a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>',
+    "age": '<path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 14a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7Z"/>',
+    "globe": '<circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z"/>',
+    "trips": '<path stroke-linecap="round" stroke-linejoin="round" d="m9 4-6 2.5v13L9 17l6 3 6-2.5v-13L15 7 9 4Zm0 0v13m6-10v13"/>',
+}
+
 FACTS = [
-    ("10&ndash;20", "", "Travellers per group, never more", "pink"),
-    ("18&ndash;45", "", "The age range our trips are built for", "green"),
-    ("35", "+", "Countries across the globe", "blue"),
-    ("65", "+", "Trips to choose from", "pink"),
+    ("10&ndash;20", "", "Travellers per group, never more", "group"),
+    ("18&ndash;45", "", "The age range our trips are built for", "age"),
+    ("35", "+", "Countries across the globe", "globe"),
+    ("65", "+", "Trips to choose from", "trips"),
 ]
 
 CHEV = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">'
@@ -83,11 +93,12 @@ DRAFT_BAR = (
 
 def what_we_do():
     facts = "\n".join(
-        f'''            <div class="wwd__fact wwd__fact--{tone}">
-              <p class="wwd__fact-n">{n}<span>{suffix}</span></p>
-              <p class="wwd__fact-l">{label}</p>
-            </div>'''
-        for n, suffix, label, tone in FACTS
+        f'''          <div class="wwd__fact">
+            <span class="wwd__fact-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">{ICONS[icon]}</svg></span>
+            <p class="wwd__fact-n">{n}{suffix}</p>
+            <p class="wwd__fact-l">{label}</p>
+          </div>'''
+        for n, suffix, label, icon in FACTS
     )
     body = "\n".join(f"            <p>{p}</p>" for p in BODY)
     return f'''
@@ -110,7 +121,13 @@ def what_we_do():
           </div>
         </div>
 
-        <div class="wwd__facts">
+      </div>
+
+      <!-- Outside the .container so the navy band runs the full width of the
+           screen; the stats inside are still held to the container width so
+           they line up with the statement above. -->
+      <div class="wwd__band">
+        <div class="container wwd__facts">
 {facts}
         </div>
       </div>
