@@ -52,6 +52,10 @@ TRAILS = {
     "join-the-crew.html": about("Careers"),
 
     "deals.html": top("Deals"),
+    # The three hubs bake their own bar in (build_hubs.py) — listed so the
+    # missing-trail check doesn't flag them.
+    "destinations.html": top("Destinations"),
+    "essentials.html": top("Essentials"),
     "explore.html": top("Explore"),
     "all-trips.html": section(EXPLORE, "All Trips"),
     "stories.html": top("Stories"),
@@ -120,10 +124,21 @@ def hero_end(lines):
     return None
 
 
-def insert(path, crumbs):
+def insert(path, crumbs, force=False):
     html = open(path, encoding="utf-8").read()
-    if 'class="crumbs' in html:
-        return "already has one"
+    existing = re.search(r'[ \t]*<nav class="crumbs[^"]*" aria-label="Breadcrumb">[\s\S]*?</nav>', html)
+    if existing:
+        if not force:
+            return "already has one"
+        # Rebuild in place, keeping whichever variant it had. Needed whenever a
+        # trail changes — a section gaining a page, say — since every bar is
+        # baked into the HTML rather than rendered at request time.
+        nohero = "crumbs--nohero" in existing.group(0)
+        new = bar(crumbs, nohero=nohero)
+        if new.strip() == existing.group(0).strip():
+            return "unchanged"
+        open(path, "w", encoding="utf-8").write(html[: existing.start()] + new + html[existing.end():])
+        return "rebuilt"
 
     # The trip page carries the old bespoke .breadcrumb bar — replace it, don't
     # end up with two.
@@ -149,6 +164,8 @@ def insert(path, crumbs):
 
 
 if __name__ == "__main__":
+    # --force rebuilds bars that are already there, for when a trail changes.
+    force = "--force" in sys.argv
     pages = sorted(f for f in os.listdir(BASE) if f.endswith(".html"))
     _derive([(f, open(os.path.join(BASE, f), encoding="utf-8").read()) for f in pages])
     missing = [f for f in pages if f not in TRAILS and f not in SKIP]
@@ -158,7 +175,7 @@ if __name__ == "__main__":
             continue
         if f not in TRAILS:
             continue
-        print(f"  {f:<46} {insert(os.path.join(BASE, f), TRAILS[f])}")
+        print(f"  {f:<46} {insert(os.path.join(BASE, f), TRAILS[f], force)}")
         done += 1
     print(f"\n  {done} pages, {len(SKIP)} deliberately skipped")
     if missing:

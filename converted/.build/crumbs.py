@@ -25,10 +25,9 @@ so they follow their footer column.
 # (name, href) — href None means "no page, render as text"
 HOME = ("Home", "index.html")
 
-# Second level. The static build has no /destinations or /essentials page yet,
-# so those are text; fill the href in here once and every trail picks it up.
-DESTINATIONS = ("Destinations", None)
-ESSENTIALS = ("Essentials", None)
+# Second level.
+DESTINATIONS = ("Destinations", "destinations.html")
+ESSENTIALS = ("Essentials", "essentials.html")
 LIFE_MOMENTS = ("Life Moments", None)
 PARTNERS = ("Partners", None)
 
