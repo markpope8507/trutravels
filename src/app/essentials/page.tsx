@@ -19,56 +19,14 @@ export const metadata = {
  * the footer's Essentials column, which also lists Book With Confidence, Share
  * Your Photos and Package Travel Regulations. Those live elsewhere in the
  * hierarchy, and the nav is the rule the breadcrumbs follow too.
+ *
+ * Same photo cards as /about and /destinations. This page briefly used line
+ * icons instead, because the nav's stock images were wrong at card size — but
+ * three hubs in two shapes is worse than a bad photo, and the real fix was
+ * better photos: each card now carries its own page's hero.
  */
 
 const HERO = "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg";
-
-/**
- * Icons, not photographs. The nav data carries a stock image per item, which
- * works at menu-thumbnail size and falls apart at card size: Booking
- * Conditions was a photo of US tax forms and Visa & Passports a stock portrait
- * of a stranger. These four are documents and services rather than places, so
- * there is nothing to photograph — line icons at the site's own weight say
- * more and cannot be wrong about the subject.
- */
-const ICONS: Record<string, React.ReactNode> = {
-  // shield with a tick — cover
-  "Travel Insurance": (
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M12 3 4.5 6v6c0 4.4 3.1 8.3 7.5 9.4 4.4-1.1 7.5-5 7.5-9.4V6L12 3Zm-2.6 8.8 2 2 4.2-4.4"
-    />
-  ),
-  // a passport — photo page and lines
-  "Visa & Passports": (
-    <>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6 3.5h9.5a2.5 2.5 0 0 1 2.5 2.5v12a2.5 2.5 0 0 1-2.5 2.5H6a1 1 0 0 1-1-1v-15a1 1 0 0 1 1-1Z"
-      />
-      <circle cx="11.5" cy="10" r="2.5" />
-      <path strokeLinecap="round" d="M8.5 15.5h6" />
-    </>
-  ),
-  // a signed document
-  "Booking Conditions": (
-    <>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-5Z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M14 3v5h5" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="m8.5 14.5 2 2 4-4.5" />
-    </>
-  ),
-  // a question in a speech bubble
-  "Help & Support": (
-    <>
-      <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.9 9.9 0 0 1-4.3-1L3 20.5l1.7-4.4A8.3 8.3 0 0 1 3.6 11.5C3.6 6.8 7.4 3 12 3s9 3.8 9 8.5Z" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.9 9.3a2.2 2.2 0 0 1 4.2.8c0 1.5-2.1 1.9-2.1 3.1" />
-      <path strokeLinecap="round" d="M12 16.2h.01" />
-    </>
-  ),
-};
 
 export default function EssentialsPage() {
   return (
@@ -108,28 +66,30 @@ export default function EssentialsPage() {
           className="pointer-events-none select-none absolute -left-16 bottom-0 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert"
         />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Two up, not three: four cards in a three-column grid strand the
+              last one on its own row. Same card design as /about — only the
+              column count differs, because it's fitting the content. */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             {essentialsNav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="group flex flex-col rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-tru-pink/45 hover:bg-white/[0.05]"
+                className="group relative block aspect-[5/3] overflow-hidden rounded-[10px]"
               >
-                <span className="mb-[0.9rem] block h-7 w-7 sm:h-8 sm:w-8 text-tru-pink">
-                  <svg className="block h-full w-full" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}>
-                    {ICONS[item.name]}
-                  </svg>
-                </span>
-                <h2 className="font-heading text-lg sm:text-xl font-black uppercase tracking-tight text-white mb-2">
-                  {item.name}
-                </h2>
-                <p className="flex-1 text-sm leading-relaxed text-gray-400 mb-5">{item.description}</p>
-                <span className="inline-flex items-center gap-1.5 font-heading text-[11px] font-bold uppercase tracking-[0.1em] text-tru-pink">
-                  Read More
-                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </span>
+                <img
+                  src={item.image}
+                  alt=""
+                  aria-hidden
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/95 via-tru-navy/50 to-tru-navy/15" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <h2 className="font-heading text-xl sm:text-2xl font-black uppercase leading-tight text-white transition-colors group-hover:text-tru-pink">
+                    {item.name}
+                  </h2>
+                  <p className="mt-1.5 text-[12px] leading-snug text-gray-200">{item.description}</p>
+                </div>
               </Link>
             ))}
           </div>
