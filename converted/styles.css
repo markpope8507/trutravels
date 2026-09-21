@@ -1614,12 +1614,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .hero-action svg { width: 1rem; height: 1rem; }
 
 /* Breadcrumb */
-.breadcrumb { border-bottom: 1px solid var(--border-soft); background: rgba(255,255,255,0.02); }
-.breadcrumb__inner { padding-block: 0.9rem; display: flex; gap: 0.5rem; align-items: center; color: var(--text-mute); font-size: 0.8rem; flex-wrap: wrap; }
-.breadcrumb a { color: var(--text-mute); }
-.breadcrumb a:hover { color: var(--tru-pink); }
-.breadcrumb .sep { color: var(--text-faint); }
-.breadcrumb .current { color: #fff; }
 
 /* ============================================================
    EXACT MATCH — hero + nav (from prototype computed styles)
@@ -1726,17 +1720,42 @@ ul { margin: 0; padding: 0; list-style: none; }
 .pricing-card__rows .lbl { font-size: 10px; font-weight: 400; letter-spacing: 0.5px; color: lab(65.9269 -0.832707 -8.17473); }
 
 /* Breadcrumb — crumbs left, "All Thailand Trips" right (exact) */
-.breadcrumb { border-bottom: 1px solid rgba(255,255,255,0.05); background: transparent; }
-.breadcrumb__inner { padding-block: 12px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-.breadcrumb__crumbs { display: flex; align-items: center; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
-.breadcrumb__crumbs li { display: flex; align-items: center; }
-.breadcrumb__crumbs a, .breadcrumb__crumbs .current { font-size: 12px; font-family: 'Source Sans 3', sans-serif; color: lab(65.9269 -0.832707 -8.17473); }
-.breadcrumb__crumbs a:hover { color: #fff; }
-.breadcrumb__crumbs .current { color: #fff; }
-.breadcrumb__crumbs .sep { color: #4b5563; }
-.breadcrumb__back { font-size: 11px; font-weight: 600; letter-spacing: 0.55px; text-transform: uppercase; font-family: 'Montserrat', sans-serif; color: lab(65.9269 -0.832707 -8.17473); display: inline-flex; align-items: center; gap: 0.35rem; }
-.breadcrumb__back:hover { color: #fff; }
-.breadcrumb__back svg { width: 0.9rem; height: 0.9rem; }
+/* ==========================================================================
+   BREADCRUMBS
+
+   There were TWO .breadcrumb families in this file — one at ~1617 and one at
+   ~1729 — and the later one silently won every shared property. Only the trip
+   page used them, so nobody saw the dead half. One family now.
+
+   Matches the prototype's <Breadcrumbs> exactly: white crumb text, the
+   current page bold, and WRAPPING to a second line rather than scrolling
+   sideways, so the whole trail stays visible on a phone. Each crumb keeps
+   `white-space: nowrap` so a break lands between crumbs, never inside a name
+   like "Thailand Island Hopper".
+
+   The bar doubles as the rule that separates hero from body — a page that
+   already drew that line should not draw a second one.
+   ========================================================================== */
+.crumbs { border-bottom: 1px solid rgba(255,255,255,0.05); }
+.crumbs__inner { padding-block: 12px; }
+/* `noHero` equivalent: with no hero beneath it, the floating nav would sit on
+   top of the bar, so pages without one add this. */
+.crumbs--nohero { padding-top: 6rem; }
+@media (min-width: 640px) { .crumbs--nohero { padding-top: 7rem; } }
+.crumbs__list {
+  display: flex; flex-wrap: wrap; align-items: center;
+  column-gap: 0.5rem; row-gap: 0.25rem;
+  list-style: none; margin: 0; padding: 0; font-size: 12px;
+}
+.crumbs__list li { display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
+.crumbs__list a { color: #fff; transition: color 0.2s; }
+.crumbs__list a:hover { color: var(--tru-pink); }
+/* An un-built ancestor is un-linked too, but it is NOT the current page, so it
+   stays regular weight — only the last crumb is bold. */
+.crumbs__list .current { color: #fff; font-weight: 700; }
+.crumbs__list .plain { color: #fff; }
+.crumbs__sep { color: #6b7280; }
+
 
 /* Fixes: £53 white, deposit uppercase caps (exact) */
 .pricing-card__perday { font-size: 12px; color: lab(65.9269 -0.832707 -8.17473); }
