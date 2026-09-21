@@ -1,3 +1,4 @@
+import TripVideoPlayer from "@/components/trip-video-player";
 import PartnerForm, { type Field } from "@/components/partner-form";
 import { Benefits, Eyebrow, H2, PartnerCrossLinks, PartnerHero, Steps, Wm } from "@/components/partner-blocks";
 import { HOST_BENEFITS, HOST_STEPS, PARTNER_CONTACT, PARTNER_HERO } from "@/lib/partners";
@@ -68,6 +69,19 @@ export default function HostATripPage() {
             We handle the logistics stuff — planning, customer communication, local guides and safety — while you focus
             on building hype for your trip and bringing your community together.
           </p>
+          {/* The tour pages' "Watch The Trip" block — same component, so this
+              page and a trip page behave identically. */}
+          <div className="!mt-10">
+            <TripVideoPlayer
+              video="https://zfxhmfjtkhpuo90l.public.blob.vercel-storage.com/hero-15-second.mp4"
+              poster="https://cdn.trutravels.com/thailand/full-moon-party.jpg"
+              title="A Tru group on the road"
+            />
+            <p className="mt-3 text-[0.8125rem] leading-relaxed text-gray-500">
+              What a Tru group actually looks like on the ground — your people, a Local Legend, and none of the
+              logistics landing on you.
+            </p>
+          </div>
         </div>
       </section>
 

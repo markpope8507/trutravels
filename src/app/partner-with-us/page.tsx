@@ -1,4 +1,5 @@
 import Link from "next/link";
+import TripVideoPlayer from "@/components/trip-video-player";
 import PartnerForm, { type Field } from "@/components/partner-form";
 import {
   Eyebrow,
@@ -114,6 +115,19 @@ export default function PartnerWithUsPage() {
             our tailor-made Tru Affiliates programme, or have a totally unique partnership idea, we’d love to hear from
             you.
           </p>
+          {/* The tour pages' "Watch The Trip" block — same component, so this
+              page and a trip page behave identically. */}
+          <div className="!mt-10">
+            <TripVideoPlayer
+              video="https://videos.pexels.com/video-files/36218992/15359210_2560_1440_24fps.mp4"
+              poster="https://cdn.trutravels.com/morocco-images/morocco-uncovered-desert-group-picture.jpg"
+              title="What a Tru trip looks like"
+            />
+            <p className="mt-3 text-[0.8125rem] leading-relaxed text-gray-500">
+              Whichever of the three routes fits you, this is the thing your community would be getting — worth a
+              minute before you fill the form in.
+            </p>
+          </div>
         </div>
       </section>
 

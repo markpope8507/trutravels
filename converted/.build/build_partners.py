@@ -252,18 +252,50 @@ def video_modals():
 # Trip" (.trip-video) — big poster, pink play button, label bottom-left. On the
 # tour pages that block is a static poster with nothing behind it; here it is a
 # link into the shared lightbox, so it actually plays.
-PAGE_VIDEO_ID = "ptn-vid-programme"
-PAGE_VIDEO_SRC = "https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4"
-PAGE_VIDEO_POSTER = "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg"
+PAGE_VIDEOS = {
+    "affiliates": dict(
+        vid="ptn-vid-programme",
+        src="https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4",
+        poster="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
+        label="Watch The Trip",
+        title="Travelling With Tru",
+        sub="What your community would be booking",
+        cap="A minute on what travelling with Tru actually looks like &mdash; the thing your "
+            "community would be booking."),
+    "hub": dict(
+        vid="ptn-vid-hub",
+        src="https://videos.pexels.com/video-files/36218992/15359210_2560_1440_24fps.mp4",
+        poster="https://cdn.trutravels.com/morocco-images/morocco-uncovered-desert-group-picture.jpg",
+        label="Watch The Trip",
+        title="What A Tru Trip Looks Like",
+        sub="Whichever route you take, this is the product",
+        cap="Whichever of the three routes fits you, this is the thing your community would be "
+            "getting &mdash; worth a minute before you fill the form in."),
+    "host": dict(
+        vid="ptn-vid-host",
+        src="https://zfxhmfjtkhpuo90l.public.blob.vercel-storage.com/hero-15-second.mp4",
+        poster="https://cdn.trutravels.com/thailand/full-moon-party.jpg",
+        label="See A Trip In Motion",
+        title="A Tru Group On The Road",
+        sub="The bit you'd be bringing your community into",
+        cap="What a Tru group actually looks like on the ground &mdash; your people, a Local "
+            "Legend, and none of the logistics landing on you."),
+}
 
 
-def page_video():
-    return f'''        <a class="trip-video" href="#{PAGE_VIDEO_ID}">
-          <img src="{PAGE_VIDEO_POSTER}" alt="Watch the trip" />
+def page_video(key):
+    v = PAGE_VIDEOS[key]
+    return f'''        <a class="trip-video" href="#{v["vid"]}">
+          <img src="{v["poster"]}" alt="{v["label"]}" />
           <span class="trip-video__play"><span>{PLAY}</span></span>
-          <span class="trip-video__label">Watch The Trip</span>
+          <span class="trip-video__label">{v["label"]}</span>
         </a>
-        <p class="ptn-cap">A minute on what travelling with Tru actually looks like &mdash; the thing your community would be booking.</p>'''
+        <p class="ptn-cap">{v["cap"]}</p>'''
+
+
+def page_video_modal(key):
+    v = PAGE_VIDEOS[key]
+    return video_modal(v["vid"], v["src"], v["poster"], v["title"], v["sub"])
 
 
 # -------------------------------------------------------------- form parts --
@@ -565,6 +597,8 @@ def partner_with_us():
       <div class="ess-col ab-prose">
         <p class="ab-lead">Do you have a community that <em>loves to travel?</em></p>
         <p>Have you ever thought about travelling together? Whether you want to host your own group trip, be part of our tailor-made Tru Affiliates programme, or have a totally unique partnership idea, we&rsquo;d love to hear from you.</p>
+
+{page_video("hub")}
       </div>
     </section>
 
@@ -605,6 +639,8 @@ def partner_with_us():
       </div>
     </section>
 
+{page_video_modal("hub")}
+
 {cross(chr(10).join([
     xcard("host-a-trip.html", HERO_HOST, "Host A Trip",
           "Bring your community somewhere brilliant &mdash; we do the logistics"),
@@ -637,7 +673,7 @@ def affiliates():
         <p>Tru Affiliates is our own internal affiliates system, built around personalised trackable links. Your community books through you, we can see exactly which bookings came from where, and you get paid on every one of them.</p>
         <p>No third-party network taking a cut, no waiting to find out whether a booking counted. Your link, your numbers, your commission.</p>
 
-{page_video()}
+{page_video("affiliates")}
       </div>
     </section>
 
@@ -684,7 +720,7 @@ def affiliates():
         </div>
       </div>
 {video_modals()}
-{video_modal(PAGE_VIDEO_ID, PAGE_VIDEO_SRC, PAGE_VIDEO_POSTER, 'Travelling With Tru', 'What your community would be booking')}
+{page_video_modal("affiliates")}
     </section>
 
     <section class="ess-body ab-sec" id="apply">
@@ -739,6 +775,8 @@ def host_a_trip():
         <p class="ab-lead">Are you looking to transform your virtual community into <em>an in-person connection?</em></p>
         <p>Why not host a once-in-a-lifetime trip!</p>
         <p>We handle the logistics stuff &mdash; planning, customer communication, local guides and safety &mdash; while you focus on building hype for your trip and bringing your community together.</p>
+
+{page_video("host")}
       </div>
     </section>
 
@@ -787,6 +825,8 @@ def host_a_trip():
       f'<a href="mailto:{CONTACT}" style="color:var(--tru-pink)">Email us</a>.')}
       </div>
     </section>
+
+{page_video_modal("host")}
 
 {cross(chr(10).join([
     xcard("partner-with-us.html", HERO_HUB, "Partner With Us",
