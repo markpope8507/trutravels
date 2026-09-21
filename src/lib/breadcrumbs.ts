@@ -47,7 +47,7 @@ export const HOME: Crumb = { name: "Home", href: "/" };
  * the structure reads correctly and only the link is missing, so when the
  * page lands you add the href here once and every trail picks it up.
  */
-export const DESTINATIONS: Crumb = { name: "Destinations" }; // TODO: href "/destinations"
+export const DESTINATIONS: Crumb = { name: "Destinations", href: "/destinations" };
 export const ESSENTIALS: Crumb = { name: "Essentials" }; // TODO: href "/essentials"
 
 export const ABOUT: Crumb = { name: "About Us", href: "/about" };

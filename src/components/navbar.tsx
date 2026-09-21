@@ -8,65 +8,13 @@ import { useCart } from "@/lib/cart-context";
 import SearchOverlay, { type SearchAnchor } from "@/components/search-overlay";
 import { LIFE_MOMENTS } from "@/lib/life-moments";
 import { ABOUT_PAGES } from "@/lib/about-pages";
-import { regionPages } from "@/lib/data";
+import { countryHref, destinations, regionHref } from "@/lib/destinations";
 import { slugify } from "@/lib/utils";
 
-const REGION_PAGE_SLUGS = new Set(regionPages.map((r) => r.slug));
 
 // ============================================================
 // NAV DATA — Real TruTravels destinations & structure
 // ============================================================
-
-const destinations: { region: string; countries: { name: string; flag: string; tag: string; href?: string; nickname: string; image: string }[] }[] = [
-  {
-    region: "Asia",
-    countries: [
-      { name: "Thailand", flag: "🇹🇭", tag: "Top Seller", href: "/destinations/asia/thailand", nickname: "The Land of Smiles", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80" },
-      { name: "Indonesia", flag: "🇮🇩", tag: "Popular", href: "/destinations/asia/indonesia", nickname: "Emerald of the Equator", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&q=80" },
-      { name: "Philippines", flag: "🇵🇭", tag: "Popular", href: "/destinations/asia/philippines", nickname: "Pearl of the Orient Seas", image: "https://cdn.trutravels.com/images/philippines.jpg" },
-      { name: "Vietnam", flag: "🇻🇳", tag: "Top Seller", href: "/destinations/asia/vietnam", nickname: "Land of the Ascending Dragon", image: "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80" },
-      { name: "Cambodia", flag: "🇰🇭", tag: "", href: "/destinations/asia/cambodia", nickname: "Kingdom of Wonder", image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80" },
-      { name: "Sri Lanka", flag: "🇱🇰", tag: "", href: "/destinations/asia/sri-lanka", nickname: "Pearl of the Indian Ocean", image: "https://images.unsplash.com/photo-1586500036706-41963de24d8b?w=800&q=80" },
-      { name: "India", flag: "🇮🇳", tag: "", href: "/destinations/asia/india", nickname: "Land of a Thousand Cultures", image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=800&q=80" },
-      { name: "Japan", flag: "🇯🇵", tag: "", href: "/destinations/asia/japan", nickname: "Land of the Rising Sun", image: "https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=800&q=80" },
-      { name: "China", flag: "🇨🇳", tag: "New", href: "/destinations/asia/china", nickname: "The Middle Kingdom", image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80" },
-    ],
-  },
-  {
-    region: "Central & South America",
-    countries: [
-      { name: "Mexico", flag: "🇲🇽", tag: "Popular", href: "/destinations/central-and-south-america/mexico", nickname: "Land of Colour", image: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80" },
-      { name: "Costa Rica", flag: "🇨🇷", tag: "", href: "/destinations/central-and-south-america/costa-rica", nickname: "Pura Vida", image: "https://cdn.trutravels.com/images/costarica.jpg" },
-      { name: "Colombia", flag: "🇨🇴", tag: "", href: "/destinations/central-and-south-america/colombia", nickname: "Land of Magical Realism", image: "https://cdn.trutravels.com/images/colombia-view.jpg" },
-      { name: "Peru", flag: "🇵🇪", tag: "", href: "/destinations/central-and-south-america/peru", nickname: "Land of the Incas", image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?w=800&q=80" },
-      { name: "Brazil", flag: "🇧🇷", tag: "", href: "/destinations/central-and-south-america/brazil", nickname: "Land of Carnival", image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80" },
-      { name: "Belize", flag: "🇧🇿", tag: "", href: "/destinations/central-and-south-america/belize", nickname: "Jewel of the Caribbean", image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&q=80" },
-      { name: "Guatemala", flag: "🇬🇹", tag: "", href: "/destinations/central-and-south-america/guatemala", nickname: "Land of Eternal Spring", image: "https://cdn.trutravels.com/images/mexico-guatemala-belize3.png" },
-    ],
-  },
-  {
-    region: "Europe",
-    countries: [
-      { name: "Greece", flag: "🇬🇷", tag: "Popular", href: "/destinations/europe/greece", nickname: "Cradle of Civilization", image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" },
-      { name: "Italy", flag: "🇮🇹", tag: "", href: "/destinations/europe/italy", nickname: "Il Bel Paese", image: "https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=800&q=80" },
-      { name: "Albania", flag: "🇦🇱", tag: "New", href: "/destinations/europe/albania", nickname: "Land of the Eagles", image: "https://cdn.trutravels.com/albania/kayaking-1.jpeg" },
-      { name: "Europe By Rail", flag: "🚆", tag: "New", nickname: "Borderless Europe", image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=800&q=80" },
-    ],
-  },
-  {
-    region: "Africa & Middle East",
-    countries: [
-      { name: "Morocco", flag: "🇲🇦", tag: "Popular", href: "/destinations/africa-and-middle-east/morocco", nickname: "Gateway to Africa", image: "https://cdn.trutravels.com/morocco-images/morocco-uncovered-marrakech-jardin-group-picture.jpg" },
-      { name: "Jordan", flag: "🇯🇴", tag: "", href: "/destinations/africa-and-middle-east/jordan", nickname: "Cradle of Petra", image: "https://cdn.trutravels.com/jordan-tours/jordan-uncovered-desert-petra-walking-tour.jpg" },
-    ],
-  },
-  {
-    region: "Oceania",
-    countries: [
-      { name: "New Zealand", flag: "🇳🇿", tag: "", href: "/destinations/oceania/new-zealand", nickname: "Land of the Long White Cloud", image: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=800&q=80" },
-    ],
-  },
-];
 
 // Image-led promo tile shown on the right of each desktop mega menu
 type MenuPromo = {
@@ -338,12 +286,11 @@ export default function Navbar() {
               <div className="relative grid grid-cols-12 gap-6">
                 <div className="col-span-9 grid grid-cols-5 gap-6">
                   {destinations.map((region) => {
-                    const regionSlug = slugify(region.region);
-                    const regionHref = REGION_PAGE_SLUGS.has(regionSlug) ? `/destinations/${regionSlug}` : null;
+                    const href = regionHref(region.region);
                     return (
                     <div key={region.region}>
-                      {regionHref ? (
-                        <Link href={regionHref} onClick={closeAll} className="block text-xs font-black uppercase tracking-[0.18em] text-tru-pink hover:text-tru-pink-light font-heading mb-3">
+                      {href ? (
+                        <Link href={href} onClick={closeAll} className="block text-xs font-black uppercase tracking-[0.18em] text-tru-pink hover:text-tru-pink-light font-heading mb-3">
                           {region.region}
                         </Link>
                       ) : (
@@ -355,14 +302,14 @@ export default function Navbar() {
                         {region.countries.map((country) => (
                           <Link
                             key={country.name}
-                            href={country.href || "/explore"}
+                            href={countryHref(country.name) || "/explore"}
                             onClick={closeAll}
                             onMouseEnter={() =>
                               setHoveredItem({
                                 name: country.name,
                                 description: country.nickname,
                                 image: country.image,
-                                href: country.href || "/explore",
+                                href: countryHref(country.name) || "/explore",
                                 eyebrow: region.region,
                               })
                             }
@@ -372,7 +319,7 @@ export default function Navbar() {
                           </Link>
                         ))}
                       </div>
-                      <Link href={regionHref || "/explore"} onClick={closeAll} className="text-[10px] font-semibold uppercase tracking-wider text-tru-pink hover:text-tru-pink-light transition mt-3 block px-2">
+                      <Link href={href || "/explore"} onClick={closeAll} className="text-[10px] font-semibold uppercase tracking-wider text-tru-pink hover:text-tru-pink-light transition mt-3 block px-2">
                         View all &rarr;
                       </Link>
                     </div>
@@ -673,7 +620,7 @@ export default function Navbar() {
                         {region.countries.map((country) => (
                           <Link
                             key={country.name}
-                            href={country.href || "/explore"}
+                            href={countryHref(country.name) || "/explore"}
                             onClick={closeAll}
                             className="flex items-center gap-2 text-sm text-gray-500 hover:text-white py-1 transition"
                           >
