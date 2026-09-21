@@ -164,7 +164,7 @@ export function PartnerLogos() {
     <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
       {PARTNERS.map((p) => (
         <div key={p.slug} className="flex min-h-[6.5rem] items-center justify-center rounded-xl bg-white p-4">
-          <img src={`/partners/${p.slug}.png`} alt={p.name} loading="lazy" className="max-h-[4.25rem] w-auto" />
+          <img src={`/partners/${p.slug}.png`} alt={p.name} width={p.w} height={p.h} loading="lazy" className="max-h-[4.25rem] w-auto" />
         </div>
       ))}
     </div>
@@ -172,10 +172,19 @@ export function PartnerLogos() {
 }
 
 /**
- * Testimonials. The partners and their marks are real; no quotes have been
- * collected yet, so a card without one says so rather than carrying invented
- * words under a real organisation's logo. Set `quote` in lib/partners.ts and
- * the tag disappears.
+ * Testimonials, image-led — the same shape as a trip card or a story card: a
+ * photo, the partner's mark overlaid on it, and the words underneath. The
+ * first version was a logo tile on a flat panel, which left the page with no
+ * photography at all between the hero and the footer.
+ *
+ * The logo keeps its white tile even over a photo: two of the six marks are
+ * solid black and every one is a different colour, so a mark laid straight
+ * onto an image would be unreadable on at least one card. It sits on the scrim
+ * at the foot of the photo, where the image is darkest and quietest.
+ *
+ * The partners and their marks are real; no quotes have been collected yet, so
+ * a card without one says so rather than carrying invented words under a real
+ * organisation's logo. Set `quote` in lib/partners.ts and the tag disappears.
  */
 export function PartnerQuotes() {
   return (
@@ -183,28 +192,36 @@ export function PartnerQuotes() {
       {PARTNERS.map((p) => (
         <article
           key={p.slug}
-          className="snap-start shrink-0 w-[85%] sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)]
-                     flex flex-col rounded-[10px] border border-white/10 bg-white/[0.03] p-6"
+          className="group snap-start shrink-0 w-[85%] sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)]
+                     flex flex-col overflow-hidden rounded-[10px] border border-white/10 bg-white/[0.03]"
         >
-          <span className="self-start mb-5 flex items-center rounded-[10px] bg-white px-[0.9rem] py-[0.6rem]">
-            <img src={`/partners/${p.slug}.png`} alt={p.name} loading="lazy" className="h-10 max-w-[9rem] w-auto object-contain" />
-          </span>
-          {p.quote ? (
-            <p className="flex-1 mb-5 text-[0.9375rem] leading-[1.7] text-gray-300">{p.quote}</p>
-          ) : (
-            <>
+          <div className="relative aspect-[5/3] overflow-hidden">
+            <img
+              src={p.photo}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/85 via-tru-navy/15 to-transparent" />
+            <span className="absolute bottom-4 left-4 z-10 flex items-center rounded-[10px] bg-white px-3 py-2">
+              <img src={`/partners/${p.slug}.png`} alt={p.name} width={p.w} height={p.h} loading="lazy" className="h-8 max-w-[7.5rem] w-auto object-contain" />
+            </span>
+          </div>
+          <div className="flex flex-1 flex-col p-5 sm:p-6">
+            {!p.quote && (
               <span className="self-start mb-[0.9rem] inline-block rounded-full border border-dashed border-white/25 px-[0.7rem] py-[0.3rem] font-heading text-[9px] font-bold uppercase tracking-[0.2em] text-gray-500">
                 Awaiting copy
               </span>
-              <p className="flex-1 mb-5 text-[0.9375rem] leading-[1.7] text-gray-300">
-                We’ve asked {p.name} for a few words about working with us. Their quote goes here.
-              </p>
-            </>
-          )}
-          <p className="text-sm font-bold text-white">
-            {p.name}
-            <span className="mt-0.5 block text-[0.8125rem] font-normal text-gray-500">{p.what}</span>
-          </p>
+            )}
+            <p className="flex-1 mb-5 text-[0.9375rem] leading-[1.7] text-gray-300">
+              {p.quote ?? `We’ve asked ${p.name} for a few words about working with us. Their quote goes here.`}
+            </p>
+            <p className="text-sm font-bold text-white">
+              {p.name}
+              <span className="mt-0.5 block text-[0.8125rem] font-normal text-gray-500">{p.what}</span>
+            </p>
+          </div>
         </article>
       ))}
     </div>

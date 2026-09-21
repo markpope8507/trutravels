@@ -6161,38 +6161,74 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 .ptn-logo img { display: block; max-width: 100%; max-height: 4.25rem; width: auto; height: auto; }
 
-/* -- testimonial card -----------------------------------------------------
-   Same white tile for the logo so a partner's mark reads identically here
-   and in the wall above. */
+/* -- testimonial card ----------------------------------------------------
+   Image-led, the same shape as a trip card or a story card: a photo, the
+   partner's mark overlaid on it, and the words underneath. The first version
+   was a logo tile on a flat panel, which made a page with no photography
+   between the hero and the footer.
+
+   The logo keeps its white tile even here — two of the six marks are solid
+   black and every one is a different colour, so a mark laid straight onto a
+   photo would be unreadable on at least one card. The tile sits on the scrim
+   at the foot of the image where the photo is darkest and quietest.
+   ========================================================================= */
 .ptn-quote {
+  display: flex; flex-direction: column; height: 100%;
   border: 1px solid var(--border-soft); background: var(--surface-soft);
-  border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column;
-  height: 100%;
+  border-radius: var(--radius); overflow: hidden;
+}
+.ptn-quote__media { position: relative; aspect-ratio: 5 / 3; overflow: hidden; }
+.ptn-quote__img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s;
+}
+.ptn-quote:hover .ptn-quote__img { transform: scale(1.05); }
+/* the scrim the logo tile sits on — without it a pale photo and a white tile
+   merge into one shape */
+.ptn-quote__grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(9,33,62,0.85), rgba(9,33,62,0.15) 55%, transparent);
 }
 .ptn-quote__logo {
-  background: #fff; border-radius: 10px; padding: 0.6rem 0.9rem; margin-bottom: 1.25rem;
-  align-self: flex-start; display: flex; align-items: center;
+  position: absolute; left: 1rem; bottom: 1rem; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  background: #fff; border-radius: 10px; padding: 0.5rem 0.75rem;
 }
-.ptn-quote__logo img { display: block; height: 2.5rem; max-width: 9rem; width: auto; object-fit: contain; }
-.ptn-quote__body { color: #d1d5db; font-size: 0.9375rem; line-height: 1.7; margin: 0 0 1.25rem; flex: 1; }
+.ptn-quote__logo img { display: block; height: 2rem; max-width: 7.5rem; width: auto; object-fit: contain; }
+.ptn-quote__body { display: flex; flex-direction: column; flex: 1; padding: 1.25rem; }
+@media (min-width: 640px) { .ptn-quote__body { padding: 1.5rem; } }
+.ptn-quote__text { color: #d1d5db; font-size: 0.9375rem; line-height: 1.7; margin: 0 0 1.25rem; flex: 1; }
 .ptn-quote__who { color: #fff; font-weight: 700; font-size: 0.875rem; margin: 0; }
 .ptn-quote__who span { display: block; color: var(--text-mute); font-weight: 400; font-size: 0.8125rem; margin-top: 0.15rem; }
 /* Awaiting copy. The partners and their marks are real; the quotes have not
-   been collected yet, so the slot says so rather than carrying invented
-   words under a real organisation's logo. Delete .ptn-quote__todo and drop
-   the quote into .ptn-quote__body when the copy lands. */
+   been collected yet, so the slot says so rather than carrying invented words
+   under a real organisation's mark. Delete .ptn-quote__todo and drop the quote
+   into .ptn-quote__text when the copy lands. */
 .ptn-quote__todo {
+  align-self: flex-start;
   display: inline-block; border: 1px dashed rgba(255,255,255,0.25); border-radius: 999px;
   color: #6b7280; font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.2em; padding: 0.3rem 0.7rem; margin-bottom: 0.9rem;
-  /* the card is a flex column, so inline-block alone still stretches it edge to edge */
-  align-self: flex-start;
 }
 .carousel--quotes { gap: 1rem; scrollbar-width: none; align-items: stretch; }
 .carousel--quotes::-webkit-scrollbar { display: none; }
 .carousel--quotes > * { width: calc(100% / 1.1 - 0.1rem); }
 @media (min-width: 640px) { .carousel--quotes > * { width: calc((100% - 1rem) / 2); } }
 @media (min-width: 1024px) { .carousel--quotes > * { width: calc((100% - 2rem) / 3); } }
+
+/* Caption under an inline video or image. Written as `.ab-prose > p.ptn-cap`
+   as well as bare, because inside .ab-prose the `.ab-prose > p` base rule
+   (0,2,0) outranks a bare class (0,1,0) and the caption renders as body copy —
+   the same collision the comment above .ab-prose warns about. */
+.ptn-cap, .ab-prose > p.ptn-cap {
+  color: #6b7280; font-size: 0.8125rem; line-height: 1.5; margin: 0.75rem 0 0;
+}
+
+/* 16/9 for an inline video. `.art-section__media` is 4/3 because it was built
+   for article photographs in a narrow column; at that ratio a video fills most
+   of the viewport height before it has been asked for. Modifier, not an
+   override of the base, so the article pages are untouched. */
+.art-video--wide { aspect-ratio: 16 / 9; }
 
 /* -- the three routes, on partner-with-us.html ---------------------------- */
 .ptn-routes { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 2.5rem; }

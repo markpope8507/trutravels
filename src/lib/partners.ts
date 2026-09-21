@@ -29,15 +29,33 @@ export const PARTNER_CONTACT = "partnerships@trutravels.com";
  * Two of the six are solid black, which is why they sit on white tiles rather
  * than straight on the navy.
  */
-export type Partner = { slug: string; name: string; what: string; quote?: string };
+/**
+ * `photo` is the testimonial card's main image. IT IS PLACEHOLDER: a TruTravels
+ * trip shot chosen to suit that partner's region or focus, NOT a photograph of
+ * that partner's own departure. Swap each one for a real shot from their trip
+ * before this goes anywhere public — a card pairing someone's logo with a photo
+ * reads as a picture of their trip.
+ */
+export type Partner = {
+  slug: string;
+  name: string;
+  what: string;
+  photo: string;
+  /** Intrinsic pixel size of the logo PNG. A lazy <img> with width:auto has NO
+   *  intrinsic size until it loads, so without these the white tile lays out
+   *  at zero width and the card reflows when the logo arrives. */
+  w: number;
+  h: number;
+  quote?: string;
+};
 
 export const PARTNERS: Partner[] = [
-  { slug: "gals-who", name: "Gals Who Travel", what: "Community & events" },
-  { slug: "sea-gals", name: "Sea Gals", what: "Surf & ocean community" },
-  { slug: "amigas-y-mas", name: "Amigas Y Más Social", what: "Latina travel social" },
-  { slug: "someday-travel-club", name: "Someday Travel Club", what: "Solo travel club" },
-  { slug: "dwh", name: "DWH", what: "Creator collective" },
-  { slug: "we-got-you-boo", name: "We Got You Boo", what: "Womens travel community" },
+  { slug: "gals-who", name: "Gals Who Travel", what: "Community & events", photo: "https://cdn.trutravels.com/greece/greece-island-hopper-017.jpg", w: 480, h: 373 },
+  { slug: "sea-gals", name: "Sea Gals", what: "Surf & ocean community", photo: "https://cdn.trutravels.com/indonesia-images/surfing-lesson-bali.jpg", w: 480, h: 292 },
+  { slug: "amigas-y-mas", name: "Amigas Y Más Social", what: "Latina travel social", photo: "https://cdn.trutravels.com/images/cusco-markets.jpg", w: 480, h: 480 },
+  { slug: "someday-travel-club", name: "Someday Travel Club", what: "Solo travel club", photo: "https://cdn.trutravels.com/thailand/longtail-boat.jpg", w: 480, h: 171 },
+  { slug: "dwh", name: "DWH", what: "Creator collective", photo: "https://cdn.trutravels.com/south-korea/seoul-day-4.jpg", w: 378, h: 480 },
+  { slug: "we-got-you-boo", name: "We Got You Boo", what: "Womens travel community", photo: "https://cdn.trutravels.com/indonesia/pink-beach-komodo-islands.jpg", w: 480, h: 480 },
 ];
 
 /** Verified CDN images — the obvious-sounding paths mostly 302. */

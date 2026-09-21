@@ -1,3 +1,4 @@
+import InlineVideo from "@/components/inline-video";
 import PartnerForm, { type Field } from "@/components/partner-form";
 import {
   Benefits,
@@ -66,6 +67,12 @@ export default function AffiliatesPage() {
             No third-party network taking a cut, no waiting to find out whether a booking counted. Your link, your
             numbers, your commission.
           </p>
+          <InlineVideo
+            className="!mt-10"
+            src="https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4"
+            poster="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg"
+            caption="A minute on what travelling with Tru actually looks like — the thing your community would be booking."
+          />
         </div>
       </section>
 
@@ -86,6 +93,19 @@ export default function AffiliatesPage() {
           <Eyebrow>How It Works</Eyebrow>
           <H2 accent="To Commission">From Application</H2>
           <Steps items={AFFILIATE_STEPS} />
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="relative overflow-hidden pb-24 border-t border-white/5 pt-20">
+        <Wm src="eyes" className="-right-12 -bottom-8 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05]" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Eyebrow>Testimonials</Eyebrow>
+          <H2 accent="We’ve Worked With">Insight From Partners</H2>
+          <p className="text-gray-300 mt-5 text-base sm:text-lg leading-relaxed max-w-2xl">
+            Communities, clubs and creators who have already run this with us.
+          </p>
+          <PartnerQuotes />
         </div>
       </section>
 
@@ -117,19 +137,6 @@ export default function AffiliatesPage() {
               </>
             }
           />
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="relative overflow-hidden pb-24 border-t border-white/5 pt-20">
-        <Wm src="eyes" className="-right-12 -bottom-8 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05]" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Eyebrow>Testimonials</Eyebrow>
-          <H2 accent="We’ve Worked With">Insight From Partners</H2>
-          <p className="text-gray-300 mt-5 text-base sm:text-lg leading-relaxed max-w-2xl">
-            Communities, clubs and creators who have already run this with us.
-          </p>
-          <PartnerQuotes />
         </div>
       </section>
 

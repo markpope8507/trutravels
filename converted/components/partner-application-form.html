@@ -314,6 +314,15 @@
   </section>
 
   <script>
+  /* Click-to-play video. Controls appear only once play is pressed, so the
+     poster stays clean until someone asks for the video. */
+  document.querySelectorAll('[data-video]').forEach(function (v) {
+    var el = v.querySelector('video'), play = v.querySelector('[data-video-play]');
+    if (play) play.addEventListener('click', function () { el.controls = true; el.play(); v.classList.add('is-playing'); });
+  });
+  </script>
+
+  <script>
   /* Partner application form. Two jobs: reveal the "please specify" field when
      Other is ticked, and swap the form for the success panel on submit.
      Copy once per page — it wires every [data-ptn] on it. */

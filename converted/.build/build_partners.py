@@ -116,13 +116,25 @@ BENEFIT_ICONS = {
 # ---------------------------------------------------------------- partners --
 # Real partners, from the shared Drive folder. Name and logo only — no quotes
 # have been collected, so none are invented here.
+# The photo on each testimonial card is a TruTravels trip shot chosen to suit
+# that partner's region or focus. IT IS PLACEHOLDER: these are our own library
+# images, not photographs of that partner's own departure. Swap each one for a
+# real shot from their trip when the partners send them — and swap it BEFORE
+# this goes anywhere public, because a card pairing someone's logo with a photo
+# reads as a picture of their trip.
 PARTNERS = [
-    ("gals-who", "Gals Who Travel", "Community &amp; events"),
-    ("sea-gals", "Sea Gals", "Surf &amp; ocean community"),
-    ("amigas-y-mas", "Amigas Y M&aacute;s Social", "Latina travel social"),
-    ("someday-travel-club", "Someday Travel Club", "Solo travel club"),
-    ("dwh", "DWH", "Creator collective"),
-    ("we-got-you-boo", "We Got You Boo", "Womens travel community"),
+    ("gals-who", "Gals Who Travel", "Community &amp; events",
+     "https://cdn.trutravels.com/greece/greece-island-hopper-017.jpg"),
+    ("sea-gals", "Sea Gals", "Surf &amp; ocean community",
+     "https://cdn.trutravels.com/indonesia-images/surfing-lesson-bali.jpg"),
+    ("amigas-y-mas", "Amigas Y M&aacute;s Social", "Latina travel social",
+     "https://cdn.trutravels.com/images/cusco-markets.jpg"),
+    ("someday-travel-club", "Someday Travel Club", "Solo travel club",
+     "https://cdn.trutravels.com/thailand/longtail-boat.jpg"),
+    ("dwh", "DWH", "Creator collective",
+     "https://cdn.trutravels.com/south-korea/seoul-day-4.jpg"),
+    ("we-got-you-boo", "We Got You Boo", "Womens travel community",
+     "https://cdn.trutravels.com/indonesia/pink-beach-komodo-islands.jpg"),
 ]
 
 
@@ -142,21 +154,31 @@ def logo_wall(prefix=""):
     tiles = "\n".join(
         f'          <div class="ptn-logo"><img src="{prefix}assets/partners/{slug}.png" '
         f'alt="{name}" width="{png_size(slug)[0]}" height="{png_size(slug)[1]}" loading="lazy" /></div>'
-        for slug, name, _ in PARTNERS
+        for slug, name, _, _img in PARTNERS
     )
     return f'        <div class="ptn-logos">\n{tiles}\n        </div>'
 
 
 def quote_cards(prefix=""):
+    """Image-led, the same shape as a trip card: photo, logo overlaid on it,
+    words underneath. The logo keeps its white tile even over a photo — two of
+    the six marks are solid black, so a mark laid straight on would be
+    unreadable on at least one card."""
     out = []
-    for slug, name, what in PARTNERS:
+    for slug, name, what, photo in PARTNERS:
         w, h = png_size(slug)
         out.append(
             f'''            <article class="ptn-quote">
-              <span class="ptn-quote__logo"><img src="{prefix}assets/partners/{slug}.png" alt="{name}" width="{w}" height="{h}" loading="lazy" /></span>
-              <span class="ptn-quote__todo">Awaiting copy</span>
-              <p class="ptn-quote__body">We&rsquo;ve asked {name} for a few words about working with us. Their quote goes here.</p>
-              <p class="ptn-quote__who">{name}<span>{what}</span></p>
+              <div class="ptn-quote__media">
+                <img class="ptn-quote__img" src="{photo}" alt="" aria-hidden="true" loading="lazy" />
+                <div class="ptn-quote__grad"></div>
+                <span class="ptn-quote__logo"><img src="{prefix}assets/partners/{slug}.png" alt="{name}" width="{w}" height="{h}" loading="lazy" /></span>
+              </div>
+              <div class="ptn-quote__body">
+                <span class="ptn-quote__todo">Awaiting copy</span>
+                <p class="ptn-quote__text">We&rsquo;ve asked {name} for a few words about working with us. Their quote goes here.</p>
+                <p class="ptn-quote__who">{name}<span>{what}</span></p>
+              </div>
             </article>''')
     return "\n".join(out)
 
@@ -269,6 +291,15 @@ def form(fid, heading, sub, extra, submit, done_t, done_s, p=""):
 
 
 PTN_SCRIPT = """  <script>
+  /* Click-to-play video. Controls appear only once play is pressed, so the
+     poster stays clean until someone asks for the video. */
+  document.querySelectorAll('[data-video]').forEach(function (v) {
+    var el = v.querySelector('video'), play = v.querySelector('[data-video-play]');
+    if (play) play.addEventListener('click', function () { el.controls = true; el.play(); v.classList.add('is-playing'); });
+  });
+  </script>
+
+  <script>
   /* Partner application form. Two jobs: reveal the "please specify" field when
      Other is ticked, and swap the form for the success panel on submit.
      Copy once per page — it wires every [data-ptn] on it. */
@@ -531,6 +562,17 @@ def affiliates():
         <p class="ab-lead">Build brand awareness and brand loyalty <em>with the people who already trust you.</em></p>
         <p>Tru Affiliates is our own internal affiliates system, built around personalised trackable links. Your community books through you, we can see exactly which bookings came from where, and you get paid on every one of them.</p>
         <p>No third-party network taking a cut, no waiting to find out whether a booking counted. Your link, your numbers, your commission.</p>
+
+        <!-- Click-to-play video, the shared .art-video insert (see
+             components/blog-video.html). preload="metadata" so the page
+             doesn't pull the file down for everyone who scrolls past; the
+             poster is all they see until they ask for it. -->
+        <div class="art-section__media art-video art-video--wide" data-video style="margin-top:2.5rem">
+          <video class="art-video__el" preload="metadata" playsinline poster="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg"><source src="https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4" type="video/mp4" /></video>
+          <button class="art-video__play" type="button" data-video-play aria-label="Play video"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button>
+          <span class="art-video__badge">Video</span>
+        </div>
+        <p class="ptn-cap">A minute on what travelling with Tru actually looks like &mdash; the thing your community would be booking.</p>
       </div>
     </section>
 
@@ -563,6 +605,21 @@ def affiliates():
       </div>
     </section>
 
+    <section class="ess-body ab-sec">
+{watermarks([("eyes", "right:-3rem;bottom:-2rem;width:clamp(220px,28vw,460px);opacity:0.05")])}
+      <div class="container">
+        <p class="ess-eyebrow">Testimonials</p>
+        <h2 class="ess-h2">Insight From Partners <span>We&rsquo;ve Worked With</span></h2>
+        <p class="ess-p ab-lede" style="margin-bottom:2rem">Communities, clubs and creators who have already run this with us.</p>
+        <div class="rev-carousel" data-arrows>
+          <div class="carousel carousel--quotes">
+{quote_cards()}
+          </div>
+{ARROWS}
+        </div>
+      </div>
+    </section>
+
     <section class="ess-body ab-sec" id="apply">
 {watermarks([("lantern", "left:-3rem;top:0;width:clamp(220px,28vw,460px);opacity:0.05")])}
       <div class="ess-col">
@@ -577,21 +634,6 @@ def affiliates():
       "Application <span>Received</span>",
       "We&rsquo;ll come back to you within a few days with next steps. If you want to add anything in the meantime, "
       f'<a href="mailto:{CONTACT}" style="color:var(--tru-pink)">email the partnerships team</a>.')}
-      </div>
-    </section>
-
-    <section class="ess-body ab-sec">
-{watermarks([("eyes", "right:-3rem;bottom:-2rem;width:clamp(220px,28vw,460px);opacity:0.05")])}
-      <div class="container">
-        <p class="ess-eyebrow">Testimonials</p>
-        <h2 class="ess-h2">Insight From Partners <span>We&rsquo;ve Worked With</span></h2>
-        <p class="ess-p ab-lede" style="margin-bottom:2rem">Communities, clubs and creators who have already run this with us.</p>
-        <div class="rev-carousel" data-arrows>
-          <div class="carousel carousel--quotes">
-{quote_cards()}
-          </div>
-{ARROWS}
-        </div>
       </div>
     </section>
 
