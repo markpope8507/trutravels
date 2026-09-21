@@ -76,6 +76,7 @@ export default function HostATripPage() {
               video="https://zfxhmfjtkhpuo90l.public.blob.vercel-storage.com/hero-15-second.mp4"
               poster="https://cdn.trutravels.com/thailand/full-moon-party.jpg"
               title="A Tru group on the road"
+              label="See A Trip In Motion"
             />
             <p className="mt-3 text-[0.8125rem] leading-relaxed text-gray-500">
               What a Tru group actually looks like on the ground — your people, a Local Legend, and none of the

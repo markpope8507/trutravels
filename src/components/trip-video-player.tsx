@@ -6,10 +6,15 @@ export default function TripVideoPlayer({
   video,
   poster,
   title,
+  /** Defaults to "Watch The Trip" — every trip page says that. The Partners
+   *  pages reuse this block for a clip that isn't the trip being sold, so they
+   *  override it; without this the static and prototype builds disagreed. */
+  label = "Watch The Trip",
 }: {
   video: string;
   poster: string;
   title: string;
+  label?: string;
 }) {
   const [open, setOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -57,7 +62,7 @@ export default function TripVideoPlayer({
           </div>
           {/* Label */}
           <p className="absolute bottom-4 left-4 sm:bottom-5 sm:left-5 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] text-white font-heading">
-            Watch The Trip
+            {label}
           </p>
         </div>
       </button>
