@@ -138,6 +138,14 @@
       <p class="zoom-modal__text">Community &amp; events</p>
     </div>
   </div>
+          <a href="#">Terms &amp; Conditions</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Cookie Preferences</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 <script>/* carousel nav arrows (reviews + you might like) */
   (function () {
     document.querySelectorAll('[data-arrows]').forEach(function (wrap) {
@@ -154,13 +162,5 @@
         var max = track.scrollWidth - track.clientWidth;
         prev.disabled = track.scrollLeft <= 1;
         next.disabled = track.scrollLeft >= max - 1;
-      }
-      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
-      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
-      track.addEventListener('scroll', sync, { passive: true });
-      window.addEventListener('resize', sync);
-      sync();
-    });
-  })();
 </body>
 </html>

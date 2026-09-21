@@ -47,6 +47,16 @@ def _balanced(ls, i, tag):
     raise ValueError(f"unbalanced <{tag}> from line {i + 1}")
 
 
+def tail_scripts(fn):
+    """The run of <script> blocks between the footer and </body>."""
+    ls = lines(fn)
+    start = next(k for k, l in enumerate(ls)
+                 if l.strip().startswith("<script") and k > _balanced(ls, next(
+                     j for j, m in enumerate(ls) if "<footer" in m), "footer"))
+    end = next(k for k, l in enumerate(ls) if "</body>" in l)
+    return "\n".join(ls[start:end]).rstrip()
+
+
 def chunk(fn, marker, tag="section"):
     """The whole element whose opening line contains `marker`, found by reading
     the file rather than by line number — so inserting anything above it can't
@@ -69,13 +79,20 @@ def run(fn, marker, tag="div"):
     return "\n".join(ls[hits[0] : _balanced(ls, hits[-1], tag) + 1])
 
 
-# --- the slices. Update these together if explore.html is restructured. ------
-NAV_OVER = block("explore.html", 17, 114)
+# --- the slices ---------------------------------------------------------
+# Found by marker, not by line number. These WERE line ranges, and they went
+# stale twice: once when the homepage SEO block shifted index.html, and again
+# when the breadcrumb bar was added to explore.html — which pushed the footer
+# down 19 lines and left FOOTER starting halfway through the section above it.
+# Nothing failed loudly either time; the generated pages just carried the wrong
+# markup. Markers can't drift when something is inserted above them.
+NAV_OVER = chunk("explore.html", '<header class="site-nav', tag="header")
 NAV_SOLID = NAV_OVER.replace(
     '<header class="site-nav site-nav--over" data-nav>', '<header class="site-nav" data-nav>'
 )
-FOOTER = block("explore.html", 517, 593)
-SCRIPTS = block("explore.html", 594, 839)
+FOOTER = chunk("explore.html", "<footer", tag="footer")
+# Everything from the first <script> after the footer to the end of the body.
+SCRIPTS = tail_scripts("explore.html")
 
 HEAD = """  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />

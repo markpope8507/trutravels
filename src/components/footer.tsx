@@ -38,7 +38,9 @@ const FOOTER_COLUMNS = [
       { name: "Help & Support", href: "/support" },
       { name: "Travel Insurance", href: "/travel-insurance" },
       { name: "Visa & Passport", href: "/visas-and-passports" },
-      { name: "Package Travel Regulations", href: "/about" },
+      // A section inside Booking Conditions, not a page of its own. This
+      // pointed at /about, which is simply the wrong page.
+      { name: "Package Travel Regulations", href: "/terms-conditions" },
       { name: "Book With Confidence", href: "/the-tru-way" },
       { name: "Share Your Photos", href: "/share-your-photos" },
     ],
