@@ -4,6 +4,7 @@ BASE = "/Users/markpope/Claude Test/trutravels/converted"
 COMP = os.path.join(BASE, "components")
 def read(fn): return open(os.path.join(BASE, fn), encoding="utf-8").read()
 def block(fn, a, b): return "\n".join(read(fn).split("\n")[a-1:b])
+from shell import chunk, run  # marker-based slices; see shell.py
 
 def fixpaths(html):
     html = html.replace('src="assets/', 'src="../assets/').replace("src='assets/", "src='../assets/")
@@ -112,7 +113,7 @@ open(os.path.join(COMP, "reviews-section.html"), "w", encoding="utf-8").write(
 FILES.append(("reviews-section.html", "Trustpilot rating + review-card carousel"))
 
 # 7. destinations-carousel (You Might Also Like, index.html) — needs carousel JS
-dest = fixpaths(block("index.html", 1244, 1301))
+dest = fixpaths(chunk("index.html", '<section class="container dest-sec">'))
 open(os.path.join(COMP, "destinations-carousel.html"), "w", encoding="utf-8").write(
     page("Destinations carousel", "Swipeable carousel of destination tiles (image + name + tagline).",
          "DESTINATIONS CAROUSEL — .rev-carousel of .country-tile items. Copy the carousel arrow + drag scripts (below).",

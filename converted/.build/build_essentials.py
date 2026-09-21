@@ -29,7 +29,7 @@ Run:  python3 converted/.build/build_essentials.py
 
 import html, json, os, re
 
-from shell import BASE, read, lines, block, NAV_OVER, FOOTER, SCRIPTS
+from shell import BASE, read, lines, block, NAV_OVER, FOOTER, SCRIPTS, chunk
 
 SRC = os.path.join(BASE, "..", "src")
 
@@ -38,7 +38,7 @@ SRC = os.path.join(BASE, "..", "src")
 NAV = NAV_OVER
 
 # "You Might Also Like" — lifted whole so it matches the homepage exactly.
-DESTINATIONS = block("index.html", 1204, 1261)
+DESTINATIONS = chunk("index.html", '<section class="container dest-sec">')
 
 CHEV_R = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">'
           '<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>')

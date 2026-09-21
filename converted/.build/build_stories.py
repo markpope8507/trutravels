@@ -3,12 +3,13 @@ import json, io, os, re
 BASE = "/Users/markpope/Claude Test/trutravels/converted"
 def lines(fn): return open(os.path.join(BASE, fn), encoding="utf-8").read().split("\n")
 def block(fn, a, b): return "\n".join(lines(fn)[a-1:b])  # 1-indexed inclusive
+from shell import chunk, run  # marker-based slices; see shell.py
 
 NAV      = block("explore.html", 17, 114)
 FOOTER   = block("explore.html", 517, 593)
 SCRIPTS  = block("explore.html", 594, 839)   # arrows, exp-disclosure, drag, cart, navbar, footer
-VD_SEC   = block("index.html", 670, 808)     # video diaries section
-VD_MODAL = block("index.html", 809, 1027)    # video diaries fullscreen modals
+VD_SEC   = chunk("index.html", '<section class="vdia" id="video-diaries">')
+VD_MODAL = run("index.html", 'class="vid-modal" id="hvd-')
 
 STORIES = json.load(open("/private/tmp/claude-501/-Users-markpope-Claude-Test-trutravels/6a63a474-8847-434b-b8ad-6a498a49e3e8/scratchpad/stories.json"))
 STORIES_JSON = json.dumps(STORIES, ensure_ascii=False)

@@ -28,12 +28,12 @@ Run:  python3 converted/.build/build_about.py
 
 import json, os, re
 
-from shell import BASE, block, NAV_OVER, FOOTER, SCRIPTS, HEAD
+from shell import BASE, block, NAV_OVER, FOOTER, SCRIPTS, HEAD, chunk
 
 SRC = os.path.join(BASE, "..", "src")
 
 # The reviews block, lifted whole so it matches the homepage exactly.
-REVIEWS = block("index.html", 1058, 1156)
+REVIEWS = chunk("index.html", '<section class="reviews" id="reviews">')
 
 CHEV_R = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">'
           '<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>')
@@ -60,32 +60,48 @@ DIARIES = ts_array(
     re.sub(r"truClips\.(\w+)\.(video|poster)", r'"\1-\2"', ts("data.ts")), "videoDiaries"
 )
 
-# The static build has no video hosting wired up, so diary cards show a still
-# per diary rather than a playable clip. Keyed by id so each card gets its own
-# image — keyed by tag they all came out identical.
-U = "https://images.unsplash.com/photo-"
-DIARY_POSTER = {
-    "v1":  U + "1506929562872-bb421503ef21?w=600&q=80",   # Koh Tao
-    "v2":  U + "1537996194471-e657df975ab4?w=600&q=80",   # Bali
-    "v3":  U + "1528127269322-539801943592?w=600&q=80",   # Hoi An
-    "v4":  U + "1528181304800-259b08848526?w=600&q=80",   # Ha Long Bay
-    "v5":  U + "1566296314736-6eaac1ca0cb9?w=600&q=80",   # Ella
-    "v6":  U + "1508009603885-50cf7c579365?w=600&q=80",   # Bangkok
-    "v7":  U + "1571406761758-9a3eed5338ef?w=600&q=80",   # Chiang Mai
-    "v8":  U + "1552465011-b4e21bf6e79a?w=600&q=80",      # Orty, Bangkok
-    "v9":  U + "1529390079861-591de354faf5?w=600&q=80",   # Ella homestay
-    "v10": U + "1530789253388-582c481c54b0?w=600&q=80",   # Lisbon
-    "v11": U + "1518548419970-58e3b4079ab2?w=600&q=80",   # El Nido
-    "v12": U + "1604999565976-8913ad2ddb7c?w=600&q=80",   # Ubud
-    "v13": U + "1583417319070-4a69db38a482?w=600&q=80",   # Hanoi
-    "v14": U + "1580889240912-c39ecefd3d95?w=600&q=80",   # Sri Lanka tea country
-    "v15": U + "1539020140153-e479b8c22e70?w=600&q=80",   # Marrakech
+# The diary clips and their posters, mirroring `truClips` in src/lib/data.ts.
+#
+# These used to be Unsplash stills — a scenery photo per diary — because "the
+# static build has no video hosting wired up". That stopped being true: the
+# clips sit on public blob storage, which a static page can point at as easily
+# as the prototype does. The cards were showing a beach where the prototype
+# shows the traveller talking to camera, and the viewer opened on a photo, so
+# a "video diary" never played anything.
+#
+# ts_array() rewrites `truClips.X.video` / `.poster` into the tokens
+# "X-video" / "X-poster", so the diary data arrives keyed by clip name.
+BLOB = "https://zfxhmfjtkhpuo90l.public.blob.vercel-storage.com"
+CLIP_FILE = {
+    "traveller": "traveller-diary",
+    "creator": "creator-diary",
+    "influencer": "influencer-diary",
+    "bali": "bali-this-is-your-sign",
+    "jess": "jess-uuu-clip",
+    "orty": "orty-welcome-vertical",   # 9:16 crop; the 16:9 original is the trip hub's
 }
-FALLBACK_POSTER = U + "1469854523086-cc02fe5d8800?w=600&q=80"
+
+
+def _clip(token):
+    """'traveller-poster' -> 'traveller'. Raises on anything unmapped rather
+    than quietly falling back to a placeholder — a silent stand-in is how the
+    stills survived here unnoticed."""
+    name = token.rsplit("-", 1)[0]
+    if name not in CLIP_FILE:
+        raise KeyError(f"no clip file mapped for {token!r} — add it to CLIP_FILE")
+    return CLIP_FILE[name]
 
 
 def poster(d):
-    return DIARY_POSTER.get(d["id"], FALLBACK_POSTER)
+    """A real frame of the clip the card opens, extracted from the clip itself.
+    Cards use <img> rather than <video>: Chrome caps how many <video> elements
+    load at once and this page has nine, so thumbnails as <video> never got a
+    slot and stayed black."""
+    return f"{BLOB}/posters/{_clip(d['poster'])}.jpg"
+
+
+def video(d):
+    return f"{BLOB}/{_clip(d['video'])}.mp4"
 
 
 PAGE_FOR = {p["href"]: p for p in ABOUT_PAGES}
@@ -788,7 +804,7 @@ def diary_viewers(diaries, prefix, close="#top"):
       </div>
       <div class="vid-modal__stage">
         <div class="vid-modal__main">
-          <img src="{poster(d)}" alt="{d["author"]}" />
+          <video src="{video(d)}" poster="{poster(d)}" controls playsinline preload="none"></video>
           <div class="vid-modal__grad"></div>
           <div class="vid-modal__bars">{progress_bars(i, n)}</div>
           <div class="vid-modal__meta">
