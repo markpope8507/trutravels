@@ -235,9 +235,7 @@ export default function TheTruWayPage() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={e.icon} alt="" aria-hidden width={546} height={549} className="h-12 w-12 object-contain mb-3" />
-              <p className="font-heading text-[0.8125rem] font-black uppercase leading-tight" style={{ color: e.color }}>
-                {e.name}
-              </p>
+              <p className="font-heading text-[0.8125rem] font-black uppercase leading-tight text-white">{e.name}</p>
             </li>
           ))}
         </ul>
@@ -269,8 +267,22 @@ export default function TheTruWayPage() {
                   className="h-16 w-16 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]"
                 />
               }
-              eyebrow={<>{e.name}<br /><span className="text-white">Experiences</span></>}
-              eyebrowClassName="text-2xl sm:text-3xl font-black uppercase tracking-wide font-heading mb-2 leading-tight"
+              /* Name white, "Experiences" small and pink — the pairing used on
+                 the homepage (experience-types-v2) and the tour pages
+                 (country-page). This page had it inverted: the name in the
+                 type's colour and "Experiences" large and white. */
+              eyebrowAccent={false}
+              eyebrow={
+                <>
+                  <span className="block text-2xl sm:text-3xl font-black uppercase tracking-wide leading-none text-white">
+                    {e.name}
+                  </span>
+                  <span className="mt-1.5 block text-[0.68rem] font-bold uppercase tracking-[0.25em] text-tru-pink">
+                    Experiences
+                  </span>
+                </>
+              }
+              eyebrowClassName="font-heading mb-2"
               title={e.tagline.replace(/\.$/, "")}
               titleClassName="text-white text-sm sm:text-base font-bold font-heading uppercase tracking-wide"
               body={e.description}

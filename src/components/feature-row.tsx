@@ -16,6 +16,7 @@ export default function FeatureRow({
   index,
   tinted = false,
   iconBare = false,
+  eyebrowAccent = true,
   eyebrowClassName = "text-xs font-bold uppercase tracking-[0.3em] mb-3 font-heading",
   titleClassName = "text-3xl sm:text-4xl font-black text-white uppercase font-heading leading-[1.05]",
 }: {
@@ -33,6 +34,9 @@ export default function FeatureRow({
    *  icons, which are white line art already inside their own ring — a tinted
    *  circle around one of those is a circle drawn on a circle. */
   iconBare?: boolean;
+  /** Tint the eyebrow with `accent`. Off when the eyebrow sets its own colours
+   *  — an inline style beats a class, so the accent would win over them. */
+  eyebrowAccent?: boolean;
   eyebrowClassName?: string;
   titleClassName?: string;
 }) {
@@ -61,7 +65,7 @@ export default function FeatureRow({
             {icon}
           </div>
         )}
-        <p className={eyebrowClassName} style={{ color: accent }}>
+        <p className={eyebrowClassName} style={eyebrowAccent ? { color: accent } : undefined}>
           {eyebrow}
         </p>
         <h3 className={titleClassName}>
