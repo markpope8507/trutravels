@@ -65,11 +65,10 @@ export default function EssentialsPage() {
           aria-hidden="true"
           className="pointer-events-none select-none absolute -left-16 bottom-0 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert"
         />
-        <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          {/* Two up, not three: four cards in a three-column grid strand the
-              last one on its own row. Same card design as /about — only the
-              column count differs, because it's fitting the content. */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Identical grid to /about — same container width, same column
+              count — so the cards come out the same size across the hubs. */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {essentialsNav.map((item) => (
               <Link
                 key={item.href}
