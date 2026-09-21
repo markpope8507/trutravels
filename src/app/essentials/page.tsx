@@ -108,12 +108,6 @@ export default function EssentialsPage() {
           className="pointer-events-none select-none absolute -left-16 bottom-0 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert"
         />
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-12">
-            Cover, paperwork, the terms you&rsquo;re agreeing to, and a person to ask when something isn&rsquo;t
-            obvious. None of it is the exciting part of a trip — all of it is the part you&rsquo;ll be glad was
-            sorted.
-          </p>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {essentialsNav.map((item) => (
               <Link

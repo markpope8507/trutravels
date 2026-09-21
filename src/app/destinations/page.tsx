@@ -72,11 +72,6 @@ export default function DestinationsPage() {
           className="pointer-events-none select-none absolute -left-16 top-1/3 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert"
         />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl mb-14">
-            Pick a continent, then a country. Every trip is a small group led by someone who actually lives there — so
-            what you see is the version of the place most travellers walk straight past.
-          </p>
-
           <div className="space-y-16">
             {destinations.map((region) => {
               const href = regionHref(region.region);
