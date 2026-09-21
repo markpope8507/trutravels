@@ -1,4 +1,5 @@
-import InlineVideo from "@/components/inline-video";
+import TripVideoPlayer from "@/components/trip-video-player";
+import PartnerQuotes from "@/components/partner-quotes";
 import PartnerForm, { type Field } from "@/components/partner-form";
 import {
   Benefits,
@@ -6,7 +7,6 @@ import {
   H2,
   PartnerCrossLinks,
   PartnerHero,
-  PartnerQuotes,
   Steps,
   Wm,
 } from "@/components/partner-blocks";
@@ -67,12 +67,19 @@ export default function AffiliatesPage() {
             No third-party network taking a cut, no waiting to find out whether a booking counted. Your link, your
             numbers, your commission.
           </p>
-          <InlineVideo
-            className="!mt-10"
-            src="https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4"
-            poster="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg"
-            caption="A minute on what travelling with Tru actually looks like — the thing your community would be booking."
-          />
+          {/* The tour pages' "Watch The Trip" block — big poster, pink play
+              button, fullscreen modal. Same component, so this page and a trip
+              page behave identically. */}
+          <div className="!mt-10">
+            <TripVideoPlayer
+              video="https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4"
+              poster="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg"
+              title="Travelling with Tru"
+            />
+            <p className="mt-3 text-[0.8125rem] leading-relaxed text-gray-500">
+              A minute on what travelling with Tru actually looks like — the thing your community would be booking.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -101,7 +108,7 @@ export default function AffiliatesPage() {
         <Wm src="eyes" className="-right-12 -bottom-8 w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05]" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Eyebrow>Testimonials</Eyebrow>
-          <H2 accent="We’ve Worked With">Insight From Partners</H2>
+          <H2 accent="We’ve Worked With" stack>Insight From Partners</H2>
           <p className="text-gray-300 mt-5 text-base sm:text-lg leading-relaxed max-w-2xl">
             Communities, clubs and creators who have already run this with us.
           </p>

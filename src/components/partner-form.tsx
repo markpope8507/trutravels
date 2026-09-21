@@ -196,7 +196,7 @@ export default function PartnerForm({
   ];
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+    <div className="rounded-2xl border border-white/10 bg-tru-navy p-6 sm:p-8">
       {done ? (
         <div className="text-center py-8">
           <span className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-tru-pink/15 border border-tru-pink/30">

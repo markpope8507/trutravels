@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { PARTNERS, type Benefit } from "@/lib/partners";
 
+/* PartnerQuotes moved to its own file — it needs client state for the video
+   lightbox, and this one stays a server component. */
+
 /**
  * The furniture the three Partners pages share: background watermarks, section
  * headings, benefit cards, the numbered steps rail, the partner logo wall and
@@ -28,10 +31,14 @@ export function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function H2({ children, accent }: { children: React.ReactNode; accent: string }) {
+/** `stack` breaks the accented half onto its own line once there's room for it.
+ *  Left to wrap, "Insight From Partners We've Worked With" splits mid-phrase as
+ *  "...WE'VE WORKED / WITH". Desktop only — forcing the break on a narrow
+ *  screen just makes more short lines. */
+export function H2({ children, accent, stack }: { children: React.ReactNode; accent: string; stack?: boolean }) {
   return (
     <h2 className="text-4xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
-      {children} <span className="text-tru-pink">{accent}</span>
+      {children} <span className={`text-tru-pink${stack ? " lg:block" : ""}`}>{accent}</span>
     </h2>
   );
 }
@@ -166,63 +173,6 @@ export function PartnerLogos() {
         <div key={p.slug} className="flex min-h-[6.5rem] items-center justify-center rounded-xl bg-white p-4">
           <img src={`/partners/${p.slug}.png`} alt={p.name} width={p.w} height={p.h} loading="lazy" className="max-h-[4.25rem] w-auto" />
         </div>
-      ))}
-    </div>
-  );
-}
-
-/**
- * Testimonials, image-led — the same shape as a trip card or a story card: a
- * photo, the partner's mark overlaid on it, and the words underneath. The
- * first version was a logo tile on a flat panel, which left the page with no
- * photography at all between the hero and the footer.
- *
- * The logo keeps its white tile even over a photo: two of the six marks are
- * solid black and every one is a different colour, so a mark laid straight
- * onto an image would be unreadable on at least one card. It sits on the scrim
- * at the foot of the photo, where the image is darkest and quietest.
- *
- * The partners and their marks are real; no quotes have been collected yet, so
- * a card without one says so rather than carrying invented words under a real
- * organisation's logo. Set `quote` in lib/partners.ts and the tag disappears.
- */
-export function PartnerQuotes() {
-  return (
-    <div className="mt-8 flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      {PARTNERS.map((p) => (
-        <article
-          key={p.slug}
-          className="group snap-start shrink-0 w-[85%] sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)]
-                     flex flex-col overflow-hidden rounded-[10px] border border-white/10 bg-white/[0.03]"
-        >
-          <div className="relative aspect-[5/3] overflow-hidden">
-            <img
-              src={p.photo}
-              alt=""
-              aria-hidden
-              loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-tru-navy/85 via-tru-navy/15 to-transparent" />
-            <span className="absolute bottom-4 left-4 z-10 flex items-center rounded-[10px] bg-white px-3 py-2">
-              <img src={`/partners/${p.slug}.png`} alt={p.name} width={p.w} height={p.h} loading="lazy" className="h-8 max-w-[7.5rem] w-auto object-contain" />
-            </span>
-          </div>
-          <div className="flex flex-1 flex-col p-5 sm:p-6">
-            {!p.quote && (
-              <span className="self-start mb-[0.9rem] inline-block rounded-full border border-dashed border-white/25 px-[0.7rem] py-[0.3rem] font-heading text-[9px] font-bold uppercase tracking-[0.2em] text-gray-500">
-                Awaiting copy
-              </span>
-            )}
-            <p className="flex-1 mb-5 text-[0.9375rem] leading-[1.7] text-gray-300">
-              {p.quote ?? `We’ve asked ${p.name} for a few words about working with us. Their quote goes here.`}
-            </p>
-            <p className="text-sm font-bold text-white">
-              {p.name}
-              <span className="mt-0.5 block text-[0.8125rem] font-normal text-gray-500">{p.what}</span>
-            </p>
-          </div>
-        </article>
       ))}
     </div>
   );

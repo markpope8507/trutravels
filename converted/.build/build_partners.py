@@ -118,23 +118,49 @@ BENEFIT_ICONS = {
 # have been collected, so none are invented here.
 # The photo on each testimonial card is a TruTravels trip shot chosen to suit
 # that partner's region or focus. IT IS PLACEHOLDER: these are our own library
-# images, not photographs of that partner's own departure. Swap each one for a
-# real shot from their trip when the partners send them — and swap it BEFORE
-# this goes anywhere public, because a card pairing someone's logo with a photo
-# reads as a picture of their trip.
+# images, not photographs of that partner's own departure.
+#
+# !!! THE QUOTES ARE INVENTED. !!!
+# They are sample copy written to fill the layout, attributed to real, named
+# organisations. Nobody at these companies said any of it. They exist so the
+# cards can be reviewed at full size; they must be replaced with what the
+# partners actually send before this page is shown to anyone outside the
+# company. `placeholder` is True on every one — flip it to False as each real
+# quote lands, and grep for it before launch.
 PARTNERS = [
     ("gals-who", "Gals Who Travel", "Community &amp; events",
-     "https://cdn.trutravels.com/greece/greece-island-hopper-017.jpg"),
+     "https://cdn.trutravels.com/greece/greece-island-hopper-017.jpg",
+     "We&rsquo;d been talking about taking the community somewhere for two years and never got past a "
+     "spreadsheet. Tru had it costed and dated in about six weeks. We brought the people; they did "
+     "absolutely everything else.",
+     # landscape; the 506x960 clip that was here first letterboxed inside the
+     # lightbox, which is sized for a wide frame
+     "https://videos.pexels.com/video-files/36218992/15359210_2560_1440_24fps.mp4"),
     ("sea-gals", "Sea Gals", "Surf &amp; ocean community",
-     "https://cdn.trutravels.com/indonesia-images/surfing-lesson-bali.jpg"),
+     "https://cdn.trutravels.com/indonesia-images/surfing-lesson-bali.jpg",
+     "Our lot care about the water and not much else. Tru actually built the trip around that instead "
+     "of bolting a surf morning onto a standard itinerary, which is what everyone else offered us.",
+     None),
     ("amigas-y-mas", "Amigas Y M&aacute;s Social", "Latina travel social",
-     "https://cdn.trutravels.com/images/cusco-markets.jpg"),
+     "https://cdn.trutravels.com/images/cusco-markets.jpg",
+     "Half our community had never travelled outside their own country. Knowing there was someone local "
+     "with them the whole way is the thing that turned a maybe into a booking.",
+     None),
     ("someday-travel-club", "Someday Travel Club", "Solo travel club",
-     "https://cdn.trutravels.com/thailand/longtail-boat.jpg"),
+     "https://cdn.trutravels.com/thailand/longtail-boat.jpg",
+     "Everyone booked on their own and came home with a group chat that is somehow still going a year "
+     "later. That is the entire product as far as our members are concerned.",
+     None),
     ("dwh", "DWH", "Creator collective",
-     "https://cdn.trutravels.com/south-korea/seoul-day-4.jpg"),
+     "https://cdn.trutravels.com/south-korea/seoul-day-4.jpg",
+     "The links just work. We post, people book, and the number we see at the end of the month is the "
+     "number we expected &mdash; which is not something we can say about every programme we&rsquo;ve run.",
+     None),
     ("we-got-you-boo", "We Got You Boo", "Womens travel community",
-     "https://cdn.trutravels.com/indonesia/pink-beach-komodo-islands.jpg"),
+     "https://cdn.trutravels.com/indonesia/pink-beach-komodo-islands.jpg",
+     "Nobody asked us to change how we talk to our audience. They sent the assets, answered questions "
+     "fast, and otherwise got out of the way. That is rarer than it should be.",
+     None),
 ]
 
 
@@ -154,33 +180,90 @@ def logo_wall(prefix=""):
     tiles = "\n".join(
         f'          <div class="ptn-logo"><img src="{prefix}assets/partners/{slug}.png" '
         f'alt="{name}" width="{png_size(slug)[0]}" height="{png_size(slug)[1]}" loading="lazy" /></div>'
-        for slug, name, _, _img in PARTNERS
+        for slug, name, _, _img, _q, _v in PARTNERS
     )
     return f'        <div class="ptn-logos">\n{tiles}\n        </div>'
+
+
+PLAY = ('<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>')
+CLOSE = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">'
+         '<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>')
 
 
 def quote_cards(prefix=""):
     """Image-led, the same shape as a trip card: photo, logo overlaid on it,
     words underneath. The logo keeps its white tile even over a photo — two of
     the six marks are solid black, so a mark laid straight on would be
-    unreadable on at least one card."""
+    unreadable on at least one card.
+
+    A partner with a video gets a play badge and its media becomes a link to
+    the lightbox below, the same :target pattern the accommodation cards use —
+    no JS, and the back button closes it."""
     out = []
-    for slug, name, what, photo in PARTNERS:
+    for slug, name, what, photo, quote, video in PARTNERS:
         w, h = png_size(slug)
+        media_inner = (
+            f'                <img class="ptn-quote__img" src="{photo}" alt="" aria-hidden="true" loading="lazy" />\n'
+            f'                <div class="ptn-quote__grad"></div>\n'
+            + (f'                <span class="ptn-quote__play"><span>{PLAY}</span></span>\n' if video else "")
+            + f'                <span class="ptn-quote__logo"><img src="{prefix}assets/partners/{slug}.png" '
+              f'alt="{name}" width="{w}" height="{h}" loading="lazy" /></span>'
+        )
+        if video:
+            media = (f'              <a class="ptn-quote__media" href="#ptn-vid-{slug}" '
+                     f'aria-label="Play the {name} trip video">\n{media_inner}\n              </a>')
+        else:
+            media = f'              <div class="ptn-quote__media">\n{media_inner}\n              </div>'
         out.append(
             f'''            <article class="ptn-quote">
-              <div class="ptn-quote__media">
-                <img class="ptn-quote__img" src="{photo}" alt="" aria-hidden="true" loading="lazy" />
-                <div class="ptn-quote__grad"></div>
-                <span class="ptn-quote__logo"><img src="{prefix}assets/partners/{slug}.png" alt="{name}" width="{w}" height="{h}" loading="lazy" /></span>
-              </div>
+{media}
               <div class="ptn-quote__body">
-                <span class="ptn-quote__todo">Awaiting copy</span>
-                <p class="ptn-quote__text">We&rsquo;ve asked {name} for a few words about working with us. Their quote goes here.</p>
+                <p class="ptn-quote__text">&ldquo;{quote}&rdquo;</p>
                 <p class="ptn-quote__who">{name}<span>{what}</span></p>
               </div>
             </article>''')
     return "\n".join(out)
+
+
+def video_modal(vid, src, poster, title, sub):
+    """A :target lightbox holding one video — the same .zoom-modal the
+    accommodation cards use, so there is one lightbox in this codebase and not
+    two. Must sit OUTSIDE any carousel: a fixed-position panel nested inside a
+    horizontally scrolling track inherits the track's clipping."""
+    return f'''  <div class="modal zoom-modal" id="{vid}">
+    <a class="modal__backdrop" href="#_" aria-label="Close"></a>
+    <a class="zoom-modal__close" href="#_" aria-label="Close">{CLOSE}</a>
+    <div class="zoom-modal__inner">
+      <video controls playsinline preload="none" poster="{poster}"><source src="{src}" type="video/mp4" /></video>
+      <h3 class="zoom-modal__title">{title}</h3>
+      <p class="zoom-modal__text">{sub}</p>
+    </div>
+  </div>'''
+
+
+def video_modals():
+    """The lightboxes for every card that carries a video."""
+    return "\n".join(
+        video_modal(f"ptn-vid-{slug}", video, photo, name, what)
+        for slug, name, what, photo, _q, video in PARTNERS if video)
+
+
+# The page video, in the same treatment the tour pages use for "Watch The
+# Trip" (.trip-video) — big poster, pink play button, label bottom-left. On the
+# tour pages that block is a static poster with nothing behind it; here it is a
+# link into the shared lightbox, so it actually plays.
+PAGE_VIDEO_ID = "ptn-vid-programme"
+PAGE_VIDEO_SRC = "https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4"
+PAGE_VIDEO_POSTER = "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg"
+
+
+def page_video():
+    return f'''        <a class="trip-video" href="#{PAGE_VIDEO_ID}">
+          <img src="{PAGE_VIDEO_POSTER}" alt="Watch the trip" />
+          <span class="trip-video__play"><span>{PLAY}</span></span>
+          <span class="trip-video__label">Watch The Trip</span>
+        </a>
+        <p class="ptn-cap">A minute on what travelling with Tru actually looks like &mdash; the thing your community would be booking.</p>'''
 
 
 # -------------------------------------------------------------- form parts --
@@ -291,15 +374,6 @@ def form(fid, heading, sub, extra, submit, done_t, done_s, p=""):
 
 
 PTN_SCRIPT = """  <script>
-  /* Click-to-play video. Controls appear only once play is pressed, so the
-     poster stays clean until someone asks for the video. */
-  document.querySelectorAll('[data-video]').forEach(function (v) {
-    var el = v.querySelector('video'), play = v.querySelector('[data-video-play]');
-    if (play) play.addEventListener('click', function () { el.controls = true; el.play(); v.classList.add('is-playing'); });
-  });
-  </script>
-
-  <script>
   /* Partner application form. Two jobs: reveal the "please specify" field when
      Other is ticked, and swap the form for the success panel on submit.
      Copy once per page — it wires every [data-ptn] on it. */
@@ -563,16 +637,7 @@ def affiliates():
         <p>Tru Affiliates is our own internal affiliates system, built around personalised trackable links. Your community books through you, we can see exactly which bookings came from where, and you get paid on every one of them.</p>
         <p>No third-party network taking a cut, no waiting to find out whether a booking counted. Your link, your numbers, your commission.</p>
 
-        <!-- Click-to-play video, the shared .art-video insert (see
-             components/blog-video.html). preload="metadata" so the page
-             doesn't pull the file down for everyone who scrolls past; the
-             poster is all they see until they ask for it. -->
-        <div class="art-section__media art-video art-video--wide" data-video style="margin-top:2.5rem">
-          <video class="art-video__el" preload="metadata" playsinline poster="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg"><source src="https://videos.pexels.com/video-files/1093661/1093661-uhd_2560_1440_30fps.mp4" type="video/mp4" /></video>
-          <button class="art-video__play" type="button" data-video-play aria-label="Play video"><span><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></button>
-          <span class="art-video__badge">Video</span>
-        </div>
-        <p class="ptn-cap">A minute on what travelling with Tru actually looks like &mdash; the thing your community would be booking.</p>
+{page_video()}
       </div>
     </section>
 
@@ -609,7 +674,7 @@ def affiliates():
 {watermarks([("eyes", "right:-3rem;bottom:-2rem;width:clamp(220px,28vw,460px);opacity:0.05")])}
       <div class="container">
         <p class="ess-eyebrow">Testimonials</p>
-        <h2 class="ess-h2">Insight From Partners <span>We&rsquo;ve Worked With</span></h2>
+        <h2 class="ess-h2 ptn-h2--stack">Insight From Partners <span>We&rsquo;ve Worked With</span></h2>
         <p class="ess-p ab-lede" style="margin-bottom:2rem">Communities, clubs and creators who have already run this with us.</p>
         <div class="rev-carousel" data-arrows>
           <div class="carousel carousel--quotes">
@@ -618,6 +683,8 @@ def affiliates():
 {ARROWS}
         </div>
       </div>
+{video_modals()}
+{video_modal(PAGE_VIDEO_ID, PAGE_VIDEO_SRC, PAGE_VIDEO_POSTER, 'Travelling With Tru', 'What your community would be booking')}
     </section>
 
     <section class="ess-body ab-sec" id="apply">
@@ -1058,7 +1125,8 @@ def comp_partner_logos():
 {ARROWS}
       </div>
     </div>
-  </section>''',
+  </section>
+{video_modals()}''',
         scripts=CAROUSEL_JS)
 
 

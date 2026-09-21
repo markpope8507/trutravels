@@ -19,43 +19,87 @@
 export const PARTNER_CONTACT = "partnerships@trutravels.com";
 
 /**
- * Real partners, from the shared Drive folder. Name and description only —
- * NO QUOTES have been collected, so none are invented here. The testimonial
- * carousel renders an "awaiting copy" tag instead of putting words a partner
- * never said under their own logo. Drop the quote into `quote` and the tag
- * disappears on its own.
+ * Real partners, from the shared Drive folder.
+ *
+ * !!! THE QUOTES ARE INVENTED. !!!
+ * They are sample copy written to fill the layout, attributed to real, named
+ * organisations. Nobody at these companies said any of it. They exist so the
+ * cards can be reviewed at full size; replace each one with what the partner
+ * actually sends BEFORE this page is shown to anyone outside the company.
+ * `placeholder` is true on every one — flip it as each real quote lands, and
+ * grep for it before launch.
+ *
+ * `photo` is placeholder too: a TruTravels library shot chosen to suit that
+ * partner's region, not a photograph of their own departure. A logo sitting on
+ * a photo reads as a picture of that partner's trip.
  *
  * Logos were trimmed to their alpha box and resized to 480px on the long edge.
  * Two of the six are solid black, which is why they sit on white tiles rather
  * than straight on the navy.
- */
-/**
- * `photo` is the testimonial card's main image. IT IS PLACEHOLDER: a TruTravels
- * trip shot chosen to suit that partner's region or focus, NOT a photograph of
- * that partner's own departure. Swap each one for a real shot from their trip
- * before this goes anywhere public — a card pairing someone's logo with a photo
- * reads as a picture of their trip.
  */
 export type Partner = {
   slug: string;
   name: string;
   what: string;
   photo: string;
+  quote: string;
+  /** True while `quote` is sample copy rather than the partner's own words. */
+  placeholder: boolean;
+  /** Optional MP4 — the card's media becomes a button that opens the lightbox. */
+  video?: string;
   /** Intrinsic pixel size of the logo PNG. A lazy <img> with width:auto has NO
    *  intrinsic size until it loads, so without these the white tile lays out
    *  at zero width and the card reflows when the logo arrives. */
   w: number;
   h: number;
-  quote?: string;
 };
 
 export const PARTNERS: Partner[] = [
-  { slug: "gals-who", name: "Gals Who Travel", what: "Community & events", photo: "https://cdn.trutravels.com/greece/greece-island-hopper-017.jpg", w: 480, h: 373 },
-  { slug: "sea-gals", name: "Sea Gals", what: "Surf & ocean community", photo: "https://cdn.trutravels.com/indonesia-images/surfing-lesson-bali.jpg", w: 480, h: 292 },
-  { slug: "amigas-y-mas", name: "Amigas Y Más Social", what: "Latina travel social", photo: "https://cdn.trutravels.com/images/cusco-markets.jpg", w: 480, h: 480 },
-  { slug: "someday-travel-club", name: "Someday Travel Club", what: "Solo travel club", photo: "https://cdn.trutravels.com/thailand/longtail-boat.jpg", w: 480, h: 171 },
-  { slug: "dwh", name: "DWH", what: "Creator collective", photo: "https://cdn.trutravels.com/south-korea/seoul-day-4.jpg", w: 378, h: 480 },
-  { slug: "we-got-you-boo", name: "We Got You Boo", what: "Womens travel community", photo: "https://cdn.trutravels.com/indonesia/pink-beach-komodo-islands.jpg", w: 480, h: 480 },
+  {
+    slug: "gals-who", name: "Gals Who Travel", what: "Community & events", w: 480, h: 373,
+    photo: "https://cdn.trutravels.com/greece/greece-island-hopper-017.jpg",
+    // landscape; a portrait clip letterboxes inside the lightbox, which is
+    // sized for a wide frame
+    video: "https://videos.pexels.com/video-files/36218992/15359210_2560_1440_24fps.mp4",
+    placeholder: true,
+    quote:
+      "We\u2019d been talking about taking the community somewhere for two years and never got past a spreadsheet. Tru had it costed and dated in about six weeks. We brought the people; they did absolutely everything else.",
+  },
+  {
+    slug: "sea-gals", name: "Sea Gals", what: "Surf & ocean community", w: 480, h: 292,
+    photo: "https://cdn.trutravels.com/indonesia-images/surfing-lesson-bali.jpg",
+    placeholder: true,
+    quote:
+      "Our lot care about the water and not much else. Tru actually built the trip around that instead of bolting a surf morning onto a standard itinerary, which is what everyone else offered us.",
+  },
+  {
+    slug: "amigas-y-mas", name: "Amigas Y M\u00e1s Social", what: "Latina travel social", w: 480, h: 480,
+    photo: "https://cdn.trutravels.com/images/cusco-markets.jpg",
+    placeholder: true,
+    quote:
+      "Half our community had never travelled outside their own country. Knowing there was someone local with them the whole way is the thing that turned a maybe into a booking.",
+  },
+  {
+    slug: "someday-travel-club", name: "Someday Travel Club", what: "Solo travel club", w: 480, h: 171,
+    photo: "https://cdn.trutravels.com/thailand/longtail-boat.jpg",
+    placeholder: true,
+    quote:
+      "Everyone booked on their own and came home with a group chat that is somehow still going a year later. That is the entire product as far as our members are concerned.",
+  },
+  {
+    slug: "dwh", name: "DWH", what: "Creator collective", w: 378, h: 480,
+    photo: "https://cdn.trutravels.com/south-korea/seoul-day-4.jpg",
+    placeholder: true,
+    quote:
+      "The links just work. We post, people book, and the number we see at the end of the month is the number we expected \u2014 which is not something we can say about every programme we\u2019ve run.",
+  },
+  {
+    slug: "we-got-you-boo", name: "We Got You Boo", what: "Womens travel community", w: 480, h: 480,
+    photo: "https://cdn.trutravels.com/indonesia/pink-beach-komodo-islands.jpg",
+    placeholder: true,
+    quote:
+      "Nobody asked us to change how we talk to our audience. They sent the assets, answered questions fast, and otherwise got out of the way. That is rarer than it should be.",
+  },
 ];
 
 /** Verified CDN images — the obvious-sounding paths mostly 302. */

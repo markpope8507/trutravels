@@ -2050,6 +2050,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 .zoom-modal__close svg { width: 1.25rem; height: 1.25rem; }
 .zoom-modal__inner { position: relative; z-index: 1; width: 100%; max-width: 56rem; }
 .zoom-modal__inner img { width: 100%; max-height: 75vh; object-fit: contain; border-radius: 10px; background: #000; display: block; }
+/* the lightbox holds a video as readily as a photo — same box, same limits */
+.zoom-modal__inner video { width: 100%; max-height: 75vh; border-radius: 10px; background: #000; display: block; }
 .zoom-modal__title { color: #fff; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.125rem; margin: 1rem 0 0.25rem; }
 .zoom-modal__text { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; margin: 0; }
 
@@ -6116,7 +6118,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    Boxed so it reads as one task on a page that is otherwise prose. The
    fields themselves are the shared .field system — see form-fields.html. */
 .ptn-form {
-  border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-soft); background: var(--tru-navy);
   border-radius: 16px; padding: 1.5rem;
 }
 @media (min-width: 640px) { .ptn-form { padding: 2rem; } }
@@ -6174,7 +6176,7 @@ ul { margin: 0; padding: 0; list-style: none; }
    ========================================================================= */
 .ptn-quote {
   display: flex; flex-direction: column; height: 100%;
-  border: 1px solid var(--border-soft); background: var(--surface-soft);
+  border: 1px solid var(--border-soft); background: var(--tru-navy);
   border-radius: var(--radius); overflow: hidden;
 }
 .ptn-quote__media { position: relative; aspect-ratio: 5 / 3; overflow: hidden; }
@@ -6195,6 +6197,17 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: #fff; border-radius: 10px; padding: 0.5rem 0.75rem;
 }
 .ptn-quote__logo img { display: block; height: 2rem; max-width: 7.5rem; width: auto; object-fit: contain; }
+/* Play badge. Always visible, not hover-only — on a touch screen there is no
+   hover, and the badge is the only thing saying this card is a video. */
+.ptn-quote__play { position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center; }
+.ptn-quote__play span {
+  width: 3.25rem; height: 3.25rem; border-radius: 999px; background: rgba(255,63,153,0.92);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45); transition: transform 0.2s;
+}
+.ptn-quote__play svg { width: 1.375rem; height: 1.375rem; color: #fff; margin-left: 3px; }
+a.ptn-quote__media:hover .ptn-quote__play span { transform: scale(1.08); }
+
 .ptn-quote__body { display: flex; flex-direction: column; flex: 1; padding: 1.25rem; }
 @media (min-width: 640px) { .ptn-quote__body { padding: 1.5rem; } }
 .ptn-quote__text { color: #d1d5db; font-size: 0.9375rem; line-height: 1.7; margin: 0 0 1.25rem; flex: 1; }
@@ -6216,6 +6229,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 640px) { .carousel--quotes > * { width: calc((100% - 1rem) / 2); } }
 @media (min-width: 1024px) { .carousel--quotes > * { width: calc((100% - 2rem) / 3); } }
 
+/* Break the accented half of a heading onto its own line once there's room
+   for it. Left to wrap, "Insight From Partners We've Worked With" splits mid-
+   phrase as "...WE'VE WORKED / WITH". Desktop only: forcing the break on a
+   narrow screen just makes more short lines. */
+@media (min-width: 1024px) { .ptn-h2--stack span { display: block; } }
+
 /* Caption under an inline video or image. Written as `.ab-prose > p.ptn-cap`
    as well as bare, because inside .ab-prose the `.ab-prose > p` base rule
    (0,2,0) outranks a bare class (0,1,0) and the caption renders as body copy —
@@ -6224,11 +6243,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: #6b7280; font-size: 0.8125rem; line-height: 1.5; margin: 0.75rem 0 0;
 }
 
-/* 16/9 for an inline video. `.art-section__media` is 4/3 because it was built
-   for article photographs in a narrow column; at that ratio a video fills most
-   of the viewport height before it has been asked for. Modifier, not an
-   override of the base, so the article pages are untouched. */
-.art-video--wide { aspect-ratio: 16 / 9; }
 
 /* -- the three routes, on partner-with-us.html ---------------------------- */
 .ptn-routes { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 2.5rem; }
