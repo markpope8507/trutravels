@@ -1,5 +1,8 @@
 "use client";
 
+import Breadcrumbs from "@/components/breadcrumbs";
+import { regionCrumbs } from "@/lib/breadcrumbs";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import {
@@ -85,6 +88,7 @@ export default function RegionPage({ region }: { region: RegionInfo }) {
             <p className="text-gray-300 text-sm sm:text-base max-w-2xl animate-fade-up delay-300">{region.description}</p>
           </div>
         </section>
+        <Breadcrumbs crumbs={regionCrumbs(region.name)} />
 
         {/* Trips */}
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-16 mb-20">

@@ -1,5 +1,7 @@
 "use client";
 
+import Breadcrumbs from "@/components/breadcrumbs";
+import { ACCOUNT, sectionCrumbs } from "@/lib/breadcrumbs";
 import { useState, useRef } from "react";
 import Link from "next/link";
 import AccountGate from "@/components/account-gate";
@@ -11,6 +13,7 @@ import { useAuth } from "@/lib/auth-context";
 export default function ProfilePage() {
   return (
     <AccountGate>
+      <Breadcrumbs noHero crumbs={sectionCrumbs(ACCOUNT, "My Profile")} />
       <ProfileContent />
     </AccountGate>
   );

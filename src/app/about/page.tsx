@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { topCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import { brandPillars, creators } from "@/lib/data";
 import BrandPillarsCarousel from "@/components/brand-pillars-carousel";
@@ -26,6 +28,7 @@ export default function AboutPage() {
           </h1>
         </div>
       </section>
+      <Breadcrumbs crumbs={topCrumbs("About Us")} />
 
       <div className="relative overflow-hidden py-16">
         <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[520px] opacity-[0.06] brightness-0 invert" />

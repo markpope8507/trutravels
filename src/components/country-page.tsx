@@ -1,5 +1,8 @@
 "use client";
 
+import Breadcrumbs from "@/components/breadcrumbs";
+import { countryCrumbs } from "@/lib/breadcrumbs";
+
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
@@ -637,6 +640,7 @@ export default function CountryPage({ country }: { country: Country }) {
           <p className="text-gray-300 text-sm sm:text-base max-w-2xl animate-fade-up delay-300">{country.description}</p>
         </div>
       </section>
+      <Breadcrumbs crumbs={countryCrumbs(country.region, country.name)} />
 
       {/* Fun Facts */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-8 relative z-10 mb-16">

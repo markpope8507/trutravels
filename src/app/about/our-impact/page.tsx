@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { aboutCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import { CTES, CTE_DEFINITION } from "@/lib/ctes";
 export const metadata = {
@@ -107,11 +109,12 @@ export default function OurImpactPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={aboutCrumbs("Our Impact")} />
 
       {/* ========================================================
           OPENING STATEMENT
           ======================================================== */}
-      <section className="relative overflow-hidden pt-24 pb-20 border-t border-white/5">
+      <section className="relative overflow-hidden pt-24 pb-20">
         <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[520px] opacity-[0.06] brightness-0 invert" />
         <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-1/2 w-[220px] sm:w-[340px] lg:w-[440px] opacity-[0.05] brightness-0 invert" />
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">

@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { sectionCrumbs, ESSENTIALS } from "@/lib/breadcrumbs";
 import SupportCenter from "@/components/support-center";
 import SupportEscalation from "@/components/support-escalation";
 
@@ -34,6 +36,7 @@ export default function SupportPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={sectionCrumbs(ESSENTIALS, "Help & Support")} />
 
       {/* Support hub */}
       <section className="relative overflow-hidden pt-16 pb-16">

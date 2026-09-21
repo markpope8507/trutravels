@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { lifeMomentCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import {
   trips,
@@ -73,11 +75,12 @@ export default function SoloSoulSearcherPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={lifeMomentCrumbs("Solo Soul Searcher")} />
 
       {/* ========================================================
           TRIPS — recommended for solo travellers
           ======================================================== */}
-      <section className="relative pt-20 pb-16 overflow-hidden border-t border-white/5">
+      <section className="relative pt-20 pb-16 overflow-hidden">
         <img
           src="/bg-assets/peru-bird.svg"
           alt=""

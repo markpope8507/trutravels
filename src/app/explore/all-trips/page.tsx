@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { EXPLORE, sectionCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import { trips, regions } from "@/lib/data";
 import AllTripsBrowser from "@/components/all-trips-browser";
@@ -44,6 +46,7 @@ export default async function AllTripsPage({
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={sectionCrumbs(EXPLORE, "All Trips")} />
 
       <AllTripsBrowser trips={trips} regions={regions} initialCountries={initialCountries} />
     </>

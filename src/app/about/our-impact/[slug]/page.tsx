@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { impactCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CTES, getCte, formatFirstTour } from "@/lib/ctes";
@@ -66,6 +68,7 @@ export default async function CtePage({
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={impactCrumbs(cte.name)} />
 
       {/* ===================== INTRO ===================== */}
       <section className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-14">

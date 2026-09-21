@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { PARTNERS, sectionCrumbs } from "@/lib/breadcrumbs";
 import TripVideoPlayer from "@/components/trip-video-player";
 import PartnerQuotes from "@/components/partner-quotes";
 import PartnerForm, { type Field } from "@/components/partner-form";
@@ -48,6 +50,8 @@ export default function AffiliatesPage() {
         accent="Affiliates"
         quote="“Your link, your numbers, your commission — with no third-party network in the middle.”"
       />
+
+      <Breadcrumbs crumbs={sectionCrumbs(PARTNERS, "Tru Affiliates")} />
 
       {/* OPENING STATEMENT */}
       <section className="relative overflow-hidden pt-24 pb-24">

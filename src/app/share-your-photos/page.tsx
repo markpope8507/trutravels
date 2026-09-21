@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { ESSENTIALS, sectionCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import UploadDropzone from "@/components/upload-dropzone";
 
@@ -40,6 +42,7 @@ const H2 = "text-4xl sm:text-5xl font-black text-white uppercase font-heading tr
 export default function ShareYourPhotosPage() {
   return (
     <>
+      <Breadcrumbs noHero crumbs={sectionCrumbs(ESSENTIALS, "Share Your Photos")} />
       {/* ========================================================
           STRIP + PITCH
           ======================================================== */}

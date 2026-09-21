@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { aboutCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import { otherAboutPages } from "@/lib/about-pages";
 
@@ -33,11 +35,12 @@ export default function OurValuesPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={aboutCrumbs("Our Values")} />
 
       {/* ========================================================
           MISSION STATEMENT
           ======================================================== */}
-      <section className="pt-24 pb-24 border-t border-white/5">
+      <section className="pt-24 pb-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
           <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading">
             Our Mission

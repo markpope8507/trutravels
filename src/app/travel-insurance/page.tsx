@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { sectionCrumbs, ESSENTIALS } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import DestinationsCarousel from "@/components/destinations-carousel";
 
@@ -45,6 +47,7 @@ export default function TravelInsurancePage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={sectionCrumbs(ESSENTIALS, "Travel Insurance")} />
 
       {/* Content */}
       <section className="relative overflow-hidden pt-16 pb-20">

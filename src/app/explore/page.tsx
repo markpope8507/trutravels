@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { topCrumbs } from "@/lib/breadcrumbs";
 import { Suspense } from "react";
 import { trips } from "@/lib/data";
 import TripsBrowser from "@/components/trips-browser";
@@ -9,8 +11,11 @@ export const metadata = {
 
 export default function DestinationsPage() {
   return (
-    <Suspense>
-      <TripsBrowser trips={trips} />
-    </Suspense>
+    <>
+      <Breadcrumbs noHero crumbs={topCrumbs("Explore")} />
+      <Suspense>
+        <TripsBrowser trips={trips} />
+      </Suspense>
+    </>
   );
 }

@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { lifeMomentCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import {
   trips,
@@ -74,11 +76,12 @@ export default function WorkBreakRechargePage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={lifeMomentCrumbs("Work Break Recharge")} />
 
       {/* ========================================================
           TRIPS — short, sharp escapes
           ======================================================== */}
-      <section className="relative pt-20 pb-16 overflow-hidden border-t border-white/5">
+      <section className="relative pt-20 pb-16 overflow-hidden">
         <img
           src="/bg-assets/bali-flower.svg"
           alt=""

@@ -1,5 +1,8 @@
 "use client";
 
+import Breadcrumbs from "@/components/breadcrumbs";
+import { sectionCrumbs, TRAVEL_STYLES } from "@/lib/breadcrumbs";
+
 import { useState } from "react";
 import Link from "next/link";
 import { Trip, TravelStyle, travelStyleConfig } from "@/lib/data";
@@ -154,9 +157,10 @@ export default function TravelStylePage({ style, trips }: { style: TravelStyle; 
           </p>
         </div>
       </section>
+      <Breadcrumbs crumbs={sectionCrumbs(TRAVEL_STYLES, config.label)} />
 
       {/* ===================== INTRO ===================== */}
-      <section className="relative pt-20 pb-12 overflow-clip border-t border-white/5">
+      <section className="relative pt-20 pb-12 overflow-clip">
         <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-28 -top-6 w-[260px] sm:w-[380px] lg:w-[480px] opacity-[0.05] brightness-0 invert" />
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3" style={{ color: config.color }}>

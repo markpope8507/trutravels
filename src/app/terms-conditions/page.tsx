@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { sectionCrumbs, ESSENTIALS } from "@/lib/breadcrumbs";
 import { TERMS_BLOCKS } from "@/lib/terms-content";
 
 export const metadata = {
@@ -33,6 +35,7 @@ export default function TermsConditionsPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={sectionCrumbs(ESSENTIALS, "Booking Conditions")} />
 
       {/* Content */}
       <section className="relative overflow-hidden pt-16 pb-24">

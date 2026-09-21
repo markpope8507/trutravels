@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { aboutCrumbs } from "@/lib/breadcrumbs";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import ReviewsSection from "@/components/reviews-section";
 import { videoDiaries } from "@/lib/data";
@@ -42,11 +44,12 @@ export default function OurCommunityPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={aboutCrumbs("Our Community")} />
 
       {/* ========================================================
           OPENING STATEMENT
           ======================================================== */}
-      <section className="pt-24 pb-20 border-t border-white/5">
+      <section className="pt-24 pb-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
           <p className="text-2xl sm:text-3xl text-white font-black uppercase font-heading leading-tight">
             A bunch of fun loving legends with{" "}

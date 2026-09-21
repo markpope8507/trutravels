@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { ESSENTIALS, sectionCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import { truPromises, experienceTypes } from "@/lib/data";
 import { type GalleryImage } from "@/components/inclusion-gallery";
@@ -170,6 +172,7 @@ export default function TheTruWayPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={sectionCrumbs(ESSENTIALS, "The Tru Way")} />
 
       {/* Detailed inclusions — alternating rows with swipeable galleries */}
       <section className="relative overflow-hidden pt-16 pb-20">

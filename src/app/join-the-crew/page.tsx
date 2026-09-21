@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { aboutCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import JobsBoard from "@/components/jobs-board";
 import { JOBS, APPLY_EMAIL } from "@/lib/jobs";
@@ -57,6 +59,7 @@ export default function JoinTheCrewPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={aboutCrumbs("Careers")} />
 
       {/* ========================================================
           OPENING STATEMENT

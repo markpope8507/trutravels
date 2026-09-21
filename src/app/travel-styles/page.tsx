@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { topCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { travelStyleConfig, type TravelStyle } from "@/lib/data";
@@ -105,6 +107,7 @@ export default function TravelStylesPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={topCrumbs("Travel Styles")} />
 
       {/* ===================== TRAVEL STYLES ===================== */}
       <section className="relative overflow-hidden pt-20 pb-8">

@@ -17,6 +17,8 @@ import TripReviews from "@/components/trip-reviews";
 import TripFaqs from "@/components/trip-faqs";
 import RelatedTrips from "@/components/related-trips";
 import TripVideoPlayer from "@/components/trip-video-player";
+import Breadcrumbs from "@/components/breadcrumbs";
+import { tripCrumbs } from "@/lib/breadcrumbs";
 import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import BackToTop from "@/components/back-to-top";
 import FomoToast from "@/components/fomo-toast";
@@ -164,33 +166,10 @@ export default async function TripDetailPage({
         </div>
       </section>
 
-      {/* Breadcrumbs */}
-      <nav className="border-b border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 flex-wrap">
-          <ol className="flex items-center gap-2 text-xs text-gray-400">
-            <li>
-              <Link href="/explore" className="hover:text-white transition-colors">Destinations</Link>
-            </li>
-            <li><span className="text-gray-600">/</span></li>
-            <li>
-              <Link href="/explore" className="hover:text-white transition-colors">{trip.region}</Link>
-            </li>
-            <li><span className="text-gray-600">/</span></li>
-            <li>
-              <Link href={`/destinations/${slugify(trip.region)}/${slugify(trip.destination)}`} className="hover:text-white transition-colors">{trip.destination}</Link>
-            </li>
-          </ol>
-          <Link
-            href={`/destinations/${slugify(trip.region)}/${slugify(trip.destination)}`}
-            className="flex items-center gap-1.5 text-[11px] text-gray-400 hover:text-tru-pink transition-colors uppercase tracking-wider font-semibold font-heading"
-          >
-            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            All {trip.destination} Trips
-          </Link>
-        </div>
-      </nav>
+      {/* Breadcrumbs — Home / Destinations / Asia / Thailand / <trip>.
+          Was: Destinations / Asia / Thailand, with no Home, no trip name, and
+          both Destinations and the continent pointing at /explore. */}
+      <Breadcrumbs crumbs={tripCrumbs(trip.region, trip.destination, trip.title)} />
 
       {/* Full-width container with background watermarks bleeding to viewport edges */}
       <div className="relative overflow-hidden">

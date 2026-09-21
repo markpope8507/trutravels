@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { aboutCrumbs } from "@/lib/breadcrumbs";
 export const metadata = {
   title: "Our Brand — TruTravels",
   description: "Leave ordinary behind — the TruTravels manifesto.",
@@ -74,11 +76,12 @@ export default function OurBrandPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={aboutCrumbs("Our Brand")} />
 
       {/* ========================================================
           MANIFESTO
           ======================================================== */}
-      <section className="pt-24 pb-24 border-t border-white/5">
+      <section className="pt-24 pb-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-5 text-gray-300 text-base sm:text-lg leading-relaxed">
           <p className="text-2xl sm:text-3xl text-white font-black uppercase font-heading leading-tight">
             We weren&apos;t made for the <span className="font-light">ordinary</span>.

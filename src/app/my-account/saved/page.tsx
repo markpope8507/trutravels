@@ -1,5 +1,7 @@
 "use client";
 
+import Breadcrumbs from "@/components/breadcrumbs";
+import { ACCOUNT, sectionCrumbs } from "@/lib/breadcrumbs";
 import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -128,6 +130,7 @@ function SavedContent() {
 export default function SavedPage() {
   return (
     <AccountGate>
+      <Breadcrumbs noHero crumbs={sectionCrumbs(ACCOUNT, "Saved Trips")} />
       <SavedContent />
     </AccountGate>
   );

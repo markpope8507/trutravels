@@ -1,3 +1,6 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { aboutCrumbs } from "@/lib/breadcrumbs";
+
 export const metadata = {
   title: "Our Story — TruTravels",
   description: "How TruTravels started — the honest version, straight from the founders.",
@@ -31,10 +34,14 @@ export default function OurStoryPage() {
         </div>
       </section>
 
+      <Breadcrumbs crumbs={aboutCrumbs("Our Story")} />
+
       {/* ========================================================
           STORY CONTENT
           ======================================================== */}
-      <section className="relative overflow-hidden pt-24 pb-24 border-t border-white/5">
+      {/* No border-t: the breadcrumb bar above already draws that line, and
+          two hairlines a row apart read as a mistake. */}
+      <section className="relative overflow-hidden pt-24 pb-24">
         {/* Line-art watermarks behind the column, spread down the length of the
             story — same treatment as the Essentials and account pages. */}
         <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 -top-8 w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.06] brightness-0 invert" />

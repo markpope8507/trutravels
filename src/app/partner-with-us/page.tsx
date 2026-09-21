@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { PARTNERS, sectionCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import TripVideoPlayer from "@/components/trip-video-player";
 import PartnerForm, { type Field } from "@/components/partner-form";
@@ -100,6 +102,8 @@ export default function PartnerWithUsPage() {
         accent="With Us"
         quote="“Do you have a community that loves to travel? Have you ever thought about travelling together?”"
       />
+
+      <Breadcrumbs crumbs={sectionCrumbs(PARTNERS, "Partner With Us")} />
 
       {/* OPENING STATEMENT */}
       <section className="relative overflow-hidden pt-24 pb-24">

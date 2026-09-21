@@ -1,5 +1,7 @@
 "use client";
 
+import Breadcrumbs from "@/components/breadcrumbs";
+import { ACCOUNT, sectionCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import AccountGate from "@/components/account-gate";
 import BookingHistory from "@/components/booking-history";
@@ -25,6 +27,7 @@ function BookingsContent() {
 export default function BookingsPage() {
   return (
     <AccountGate>
+      <Breadcrumbs noHero crumbs={sectionCrumbs(ACCOUNT, "My Bookings")} />
       <BookingsContent />
     </AccountGate>
   );

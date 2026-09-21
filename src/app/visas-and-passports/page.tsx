@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { sectionCrumbs, ESSENTIALS } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import DestinationsCarousel from "@/components/destinations-carousel";
 import SherpaVisaWidget from "@/components/sherpa-visa-widget";
@@ -35,6 +37,7 @@ export default function VisasAndPassportsPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={sectionCrumbs(ESSENTIALS, "Visa & Passports")} />
 
       {/* Content */}
       <section className="relative overflow-hidden pt-16 pb-20">

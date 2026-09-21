@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { lifeMomentCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import {
   trips,
@@ -75,11 +77,12 @@ export default function Turning30Page() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={lifeMomentCrumbs("Turning 30")} />
 
       {/* ========================================================
           TRIPS — off-beaten, adventure-led
           ======================================================== */}
-      <section className="relative pt-20 pb-16 overflow-hidden border-t border-white/5">
+      <section className="relative pt-20 pb-16 overflow-hidden">
         <img
           src="/bg-assets/mask.svg"
           alt=""

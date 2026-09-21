@@ -1,5 +1,7 @@
 "use client";
 
+import Breadcrumbs from "@/components/breadcrumbs";
+import { ACCOUNT, sectionCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import { useState, useSyncExternalStore } from "react";
 import { useAuth } from "@/lib/auth-context";
@@ -25,6 +27,7 @@ import "swiper/css/free-mode";
 export default function DashboardPage() {
   return (
     <AccountGate>
+      <Breadcrumbs noHero crumbs={sectionCrumbs(ACCOUNT, "Dashboard")} />
       <DashboardContent />
     </AccountGate>
   );

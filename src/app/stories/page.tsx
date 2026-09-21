@@ -1,5 +1,8 @@
 "use client";
 
+import Breadcrumbs from "@/components/breadcrumbs";
+import { topCrumbs } from "@/lib/breadcrumbs";
+
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -362,6 +365,7 @@ export default function StoriesPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={topCrumbs("Stories")} />
 
       {/* =========================================================
           WATCH — video diaries (moved up in place of the WATCH pillar)

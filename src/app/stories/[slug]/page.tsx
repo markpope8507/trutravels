@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { STORIES, sectionCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { stories, storyArticles, trips, unescoTours } from "@/lib/data";
@@ -119,6 +121,7 @@ export default async function StoryArticlePage({
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={sectionCrumbs(STORIES, story.title)} />
 
       {/* ===================== INTRO ===================== */}
       <section className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-14">

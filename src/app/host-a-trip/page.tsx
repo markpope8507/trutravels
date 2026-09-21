@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { PARTNERS, sectionCrumbs } from "@/lib/breadcrumbs";
 import TripVideoPlayer from "@/components/trip-video-player";
 import PartnerForm, { type Field } from "@/components/partner-form";
 import { Benefits, Eyebrow, H2, PartnerCrossLinks, PartnerHero, Steps, Wm } from "@/components/partner-blocks";
@@ -54,6 +56,8 @@ export default function HostATripPage() {
         accent="A Trip"
         quote="“We handle the logistics. You focus on building hype and bringing your community together.”"
       />
+
+      <Breadcrumbs crumbs={sectionCrumbs(PARTNERS, "Host A Trip")} />
 
       {/* OPENING STATEMENT */}
       <section className="relative overflow-hidden pt-24 pb-24">

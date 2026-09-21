@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { STORIES, sectionCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { stories } from "@/lib/data";
@@ -37,6 +39,7 @@ export default async function AuthorPage({
 
   return (
     <div className="pb-24">
+      <Breadcrumbs noHero crumbs={sectionCrumbs(STORIES, author.name)} />
       {/* ===================== HERO ===================== */}
       <section className="relative pt-28 sm:pt-32 pb-12 overflow-clip">
         <img

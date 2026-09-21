@@ -1,3 +1,5 @@
+import Breadcrumbs from "@/components/breadcrumbs";
+import { topCrumbs } from "@/lib/breadcrumbs";
 import DealsBrowser from "@/components/deals-browser";
 
 export const metadata = {
@@ -33,6 +35,7 @@ export default function DealsPage() {
           </div>
         </div>
       </section>
+      <Breadcrumbs crumbs={topCrumbs("Deals")} />
 
       {/* Deals + departures content */}
       <div className="pb-12">
