@@ -27,17 +27,77 @@ import "swiper/css/free-mode";
 // SUB-COMPONENTS
 // ============================================================
 
+/**
+ * Country facts — language, currency, national dish, local beer.
+ *
+ * The data still carries an emoji per fact (🗣️ 💰 🍜 🍺). It isn't used: the
+ * site moved to line icons everywhere, and four emoji in a row were the one
+ * bit of this page that still looked like a first draft. Keyed by label, which
+ * is safe — all 22 countries carry the same four.
+ *
+ * One panel with dividers rather than four floating boxes: these are four
+ * readings of the same thing, so they belong in one object.
+ */
+const FACT_ICONS: Record<string, React.ReactNode> = {
+  Language: (
+    <>
+      <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.9 9.9 0 0 1-4.3-1L3 20.5l1.7-4.4A8.3 8.3 0 0 1 3.6 11.5C3.6 6.8 7.4 3 12 3s9 3.8 9 8.5Z" />
+      <path strokeLinecap="round" d="M8.5 10.5h7M8.5 14h4" />
+    </>
+  ),
+  Currency: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15 9.4a3.4 3.4 0 0 0-3-1.4c-1.7 0-3 .9-3 2.2 0 2.7 6 1.3 6 4 0 1.3-1.3 2.3-3 2.3a3.4 3.4 0 0 1-3-1.4M12 6.2v11.6"
+      />
+    </>
+  ),
+  "National Dish": (
+    <>
+      <path d="M3 12h18a9 9 0 0 1-18 0Z" />
+      <path strokeLinecap="round" d="M5.5 21h13" />
+      <path strokeLinecap="round" d="M9 8.5c0-1 1-1.4 1-2.4S9 4.5 9 3.5M14 8.5c0-1 1-1.4 1-2.4S14 4.5 14 3.5" />
+    </>
+  ),
+  "Local Beer": (
+    <>
+      <path d="M6 8.5h9V19a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8.5Z" />
+      <path d="M15 11.5h2.2a2.3 2.3 0 0 1 0 4.6H15" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M6 8.5a2.8 2.8 0 0 1 2.8-2.8 2.4 2.4 0 0 1 3.7-1.4A2.4 2.4 0 0 1 15 8.5" />
+    </>
+  ),
+};
+
 function FunFacts({ facts }: { facts: Country["facts"] }) {
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      {facts.map((fact) => (
-        <div key={fact.label} className="rounded-[10px] border border-white/10 bg-white/5 p-4 text-center">
-          <span className="text-2xl block mb-2">{fact.icon}</span>
-          <p className="text-gray-400 text-[10px] uppercase tracking-wider font-heading mb-1">{fact.label}</p>
-          <p className="text-white text-sm font-semibold">{fact.value}</p>
-        </div>
-      ))}
-    </div>
+    <dl className="grid grid-cols-2 sm:grid-cols-4 overflow-hidden rounded-[10px] border border-white/10 bg-white/[0.03]">
+      {facts.map((fact, i) => {
+        // Dividers drawn per cell rather than with divide-* so the two-column
+        // mobile grid and the four-column desktop one get the right edges.
+        const edges = [
+          i % 2 === 0 ? "border-r border-white/10" : "",
+          i < 2 ? "border-b border-white/10 sm:border-b-0" : "",
+          i === 1 ? "sm:border-r sm:border-white/10" : "",
+          i === 3 ? "border-r-0" : "",
+        ].join(" ");
+        return (
+          <div key={fact.label} className={`flex items-center gap-3 p-4 sm:p-5 ${edges}`}>
+            <span className="shrink-0 text-tru-pink">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className="h-6 w-6 sm:h-7 sm:w-7">
+                {FACT_ICONS[fact.label] ?? null}
+              </svg>
+            </span>
+            <div className="min-w-0">
+              <dt className="font-heading text-[10px] uppercase tracking-[0.18em] text-gray-400">{fact.label}</dt>
+              <dd className="mt-0.5 truncate text-sm font-semibold text-white sm:text-[0.9375rem]">{fact.value}</dd>
+            </div>
+          </div>
+        );
+      })}
+    </dl>
   );
 }
 
@@ -643,7 +703,10 @@ export default function CountryPage({ country }: { country: Country }) {
       <Breadcrumbs crumbs={countryCrumbs(country.region, country.name)} />
 
       {/* Fun Facts */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-8 relative z-10 mb-16">
+      {/* Was `-mt-8 relative z-10`, which pulled this up over the hero. The
+          breadcrumb bar sits there now, so the strip covered it and the crumbs
+          could not be clicked at all. */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-10 mb-16">
         <FunFacts facts={country.facts} />
       </section>
 
