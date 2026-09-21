@@ -9,6 +9,7 @@ import SearchOverlay, { type SearchAnchor } from "@/components/search-overlay";
 import { LIFE_MOMENTS } from "@/lib/life-moments";
 import { ABOUT_PAGES } from "@/lib/about-pages";
 import { countryHref, destinations, regionHref } from "@/lib/destinations";
+import { essentialsNav } from "@/lib/essentials";
 import { slugify } from "@/lib/utils";
 
 
@@ -91,13 +92,6 @@ const dealsNav = [
 // One list, shared with the cross-links at the foot of each About page.
 // The Tru Way has its own place in the nav, so it is not repeated here.
 const aboutNav = ABOUT_PAGES.filter((p) => p.href !== "/the-tru-way");
-
-const essentialsNav = [
-  { name: "Travel Insurance", href: "/travel-insurance", description: "Stay covered on the road.", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" },
-  { name: "Visa & Passports", href: "/visas-and-passports", description: "Entry requirements by country.", image: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=800&q=80" },
-  { name: "Booking Conditions", href: "/terms-conditions", description: "Terms and conditions.", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80" },
-  { name: "Help & Support", href: "/support", description: "Answers fast, with Ask Tru.D.", image: "https://images.unsplash.com/photo-1455894127589-22f75500213a?w=800&q=80" },
-];
 
 // ============================================================
 // COMPONENT

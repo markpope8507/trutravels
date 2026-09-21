@@ -48,7 +48,7 @@ export const HOME: Crumb = { name: "Home", href: "/" };
  * page lands you add the href here once and every trail picks it up.
  */
 export const DESTINATIONS: Crumb = { name: "Destinations", href: "/destinations" };
-export const ESSENTIALS: Crumb = { name: "Essentials" }; // TODO: href "/essentials"
+export const ESSENTIALS: Crumb = { name: "Essentials", href: "/essentials" };
 
 export const ABOUT: Crumb = { name: "About Us", href: "/about" };
 export const EXPLORE: Crumb = { name: "Explore", href: "/explore" };
