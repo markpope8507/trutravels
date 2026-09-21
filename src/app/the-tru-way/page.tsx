@@ -224,6 +224,24 @@ export default function TheTruWayPage() {
             Every itinerary is intentionally designed around five experience types. Some trips lean harder into one than another — so you can search and choose by the kind of experiences you actually want to have, not just where you&apos;re going.
           </p>
         </div>
+        {/* All five at a glance. Without it the set is only legible by scrolling
+            through five full-height rows, and the point of the section is that
+            there ARE five and a trip leans into some of them. */}
+        <ul className="mb-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 list-none p-0">
+          {experienceTypes.map((e) => (
+            <li
+              key={e.id}
+              className="flex flex-col items-center rounded-[12px] border border-white/10 bg-white/[0.03] px-3 py-5 text-center"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={e.icon} alt="" aria-hidden width={546} height={549} className="h-12 w-12 object-contain mb-3" />
+              <p className="font-heading text-[0.8125rem] font-black uppercase leading-tight" style={{ color: e.color }}>
+                {e.name}
+              </p>
+            </li>
+          ))}
+        </ul>
+
         <div className="space-y-16 sm:space-y-24">
           {experienceTypes.map((e, idx) => (
             <FeatureRow
@@ -233,7 +251,24 @@ export default function TheTruWayPage() {
               images={EXPERIENCE_GALLERIES[e.id]}
               alt={e.name}
               accent={e.color}
-              icon={<span className="text-2xl">{e.emoji}</span>}
+              iconBare
+              icon={
+                /* The brand experience icon. This was the emoji from the data
+                   (🌍 🔥 🏔 ✨ 🌿) — a stand-in from before these existed, and
+                   the one thing on this page that still looked unfinished.
+                   Bare and large, the same treatment experience-types-v2 uses
+                   on the homepage: each icon is already a white ring, so a
+                   tinted circle behind it would be a circle on a circle. */
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={e.icon}
+                  alt=""
+                  aria-hidden
+                  width={546}
+                  height={549}
+                  className="h-16 w-16 object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]"
+                />
+              }
               eyebrow={<>{e.name}<br /><span className="text-white">Experiences</span></>}
               eyebrowClassName="text-2xl sm:text-3xl font-black uppercase tracking-wide font-heading mb-2 leading-tight"
               title={e.tagline.replace(/\.$/, "")}

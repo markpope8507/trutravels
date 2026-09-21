@@ -15,6 +15,7 @@ export default function FeatureRow({
   bullets,
   index,
   tinted = false,
+  iconBare = false,
   eyebrowClassName = "text-xs font-bold uppercase tracking-[0.3em] mb-3 font-heading",
   titleClassName = "text-3xl sm:text-4xl font-black text-white uppercase font-heading leading-[1.05]",
 }: {
@@ -28,6 +29,10 @@ export default function FeatureRow({
   bullets: string[];
   index: number;
   tinted?: boolean;
+  /** Render the icon with no circle behind it. For the brand experience-type
+   *  icons, which are white line art already inside their own ring — a tinted
+   *  circle around one of those is a circle drawn on a circle. */
+  iconBare?: boolean;
   eyebrowClassName?: string;
   titleClassName?: string;
 }) {
@@ -46,12 +51,16 @@ export default function FeatureRow({
     >
       {/* Title */}
       <div className={`order-1 ${textCol} lg:row-start-1 lg:self-end`}>
-        <div
-          className="mb-4 h-14 w-14 rounded-full flex items-center justify-center text-2xl"
-          style={{ background: `${accent}22`, border: `1px solid ${accent}66` }}
-        >
-          {icon}
-        </div>
+        {iconBare ? (
+          <div className="mb-4">{icon}</div>
+        ) : (
+          <div
+            className="mb-4 h-14 w-14 rounded-full flex items-center justify-center text-2xl"
+            style={{ background: `${accent}22`, border: `1px solid ${accent}66` }}
+          >
+            {icon}
+          </div>
+        )}
         <p className={eyebrowClassName} style={{ color: accent }}>
           {eyebrow}
         </p>
