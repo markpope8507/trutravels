@@ -101,19 +101,26 @@ export default function WhatWeDo() {
               own box, so the eyebrow height doesn't cancel it. */}
           <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:mt-[1.375rem]">
             <p className="text-gray-300 text-base sm:text-lg leading-[1.75] mb-5">
-              You deserve more from your travels. Start your journey solo, and leave with unforgettable memories,
-              incredible new connections, a full camera roll and a brand new version of yourself.
-            </p>
-            <p className="text-gray-300 text-base sm:text-lg leading-[1.75] mb-5">
               <strong className="text-white font-semibold">
-                TruTravels’ small group adventures for 18 to 40-somethings
+                TruTravels’ small group adventure tours for 18 to 40-somethings
               </strong>{" "}
-              are built to remind you what it is to feel inspired, connected and completely alive. Let your Local
-              Legend show you the version of the place most travellers miss.
+              are built around connection, adventure and experiences that change the way you see the world.
+            </p>
+            {/* The five experience types are bold: they're product names, not
+                description. Mind the {" "} — JSX drops the leading whitespace
+                of each line, so a space after </strong> at a line end vanishes. */}
+            <p className="text-gray-300 text-base sm:text-lg leading-[1.75] mb-5">
+              See places through a <strong className="text-white font-semibold">Local Lens</strong>,{" "}
+              <strong className="text-white font-semibold">Rise Up</strong> beyond your comfort zone, tick off{" "}
+              <strong className="text-white font-semibold">Bucket List</strong> moments, discover something{" "}
+              <strong className="text-white font-semibold">Tru-ly Unique</strong> and{" "}
+              <strong className="text-white font-semibold">Unplug</strong> from the everyday. All led by a Local
+              Legend, a local expert who feels more like a mate than a tour guide.
             </p>
             <p className="text-gray-300 text-base sm:text-lg leading-[1.75]">
-              Travel with TruTravels and{" "}
-              <strong className="text-white font-semibold">Leave Ordinary Behind.</strong>
+              <strong className="text-white font-semibold">
+                Come solo. Find your people. Leave with a whole new perspective.
+              </strong>
             </p>
           </div>
 
