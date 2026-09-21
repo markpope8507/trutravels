@@ -40,6 +40,7 @@ const FOOTER_COLUMNS = [
       { name: "Visa & Passport", href: "/visas-and-passports" },
       { name: "Package Travel Regulations", href: "/about" },
       { name: "Book With Confidence", href: "/the-tru-way" },
+      { name: "Share Your Photos", href: "/share-your-photos" },
     ],
   },
   {
