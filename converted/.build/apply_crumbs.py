@@ -52,8 +52,9 @@ TRAILS = {
     "join-the-crew.html": about("Careers"),
 
     "deals.html": top("Deals"),
-    # The three hubs bake their own bar in (build_hubs.py) — listed so the
-    # missing-trail check doesn't flag them.
+    # These bake their own bar in (build_hubs.py, build_email_signup.py) —
+    # listed so the missing-trail check doesn't flag them.
+    "email-sign-up.html": top("Email Sign Up"),
     "destinations.html": top("Destinations"),
     "essentials.html": top("Essentials"),
     "explore.html": top("Explore"),
