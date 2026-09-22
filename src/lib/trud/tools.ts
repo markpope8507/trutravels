@@ -148,8 +148,8 @@ function getDepartures(input: { trip: string }): ToolOutcome {
     upcoming.length === 0
       ? "No upcoming departures are listed right now. Offer the 'new dates' waitlist."
       : `Upcoming departures (${upcoming.length} listed; showing up to 12):\n${lines.join("\n")}`,
-    `Trip page: ${url} (tell the visitor they can book or check dates there).`,
-    "Quote at most three dates unless asked for more, and always mention the trip page.",
+    "A 'Check dates & book' button for this trip is shown under your reply automatically. Do NOT write the URL or path in your reply; just say they can check dates and book with a £200 deposit.",
+    "Quote at most three dates unless asked for more.",
   ].join("\n");
   return { result, event: { t: "departures", trip: trip.title, url } };
 }
