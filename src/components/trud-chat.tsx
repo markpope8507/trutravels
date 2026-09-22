@@ -310,70 +310,39 @@ function Bubble({ message, streaming }: { message: ChatMessage; streaming: boole
 }
 
 function EventCard({ ev }: { ev: UiEvent }) {
+  const linkClass = "text-tru-pink hover:text-tru-pink-light font-semibold underline underline-offset-4 decoration-tru-pink/40 hover:decoration-tru-pink transition";
   if (ev.t === "departures") {
     return (
-      <div className="mt-3 flex items-center justify-between gap-3 rounded-[10px] border border-white/10 bg-tru-navy/60 px-3 py-2.5">
-        <div className="min-w-0">
-          <p className="text-[9px] text-gray-500 uppercase tracking-wider font-heading">Trip</p>
-          <p className="text-white text-xs font-semibold truncate">{ev.trip}</p>
-        </div>
-        <Link
-          href={ev.url}
-          className="flex-shrink-0 inline-flex items-center gap-1.5 rounded-full bg-tru-pink hover:bg-tru-pink-light text-white px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider font-heading transition"
-        >
-          <CalendarIcon className="h-3.5 w-3.5" />
-          Check dates
+      <p className="mt-2.5 text-sm">
+        <Link href={ev.url} className={linkClass}>
+          Check dates for {ev.trip} &rarr;
         </Link>
-      </div>
+      </p>
     );
   }
   if (ev.t === "waitlist") {
     return (
-      <div className="mt-3 flex items-start gap-2.5 rounded-[10px] border border-tru-green/30 bg-tru-green/10 px-3 py-2.5">
-        <span className="mt-0.5 h-5 w-5 rounded-full bg-tru-green flex items-center justify-center flex-shrink-0">
-          <TickIcon className="h-3 w-3 text-tru-navy" />
-        </span>
-        <div className="min-w-0">
-          <p className="text-white text-xs font-semibold">You&apos;re on the waitlist</p>
-          <p className="text-gray-300 text-[11px] leading-snug">{ev.trip} &middot; {ev.date}. We&apos;ll email {ev.email} the moment a spot opens.</p>
-        </div>
-      </div>
+      <p className="mt-2.5 text-xs text-tru-green">
+        <TickIcon className="inline h-3.5 w-3.5 mr-1 -mt-0.5" />
+        On the waitlist: {ev.trip}, {ev.date}. We&apos;ll email {ev.email} if a spot opens.
+      </p>
     );
   }
   return (
-    <div className="mt-3 rounded-[10px] border border-white/10 bg-tru-navy/60 px-3 py-2.5">
-      <p className="text-white text-xs font-semibold mb-0.5">Talk to a human</p>
-      <p className="text-gray-400 text-[11px] mb-2.5">Live chat 9:30am–5pm GMT, Mon–Sat. The team can see this conversation.</p>
-      <div className="flex flex-wrap gap-1.5">
-        <a
-          href="/support#talk-to-a-human"
-          className="inline-flex items-center gap-1.5 rounded-full bg-tru-pink hover:bg-tru-pink-light text-white px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider font-heading transition"
-        >
-          <ChatIcon className="h-3.5 w-3.5" />
-          Live chat
-        </a>
-        <Link
-          href="/contact-us"
-          className="inline-flex items-center rounded-full border border-white/20 hover:border-tru-pink/60 hover:text-white text-gray-200 px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider font-heading transition"
-        >
-          Email
-        </Link>
-        <a
-          href="tel:+442035422463"
-          className="inline-flex items-center rounded-full border border-white/20 hover:border-tru-pink/60 hover:text-white text-gray-200 px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider font-heading transition"
-        >
-          Call
-        </a>
-      </div>
-    </div>
-  );
-}
-
-function CalendarIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8 3v3M16 3v3M4 9h16M6 5h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V7a2 2 0 012-2z" />
-    </svg>
+    <p className="mt-2.5 text-sm">
+      <a href="/support#talk-to-a-human" className={linkClass}>
+        Live chat &rarr;
+      </a>
+      <span className="text-gray-500 mx-2">&middot;</span>
+      <Link href="/contact-us" className={linkClass}>
+        Email us &rarr;
+      </Link>
+      <span className="text-gray-500 mx-2">&middot;</span>
+      <a href="tel:+442035422463" className={linkClass}>
+        Call &rarr;
+      </a>
+      <span className="block text-gray-500 text-[11px] mt-1">Live chat 9:30am–5pm GMT, Mon–Sat.</span>
+    </p>
   );
 }
 
@@ -381,14 +350,6 @@ function TickIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-    </svg>
-  );
-}
-
-function ChatIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 3v-3z" />
     </svg>
   );
 }
