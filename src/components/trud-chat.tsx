@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { keywordSearch, type TrudFaq } from "@/lib/trud/knowledge";
 
 // Ask Tru.D — the chat panel. Talks to /api/trud (NDJSON stream). Used inline
@@ -41,6 +42,7 @@ export default function TrudChat({
   variant?: "inline" | "panel";
   onClose?: () => void;
 }) {
+  const pathname = usePathname();
   const [messages, setMessages] = useState<ChatMessage[]>([{ id: nextId++, role: "assistant", content: WELCOME }]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
@@ -82,7 +84,7 @@ export default function TrudChat({
       const res = await fetch("/api/trud", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history, page: pathname }),
         signal: controller.signal,
       });
 
@@ -167,34 +169,40 @@ export default function TrudChat({
     <div
       className={
         isPanel
-          ? "flex flex-col h-full"
+          ? "flex flex-col h-full min-h-0"
           : "max-w-2xl mx-auto rounded-[16px] border border-tru-pink/25 bg-gradient-to-br from-tru-navy via-tru-navy to-tru-pink/[0.06] p-5 sm:p-7"
       }
     >
       {/* Header */}
-      <div className={`flex items-center gap-3 ${isPanel ? "px-4 py-3 border-b border-white/10" : "justify-center text-center flex-col mb-4"}`}>
-        <span className={`${isPanel ? "h-9 w-9" : "h-12 w-12"} rounded-full bg-tru-pink/15 border border-tru-pink/40 flex items-center justify-center flex-shrink-0`}>
-          <SparkIcon className={isPanel ? "h-4 w-4 text-tru-pink" : "h-6 w-6 text-tru-pink"} />
-        </span>
-        <div className={isPanel ? "flex-1 min-w-0" : ""}>
-          <p className={`text-white font-black uppercase font-heading tracking-wide ${isPanel ? "text-sm" : "text-lg"}`}>Ask Tru.D</p>
-          <p className="text-gray-400 text-xs sm:text-sm">Your travel assistant. Ask me a question and I&apos;ll find the answer.</p>
+      {isPanel ? (
+        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-gradient-to-r from-tru-pink/10 to-tru-blue/10">
+          <div className="flex items-center gap-2">
+            <SparkAvatar className="h-8 w-8 text-base" />
+            <div>
+              <p className="text-white text-sm font-bold">Tru.D</p>
+              <p className="text-tru-green text-[9px] font-semibold">Online &middot; AI Assistant</p>
+            </div>
+          </div>
+          {onClose && (
+            <button onClick={onClose} aria-label="Close chat" className="text-gray-400 hover:text-white transition">
+              <CloseIcon className="h-5 w-5" />
+            </button>
+          )}
         </div>
-        {isPanel && onClose && (
-          <button
-            onClick={onClose}
-            aria-label="Close chat"
-            className="h-8 w-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-gray-300 hover:text-white transition"
-          >
-            <CloseIcon className="h-3.5 w-3.5" />
-          </button>
-        )}
-      </div>
+      ) : (
+        <div className="flex flex-col items-center text-center gap-3 mb-4">
+          <SparkAvatar className="h-12 w-12 text-2xl" />
+          <div>
+            <p className="text-white font-black uppercase font-heading text-lg tracking-wide">Ask Tru.D</p>
+            <p className="text-gray-400 text-xs sm:text-sm">Your travel assistant. Ask me a question and I&apos;ll find the answer.</p>
+          </div>
+        </div>
+      )}
 
       {/* Transcript */}
       <div
         ref={scrollRef}
-        className={`${isPanel ? "flex-1 px-4 py-4" : "max-h-[420px] rounded-[12px] border border-white/10 bg-white/[0.03] p-4"} overflow-y-auto space-y-3`}
+        className={`${isPanel ? "flex-1 px-4 py-3" : "max-h-[420px] rounded-[12px] border border-white/10 bg-white/[0.03] p-4"} overflow-y-auto space-y-3`}
         aria-live="polite"
       >
         {messages.map((m) => (
@@ -224,28 +232,27 @@ export default function TrudChat({
           e.preventDefault();
           send(input);
         }}
-        className={`relative ${isPanel ? "px-4 pb-4 pt-2" : "mt-4"}`}
+        className={`flex gap-2 ${isPanel ? "border-t border-white/10 px-3 py-2" : "mt-4"}`}
       >
         <input
           ref={inputRef}
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={busy ? "Tru.D is typing…" : "e.g. Do I need a visa? · What's included? · Can I pay in instalments?"}
+          placeholder={busy ? "Tru.D is typing…" : isPanel ? "Ask Tru.D anything..." : "e.g. Do I need a visa? · What's included? · Can I pay in instalments?"}
           disabled={busy}
           maxLength={2000}
-          className="w-full bg-white/5 border border-white/10 rounded-[10px] pl-4 pr-12 py-3.5 text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition disabled:opacity-60"
+          className={`flex-1 min-w-0 bg-white/5 border border-white/10 text-white placeholder:text-gray-600 focus:outline-none focus:border-tru-pink/50 transition disabled:opacity-60 ${isPanel ? "rounded-full px-4 py-2 text-xs" : "rounded-[10px] px-4 py-3.5 text-sm"}`}
         />
         <button
           type="submit"
           disabled={busy || !input.trim()}
-          aria-label="Send"
-          className={`absolute ${isPanel ? "right-6 bottom-6" : "right-2 top-1/2 -translate-y-1/2"} h-9 w-9 rounded-full bg-tru-pink hover:bg-tru-pink-light disabled:opacity-40 disabled:hover:bg-tru-pink flex items-center justify-center text-white transition`}
+          className={`flex-shrink-0 rounded-full bg-tru-pink hover:bg-tru-pink-light disabled:opacity-40 disabled:hover:bg-tru-pink text-white font-semibold uppercase tracking-wider font-heading transition ${isPanel ? "px-4 py-2 text-[10px]" : "px-5 py-3 text-xs"}`}
         >
-          <SendIcon className="h-4 w-4" />
+          Send
         </button>
       </form>
-      <p className={`text-gray-500 text-[11px] ${isPanel ? "px-4 pb-3" : "mt-2 text-center"}`}>
+      <p className={`text-gray-500 text-[11px] ${isPanel ? "px-4 pb-2" : "mt-2 text-center"}`}>
         Tru.D checks dates and prices live but can still make mistakes. Anything about an existing booking goes to a human.
       </p>
     </div>
@@ -255,8 +262,15 @@ export default function TrudChat({
 function Bubble({ message, streaming }: { message: ChatMessage; streaming: boolean }) {
   const isUser = message.role === "user";
   return (
-    <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
-      <div className={`max-w-[88%] ${isUser ? "bg-tru-pink text-white rounded-[14px] rounded-br-sm" : "bg-white/[0.06] text-gray-200 rounded-[14px] rounded-bl-sm"} px-4 py-2.5 text-sm leading-relaxed`}>
+    <div className={`flex gap-2 ${isUser ? "flex-row-reverse" : ""}`}>
+      {!isUser && <SparkAvatar className="h-7 w-7 text-sm mt-0.5" />}
+      <div
+        className={`max-w-[85%] rounded-[10px] px-3 py-2 text-sm leading-relaxed ${
+          isUser
+            ? "bg-tru-green/10 border border-tru-green/20 text-gray-200"
+            : "bg-gradient-to-br from-tru-pink/10 to-tru-blue/10 border border-tru-pink/20 text-gray-200"
+        }`}
+      >
         {message.content ? (
           <p className="whitespace-pre-wrap">{message.content}</p>
         ) : streaming ? (
@@ -345,30 +359,21 @@ function Dot({ delay }: { delay: string }) {
   return <span className="h-1.5 w-1.5 rounded-full bg-tru-pink animate-bounce" style={{ animationDelay: delay }} />;
 }
 
-export function SparkIcon({ className }: { className?: string }) {
+export function SparkAvatar({ className }: { className?: string }) {
   return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"
-      />
-    </svg>
+    <span
+      aria-hidden="true"
+      className={`rounded-full bg-gradient-to-br from-tru-pink to-tru-blue flex items-center justify-center flex-shrink-0 ${className ?? ""}`}
+    >
+      ✨
+    </span>
   );
 }
 
 function CloseIcon({ className }: { className?: string }) {
   return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-    </svg>
-  );
-}
-
-function SendIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M13 6l6 6-6 6" />
     </svg>
   );
 }

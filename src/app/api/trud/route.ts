@@ -1,10 +1,13 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { TRUD_INSTRUCTIONS, TRUD_KNOWLEDGE_BLOCK } from "@/lib/trud/prompt";
 import { TRUD_TOOLS, runTool, type TrudUiEvent } from "@/lib/trud/tools";
+import { cleanPath, describePage } from "@/lib/trud/context";
 
 // Ask Tru.D — streaming support assistant.
 //
-// POST { messages: [{ role: "user" | "assistant", content: string }] }
+// POST { messages: [{ role: "user" | "assistant", content: string }], page?: string }
+//   `page` is the path the visitor is on; it becomes a system note after the
+//   last user turn so trip pages get trip-specific answers.
 // Responds with newline-delimited JSON events:
 //   { t: "text", v: string }            streamed answer text
 //   { t: "tool", name, status }         "start" | "done"
@@ -52,7 +55,7 @@ export async function POST(request: Request) {
     return Response.json({ error: "rate_limited", message: "Slow down a touch — try again in a few minutes." }, { status: 429 });
   }
 
-  let body: { messages?: ClientMessage[] };
+  let body: { messages?: ClientMessage[]; page?: unknown };
   try {
     body = await request.json();
   } catch {
@@ -70,6 +73,11 @@ export async function POST(request: Request) {
 
   const client = new Anthropic();
   const messages: Anthropic.Beta.BetaMessageParam[] = incoming.map((m) => ({ role: m.role, content: m.content }));
+
+  // Page context goes in the messages array (not the system prompt) so the
+  // cached knowledge-base prefix stays byte-identical across pages.
+  const pageNote = describePage(cleanPath(body.page));
+  if (pageNote) messages.push({ role: "system", content: pageNote });
 
   const encoder = new TextEncoder();
   const stream = new ReadableStream<Uint8Array>({
