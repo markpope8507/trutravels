@@ -1,39 +1,34 @@
+import Link from "next/link";
 import Breadcrumbs from "@/components/breadcrumbs";
 import { PARTNERS, sectionCrumbs } from "@/lib/breadcrumbs";
-import AgentBookingForm from "@/components/agent-booking-form";
+import AgencyRegistrationForm from "@/components/agency-registration-form";
 import { AGENT_PORTAL_URL, PARTNER_PAGES } from "@/lib/partner-pages";
 
 export const metadata = {
-  title: "Agent Registration — Register A Booking | TruTravels",
+  title: "Agent Registration — Register Your Travel Agency | TruTravels",
   description:
-    "Travel agents: register a TruTravels booking you've made for a client. Agent details, the departure, and everything we need to set the traveller up.",
+    "Register your travel agency to sell TruTravels. Once you're approved, your manager can set up Sherpa logins for everyone at the agency.",
 };
 
 /**
- * Agent Registration.
+ * Agent Registration — a travel agency signing up to sell TruTravels.
  *
- * One of the two Partners links that had never been built — it pointed at
- * /about, which is simply the wrong page.
+ * Mirrors gadventures.com/agents/register, in Tru voice. We're on the same
+ * Sherpa platform, so this is the same application and the same approval
+ * route; only the words are ours.
  *
- * This is the trade side, not the consumer side: an agent has sold a
- * TruTravels departure to a client and is passing the booking to us. It
- * mirrors the form at trutravels.com/agents.
+ * IT REGISTERS AN AGENCY, NOT A PERSON. That distinction is the whole reason
+ * the page needs prose around the form: an individual agent filling this in
+ * gets rejected and loses a fortnight. It's said in the intro, on the first
+ * group of the form, and again above the manager fields.
  *
- * NOT A LOGIN. Agents Login goes to G Adventures' Sherpa portal, which is a
- * real external system — so this page carries a signpost to it rather than a
- * second sign-in form. The two got confused often enough on the live site to
- * be worth saying out loud here.
+ * NOT A LOGIN EITHER. Agents Login goes to Sherpa, which is where agents at
+ * an already-approved agency go. The card on the left sends them there.
  *
  * Mirrored by converted/agent-registration.html.
  */
 
 const HERO = PARTNER_PAGES.find((p) => p.href === "/agent-registration")!.image;
-
-const STEPS: [string, string][] = [
-  ["Register the booking", "Fill in the form below — your details, the departure, and your client's."],
-  ["We confirm within a day", "You'll get an email with the TruTravels booking reference and the balance due date."],
-  ["Commission on departure", "Paid against your agency reference. Track it in Sherpa alongside your other bookings."],
-];
 
 export default function AgentRegistrationPage() {
   return (
@@ -47,11 +42,11 @@ export default function AgentRegistrationPage() {
               Travel Agents
             </p>
             <h1 className="mb-6 font-heading text-4xl font-black uppercase leading-[0.95] text-white sm:text-5xl lg:text-6xl">
-              Agent <span className="text-tru-pink">Registration</span>
+              Register Your <span className="text-tru-pink">Agency</span>
             </h1>
             <div className="mb-6 ml-auto h-px w-16 bg-tru-pink" />
             <p className="ml-auto max-w-md text-base font-light italic leading-relaxed text-gray-200 sm:text-lg">
-              &ldquo;Sold a Tru trip? Send us the booking and we&rsquo;ll take it from there.&rdquo;
+              &ldquo;Thanks for your interest in Tru. We can&rsquo;t wait to work with you.&rdquo;
             </p>
           </div>
         </div>
@@ -70,48 +65,61 @@ export default function AgentRegistrationPage() {
         <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-16 lg:px-8">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <h2 className="font-heading text-3xl font-black uppercase leading-[1.05] tracking-tight text-white sm:text-4xl">
-              How It <span className="text-tru-pink">Works</span>
+              Sell Tru <span className="text-tru-pink">Trips</span>
             </h2>
-
-            <ol className="mt-8 space-y-7">
-              {STEPS.map(([title, body], i) => (
-                <li key={title} className="flex gap-4">
-                  <span className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-full border border-tru-pink/30 bg-tru-pink/15 font-heading text-xs font-bold text-tru-pink">
-                    {i + 1}
-                  </span>
-                  <div>
-                    <h3 className="font-heading text-sm font-black uppercase tracking-tight text-white">{title}</h3>
-                    <p className="mt-1.5 text-sm leading-relaxed text-gray-300">{body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-
-            {/* The signpost, not a second login form — Sherpa is G Adventures'
-                system and the sign-in lives there. */}
-            <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-              <h3 className="font-heading text-sm font-black uppercase tracking-tight text-white">
-                Already An <span className="text-tru-pink">Agent?</span>
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-300">
-                Live availability, your bookings and your commission all live in Sherpa. This form is only for passing
-                us a new booking.
+            <div className="mt-6 space-y-5 text-base leading-relaxed text-gray-300">
+              <p>
+                Before we can start working together, your agency needs to be registered with us. If you manage a
+                travel agency and you&rsquo;re not already working with TruTravels, fill in the form.
               </p>
-              <a
-                href={AGENT_PORTAL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-2 rounded-[10px] border border-tru-pink/40 px-5 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-tru-pink transition hover:bg-tru-pink hover:text-white"
-              >
-                Sign In To Sherpa
-                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14 5h5v5m0-5L10 14M18 14v5H5V6h5" />
-                </svg>
-              </a>
+              <p>
+                Once you&rsquo;re approved you&rsquo;ll be set up on Sherpa, and you can give individual agents at your
+                firm their own access from there.
+              </p>
+            </div>
+
+            {/* Two wrong turns, both common enough to head off before the form.
+                The first is an agent filling in an agency form; the second is
+                a tour operator who wants to supply us, not sell us. */}
+            <div className="mt-8 space-y-4">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                <h3 className="font-heading text-sm font-black uppercase tracking-tight text-white">
+                  Already <span className="text-tru-pink">Registered?</span>
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-300">
+                  If your agency is already with us, you don&rsquo;t need this form — sign in to Sherpa, or ask your
+                  manager to set you up with a login.
+                </p>
+                <a
+                  href={AGENT_PORTAL_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex items-center gap-2 rounded-[10px] border border-tru-pink/40 px-5 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-tru-pink transition hover:bg-tru-pink hover:text-white"
+                >
+                  Log In To Sherpa
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14 5h5v5m0-5L10 14M18 14v5H5V6h5" />
+                  </svg>
+                </a>
+              </div>
+
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                <h3 className="font-heading text-sm font-black uppercase tracking-tight text-white">
+                  Not An <span className="text-tru-pink">Agency?</span>
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-300">
+                  If you run your own trips, host a community, or have a partnership idea that isn&rsquo;t an agency
+                  arrangement,{" "}
+                  <Link href="/partners" className="text-gray-100 underline transition hover:text-tru-pink">
+                    the other Partners routes
+                  </Link>{" "}
+                  are the ones you want.
+                </p>
+              </div>
             </div>
           </div>
 
-          <AgentBookingForm />
+          <AgencyRegistrationForm />
         </div>
       </section>
     </>

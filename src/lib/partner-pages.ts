@@ -48,13 +48,13 @@ export const PARTNER_PAGES: PartnerPage[] = [
   {
     name: "Agent Registration",
     href: "/agent-registration",
-    description: "Travel agents: register a booking you've made for a client.",
+    description: "Register your travel agency to sell TruTravels.",
     image: "https://cdn.trutravels.com/south-korea/seoul-day-4.jpg",
   },
   {
     name: "Agents Login",
     href: "https://sherpa.gtravelcommunity.com/login/",
-    description: "Sign in to Sherpa for live availability, bookings and commission.",
+    description: "Already registered? Sign in to Sherpa.",
     image: "https://cdn.trutravels.com/thailand/longtail-boat.jpg",
     external: true,
   },

@@ -1,19 +1,23 @@
 """
-Build the agent booking registration page.
+Build the agency registration page.
 
   converted/agent-registration.html
 
-Mirrors src/app/agent-registration/page.tsx and the form at
-trutravels.com/agents: how a travel agent passes us a booking they've made for
-a client.
+Mirrors src/app/agent-registration/page.tsx and gadventures.com/agents/register
+in Tru voice. We're on the same Sherpa platform, so it's the same application
+and the same approval route; only the words are ours.
 
-NOT A LOGIN. Agents Login goes to G Adventures' Sherpa portal — a real
-external system — so this page signposts it rather than carrying a second
-sign-in form.
+IT REGISTERS AN AGENCY, NOT A PERSON — said in the intro, on the first group
+of the form, and again above the manager fields, because an individual agent
+filling it in gets rejected and loses a fortnight.
 
-THE TOUR LIST IS THE PROTOTYPE'S OWN TRIP DATA, read from src/lib/data.ts at
-build time and grouped by country, so the two builds can't offer different
-tours.
+ONE REGISTRATION NUMBER, NOT FIVE FIELDS. The source page puts IATA, ABTA,
+Business Registration, CLIA and TIDS side by side and asks for one. A type +
+a number asks the same thing once, and needs no JavaScript — which matters,
+because this page must behave exactly like the prototype.
+
+THE COUNTRY LIST is read from src/lib/countries.ts at build time rather than
+kept as a second copy of 249 rows.
 
 Built on the shared form system (`.field`, `.form-submit`, `.form-done`) —
 see components/form-fields.html.
@@ -38,89 +42,34 @@ TICK = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width
 OUT = ('<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">'
        '<path stroke-linecap="round" stroke-linejoin="round" d="M14 5h5v5m0-5L10 14M18 14v5H5V6h5"/></svg>')
 
-
-def _objects(seg):
-    """Top-level { ... } objects in a TS array literal. Brace counting, but
-    string-aware — trip descriptions contain braces and the array is a mix of
-    one-per-line and one-line entries, so neither a line regex nor a naive
-    depth count gets all 36."""
-    # `= [`, not the first "[" — that one is the `Trip[]` in the declaration,
-    # and starting there hits the closing "]" at depth 0 and yields nothing.
-    depth, start, i, quote = 0, None, seg.index("= [") + 3, None
-    while i < len(seg):
-        c = seg[i]
-        if quote:
-            if c == "\\":
-                i += 2
-                continue
-            if c == quote:
-                quote = None
-        elif c in "\"'`":
-            quote = c
-        elif c == "{":
-            if depth == 0:
-                start = i
-            depth += 1
-        elif c == "}":
-            depth -= 1
-            if depth == 0:
-                yield seg[start:i + 1]
-        elif c == "]" and depth == 0:
-            return
-        i += 1
+REG_TYPES = ["IATA", "ABTA", "Business Registration", "CLIA", "TIDS"]
 
 
-def tours():
-    """Trip id, title, duration and country, grouped by country — read from
-    the prototype's lib rather than retyped."""
-    src = open(os.path.join(SRC, "lib", "data.ts"), encoding="utf-8").read()
-    seg = src[src.index("export const trips: Trip[]"):src.index("export const stories: Story[]")]
-    out = {}
-    for obj in _objects(seg):
-        def get(k):
-            m = re.search(rf'\b{k}: "([^"]*)"', obj)
-            return m.group(1) if m else None
-        tid, title, country, dur = get("id"), get("title"), get("destination"), get("duration")
-        if not (tid and title and country):
-            continue
-        out.setdefault(country, []).append((tid, title, dur or ""))
-    return out
+def countries():
+    """[(code, name)] from the prototype's lib, not a second copy."""
+    src = open(os.path.join(SRC, "lib", "countries.ts"), encoding="utf-8").read()
+    return re.findall(r'\["([A-Z]{2})", "([^"]+)"\]', src)
 
-
-STEPS = [
-    ("Register the booking", "Fill in the form below &mdash; your details, the departure, and your client&rsquo;s."),
-    ("We confirm within a day", "You&rsquo;ll get an email with the TruTravels booking reference and the balance due date."),
-    ("Commission on departure", "Paid against your agency reference. Track it in Sherpa alongside your other bookings."),
-]
 
 # (name, label, type, required, placeholder, hint)
-AGENT_FIELDS = [
-    ("agent_name", "Agent Name", "text", True, "First and last", ""),
-    ("agent_reference", "Agency Reference", "text", True, "Your booking reference",
-     "Whatever this booking is called in your system &mdash; it&rsquo;s how we match the two up."),
-    ("agent_email", "Agent Email Address", "email", True, "you@agency.com", ""),
+ADDRESS_HEAD = [("address", "Address", "text", True, "Street address", "")]
+ADDRESS_TAIL = [
+    ("state", "State Or Province", "text", False, "If your country uses them", ""),
+    ("city", "City", "text", True, "", ""),
+    ("postal_code", "Postal / Zip Code", "text", True, "", ""),
 ]
-CUSTOMER_HEAD = [("customer_name", "Customer Name", "text", True, "As it appears on their passport", "")]
-CUSTOMER_TAIL = [
-    ("customer_email", "Email Address", "email", True, "them@email.com", ""),
-    ("customer_phone", "Phone Number", "tel", True, "+44 7700 900000", ""),
-    ("customer_dob", "Date Of Birth", "date", True, "", ""),
-    ("customer_nationality", "Nationality", "text", True, "e.g. British", ""),
+CONTACT_FIELDS = [
+    ("email", "Email", "email", True, "bookings@agency.com",
+     "The agency&rsquo;s address, not a personal one &mdash; this is where booking confirmations land."),
+    ("public_phone", "Public Phone", "tel", True, "+44 20 7946 0000", "The number your customers call."),
+    ("phone_number", "Private Phone", "tel", False, "The line we should use", ""),
+    ("fax", "Fax", "tel", False, "", ""),
 ]
-EMERGENCY_FIELDS = [
-    ("emergency_name", "Emergency Contact Name", "text", True, "Full name", ""),
-    ("emergency_number", "Emergency Contact Number", "tel", True, "Including country code", ""),
+MANAGER_FIELDS = [
+    ("manager_first_name", "First Name", "text", True, "", ""),
+    ("manager_last_name", "Last Name", "text", True, "", ""),
+    ("manager_email", "Email", "email", True, "manager@agency.com", ""),
 ]
-EXTRA_FIELDS = [
-    ("dietary_medical", "Dietary Requirements / Medical Conditions",
-     "Allergies, medication, anything a trip leader should know before day one."),
-    ("flights", "Flight Details", "Arrival airport, flight number and landing time, if they&rsquo;re booked."),
-    ("notes", "Notes", "Anything else we should know."),
-]
-
-# Used for twin-share rooming, which is the only reason we ask — so the options
-# are the ones a person might actually pick, not the live form's Male/Female.
-GENDERS = ["Female", "Male", "Non-binary", "Prefer not to say"]
 
 
 def field(f):
@@ -140,13 +89,6 @@ def fields(fs):
     return "\n".join(field(f) for f in fs)
 
 
-def area(name, label, ph):
-    return f'''              <div class="field">
-                <label for="ag-{name}">{label} <span>(optional)</span></label>
-                <textarea id="ag-{name}" name="{name}" rows="3" placeholder="{ph}"></textarea>
-              </div>'''
-
-
 def group(n, title, note, body):
     return f'''            <fieldset class="agr-g">
               <legend class="agr-g__h"><span class="agr-g__n">{n}</span>{title}</legend>
@@ -155,65 +97,77 @@ def group(n, title, note, body):
             </fieldset>'''
 
 
-def tour_select():
-    opts = ['                  <option value="" disabled selected>Please select</option>']
-    for country, list_ in tours().items():
-        opts.append(f'                  <optgroup label="{country}">')
-        for tid, title, dur in list_:
-            opts.append(f'                    <option value="{tid}">{title} ({dur})</option>')
-        opts.append("                  </optgroup>")
-    opts.append('                  <option value="other">Another trip &mdash; I&rsquo;ll add it in Notes</option>')
-    body = "\n".join(opts)
-    return f'''              <div class="field">
-                <label for="ag-tour">Tour <span>*</span></label>
-                <select id="ag-tour" name="tour" required>
-{body}
-                </select>
+def agency_group():
+    types = "\n".join(f'                    <option value="{t}">{t}</option>' for t in REG_TYPES)
+    name_f = field(("name", "Legal Company Name", "text", True, "As registered",
+                    "The legal entity that will appear on commission payments."))
+    group_f = field(("group", "Agency Group Or Chain", "text", False,
+                     "Leave blank if you&rsquo;re independent", ""))
+    return f'''{name_f}
+{group_f}
+              <div class="field-row agr-reg">
+                <div class="field">
+                  <label for="ag-reg_type">Registration Type <span>*</span></label>
+                  <select id="ag-reg_type" name="reg_type" required>
+                    <option value="" disabled selected>Please select</option>
+{types}
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="ag-reg_number">Registration Number <span>*</span></label>
+                  <input id="ag-reg_number" name="reg_number" type="text" required />
+                </div>
               </div>
-{field(("start_date", "Start Date", "date", True, "", ""))}'''
+              <p class="field__hint">One number is enough &mdash; IATA, ABTA, CLIA, TIDS or your business registration. We can&rsquo;t approve an agency without one.</p>'''
 
 
-def gender_select():
-    opts = "\n".join(f'                  <option value="{g}">{g}</option>' for g in GENDERS)
+def country_select():
+    opts = "\n".join(
+        f'                  <option value="{code}">{name}</option>' for code, name in countries()
+    )
     return f'''              <div class="field">
-                <label for="ag-customer_gender">Gender <span>*</span></label>
-                <select id="ag-customer_gender" name="customer_gender" required>
+                <label for="ag-country">Country <span>*</span></label>
+                <select id="ag-country" name="country" required autocomplete="country">
                   <option value="" disabled selected>Please select</option>
 {opts}
                 </select>
-                <p class="field__hint">Used for twin-share rooming only.</p>
+              </div>'''
+
+
+def extras_group():
+    booking = field(("booking_number", "Active Booking Reference", "text", False,
+                     "If you already have one with us",
+                     "Speeds things up &mdash; it tells us you&rsquo;re already trading with us."))
+    return f'''{booking}
+              <div class="field">
+                <label for="ag-comment">Comments <span>(optional)</span></label>
+                <textarea id="ag-comment" name="comment" rows="3" placeholder="Anything we should know about the agency."></textarea>
               </div>'''
 
 
 def page():
-    steps = "\n".join(
-        f'''          <li class="agr-step">
-            <span class="agr-step__n">{i + 1}</span>
-            <div>
-              <h3 class="agr-step__t">{t}</h3>
-              <p class="agr-step__d">{d}</p>
-            </div>
-          </li>'''
-        for i, (t, d) in enumerate(STEPS)
-    )
-
     form = "\n\n".join([
-        group(1, "Your Details", "So we know who to confirm back to, and whose commission this is.", fields(AGENT_FIELDS)),
-        group(2, "The Trip", "Which departure the booking is for.", tour_select()),
-        group(3, "Traveller Details",
-              "The person going. Names need to match their passport &mdash; it&rsquo;s what the trip manifest is built from.",
-              fields(CUSTOMER_HEAD) + "\n" + gender_select() + "\n" + fields(CUSTOMER_TAIL)),
-        group(4, "Emergency Contact", "Someone not travelling with them.", fields(EMERGENCY_FIELDS)),
-        group(5, "Anything Else", "All optional, but the first one saves a phone call later.",
-              "\n".join(area(*e) for e in EXTRA_FIELDS)),
+        group(1, "Your Agency",
+              "<strong>This registers an agency, not a person.</strong> If your agency already works with us, "
+              "ask your manager for a Sherpa login instead.",
+              agency_group()),
+        group(2, "Agency Address", "Where the agency trades from.",
+              fields(ADDRESS_HEAD) + "\n" + country_select() + "\n" + fields(ADDRESS_TAIL)),
+        group(3, "Agency Contact Details", "How we reach the agency, and how your customers do.",
+              fields(CONTACT_FIELDS)),
+        group(4, "Agency Manager",
+              "<strong>Not you, unless you are the manager.</strong> Approval goes to whoever runs the agency, "
+              "and they hand out the logins from there.",
+              fields(MANAGER_FIELDS)),
+        group(5, "Anything Else", "Both optional.", extras_group()),
     ])
 
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 {HEAD}
-  <title>Agent Registration &mdash; Register A Booking | TruTravels</title>
-  <meta name="description" content="Travel agents: register a TruTravels booking you've made for a client." />
+  <title>Agent Registration &mdash; Register Your Travel Agency | TruTravels</title>
+  <meta name="description" content="Register your travel agency to sell TruTravels. Once you're approved, your manager can set up Sherpa logins for everyone at the agency." />
 </head>
 <body>
 
@@ -226,9 +180,9 @@ def page():
       <div class="container ess-hero__inner">
         <div class="ess-hero__text">
           <p class="ess-hero__eyebrow">Travel Agents</p>
-          <h1 class="ess-hero__title">Agent <span>Registration</span></h1>
+          <h1 class="ess-hero__title">Register Your <span>Agency</span></h1>
           <div class="ess-hero__rule"></div>
-          <p class="ess-hero__quote">&ldquo;Sold a Tru trip? Send us the booking and we&rsquo;ll take it from there.&rdquo;</p>
+          <p class="ess-hero__quote">&ldquo;Thanks for your interest in Tru. We can&rsquo;t wait to work with you.&rdquo;</p>
         </div>
       </div>
     </section>
@@ -241,17 +195,26 @@ def page():
         <div class="agr">
 
         <div class="agr__side">
-          <h2 class="ess-h2">How It <span>Works</span></h2>
-          <ol class="agr-steps">
-{steps}
-          </ol>
+          <h2 class="ess-h2">Sell Tru <span>Trips</span></h2>
+          <div class="agr-copy">
+            <p class="ess-p">Before we can start working together, your agency needs to be registered with us. If you manage a travel agency and you&rsquo;re not already working with TruTravels, fill in the form.</p>
+            <p class="ess-p">Once you&rsquo;re approved you&rsquo;ll be set up on Sherpa, and you can give individual agents at your firm their own access from there.</p>
+          </div>
 
-          <!-- The signpost, not a second login form — Sherpa is G Adventures'
-               system and the sign-in lives there. -->
-          <div class="agr-portal">
-            <h3 class="agr-portal__t">Already An <span>Agent?</span></h3>
-            <p class="agr-portal__d">Live availability, your bookings and your commission all live in Sherpa. This form is only for passing us a new booking.</p>
-            <a class="agr-portal__btn" href="{AGENT_PORTAL_URL}" target="_blank" rel="noopener noreferrer">Sign In To Sherpa {OUT}</a>
+          <!-- Two wrong turns, both common enough to head off before the form:
+               an agent filling in an agency form, and a tour operator who
+               wants to supply us rather than sell us. -->
+          <div class="agr-notes">
+            <div class="agr-portal">
+              <h3 class="agr-portal__t">Already <span>Registered?</span></h3>
+              <p class="agr-portal__d">If your agency is already with us, you don&rsquo;t need this form &mdash; sign in to Sherpa, or ask your manager to set you up with a login.</p>
+              <a class="agr-portal__btn" href="{AGENT_PORTAL_URL}" target="_blank" rel="noopener noreferrer">Log In To Sherpa {OUT}</a>
+            </div>
+
+            <div class="agr-portal">
+              <h3 class="agr-portal__t">Not An <span>Agency?</span></h3>
+              <p class="agr-portal__d">If you run your own trips, host a community, or have a partnership idea that isn&rsquo;t an agency arrangement, <a href="partners.html">the other Partners routes</a> are the ones you want.</p>
+            </div>
           </div>
         </div>
 
@@ -259,14 +222,13 @@ def page():
           <form data-nl-form novalidate>
 {form}
 
-            <button type="submit" class="form-submit">Register This Booking {CHEV}</button>
-            <p class="field__hint" style="margin-top:1rem">Registering a booking isn&rsquo;t a confirmation. We&rsquo;ll come back to you within one working day to confirm the place and the price.</p>
+            <button type="submit" class="form-submit">Register My Agency {CHEV}</button>
           </form>
 
           <div class="form-done" data-nl-done hidden>
             <span class="form-done__ico">{TICK}</span>
-            <h3 class="form-done__t">Booking <span>Registered</span></h3>
-            <p class="form-done__s">We&rsquo;ve got it. You&rsquo;ll have a confirmation by email within one working day, with the booking reference and what the traveller needs to do next.</p>
+            <h3 class="form-done__t">Application <span>Received</span></h3>
+            <p class="form-done__s">We&rsquo;ll review it and come back to your manager by email. Once you&rsquo;re approved they can set up logins for everyone at the agency.</p>
           </div>
         </div>
 
@@ -303,5 +265,4 @@ def page():
 if __name__ == "__main__":
     out = page()
     open(os.path.join(BASE, "agent-registration.html"), "w", encoding="utf-8").write(out)
-    n = sum(len(v) for v in tours().values())
-    print(f"  wrote agent-registration.html   ({len(out.splitlines())} lines, {n} tours in the dropdown)")
+    print(f"  wrote agent-registration.html   ({len(out.splitlines())} lines, {len(countries())} countries)")

@@ -8,8 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <title>Agent Registration &mdash; Register A Booking | TruTravels</title>
-  <meta name="description" content="Travel agents: register a TruTravels booking you've made for a client." />
+  <title>Agent Registration &mdash; Register Your Travel Agency | TruTravels</title>
+  <meta name="description" content="Register your travel agency to sell TruTravels. Once you're approved, your manager can set up Sherpa logins for everyone at the agency." />
 </head>
 <body>
 
@@ -118,9 +118,9 @@
       <div class="container ess-hero__inner">
         <div class="ess-hero__text">
           <p class="ess-hero__eyebrow">Travel Agents</p>
-          <h1 class="ess-hero__title">Agent <span>Registration</span></h1>
+          <h1 class="ess-hero__title">Register Your <span>Agency</span></h1>
           <div class="ess-hero__rule"></div>
-          <p class="ess-hero__quote">&ldquo;Sold a Tru trip? Send us the booking and we&rsquo;ll take it from there.&rdquo;</p>
+          <p class="ess-hero__quote">&ldquo;Thanks for your interest in Tru. We can&rsquo;t wait to work with you.&rdquo;</p>
         </div>
       </div>
     </section>
@@ -141,206 +141,400 @@
         <div class="agr">
 
         <div class="agr__side">
-          <h2 class="ess-h2">How It <span>Works</span></h2>
-          <ol class="agr-steps">
-          <li class="agr-step">
-            <span class="agr-step__n">1</span>
-            <div>
-              <h3 class="agr-step__t">Register the booking</h3>
-              <p class="agr-step__d">Fill in the form below &mdash; your details, the departure, and your client&rsquo;s.</p>
-            </div>
-          </li>
-          <li class="agr-step">
-            <span class="agr-step__n">2</span>
-            <div>
-              <h3 class="agr-step__t">We confirm within a day</h3>
-              <p class="agr-step__d">You&rsquo;ll get an email with the TruTravels booking reference and the balance due date.</p>
-            </div>
-          </li>
-          <li class="agr-step">
-            <span class="agr-step__n">3</span>
-            <div>
-              <h3 class="agr-step__t">Commission on departure</h3>
-              <p class="agr-step__d">Paid against your agency reference. Track it in Sherpa alongside your other bookings.</p>
-            </div>
-          </li>
-          </ol>
+          <h2 class="ess-h2">Sell Tru <span>Trips</span></h2>
+          <div class="agr-copy">
+            <p class="ess-p">Before we can start working together, your agency needs to be registered with us. If you manage a travel agency and you&rsquo;re not already working with TruTravels, fill in the form.</p>
+            <p class="ess-p">Once you&rsquo;re approved you&rsquo;ll be set up on Sherpa, and you can give individual agents at your firm their own access from there.</p>
+          </div>
 
-          <!-- The signpost, not a second login form — Sherpa is G Adventures'
-               system and the sign-in lives there. -->
-          <div class="agr-portal">
-            <h3 class="agr-portal__t">Already An <span>Agent?</span></h3>
-            <p class="agr-portal__d">Live availability, your bookings and your commission all live in Sherpa. This form is only for passing us a new booking.</p>
-            <a class="agr-portal__btn" href="https://sherpa.gtravelcommunity.com/login/" target="_blank" rel="noopener noreferrer">Sign In To Sherpa <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5h5v5m0-5L10 14M18 14v5H5V6h5"/></svg></a>
+          <!-- Two wrong turns, both common enough to head off before the form:
+               an agent filling in an agency form, and a tour operator who
+               wants to supply us rather than sell us. -->
+          <div class="agr-notes">
+            <div class="agr-portal">
+              <h3 class="agr-portal__t">Already <span>Registered?</span></h3>
+              <p class="agr-portal__d">If your agency is already with us, you don&rsquo;t need this form &mdash; sign in to Sherpa, or ask your manager to set you up with a login.</p>
+              <a class="agr-portal__btn" href="https://sherpa.gtravelcommunity.com/login/" target="_blank" rel="noopener noreferrer">Log In To Sherpa <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5h5v5m0-5L10 14M18 14v5H5V6h5"/></svg></a>
+            </div>
+
+            <div class="agr-portal">
+              <h3 class="agr-portal__t">Not An <span>Agency?</span></h3>
+              <p class="agr-portal__d">If you run your own trips, host a community, or have a partnership idea that isn&rsquo;t an agency arrangement, <a href="partners.html">the other Partners routes</a> are the ones you want.</p>
+            </div>
           </div>
         </div>
 
         <div class="agr__form" data-nl>
           <form data-nl-form novalidate>
             <fieldset class="agr-g">
-              <legend class="agr-g__h"><span class="agr-g__n">1</span>Your Details</legend>
-              <p class="agr-g__note">So we know who to confirm back to, and whose commission this is.</p>
+              <legend class="agr-g__h"><span class="agr-g__n">1</span>Your Agency</legend>
+              <p class="agr-g__note"><strong>This registers an agency, not a person.</strong> If your agency already works with us, ask your manager for a Sherpa login instead.</p>
               <div class="field">
-                <label for="ag-agent_name">Agent Name <span>*</span></label>
-                <input id="ag-agent_name" name="agent_name" type="text" required placeholder="First and last" />
+                <label for="ag-name">Legal Company Name <span>*</span></label>
+                <input id="ag-name" name="name" type="text" required placeholder="As registered" />
+                <p class="field__hint">The legal entity that will appear on commission payments.</p>
               </div>
               <div class="field">
-                <label for="ag-agent_reference">Agency Reference <span>*</span></label>
-                <input id="ag-agent_reference" name="agent_reference" type="text" required placeholder="Your booking reference" />
-                <p class="field__hint">Whatever this booking is called in your system &mdash; it&rsquo;s how we match the two up.</p>
+                <label for="ag-group">Agency Group Or Chain <span>(optional)</span></label>
+                <input id="ag-group" name="group" type="text" placeholder="Leave blank if you&rsquo;re independent" />
               </div>
-              <div class="field">
-                <label for="ag-agent_email">Agent Email Address <span>*</span></label>
-                <input id="ag-agent_email" name="agent_email" type="email" required placeholder="you@agency.com" />
+              <div class="field-row agr-reg">
+                <div class="field">
+                  <label for="ag-reg_type">Registration Type <span>*</span></label>
+                  <select id="ag-reg_type" name="reg_type" required>
+                    <option value="" disabled selected>Please select</option>
+                    <option value="IATA">IATA</option>
+                    <option value="ABTA">ABTA</option>
+                    <option value="Business Registration">Business Registration</option>
+                    <option value="CLIA">CLIA</option>
+                    <option value="TIDS">TIDS</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="ag-reg_number">Registration Number <span>*</span></label>
+                  <input id="ag-reg_number" name="reg_number" type="text" required />
+                </div>
               </div>
+              <p class="field__hint">One number is enough &mdash; IATA, ABTA, CLIA, TIDS or your business registration. We can&rsquo;t approve an agency without one.</p>
             </fieldset>
 
             <fieldset class="agr-g">
-              <legend class="agr-g__h"><span class="agr-g__n">2</span>The Trip</legend>
-              <p class="agr-g__note">Which departure the booking is for.</p>
+              <legend class="agr-g__h"><span class="agr-g__n">2</span>Agency Address</legend>
+              <p class="agr-g__note">Where the agency trades from.</p>
               <div class="field">
-                <label for="ag-tour">Tour <span>*</span></label>
-                <select id="ag-tour" name="tour" required>
+                <label for="ag-address">Address <span>*</span></label>
+                <input id="ag-address" name="address" type="text" required placeholder="Street address" />
+              </div>
+              <div class="field">
+                <label for="ag-country">Country <span>*</span></label>
+                <select id="ag-country" name="country" required autocomplete="country">
                   <option value="" disabled selected>Please select</option>
-                  <optgroup label="Thailand">
-                    <option value="thailand-island-hopper">Thailand Island Hopper (14 Days)</option>
-                    <option value="thailand-experience">Thailand Experience (8 Days)</option>
-                    <option value="full-moon-party-pack">Full Moon Party Pack (5 Days)</option>
-                    <option value="full-moon-experience">Full Moon Experience (10 Days)</option>
-                    <option value="northern-thailand-adventure">Northern Thailand Adventure (14 Days)</option>
-                    <option value="full-moon-island-hopper">Full Moon Island Hopper (16 Days)</option>
-                    <option value="total-thailand">Total Thailand (27 Days)</option>
-                    <option value="thailand-backpacker">Thailand Backpacker (10 Days)</option>
-                    <option value="songkran-festival">Songkran Festival (7 Days)</option>
-                    <option value="discover-asia">Discover Asia (37 Days)</option>
-                    <option value="total-asia">Total Asia (50 Days)</option>
-                  </optgroup>
-                  <optgroup label="Indonesia">
-                    <option value="bali-experience">Bali Experience (10 Days)</option>
-                    <option value="bali-backpacker">Bali Backpacker (12 Days)</option>
-                    <option value="komodo-island-hopper">Komodo Island Hopper (9 Days)</option>
-                    <option value="bali-and-beyond">Bali & Beyond (18 Days)</option>
-                    <option value="bali-sumatra-adventure">Bali & Sumatra Adventure (18 Days)</option>
-                    <option value="sumatra-uncovered">Sumatra Uncovered (9 Days)</option>
-                    <option value="total-indonesia">Total Indonesia (26 Days)</option>
-                  </optgroup>
-                  <optgroup label="Philippines">
-                    <option value="philippines-east">Philippines East (8 Days)</option>
-                    <option value="philippines-west">Philippines West (10 Days)</option>
-                    <option value="philippines-island-hopper">Philippines Island Hopper (17 Days)</option>
-                    <option value="philippines-backpacker">Philippines Backpacker (11 Days)</option>
-                    <option value="philippines-siargao">Philippines Siargao Adventure (8 Days)</option>
-                    <option value="total-philippines">Total Philippines (24 Days)</option>
-                  </optgroup>
-                  <optgroup label="Vietnam">
-                    <option value="vietnam-backpacker">Vietnam Backpacker (12 Days)</option>
-                    <option value="vietnam-explorer">Vietnam Explorer (13 Days)</option>
-                  </optgroup>
-                  <optgroup label="Cambodia">
-                    <option value="cambodia-explorer">Cambodia Explorer (11 Days)</option>
-                    <option value="cambodia-vietnam-explorer">Cambodia & Vietnam Explorer (23 Days)</option>
-                  </optgroup>
-                  <optgroup label="Sri Lanka">
-                    <option value="sri-lanka-uncovered">Sri Lanka Uncovered (10 Days)</option>
-                  </optgroup>
-                  <optgroup label="Mexico">
-                    <option value="mexico-yucatan-experience">Mexico Yucatán Experience (11 Days)</option>
-                    <option value="mexico-yucatan-loop">Mexico Yucatán Loop (7 Days)</option>
-                    <option value="day-of-the-dead">Day of the Dead Festival (6 Days)</option>
-                    <option value="mexico-belize-guatemala">Mexico, Belize & Guatemala (18 Days)</option>
-                  </optgroup>
-                  <optgroup label="Costa Rica">
-                    <option value="costa-rica-adventure">Costa Rica Adventure (10 Days)</option>
-                  </optgroup>
-                  <optgroup label="Greece">
-                    <option value="greece-island-hopper">Greece Island Hopper (9 Days)</option>
-                  </optgroup>
-                  <optgroup label="India">
-                    <option value="india-sri-lanka">India & Sri Lanka Uncovered (23 Days)</option>
-                  </optgroup>
-                  <option value="other">Another trip &mdash; I&rsquo;ll add it in Notes</option>
+                  <option value="AF">Afghanistan</option>
+                  <option value="AX">Åland Islands</option>
+                  <option value="AL">Albania</option>
+                  <option value="DZ">Algeria</option>
+                  <option value="AS">American Samoa</option>
+                  <option value="AD">Andorra</option>
+                  <option value="AO">Angola</option>
+                  <option value="AI">Anguilla</option>
+                  <option value="AQ">Antarctica</option>
+                  <option value="AG">Antigua & Barbuda</option>
+                  <option value="AR">Argentina</option>
+                  <option value="AM">Armenia</option>
+                  <option value="AW">Aruba</option>
+                  <option value="AU">Australia</option>
+                  <option value="AT">Austria</option>
+                  <option value="AZ">Azerbaijan</option>
+                  <option value="BS">Bahamas</option>
+                  <option value="BH">Bahrain</option>
+                  <option value="BD">Bangladesh</option>
+                  <option value="BB">Barbados</option>
+                  <option value="BY">Belarus</option>
+                  <option value="BE">Belgium</option>
+                  <option value="BZ">Belize</option>
+                  <option value="BJ">Benin</option>
+                  <option value="BM">Bermuda</option>
+                  <option value="BT">Bhutan</option>
+                  <option value="BO">Bolivia</option>
+                  <option value="BA">Bosnia & Herzegovina</option>
+                  <option value="BW">Botswana</option>
+                  <option value="BV">Bouvet Island</option>
+                  <option value="BR">Brazil</option>
+                  <option value="IO">British Indian Ocean Territory</option>
+                  <option value="VG">British Virgin Islands</option>
+                  <option value="BN">Brunei</option>
+                  <option value="BG">Bulgaria</option>
+                  <option value="BF">Burkina Faso</option>
+                  <option value="BI">Burundi</option>
+                  <option value="KH">Cambodia</option>
+                  <option value="CM">Cameroon</option>
+                  <option value="CA">Canada</option>
+                  <option value="CV">Cape Verde</option>
+                  <option value="BQ">Caribbean Netherlands</option>
+                  <option value="KY">Cayman Islands</option>
+                  <option value="CF">Central African Republic</option>
+                  <option value="TD">Chad</option>
+                  <option value="CL">Chile</option>
+                  <option value="CN">China</option>
+                  <option value="CX">Christmas Island</option>
+                  <option value="CC">Cocos (Keeling) Islands</option>
+                  <option value="CO">Colombia</option>
+                  <option value="KM">Comoros</option>
+                  <option value="CG">Congo - Brazzaville</option>
+                  <option value="CD">Congo - Kinshasa</option>
+                  <option value="CK">Cook Islands</option>
+                  <option value="CR">Costa Rica</option>
+                  <option value="CI">Côte d’Ivoire</option>
+                  <option value="HR">Croatia</option>
+                  <option value="CU">Cuba</option>
+                  <option value="CW">Curaçao</option>
+                  <option value="CY">Cyprus</option>
+                  <option value="CZ">Czechia</option>
+                  <option value="DK">Denmark</option>
+                  <option value="DJ">Djibouti</option>
+                  <option value="DM">Dominica</option>
+                  <option value="DO">Dominican Republic</option>
+                  <option value="EC">Ecuador</option>
+                  <option value="EG">Egypt</option>
+                  <option value="SV">El Salvador</option>
+                  <option value="GQ">Equatorial Guinea</option>
+                  <option value="ER">Eritrea</option>
+                  <option value="EE">Estonia</option>
+                  <option value="SZ">Eswatini</option>
+                  <option value="ET">Ethiopia</option>
+                  <option value="FK">Falkland Islands</option>
+                  <option value="FO">Faroe Islands</option>
+                  <option value="FJ">Fiji</option>
+                  <option value="FI">Finland</option>
+                  <option value="FR">France</option>
+                  <option value="GF">French Guiana</option>
+                  <option value="PF">French Polynesia</option>
+                  <option value="TF">French Southern Territories</option>
+                  <option value="GA">Gabon</option>
+                  <option value="GM">Gambia</option>
+                  <option value="GE">Georgia</option>
+                  <option value="DE">Germany</option>
+                  <option value="GH">Ghana</option>
+                  <option value="GI">Gibraltar</option>
+                  <option value="GR">Greece</option>
+                  <option value="GL">Greenland</option>
+                  <option value="GD">Grenada</option>
+                  <option value="GP">Guadeloupe</option>
+                  <option value="GU">Guam</option>
+                  <option value="GT">Guatemala</option>
+                  <option value="GG">Guernsey</option>
+                  <option value="GN">Guinea</option>
+                  <option value="GW">Guinea-Bissau</option>
+                  <option value="GY">Guyana</option>
+                  <option value="HT">Haiti</option>
+                  <option value="HM">Heard & McDonald Islands</option>
+                  <option value="HN">Honduras</option>
+                  <option value="HK">Hong Kong SAR China</option>
+                  <option value="HU">Hungary</option>
+                  <option value="IS">Iceland</option>
+                  <option value="IN">India</option>
+                  <option value="ID">Indonesia</option>
+                  <option value="IR">Iran</option>
+                  <option value="IQ">Iraq</option>
+                  <option value="IE">Ireland</option>
+                  <option value="IM">Isle of Man</option>
+                  <option value="IL">Israel</option>
+                  <option value="IT">Italy</option>
+                  <option value="JM">Jamaica</option>
+                  <option value="JP">Japan</option>
+                  <option value="JE">Jersey</option>
+                  <option value="JO">Jordan</option>
+                  <option value="KZ">Kazakhstan</option>
+                  <option value="KE">Kenya</option>
+                  <option value="KI">Kiribati</option>
+                  <option value="KW">Kuwait</option>
+                  <option value="KG">Kyrgyzstan</option>
+                  <option value="LA">Laos</option>
+                  <option value="LV">Latvia</option>
+                  <option value="LB">Lebanon</option>
+                  <option value="LS">Lesotho</option>
+                  <option value="LR">Liberia</option>
+                  <option value="LY">Libya</option>
+                  <option value="LI">Liechtenstein</option>
+                  <option value="LT">Lithuania</option>
+                  <option value="LU">Luxembourg</option>
+                  <option value="MO">Macao SAR China</option>
+                  <option value="MG">Madagascar</option>
+                  <option value="MW">Malawi</option>
+                  <option value="MY">Malaysia</option>
+                  <option value="MV">Maldives</option>
+                  <option value="ML">Mali</option>
+                  <option value="MT">Malta</option>
+                  <option value="MH">Marshall Islands</option>
+                  <option value="MQ">Martinique</option>
+                  <option value="MR">Mauritania</option>
+                  <option value="MU">Mauritius</option>
+                  <option value="YT">Mayotte</option>
+                  <option value="MX">Mexico</option>
+                  <option value="FM">Micronesia</option>
+                  <option value="MD">Moldova</option>
+                  <option value="MC">Monaco</option>
+                  <option value="MN">Mongolia</option>
+                  <option value="ME">Montenegro</option>
+                  <option value="MS">Montserrat</option>
+                  <option value="MA">Morocco</option>
+                  <option value="MZ">Mozambique</option>
+                  <option value="MM">Myanmar (Burma)</option>
+                  <option value="NA">Namibia</option>
+                  <option value="NR">Nauru</option>
+                  <option value="NP">Nepal</option>
+                  <option value="NL">Netherlands</option>
+                  <option value="NC">New Caledonia</option>
+                  <option value="NZ">New Zealand</option>
+                  <option value="NI">Nicaragua</option>
+                  <option value="NE">Niger</option>
+                  <option value="NG">Nigeria</option>
+                  <option value="NU">Niue</option>
+                  <option value="NF">Norfolk Island</option>
+                  <option value="KP">North Korea</option>
+                  <option value="MK">North Macedonia</option>
+                  <option value="MP">Northern Mariana Islands</option>
+                  <option value="NO">Norway</option>
+                  <option value="OM">Oman</option>
+                  <option value="PK">Pakistan</option>
+                  <option value="PW">Palau</option>
+                  <option value="PS">Palestinian Territories</option>
+                  <option value="PA">Panama</option>
+                  <option value="PG">Papua New Guinea</option>
+                  <option value="PY">Paraguay</option>
+                  <option value="PE">Peru</option>
+                  <option value="PH">Philippines</option>
+                  <option value="PN">Pitcairn Islands</option>
+                  <option value="PL">Poland</option>
+                  <option value="PT">Portugal</option>
+                  <option value="PR">Puerto Rico</option>
+                  <option value="QA">Qatar</option>
+                  <option value="RE">Réunion</option>
+                  <option value="RO">Romania</option>
+                  <option value="RU">Russia</option>
+                  <option value="RW">Rwanda</option>
+                  <option value="WS">Samoa</option>
+                  <option value="SM">San Marino</option>
+                  <option value="ST">São Tomé & Príncipe</option>
+                  <option value="SA">Saudi Arabia</option>
+                  <option value="SN">Senegal</option>
+                  <option value="RS">Serbia</option>
+                  <option value="SC">Seychelles</option>
+                  <option value="SL">Sierra Leone</option>
+                  <option value="SG">Singapore</option>
+                  <option value="SX">Sint Maarten</option>
+                  <option value="SK">Slovakia</option>
+                  <option value="SI">Slovenia</option>
+                  <option value="SB">Solomon Islands</option>
+                  <option value="SO">Somalia</option>
+                  <option value="ZA">South Africa</option>
+                  <option value="GS">South Georgia & South Sandwich Islands</option>
+                  <option value="KR">South Korea</option>
+                  <option value="SS">South Sudan</option>
+                  <option value="ES">Spain</option>
+                  <option value="LK">Sri Lanka</option>
+                  <option value="BL">St. Barthélemy</option>
+                  <option value="SH">St. Helena</option>
+                  <option value="KN">St. Kitts & Nevis</option>
+                  <option value="LC">St. Lucia</option>
+                  <option value="MF">St. Martin</option>
+                  <option value="PM">St. Pierre & Miquelon</option>
+                  <option value="VC">St. Vincent & Grenadines</option>
+                  <option value="SD">Sudan</option>
+                  <option value="SR">Suriname</option>
+                  <option value="SJ">Svalbard & Jan Mayen</option>
+                  <option value="SE">Sweden</option>
+                  <option value="CH">Switzerland</option>
+                  <option value="SY">Syria</option>
+                  <option value="TW">Taiwan</option>
+                  <option value="TJ">Tajikistan</option>
+                  <option value="TZ">Tanzania</option>
+                  <option value="TH">Thailand</option>
+                  <option value="TL">Timor-Leste</option>
+                  <option value="TG">Togo</option>
+                  <option value="TK">Tokelau</option>
+                  <option value="TO">Tonga</option>
+                  <option value="TT">Trinidad & Tobago</option>
+                  <option value="TN">Tunisia</option>
+                  <option value="TR">Türkiye</option>
+                  <option value="TM">Turkmenistan</option>
+                  <option value="TC">Turks & Caicos Islands</option>
+                  <option value="TV">Tuvalu</option>
+                  <option value="UM">U.S. Outlying Islands</option>
+                  <option value="VI">U.S. Virgin Islands</option>
+                  <option value="UG">Uganda</option>
+                  <option value="UA">Ukraine</option>
+                  <option value="AE">United Arab Emirates</option>
+                  <option value="GB">United Kingdom</option>
+                  <option value="US">United States</option>
+                  <option value="UY">Uruguay</option>
+                  <option value="UZ">Uzbekistan</option>
+                  <option value="VU">Vanuatu</option>
+                  <option value="VA">Vatican City</option>
+                  <option value="VE">Venezuela</option>
+                  <option value="VN">Vietnam</option>
+                  <option value="WF">Wallis & Futuna</option>
+                  <option value="EH">Western Sahara</option>
+                  <option value="YE">Yemen</option>
+                  <option value="ZM">Zambia</option>
+                  <option value="ZW">Zimbabwe</option>
                 </select>
               </div>
               <div class="field">
-                <label for="ag-start_date">Start Date <span>*</span></label>
-                <input id="ag-start_date" name="start_date" type="date" required />
+                <label for="ag-state">State Or Province <span>(optional)</span></label>
+                <input id="ag-state" name="state" type="text" placeholder="If your country uses them" />
+              </div>
+              <div class="field">
+                <label for="ag-city">City <span>*</span></label>
+                <input id="ag-city" name="city" type="text" required />
+              </div>
+              <div class="field">
+                <label for="ag-postal_code">Postal / Zip Code <span>*</span></label>
+                <input id="ag-postal_code" name="postal_code" type="text" required />
               </div>
             </fieldset>
 
             <fieldset class="agr-g">
-              <legend class="agr-g__h"><span class="agr-g__n">3</span>Traveller Details</legend>
-              <p class="agr-g__note">The person going. Names need to match their passport &mdash; it&rsquo;s what the trip manifest is built from.</p>
+              <legend class="agr-g__h"><span class="agr-g__n">3</span>Agency Contact Details</legend>
+              <p class="agr-g__note">How we reach the agency, and how your customers do.</p>
               <div class="field">
-                <label for="ag-customer_name">Customer Name <span>*</span></label>
-                <input id="ag-customer_name" name="customer_name" type="text" required placeholder="As it appears on their passport" />
+                <label for="ag-email">Email <span>*</span></label>
+                <input id="ag-email" name="email" type="email" required placeholder="bookings@agency.com" />
+                <p class="field__hint">The agency&rsquo;s address, not a personal one &mdash; this is where booking confirmations land.</p>
               </div>
               <div class="field">
-                <label for="ag-customer_gender">Gender <span>*</span></label>
-                <select id="ag-customer_gender" name="customer_gender" required>
-                  <option value="" disabled selected>Please select</option>
-                  <option value="Female">Female</option>
-                  <option value="Male">Male</option>
-                  <option value="Non-binary">Non-binary</option>
-                  <option value="Prefer not to say">Prefer not to say</option>
-                </select>
-                <p class="field__hint">Used for twin-share rooming only.</p>
+                <label for="ag-public_phone">Public Phone <span>*</span></label>
+                <input id="ag-public_phone" name="public_phone" type="tel" required placeholder="+44 20 7946 0000" />
+                <p class="field__hint">The number your customers call.</p>
               </div>
               <div class="field">
-                <label for="ag-customer_email">Email Address <span>*</span></label>
-                <input id="ag-customer_email" name="customer_email" type="email" required placeholder="them@email.com" />
+                <label for="ag-phone_number">Private Phone <span>(optional)</span></label>
+                <input id="ag-phone_number" name="phone_number" type="tel" placeholder="The line we should use" />
               </div>
               <div class="field">
-                <label for="ag-customer_phone">Phone Number <span>*</span></label>
-                <input id="ag-customer_phone" name="customer_phone" type="tel" required placeholder="+44 7700 900000" />
-              </div>
-              <div class="field">
-                <label for="ag-customer_dob">Date Of Birth <span>*</span></label>
-                <input id="ag-customer_dob" name="customer_dob" type="date" required />
-              </div>
-              <div class="field">
-                <label for="ag-customer_nationality">Nationality <span>*</span></label>
-                <input id="ag-customer_nationality" name="customer_nationality" type="text" required placeholder="e.g. British" />
+                <label for="ag-fax">Fax <span>(optional)</span></label>
+                <input id="ag-fax" name="fax" type="tel" />
               </div>
             </fieldset>
 
             <fieldset class="agr-g">
-              <legend class="agr-g__h"><span class="agr-g__n">4</span>Emergency Contact</legend>
-              <p class="agr-g__note">Someone not travelling with them.</p>
+              <legend class="agr-g__h"><span class="agr-g__n">4</span>Agency Manager</legend>
+              <p class="agr-g__note"><strong>Not you, unless you are the manager.</strong> Approval goes to whoever runs the agency, and they hand out the logins from there.</p>
               <div class="field">
-                <label for="ag-emergency_name">Emergency Contact Name <span>*</span></label>
-                <input id="ag-emergency_name" name="emergency_name" type="text" required placeholder="Full name" />
+                <label for="ag-manager_first_name">First Name <span>*</span></label>
+                <input id="ag-manager_first_name" name="manager_first_name" type="text" required />
               </div>
               <div class="field">
-                <label for="ag-emergency_number">Emergency Contact Number <span>*</span></label>
-                <input id="ag-emergency_number" name="emergency_number" type="tel" required placeholder="Including country code" />
+                <label for="ag-manager_last_name">Last Name <span>*</span></label>
+                <input id="ag-manager_last_name" name="manager_last_name" type="text" required />
+              </div>
+              <div class="field">
+                <label for="ag-manager_email">Email <span>*</span></label>
+                <input id="ag-manager_email" name="manager_email" type="email" required placeholder="manager@agency.com" />
               </div>
             </fieldset>
 
             <fieldset class="agr-g">
               <legend class="agr-g__h"><span class="agr-g__n">5</span>Anything Else</legend>
-              <p class="agr-g__note">All optional, but the first one saves a phone call later.</p>
+              <p class="agr-g__note">Both optional.</p>
               <div class="field">
-                <label for="ag-dietary_medical">Dietary Requirements / Medical Conditions <span>(optional)</span></label>
-                <textarea id="ag-dietary_medical" name="dietary_medical" rows="3" placeholder="Allergies, medication, anything a trip leader should know before day one."></textarea>
+                <label for="ag-booking_number">Active Booking Reference <span>(optional)</span></label>
+                <input id="ag-booking_number" name="booking_number" type="text" placeholder="If you already have one with us" />
+                <p class="field__hint">Speeds things up &mdash; it tells us you&rsquo;re already trading with us.</p>
               </div>
               <div class="field">
-                <label for="ag-flights">Flight Details <span>(optional)</span></label>
-                <textarea id="ag-flights" name="flights" rows="3" placeholder="Arrival airport, flight number and landing time, if they&rsquo;re booked."></textarea>
-              </div>
-              <div class="field">
-                <label for="ag-notes">Notes <span>(optional)</span></label>
-                <textarea id="ag-notes" name="notes" rows="3" placeholder="Anything else we should know."></textarea>
+                <label for="ag-comment">Comments <span>(optional)</span></label>
+                <textarea id="ag-comment" name="comment" rows="3" placeholder="Anything we should know about the agency."></textarea>
               </div>
             </fieldset>
 
-            <button type="submit" class="form-submit">Register This Booking <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
-            <p class="field__hint" style="margin-top:1rem">Registering a booking isn&rsquo;t a confirmation. We&rsquo;ll come back to you within one working day to confirm the place and the price.</p>
+            <button type="submit" class="form-submit">Register My Agency <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
           </form>
 
           <div class="form-done" data-nl-done hidden>
             <span class="form-done__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
-            <h3 class="form-done__t">Booking <span>Registered</span></h3>
-            <p class="form-done__s">We&rsquo;ve got it. You&rsquo;ll have a confirmation by email within one working day, with the booking reference and what the traveller needs to do next.</p>
+            <h3 class="form-done__t">Application <span>Received</span></h3>
+            <p class="form-done__s">We&rsquo;ll review it and come back to your manager by email. Once you&rsquo;re approved they can set up logins for everyone at the agency.</p>
           </div>
         </div>
 
