@@ -29,7 +29,7 @@ HOME = ("Home", "index.html")
 DESTINATIONS = ("Destinations", "destinations.html")
 ESSENTIALS = ("Essentials", "essentials.html")
 LIFE_MOMENTS = ("Life Moments", None)
-PARTNERS = ("Partners", None)
+PARTNERS = ("Partners", "partners.html")
 
 ABOUT = ("About Us", "about.html")
 EXPLORE = ("Explore", "explore.html")

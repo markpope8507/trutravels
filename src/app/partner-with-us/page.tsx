@@ -20,10 +20,15 @@ export const metadata = {
 };
 
 /**
- * The Partners hub. The three footer links that the brief covers all land on
- * the same proposition split by who's asking, so this page carries the choice
- * and the two specific pages carry the detail. "Something else" has no page of
- * its own — it's the form on this one.
+ * Partner With Us — the "not sure which route fits" page.
+ *
+ * The three routes the brief covers are one proposition split by who's
+ * asking, so this page carries the choice and the two specific pages carry
+ * the detail. "Something else" has no page of its own — it's the form here.
+ *
+ * NOT the section landing page: /partners is, and this now sits under it
+ * alongside Affiliates, Host A Trip and Agent Registration. This page was the
+ * hub by default, back when Partners had no landing page at all.
  *
  * Mirrored by converted/partner-with-us.html.
  */

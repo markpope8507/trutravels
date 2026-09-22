@@ -60,7 +60,7 @@ export const LIFE_MOMENTS: Crumb = { name: "Life Moments" };
 /* Not in the nav, so these follow the FOOTER's columns instead — same rule,
    same shape: a section node with no page behind it yet.
    No /my-account index either; the dashboard is the landing page. */
-export const PARTNERS: Crumb = { name: "Partners" }; // TODO: href "/partners"
+export const PARTNERS: Crumb = { name: "Partners", href: "/partners" };
 export const ACCOUNT: Crumb = { name: "My Account", href: "/my-account/dashboard" };
 
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");

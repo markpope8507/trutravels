@@ -55,6 +55,8 @@ TRAILS = {
     # These bake their own bar in (build_hubs.py, build_email_signup.py) —
     # listed so the missing-trail check doesn't flag them.
     "email-sign-up.html": top("Email Sign Up"),
+    "partners.html": top("Partners"),
+    "agent-registration.html": section(PARTNERS, "Agent Registration"),
     "destinations.html": top("Destinations"),
     "essentials.html": top("Essentials"),
     "explore.html": top("Explore"),

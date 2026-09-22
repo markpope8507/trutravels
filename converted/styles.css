@@ -2451,6 +2451,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .footer__col-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.625rem; }
 .footer__col-list a { color: #d1d5db; font-size: 0.875rem; transition: color 0.2s; }
 .footer__col-list a:hover { color: var(--tru-pink); }
+/* The column heading links to that section's hub — inherits the pink, goes
+   white on hover so it reads as a link without shouting. */
+.footer__col-h a { color: inherit; transition: color 0.2s; }
+.footer__col-h a:hover { color: #fff; }
+/* A link that leaves the site says so before the click. */
+.footer__out { display: inline-block; width: 0.75rem; height: 0.75rem; margin-left: 0.25rem; vertical-align: -1px; }
 .footer__accordions { display: block; }
 @media (min-width: 768px) { .footer__accordions { display: none; } }
 .footer__acc { border-bottom: 1px solid var(--border-soft); }
@@ -6379,6 +6385,17 @@ a.hub-card:hover .hub-card__t { color: var(--tru-pink); }
 .hub-card--flat .hub-card__img { opacity: 0.55; filter: saturate(0.75); }
 .hub-card--flat .hub-card__t { color: #d1d5db; }
 
+/* A card that leaves the site says so, so nobody has to guess from the URL. */
+.hub-card__ext {
+  position: absolute; top: 0.75rem; right: 0.75rem; z-index: 1;
+  display: inline-flex; align-items: center; gap: 0.25rem;
+  border-radius: 999px; background: rgba(9,33,62,0.8); backdrop-filter: blur(4px);
+  padding: 0.25rem 0.625rem; color: #e5e7eb;
+  font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.15em;
+}
+.hub-card__ext svg { width: 0.75rem; height: 0.75rem; }
+
 /* Destinations groups its cards by continent; the other two don't need this. */
 .hub-region + .hub-region { margin-top: 3.5rem; }
 .hub-region__head {
@@ -6436,3 +6453,84 @@ a.hub-card:hover .hub-card__t { color: var(--tru-pink); }
 /* the privacy line under the button */
 .esign__form .field__hint a { color: #d1d5db; text-decoration: underline; }
 .esign__form .field__hint a:hover { color: var(--tru-pink); }
+
+/* ============================================================
+   AGENT REGISTRATION
+   Mirrors src/app/agent-registration — the trade side: an agent
+   passing us a booking they've sold.
+
+   The form is the shared system (.field, .form-submit,
+   .form-done); only the two-column frame, the numbered groups
+   and the Sherpa card are new here.
+   ============================================================ */
+
+/* Shorter than a section hub's hero — this is a page you came to do
+   something on, so the form should be close to the fold. */
+.agr-hero { height: 60vh; min-height: 420px; }
+.agr-hero .ess-hero__title { font-size: 2.25rem; }
+@media (min-width: 640px) { .agr-hero .ess-hero__title { font-size: 3rem; } }
+@media (min-width: 1024px) { .agr-hero .ess-hero__title { font-size: 3.75rem; } }
+
+.agr {
+  position: relative; display: grid; grid-template-columns: 1fr; gap: 2.5rem;
+  max-width: 72rem; margin: 0 auto;
+}
+@media (min-width: 1024px) {
+  .agr { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 4rem; align-items: start; }
+  .agr__side { position: sticky; top: 7rem; }
+}
+
+.agr-steps { list-style: none; margin: 2rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 1.75rem; }
+.agr-step { display: flex; gap: 1rem; }
+.agr-step__n {
+  flex: none; width: 2rem; height: 2rem; margin-top: 0.125rem; display: grid; place-items: center;
+  border-radius: 999px; border: 1px solid rgba(255,63,153,0.3); background: rgba(255,63,153,0.15);
+  color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700;
+}
+.agr-step__t {
+  color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 900;
+  text-transform: uppercase; letter-spacing: -0.025em; margin: 0;
+}
+.agr-step__d { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; margin: 0.375rem 0 0; }
+
+.agr-portal {
+  margin-top: 2.5rem; border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03);
+  border-radius: 16px; padding: 1.5rem;
+}
+.agr-portal__t {
+  color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 900;
+  text-transform: uppercase; letter-spacing: -0.025em; margin: 0;
+}
+.agr-portal__t span { color: var(--tru-pink); }
+.agr-portal__d { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; margin: 0.5rem 0 0; }
+.agr-portal__btn {
+  display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem;
+  border: 1px solid rgba(255,63,153,0.4); border-radius: 10px; padding: 0.625rem 1.25rem;
+  color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s, color 0.2s;
+}
+.agr-portal__btn:hover { background: var(--tru-pink); color: #fff; }
+.agr-portal__btn svg { width: 0.875rem; height: 0.875rem; }
+
+.agr__form {
+  border: 1px solid var(--border-soft); background: var(--tru-navy);
+  border-radius: 16px; padding: 1.5rem;
+}
+@media (min-width: 640px) { .agr__form { padding: 2rem; } }
+
+/* A numbered group. The numbers are here because the form IS a sequence —
+   you, then the trip, then them — not because numbers look tidy. */
+.agr-g { border: 0; padding: 0; margin: 0 0 2rem; }
+.agr-g:last-of-type { margin-bottom: 0; }
+.agr-g__h {
+  display: flex; align-items: center; gap: 0.625rem; padding: 0; margin-bottom: 0.25rem;
+  color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 900;
+  text-transform: uppercase; letter-spacing: -0.025em;
+}
+.agr-g__n {
+  width: 1.5rem; height: 1.5rem; display: grid; place-items: center; border-radius: 999px;
+  background: rgba(255,63,153,0.15); color: var(--tru-pink); font-size: 11px; font-weight: 700;
+}
+.agr-g__note { color: #9ca3af; font-size: 0.75rem; line-height: 1.6; margin: 0 0 1.25rem; padding-left: 2.125rem; }
+.agr__form form[hidden] { display: none; }
+.agr__form .form-submit { margin-top: 0.5rem; }

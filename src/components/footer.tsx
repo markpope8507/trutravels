@@ -3,10 +3,22 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { ABOUT_PAGES } from "@/lib/about-pages";
+import { AGENT_PORTAL_URL, PARTNER_PAGES } from "@/lib/partner-pages";
 
-const FOOTER_COLUMNS = [
+/**
+ * A column's `href` is its section hub. The titles used to be plain text,
+ * which left /explore, /about, /essentials and /partners reachable from the
+ * nav or not at all — and Partners isn't in the nav, so its hub had no way in
+ * from here. Making the heading the link beats adding a row that repeats it.
+ */
+const FOOTER_COLUMNS: {
+  title: string;
+  href: string;
+  links: { name: string; href: string; external?: boolean }[];
+}[] = [
   {
     title: "Explore",
+    href: "/explore",
     links: [
       { name: "All Trips", href: "/explore" },
       { name: "Travel Styles", href: "/travel-styles" },
@@ -20,6 +32,7 @@ const FOOTER_COLUMNS = [
   },
   {
     title: "About",
+    href: "/about",
     // Driven off ABOUT_PAGES so these can't drift from the real routes again —
     // they had been pointing at /about/story, /about/values and friends, none
     // of which exist.
@@ -34,6 +47,7 @@ const FOOTER_COLUMNS = [
   },
   {
     title: "Essentials",
+    href: "/essentials",
     links: [
       { name: "Help & Support", href: "/support" },
       { name: "Travel Insurance", href: "/travel-insurance" },
@@ -47,15 +61,48 @@ const FOOTER_COLUMNS = [
   },
   {
     title: "Partners",
-    links: [
-      { name: "Partner With Us", href: "/partner-with-us" },
-      { name: "Affiliate Program", href: "/affiliates" },
-      { name: "Host A Trip", href: "/host-a-trip" },
-      { name: "Agent Registration", href: "/about" },
-      { name: "Agents Login", href: "/login" },
-    ],
+    href: "/partners",
+    // Driven off PARTNER_PAGES, the same list /partners renders, so this
+    // column and that page can't disagree about what the section holds.
+    // Agents Login is G Adventures' Sherpa portal, not a page we own — it
+    // carries `external` and opens out.
+    links: PARTNER_PAGES.map((p) => ({ name: p.name, href: p.href, external: p.external })),
   },
 ];
+
+/** One footer link. An `external` one leaves the site, so it's a plain <a>
+ *  with the usual rel — not a <Link>, which would prefetch a route we don't
+ *  own. The arrow says so before the click rather than after. */
+function FooterLink({
+  link,
+  className,
+}: {
+  link: { name: string; href: string; external?: boolean };
+  className: string;
+}) {
+  if (!link.external) {
+    return (
+      <Link href={link.href} className={className}>
+        {link.name}
+      </Link>
+    );
+  }
+  return (
+    <a href={link.href} target="_blank" rel="noopener noreferrer" className={className}>
+      {link.name}
+      <svg
+        className="ml-1 inline-block h-3 w-3 align-[-1px]"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2.5}
+        aria-hidden="true"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5h5v5m0-5L10 14M18 14v5H5V6h5" />
+      </svg>
+    </a>
+  );
+}
 
 const SOCIAL_LINKS = [
   {
@@ -177,18 +224,15 @@ export default function Footer() {
               <div className="hidden md:grid md:grid-cols-4 gap-8">
                 {FOOTER_COLUMNS.map((col) => (
                   <div key={col.title}>
-                    <h4 className="text-tru-pink text-xs font-bold uppercase tracking-[0.3em] font-heading mb-4">
-                      {col.title}
+                    <h4 className="mb-4 font-heading text-xs font-bold uppercase tracking-[0.3em] text-tru-pink">
+                      <Link href={col.href} className="transition hover:text-white">
+                        {col.title}
+                      </Link>
                     </h4>
                     <ul className="space-y-2.5">
                       {col.links.map((link) => (
                         <li key={link.name}>
-                          <Link
-                            href={link.href}
-                            className="text-sm text-gray-300 hover:text-tru-pink transition"
-                          >
-                            {link.name}
-                          </Link>
+                          <FooterLink link={link} className="text-sm text-gray-300 hover:text-tru-pink transition" />
                         </li>
                       ))}
                     </ul>
@@ -226,12 +270,10 @@ export default function Footer() {
                           <ul className="space-y-2.5 pl-1">
                             {col.links.map((link) => (
                               <li key={link.name}>
-                                <Link
-                                  href={link.href}
-                                  className="block text-sm text-gray-300 hover:text-tru-pink transition py-1"
-                                >
-                                  {link.name}
-                                </Link>
+                                <FooterLink
+                                  link={link}
+                                  className="block py-1 text-sm text-gray-300 hover:text-tru-pink transition"
+                                />
                               </li>
                             ))}
                           </ul>

@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { AUDIENCE_BANDS, PARTNER_CONTACT } from "@/lib/partners";
+import { FIELD_HINT as HINT, FIELD_INPUT as INPUT, FIELD_LABEL as LABEL } from "@/lib/form-classes";
 
 /**
  * The partner application form — one component, three routes.
@@ -43,12 +44,6 @@ export type Field =
       revealField?: Extract<Field, { kind: "area" | "text" }>;
     };
 
-const LABEL =
-  "block text-tru-pink font-heading text-[10px] font-bold uppercase tracking-[0.2em] mb-2";
-const INPUT =
-  "w-full rounded-[10px] bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white " +
-  "placeholder:text-gray-500 focus:outline-none focus:border-tru-pink/50 transition-colors";
-const HINT = "text-gray-500 text-xs leading-relaxed mt-1.5";
 
 function Marker({ required, note }: { required?: boolean; note?: string }) {
   if (note !== undefined) return note ? <span className="text-gray-500"> {note}</span> : null;

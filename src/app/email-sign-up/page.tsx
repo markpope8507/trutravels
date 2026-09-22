@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Breadcrumbs from "@/components/breadcrumbs";
 import { topCrumbs } from "@/lib/breadcrumbs";
+import { FIELD_INPUT, FIELD_LABEL, FORM_SUBMIT } from "@/lib/form-classes";
 
 /**
  * Email sign-up, as a page rather than a popup.
@@ -25,10 +26,6 @@ import { topCrumbs } from "@/lib/breadcrumbs";
 
 const HERO = "https://cdn.trutravels.com/thailand/full-moon-party.jpg";
 
-const INPUT =
-  "w-full rounded-[10px] bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white " +
-  "placeholder:text-gray-500 focus:outline-none focus:border-tru-pink/50 transition-colors";
-const LABEL = "block text-tru-pink font-heading text-[10px] font-bold uppercase tracking-[0.2em] mb-2";
 
 export default function EmailSignUpPage() {
   const [done, setDone] = useState(false);
@@ -125,32 +122,32 @@ export default function EmailSignUpPage() {
                 </p>
 
                 <div className="mb-4">
-                  <label htmlFor="es-email" className={LABEL}>
+                  <label htmlFor="es-email" className={FIELD_LABEL}>
                     Email <span className="text-gray-500">*</span>
                   </label>
-                  <input id="es-email" name="email" type="email" required placeholder="you@email.com" autoComplete="email" className={INPUT} />
+                  <input id="es-email" name="email" type="email" required placeholder="you@email.com" autoComplete="email" className={FIELD_INPUT} />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-3">
                   <div className="mb-4">
-                    <label htmlFor="es-first" className={LABEL}>
+                    <label htmlFor="es-first" className={FIELD_LABEL}>
                       First Name <span className="text-gray-500">*</span>
                     </label>
-                    <input id="es-first" name="firstName" type="text" required placeholder="First name" autoComplete="given-name" className={INPUT} />
+                    <input id="es-first" name="firstName" type="text" required placeholder="First name" autoComplete="given-name" className={FIELD_INPUT} />
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="es-last" className={LABEL}>
+                    <label htmlFor="es-last" className={FIELD_LABEL}>
                       Last Name <span className="text-gray-500">*</span>
                     </label>
-                    <input id="es-last" name="lastName" type="text" required placeholder="Last name" autoComplete="family-name" className={INPUT} />
+                    <input id="es-last" name="lastName" type="text" required placeholder="Last name" autoComplete="family-name" className={FIELD_INPUT} />
                   </div>
                 </div>
 
                 <div className="mb-6">
-                  <label htmlFor="es-nationality" className={LABEL}>
+                  <label htmlFor="es-nationality" className={FIELD_LABEL}>
                     Nationality <span className="text-gray-500">(optional)</span>
                   </label>
-                  <input id="es-nationality" name="nationality" type="text" placeholder="e.g. British" autoComplete="country-name" className={INPUT} />
+                  <input id="es-nationality" name="nationality" type="text" placeholder="e.g. British" autoComplete="country-name" className={FIELD_INPUT} />
                   <p className="mt-1.5 text-xs leading-relaxed text-gray-500">
                     So we can send you departures and prices that actually apply to you.
                   </p>
@@ -158,7 +155,7 @@ export default function EmailSignUpPage() {
 
                 <button
                   type="submit"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-[10px] bg-tru-pink px-8 py-3 font-heading text-xs font-bold uppercase tracking-wider text-white transition hover:bg-tru-pink-light"
+                  className={FORM_SUBMIT}
                 >
                   Sign Me Up
                   <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

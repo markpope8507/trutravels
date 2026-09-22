@@ -4,12 +4,14 @@ Build the three section hubs.
   converted/destinations.html
   converted/essentials.html
   converted/about.html
+  converted/partners.html
 
-Mirrors /destinations, /essentials and /about in the prototype. All three are
-the same page: hero, breadcrumb, a grid of photo cards, nothing else. The
-prototype learned that the hard way — Essentials briefly had icon cards and
-About carried a retelling of its own children — so don't reintroduce a
-variation here.
+Mirrors /destinations, /essentials, /about and /partners in the prototype. All
+four are the same page: hero, breadcrumb, a grid of photo cards, nothing else.
+The prototype learned that the hard way — Essentials briefly had icon cards
+and About carried a retelling of its own children — so don't reintroduce a
+variation here. (In the prototype the shared markup now lives in
+components/section-hub.tsx.)
 
 DATA COMES FROM THE PROTOTYPE'S OWN LIBS, read at build time rather than
 retyped, so the two builds cannot disagree about what a section contains.
@@ -50,6 +52,7 @@ def ts_array(source, const):
 DESTINATIONS = ts_array(ts("destinations.ts"), "destinations")
 ESSENTIALS = ts_array(ts("essentials.ts"), "essentialsNav")
 ABOUT_PAGES = ts_array(ts("about-pages.ts"), "ABOUT_PAGES")
+PARTNER_PAGES = ts_array(ts("partner-pages.ts"), "PARTNER_PAGES")
 
 # Prototype route -> the file it became here. Anything not listed has no page
 # in this build, and its card is rendered flat.
@@ -63,20 +66,34 @@ STATIC = {
     "/visas-and-passports": "visas-and-passports.html",
     "/terms-conditions": "terms-conditions.html",
     "/destinations/asia/thailand": "thailand.html",
+    "/partner-with-us": "partner-with-us.html",
+    "/affiliates": "affiliates.html",
+    "/host-a-trip": "host-a-trip.html",
+    "/agent-registration": "agent-registration.html",
 }
 
 
 def href_for(route):
+    # An absolute URL is already where it's going — Agents Login leaves the
+    # site, so it isn't in STATIC and shouldn't be looked up there.
+    if route.startswith("http"):
+        return route
     return STATIC.get(route)
 
 
-def card(name, desc, image, href):
+EXT_BADGE = '''
+            <span class="hub-card__ext"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5h5v5m0-5L10 14M18 14v5H5V6h5"/></svg>External</span>'''
+
+
+def card(name, desc, image, href, external=False):
     """One hub card. Identical markup whether it links or not, so the two read
     as the same object — only the tag and the flat modifier differ."""
     tag, attrs, extra = ("a", f' href="{href}"', "") if href else ("div", "", " hub-card--flat")
+    if external:
+        attrs += ' target="_blank" rel="noopener noreferrer"'
     return f'''          <{tag} class="hub-card{extra}"{attrs}>
             <img class="hub-card__img" src="{image}" alt="" aria-hidden="true" loading="lazy" />
-            <span class="hub-card__grad"></span>
+            <span class="hub-card__grad"></span>{EXT_BADGE if external else ""}
             <span class="hub-card__body">
               <span class="hub-card__t">{name}</span>
               <span class="hub-card__d">{desc}</span>
@@ -207,10 +224,32 @@ def about_page():
     )
 
 
+# ---------------------------------------------------------------- partners --
+
+def partners_page():
+    cards = "\n".join(
+        card(p["name"], p["description"], p["image"], href_for(p["href"]),
+             external=bool(p.get("external")))
+        for p in PARTNER_PAGES
+    )
+    return page(
+        "Partners &mdash; Host A Trip, Affiliates &amp; Travel Agents | TruTravels",
+        "Every way to work with TruTravels — host a trip, join the affiliates programme, or register a booking as an agent.",
+        "Work With Tru", "Partners",
+        "&ldquo;Bring us your community, your audience or your clients &mdash; we&rsquo;ll bring the trip.&rdquo;",
+        "https://cdn.trutravels.com/africa/morocco-images/morocco-uncovered-day-3-road-trip-viewpoint.jpg",
+        top("Partners"),
+        f'        <div class="hub-grid">\n{cards}\n        </div>',
+        [("good-vibes", "right:-4rem;top:-2rem;width:clamp(260px,32vw,520px);opacity:0.06"),
+         ("sun", "left:-4rem;bottom:0;width:clamp(220px,28vw,460px);opacity:0.05")],
+    )
+
+
 if __name__ == "__main__":
     for fn, fx in (("destinations.html", destinations_page),
                    ("essentials.html", essentials_page),
-                   ("about.html", about_page)):
+                   ("about.html", about_page),
+                   ("partners.html", partners_page)):
         out = fx()
         open(os.path.join(BASE, fn), "w", encoding="utf-8").write(out)
         flat = out.count("hub-card--flat")
