@@ -242,7 +242,11 @@ export default function TrudChat({
           placeholder={busy ? "Tru.D is typing…" : isPanel ? "Ask Tru.D anything..." : "e.g. Do I need a visa? · What's included? · Can I pay in instalments?"}
           disabled={busy}
           maxLength={2000}
-          className={`flex-1 min-w-0 bg-white/5 border border-white/10 text-white placeholder:text-gray-600 focus:outline-none focus:border-tru-pink/50 transition disabled:opacity-60 ${isPanel ? "rounded-full px-4 py-2 text-xs" : "rounded-[10px] px-4 py-3.5 text-sm"}`}
+          /* 16px on mobile, small again from sm: up. iOS Safari zooms the
+             whole page when you focus an input under 16px — which on the
+             floating panel looked like the chat resizing and sliding off
+             screen. The panel was 12px and this composer 14px; both zoomed. */
+          className={`flex-1 min-w-0 bg-white/5 border border-white/10 text-white placeholder:text-gray-600 focus:outline-none focus:border-tru-pink/50 transition disabled:opacity-60 text-base ${isPanel ? "rounded-full px-4 py-2 sm:text-xs" : "rounded-[10px] px-4 py-3.5 sm:text-sm"}`}
         />
         <button
           type="submit"

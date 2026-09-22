@@ -38,8 +38,12 @@ export default function TrudLauncher() {
         <span aria-hidden="true">✨</span>
       </button>
 
+      {/* dvh, not vh. `vh` on mobile measures the viewport as if no on-screen
+          keyboard existed, so opening the keyboard left the panel its full
+          height with the composer at the bottom pushed off under it. `dvh`
+          tracks the viewport that's actually visible. */}
       {open && (
-        <div className="fixed z-[110] inset-x-0 bottom-0 sm:inset-auto sm:right-6 sm:bottom-6 sm:w-[380px] h-[80vh] sm:h-[560px] max-h-[calc(100vh-48px)] rounded-t-[10px] sm:rounded-[10px] border border-white/10 bg-tru-navy shadow-2xl shadow-black/50 flex flex-col overflow-hidden animate-fade-in">
+        <div className="fixed z-[110] inset-x-0 bottom-0 sm:inset-auto sm:right-6 sm:bottom-6 sm:w-[380px] h-[80dvh] sm:h-[560px] max-h-[calc(100dvh-48px)] rounded-t-[10px] sm:rounded-[10px] border border-white/10 bg-tru-navy shadow-2xl shadow-black/50 flex flex-col overflow-hidden animate-fade-in">
           <TrudChat variant="panel" onClose={() => setOpen(false)} />
         </div>
       )}
