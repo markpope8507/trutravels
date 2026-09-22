@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import CartDrawer from "@/components/cart-drawer";
+import TrudLauncher from "@/components/trud-launcher";
 
 // Checkout (and any future secure/standalone pages) render without the
 // site nav, footer or cart drawer.
@@ -24,6 +25,7 @@ export function SiteChromeFooter() {
     <>
       <Footer />
       <CartDrawer />
+      <TrudLauncher />
     </>
   );
 }
