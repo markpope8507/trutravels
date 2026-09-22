@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { usePathname } from "next/navigation";
 import TrudChat from "@/components/trud-chat";
 
@@ -9,9 +9,69 @@ import TrudChat from "@/components/trud-chat";
 // trip hub design: gradient sparkle button that shrinks away when the panel
 // opens.
 
+
+/**
+ * Fit the mobile panel to the part of the screen the keyboard leaves behind.
+ *
+ * WHY dvh ISN'T ENOUGH. `dvh` accounts for browser chrome that comes and goes
+ * — the URL bar — but on iOS it does NOT shrink for the on-screen keyboard.
+ * And a `position: fixed` element is placed against the LAYOUT viewport,
+ * which the keyboard doesn't change either. So `bottom-0` pinned the panel
+ * behind the keyboard, iOS scrolled the page up to reveal the focused input,
+ * and the top of the chat — the question you just asked — went off screen.
+ *
+ * visualViewport is the only thing that reports what's actually visible.
+ * `window.innerHeight - height - offsetTop` is the strip hidden below it,
+ * which in practice is the keyboard.
+ *
+ * Returns undefined on desktop and when there's no visualViewport, so the
+ * Tailwind classes stay in charge there.
+ */
+function useKeyboardFit(open: boolean): CSSProperties | undefined {
+  const [style, setStyle] = useState<CSSProperties>();
+
+  useEffect(() => {
+    const vv = typeof window !== "undefined" ? window.visualViewport : null;
+    if (!open || !vv) {
+      setStyle(undefined);
+      return;
+    }
+
+    const apply = () => {
+      // The desktop panel is a fixed-size corner widget; leave it alone.
+      if (window.innerWidth >= 640) {
+        setStyle(undefined);
+        return;
+      }
+      const hidden = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      // A small strip is browser chrome, not a keyboard. Only take the whole
+      // visible area once something big has opened.
+      const keyboardUp = hidden > 120;
+      setStyle({
+        bottom: hidden,
+        height: keyboardUp ? vv.height : Math.round(vv.height * 0.8),
+        maxHeight: vv.height,
+      });
+    };
+
+    apply();
+    vv.addEventListener("resize", apply);
+    vv.addEventListener("scroll", apply);
+    window.addEventListener("orientationchange", apply);
+    return () => {
+      vv.removeEventListener("resize", apply);
+      vv.removeEventListener("scroll", apply);
+      window.removeEventListener("orientationchange", apply);
+    };
+  }, [open]);
+
+  return style;
+}
+
 export default function TrudLauncher() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const keyboardFit = useKeyboardFit(open);
 
   useEffect(() => {
     if (!open) return;
@@ -38,12 +98,13 @@ export default function TrudLauncher() {
         <span aria-hidden="true">✨</span>
       </button>
 
-      {/* dvh, not vh. `vh` on mobile measures the viewport as if no on-screen
-          keyboard existed, so opening the keyboard left the panel its full
-          height with the composer at the bottom pushed off under it. `dvh`
-          tracks the viewport that's actually visible. */}
+      {/* The dvh classes handle the URL bar; `keyboardFit` handles the
+          keyboard, and wins because an inline style beats a class. */}
       {open && (
-        <div className="fixed z-[110] inset-x-0 bottom-0 sm:inset-auto sm:right-6 sm:bottom-6 sm:w-[380px] h-[80dvh] sm:h-[560px] max-h-[calc(100dvh-48px)] rounded-t-[10px] sm:rounded-[10px] border border-white/10 bg-tru-navy shadow-2xl shadow-black/50 flex flex-col overflow-hidden animate-fade-in">
+        <div
+          style={keyboardFit}
+          className="fixed z-[110] inset-x-0 bottom-0 sm:inset-auto sm:right-6 sm:bottom-6 sm:w-[380px] h-[80dvh] sm:h-[560px] max-h-[calc(100dvh-48px)] rounded-t-[10px] sm:rounded-[10px] border border-white/10 bg-tru-navy shadow-2xl shadow-black/50 flex flex-col overflow-hidden animate-fade-in"
+        >
           <TrudChat variant="panel" onClose={() => setOpen(false)} />
         </div>
       )}

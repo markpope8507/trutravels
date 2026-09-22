@@ -56,6 +56,20 @@ export default function TrudChat({
     if (el) el.scrollTop = el.scrollHeight;
   }, [messages, toolNote]);
 
+  /* The panel gets shorter when the mobile keyboard opens, which leaves the
+     list scrolled part-way up — so the newest message slides out of view at
+     the moment you're about to reply to it. Re-pin on every resize. */
+  useEffect(() => {
+    const vv = typeof window !== "undefined" ? window.visualViewport : null;
+    if (!vv) return;
+    const pin = () => {
+      const el = scrollRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+    };
+    vv.addEventListener("resize", pin);
+    return () => vv.removeEventListener("resize", pin);
+  }, []);
+
   useEffect(() => () => abortRef.current?.abort(), []);
 
   const hasConversation = messages.length > 1;
