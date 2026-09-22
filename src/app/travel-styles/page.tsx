@@ -1,6 +1,7 @@
 import Breadcrumbs from "@/components/breadcrumbs";
 import { topCrumbs } from "@/lib/breadcrumbs";
 import Link from "next/link";
+import PillButton from "@/components/pill-button";
 import type { Metadata } from "next";
 import { travelStyleConfig, type TravelStyle } from "@/lib/data";
 
@@ -156,10 +157,8 @@ export default function TravelStylesPage() {
                     className="absolute inset-0 h-full w-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
-                  <div
-                    className="absolute inset-x-0 bottom-0 h-1.5"
-                    style={{ backgroundColor: cfg.color }}
-                  />
+                  {/* Pink, not the style's own hue — see travelStyleConfig. */}
+                  <div className="absolute inset-x-0 bottom-0 h-1.5 bg-tru-pink" />
                   <div className="relative h-full flex items-center justify-center p-2">
                     <img
                       src={cfg.logo}
@@ -171,10 +170,7 @@ export default function TravelStylesPage() {
 
                 {/* Copy + CTA */}
                 <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-                  <p
-                    className="text-xs font-bold uppercase tracking-[0.2em] mb-2 font-heading"
-                    style={{ color: cfg.color }}
-                  >
+                  <p className="text-tru-pink text-xs font-bold uppercase tracking-[0.2em] mb-2 font-heading">
                     Travel Style
                   </p>
                   <h3 className="text-2xl sm:text-3xl font-black text-white uppercase font-heading leading-tight mb-4">
@@ -183,13 +179,9 @@ export default function TravelStylesPage() {
                   <p className="text-gray-300 text-base leading-relaxed mb-6">
                     {cfg.description}
                   </p>
-                  <Link
-                    href={`/travel-styles/${slug}`}
-                    className="inline-flex items-center gap-2 rounded-[10px] border px-7 py-3 text-sm font-bold uppercase tracking-wider font-heading transition-all duration-300 hover:text-white"
-                    style={{ color: cfg.color, borderColor: cfg.color }}
-                  >
-                    {`View ${cfg.label} Trips`} &rarr;
-                  </Link>
+                  {/* The site's shared CTA pill, rather than a per-style
+                      outline that was the only button of its kind here. */}
+                  <PillButton href={`/travel-styles/${slug}`}>{`View ${cfg.label} Trips`}</PillButton>
                 </div>
                 </div>
               );

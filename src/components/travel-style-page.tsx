@@ -1,15 +1,43 @@
 "use client";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, FreeMode } from "swiper/modules";
+
 import Breadcrumbs from "@/components/breadcrumbs";
 import { sectionCrumbs, TRAVEL_STYLES } from "@/lib/breadcrumbs";
-
-import { useState } from "react";
-import Link from "next/link";
 import { Trip, TravelStyle, travelStyleConfig } from "@/lib/data";
-import AllTripsBrowser from "@/components/all-trips-browser";
-import AccommodationMediaCarousel, {
-  type AccommodationMedia,
-} from "@/components/accommodation-media-carousel";
+import TripCard from "@/components/trip-card";
+import PillButton from "@/components/pill-button";
+import FaqAccordion from "@/components/faq-accordion";
+import AccommodationShowcase, { type StayItem } from "@/components/accommodation-showcase";
+import { HubCard, HubGrid } from "@/components/section-hub";
+import { UpcomingDepartures } from "@/components/country-page";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/free-mode";
+
+/**
+ * A travel style page — /travel-styles/classic and friends.
+ *
+ * BUILT TO THE COUNTRY PAGE'S SHAPE. It's the same kind of page: a hero, a
+ * breadcrumb, a carousel of trips, where you'll stay, upcoming departures,
+ * FAQs. It used to have its own hero layout, its own accommodation viewer and
+ * its own FAQ accordion — three answers to questions the country pages had
+ * already answered. Those blocks are now shared components, so a change to a
+ * stay card or an FAQ lands on both.
+ *
+ * NO PER-STYLE COLOURS. Every heading, eyebrow and accent here was drawn in
+ * the style's own hue — Classic blue, Backpacker green, Multi Country amber —
+ * which made five differently-coloured versions of one page and matched
+ * nothing else on the site. Pink is the accent, as everywhere else.
+ * `travelStyleConfig` no longer carries a `color` at all, so this can't drift
+ * back.
+ *
+ * WHAT ISN'T HERE. No podcasts and no watch series — they aren't phase 1.
+ * No reviews block either: the country pages' is hardcoded sample copy, and
+ * copying invented reviews onto five more pages is not an improvement.
+ */
 
 const heroImages: Record<TravelStyle, string> = {
   classic: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1920&q=80",
@@ -22,7 +50,13 @@ const heroImages: Record<TravelStyle, string> = {
 type StyleContent = {
   tagline: string;
   intro: string[];
-  accommodation?: AccommodationMedia[];
+  /**
+   * Same shape as a country's `accommodation`, so both use one component.
+   * NO `travelStyle` on these: the logo mark tells you which style a stay
+   * belongs to, which is worth knowing on a country page where they vary —
+   * on this page every card would say CLASSIC under a hero that already does.
+   */
+  accommodation?: StayItem[];
   faqs?: { question: string; answer: string }[];
 };
 
@@ -124,161 +158,209 @@ const styleContent: Record<TravelStyle, StyleContent> = {
   },
 };
 
+/** The section eyebrow + heading pair the country pages use. */
+function SectionHead({
+  eyebrow,
+  children,
+  lead,
+}: {
+  eyebrow: string;
+  children: React.ReactNode;
+  lead?: string;
+}) {
+  return (
+    <>
+      <p className="mb-3 font-heading text-xs font-bold uppercase tracking-[0.3em] text-tru-pink">{eyebrow}</p>
+      <h2 className="mb-4 font-heading text-2xl font-black uppercase tracking-wide text-white sm:text-3xl">
+        {children}
+      </h2>
+      {lead && <p className="mb-8 max-w-2xl text-base leading-relaxed text-gray-300 sm:text-lg">{lead}</p>}
+    </>
+  );
+}
+
 export default function TravelStylePage({ style, trips }: { style: TravelStyle; trips: Trip[] }) {
   const config = travelStyleConfig[style];
   const content = styleContent[style];
   const styleTrips = trips.filter((t) => t.travelStyle === style);
-
-  const styleRegions = [...new Set(styleTrips.map((t) => t.region))].map((name) => ({
-    name,
-    count: styleTrips.filter((t) => t.region === name).length,
-  }));
-
   const otherStyles = (Object.keys(travelStyleConfig) as TravelStyle[]).filter((s) => s !== style);
-
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const allTripsHref = `/explore/all-trips?style=${encodeURIComponent(style)}`;
 
   return (
-    <div>
-      {/* ===================== HERO ===================== */}
-      <section className="relative h-[80vh] min-h-[560px] flex items-end overflow-hidden">
-        <img src={heroImages[style]} alt={config.label} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-tru-navy via-tru-navy/50 to-transparent" />
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 w-full">
-          <img src={config.logo} alt={config.label} className="h-44 sm:h-56 lg:h-64 -mb-2 animate-fade-up" />
-          <h1 className="animate-fade-up delay-100 text-xl sm:text-2xl lg:text-3xl font-black text-white uppercase font-heading tracking-wide mb-3">
-            {content.tagline}
-          </h1>
-          <p className="animate-fade-up delay-200 text-gray-300 max-w-2xl text-sm sm:text-base leading-relaxed mb-4">
-            {config.description}
-          </p>
-          <p className="animate-fade-up delay-300 text-sm font-semibold" style={{ color: config.color }}>
-            {styleTrips.length} trip{styleTrips.length !== 1 ? "s" : ""} available
-          </p>
-        </div>
-      </section>
-      <Breadcrumbs crumbs={sectionCrumbs(TRAVEL_STYLES, config.label)} />
+    <div className="relative overflow-x-clip">
+      {/* Decorative background watermarks, as on the country pages. */}
+      <img src="/bg-assets/lantern.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[16%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+      <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-32 top-[32%] w-[260px] sm:w-[400px] lg:w-[560px] opacity-[0.05] brightness-0 invert" />
+      <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-[54%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
+      <img src="/bg-assets/good-vibes.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-28 top-[76%] w-[220px] sm:w-[340px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
 
-      {/* ===================== INTRO ===================== */}
-      <section className="relative pt-20 pb-12 overflow-clip">
-        <img src="/bg-assets/sun.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -right-16 sm:-right-24 lg:-right-28 -top-6 w-[260px] sm:w-[380px] lg:w-[480px] opacity-[0.05] brightness-0 invert" />
-        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3" style={{ color: config.color }}>
-            The Style
-          </p>
-          <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95] mb-6">
-            What Is <span style={{ color: config.color }}>{config.label}?</span>
+      <div className="relative z-10">
+        {/* ===================== HERO ===================== */}
+        {/* The country page's hero, with the trip count where a country page
+            puts its Trustpilot row. The style logo used to be the headline
+            here at 44-64px tall; it's gone because the h1 already says
+            CLASSIC and a logo of the same word underneath it is the same word
+            twice. The logos still mark the trip cards and the Other Styles
+            grid, which is where they do work. */}
+        <section className="relative flex h-[70vh] items-end overflow-hidden sm:h-[80vh]">
+          <img src={heroImages[style]} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+            <p className="animate-fade-up mb-2 font-heading text-xs font-bold uppercase tracking-[0.2em] text-tru-pink">
+              Travel Style
+            </p>
+            <h1 className="animate-fade-up delay-100 mb-3 font-heading text-5xl font-black uppercase tracking-tight text-white sm:text-7xl lg:text-8xl">
+              {config.label}
+            </h1>
+            <p className="animate-fade-up delay-150 mb-4 text-sm font-semibold text-white">
+              {styleTrips.length} trip{styleTrips.length !== 1 ? "s" : ""} available
+            </p>
+            <p className="animate-fade-up delay-200 mb-4 font-handwriting text-2xl text-tru-pink sm:text-3xl">
+              {content.tagline}
+            </p>
+            <p className="animate-fade-up delay-300 max-w-2xl text-sm text-gray-300 sm:text-base">
+              {config.description}
+            </p>
+          </div>
+        </section>
+        <Breadcrumbs crumbs={sectionCrumbs(TRAVEL_STYLES, config.label)} />
+
+        {/* ===================== WHAT IS X ===================== */}
+        {/* The centred prose column the About and Essentials pages use for
+            their opening block — max-w-3xl, centred, eyebrow over heading.
+            The sections below are full-width because they hold carousels and
+            rows; this one is reading, so it gets a reading measure. */}
+        <section className="relative mx-auto mt-16 mb-20 max-w-3xl px-4 sm:px-6 lg:px-8">
+          <p className="mb-3 font-heading text-xs font-bold uppercase tracking-[0.2em] text-tru-pink">The Style</p>
+          <h2 className="mb-6 font-heading text-3xl font-black uppercase leading-[1.05] tracking-tight text-white sm:text-4xl">
+            What Is <span className="text-tru-pink">{config.label}?</span>
           </h2>
-          {content.intro.map((p, i) => (
-            <p key={i} className="text-gray-300 text-base sm:text-lg leading-relaxed mb-5">
-              {p}
-            </p>
-          ))}
-        </div>
-      </section>
-
-      {/* ===================== ACCOMMODATION ===================== */}
-      {content.accommodation && content.accommodation.length > 0 && (
-        <section className="relative pt-12 pb-16 overflow-clip border-t border-white/5">
-          <img src="/bg-assets/bali-flower.svg" alt="" aria-hidden="true" className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 top-10 w-[240px] sm:w-[360px] lg:w-[460px] opacity-[0.05] brightness-0 invert" />
-          <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-8 max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3" style={{ color: config.color }}>
-                Where You&apos;ll Stay
-              </p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95] mb-4">
-                Sleep Somewhere <span style={{ color: config.color }}>Different</span>
-              </h2>
-              <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-                No two nights are the same. Here&apos;s the kind of stays you can expect on a {config.label} trip.
-              </p>
-            </div>
-            <AccommodationMediaCarousel items={content.accommodation} />
+          <div className="space-y-5 text-base leading-relaxed text-gray-300 sm:text-lg">
+            {content.intro.map((p) => (
+              <p key={p.slice(0, 40)}>{p}</p>
+            ))}
           </div>
         </section>
-      )}
 
-      {/* ===================== TOURS ===================== */}
-      <section className="relative pt-12 overflow-clip border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-2 max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3" style={{ color: config.color }}>
-              The Trips
-            </p>
-            <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
-              Every <span style={{ color: config.color }}>{config.label}</span> Tour
-            </h2>
-          </div>
-        </div>
-        <AllTripsBrowser
-          trips={styleTrips}
-          regions={styleRegions}
-          pageSize={6}
-          hideStyleFilter
-          heading="Tours"
-        />
-      </section>
-
-      {/* ===================== FAQS ===================== */}
-      {content.faqs && content.faqs.length > 0 && (
-        <section className="relative pt-12 pb-20 border-t border-white/5">
-          <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] font-heading mb-3" style={{ color: config.color }}>
-              Good To Know
-            </p>
-            <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95] mb-8">
-              {config.label} <span style={{ color: config.color }}>FAQs</span>
-            </h2>
-            <div className="space-y-2">
-              {content.faqs.map((faq, i) => (
-                <div key={i} className="rounded-[10px] border border-white/10 bg-white/5 overflow-hidden">
-                  <button
-                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-white/5 transition-colors duration-200"
-                  >
-                    <span className="text-white text-sm font-semibold pr-4">{faq.question}</span>
-                    <svg
-                      className={`h-4 w-4 text-gray-400 flex-shrink-0 transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  <div className={`transition-all duration-300 ease-out overflow-hidden ${openFaq === i ? "max-h-48 opacity-100" : "max-h-0 opacity-0"}`}>
-                    <div className="px-5 pb-4">
-                      <p className="text-gray-300 text-sm leading-relaxed">{faq.answer}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
+        {/* ===================== TRIPS ===================== */}
+        {styleTrips.length > 0 && (
+          <section className="mx-auto mb-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 flex items-end justify-between gap-4">
+              <div>
+                <p className="mb-1 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-tru-pink">
+                  Explore
+                </p>
+                <h2 className="font-heading text-2xl font-black uppercase tracking-wide text-white sm:text-3xl">
+                  {config.label} Trips
+                </h2>
+              </div>
+              <div className="hidden flex-shrink-0 sm:block">
+                <PillButton href={allTripsHref} className="whitespace-nowrap">
+                  See All Trips
+                </PillButton>
+              </div>
             </div>
-          </div>
-        </section>
-      )}
-
-      {/* ===================== EXPLORE OTHER STYLES ===================== */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20 border-t border-white/5 pt-12">
-        <p className="text-tru-pink text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">Explore More</p>
-        <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-8">Other Travel Styles</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {otherStyles.map((s) => {
-            const c = travelStyleConfig[s];
-            return (
-              <Link
-                key={s}
-                href={`/travel-styles/${s.replace(/_/g, "-")}`}
-                className="group rounded-[10px] border border-white/10 bg-white/5 p-6 text-center hover:border-white/20 hover:bg-white/10 transition-all duration-200"
+            <div className="style-trips-carousel relative">
+              <Swiper
+                modules={[Navigation, FreeMode]}
+                spaceBetween={16}
+                slidesPerView={1.15}
+                freeMode={{ enabled: true, sticky: false }}
+                navigation={{ nextEl: ".style-trips-next", prevEl: ".style-trips-prev" }}
+                breakpoints={{
+                  480: { slidesPerView: 1.5 },
+                  640: { slidesPerView: 2.2 },
+                  1024: { slidesPerView: 3.2, spaceBetween: 20 },
+                }}
+                speed={600}
               >
-                <img src={c.logo} alt={c.label} className="h-16 mx-auto mb-3" />
-                <p className="text-gray-400 text-xs">{trips.filter((t) => t.travelStyle === s).length} trips</p>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+                {styleTrips.map((trip) => (
+                  <SwiperSlide key={trip.id}>
+                    <TripCard trip={trip} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              <button className="style-trips-prev absolute top-[calc(50%-20px)] -left-2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-tru-navy/90 transition-colors hover:border-tru-pink/40 disabled:opacity-30 sm:-left-5">
+                <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <button className="style-trips-next absolute top-[calc(50%-20px)] -right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-tru-navy/90 transition-colors hover:border-tru-pink/40 disabled:opacity-30 sm:-right-5">
+                <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </div>
+            <div className="mt-6 flex justify-center sm:hidden">
+              <PillButton href={allTripsHref}>See All Trips</PillButton>
+            </div>
+          </section>
+        )}
+
+        {/* ===================== WHERE YOU'LL STAY ===================== */}
+        {content.accommodation && content.accommodation.length > 0 && (
+          <section className="mx-auto mb-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+            <SectionHead
+              eyebrow="Where You'll Stay"
+              lead={`No two nights are the same. Here's the kind of stays a ${config.label} trip calls home.`}
+            >
+              Sleep Somewhere <span className="text-tru-pink">Special</span>
+            </SectionHead>
+            <AccommodationShowcase items={content.accommodation} />
+          </section>
+        )}
+
+        {/* ===================== DEPARTURES ===================== */}
+        {styleTrips.length > 0 && (
+          <section className="mx-auto mb-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+            <p className="mb-1 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-tru-green">
+              Book Now
+            </p>
+            <h2 className="mb-8 font-heading text-2xl font-black uppercase tracking-wide text-white sm:text-3xl">
+              Upcoming Departures
+            </h2>
+            <UpcomingDepartures countryTrips={styleTrips} />
+          </section>
+        )}
+
+        {/* ===================== FAQS ===================== */}
+        {content.faqs && content.faqs.length > 0 && (
+          <section className="mx-auto mb-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+            <p className="mb-1 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-tru-pink">
+              Need to Know
+            </p>
+            <h2 className="mb-8 font-heading text-2xl font-black uppercase tracking-wide text-white sm:text-3xl">
+              {config.label} FAQs
+            </h2>
+            <FaqAccordion faqs={content.faqs.map((f) => ({ q: f.question, a: f.answer }))} />
+          </section>
+        )}
+
+        {/* ===================== OTHER STYLES ===================== */}
+        {/* The photo card the rest of the site uses to link sideways — the
+            About pages' cross-links, the section hubs, the destinations
+            carousel. This was four logo tiles in a bordered box, the only
+            thing of its kind on the site, and at that size the logos read as
+            thumbnails rather than marks. Same HubCard as /partners. */}
+        <section className="mx-auto mb-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="mb-3 font-heading text-[11px] font-bold uppercase tracking-[0.3em] text-tru-pink">
+            Explore More
+          </p>
+          <h2 className="mb-8 font-heading text-2xl font-black uppercase tracking-wide text-white sm:text-3xl">
+            Other Travel <span className="text-tru-pink">Styles</span>
+          </h2>
+          <HubGrid>
+            {otherStyles.map((s) => {
+              const n = trips.filter((t) => t.travelStyle === s).length;
+              return (
+                <HubCard
+                  key={s}
+                  href={`/travel-styles/${s.replace(/_/g, "-")}`}
+                  image={heroImages[s]}
+                  name={travelStyleConfig[s].label}
+                  description={`${n} trip${n !== 1 ? "s" : ""} — ${styleContent[s].tagline.toLowerCase()}`}
+                />
+              );
+            })}
+          </HubGrid>
+        </section>
+      </div>
     </div>
   );
 }

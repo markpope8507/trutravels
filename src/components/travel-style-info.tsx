@@ -13,11 +13,8 @@ export default function TravelStyleInfo({ style }: { style: TravelStyle }) {
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2.5 rounded-[10px] border border-white/10 bg-white/5 px-4 py-3 transition-all duration-200 hover:border-white/20 hover:bg-white/10 group w-full text-left"
       >
-        {/* Icon circle */}
-        <div
-          className="h-9 w-9 rounded-full flex items-center justify-center flex-shrink-0"
-          style={{ background: config.color }}
-        >
+        {/* Icon circle — pink, not the style's own hue. See travelStyleConfig. */}
+        <div className="h-9 w-9 rounded-full flex items-center justify-center flex-shrink-0 bg-tru-pink">
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d={config.icon} />
           </svg>
