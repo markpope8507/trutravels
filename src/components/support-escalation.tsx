@@ -76,7 +76,7 @@ export default function SupportEscalation() {
   const open = (key: "chat" | "email" | "call") => setModal(key === "call" ? "call" : "email");
 
   return (
-    <section className="relative overflow-hidden pb-24">
+    <section id="talk-to-a-human" className="relative overflow-hidden pb-24 scroll-mt-24">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-[16px] border border-white/10 bg-gradient-to-br from-tru-navy via-tru-navy to-tru-pink/[0.05] p-8 sm:p-10">
           <div className="text-center mb-8">

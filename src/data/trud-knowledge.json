@@ -1,0 +1,2162 @@
+{
+ "generated": "2026-09-22",
+ "source": "Tru.D FAQ Knowledge Base (Google Sheet 1un5smrZ6OdwKSQi-ktMBHfHAtliBoLm49Inuaf6nWWo)",
+ "faqs": [
+  {
+   "id": "BYB-01",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "What's the age range on your trips?",
+   "a": "Most of the group will be somewhere between 18 and 35, and our trips are open to anyone up to 45. Backpacker trips are just for 18–29s. If you're over 45 and you've travelled with us before, drop the team a line at info@trutravels.com and we'll see what we can do.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-02",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "What's the age mix on a specific trip like Thailand Island Hopper or Greece?",
+   "a": "Every group is a mix, but on most Classic trips you'll find people in their 20s and early 30s, with Greece and Europe by Rail skewing 18–30. Backpacker trips are 18–29 only. Whatever your age, you'll be with people who said yes to the same thing you did.",
+   "applies": "Classic & Backpacker trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-03",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "Do many people travel solo?",
+   "a": "Most do. Around 65% of TruTravellers arrive on their own, so the person next to you at the welcome dinner is probably in the same boat. You'll be chatting in the group WhatsApp before you fly, and by day two the group chat won't shut up.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-04",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "I've never travelled solo before and I'm nervous. Is this for me?",
+   "a": "You don't have to be fearless. You just have to go. Nearly everyone on a Tru trip came alone, so nobody's the odd one out. You'll share a room with another solo traveller of the same gender, your Local Legend is with you from the first evening, and the group is talking on WhatsApp before you've even packed. Nervous is normal. It usually lasts until about the second drink on night one.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-05",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "Is it safe for a solo female traveller?",
+   "a": "Yes. Travelling with a small group and a Local Legend who calls the place home is about the safest way to see the world on your own. Transport, accommodation and activities are sorted, and there's always someone who knows the ground. If you'd rather travel with an all-female group, we run community departures with partners like Gals Who Travel.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-06",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "How many people are on each trip?",
+   "a": "Between 10 and 20, depending on the trip. Small enough that nobody sits on the edge of the group, big enough that you'll find your people. Groups do fill up, so if a date is calling you, don't sit on it.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-07",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "Can I join if I'm not from the UK?",
+   "a": "Of course. Our groups come from all over the world, and that mix is half the fun. Prices show in GBP, AUD, CAD, EUR and USD.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-08",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "Are your trips all about partying?",
+   "a": "No. Evenings are a big part of a Tru trip, but they're yours. Some nights the group heads out for drinks; others it's a night market, a sunset, a card game that gets out of hand. Your Local Legend always has a non-drinking option, and nothing in the evening is compulsory.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-09",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "Are your trips LGBTQ+ friendly?",
+   "a": "Yes. Everyone is welcome on a Tru trip, and we also run community departures with LGBTQ+ partners. Some destinations are especially open: Thailand is one of the most LGBTQ+ friendly countries in Asia, and Vietnam's big cities are relaxed and welcoming.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-10",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "What are Life Moments?",
+   "a": "A way to find your trip by where you are in life rather than just where you want to go. Gap Year, Just Left Uni, Looking To Challenge Myself, Solo Soul Searcher, Turning 30 and Work Break Recharge each pull together the trips that fit that chapter. Different stage of life, different kind of trip.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-11",
+   "category": "Before You Book",
+   "topic": "Who it's for",
+   "q": "What's a good first trip?",
+   "a": "Thailand Island Hopper, Bali Experience and Thailand Experience are the classic first-timers: easy to get to, friendly, and full of people doing exactly what you're doing. The Explore page has a 'Perfect First Trips' shelf, or answer a few questions on Inspire Me and we'll match you.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-12",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "Is everything included?",
+   "a": "Everything that matters for getting around and getting stuck in: all your accommodation, all transport between destinations, every activity on the itinerary, airport pickup on arrival day, some meals (welcome and farewell dinners always) and your Local Legend. What's not included: international flights, travel insurance and most day-to-day meals, because you'll want to find your own spots.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-13",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What's a Tru trip actually like?",
+   "a": "Land somewhere new knowing nobody. Leave a couple of weeks later with a camera roll full of ridiculous moments, a group chat that won't shut up, and at least one thing you never thought you'd be brave enough to try. Underneath that there's an itinerary, a Local Legend and all the logistics handled, so you can just turn up and say yes.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-14",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What does 'Leave Ordinary Behind' mean?",
+   "a": "It's the belief underneath everything we do. Not escaping your life, expanding it. Travel gives you permission to say yes more, meet people you'd never normally meet, try things that scare you a little and come home with more confidence, connection and possibility than you left with. The destination is the setting. What happens to you is the story.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-15",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What are the Tru Experience Types?",
+   "a": "Every Tru trip is intentionally designed around five kinds of moment. Local Lens: see the place through the people who live there. Rise Up: step past comfortable and find out what you're capable of. Bucket List: the iconic moments you pictured before you booked. Tru-ly Unique: experiences made possible through our own relationships and ideas, just for the Tru community. Unplugged: phone away, slow down, be there. On each trip page you can filter the itinerary by type to see how the trip delivers them.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-16",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What's a Local Lens experience?",
+   "a": "Seeing a destination through someone who calls it home. Cooking with a family in Ubud, wandering Hoi An with a local artisan, a hill-tribe homestay in the Atlas or northern Thailand. It's where a place stops feeling foreign and starts feeling personal.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-17",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What's a Rise Up experience?",
+   "a": "The moment you step past comfortable. A 3am alarm for the Mount Batur sunrise, the climb up Sigiriya Rock, a first surf lesson, the Inca Trail. Challenging in a supportive way, never macho. You arrive unsure. You leave stronger.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-18",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What's a Bucket List experience?",
+   "a": "The ones you've seen in photos and imagined being in: sunrise at Angkor Wat, an overnight boat on Ha Long Bay, Maya Bay, Komodo dragons, the Taj Mahal at first light. The reason you started looking at the trip in the first place.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-19",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What's a Tru-ly Unique experience?",
+   "a": "Something you can only do with us, made possible by our relationships and our own ideas. One night where Bottle Beach is ours, with a fire show on the sand. A cooking class in Wayan's family home in Ubud. Moyo Island, where only around 50 people a day are allowed. Not scarcity for its own sake, just moments that feel distinctively Tru.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-20",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What's an Unplugged experience?",
+   "a": "The quiet bit. Floating bungalows on a lake in Khao Sok with no Wi-Fi. A silent sunrise on a Sri Lankan beach. A hammock afternoon in Costa Rica. Not every extraordinary moment needs adrenaline; sometimes it's a cup of tea in the jungle and a conversation that runs long after dinner.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-21",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "Why doesn't every trip show all five Experience Types?",
+   "a": "Because we only tag a moment when the trip genuinely delivers it. Some trips lean harder into one type than another, which is exactly why you can search by the kind of experiences you want, not just the country. A Thailand Island Hopper leans Bucket List and Unplugged; a Morocco trip leans Local Lens.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-22",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What happened to TruExclusives?",
+   "a": "They've evolved into Tru-ly Unique experiences. Same idea, a bigger ambition: moments created for the Tru community through our own access, partnerships and ideas, explained by why they feel special rather than shouted as 'exclusive'.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-23",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "Who is my guide?",
+   "a": "A Local Legend. Someone who feels more like a mate who happens to know the way. Born where they guide (or as good as), with you day and evening, not just nine to five. They know which street-food stall to order from, the story behind the place you're standing, and when the group needs a push, a laugh or a moment to slow down.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-24",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What happened to Tru Leaders?",
+   "a": "Same people, bigger role. Our guides have been Travel Ninjas and Tru Leaders over the years; from 2026 they're Local Legends. It's not a cosmetic rename. They're trained around the five Experience Types and asked to turn every stop into a story, not just tick off the itinerary.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-25",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What are the different travel styles?",
+   "a": "Classic: our signature trip, big on inclusions, a great mix of places to stay, open to 18–45. Backpacker: maximum adventure, minimum cost, hostels and street food, exclusively for 18–29s. Flashpacker: all the adventure with an upgrade, boutique stays and a few extra touches. Multi Country: cross borders and pack more in. Limited Edition: trips that run only a handful of times around a festival or an event. When they're gone, they're gone.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-26",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What's the difference between Classic and Backpacker?",
+   "a": "Classic trips are packed with inclusions and stay in hotels, homestays, beach huts and the odd boat, twin-share. Backpacker trips cost less, stay in hand-picked hostels (usually dorms), leave more free time and are just for 18–29s. Same destinations, different budget and vibe.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-27",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "What's a Flashpacker trip?",
+   "a": "All the adventure with an upgrade. Think boutique hotels, a few premium experiences and the extra touches that make a day feel special. For people who like comfort with their chaos.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-28",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "Are departures guaranteed?",
+   "a": "Yes. Every trip runs, so once you've booked you can lock in flights with total peace of mind.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-29",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "Is TruTravels financially protected?",
+   "a": "Yes. We're ABTA members (Y6506) and ATOL protected, so your booking is fully financially protected under the Package Travel Regulations. If anything ever happened to us, your trip would still go ahead or you'd get your money back.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-30",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "Do you run all-female or community-only departures?",
+   "a": "Yes. Alongside our main departures we run community trips with partners like Gals Who Travel, Females Flying Solo and Influence & Inspire. Same itinerary and Local Legend, but the departure is only open to that community, booked through the partner's page.",
+   "applies": "Community departures",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-31",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "Can I host my own trip for my community?",
+   "a": "Yes. If you've got a community, online or in person, you can host a Tru trip for them. You pitch the idea, we build the itinerary, price it, assign a Local Legend and set dates. You promote it with a dedicated page and travel as part of the group while the Local Legend runs the logistics. You earn commission on bookings. No follower count required, just an engaged community and a destination in mind. Hosts and travellers need to be 18+.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-32",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "Do you have an affiliate programme?",
+   "a": "Yes. Tru Affiliates get a personal landing page, trackable links for each trip, ready-made post templates and commission on every completed booking (minimum 5%, with boosts for volume and campaigns). There's no minimum following; engagement matters more than numbers. Apply on the Affiliates page.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-33",
+   "category": "Before You Book",
+   "topic": "How trips work",
+   "q": "I'm a travel agent. How do I sell Tru trips?",
+   "a": "Register your agency on the Agent Registration page (it registers the agency, not an individual). Once approved you'll get access to Sherpa, our agent platform, and can give individual agents at your firm their own logins. Already registered? Log in to Sherpa.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-34",
+   "category": "Before You Book",
+   "topic": "Availability",
+   "q": "The date I want is sold out. How does the waitlist work?",
+   "a": "Spots open up when plans change, and they go to the waitlist first. Give us your name and email and we'll add you for that date. If a place frees up you'll get a priority booking link by email that holds the spot for 24 hours before it moves to the next person, so keep an eye on your inbox.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-35",
+   "category": "Before You Book",
+   "topic": "Availability",
+   "q": "When will new departure dates be released?",
+   "a": "As soon as our local teams have locked in transport and places to stay. Leave your email and we'll message you the second new dates for that trip go live.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-36",
+   "category": "Before You Book",
+   "topic": "Availability",
+   "q": "Can I check if there are still places on a specific date?",
+   "a": "Live availability is under Check Dates on each trip page. 'Last places' means it's nearly full, so grab it with a £200 deposit. Sold out? Join the waitlist and we'll tell you the moment a spot opens.",
+   "applies": "All trips",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "BYB-37",
+   "category": "Before You Book",
+   "topic": "Availability",
+   "q": "How do I hear about Limited Edition trips like Rio Carnival?",
+   "a": "Limited Edition trips run a handful of times and sell fast. Sign up on the homepage banner or the trip page and you'll be first in line when dates and prices go live.",
+   "applies": "Limited Edition trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-38",
+   "category": "Before You Book",
+   "topic": "Rooms",
+   "q": "Can I get a private room?",
+   "a": "Most trips are twin-share with another traveller of the same gender, and private room upgrades are available on selected trips and legs. Tell us the trip and date you're looking at and we'll check what's possible.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-39",
+   "category": "Before You Book",
+   "topic": "Rooms",
+   "q": "My friend and I are booking separately. Can we share a room?",
+   "a": "Yes. As long as you're on the same departure date, send us both booking references and we'll link your bookings so the team on the ground rooms you together. Same for cabins on overnight trains.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-40",
+   "category": "Before You Book",
+   "topic": "Rooms",
+   "q": "Can a group of us travel together?",
+   "a": "Definitely. Book the same departure and tell us you're together so we can room you as a group. Bigger group, or a community you'd like to bring? Look at Host A Trip, or email info@trutravels.com.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-41",
+   "category": "Before You Book",
+   "topic": "Multi-country",
+   "q": "Can I combine two trips back-to-back?",
+   "a": "Yes. Multi Country trips like Cambodia & Vietnam Explorer or Total Thailand are built as one journey with everything included. You can also bundle any two or more trips for 5% off. Bundles don't include flights between trips, so leave a day or two between the end of one and the start of the next for the flight and any visa admin.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-42",
+   "category": "Before You Book",
+   "topic": "Multi-country",
+   "q": "If I book more than one trip, is transport between them included?",
+   "a": "For bundles, no, but we'll help you plan the best way between them. Pre-built Multi Country trips do include all transport within the itinerary, including the border crossing.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-43",
+   "category": "Before You Book",
+   "topic": "Multi-country",
+   "q": "Does Bali & Beyond include Komodo?",
+   "a": "Yes. The 18-day Bali & Beyond takes in Bali, the Gilis, Lombok, Sumbawa and three days on our own liveaboard boat through the Komodo islands, ending in Labuan Bajo. Just want the boat and the dragons? That's the 9-day Komodo Island Hopper.",
+   "applies": "Bali & Beyond / Komodo Island Hopper",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-44",
+   "category": "Before You Book",
+   "topic": "Multi-country",
+   "q": "Does Total Thailand cover both the north and the islands?",
+   "a": "Yes. 27 days, Bangkok to Phuket: Kanchanaburi, Ayutthaya, Chiang Mai, the hill-tribe homestay, Pai, Khao Sok, Koh Phangan, Koh Tao and Phi Phi in one seamless trip.",
+   "applies": "Total Thailand",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-45",
+   "category": "Before You Book",
+   "topic": "Multi-country",
+   "q": "Can I connect Europe by Rail with the Greece Island Hopper?",
+   "a": "Yes. The rail trip ends in Milan and Greece starts in Athens, so you'll need a short budget flight between them. Leave a couple of days in Athens before the islands.",
+   "applies": "Europe by Rail / Greece Island Hopper",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-46",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Are internal flights included on the Philippines trips?",
+   "a": "Yes. Every internal flight on the itinerary is included, with a 20kg checked bag each time. Philippines West includes Manila to Puerto Princesa; Philippines Island Hopper includes three internal flights. The one you book yourself is the flight back to Manila at the end, from Coron or Caticlan.",
+   "applies": "Philippines trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-47",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Are ferries between the Thai islands included?",
+   "a": "Yes. All transport on the itinerary is in: the private van, the overnight sleeper train south and the ferries between Koh Phangan, Koh Tao and Phi Phi. No domestic flights to book.",
+   "applies": "Thailand Island Hopper / Thailand trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-48",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Is the Ha Long Bay cruise included on Vietnam Explorer?",
+   "a": "Yes. The overnight boat on Ha Long Bay, the flight from Ho Chi Minh City to Hoi An and the overnight train are all included.",
+   "applies": "Vietnam Explorer",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-49",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Is the Ella train and the safari included on Sri Lanka Uncovered?",
+   "a": "Yes. The train to Ella (seven hours of tea plantations and hanging out of the door), the Udawalawe safari, Sigiriya Rock and the tea plantation visit are all part of the trip.",
+   "applies": "Sri Lanka Uncovered",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-50",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Are the bullet trains included on Legend of Japan?",
+   "a": "Yes. Shinkansen between cities and local transport (metro, bus, trains) are all included on the 12-day Legend of Japan, Tokyo to Osaka.",
+   "applies": "Legend of Japan",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-51",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Are ziplining and the hot springs included on Costa Rica Adventure?",
+   "a": "Yes. Cloud-forest ziplining in Monteverde, the volcanic hot springs in La Fortuna, a night wildlife walk and a rural homestay are all part of the 10 days from San José to Santa Teresa.",
+   "applies": "Costa Rica Adventure",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-52",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Is the Inca Trail permit and Machu Picchu included on Peru Inca Adventure?",
+   "a": "Yes. Your Inca Trail permit, the one-day trek, the guided Machu Picchu visit with transport back and the Rainbow Mountain trek are all included. Permits sell out months ahead, so an early deposit is the way to lock yours in.",
+   "applies": "Peru Inca Adventure",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-53",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Which Greek islands does the Greece Island Hopper visit?",
+   "a": "Athens, Mykonos, Ios and Santorini, ferries included, starting in Athens and ending in Santorini.",
+   "applies": "Greece Island Hopper",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-54",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Which cities does Europe by Rail (Budapest to Milan) visit?",
+   "a": "Budapest, Vienna, Ljubljana, Lake Bled, Venice and Milan over 11 days. All trains between cities are included and the group's seats are booked together wherever the operators allow.",
+   "applies": "Europe by Rail Budapest–Milan",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-55",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Is Australia East Coast available?",
+   "a": "It's being reimagined and comes back at the end of 2026. Leave your email and we'll tell you the moment dates go live.",
+   "applies": "Australia",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-56",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "What's the Komodo liveaboard boat like?",
+   "a": "Three days and two nights on our own boat. Bunk cabins for four with air-con, two western toilets, a traditional shower, free drinking water and three deck areas for lounging. You sail through the first night and wake up near Pink Beach on the second. No signal, all stars.",
+   "applies": "Komodo Island Hopper / Bali & Beyond / Total Indonesia",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-57",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "What's the hill-tribe homestay like on Northern Thailand Adventure?",
+   "a": "A Local Lens night you'll talk about for years. You trek through the jungle (three to four hours, moderate, plenty of stops) to a hill-tribe village, sleep in a shared homestay, eat what the family cooks and go bamboo rafting in the morning. No high fitness level needed, just a bit of a challenge.",
+   "applies": "Northern Thailand Adventure / Total Thailand",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-58",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "What if the Full Moon Party date moves?",
+   "a": "The party falls on a specific date each month, so the days around it can shuffle. You won't miss it, or anything else on the itinerary.",
+   "applies": "Full Moon trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-59",
+   "category": "Before You Book",
+   "topic": "Trip-specific",
+   "q": "Is the elephant sanctuary ethical?",
+   "a": "Yes. On our Thailand trips we visit a Planeterra-partnered sanctuary where the elephants are rehabilitated, not ridden. No riding, no chains, just elephants being elephants. Animal welfare is close to our hearts; we also support Horses of Gili, a locally led non-profit for the working horses on Gili T.",
+   "applies": "Thailand trips / Bali trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-60",
+   "category": "Before You Book",
+   "topic": "Fitness",
+   "q": "How fit do I need to be?",
+   "a": "Normal fitness is plenty, and almost everything is optional. A few Rise Up moments are worth knowing about: the one-day Inca Trail in Peru (12km at altitude), the jungle trek to the hill-tribe homestay in northern Thailand (three to four hours), the Sigiriya Rock climb in Sri Lanka and the 650 steps up El Peñol in Colombia. Bali is beaches, a surf lesson and easy walks at your own pace.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-61",
+   "category": "Before You Book",
+   "topic": "Fitness",
+   "q": "How hard is the Inca Trail on the Peru trip?",
+   "a": "It's the one-day Inca Trail: around 12km with some steep steps at altitude, topping out near 2,700m. You don't need to be a runner, just comfortable walking uphill. A few long walks in the months before help. You get a full day in Cusco to acclimatise first, and there's coca tea on hand. Bring good vibes and you'll make it.",
+   "applies": "Peru Inca Adventure",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-62",
+   "category": "Before You Book",
+   "topic": "Fitness",
+   "q": "Is there a weight limit for ziplining?",
+   "a": "On our Thailand trips the zipline has a limit of 115kg (253 lbs). If it's not for you, sit it out; your Local Legend will sort something else.",
+   "applies": "Thailand trips with ziplining",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-63",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit Bali?",
+   "a": "It's warm all year. April to October is dry and sunny; November to March brings quick tropical showers that clear fast.",
+   "applies": "Indonesia",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-64",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit Thailand?",
+   "a": "November to March is the sweet spot: cooler, drier, perfect for temples, islands and trekking. March to May is hot but quieter. June to October is monsoon season, but showers are short and tropical and there's still plenty of beach time.",
+   "applies": "Thailand",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-65",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit the Philippines?",
+   "a": "November to May, the dry season, is ideal for island hopping, diving and beach life. Typhoon season runs June to October, but trips still run.",
+   "applies": "Philippines",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-66",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit Vietnam?",
+   "a": "It depends where you are: the north (Hanoi, Ha Long Bay) is best October to April, central Vietnam (Hoi An, Hue) February to August, the south November to April. For the whole country, March–April or September–December work well.",
+   "applies": "Vietnam",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-67",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit Costa Rica?",
+   "a": "December to April is the dry season. May to November is the green season: lush rainforest, fewer people and afternoon showers.",
+   "applies": "Costa Rica",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-68",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit Morocco?",
+   "a": "Spring (March–May) and autumn (September–November): warm but comfortable for cities, desert and mountains. Summer can be extreme in the Sahara, and winter can bring snow to the Atlas.",
+   "applies": "Morocco",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-69",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit Sri Lanka?",
+   "a": "December to March for the south and west coasts, where our trip spends most of its time. The east coast peaks April to September. Pack a light rain jacket whenever you go.",
+   "applies": "Sri Lanka",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-70",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit Japan?",
+   "a": "Spring (March–May) for cherry blossom and autumn (September–November) for the colours. Summer is hot and humid but full of festivals.",
+   "applies": "Japan",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-71",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit Greece?",
+   "a": "May, June and September: warm sea, great weather and fewer crowds than peak summer.",
+   "applies": "Greece",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-72",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit Peru?",
+   "a": "May to October, the dry season, with clear skies and the Inca Trail at its best. Nights are cold year-round, so pack layers.",
+   "applies": "Peru",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-73",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit India?",
+   "a": "October to March: cooler and mostly dry. Summer is extremely hot and monsoon runs June to September.",
+   "applies": "India",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-74",
+   "category": "Before You Book",
+   "topic": "Best time to go",
+   "q": "When is the best time to visit Cambodia?",
+   "a": "November to April, the dry season, for temples and cities. May to October brings afternoon rain, greener landscapes and fewer crowds.",
+   "applies": "Cambodia",
+   "risk": "Stable"
+  },
+  {
+   "id": "BYB-75",
+   "category": "Before You Book",
+   "topic": "Deals & accounts",
+   "q": "Do I need an account to book?",
+   "a": "No, you can browse and book without one. A free account is worth having though: it saves trips you're eyeing up, unlocks member deals, tracks your VIP days and holds your bookings and profile in one place. One free account unlocks everything. No catch.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-76",
+   "category": "Before You Book",
+   "topic": "Deals & accounts",
+   "q": "How do deals work?",
+   "a": "Sale departures, last-minute discounts and early-bird prices, all shown on the Deals page and on each trip's departure list as a percentage off the full price. Gone when they're gone. Members get extra deals through their account, and you can filter deals by departure timing, price and saving.",
+   "applies": "All trips",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "BYB-77",
+   "category": "Before You Book",
+   "topic": "Deals & accounts",
+   "q": "Do you do student discounts?",
+   "a": "Yes, through Student Beans. Verified students can grab a discount; find it under Essentials.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-78",
+   "category": "Before You Book",
+   "topic": "Deals & accounts",
+   "q": "What is the VIP Programme?",
+   "a": "The more you travel, the more you earn. Every day on a Tru trip counts, your status never expires, and you level up automatically. Game-Changer (30+ days): 5% off full-price trips, £50 travel credit a year, early access to flash sales. Icon (50+): 10% off, £100 credit, free airport transfer on every trip. Legend (100+): 15% off, £200 credit, a free pre-night on every trip, priority room upgrades, an invite to the annual Legend meetup. MVP (365+): 20% off, £500 credit, complimentary upgrades, an annual trip for two on us and a personal travel concierge. Track it all on your dashboard.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "BYB-79",
+   "category": "Before You Book",
+   "topic": "Deals & accounts",
+   "q": "Where can I read reviews?",
+   "a": "Google (4.8, 1,300+ reviews), Trustpilot (4.9, 3,600+) and TourRadar (4.9, 17,000+), plus real reviews on every trip page. Don't just take our word for it.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-01",
+   "category": "Getting Ready",
+   "topic": "Insurance",
+   "q": "Do I need travel insurance?",
+   "a": "Yes. It's a condition of booking and we'll check it on day one. Your policy needs to cover the whole trip: emergency medical and repatriation, cancellation and curtailment, lost or stolen gear, 24/7 assistance and the activities you'll be doing (trekking, snorkelling, surfing and so on). World Nomads covers 150+ adventure activities and is a good place to start, though we don't represent them and it's not a recommendation to buy.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-02",
+   "category": "Getting Ready",
+   "topic": "Insurance",
+   "q": "Does it matter which insurer I use?",
+   "a": "No, any reputable insurer is fine if the policy covers your whole trip and your activities. Don't just pick the cheapest; look for one that pays the hospital directly rather than making you pay up front and claim back.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-03",
+   "category": "Getting Ready",
+   "topic": "Flights",
+   "q": "Are flights included?",
+   "a": "No. You book your own flights to the start city and home from the end city (Skyscanner and Kayak are good for comparing). Send us the details once you're sorted.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-04",
+   "category": "Getting Ready",
+   "topic": "Flights",
+   "q": "Do I need to book flights before I book the trip?",
+   "a": "No. Lock in your spot first (departures are guaranteed), then sort flights whenever works for you. Send us the details once you have them; if we haven't got them 14 days before the trip we'll chase you.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-05",
+   "category": "Getting Ready",
+   "topic": "Flights",
+   "q": "What day should I arrive?",
+   "a": "Day 1 of the trip, any time. There's nothing scheduled until the evening welcome dinner, which is where the group first meets. Arrive the day before if you'd like a night's sleep first; we can arrange a pre-night.",
+   "applies": "All trips",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "GR-06",
+   "category": "Getting Ready",
+   "topic": "Flights",
+   "q": "What day should I book my flight home?",
+   "a": "The last day is checkout day with no activities, but on some trips there's travel that morning, so book a later flight or fly the following day. Several trips end in a different city from where they start, so check the end city on your trip page.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-07",
+   "category": "Getting Ready",
+   "topic": "Flights",
+   "q": "Which airport do I fly into?",
+   "a": "The start city on your trip page. For example: Bali Experience is Denpasar (DPS); Thailand trips are Bangkok (BKK or DMK); Philippines is Manila (MNL); Morocco Uncovered is Marrakech (RAK); Greece is Athens (ATH); Legend of Japan is Tokyo (HND or NRT); Vietnam Explorer is Ho Chi Minh City; Peru is Cusco; India is Delhi (DEL); Colombia is Medellín (MDE); Brazil Experience is Rio (GIG). Each trip page has a 'which airport' FAQ.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-08",
+   "category": "Getting Ready",
+   "topic": "Flights",
+   "q": "Two of us are on different flights. Can we share the airport pickup?",
+   "a": "Usually, yes. If both flights land on day 1 within the standard pickup window, send us both flight numbers and we'll align your pickup so you arrive at the hotel together.",
+   "applies": "All trips",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "GR-09",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa?",
+   "a": "Depends on your passport and where you're going. Use the Visa Checker on our Visas & Passports page (powered by Sherpa) for a quick answer, then confirm with your government's official travel advice and apply through official channels. Once you've booked we send visa guidance for your trip.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-10",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "How long does my passport need to be valid?",
+   "a": "Most destinations want at least six months' validity from the day you enter, and some want blank pages. Renewing? We can hold your booking on your current passport number and update it later.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-11",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "My passport is being renewed. Can I still book, or keep my Inca Trail permit?",
+   "a": "Yes. We lock in your booking (and your Inca Trail permit on the Peru trip) with your current passport number. When the new one arrives, email us a photo of the main page and we'll update everything.",
+   "applies": "All trips (esp. Peru)",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-12",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for Thailand?",
+   "a": "Most nationalities get 30–60 days visa-free on arrival. Everyone completes Thailand's Digital Arrival Card online within three days before landing and shows the confirmation at immigration. Check the rules for your passport.",
+   "applies": "Thailand",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-13",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for Indonesia / Bali?",
+   "a": "Most visitors need a 30-day Visa on Arrival (at the main airports) or an e-Visa applied for online beforehand, plus the All-Indonesia Arrival Card before you land. Check the rules for your passport.",
+   "applies": "Indonesia",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-14",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for the Philippines?",
+   "a": "Most nationalities get visa-free entry on arrival. One thing that catches people out: you need proof of an onward ticket leaving the Philippines within 30 days, or the airline may not let you board.",
+   "applies": "Philippines",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-15",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for Vietnam?",
+   "a": "Most visitors need an e-visa, applied for online before travel; some passports (UK included) get visa-free short stays. Rules change often, so check and apply early. Combining Thailand and Vietnam? Leave a day or two between trips for the e-visa and the flight.",
+   "applies": "Vietnam",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-16",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for Cambodia?",
+   "a": "Most travellers do. The e-Visa is the easiest way to sort it before you fly; visa on arrival works at major airports and border crossings too. On Cambodia & Vietnam Explorer you cross into Vietnam by land at Moc Bai with the group.",
+   "applies": "Cambodia",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-17",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for Sri Lanka?",
+   "a": "Most nationalities need an Electronic Travel Authorisation (ETA), applied for online before you arrive. Fees vary by passport.",
+   "applies": "Sri Lanka",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-18",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for India?",
+   "a": "Most travellers do. The e-Visa is the simplest route, applied for online before departure (applications usually open about 30 days before arrival).",
+   "applies": "India",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-19",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for Morocco?",
+   "a": "Many nationalities enter visa-free for up to 90 days. Your passport needs six months' validity.",
+   "applies": "Morocco",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-20",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for Japan?",
+   "a": "Many nationalities visit visa-free for up to 90 days. Check for your passport.",
+   "applies": "Japan",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-21",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for Peru?",
+   "a": "Most don't. UK, EU, US, Canadian, Australian and New Zealand passports get 180 days on arrival. Six months' passport validity needed.",
+   "applies": "Peru",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-22",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for Costa Rica?",
+   "a": "Most travellers get 90 days visa-free, but you'll need proof of onward travel.",
+   "applies": "Costa Rica",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-23",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for Greece or Europe by Rail?",
+   "a": "EU passports, nothing needed. UK and many other nationalities get 90 days visa-free in the Schengen Area. Once ETIAS is live, non-EU travellers will need that authorisation too (around €7, sorted at least four days before travel).",
+   "applies": "Greece / Europe trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-24",
+   "category": "Getting Ready",
+   "topic": "Visas & passports",
+   "q": "Do I need a visa for China?",
+   "a": "Lots of nationalities can now visit China visa-free for short stays, but check for yours. Once booked we send visa guidance, and we'll need your passport details about 60 days before departure so the bullet-train seats can be reserved.",
+   "applies": "Wonders of China",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-25",
+   "category": "Getting Ready",
+   "topic": "Health",
+   "q": "Do I need any vaccinations?",
+   "a": "For most of our destinations, nothing specific, but keep tetanus up to date and check with your doctor or a travel clinic. Your country's official travel-health guidance (NHS Fit for Travel in the UK) has destination-specific advice. We can't give medical advice.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-26",
+   "category": "Getting Ready",
+   "topic": "Health",
+   "q": "Can I drink the tap water?",
+   "a": "Mostly no: stick to bottled or filtered water, and ice in bigger hotels and restaurants is usually fine. Japan is the exception, where tap water is generally safe.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-27",
+   "category": "Getting Ready",
+   "topic": "Health",
+   "q": "What about altitude on the Peru trip?",
+   "a": "Cusco sits high, so you get a full day there to acclimatise before the trek, and the hotels have coca tea on hand. Take day one slowly, drink lots of water and go steady.",
+   "applies": "Peru Inca Adventure",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-28",
+   "category": "Getting Ready",
+   "topic": "Health",
+   "q": "What if I have an allergy or dietary requirement?",
+   "a": "Tell us when you book so your Local Legend knows, and we'll brief cooking classes and homestays too. Carrying allergy cards in the local language is a smart move for restaurants. Vegetarian and vegan options are easy in most of our destinations, Thailand especially.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-29",
+   "category": "Getting Ready",
+   "topic": "Money",
+   "q": "How much spending money should I take?",
+   "a": "Everyone's different, but around £150–£250 a week goes a long way in Asia for food, drinks and shopping, since accommodation, transport and activities are covered. In Thailand that's roughly £15–25 a day. Budget more for Europe, Japan and Latin America.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-30",
+   "category": "Getting Ready",
+   "topic": "Money",
+   "q": "How should I carry my money?",
+   "a": "A travel card with good rates (Monzo, Revolut or similar) and cash from local ATMs. ATMs are easy to find everywhere we go, though most charge a fee per withdrawal, so take out a bit more, less often. Cash is still king at markets and small stalls. Your Local Legend knows the cheapest ATMs.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-31",
+   "category": "Getting Ready",
+   "topic": "Money",
+   "q": "Can I get Moroccan dirham or Indian rupees before I go?",
+   "a": "No. Both are closed currencies, so you can't buy them at home. Withdraw from an ATM on arrival (plenty in Marrakech and Delhi) or exchange cash in-country.",
+   "applies": "Morocco / India",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-32",
+   "category": "Getting Ready",
+   "topic": "Money",
+   "q": "What's the tipping culture, and is there a group kitty?",
+   "a": "In Morocco and India tipping is a big part of hospitality, so your Local Legend may suggest an optional group kitty on day one to cover drivers and local staff without the awkwardness. Tipping your Local Legend is entirely up to you.",
+   "applies": "Morocco / India (mainly)",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "GR-33",
+   "category": "Getting Ready",
+   "topic": "Packing",
+   "q": "Backpack or suitcase?",
+   "a": "Backpack. Every time. Wheels don't work on beaches, boat decks or overhead train racks. If it's your first time with a backpack, you won't go back.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-34",
+   "category": "Getting Ready",
+   "topic": "Packing",
+   "q": "Are there luggage weight limits?",
+   "a": "On trips with internal flights (Philippines, Vietnam, Colombia) the included flights allow roughly 20–23kg checked plus a small carry-on, so pack under 20kg to be safe. Ferries are relaxed. On Europe by Rail there's no limit, but you need to lift your bag into the overhead rack. Private-van trips like Morocco have no limit, though a backpack is still the move.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-35",
+   "category": "Getting Ready",
+   "topic": "Packing",
+   "q": "What should I pack for the Sahara night on Morocco Uncovered?",
+   "a": "A small overnight bag with essentials and a change of clothes; your main bag stays in the van. Desert nights get cold, even in summer, so bring warm layers for the evening and the sunrise, plus sunglasses and a scarf for the sand.",
+   "applies": "Morocco Uncovered",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-36",
+   "category": "Getting Ready",
+   "topic": "Packing",
+   "q": "What should I pack for the Peru trek?",
+   "a": "Layers, because Peru nights are cold all year and the trek climbs. Walking shoes you've already broken in, a light waterproof, sun protection and a daypack.",
+   "applies": "Peru Inca Adventure",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-37",
+   "category": "Getting Ready",
+   "topic": "Packing",
+   "q": "Is there a packing list?",
+   "a": "Yes. Your pre-departure pack has a day-by-day packing list, a climate guide and local transport tips for your trip. It lands about two weeks before you go and lives in your account.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-38",
+   "category": "Getting Ready",
+   "topic": "Packing",
+   "q": "How do I stay connected on the trip?",
+   "a": "Grab an eSIM before you fly so you're online the moment you land. We recommend Airalo (code TRUTRAVELS15 for 15% off). Every hotel and most cafés have Wi-Fi. A couple of Unplugged stops, like the floating bungalows in Khao Sok, have no signal on purpose.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-39",
+   "category": "Getting Ready",
+   "topic": "Before you fly",
+   "q": "When will I hear from my Local Legend?",
+   "a": "About a week before departure you'll get a welcome message from your Local Legend introducing themselves, confirming day 1 and adding you to the group WhatsApp. That's when the trip really starts: by the time you land, you'll already know a few names.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-40",
+   "category": "Getting Ready",
+   "topic": "Before you fly",
+   "q": "Can I find out who else is in my group?",
+   "a": "You'll meet everyone in the WhatsApp group your Local Legend sets up about a week before you go. Until then, the TruTravellers Facebook group is full of past and future travellers.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-41",
+   "category": "Getting Ready",
+   "topic": "Before you fly",
+   "q": "Are airport transfers included?",
+   "a": "Airport pickup on arrival day is included. Need another transfer, say a different day or the airport at the end? Add it in your account or ask the team at info@trutravels.com at least 7 days before you travel. Late transfer bookings can't be accepted.",
+   "applies": "All trips",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "GR-42",
+   "category": "Getting Ready",
+   "topic": "Before you fly",
+   "q": "Can I book a pre-night before the trip starts?",
+   "a": "Yes. We can arrange extra nights at the start hotel so you don't have to move rooms. Send us the dates and we'll come back with rates. Pre-nights aren't included in the trip price (Legend and MVP VIPs get one free).",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "GR-43",
+   "category": "Getting Ready",
+   "topic": "Before you fly",
+   "q": "What happens after I book?",
+   "a": "You'll get a confirmation email and access to your account, where you can pay your balance, add transfers and update your details. Around two weeks out your pre-departure pack arrives, and a week out your Local Legend adds you to the group WhatsApp. From the moment you book, you're in.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "GR-44",
+   "category": "Getting Ready",
+   "topic": "Before you fly",
+   "q": "I booked before the site changed. Will my trip be different?",
+   "a": "Same trip, same places, same Local Legend. What's evolved is how we design and talk about the moments on it: your Local Legend will introduce the five Experience Types on your welcome night, and we're adding Unplugged moments to itineraries over time. Everything you booked is still there.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "OTT-01",
+   "category": "On The Trip",
+   "topic": "Local Legend",
+   "q": "What does a Local Legend actually do?",
+   "a": "Runs the trip, and then some. They handle the logistics so you don't have to, and they're with you day and evening. But the real job is noticing the opportunity inside the itinerary: the story on the bus, the detour worth taking, the introduction, the encouragement before you try something new. The question isn't 'did the activity happen', it's 'what will you remember about how it happened'.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-02",
+   "category": "On The Trip",
+   "topic": "Local Legend",
+   "q": "Will my Local Legend talk about the Experience Types on the trip?",
+   "a": "Yes, lightly. On the welcome night they'll explain the five types you'll hear about over the trip, and they'll name a moment as Local Lens or Rise Up when it adds meaning. It's never a branded presentation; the experience comes first, the label just helps you see why the moment matters.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "OTT-03",
+   "category": "On The Trip",
+   "topic": "Accommodation",
+   "q": "What accommodation do we stay in?",
+   "a": "Hotels, hostels, homestays, beach huts, floating bungalows, even boats: we mix it up to fit the destination, comfortable where it counts and local and characterful everywhere else. Mostly twin-share rooms with a same-sex roommate, occasionally a triple or a dorm just for our group. You'll always have a clean bed, hot water and somewhere to dump your bag. Exact properties can change, but the standard doesn't.",
+   "applies": "All trips",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "OTT-04",
+   "category": "On The Trip",
+   "topic": "Accommodation",
+   "q": "Who will I share with?",
+   "a": "Another traveller of the same gender and a similar age, and they're almost always solo too. If you click with someone on the trip, your Local Legend can usually room you together on request.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-05",
+   "category": "On The Trip",
+   "topic": "Accommodation",
+   "q": "What are the overnight trains like?",
+   "a": "Thailand, Vietnam and India trips include sleeper trains: air-conditioned berths in shared compartments, usually four to six people. Falling asleep to the rhythm of the rails and waking up somewhere new is one of the moments people talk about afterwards. Friends on linked bookings share a cabin where possible.",
+   "applies": "Thailand / Vietnam / India trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-06",
+   "category": "On The Trip",
+   "topic": "Accommodation",
+   "q": "What's the desert camp like on Morocco Uncovered?",
+   "a": "One night of glamping in permanent traditional tents, a short camel ride into the dunes. Dinner, drumming, more stars than you knew existed, and a sunrise you won't want to sleep through.",
+   "applies": "Morocco Uncovered",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-07",
+   "category": "On The Trip",
+   "topic": "Accommodation",
+   "q": "What's the castaway night on the Philippines trips?",
+   "a": "One night on Daracotan Island in open-air beach bungalows with mosquito nets. A village visit, a cooking class, snorkelling over a shipwreck and a bonfire on the sand. No Wi-Fi, no need for it.",
+   "applies": "Philippines West / Island Hopper / Total Philippines",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-08",
+   "category": "On The Trip",
+   "topic": "Food",
+   "q": "Is food included?",
+   "a": "Some of it. Welcome and farewell dinners are on every trip, along with the group feasts you'd never want to miss (family-style on a beach, the hill-tribe homestay). Most breakfasts are in too. We don't lock you into every meal, because you'll want to roam the street markets and find your own spots.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-09",
+   "category": "On The Trip",
+   "topic": "Food",
+   "q": "How many meals are included on my trip?",
+   "a": "It's under 'What you get' on every trip page. Thailand Island Hopper, for example, includes 4 breakfasts, 4 lunches and 1 dinner; Morocco Uncovered 7 breakfasts, 1 lunch and 5 dinners.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "OTT-10",
+   "category": "On The Trip",
+   "topic": "Food",
+   "q": "Can dietary requirements be catered for?",
+   "a": "Yes. Vegetarian, vegan, gluten-free, halal and allergies are all fine if you tell us when you book, so your Local Legend and the places we eat can plan ahead.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-11",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "Is there any free time?",
+   "a": "Yes. Itineraries balance the moments we've planned with time to explore, shop, get a massage or do absolutely nothing. Your Local Legend will have first-hand recommendations for the free days.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-12",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "What if I don't want to do an activity?",
+   "a": "Then don't. Every activity is optional and there's never any pressure. Not feeling the open water? Stay on the boat. It's your trip.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-13",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "Are there optional extras I'll be asked to pay for?",
+   "a": "Everything on the itinerary is included: no bolt-ons, no tier menus. Some destinations have optional add-ons on free days (a dive, a scooter, rafting) that you can choose to do, but they're never required.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-14",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "What happens in the evenings?",
+   "a": "The group heads out for dinner most nights at places we've found over the years, and often on somewhere afterwards: a rooftop, a beach bar, a night market, a sunset. Evenings aren't on the itinerary and aren't compulsory, and there's always a non-drinking option. The best conversations tend to happen here.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-15",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "Can I skip part of the trip to visit family and rejoin later?",
+   "a": "Sometimes. The itinerary is fixed so the group stays together, but leaving and rejoining can work on some routes. Send us the exact dates and stops you're thinking of and we'll check with the ops team.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-16",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "Can I customise the itinerary?",
+   "a": "The group itinerary is fixed so everyone shares the same experience, but you can add pre- or post-nights, a private room and, on some trips, an extension like Komodo. Your Local Legend will also help you make the free time yours.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-17",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "What's the language situation?",
+   "a": "English gets you by in tourist areas everywhere we go, and your Local Legend handles the rest. A few local words always land well; by day two on the Vietnam trip you'll be ordering bún chả like a local.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-18",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "Is it safe?",
+   "a": "Every destination we run trips in is considered safe for travellers, and a small group with a Local Legend who knows the ground is the safest way to see them. Normal sense applies: watch your bag in busy markets and mind the traffic in Vietnam and India.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-19",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "Do I need to dress a certain way?",
+   "a": "In Morocco, India and Sri Lanka, and at temples anywhere in Asia, cover shoulders and knees. A light scarf or sarong does the job. Your Local Legend will give you a heads-up before temple days.",
+   "applies": "Morocco / India / Sri Lanka / temple visits",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-20",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "How do you look after the places we visit?",
+   "a": "Through our People & Planet Promise: 1% of revenue goes to people and planet initiatives, we measure and offset our carbon every month, and we build trips around community tourism enterprises, locally owned businesses like The Art House in Marrakech, the Bang Lamphu community in Bangkok and Horses of Gili. Leave a place better than you found it.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-21",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "What's the People & Planet Promise?",
+   "a": "Three measurable promises: positively impact 250,000 lives by 2030, generate £1.25 million for people and planet initiatives by 2030 (1% of our revenue, built into the business model, not donated after profit), and be climate positive now under the Glasgow Declaration. So far: 332,482 trees planted, £320,123 donated to 29 initiatives in 12 countries, 8,903 tonnes of carbon offset.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "OTT-22",
+   "category": "On The Trip",
+   "topic": "Daily life",
+   "q": "Which projects do you support?",
+   "a": "Long-term partners, not one-off PR moments: charity: water (eight wells in rural Cambodia), Bali Street Mums, the Indigenous Literacy Foundation, Sungai Watch (river trash barriers in Bali) and Children of Vietnam (64 scholarships). Plus Planeterra projects on the ground, like our elephant sanctuary partner in Thailand.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "OTT-23",
+   "category": "On The Trip",
+   "topic": "Transfers",
+   "q": "How do I get from the airport to the start hotel?",
+   "a": "Your arrival-day pickup is included: send us your flight details and a driver meets you at arrivals. Your Local Legend shares the hotel details in the WhatsApp group about a week before.",
+   "applies": "All trips",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "OTT-24",
+   "category": "On The Trip",
+   "topic": "Transfers",
+   "q": "What if my flight is delayed and I miss the welcome dinner?",
+   "a": "Don't panic. Message your Local Legend in the WhatsApp group with your new arrival time. Nothing happens before the welcome dinner on day 1, and they'll make sure you're settled and caught up.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-25",
+   "category": "On The Trip",
+   "topic": "Trip-specific",
+   "q": "How does the border crossing work on Cambodia & Vietnam Explorer?",
+   "a": "By land at Moc Bai, with the group and your Local Legend. Have your Vietnam e-visa sorted before the trip and keep your passport handy.",
+   "applies": "Cambodia & Vietnam Explorer",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "OTT-26",
+   "category": "On The Trip",
+   "topic": "Trip-specific",
+   "q": "Is there Wi-Fi on the Komodo liveaboard?",
+   "a": "No, and that's the point. Three days of sunsets, stargazing and snorkelling with manta rays. Phone away.",
+   "applies": "Komodo Island Hopper / Bali & Beyond",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "OTT-27",
+   "category": "On The Trip",
+   "topic": "Trip-specific",
+   "q": "What's Moyo Island?",
+   "a": "A Tru-ly Unique day on the Komodo and Bali & Beyond trips: an island that only lets in around 50 visitors a day, with untouched waterfalls, clear water and a bike ride with local guides.",
+   "applies": "Komodo Island Hopper / Bali & Beyond",
+   "risk": "Stable"
+  },
+  {
+   "id": "OTT-28",
+   "category": "On The Trip",
+   "topic": "Trip-specific",
+   "q": "What is Bottle Beach?",
+   "a": "A beach on Koh Phangan you can only reach by boat, and for one night it's ours. Volleyball, the viewpoint hike, dinner on the sand, cocktails and a private fire show. It's the kind of night that becomes a story before it's even over.",
+   "applies": "Thailand trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-01",
+   "category": "Payments & Changes",
+   "topic": "Deposits",
+   "q": "Can I pay a deposit?",
+   "a": "Yes. Lock in your spot with £200 per person per trip (EUR 240, AUD 250, CAD 360, NZD 400, USD 280) and pay the rest by 60 days before departure. Booking within 60 days of departure? That's paid in full.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-02",
+   "category": "Payments & Changes",
+   "topic": "Deposits",
+   "q": "Is my spot guaranteed once I've paid a deposit?",
+   "a": "Yes. The moment the deposit lands, the place is yours, as long as the balance clears 60 days before you go.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-03",
+   "category": "Payments & Changes",
+   "topic": "Deposits",
+   "q": "Is the deposit refundable?",
+   "a": "It's non-refundable, but it is flexible: with 60+ days' notice you can move it to another date or trip (one free change) or transfer it to a friend.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-04",
+   "category": "Payments & Changes",
+   "topic": "Paying",
+   "q": "Can I pay in instalments?",
+   "a": "Yes. Pay your way: set up an automatic payment plan, make flexible payments whenever you like through your account (sign in with the email you booked with), use the link in your confirmation email, or call the team on +44 203 542 2463. Interest-free, as long as it's all paid 60 days before departure.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "PC-05",
+   "category": "Payments & Changes",
+   "topic": "Paying",
+   "q": "When is my final balance due?",
+   "a": "60 days before your trip starts. Pay it off in chunks or all at once through your account.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-06",
+   "category": "Payments & Changes",
+   "topic": "Paying",
+   "q": "How do I book?",
+   "a": "Hit Check Dates on any trip page, pick your departure and pay online with a debit or credit card. Or call the UK office on +44 203 542 2463 and a human will sort it.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-07",
+   "category": "Payments & Changes",
+   "topic": "Paying",
+   "q": "Can I pay in my own currency?",
+   "a": "Prices are shown and charged in GBP, AUD, CAD, EUR and USD. Any debit or credit card works; your bank converts at its own rate.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-08",
+   "category": "Payments & Changes",
+   "topic": "Paying",
+   "q": "Why does the trip show a price per day?",
+   "a": "So you can compare trips fairly. A 27-day trip costs more than an 8-day one, but per day it's often better value. The 'from' price is the lowest current departure; each date shows its own price and any saving.",
+   "applies": "All trips",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "PC-09",
+   "category": "Payments & Changes",
+   "topic": "Paying",
+   "q": "My card was declined at checkout. What do I do?",
+   "a": "International payments sometimes trigger a security check with banks outside the UK and EU. Give your bank a heads-up, try another card or PayPal, or ask us and we'll send a custom payment link to lock in your deposit.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-10",
+   "category": "Payments & Changes",
+   "topic": "Paying",
+   "q": "My discount code isn't working.",
+   "a": "Codes can be expired, mistyped or limited to full-price trips (most can't stack on sale prices). Send us the code and we'll check its rules.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-11",
+   "category": "Payments & Changes",
+   "topic": "Paying",
+   "q": "Do prices ever change after I've booked?",
+   "a": "Your price is fixed once the deposit is paid, apart from changes in fuel, taxes or exchange rates. We absorb increases up to 2%; anything above that is passed on, and if it ever exceeded 8% you could cancel for a full refund.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-12",
+   "category": "Payments & Changes",
+   "topic": "Changes",
+   "q": "Can I change my trip date?",
+   "a": "Yes. With 60+ days' notice you get one free date change to any available departure (or a trip of equal or higher value). Inside 60 days an admin fee applies and it's subject to availability; inside 30 days changes can't be guaranteed. No changes within 7 days of departure.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-13",
+   "category": "Payments & Changes",
+   "topic": "Changes",
+   "q": "What does a change cost after the free one?",
+   "a": "£50 per person per change (€65, US$70, AU$100), plus any costs from suppliers.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "PC-14",
+   "category": "Payments & Changes",
+   "topic": "Changes",
+   "q": "Can I transfer my booking or deposit to a friend?",
+   "a": "Yes, up to 60 days before departure. Send us your booking reference and their details. A transfer fee of up to £100 per person may apply, plus any supplier costs.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "PC-15",
+   "category": "Payments & Changes",
+   "topic": "Changes",
+   "q": "What if I need to cancel?",
+   "a": "More than 60 days before departure, you lose the deposit only. 60 days or less, the cancellation charge is 100% of the trip cost, which is exactly why insurance with cancellation cover matters. Insurance premiums and amendment fees aren't refundable.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-16",
+   "category": "Payments & Changes",
+   "topic": "Changes",
+   "q": "Can I switch to a different trip?",
+   "a": "Yes. With 60+ days' notice your deposit moves to any other trip or date for free (one change). Any price difference is payable, and credit stays on your account for next time.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-17",
+   "category": "Payments & Changes",
+   "topic": "Changes",
+   "q": "What if TruTravels changes or cancels my trip?",
+   "a": "Departures are guaranteed, so this is rare. If we ever had to make a significant change to an essential part of your package, you'd be offered an alternative or a full refund under the Package Travel Regulations.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-18",
+   "category": "Payments & Changes",
+   "topic": "Bundles & credit",
+   "q": "How do multi-trip bundles work for payment?",
+   "a": "Bundle two or more trips for 5% off. Each trip needs its £200 deposit, the full amount is due 60 days before the first trip starts, and all trips need to happen within 12 months of that first start date.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "PC-19",
+   "category": "Payments & Changes",
+   "topic": "Bundles & credit",
+   "q": "Can I use my VIP discount or travel credit on a sale price?",
+   "a": "VIP discounts apply to full-price trips only. Travel credit can go on any booking, including sale trips.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "PC-20",
+   "category": "Payments & Changes",
+   "topic": "Bundles & credit",
+   "q": "When do I get my VIP travel credit?",
+   "a": "At the start of each calendar year, based on your tier, straight into your account for any future booking.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "PC-21",
+   "category": "Payments & Changes",
+   "topic": "Bundles & credit",
+   "q": "Do my VIP days ever expire?",
+   "a": "Never. Days are yours for life and you're never downgraded. Every day on every trip counts, multi-country included.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "PC-22",
+   "category": "Payments & Changes",
+   "topic": "Account",
+   "q": "How do I manage my booking?",
+   "a": "Log in to your account with the email you booked with. Bookings, saved trips, payments, transfers, passport and flight details and your VIP progress all live there.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "PC-23",
+   "category": "Payments & Changes",
+   "topic": "Account",
+   "q": "I've forgotten my password.",
+   "a": "Use the forgotten-password link on the login page and we'll email a reset. Make sure it's the email you booked with.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "AYT-01",
+   "category": "After Your Trip",
+   "topic": "Finishing",
+   "q": "What time does the trip finish?",
+   "a": "The last day is checkout day and the trip officially ends then. No activities, so treat it as a travel day. Late flight? Your Local Legend will have ideas for filling it, and there'll be details to swap and goodbyes to drag out.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "AYT-02",
+   "category": "After Your Trip",
+   "topic": "Finishing",
+   "q": "Is transport to the airport included at the end?",
+   "a": "Not as standard (Icons and above get it free). Your Local Legend can help you book a transfer or point you to the easiest option.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "AYT-03",
+   "category": "After Your Trip",
+   "topic": "Finishing",
+   "q": "Can I book extra nights at the end?",
+   "a": "Yes. We can arrange post-nights at the end hotel so you don't have to move. Send us the dates and we'll send rates. If you'd rather book yourself, we'll tell you the end hotel in advance so you can book the same place.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "AYT-04",
+   "category": "After Your Trip",
+   "topic": "Finishing",
+   "q": "Can you help with onward travel?",
+   "a": "That's what your Local Legend is there for. Another Tru trip, a few days on a beach, or the flight home: they'll point you in the right direction.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "AYT-05",
+   "category": "After Your Trip",
+   "topic": "Getting home",
+   "q": "How do I get back to Bangkok from Koh Phangan after a Thailand trip?",
+   "a": "Ferry to the mainland then bus or train to Bangkok (roughly 12 hours), or a short flight from Koh Samui, about 45 minutes away by ferry. Your Local Legend will help you book whichever suits.",
+   "applies": "Thailand Experience / Full Moon trips",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "AYT-06",
+   "category": "After Your Trip",
+   "topic": "Getting home",
+   "q": "The Thailand Island Hopper ends in Phuket. Can I fly home from there?",
+   "a": "Yes. Phuket (HKT) is an international airport with plenty of connections, or fly to Bangkok. There's a ferry-and-bus option back to Bangkok too if you'd rather go overland.",
+   "applies": "Thailand Island Hopper / Total Thailand",
+   "risk": "Stable"
+  },
+  {
+   "id": "AYT-07",
+   "category": "After Your Trip",
+   "topic": "Getting home",
+   "q": "How do I get back to Manila after Philippines West?",
+   "a": "The trip ends in Coron. Coron's airport is about 30 minutes away with flights to Manila and Cebu. Book it yourself (it's not included), and early for the best fares.",
+   "applies": "Philippines West",
+   "risk": "Stable"
+  },
+  {
+   "id": "AYT-08",
+   "category": "After Your Trip",
+   "topic": "Getting home",
+   "q": "How do I get home after the Philippines Island Hopper?",
+   "a": "It ends on Boracay. Fly from Caticlan (MPH) to Manila, sometimes via Cebu, to connect with your international flight. That flight isn't included.",
+   "applies": "Philippines Island Hopper",
+   "risk": "Stable"
+  },
+  {
+   "id": "AYT-09",
+   "category": "After Your Trip",
+   "topic": "Getting home",
+   "q": "How do I get back from Labuan Bajo after the Komodo trip?",
+   "a": "Labuan Bajo has an airport with short flights to Bali (Denpasar) and Lombok. Not included, and cheap if you book early.",
+   "applies": "Komodo Island Hopper / Bali & Beyond",
+   "risk": "Volatile detail removed"
+  },
+  {
+   "id": "AYT-10",
+   "category": "After Your Trip",
+   "topic": "Getting home",
+   "q": "How do I get to Colombo airport after Sri Lanka Uncovered?",
+   "a": "The trip ends in Unawatuna, two to three hours by taxi from Colombo airport. Your Local Legend can arrange it.",
+   "applies": "Sri Lanka Uncovered",
+   "risk": "Stable"
+  },
+  {
+   "id": "AYT-11",
+   "category": "After Your Trip",
+   "topic": "Getting home",
+   "q": "Which airport do I fly out of at the end?",
+   "a": "The end city on your trip page. For example: Bali Experience ends on Gili T (fly from Lombok or head back to Denpasar); Greece ends in Santorini (JTR); Legend of Japan in Osaka (KIX); Colombia in Cartagena (CTG); Brazil Experience in São Paulo (GRU); Vietnam Explorer in Hanoi. Morocco, Peru and India end where they start.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "AYT-12",
+   "category": "After Your Trip",
+   "topic": "Getting home",
+   "q": "How much time should I leave between two back-to-back trips?",
+   "a": "At least a day or two. That covers the flight between end and start cities and any visa admin, like the Vietnam e-visa after Thailand.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "AYT-13",
+   "category": "After Your Trip",
+   "topic": "Staying in touch",
+   "q": "How do I share my photos and videos?",
+   "a": "Upload them on the Share Your Photos page: JPG, PNG, HEIC, MP4 or MOV, up to 25 files at 200MB each, straight off your phone, unfiltered. Faces, not just views. Everyone who uploads goes into a quarterly draw for £250 travel credit. We may feature them on the site, social and emails (tagging you where we can), we never sell or pass them on, and you can ask us to take them down any time at hello@trutravels.com.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "AYT-14",
+   "category": "After Your Trip",
+   "topic": "Staying in touch",
+   "q": "How do I leave a review?",
+   "a": "Google, Trustpilot or TourRadar, whichever you use. We read every one, and the good bits end up on trip pages. Honest is better than glowing.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "AYT-15",
+   "category": "After Your Trip",
+   "topic": "Staying in touch",
+   "q": "What are Stories?",
+   "a": "Real moments from the road: video diaries from travellers, creators and Local Legends, plus long reads on destinations, first-timer tips, food, solo travel and more. Filter by destination or life moment. Got one? Upload it and it might end up there.",
+   "applies": "All trips",
+   "risk": "Stable"
+  },
+  {
+   "id": "AYT-16",
+   "category": "After Your Trip",
+   "topic": "Staying in touch",
+   "q": "Does the community carry on after the trip?",
+   "a": "That's usually the bit that lasts. The group chat keeps going, people meet up (there was a Tru Crew reunion in Lisbon: 14 countries, 23 humans, one rooftop), Legends get invited to an annual meetup and MVPs get their own events. Join the TruTravellers Facebook group and follow us on socials to stay in the loop.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "AYT-17",
+   "category": "After Your Trip",
+   "topic": "Staying in touch",
+   "q": "Do I get anything for travelling with you again?",
+   "a": "Every day on a trip counts towards your VIP status, for life. From 30 days you're a Game-Changer with 5% off full-price trips, travel credit each year and early access to sales, and it climbs from there. Check your progress on your dashboard; we'll email you when you level up.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "AYT-18",
+   "category": "After Your Trip",
+   "topic": "Staying in touch",
+   "q": "Can I bring my own community on a trip, or earn from recommending you?",
+   "a": "Yes to both. Host A Trip lets you run a Tru trip for your community, with us handling everything and you earning commission. Tru Affiliates gives you trackable links and commission on every booking you send our way. Both start with a short application on the Partners page.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "AYT-19",
+   "category": "After Your Trip",
+   "topic": "Staying in touch",
+   "q": "Could I become a Local Legend?",
+   "a": "Maybe. We hire people we'd happily spend fourteen days on a minibus with. Roles come up on the Join The Crew page, and you can send a speculative application to recruitment@trutravels.com with your CV, a short intro and what excites you about it.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  },
+  {
+   "id": "AYT-20",
+   "category": "After Your Trip",
+   "topic": "Staying in touch",
+   "q": "I've got feedback or a problem after my trip. Who do I contact?",
+   "a": "Email info@trutravels.com or call +44 203 542 2463 and a human will pick it up. Live chat runs 9:30am to 5pm GMT, Monday to Saturday.",
+   "applies": "All trips",
+   "risk": "Review periodically"
+  }
+ ],
+ "tours": [
+  {
+   "trip": "Bali Experience",
+   "country": "Indonesia",
+   "days": "10",
+   "starts": "Canggu",
+   "ends": "Gili Trawangan",
+   "style": "Classic",
+   "transport_included": "Private van, ferry to Gili T",
+   "meals_included": "9 breakfasts, 1 lunch",
+   "key_moments_experience_type_where_tagged": "Temples, surf lesson, waterfalls, cooking class in Wayan's family home (Tru-ly Unique / Local Lens), Monkey Forest, rice terraces, volcano viewpoint, Gili island hopping & snorkel, bike tour",
+   "not_included": "Flights, most meals, insurance",
+   "entry___visa_note": "Indonesia VOA/e-Visa + All-Indonesia Arrival Card",
+   "other_notes": "Ends on Gili T; return to Bali/Lombok not included"
+  },
+  {
+   "trip": "Bali & Beyond",
+   "country": "Indonesia",
+   "days": "18",
+   "starts": "Canggu",
+   "ends": "Labuan Bajo",
+   "style": "Classic",
+   "transport_included": "Private vans, ferries, 3D/2N liveaboard",
+   "meals_included": "17 breakfasts, 4 lunches, 2 dinners",
+   "key_moments_experience_type_where_tagged": "Bali Experience + Lombok Sasak village, Sumbawa, Moyo Island (Tru-ly Unique), Komodo liveaboard, manta snorkel, Pink Beach, Komodo dragons (Bucket List)",
+   "not_included": "Flights, most meals",
+   "entry___visa_note": "Indonesia VOA/e-Visa",
+   "other_notes": "Flight from Labuan Bajo not included"
+  },
+  {
+   "trip": "Komodo Island Hopper",
+   "country": "Indonesia",
+   "days": "9",
+   "starts": "Lombok",
+   "ends": "Labuan Bajo",
+   "style": "Adventure",
+   "transport_included": "Van, ferry to Sumbawa, liveaboard",
+   "meals_included": "8 breakfasts, 3 lunches, 2 dinners",
+   "key_moments_experience_type_where_tagged": "Sasak village, waterfalls, beach hopping, Moyo Island, Satonda, Manta Point, Pink Beach, Padar sunset trek, Komodo Island",
+   "not_included": "Flights to Lombok, flight out of Labuan Bajo, pre-night",
+   "entry___visa_note": "Indonesia VOA/e-Visa",
+   "other_notes": "Bunk cabins x4 on boat; no signal (Unplugged)"
+  },
+  {
+   "trip": "Thailand Island Hopper",
+   "country": "Thailand",
+   "days": "14",
+   "starts": "Bangkok",
+   "ends": "Phuket",
+   "style": "Classic",
+   "transport_included": "Private van, overnight train, 2 ferries",
+   "meals_included": "4 breakfasts, 4 lunches, 1 dinner",
+   "key_moments_experience_type_where_tagged": "Bangkok temples & river (Local Lens), Khao Sok floating bungalows & kayak (Unplugged / Tru-ly Unique), Bottle Beach night (Tru-ly Unique), Muay Thai (Rise Up), Koh Phangan boat trip, Koh Tao/Nang Yuan, Phi Phi/Maya Bay (Bucket List)",
+   "not_included": "Flights, most meals, return to Bangkok",
+   "entry___visa_note": "Digital Arrival Card within 3 days of arrival",
+   "other_notes": "Ends Phuket (HKT international)"
+  },
+  {
+   "trip": "Thailand Experience",
+   "country": "Thailand",
+   "days": "8",
+   "starts": "Bangkok",
+   "ends": "Koh Phangan",
+   "style": "Classic",
+   "transport_included": "Private van, overnight train, ferry",
+   "meals_included": "3 breakfasts, 2 lunches, 1 dinner",
+   "key_moments_experience_type_where_tagged": "Bangkok river cruise & temples, Thai massage, Khao Sok, Bottle Beach, Muay Thai, island-hopping boat trip",
+   "not_included": "Flights, return to Bangkok, most meals",
+   "entry___visa_note": "Digital Arrival Card",
+   "other_notes": "Return via ferry+bus (~12h) or Koh Samui flight"
+  },
+  {
+   "trip": "Northern Thailand Adventure",
+   "country": "Thailand",
+   "days": "14",
+   "starts": "Bangkok",
+   "ends": "Chiang Mai",
+   "style": "Adventure",
+   "transport_included": "Private van, overnight train",
+   "meals_included": "7 breakfasts, 5 lunches, 2 dinners",
+   "key_moments_experience_type_where_tagged": "Floating market, River Kwai, Erawan Falls, Ayutthaya bike tour, Doi Suthep, jungle trek + hill-tribe homestay (Local Lens / Rise Up), ethical elephant sanctuary, bamboo rafting, zipline, Pai caves & hot springs, cooking class, Grand Canyon waterpark",
+   "not_included": "Flights, return to Bangkok, most meals",
+   "entry___visa_note": "Digital Arrival Card",
+   "other_notes": "Zipline limit 115kg; trek 3–4h moderate"
+  },
+  {
+   "trip": "Total Thailand",
+   "country": "Thailand",
+   "days": "27",
+   "starts": "Bangkok",
+   "ends": "Phuket",
+   "style": "Classic",
+   "transport_included": "Private van, 2 overnight trains, 2 ferries, longtails",
+   "meals_included": "10 breakfasts, 9 lunches, 3 dinners",
+   "key_moments_experience_type_where_tagged": "Northern Thailand Adventure + Thailand Island Hopper in one",
+   "not_included": "Flights, most meals",
+   "entry___visa_note": "Digital Arrival Card",
+   "other_notes": "Zipline limit 115kg"
+  },
+  {
+   "trip": "Full Moon Experience",
+   "country": "Thailand",
+   "days": "10",
+   "starts": "Bangkok",
+   "ends": "Koh Phangan",
+   "style": "Classic",
+   "transport_included": "All transport within Thailand",
+   "meals_included": "3 breakfasts, 2 lunches, 1 dinner",
+   "key_moments_experience_type_where_tagged": "Bangkok, Khao Sok, Bottle Beach, Full Moon Party with UV paint & pre-drinks (Bucket List)",
+   "not_included": "Flights, return to Bangkok",
+   "entry___visa_note": "Digital Arrival Card",
+   "other_notes": "Days may shuffle around the party date"
+  },
+  {
+   "trip": "Philippines West",
+   "country": "Philippines",
+   "days": "10",
+   "starts": "Manila",
+   "ends": "Coron",
+   "style": "Classic",
+   "transport_included": "Flight Manila–Puerto Princesa (20kg), private bus, ferry to Coron, island boats",
+   "meals_included": "8 breakfasts, 4 lunches, 1 dinner",
+   "key_moments_experience_type_where_tagged": "Port Barton island hopping, El Nido lagoons by kayak, zipline, Nacpan Beach, Daracotan castaway night (Unplugged / Local Lens), Coron island hopping & Kayangan Lake",
+   "not_included": "Return flight Coron–Manila, most meals, insurance",
+   "entry___visa_note": "Onward ticket within 30 days required",
+   "other_notes": "Coron airport ~30 min"
+  },
+  {
+   "trip": "Philippines Island Hopper",
+   "country": "Philippines",
+   "days": "17",
+   "starts": "Manila",
+   "ends": "Boracay",
+   "style": "Classic",
+   "transport_included": "3 internal flights (20kg each), 2 ferries, private vans",
+   "meals_included": "14 breakfasts, 6 lunches, 1 dinner",
+   "key_moments_experience_type_where_tagged": "Philippines West + Cebu: Moalboal sardine run & turtles, Kawasan Falls canyoneering (Rise Up), Boracay paraw sailing, boat party",
+   "not_included": "Flight Boracay/Caticlan–Manila, most meals",
+   "entry___visa_note": "Onward ticket within 30 days required",
+   "other_notes": "Fly Caticlan (MPH) to Manila, maybe via Cebu"
+  },
+  {
+   "trip": "Sri Lanka Uncovered",
+   "country": "Sri Lanka",
+   "days": "10",
+   "starts": "Negombo",
+   "ends": "Unawatuna",
+   "style": "Classic",
+   "transport_included": "Private van, Ella train",
+   "meals_included": "9 breakfasts, 1 lunch, 3 dinners",
+   "key_moments_experience_type_where_tagged": "Dambulla caves, Sigiriya Rock (Rise Up), Kandy Temple of the Tooth, tea plantation, Ella train (Bucket List), Nine Arch Bridge, Little Adam's Peak, Udawalawe safari, glamping, Galle Fort, beach day",
+   "not_included": "Flights, most meals, insurance",
+   "entry___visa_note": "ETA before arrival",
+   "other_notes": "Taxi 2–3h to Colombo airport"
+  },
+  {
+   "trip": "Morocco Uncovered",
+   "country": "Morocco",
+   "days": "9",
+   "starts": "Marrakech",
+   "ends": "Marrakech",
+   "style": "Classic",
+   "transport_included": "Private minivan",
+   "meals_included": "7 breakfasts, 1 lunch, 5 dinners",
+   "key_moments_experience_type_where_tagged": "Cooking class at The Art House (Local Lens / community tourism), Jardin Majorelle, Jemaa el-Fna, Dades, Todra Gorge, Sahara sandboarding, camel ride & desert glamping (Unplugged / Bucket List), Ait Ben Haddou, Tichka Pass, Imlil waterfall walk",
+   "not_included": "Pre-night",
+   "entry___visa_note": "Many nationalities visa-free 90 days; 6 months passport validity",
+   "other_notes": "Closed currency (MAD); tipping kitty; overnight bag for desert"
+  },
+  {
+   "trip": "Vietnam Explorer",
+   "country": "Vietnam",
+   "days": "13",
+   "starts": "Ho Chi Minh City",
+   "ends": "Hanoi",
+   "style": "Classic",
+   "transport_included": "Private bus, internal flight HCMC–Hoi An, overnight train, Ha Long Bay boat",
+   "meals_included": "12 breakfasts, 4 lunches, 2 dinners",
+   "key_moments_experience_type_where_tagged": "Cu Chi Tunnels, War Museum, Hoi An lanterns & tailoring (Local Lens), basket boats, Hai Van Pass jeep, Hue cooking class, Ninh Binh boats & caves, Ha Long Bay overnight cruise (Bucket List), Hanoi egg coffee",
+   "not_included": "Most meals",
+   "entry___visa_note": "e-visa for most; some visa-free short stays",
+   "other_notes": "Carry-on 12kg / checked 23kg on internal flight"
+  },
+  {
+   "trip": "Cambodia Explorer",
+   "country": "Cambodia",
+   "days": "11",
+   "starts": "Siem Reap",
+   "ends": "Phnom Penh",
+   "style": "Classic",
+   "transport_included": "Private van, speedboat to Koh Rong",
+   "meals_included": "See trip page",
+   "key_moments_experience_type_where_tagged": "Angkor Wat sunrise (Bucket List), Phnom Penh, Kampot, Koh Rong beaches",
+   "not_included": "Most meals",
+   "entry___visa_note": "Cambodia e-Visa/VOA",
+   "other_notes": ""
+  },
+  {
+   "trip": "Cambodia & Vietnam Explorer",
+   "country": "Cambodia / Vietnam",
+   "days": "23",
+   "starts": "Siem Reap",
+   "ends": "Hanoi",
+   "style": "Multi Country",
+   "transport_included": "Private van, speedboat to Koh Rong, overnight train, Ha Long Bay boat",
+   "meals_included": "22 breakfasts, 6 lunches, 3 dinners",
+   "key_moments_experience_type_where_tagged": "Angkor Wat, Phnom Penh, Kampot, Koh Rong + full Vietnam Explorer",
+   "not_included": "Visa fees, insurance",
+   "entry___visa_note": "Cambodia e-Visa/VOA; Vietnam e-visa; land border at Moc Bai",
+   "other_notes": ""
+  },
+  {
+   "trip": "Legend of Japan",
+   "country": "Japan",
+   "days": "12",
+   "starts": "Tokyo",
+   "ends": "Osaka",
+   "style": "Classic",
+   "transport_included": "Shinkansen, metro, bus, local trains",
+   "meals_included": "1 breakfast, 1 lunch, 1 dinner",
+   "key_moments_experience_type_where_tagged": "Senso-Ji, Akihabara, sake tasting, Meiji Shrine, Hakone ropeway & pirate ship, Kyoto tea ceremony (Local Lens), Fushimi Inari, bamboo forest, samurai experience, Koyasan temple stay & cemetery night walk (Unplugged), Hiroshima Peace Museum, Osaka Castle, sushi class",
+   "not_included": "Flights, most meals, spending money",
+   "entry___visa_note": "Many nationalities visa-free 90 days",
+   "other_notes": "Hostel dorms/twin shares + temple stay; tap water safe"
+  },
+  {
+   "trip": "Greece Island Hopper",
+   "country": "Greece",
+   "days": "9",
+   "starts": "Athens",
+   "ends": "Santorini",
+   "style": "Classic",
+   "transport_included": "Ferries, private vans",
+   "meals_included": "8 breakfasts",
+   "key_moments_experience_type_where_tagged": "Acropolis walking tour, Mykonos beach club & Old Town, Ios bar crawl & speedboat/prosecco picnic (Tru-ly Unique), Santorini wine tasting, Oia sunset (Bucket List)",
+   "not_included": "Flights",
+   "entry___visa_note": "Schengen visa-free 90 days for many; ETIAS when live",
+   "other_notes": ""
+  },
+  {
+   "trip": "Europe by Rail Budapest–Milan",
+   "country": "Hungary / Austria / Slovenia / Italy",
+   "days": "11",
+   "starts": "Budapest",
+   "ends": "Milan",
+   "style": "Classic",
+   "transport_included": "All trains between cities, local transport",
+   "meals_included": "7 breakfasts",
+   "key_moments_experience_type_where_tagged": "Ruin bars, Széchenyi baths, Parliament, night cruise, Vienna chocolate class, Ljubljana, Lake Bled swim & bike, Venice gondola, Milan Duomo",
+   "not_included": "Most meals, optional rafting/kayak, pre-night",
+   "entry___visa_note": "ETIAS when live for non-EU",
+   "other_notes": "Mixed dorms 4–8 beds; 1 main bag + daypack on trains"
+  },
+  {
+   "trip": "Peru Inca Adventure",
+   "country": "Peru",
+   "days": "10",
+   "starts": "Cusco",
+   "ends": "Cusco",
+   "style": "Adventure",
+   "transport_included": "Private van, train to Km 104",
+   "meals_included": "9 breakfasts, 4 lunches",
+   "key_moments_experience_type_where_tagged": "Cusco orientation, weaving & pottery workshops (Local Lens), Sacred Valley mountain biking, Ollantaytambo, 1-day Inca Trail (Rise Up), Machu Picchu (Bucket List), Rainbow Mountain, cooking class",
+   "not_included": "Pre-night, most dinners",
+   "entry___visa_note": "180 days on arrival for UK/EU/US/CA/AU/NZ; 6 months validity",
+   "other_notes": "Permits sell out; acclimatisation day in Cusco"
+  },
+  {
+   "trip": "India Uncovered",
+   "country": "India",
+   "days": "13",
+   "starts": "New Delhi",
+   "ends": "New Delhi",
+   "style": "Classic",
+   "transport_included": "Private minibus, overnight train",
+   "meals_included": "12 breakfasts, 2 lunches, 5 dinners",
+   "key_moments_experience_type_where_tagged": "Delhi rickshaw tour & Salaam Baalak, Udaipur lake cruise & palace, Pushkar sunrise trek (Rise Up), Jaipur cooking class, City Palace, Amber Fort, Ranthambore safari, Taj Mahal sunrise (Bucket List)",
+   "not_included": "Pre-nights, alcohol, most lunches/dinners",
+   "entry___visa_note": "e-Visa for most (apply ~30 days before)",
+   "other_notes": "Closed currency (INR); tipping culture; dress modestly at temples"
+  },
+  {
+   "trip": "Costa Rica Adventure",
+   "country": "Costa Rica",
+   "days": "10",
+   "starts": "San José",
+   "ends": "Santa Teresa",
+   "style": "Classic",
+   "transport_included": "Shared/private transport",
+   "meals_included": "See trip page",
+   "key_moments_experience_type_where_tagged": "Rural homestay (Local Lens), La Fortuna hot springs, Monteverde cloud-forest zipline (Rise Up), night wildlife walk, Pacific beaches",
+   "not_included": "Most meals",
+   "entry___visa_note": "Visa-free 90 days for most; onward proof required",
+   "other_notes": ""
+  },
+  {
+   "trip": "Colombia Uncovered",
+   "country": "Colombia",
+   "days": "9",
+   "starts": "Medellín",
+   "ends": "Cartagena",
+   "style": "Classic",
+   "transport_included": "Private van, flight to Cartagena",
+   "meals_included": "8 breakfasts, 2 lunches",
+   "key_moments_experience_type_where_tagged": "Medellín city tour & Comuna 13 (Local Lens), Guatapé/El Peñol 650 steps (Rise Up), Santa Rosa hot springs, Cocora Valley hike, Salento coffee farm & tejo, Cartagena walled city, sunset catamaran",
+   "not_included": "Return flight to Medellín, most dinners, pre-night",
+   "entry___visa_note": "Check government advice",
+   "other_notes": "Backpack over suitcase"
+  },
+  {
+   "trip": "Brazil Experience",
+   "country": "Brazil",
+   "days": "9",
+   "starts": "Rio de Janeiro",
+   "ends": "São Paulo",
+   "style": "Classic",
+   "transport_included": "All internal transport",
+   "meals_included": "8 breakfasts",
+   "key_moments_experience_type_where_tagged": "Christ the Redeemer & Sugarloaf (Bucket List), Santa Teresa, favela experience (Local Lens), Copacabana, Ilha Grande paddleboard & Lopes Mendes, Paraty walking tour & cachaça, island boat tour",
+   "not_included": "Most meals, flights, insurance",
+   "entry___visa_note": "Check government advice",
+   "other_notes": "Fly in GIG, out GRU"
+  },
+  {
+   "trip": "Wonders of China",
+   "country": "China",
+   "days": "13",
+   "starts": "Beijing",
+   "ends": "Shanghai",
+   "style": "Classic",
+   "transport_included": "All internal transport incl. bullet trains",
+   "meals_included": "See trip page",
+   "key_moments_experience_type_where_tagged": "Mutianyu Great Wall (Bucket List), Forbidden City, Xi'an Terracotta Warriors, Chengdu pandas, Furong Ancient Town, Zhangjiajie, Shanghai Yu Garden",
+   "not_included": "Pre-night",
+   "entry___visa_note": "Many nationalities now visa-free short stay; passport details needed ~60 days before for trains",
+   "other_notes": ""
+  },
+  {
+   "trip": "Australia East Coast",
+   "country": "Australia",
+   "days": "15",
+   "starts": "—",
+   "ends": "—",
+   "style": "Classic",
+   "transport_included": "—",
+   "meals_included": "—",
+   "key_moments_experience_type_where_tagged": "Relaunching end of 2026: Sydney, Bondi, Spot X surf, K'gari 4WD, Whitsundays sailing, Noosa Everglades",
+   "not_included": "—",
+   "entry___visa_note": "—",
+   "other_notes": "Not currently bookable"
+  }
+ ],
+ "voice": [
+  {
+   "rule": "The one idea",
+   "detail": "Leave Ordinary Behind. Not escaping your life, expanding it. The destination is the setting; what happens to the person is the story."
+  },
+  {
+   "rule": "Order of an answer",
+   "detail": "Emotion creates desire, product removes uncertainty. In an FAQ the practical answer comes fast, but the framing is human: a real moment, a real person, then the reassurance and the next step."
+  },
+  {
+   "rule": "How Tru feels",
+   "detail": "Human, optimistic, social, adventurous, inclusive, alive. Confident without corporate, playful without trying too hard, emotional without sentimental. Talk like people who have actually travelled."
+  },
+  {
+   "rule": "Say 'trip', not 'tour'",
+   "detail": "A Tru trip is a shared experience with an itinerary underneath it. 'Tour' only survives inside proper nouns (Explorer Tour URLs) and third-party names (TourRadar)."
+  },
+  {
+   "rule": "Local Legend, not guide",
+   "detail": "Never a cosmetic rename. Describe what they unlock: local perspective, human connection, confidence, moments no itinerary can script. 'More a mate who happens to know the way.'"
+  },
+  {
+   "rule": "Tru-ly Unique, not TruExclusives",
+   "detail": "Explain why the experience feels special rather than shouting 'exclusive'. Not scarcity for its own sake."
+  },
+  {
+   "rule": "Five Experience Types",
+   "detail": "Local Lens · Rise Up · Bucket List · Tru-ly Unique · Unplugged. Tag only where the trip genuinely delivers it. The Social Layer (connection) is embedded, never a category."
+  },
+  {
+   "rule": "Evolution, not rebrand",
+   "detail": "When talking to guests about the change, it's an evolution of how we design and talk about trips, not a rebrand."
+  },
+  {
+   "rule": "Words we want more of",
+   "detail": "People. Together. Stories. Feel. Try. Discover. Local. Belong. Connect. Say yes. Your people. First time. Remember. Imagine. Present. Unexpected. Brave. Curious. Community. Extraordinary."
+  },
+  {
+   "rule": "Words to use carefully",
+   "detail": "USP. Exclusive. Authentic. Best. Ultimate. Epic. Unforgettable. Bucket-list as a generic adjective. Life-changing without evidence. Hidden gem. Off the beaten track. Once-in-a-lifetime for ordinary activities. 'We take care of everything' as the whole pitch. Also drop 'maximise adventure, minimise hassle'-style product statements."
+  },
+  {
+   "rule": "Community is not a USP",
+   "detail": "Don't say 'great group atmosphere'. Show it: solo arrivals becoming airport mates, a group chat that won't shut up, the Lisbon reunion. TruFam is earned through behaviour."
+  },
+  {
+   "rule": "Live chat & Tru.D tone",
+   "detail": "Curious, human, conversational. Ask open questions, match the customer's energy, never paste a brochure. Sales flow: Person → Possibility → Experience → Proof → Invitation."
+  },
+  {
+   "rule": "The content test",
+   "detail": "Does it make someone feel something? Are people in it? Is a real moment visible? Have we earned any claim? Does it help someone Leave Ordinary Behind, or did we just put the words on the end?"
+  },
+  {
+   "rule": "Volatile detail rule (this sheet)",
+   "detail": "No departure dates, availability, prices, sale percentages, hotel names, meeting or pick-up times, shuttle windows, transport fares or tipping amounts in answers. Point to the trip page or the Local Legend instead."
+  }
+ ]
+}
