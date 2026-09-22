@@ -42,11 +42,15 @@ export default function TripBookingWrapper({
     window.addEventListener("open-booking", handler);
     // Deep link: /destinations/.../trip#check-dates opens the modal on load
     // (used by Tru.D's "Check dates" link from other pages).
+    let deepLink: ReturnType<typeof setTimeout> | undefined;
     if (window.location.hash === "#check-dates") {
-      setBookingOpen(true);
       history.replaceState(null, "", window.location.pathname + window.location.search);
+      deepLink = setTimeout(() => window.dispatchEvent(new CustomEvent("open-booking")), 150);
     }
-    return () => window.removeEventListener("open-booking", handler);
+    return () => {
+      window.removeEventListener("open-booking", handler);
+      if (deepLink) clearTimeout(deepLink);
+    };
   }, []);
 
   return (
