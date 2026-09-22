@@ -314,7 +314,18 @@ function EventCard({ ev }: { ev: UiEvent }) {
   if (ev.t === "departures") {
     return (
       <p className="mt-2.5 text-sm">
-        <Link href={ev.url} className={linkClass}>
+        <Link
+          href={`${ev.url}#check-dates`}
+          className={linkClass}
+          onClick={(e) => {
+            // Already on this trip's page: open the Check Dates modal in place.
+            if (window.location.pathname.replace(/\/+$/, "") === ev.url) {
+              e.preventDefault();
+              window.dispatchEvent(new CustomEvent("trud-close"));
+              window.dispatchEvent(new CustomEvent("open-booking"));
+            }
+          }}
+        >
           Check dates for {ev.trip} &rarr;
         </Link>
       </p>
