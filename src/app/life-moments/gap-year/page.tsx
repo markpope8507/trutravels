@@ -5,8 +5,6 @@ import {
   trips,
   stories,
   videoDiaries,
-  storyContentSeries,
-  storyPodcasts,
 } from "@/lib/data";
 import TripCarouselSection from "@/components/trip-carousel-section";
 import { otherLifeMoments } from "@/lib/life-moments";
@@ -30,8 +28,6 @@ const TRIP_IDS = [
 ];
 
 const VIDEO_IDS = ["v3", "v5", "v9", "v10", "v7"];
-const SERIES_IDS = ["scs-vietnam-n2s", "scs-bali-beyond", "scs-thai-cooking"];
-const PODCAST_IDS = ["sp-02", "sp-01"];
 const STORY_IDS = ["best-hostels-in-thailand", "member-packing-guide", "why-i-quit-my-job-to-travel"];
 
 const formatDate = (iso: string) =>
@@ -48,8 +44,6 @@ export default function GapYearPage() {
 
   const pageVideos = videoDiaries.filter((v) => VIDEO_IDS.includes(v.id));
   const pageStories = stories.filter((s) => STORY_IDS.includes(s.id));
-  const pageSeries = storyContentSeries.filter((s) => SERIES_IDS.includes(s.id));
-  const pagePodcasts = storyPodcasts.filter((p) => PODCAST_IDS.includes(p.id));
 
   return (
     <>
@@ -200,120 +194,6 @@ export default function GapYearPage() {
                     {story.author} &middot; {formatDate(story.date)}
                   </p>
                 </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ========================================================
-          WATCH SERIES
-          ======================================================== */}
-      {pageSeries.length > 0 && (
-        <section className="relative pt-12 pb-16 overflow-hidden border-t border-white/5">
-          <img
-            src="/bg-assets/sun.svg"
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none select-none absolute -left-16 sm:-left-24 lg:-left-28 -top-8 w-[240px] sm:w-[380px] lg:w-[520px] opacity-[0.07] brightness-0 invert"
-          />
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-10 max-w-2xl">
-              <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
-                Watch · Long Roads
-              </p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
-                Deep <span className="text-tru-pink">Dives</span>
-              </h2>
-              <p className="text-gray-300 mt-5 text-base sm:text-lg leading-relaxed">
-                Whole regions, one episode at a time. The ones that&apos;ll have you screenshotting itineraries by episode three.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {pageSeries.map((s) => (
-                <div
-                  key={s.id}
-                  className="group rounded-[10px] border border-white/10 bg-tru-navy overflow-hidden hover:border-tru-pink/30 transition-all duration-300 cursor-pointer"
-                >
-                  <div className="relative aspect-[16/10] overflow-hidden">
-                    <img
-                      src={s.image}
-                      alt={s.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                    <span className="absolute top-3 left-3 bg-tru-pink text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full font-heading">
-                      {s.tag}
-                    </span>
-                    <span className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
-                      {s.episodes} episodes
-                    </span>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="text-white text-base font-bold font-heading group-hover:text-tru-pink transition-colors mb-1.5">
-                      {s.title}
-                    </h3>
-                    <p className="text-gray-400 text-sm line-clamp-2">{s.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ========================================================
-          LISTEN — Podcasts
-          ======================================================== */}
-      {pagePodcasts.length > 0 && (
-        <section className="relative pt-12 pb-16 overflow-hidden border-t border-white/5">
-          <img
-            src="/bg-assets/community.svg"
-            alt=""
-            aria-hidden="true"
-            className="pointer-events-none select-none absolute -right-12 sm:-right-20 lg:-right-24 -bottom-8 w-[240px] sm:w-[360px] lg:w-[500px] opacity-[0.07] brightness-0 invert"
-          />
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="mb-10 max-w-2xl">
-              <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
-                Listen · The Long Haul
-              </p>
-              <h2 className="text-3xl sm:text-5xl font-black text-white uppercase font-heading tracking-tight leading-[0.95]">
-                For The <span className="text-tru-pink">Overnight Bus</span>
-              </h2>
-              <p className="text-gray-300 mt-5 text-base sm:text-lg leading-relaxed">
-                Honest conversations about money, fear, growth, and the year that changes everything.
-              </p>
-            </div>
-            <div className="space-y-3">
-              {pagePodcasts.map((ep) => (
-                <div
-                  key={ep.id}
-                  className="flex items-center gap-4 rounded-[10px] border border-white/10 bg-tru-navy p-4 sm:p-5 hover:border-tru-blue/40 hover:bg-[#0d2a4e] transition-all duration-200 cursor-pointer group"
-                >
-                  <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-[10px] overflow-hidden flex-shrink-0">
-                    <img src={ep.image} alt={ep.title} className="h-full w-full object-cover" />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-black/20 transition-colors">
-                      <svg className="h-7 w-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-tru-blue text-[10px] font-bold uppercase tracking-wider font-heading mb-1">
-                      Ep. {ep.episode} &middot; {ep.host}
-                    </p>
-                    <p className="text-white text-sm sm:text-base font-bold font-heading group-hover:text-tru-blue transition-colors truncate">
-                      {ep.title}
-                    </p>
-                    <p className="text-gray-400 text-xs sm:text-sm line-clamp-1 mt-0.5">
-                      {ep.description}
-                    </p>
-                  </div>
-                  <span className="text-gray-500 text-xs sm:text-sm flex-shrink-0 font-semibold">
-                    {ep.duration}
-                  </span>
-                </div>
               ))}
             </div>
           </div>
