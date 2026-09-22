@@ -6,10 +6,10 @@ import { Trip, trips } from "@/lib/data";
  * Kept out of the component so the questions can be read and changed without
  * scrolling past a modal, and so the scoring can be reasoned about on its own.
  *
- * FOUR STEPS, FIVE QUESTIONS. Step one asks two things — where and how long —
- * because they're the pair everyone already has an answer to, and splitting
- * them made the quiz feel longer than it is. The old version asked six
- * questions including budget, which every trip answered the same way.
+ * FIVE STEPS, ONE QUESTION EACH. Where and how long briefly shared a screen;
+ * a question at a time reads better and each one gets the room to breathe.
+ * The version before this asked six questions including budget, which every
+ * trip answered the same way.
  *
  * SCORING, NOT FILTERING. Every answer adds points; nothing excludes a trip.
  * A filter on sparse data returns an empty page, and an empty page is the
@@ -45,7 +45,7 @@ export type Step = { id: string; questions: Question[] };
 
 export const STEPS: Step[] = [
   {
-    id: "where-when",
+    id: "where",
     questions: [
       {
         id: "regions",
@@ -61,6 +61,11 @@ export const STEPS: Step[] = [
           { label: "Surprise me", value: "any", wildcard: true },
         ],
       },
+    ],
+  },
+  {
+    id: "when",
+    questions: [
       {
         id: "duration",
         question: "How long have you got?",

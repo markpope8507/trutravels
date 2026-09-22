@@ -19,12 +19,14 @@ import {
  * Inspire Me — the quiz modal.
  *
  * The questions and the matching live in lib/inspire-me-quiz; this file is
- * only how they're shown. Four steps, five questions.
+ * only how they're shown. Five steps, one question each — though a Step still
+ * holds a list, because where and how long shared a screen once and might
+ * again.
  *
  * NO AUTO-ADVANCE. The old quiz jumped to the next step 300ms after a single
- * select, which is fine until a step holds a multi-select — and now every
- * step does, or sits beside one. A Continue button on every step is
- * predictable, and it lets you change your mind before moving on.
+ * select, which is fine until a step holds a multi-select — three of five do.
+ * A Continue button on every step is predictable, and it lets you change your
+ * mind before moving on.
  *
  * WILDCARDS ARE EXCLUSIVE. "Surprise me", "Wherever the trip takes me" and
  * "I'm up for anything" clear the other answers to their question, and
