@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { useScrollLock } from "@/lib/use-scroll-lock";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { tripUrl } from "@/lib/utils";
-import TravelStyleBadge from "@/components/travel-style-badge";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, FreeMode } from "swiper/modules";
+import TripCard from "@/components/trip-card";
 import {
   STEPS,
   getMatches,
@@ -14,6 +15,10 @@ import {
   type Match,
   type Question,
 } from "@/lib/inspire-me-quiz";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/free-mode";
 
 /**
  * Inspire Me — the quiz modal.
@@ -143,64 +148,59 @@ function Results({
         </p>
       )}
 
-      <div className="space-y-4">
-        {matches.map(({ trip, reasons }, i) => (
-          <Link
-            key={trip.id}
-            href={tripUrl(trip)}
-            onClick={onClose}
-            className="group flex gap-4 overflow-hidden rounded-[10px] border border-white/5 bg-white/5 transition-all duration-300 hover:border-tru-pink/20"
-          >
-            <div className="relative w-28 flex-shrink-0 overflow-hidden sm:w-36">
-              <img
-                src={trip.image}
-                alt=""
-                aria-hidden
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute left-2 top-2">
-                <span className="rounded-full bg-tru-pink px-2 py-0.5 font-heading text-[9px] font-bold uppercase tracking-wider text-white">
+      {/* THE SITE'S TRIP CARD, IN THE SITE'S CAROUSEL. These used to be a
+          bespoke wide row that existed only here — a fourth way to draw a
+          trip, missing the price-per-day, the places and activities counts
+          and the experience-types disclosure every other card carries. Same
+          component and same Swiper settings as the country and travel style
+          pages now. */}
+      <div className="inspire-results relative">
+        <Swiper
+          modules={[Navigation, FreeMode]}
+          spaceBetween={16}
+          slidesPerView={1.1}
+          freeMode={{ enabled: true, sticky: false }}
+          navigation={{ nextEl: ".inspire-next", prevEl: ".inspire-prev" }}
+          breakpoints={{ 640: { slidesPerView: 1.8 }, 1024: { slidesPerView: 2.2, spaceBetween: 20 } }}
+          speed={600}
+        >
+          {matches.map(({ trip, reasons }, i) => (
+            <SwiperSlide key={trip.id} className="h-auto">
+              <div className="flex h-full flex-col">
+                <p className="mb-2 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-tru-pink">
                   {RANK[i] ?? "Also Worth A Look"}
-                </span>
-              </div>
-            </div>
-
-            <div className="min-w-0 flex-1 py-4 pr-4">
-              <div className="mb-1 flex items-center gap-2">
-                <TravelStyleBadge style={trip.travelStyle} size="small" />
-              </div>
-              <p className="mb-0.5 font-heading text-[10px] font-bold uppercase tracking-wider text-tru-pink">
-                {trip.duration}
-              </p>
-              <h3 className="mb-1 font-heading text-sm font-black uppercase text-white transition-colors group-hover:text-tru-pink">
-                {trip.title}
-              </h3>
-              <p className="mb-2 line-clamp-2 text-xs text-gray-400">{trip.tagline}</p>
-
-              {/* Why this trip — the quiz should show its working, not just
-                  assert that three trips are "perfect". */}
-              {reasons.length > 0 && (
-                <div className="mb-2 flex flex-wrap gap-1.5">
-                  {reasons.slice(0, 4).map((r) => (
-                    <span
-                      key={r}
-                      className="rounded-full border border-tru-pink/25 bg-tru-pink/10 px-2 py-0.5 font-heading text-[9px] font-bold uppercase tracking-wider text-tru-pink"
-                    >
-                      {r}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              <div className="flex items-baseline gap-1.5">
-                {trip.originalPrice && (
-                  <span className="text-xs text-gray-500 line-through">&pound;{trip.originalPrice}</span>
+                </p>
+                <TripCard trip={trip} />
+                {/* Why this trip — the quiz should show its working, not just
+                    assert that three trips are "perfect". */}
+                {reasons.length > 0 && (
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {reasons.slice(0, 4).map((r) => (
+                      <span
+                        key={r}
+                        className="rounded-full border border-tru-pink/25 bg-tru-pink/10 px-2 py-0.5 font-heading text-[9px] font-bold uppercase tracking-wider text-tru-pink"
+                      >
+                        {r}
+                      </span>
+                    ))}
+                  </div>
                 )}
-                <span className="text-sm font-bold text-tru-green">&pound;{trip.price}</span>
               </div>
-            </div>
-          </Link>
-        ))}
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <button
+          aria-label="Previous"
+          className="inspire-prev absolute top-[34%] left-1 z-10 shadow-lg shadow-black/40 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-tru-navy/90 transition-colors hover:border-tru-pink/40 disabled:opacity-30"
+        >
+          <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button
+          aria-label="Next"
+          className="inspire-next absolute top-[34%] right-1 z-10 shadow-lg shadow-black/40 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-tru-navy/90 transition-colors hover:border-tru-pink/40 disabled:opacity-30"
+        >
+          <svg className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </button>
       </div>
 
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -297,7 +297,13 @@ function InspireMeModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
     <div className="fixed inset-0 z-[100] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative mx-4 flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-[10px] border border-white/10 bg-tru-navy">
+      {/* Wider on results: a question is a list of short options and reads
+          better narrow, but three real trip cards need the room. */}
+      <div
+        className={`relative mx-4 flex max-h-[85vh] w-full flex-col overflow-hidden rounded-[10px] border border-white/10 bg-tru-navy transition-[max-width] duration-300 ${
+          showResults ? "max-w-4xl" : "max-w-2xl"
+        }`}
+      >
         <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
           <div className="flex items-center gap-3">
             {(step > 0 || showResults) && (
