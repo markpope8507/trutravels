@@ -310,48 +310,58 @@ function Bubble({ message, streaming }: { message: ChatMessage; streaming: boole
 }
 
 function EventCard({ ev }: { ev: UiEvent }) {
+  const linkClass = "text-tru-pink hover:text-tru-pink-light font-semibold underline underline-offset-4 decoration-tru-pink/40 hover:decoration-tru-pink transition";
   if (ev.t === "departures") {
     return (
-      <Link
-        href={ev.url}
-        className="mt-3 inline-flex items-center gap-2 rounded-[10px] border border-tru-pink/40 hover:bg-tru-pink/10 text-tru-pink px-3 py-2 text-[11px] font-bold uppercase tracking-wider font-heading transition"
-      >
-        Check dates for {ev.trip} &rarr;
-      </Link>
+      <p className="mt-2.5 text-sm">
+        <Link
+          href={`${ev.url}#check-dates`}
+          className={linkClass}
+          onClick={(e) => {
+            // Already on this trip's page: open the Check Dates modal in place.
+            if (window.location.pathname.replace(/\/+$/, "") === ev.url) {
+              e.preventDefault();
+              window.dispatchEvent(new CustomEvent("trud-close"));
+              window.dispatchEvent(new CustomEvent("open-booking"));
+            }
+          }}
+        >
+          Check dates for {ev.trip} &rarr;
+        </Link>
+      </p>
     );
   }
   if (ev.t === "waitlist") {
     return (
-      <p className="mt-3 rounded-[10px] border border-tru-green/40 bg-tru-green/10 px-3 py-2 text-xs text-white">
-        You&apos;re on the list for {ev.trip} ({ev.date}). We&apos;ll email {ev.email} the moment a spot opens.
+      <p className="mt-2.5 text-xs text-tru-green">
+        <TickIcon className="inline h-3.5 w-3.5 mr-1 -mt-0.5" />
+        On the waitlist: {ev.trip}, {ev.date}. We&apos;ll email {ev.email} if a spot opens.
       </p>
     );
   }
   return (
-    <div className="mt-3 rounded-[10px] border border-tru-pink/30 bg-tru-pink/[0.08] p-3">
-      <p className="text-white text-xs font-bold uppercase font-heading tracking-wide mb-2">Talk to a human</p>
-      <div className="flex flex-wrap gap-2">
-        <a
-          href="/support#talk-to-a-human"
-          className="rounded-[8px] bg-tru-pink hover:bg-tru-pink-light text-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider font-heading transition"
-        >
-          Live chat
-        </a>
-        <Link
-          href="/contact-us"
-          className="rounded-[8px] border border-white/20 hover:border-tru-pink/50 text-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider font-heading transition"
-        >
-          Email us
-        </Link>
-        <a
-          href="tel:+442035422463"
-          className="rounded-[8px] border border-white/20 hover:border-tru-pink/50 text-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider font-heading transition"
-        >
-          +44 203 542 2463
-        </a>
-      </div>
-      <p className="text-gray-400 text-[11px] mt-2">Live chat runs 9:30am–5pm GMT, Mon–Sat.</p>
-    </div>
+    <p className="mt-2.5 text-sm">
+      <a href="/support#talk-to-a-human" className={linkClass}>
+        Live chat &rarr;
+      </a>
+      <span className="text-gray-500 mx-2">&middot;</span>
+      <Link href="/contact-us" className={linkClass}>
+        Email us &rarr;
+      </Link>
+      <span className="text-gray-500 mx-2">&middot;</span>
+      <a href="tel:+442035422463" className={linkClass}>
+        Call &rarr;
+      </a>
+      <span className="block text-gray-500 text-[11px] mt-1">Live chat 9:30am–5pm GMT, Mon–Sat.</span>
+    </p>
+  );
+}
+
+function TickIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+    </svg>
   );
 }
 

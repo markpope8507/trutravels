@@ -16,8 +16,13 @@ export default function TrudLauncher() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onClose = () => setOpen(false);
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    window.addEventListener("trud-close", onClose);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      window.removeEventListener("trud-close", onClose);
+    };
   }, [open]);
 
   if (!pathname || pathname.startsWith("/support") || pathname.startsWith("/checkout")) return null;
