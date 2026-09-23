@@ -65,6 +65,9 @@ TRAILS = {
 
     "thailand.html": [("Home", "index.html"), DESTINATIONS, ("Asia", None), ("Thailand", None)],
     "thailand-island-hopper.html": trip("Asia", "Thailand", "thailand.html", "Thailand Island Hopper"),
+    # The pre-launch template — the same tour, before it goes on sale, so the
+    # same trail. Built by build_prelaunch.py from the page above.
+    "tour-coming-soon.html": trip("Asia", "Thailand", "thailand.html", "Thailand Island Hopper"),
 
     "travel-insurance.html": essentials("Travel Insurance"),
     "visas-and-passports.html": essentials("Visa &amp; Passports"),

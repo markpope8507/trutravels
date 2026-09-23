@@ -6714,3 +6714,100 @@ a.hub-card:hover .hub-card__t { color: var(--tru-pink); }
 .req__done-d { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; max-width: 24rem; margin: 0 auto; }
 .req__done-s { color: #6b7280; font-size: 0.75rem; line-height: 1.6; max-width: 24rem; margin: 0.75rem auto 0; }
 .req__done .req__send { flex: none; margin-top: 1.5rem; padding-left: 2rem; padding-right: 2rem; }
+
+/* ============================================================
+   PRE-LAUNCH TOUR PAGE
+   The countdown box that replaces the pricing card, the sticky
+   bar's countdown, and the register-interest modal.
+   Mirrors src/components/trip-launch-card.tsx,
+   trip-countdown.tsx and register-interest-modal.tsx.
+   ============================================================ */
+
+.pricing-card--soon { border-color: rgba(255,63,153,0.3); background: rgba(255,63,153,0.06); }
+
+.soon__eyebrow {
+  display: flex; align-items: center; gap: 0.5rem; margin: 0 0 1rem;
+  color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em;
+}
+.soon__dot { position: relative; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--tru-pink); }
+.soon__dot::before {
+  content: ""; position: absolute; inset: 0; border-radius: 999px; background: var(--tru-pink);
+  animation: soon-ping 1.2s cubic-bezier(0,0,0.2,1) infinite;
+}
+@keyframes soon-ping { 75%, 100% { transform: scale(2.2); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .soon__dot::before { animation: none; } }
+
+.soon__h {
+  color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 900;
+  text-transform: uppercase; letter-spacing: -0.025em; line-height: 1.1; margin: 0 0 0.25rem;
+}
+.soon__sub { color: #9ca3af; font-size: 0.75rem; margin: 0 0 1rem; }
+
+.soon__clock { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+.soon__clock > div { border: 1px solid var(--border-soft); background: rgba(255,255,255,0.05); border-radius: 10px; padding: 0.75rem 0; text-align: center; }
+.soon__n {
+  color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900;
+  line-height: 1; margin: 0; font-variant-numeric: tabular-nums;
+}
+@media (min-width: 640px) { .soon__n { font-size: 1.875rem; } }
+.soon__l {
+  color: #9ca3af; font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.15em; margin: 0.375rem 0 0;
+}
+
+.soon__price {
+  color: #9ca3af; font-size: 0.75rem; line-height: 1.6;
+  margin: 1.25rem 0 0; padding-top: 1rem; border-top: 1px solid var(--border-soft);
+}
+.soon__cta {
+  display: block; width: 100%; margin-top: 1.25rem; cursor: pointer; border: 0; border-radius: 10px;
+  background: var(--tru-pink); color: #fff; padding: 0.875rem 1.25rem;
+  font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s;
+}
+.soon__cta:hover { background: #ff5bab; }
+.soon__note { color: #9ca3af; font-size: 0.75rem; line-height: 1.4; text-align: center; margin: 0.75rem 0 0; }
+.soon__count {
+  color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.15em; text-align: center; margin: 0.75rem 0 0;
+}
+
+/* Sticky bar: the countdown sits where the price was. */
+.booking-bar__now[data-countdown-inline] { font-variant-numeric: tabular-nums; }
+.btn--notify {
+  background: var(--tru-pink); border: 1px solid var(--tru-pink); color: #fff; cursor: pointer;
+  font-family: 'Montserrat', sans-serif; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.btn--notify:hover { background: #ff5bab; border-color: #ff5bab; }
+
+/* Register interest modal */
+.ri-root { position: fixed; inset: 0; z-index: 120; display: flex; align-items: center; justify-content: center; }
+.ri-root[hidden] { display: none; }
+.ri-back { position: absolute; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); }
+.ri {
+  position: relative; margin: 0 1rem; width: 100%; max-width: 32rem; max-height: 85vh;
+  display: flex; flex-direction: column; overflow: hidden;
+  border: 1px solid var(--border-soft); background: var(--tru-navy); border-radius: 10px;
+}
+.ri__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--border-soft); padding: 1rem 1.5rem; }
+.ri__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin: 0; }
+.ri__trip { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.025em; margin: 0.125rem 0 0; }
+.ri__x { background: none; border: 0; color: #9ca3af; cursor: pointer; display: inline-flex; transition: color 0.2s; }
+.ri__x:hover { color: #fff; }
+.ri__x svg { width: 1.25rem; height: 1.25rem; }
+.ri__body { flex: 1; overflow-y: auto; padding: 1.5rem; }
+.ri__intro { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; margin: 0 0 1.5rem; }
+.ri__intro strong { color: #fff; font-weight: 600; }
+.ri__months { border: 0; padding: 0; margin: 0 0 1.5rem; }
+.ri__months legend { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; padding: 0; margin-bottom: 0.75rem; }
+.ri__months legend span { color: #6b7280; }
+.ri__monthlist { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.ri__month {
+  border: 1px solid rgba(255,255,255,0.15); background: none; border-radius: 999px;
+  padding: 0.375rem 0.875rem; color: #d1d5db; font-size: 0.75rem; cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.ri__month:hover { border-color: rgba(255,63,153,0.5); color: #fff; }
+.ri__month.is-on { border-color: var(--tru-pink); background: rgba(255,63,153,0.1); color: var(--tru-pink); }
+.ri__body form[hidden] { display: none; }
