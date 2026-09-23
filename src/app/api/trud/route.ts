@@ -166,6 +166,11 @@ export async function POST(request: Request) {
         } else if (err instanceof Anthropic.AuthenticationError) {
           code = "not_configured";
           msg = "Tru.D isn't configured on this deployment yet.";
+        } else if (err instanceof Anthropic.BadRequestError && /credit balance/i.test(err.message)) {
+          // Out of API credit: degrade to the FAQ keyword fallback rather than a dead end.
+          code = "not_configured";
+          msg = "Tru.D is taking a short break.";
+          console.error("[trud] API credit exhausted");
         } else if (err instanceof Anthropic.APIError) {
           console.error("[trud] API error", err.status, err.message);
         } else {

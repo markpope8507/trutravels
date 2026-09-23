@@ -157,9 +157,20 @@ export default function TrudChat({
             case "departures":
               patch((m) => ({ ...m, events: [...(m.events ?? []), ev as unknown as UiEvent] }));
               break;
-            case "error":
-              patch((m) => ({ ...m, error: ev.code as string, content: m.content || (ev.message as string) }));
+            case "error": {
+              const fallback = ev.code === "not_configured" ? keywordSearch(question) : undefined;
+              patch((m) => ({
+                ...m,
+                error: ev.code as string,
+                content:
+                  m.content ||
+                  (fallback && fallback.length
+                    ? "I'm taking a short break, but here's what I found in our FAQs:"
+                    : (ev.message as string)),
+                fallback,
+              }));
               break;
+            }
             case "done":
               break;
           }
