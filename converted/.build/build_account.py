@@ -27,6 +27,7 @@ Styling lives in ../styles.css under .acct-*.
 Run:  python3 converted/.build/build_account.py
 """
 
+import datetime as _dt
 import json, os, re
 
 from shell import HERE, BASE, read, lines, block, NAV_SOLID, FOOTER, SCRIPTS
@@ -460,6 +461,34 @@ def saved_page():
 
 # ---------------------------------------------------------------- profile --
 
+
+def trip_departures():
+    """Future departure dates per trip id, from src/lib/data.ts.
+
+    The date-change request offers real dates, so nobody asks to move onto a
+    departure we don't run. The static trip data (lifted from all-trips.html)
+    carries no departures, so this reads the prototype's lib directly — the
+    same source the prototype's modal uses.
+    """
+    src = open(os.path.join(BASE, "..", "src", "lib", "data.ts"), encoding="utf-8").read()
+    seg = src[src.index("export const trips: Trip[]"):src.index("export const stories: Story[]")]
+    today = _dt.date.today().isoformat()
+    out = {}
+    for m in re.finditer(r'id: "([a-z0-9-]+)"', seg):
+        tid = m.group(1)
+        tail = seg[m.end():m.end() + 20000]
+        d = tail.find("departures: [")
+        if d == -1:
+            continue
+        block_ = tail[d:tail.index("],", d)]
+        dates = [x for x in re.findall(r'date: "(\d{4}-\d{2}-\d{2})"', block_) if x > today]
+        spots = dict(re.findall(r'date: "(\d{4}-\d{2}-\d{2})"[^}]*?spotsLeft: (\d+)', block_))
+        full = set(re.findall(r'date: "(\d{4}-\d{2}-\d{2})"[^}]*?status: "full"', block_))
+        if dates:
+            out[tid] = [{"date": x, "spots": int(spots.get(x, 0))} for x in dates if x not in full][:8]
+    return out
+
+
 def quiz_questions():
     """The Inspire Me questions, read from src/lib/inspire-me-quiz.ts.
 
@@ -727,7 +756,7 @@ def profile_page():
 # today (`departsIn`) so the demo never goes stale; the cancelled booking keeps
 # its literal narrative dates instead, since its story is fixed in the past.
 BOOKINGS = [
-    {"id": "b1", "ref": "TRU-2026-04871", "title": "Thailand Island Hopper",
+    {"id": "b1", "tripId": "thailand-island-hopper", "ref": "TRU-2026-04871", "title": "Thailand Island Hopper",
      "image": "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
      "duration": "14 Days", "start": "Bangkok", "end": "Phuket",
      "departsIn": 24, "lasts": 13, "bookedIn": -95,
@@ -744,7 +773,7 @@ BOOKINGS = [
      "insurance": {"provider": "World Nomads", "type": "Explorer Plan", "policyNo": "TRV-2026-88421"},
      "promo": {"code": "BLACKFRIDAY", "discount": 150, "originalPrice": 1877}},
 
-    {"id": "b2", "ref": "TRU-2026-05912", "title": "Vietnam Explorer",
+    {"id": "b2", "tripId": "vietnam-explorer", "ref": "TRU-2026-05912", "title": "Vietnam Explorer",
      "image": "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
      "duration": "13 Days", "start": "Ho Chi Minh City", "end": "Hanoi",
      "departsIn": 118, "lasts": 12, "bookedIn": -40,
@@ -755,7 +784,7 @@ BOOKINGS = [
                   "emergencyContact": False, "passportDetails": False, "visaCheck": False},
      "extras": {}},
 
-    {"id": "b3", "ref": "TRU-2026-07341", "title": "Costa Rica Adventure",
+    {"id": "b3", "tripId": "costa-rica-adventure", "ref": "TRU-2026-07341", "title": "Costa Rica Adventure",
      "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80",
      "duration": "10 Days", "start": "San Jos\u00e9", "end": "Santa Teresa",
      "departsIn": 180, "lasts": 9, "bookedIn": -12,
@@ -767,7 +796,7 @@ BOOKINGS = [
                   "emergencyContact": False, "passportDetails": False, "visaCheck": False},
      "extras": {}},
 
-    {"id": "b4", "ref": "TRU-2025-03214", "title": "Bali Experience",
+    {"id": "b4", "tripId": "bali-experience", "ref": "TRU-2025-03214", "title": "Bali Experience",
      "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
      "duration": "10 Days", "start": "Canggu", "end": "Gili Trawangan",
      "departsIn": -364, "lasts": 9, "bookedIn": -500,
@@ -777,7 +806,7 @@ BOOKINGS = [
      "leader": "Milin", "goodToGo": None, "extras": {},
      "feedbackCompleted": False, "reviewLeft": False},
 
-    {"id": "b5", "ref": "TRU-2026-06183", "title": "Jordan Explorer",
+    {"id": "b5", "tripId": "jordan-explorer", "ref": "TRU-2026-06183", "title": "Jordan Explorer",
      "image": "https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=800&q=80",
      "duration": "8 Days", "start": "Amman", "end": "Aqaba",
      "departsOn": "2026-06-20", "endsOn": "2026-06-27",
@@ -813,10 +842,14 @@ def bookings_page():
       <div class="acct-bookings" data-bookings></div>
     </div>
     <!-- video-review modal renders here -->
-    <div data-video-root></div>"""
+    <div data-video-root></div>
+
+    <!-- date-change / cancellation request renders here -->
+    <div data-request-root></div>"""
 
     data = ("  <script>\n"
             "    var BOOKINGS = " + json.dumps(BOOKINGS, ensure_ascii=False) + ";\n"
+            "    var DEPARTURES = " + json.dumps(trip_departures(), ensure_ascii=False) + ";\n"
             "    var ROOM_TYPES = " + json.dumps(ROOM_TYPES, ensure_ascii=False) + ";\n"
             "    var ADDONS = " + json.dumps(ADDONS, ensure_ascii=False) + ";\n"
             f"    var ROOM_UPGRADE = {ROOM_UPGRADE};\n"

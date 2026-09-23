@@ -280,10 +280,10 @@
 
       var actions = upcoming
         ? '<div class="acct-acts">'
-          + '<button type="button" class="acct-act"><span class="acct-act__ico is-blue">' + ICON.cal + '</span>'
+          + '<button type="button" class="acct-act" data-request="date-change" data-b="' + b.id + '"><span class="acct-act__ico is-blue">' + ICON.cal + '</span>'
           + '<span class="acct-act__txt"><strong>Request Date Change</strong><small>Move your trip to a different departure date</small></span>'
           + '<span class="acct-act__go">' + ICON.arrow + '</span></button>'
-          + '<button type="button" class="acct-act is-danger"><span class="acct-act__ico is-red">' + ICON.close + '</span>'
+          + '<button type="button" class="acct-act is-danger" data-request="cancellation" data-b="' + b.id + '"><span class="acct-act__ico is-red">' + ICON.close + '</span>'
           + '<span class="acct-act__txt"><strong>Request Cancellation</strong><small>Cancel your booking · ' + money(b.deposit) + ' non-refundable deposit applies</small></span>'
           + '<span class="acct-act__go">' + ICON.arrow + '</span></button>'
           + '</div>'
@@ -669,4 +669,180 @@
       if (e.key === 'Escape' && videoFor) { videoFor = null; render(); }
     });
   })();
+/* ============================================================
+   DATE CHANGE / CANCELLATION REQUEST
+   Mirrors src/components/booking-request-modal.tsx.
+
+   Neither is self-service: moving a departure or cancelling touches the
+   manifest, the local operator's headcount and the money, and the deposit
+   terms differ per booking. The customer says what they want and it goes to
+   the bookings team as a filled-in email.
+
+   The email is shown BEFORE it's sent — a request that disappears into a form
+   is the one people chase by phone an hour later, and the team gets a message
+   that doesn't need a reply just to establish which booking it's about.
+   ============================================================ */
+(function () {
+  var EMAIL = 'bookings@trutravels.com';
+  var RESPONSE_TIME = 'one working day';
+  var CUSTOMER = { name: 'Alex Traveller', email: 'alex@example.com' };
+  var REASONS = ['Change of plans', "Can't get the time off work", 'Financial reasons',
+                 'Illness or injury', 'Something else'];
+
+  /* ICON is scoped to the IIFE above, not global — this one is ours. */
+  var X = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>';
+
+  var root = document.querySelector('[data-request-root]');
+  if (!root) return;
+  var state = null;
+
+  /* Split the string rather than parsing it. `new Date(iso + 'T00:00:00')`
+     reads as LOCAL midnight and getUTC* then shifts it back a day in any
+     positive-offset timezone — which showed every departure one day early. */
+  function longDate(iso) {
+    var p = iso.split('-');
+    return parseInt(p[2], 10) + ' ' + ['January','February','March','April','May','June','July',
+      'August','September','October','November','December'][parseInt(p[1], 10) - 1] + ' ' + p[0];
+  }
+  function esc2(x) {
+    return String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function emailBody(b, kind, choice, note) {
+    var lines = [
+      'Booking reference: ' + b.ref,
+      'Trip: ' + b.title,
+      'Current departure: ' + longDate(departureISO(b)),
+      'Travellers: ' + b.travellers,
+      kind === 'date-change'
+        ? 'Requested departure: ' + (choice ? longDate(choice) : 'Not sure yet — happy to talk it through')
+        : 'Reason: ' + (choice || 'Not given')
+    ];
+    if (kind !== 'date-change' && b.deposit) lines.push('Deposit paid: £' + b.deposit + ' (non-refundable)');
+    if (b.balance > 0) lines.push('Balance outstanding: £' + b.balance);
+    lines.push('');
+    if (note.trim()) lines.push('Note from ' + CUSTOMER.name + ':\n' + note.trim());
+    lines.push('');
+    lines.push('From: ' + CUSTOMER.name + ' <' + CUSTOMER.email + '>');
+    return lines.filter(function (l, i) { return l !== '' || i === 0 || lines[i - 1] !== ''; }).join('\n');
+  }
+
+  function departureISO(b) {
+    var d = new Date();
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() + b.departsIn);
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  function render() {
+    if (!state) { root.innerHTML = ''; document.body.style.overflow = ''; return; }
+    var b = state.booking, kind = state.kind, isDate = kind === 'date-change';
+    var heading = isDate ? 'Request A Date Change' : 'Request Cancellation';
+
+    if (state.sent) {
+      root.innerHTML = '<div class="req-wrap"><div class="req-back" data-req-close></div>'
+        + '<div class="req" role="dialog" aria-modal="true">'
+        + '<div class="req__head"><div><p class="req__ref">' + b.ref + '</p>'
+        + '<p class="req__title">Request Sent</p></div>'
+        + '<button class="req__x" type="button" data-req-close aria-label="Close">' + X + '</button></div>'
+        + '<div class="req__body req__done">'
+        + '<span class="req__tick"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>'
+        + '<h3 class="req__done-t">It’s With The <span>Team</span></h3>'
+        + '<p class="req__done-d">We’ve sent your request to ' + EMAIL + ' and copied you in. Someone will come back to you within ' + RESPONSE_TIME + '.</p>'
+        + '<p class="req__done-s">' + (isDate
+            ? 'Nothing changes on your booking until they confirm it — your current departure is still yours.'
+            : 'Your booking is still active until they confirm the cancellation.') + '</p>'
+        + '<button class="req__send" type="button" data-req-close>Done</button>'
+        + '</div></div></div>';
+      return;
+    }
+
+    var opts = '';
+    if (isDate) {
+      var deps = (typeof DEPARTURES !== 'undefined' && DEPARTURES[b.tripId]) || [];
+      deps = deps.filter(function (d) { return d.date !== departureISO(b); });
+      if (!deps.length) {
+        opts = '<p class="req__none">We haven’t published the next set of dates for this trip yet. '
+             + 'Send the request and the team will come back with what’s coming up.</p>';
+      } else {
+        opts = deps.map(function (d) {
+          return '<button type="button" class="req__opt' + (state.choice === d.date ? ' is-on' : '') + '" data-choice="' + d.date + '">'
+            + '<span>' + longDate(d.date) + '</span>'
+            + (d.spots && d.spots <= 4 ? '<span class="req__spots">' + d.spots + ' left</span>' : '')
+            + (state.choice === d.date ? '<svg class="req__tickmark" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : '')
+            + '</button>';
+        }).join('');
+      }
+    } else {
+      opts = REASONS.map(function (r) {
+        return '<button type="button" class="req__opt' + (state.choice === r ? ' is-on' : '') + '" data-choice="' + r + '">'
+          + '<span>' + r + '</span>'
+          + (state.choice === r ? '<svg class="req__tickmark" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : '')
+          + '</button>';
+      }).join('');
+    }
+
+    var subject = (isDate ? 'Date change request — ' : 'Cancellation request — ') + b.ref;
+
+    root.innerHTML = '<div class="req-wrap"><div class="req-back" data-req-close></div>'
+      + '<div class="req" role="dialog" aria-modal="true" aria-label="' + heading + '">'
+      + '<div class="req__head"><div><p class="req__ref">' + b.ref + '</p>'
+      + '<p class="req__title">' + heading + '</p></div>'
+      + '<button class="req__x" type="button" data-req-close aria-label="Close">' + X + '</button></div>'
+      + '<div class="req__body">'
+      + '<p class="req__intro">' + (isDate
+          ? 'Tell us when you’d rather travel and we’ll check availability and any difference in price. Nothing changes until the team confirms it.'
+          : 'Let us know why and we’ll come back with exactly what you’d get back. Your £' + b.deposit + ' deposit is non-refundable.') + '</p>'
+      + '<p class="req__label">' + (isDate ? 'Move to' : 'Reason') + '</p>'
+      + '<div class="req__opts">' + opts + '</div>'
+      + (isDate ? '<p class="req__hint">Not sure yet? Leave this blank and say so below — the team will talk it through with you.</p>' : '')
+      + '<label class="req__label" for="req-note">Anything else <span>(optional)</span></label>'
+      + '<textarea id="req-note" rows="3" placeholder="' + (isDate
+          ? 'Flights already booked, travelling with someone else on the same trip, anything that matters.'
+          : 'Anything you’d like us to know.') + '">' + esc2(state.note) + '</textarea>'
+      + '<details class="req__preview"><summary>See what we’ll send</summary>'
+      + '<div class="req__preview-body"><p class="req__to">To: ' + EMAIL + ' · Subject: ' + subject + '</p>'
+      + '<pre>' + esc2(emailBody(b, kind, state.choice, state.note)) + '</pre></div></details>'
+      + '<div class="req__actions">'
+      + '<button class="req__send" type="button" data-req-send>Send To The Team</button>'
+      + '<button class="req__cancel" type="button" data-req-close>Cancel</button>'
+      + '</div></div></div></div>';
+  }
+
+  document.addEventListener('click', function (e) {
+    var open = e.target.closest('[data-request]');
+    if (open) {
+      var b = BOOKINGS.filter(function (x) { return x.id === open.getAttribute('data-b'); })[0];
+      if (!b) return;
+      state = { kind: open.getAttribute('data-request'), booking: b, choice: '', note: '', sent: false };
+      document.body.style.overflow = 'hidden';
+      render();
+      return;
+    }
+    if (!state) return;
+    if (e.target.closest('[data-req-close]')) { state = null; render(); return; }
+    var choice = e.target.closest('[data-choice]');
+    if (choice) {
+      var v = choice.getAttribute('data-choice');
+      state.choice = state.choice === v ? '' : v;
+      render();
+      return;
+    }
+    if (e.target.closest('[data-req-send]')) { state.sent = true; render(); }
+  });
+
+  /* Keep the note without re-rendering on every keystroke; the preview
+     refreshes when it's opened or an option changes. */
+  document.addEventListener('input', function (e) {
+    if (state && e.target.id === 'req-note') {
+      state.note = e.target.value;
+      var pre = root.querySelector('.req__preview pre');
+      if (pre) pre.textContent = emailBody(state.booking, state.kind, state.choice, state.note);
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && state) { state = null; render(); }
+  });
+})();
   </script>

@@ -142,6 +142,9 @@
     </div>
     <!-- video-review modal renders here -->
     <div data-video-root></div>
+
+    <!-- date-change / cancellation request renders here -->
+    <div data-request-root></div>
   </main>
 
   <footer class="site-footer">
@@ -560,7 +563,8 @@
     function read(key) { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch (e) { return []; } }
   </script>
   <script>
-    var BOOKINGS = [{"id": "b1", "ref": "TRU-2026-04871", "title": "Thailand Island Hopper", "image": "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg", "duration": "14 Days", "start": "Bangkok", "end": "Phuket", "departsIn": 24, "lasts": 13, "bookedIn": -95, "status": "upcoming", "price": 1727, "deposit": 300, "paid": 1727, "balance": 0, "balanceDue": "", "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "Tommy", "goodToGo": {"flightDetails": true, "travelInsurance": true, "dietaryRequirements": true, "emergencyContact": true, "passportDetails": true, "visaCheck": true}, "extras": {"prenight": true, "arrival": true}, "flight": {"airline": "Thai Airways", "flightNo": "TG917", "departs": "London Heathrow (LHR) Sat 11 Apr at 21:30", "arrives": "Bangkok Suvarnabhumi (BKK) Sun 12 Apr at 15:30"}, "insurance": {"provider": "World Nomads", "type": "Explorer Plan", "policyNo": "TRV-2026-88421"}, "promo": {"code": "BLACKFRIDAY", "discount": 150, "originalPrice": 1877}}, {"id": "b2", "ref": "TRU-2026-05912", "title": "Vietnam Explorer", "image": "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", "duration": "13 Days", "start": "Ho Chi Minh City", "end": "Hanoi", "departsIn": 118, "lasts": 12, "bookedIn": -40, "status": "upcoming", "price": 875, "deposit": 875, "paid": 875, "balance": 0, "balanceDue": "", "travellers": 1, "passengers": ["Alex Traveller"], "emails": ["alex@trutravels.com"], "leader": "TBC", "goodToGo": {"flightDetails": false, "travelInsurance": false, "dietaryRequirements": false, "emergencyContact": false, "passportDetails": false, "visaCheck": false}, "extras": {}}, {"id": "b3", "ref": "TRU-2026-07341", "title": "Costa Rica Adventure", "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", "duration": "10 Days", "start": "San José", "end": "Santa Teresa", "departsIn": 180, "lasts": 9, "bookedIn": -12, "status": "upcoming", "price": 945, "deposit": 150, "paid": 150, "balance": 795, "balanceDueIn": 120, "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "TBC", "goodToGo": {"flightDetails": false, "travelInsurance": false, "dietaryRequirements": false, "emergencyContact": false, "passportDetails": false, "visaCheck": false}, "extras": {}}, {"id": "b4", "ref": "TRU-2025-03214", "title": "Bali Experience", "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", "duration": "10 Days", "start": "Canggu", "end": "Gili Trawangan", "departsIn": -364, "lasts": 9, "bookedIn": -500, "status": "completed", "price": 487, "deposit": 487, "paid": 487, "balance": 0, "balanceDue": "", "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "Milin", "goodToGo": null, "extras": {}, "feedbackCompleted": false, "reviewLeft": false}, {"id": "b5", "ref": "TRU-2026-06183", "title": "Jordan Explorer", "image": "https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=800&q=80", "duration": "8 Days", "start": "Amman", "end": "Aqaba", "departsOn": "2026-06-20", "endsOn": "2026-06-27", "status": "cancelled", "price": 695, "deposit": 200, "paid": 695, "balance": 0, "balanceDue": "", "travellers": 1, "passengers": ["Alex Traveller"], "emails": ["alex@trutravels.com"], "leader": "TBC", "goodToGo": null, "extras": {}, "cancellation": {"dateBooked": "3 Jan 2026", "dateCancelled": "18 Mar 2026", "reason": "Change of personal circumstances", "refundAmount": 495, "nonRefundableDeposit": 200, "refundStatus": "Refunded", "refundDate": "25 Mar 2026"}}];
+    var BOOKINGS = [{"id": "b1", "tripId": "thailand-island-hopper", "ref": "TRU-2026-04871", "title": "Thailand Island Hopper", "image": "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg", "duration": "14 Days", "start": "Bangkok", "end": "Phuket", "departsIn": 24, "lasts": 13, "bookedIn": -95, "status": "upcoming", "price": 1727, "deposit": 300, "paid": 1727, "balance": 0, "balanceDue": "", "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "Tommy", "goodToGo": {"flightDetails": true, "travelInsurance": true, "dietaryRequirements": true, "emergencyContact": true, "passportDetails": true, "visaCheck": true}, "extras": {"prenight": true, "arrival": true}, "flight": {"airline": "Thai Airways", "flightNo": "TG917", "departs": "London Heathrow (LHR) Sat 11 Apr at 21:30", "arrives": "Bangkok Suvarnabhumi (BKK) Sun 12 Apr at 15:30"}, "insurance": {"provider": "World Nomads", "type": "Explorer Plan", "policyNo": "TRV-2026-88421"}, "promo": {"code": "BLACKFRIDAY", "discount": 150, "originalPrice": 1877}}, {"id": "b2", "tripId": "vietnam-explorer", "ref": "TRU-2026-05912", "title": "Vietnam Explorer", "image": "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", "duration": "13 Days", "start": "Ho Chi Minh City", "end": "Hanoi", "departsIn": 118, "lasts": 12, "bookedIn": -40, "status": "upcoming", "price": 875, "deposit": 875, "paid": 875, "balance": 0, "balanceDue": "", "travellers": 1, "passengers": ["Alex Traveller"], "emails": ["alex@trutravels.com"], "leader": "TBC", "goodToGo": {"flightDetails": false, "travelInsurance": false, "dietaryRequirements": false, "emergencyContact": false, "passportDetails": false, "visaCheck": false}, "extras": {}}, {"id": "b3", "tripId": "costa-rica-adventure", "ref": "TRU-2026-07341", "title": "Costa Rica Adventure", "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", "duration": "10 Days", "start": "San José", "end": "Santa Teresa", "departsIn": 180, "lasts": 9, "bookedIn": -12, "status": "upcoming", "price": 945, "deposit": 150, "paid": 150, "balance": 795, "balanceDueIn": 120, "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "TBC", "goodToGo": {"flightDetails": false, "travelInsurance": false, "dietaryRequirements": false, "emergencyContact": false, "passportDetails": false, "visaCheck": false}, "extras": {}}, {"id": "b4", "tripId": "bali-experience", "ref": "TRU-2025-03214", "title": "Bali Experience", "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", "duration": "10 Days", "start": "Canggu", "end": "Gili Trawangan", "departsIn": -364, "lasts": 9, "bookedIn": -500, "status": "completed", "price": 487, "deposit": 487, "paid": 487, "balance": 0, "balanceDue": "", "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "Milin", "goodToGo": null, "extras": {}, "feedbackCompleted": false, "reviewLeft": false}, {"id": "b5", "tripId": "jordan-explorer", "ref": "TRU-2026-06183", "title": "Jordan Explorer", "image": "https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=800&q=80", "duration": "8 Days", "start": "Amman", "end": "Aqaba", "departsOn": "2026-06-20", "endsOn": "2026-06-27", "status": "cancelled", "price": 695, "deposit": 200, "paid": 695, "balance": 0, "balanceDue": "", "travellers": 1, "passengers": ["Alex Traveller"], "emails": ["alex@trutravels.com"], "leader": "TBC", "goodToGo": null, "extras": {}, "cancellation": {"dateBooked": "3 Jan 2026", "dateCancelled": "18 Mar 2026", "reason": "Change of personal circumstances", "refundAmount": 495, "nonRefundableDeposit": 200, "refundStatus": "Refunded", "refundDate": "25 Mar 2026"}}];
+    var DEPARTURES = {"thailand-island-hopper": [{"date": "2026-09-27", "spots": 8}, {"date": "2026-10-11", "spots": 4}, {"date": "2026-10-25", "spots": 2}, {"date": "2026-11-08", "spots": 12}, {"date": "2026-11-22", "spots": 6}, {"date": "2026-12-20", "spots": 14}], "thailand-experience": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "full-moon-party-pack": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "full-moon-experience": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "northern-thailand-adventure": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "full-moon-island-hopper": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "total-thailand": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "thailand-backpacker": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "songkran-festival": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "bali-experience": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "bali-backpacker": [{"date": "2026-10-22", "spots": 0}], "komodo-island-hopper": [{"date": "2026-10-22", "spots": 0}], "bali-and-beyond": [{"date": "2026-10-22", "spots": 0}], "bali-sumatra-adventure": [{"date": "2026-10-22", "spots": 0}], "sumatra-uncovered": [{"date": "2026-10-22", "spots": 0}], "total-indonesia": [{"date": "2026-10-22", "spots": 0}], "philippines-east": [{"date": "2026-10-22", "spots": 0}], "philippines-west": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "philippines-island-hopper": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "philippines-backpacker": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "philippines-siargao": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "total-philippines": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "vietnam-backpacker": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "vietnam-explorer": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "cambodia-explorer": [{"date": "2026-10-08", "spots": 0}, {"date": "2026-11-19", "spots": 0}], "sri-lanka-uncovered": [{"date": "2026-10-08", "spots": 0}, {"date": "2026-11-19", "spots": 0}], "mexico-yucatan-experience": [{"date": "2026-10-04", "spots": 0}, {"date": "2026-11-01", "spots": 0}], "mexico-yucatan-loop": [{"date": "2026-10-04", "spots": 0}, {"date": "2026-11-01", "spots": 0}], "day-of-the-dead": [{"date": "2026-10-04", "spots": 0}, {"date": "2026-11-01", "spots": 0}], "costa-rica-adventure": [{"date": "2026-10-04", "spots": 0}, {"date": "2026-11-01", "spots": 0}], "greece-island-hopper": [{"date": "2026-10-05", "spots": 0}]};
     var ROOM_TYPES = [{"id": "twin", "name": "Twin share", "price": 45, "sleeps": 1, "rate": "pp / night", "note": "A bed in a shared twin room"}, {"id": "double", "name": "Double", "price": 90, "sleeps": 2, "rate": "/ night", "note": "One double bed for two", "min2": true}, {"id": "single", "name": "Single", "price": 75, "sleeps": 1, "rate": "/ night", "note": "A room to yourself"}, {"id": "dorm", "name": "Dorm bed", "price": 25, "sleeps": 1, "rate": "pp / night", "note": "A bed in a shared dorm"}];
     var ADDONS = [{"id": "prenight", "cat": "Accommodation", "name": "Pre-Night Hotel", "price": 45, "hotel": true, "on": "start"}, {"id": "postnight", "cat": "Accommodation", "name": "Post-Night Hotel", "price": 45, "hotel": true, "on": "end"}, {"id": "arrival", "cat": "Transfers", "name": "Arrival Transfer", "price": 60, "hotel": false, "on": "start", "info": "If you are arriving before your tour start date you can still be picked up from {start} Airport, however you will need to book a pre-night(s) accommodation with us so we have somewhere to take you. If you are arriving on your tour start date, please skip this."}, {"id": "departure", "cat": "Transfers", "name": "Departure Transfer", "price": 60, "hotel": false, "on": "end", "info": "If you are leaving after your tour end date you can still be transferred to {end} Airport, however you will need to book a post-night(s) accommodation with us. If you are leaving on your tour end date, please skip this."}];
     var ROOM_UPGRADE = 450;
@@ -847,10 +851,10 @@
 
       var actions = upcoming
         ? '<div class="acct-acts">'
-          + '<button type="button" class="acct-act"><span class="acct-act__ico is-blue">' + ICON.cal + '</span>'
+          + '<button type="button" class="acct-act" data-request="date-change" data-b="' + b.id + '"><span class="acct-act__ico is-blue">' + ICON.cal + '</span>'
           + '<span class="acct-act__txt"><strong>Request Date Change</strong><small>Move your trip to a different departure date</small></span>'
           + '<span class="acct-act__go">' + ICON.arrow + '</span></button>'
-          + '<button type="button" class="acct-act is-danger"><span class="acct-act__ico is-red">' + ICON.close + '</span>'
+          + '<button type="button" class="acct-act is-danger" data-request="cancellation" data-b="' + b.id + '"><span class="acct-act__ico is-red">' + ICON.close + '</span>'
           + '<span class="acct-act__txt"><strong>Request Cancellation</strong><small>Cancel your booking · ' + money(b.deposit) + ' non-refundable deposit applies</small></span>'
           + '<span class="acct-act__go">' + ICON.arrow + '</span></button>'
           + '</div>'
@@ -1236,6 +1240,182 @@
       if (e.key === 'Escape' && videoFor) { videoFor = null; render(); }
     });
   })();
+/* ============================================================
+   DATE CHANGE / CANCELLATION REQUEST
+   Mirrors src/components/booking-request-modal.tsx.
+
+   Neither is self-service: moving a departure or cancelling touches the
+   manifest, the local operator's headcount and the money, and the deposit
+   terms differ per booking. The customer says what they want and it goes to
+   the bookings team as a filled-in email.
+
+   The email is shown BEFORE it's sent — a request that disappears into a form
+   is the one people chase by phone an hour later, and the team gets a message
+   that doesn't need a reply just to establish which booking it's about.
+   ============================================================ */
+(function () {
+  var EMAIL = 'bookings@trutravels.com';
+  var RESPONSE_TIME = 'one working day';
+  var CUSTOMER = { name: 'Alex Traveller', email: 'alex@example.com' };
+  var REASONS = ['Change of plans', "Can't get the time off work", 'Financial reasons',
+                 'Illness or injury', 'Something else'];
+
+  /* ICON is scoped to the IIFE above, not global — this one is ours. */
+  var X = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>';
+
+  var root = document.querySelector('[data-request-root]');
+  if (!root) return;
+  var state = null;
+
+  /* Split the string rather than parsing it. `new Date(iso + 'T00:00:00')`
+     reads as LOCAL midnight and getUTC* then shifts it back a day in any
+     positive-offset timezone — which showed every departure one day early. */
+  function longDate(iso) {
+    var p = iso.split('-');
+    return parseInt(p[2], 10) + ' ' + ['January','February','March','April','May','June','July',
+      'August','September','October','November','December'][parseInt(p[1], 10) - 1] + ' ' + p[0];
+  }
+  function esc2(x) {
+    return String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function emailBody(b, kind, choice, note) {
+    var lines = [
+      'Booking reference: ' + b.ref,
+      'Trip: ' + b.title,
+      'Current departure: ' + longDate(departureISO(b)),
+      'Travellers: ' + b.travellers,
+      kind === 'date-change'
+        ? 'Requested departure: ' + (choice ? longDate(choice) : 'Not sure yet — happy to talk it through')
+        : 'Reason: ' + (choice || 'Not given')
+    ];
+    if (kind !== 'date-change' && b.deposit) lines.push('Deposit paid: £' + b.deposit + ' (non-refundable)');
+    if (b.balance > 0) lines.push('Balance outstanding: £' + b.balance);
+    lines.push('');
+    if (note.trim()) lines.push('Note from ' + CUSTOMER.name + ':\n' + note.trim());
+    lines.push('');
+    lines.push('From: ' + CUSTOMER.name + ' <' + CUSTOMER.email + '>');
+    return lines.filter(function (l, i) { return l !== '' || i === 0 || lines[i - 1] !== ''; }).join('\n');
+  }
+
+  function departureISO(b) {
+    var d = new Date();
+    d.setHours(0, 0, 0, 0);
+    d.setDate(d.getDate() + b.departsIn);
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+
+  function render() {
+    if (!state) { root.innerHTML = ''; document.body.style.overflow = ''; return; }
+    var b = state.booking, kind = state.kind, isDate = kind === 'date-change';
+    var heading = isDate ? 'Request A Date Change' : 'Request Cancellation';
+
+    if (state.sent) {
+      root.innerHTML = '<div class="req-wrap"><div class="req-back" data-req-close></div>'
+        + '<div class="req" role="dialog" aria-modal="true">'
+        + '<div class="req__head"><div><p class="req__ref">' + b.ref + '</p>'
+        + '<p class="req__title">Request Sent</p></div>'
+        + '<button class="req__x" type="button" data-req-close aria-label="Close">' + X + '</button></div>'
+        + '<div class="req__body req__done">'
+        + '<span class="req__tick"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>'
+        + '<h3 class="req__done-t">It’s With The <span>Team</span></h3>'
+        + '<p class="req__done-d">We’ve sent your request to ' + EMAIL + ' and copied you in. Someone will come back to you within ' + RESPONSE_TIME + '.</p>'
+        + '<p class="req__done-s">' + (isDate
+            ? 'Nothing changes on your booking until they confirm it — your current departure is still yours.'
+            : 'Your booking is still active until they confirm the cancellation.') + '</p>'
+        + '<button class="req__send" type="button" data-req-close>Done</button>'
+        + '</div></div></div>';
+      return;
+    }
+
+    var opts = '';
+    if (isDate) {
+      var deps = (typeof DEPARTURES !== 'undefined' && DEPARTURES[b.tripId]) || [];
+      deps = deps.filter(function (d) { return d.date !== departureISO(b); });
+      if (!deps.length) {
+        opts = '<p class="req__none">We haven’t published the next set of dates for this trip yet. '
+             + 'Send the request and the team will come back with what’s coming up.</p>';
+      } else {
+        opts = deps.map(function (d) {
+          return '<button type="button" class="req__opt' + (state.choice === d.date ? ' is-on' : '') + '" data-choice="' + d.date + '">'
+            + '<span>' + longDate(d.date) + '</span>'
+            + (d.spots && d.spots <= 4 ? '<span class="req__spots">' + d.spots + ' left</span>' : '')
+            + (state.choice === d.date ? '<svg class="req__tickmark" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : '')
+            + '</button>';
+        }).join('');
+      }
+    } else {
+      opts = REASONS.map(function (r) {
+        return '<button type="button" class="req__opt' + (state.choice === r ? ' is-on' : '') + '" data-choice="' + r + '">'
+          + '<span>' + r + '</span>'
+          + (state.choice === r ? '<svg class="req__tickmark" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : '')
+          + '</button>';
+      }).join('');
+    }
+
+    var subject = (isDate ? 'Date change request — ' : 'Cancellation request — ') + b.ref;
+
+    root.innerHTML = '<div class="req-wrap"><div class="req-back" data-req-close></div>'
+      + '<div class="req" role="dialog" aria-modal="true" aria-label="' + heading + '">'
+      + '<div class="req__head"><div><p class="req__ref">' + b.ref + '</p>'
+      + '<p class="req__title">' + heading + '</p></div>'
+      + '<button class="req__x" type="button" data-req-close aria-label="Close">' + X + '</button></div>'
+      + '<div class="req__body">'
+      + '<p class="req__intro">' + (isDate
+          ? 'Tell us when you’d rather travel and we’ll check availability and any difference in price. Nothing changes until the team confirms it.'
+          : 'Let us know why and we’ll come back with exactly what you’d get back. Your £' + b.deposit + ' deposit is non-refundable.') + '</p>'
+      + '<p class="req__label">' + (isDate ? 'Move to' : 'Reason') + '</p>'
+      + '<div class="req__opts">' + opts + '</div>'
+      + (isDate ? '<p class="req__hint">Not sure yet? Leave this blank and say so below — the team will talk it through with you.</p>' : '')
+      + '<label class="req__label" for="req-note">Anything else <span>(optional)</span></label>'
+      + '<textarea id="req-note" rows="3" placeholder="' + (isDate
+          ? 'Flights already booked, travelling with someone else on the same trip, anything that matters.'
+          : 'Anything you’d like us to know.') + '">' + esc2(state.note) + '</textarea>'
+      + '<details class="req__preview"><summary>See what we’ll send</summary>'
+      + '<div class="req__preview-body"><p class="req__to">To: ' + EMAIL + ' · Subject: ' + subject + '</p>'
+      + '<pre>' + esc2(emailBody(b, kind, state.choice, state.note)) + '</pre></div></details>'
+      + '<div class="req__actions">'
+      + '<button class="req__send" type="button" data-req-send>Send To The Team</button>'
+      + '<button class="req__cancel" type="button" data-req-close>Cancel</button>'
+      + '</div></div></div></div>';
+  }
+
+  document.addEventListener('click', function (e) {
+    var open = e.target.closest('[data-request]');
+    if (open) {
+      var b = BOOKINGS.filter(function (x) { return x.id === open.getAttribute('data-b'); })[0];
+      if (!b) return;
+      state = { kind: open.getAttribute('data-request'), booking: b, choice: '', note: '', sent: false };
+      document.body.style.overflow = 'hidden';
+      render();
+      return;
+    }
+    if (!state) return;
+    if (e.target.closest('[data-req-close]')) { state = null; render(); return; }
+    var choice = e.target.closest('[data-choice]');
+    if (choice) {
+      var v = choice.getAttribute('data-choice');
+      state.choice = state.choice === v ? '' : v;
+      render();
+      return;
+    }
+    if (e.target.closest('[data-req-send]')) { state.sent = true; render(); }
+  });
+
+  /* Keep the note without re-rendering on every keystroke; the preview
+     refreshes when it's opened or an option changes. */
+  document.addEventListener('input', function (e) {
+    if (state && e.target.id === 'req-note') {
+      state.note = e.target.value;
+      var pre = root.querySelector('.req__preview pre');
+      if (pre) pre.textContent = emailBody(state.booking, state.kind, state.choice, state.note);
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && state) { state = null; render(); }
+  });
+})();
   </script>
 
 </body>
