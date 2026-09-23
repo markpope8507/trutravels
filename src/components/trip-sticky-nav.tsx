@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import ShareButtons from "@/components/share-buttons";
+import { CountdownInline, useCountdown } from "@/components/trip-countdown";
+import type { TripLaunch } from "@/lib/data";
 
 const navSections = [
   { id: "overview", label: "Overview" },
@@ -26,14 +28,24 @@ export default function TripStickyNav({
   originalPrice,
   tripTitle,
   onBookNow,
+  launch,
+  onRegisterInterest,
 }: {
   price: number;
   originalPrice?: number;
   tripTitle: string;
   onBookNow: () => void;
+  /** Set on a trip that hasn't gone on sale: the price and Check Dates are
+   *  replaced by the same countdown the launch card shows, and a Notify Me
+   *  button. The countdown follows you down the page because that urgency is
+   *  the whole point of the pre-launch page. */
+  launch?: TripLaunch;
+  onRegisterInterest?: () => void;
 }) {
   const [visible, setVisible] = useState(false);
   const [active, setActive] = useState("overview");
+  const left = useCountdown(launch?.onSale ?? "");
+  const preLaunch = Boolean(launch) && !(left?.done ?? false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,6 +113,26 @@ export default function TripStickyNav({
             </p>
           </div>
           <div className="flex items-center gap-4 flex-shrink-0">
+          {preLaunch ? (
+            <>
+              <div className="flex items-baseline gap-2">
+                <span className="hidden font-heading text-[10px] uppercase tracking-wider text-tru-pink sm:inline">
+                  On sale in
+                </span>
+                <CountdownInline
+                  iso={launch!.onSale}
+                  className="font-heading text-xl font-black leading-none text-white sm:text-2xl"
+                />
+              </div>
+              <button
+                onClick={onRegisterInterest}
+                className="flex-shrink-0 whitespace-nowrap rounded-[10px] bg-tru-pink px-4 py-2.5 font-heading text-[11px] font-bold uppercase tracking-wider text-white transition hover:bg-tru-pink-light sm:px-5"
+              >
+                Notify Me
+              </button>
+            </>
+          ) : (
+          <>
           {originalPrice && originalPrice !== price && (
             <span className="text-tru-pink text-[11px] font-bold uppercase tracking-wider font-heading whitespace-nowrap">
               Save &pound;{originalPrice - price}
@@ -131,6 +163,8 @@ export default function TripStickyNav({
           >
             Check Dates &rarr;
           </button>
+          </>
+          )}
           </div>
         </div>
 

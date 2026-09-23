@@ -13,6 +13,7 @@ import MapViewer from "@/components/map-viewer";
 import TripBookingWrapper from "@/components/trip-booking-wrapper";
 import TrackTripView from "@/components/track-trip-view";
 import TripPricingCard from "@/components/trip-pricing-card";
+import TripLaunchCardClient from "@/components/trip-launch-card-client";
 import TripReviews from "@/components/trip-reviews";
 import TripFaqs from "@/components/trip-faqs";
 import RelatedTrips from "@/components/related-trips";
@@ -69,6 +70,7 @@ export default async function TripDetailPage({
         endLocation={trip.endLocation}
         departures={trip.departures || []}
         depositPrice={trip.depositPrice || 200}
+        launch={trip.launch}
       />
 
       {/* Hero */}
@@ -191,13 +193,19 @@ export default async function TripDetailPage({
             {/* Mobile-only pricing card — sits above the Overview on mobile so the
                 sticky nav kicks in immediately once the user scrolls past it. */}
             <section id="mobile-pricing" className="lg:hidden mb-12">
-              <TripPricingCard
-                price={trip.price}
-                originalPrice={trip.originalPrice}
-                duration={trip.duration}
-                departures={trip.departures}
-                depositPrice={trip.depositPrice ?? 200}
-              />
+              {/* A trip that hasn't gone on sale gets a countdown and a
+                  notify-me CTA instead of the price-and-check-dates box. */}
+              {trip.launch ? (
+                <TripLaunchCardClient trip={trip} />
+              ) : (
+                <TripPricingCard
+                  price={trip.price}
+                  originalPrice={trip.originalPrice}
+                  duration={trip.duration}
+                  departures={trip.departures}
+                  depositPrice={trip.depositPrice ?? 200}
+                />
+              )}
             </section>
 
             {/* Overview */}
@@ -361,13 +369,17 @@ export default async function TripDetailPage({
             <div className="sticky top-24 space-y-8">
               {/* Pricing card */}
               <section id="booking">
-                <TripPricingCard
-                  price={trip.price}
-                  originalPrice={trip.originalPrice}
-                  duration={trip.duration}
-                  departures={trip.departures}
-                  depositPrice={trip.depositPrice ?? 200}
-                />
+                {trip.launch ? (
+                  <TripLaunchCardClient trip={trip} />
+                ) : (
+                  <TripPricingCard
+                    price={trip.price}
+                    originalPrice={trip.originalPrice}
+                    duration={trip.duration}
+                    departures={trip.departures}
+                    depositPrice={trip.depositPrice ?? 200}
+                  />
+                )}
               </section>
 
               {/* Map */}

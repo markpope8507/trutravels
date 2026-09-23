@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import TripStickyNav from "@/components/trip-sticky-nav";
 import BookingModal from "@/components/booking-modal";
+import RegisterInterestModal from "@/components/register-interest-modal";
+import type { TripLaunch } from "@/lib/data";
 
 type Departure = {
   date: string;
@@ -23,6 +25,7 @@ export default function TripBookingWrapper({
   endLocation,
   departures,
   depositPrice,
+  launch,
 }: {
   price: number;
   originalPrice?: number;
@@ -34,12 +37,19 @@ export default function TripBookingWrapper({
   endLocation?: string;
   departures: Departure[];
   depositPrice: number;
+  /** Pre-launch trip — see components/trip-launch-card.tsx. */
+  launch?: TripLaunch;
 }) {
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [interestOpen, setInterestOpen] = useState(false);
 
   useEffect(() => {
     const handler = () => setBookingOpen(true);
+    const interest = () => setInterestOpen(true);
     window.addEventListener("open-booking", handler);
+    /* The launch card and the sticky bar both open this, and they don't know
+       about each other — an event keeps it to one modal either way. */
+    window.addEventListener("register-interest", interest);
     // Deep link: /destinations/.../trip#check-dates opens the modal on load
     // (used by Tru.D's "Check dates" link from other pages).
     let deepLink: ReturnType<typeof setTimeout> | undefined;
@@ -49,6 +59,7 @@ export default function TripBookingWrapper({
     }
     return () => {
       window.removeEventListener("open-booking", handler);
+      window.removeEventListener("register-interest", interest);
       if (deepLink) clearTimeout(deepLink);
     };
   }, []);
@@ -60,6 +71,8 @@ export default function TripBookingWrapper({
         originalPrice={originalPrice}
         tripTitle={tripTitle}
         onBookNow={() => setBookingOpen(true)}
+        launch={launch}
+        onRegisterInterest={() => setInterestOpen(true)}
       />
       <BookingModal
         isOpen={bookingOpen}
@@ -73,6 +86,17 @@ export default function TripBookingWrapper({
         departures={departures}
         depositPrice={depositPrice}
       />
+      {interestOpen && launch && (
+        <RegisterInterestModal
+          tripTitle={tripTitle}
+          onSaleLabel={new Date(launch.onSale).toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+          onClose={() => setInterestOpen(false)}
+        />
+      )}
     </>
   );
 }

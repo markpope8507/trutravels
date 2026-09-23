@@ -155,6 +155,20 @@ export type Trip = {
   reviewCount?: number;
   /** Override link target for the trip card (e.g. an external product page). */
   bookingUrl?: string;
+  /** Set on a trip whose page is live but whose dates aren't on sale yet.
+   *  Swaps the pricing card for a countdown and a notify-me CTA — see
+   *  components/trip-launch-card.tsx. */
+  launch?: TripLaunch;
+};
+
+/** A trip that hasn't gone on sale yet. */
+export type TripLaunch = {
+  /** When bookings open. ISO; treated as a real instant, so include a time. */
+  onSale: string;
+  /** Roughly when the first departure runs — context for the countdown. */
+  firstDeparture?: string;
+  /** How many people are already on the notify list. Omit to hide the line. */
+  interestCount?: number;
 };
 
 export type StoryType = "story" | "guide" | "tips" | "exclusive";
@@ -714,6 +728,43 @@ export const trips: Trip[] = [
   { id: "mexico-belize-guatemala", title: "Mexico, Belize & Guatemala", destination: "Mexico", region: "Central & South America", duration: "18 Days", price: 1925, originalPrice: 2750, startLocation: "Cancún", endLocation: "Antigua Guatemala", travelStyle: "multi_country", rating: 4.8, reviewCount: 67, image: "https://images.unsplash.com/photo-1518638150340-f706e86654de?w=800&q=80", tagline: "Ultimate Central American whirlwind", description: "18 days through three incredible countries. Cenotes, barrier reefs, Mayan ruins, and volcanic landscapes.", highlights: ["Three countries", "Cenotes", "Barrier reef", "Lake Atitlán"], itinerary: [{ day: 1, title: "Cancún", description: "Welcome." }] },
   { id: "discover-asia", title: "Discover Asia", destination: "Thailand", region: "Asia", duration: "37 Days", price: 2485, originalPrice: 3550, startLocation: "Bangkok", endLocation: "Hanoi", travelStyle: "multi_country", rating: 4.9, reviewCount: 56, image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", tagline: "Thailand, Cambodia, and Vietnam in one trip", description: "37 days across three countries. Beaches, temples, street food, and life-changing adventures.", highlights: ["3 countries", "37 days", "Full Moon Party", "Ha Long Bay"], itinerary: [{ day: 1, title: "Bangkok", description: "Welcome." }] },
   { id: "total-asia", title: "Total Asia", destination: "Thailand", region: "Asia", duration: "50 Days", price: 4185, originalPrice: 4650, startLocation: "Bangkok", endLocation: "Hanoi", travelStyle: "multi_country", rating: 5.0, reviewCount: 34, image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=800&q=80", tagline: "The ultimate Asian adventure", description: "50 days. Three countries. Jaw-dropping beaches, rich culture, and life-changing adventures. The ultimate way to experience Asia.", highlights: ["50 days", "3 countries", "Every highlight", "Life-changing"], itinerary: [{ day: 1, title: "Bangkok", description: "Welcome." }] },
+  /* ------------------------------------------------------------------
+     PRE-LAUNCH TEMPLATE
+     A trip whose page is live but whose dates aren't on sale yet. The
+     `launch` field is the only thing that makes it one: it swaps the pricing
+     card for a countdown and a notify-me CTA, and puts the same countdown in
+     the sticky bar. Copy this shape for any trip you want to tease.
+
+     `onSale` is a fixed instant on purpose — the countdown is real, so this
+     date will pass. Move it forward when it does.
+     ------------------------------------------------------------------ */
+  {
+    id: "south-africa-uncovered",
+    title: "South Africa Uncovered",
+    destination: "South Africa",
+    region: "Africa & Middle East",
+    duration: "15 Days",
+    price: 1849,
+    image: "https://cdn.trutravels.com/africa/morocco-images/morocco-uncovered-day-3-road-trip-viewpoint.jpg",
+    tagline: "Safari, surf and the whole Cape",
+    description:
+      "Cape Town to the Kruger, with everything worth stopping for in between. Big Five game drives, the Garden Route, shark cage diving if you fancy it, and sundowners somewhere new every few days. Our first South African trip, and the one we have been asked for most.",
+    highlights: ["Cape Town", "Garden Route", "Kruger safari", "Shark cage diving"],
+    travelStyle: "classic",
+    startLocation: "Cape Town",
+    endLocation: "Johannesburg",
+    launch: {
+      onSale: "2026-11-05T10:00:00",
+      firstDeparture: "2027-03-06",
+      interestCount: 412,
+    },
+    itinerary: [
+      { day: 1, title: "Cape Town", description: "Land, meet the crew, and get straight up Signal Hill for sunset." },
+      { day: 4, title: "The Garden Route", description: "Coast road south, stopping wherever the view says so." },
+      { day: 9, title: "Kruger", description: "Three days of game drives, sunrise starts and very early nights." },
+      { day: 15, title: "Johannesburg", description: "Last breakfast, long goodbyes." },
+    ],
+  }
 ];
 
 export const stories: Story[] = [
