@@ -17,7 +17,14 @@ import {
   subscribeSavedTrips,
   getSavedTripsSnapshot,
   getServerSnapshot,
+  toggleSavedTrip,
 } from "@/lib/saved-trips";
+import {
+  recommendTrips,
+  subscribePreferences,
+  getPreferencesSnapshot,
+  getServerSnapshot as getPrefsServerSnapshot,
+} from "@/lib/travel-preferences";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import "swiper/css";
@@ -46,7 +53,12 @@ function DashboardContent() {
     .filter((t): t is Trip => Boolean(t));
 
   // Don't recommend what's already on the shortlist right above it.
-  const recommendedTrips = trips.filter((t) => !savedIds.includes(t.id)).slice(0, 8);
+  /* Recommendations come from the traveller's stated preferences, not from
+     what they've saved. Saves are the shortlist they built; this is what they
+     might have missed — two different jobs, so they stay separate. */
+  const prefsRaw = useSyncExternalStore(subscribePreferences, getPreferencesSnapshot, getPrefsServerSnapshot);
+  const prefs: string[] = JSON.parse(prefsRaw);
+  const recommended = recommendTrips(prefs, savedIds, 8);
 
   return (
     <div className="relative">
@@ -226,7 +238,11 @@ function DashboardContent() {
           themselves are on the dashboard, not just a count behind a link. */}
       <section className="relative mb-12">
         <div className="relative">
-        <SectionHeading eyebrow="Your Shortlist" title="Saved Trips" href="/my-account/saved" linkLabel="Manage saved" />
+        {/* No "Manage saved" link: the heart on each card removes it right
+            here, so sending someone to another page to do the same thing was
+            a round trip for nothing. The full grid still lives at
+            /my-account/saved, reached from the heart in the nav. */}
+        <SectionHeading eyebrow="Your Shortlist" title="Saved Trips" />
         {savedTrips.length > 0 ? (
           <Swiper
             modules={[Navigation, FreeMode]}
@@ -239,7 +255,7 @@ function DashboardContent() {
           >
             {savedTrips.map((trip) => (
               <SwiperSlide key={trip.id}>
-                <TripCard trip={trip} />
+                <TripCard trip={trip} onRemove={toggleSavedTrip} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -260,7 +276,19 @@ function DashboardContent() {
       {/* Recommended trips */}
       <section className="relative mb-12">
         <div className="relative">
-        <SectionHeading eyebrow="For You" title="Recommended Trips" href="/explore" />
+        <SectionHeading
+          eyebrow={prefs.length > 0 ? "Based On Your Preferences" : "For You"}
+          title="Recommended Trips"
+          href="/explore"
+        />
+        {prefs.length === 0 && (
+          <p className="-mt-2 mb-5 text-sm text-gray-400">
+            <Link href="/my-account/profile" className="text-tru-pink underline transition hover:text-tru-pink-light">
+              Tell us how you like to travel
+            </Link>{" "}
+            and these become yours. Until then, here&rsquo;s what everyone else rates.
+          </p>
+        )}
         <Swiper
           modules={[Navigation, FreeMode]}
           spaceBetween={16}
@@ -273,7 +301,7 @@ function DashboardContent() {
           }}
           className="experience-carousel"
         >
-          {recommendedTrips.map((trip) => (
+          {recommended.map(({ trip }) => (
             <SwiperSlide key={trip.id}>
               <TripCard trip={trip} />
             </SwiperSlide>

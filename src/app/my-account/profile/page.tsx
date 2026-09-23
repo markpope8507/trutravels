@@ -2,7 +2,7 @@
 
 import Breadcrumbs from "@/components/breadcrumbs";
 import { ACCOUNT, sectionCrumbs } from "@/lib/breadcrumbs";
-import { useState, useRef } from "react";
+import { useState, useRef, useSyncExternalStore } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import AccountGate from "@/components/account-gate";
@@ -10,6 +10,13 @@ import ProfileForm from "@/components/profile-form";
 import ProfileLockedNotice from "@/components/profile-locked-notice";
 import { mockBookings } from "@/components/booking-history";
 import { useAuth } from "@/lib/auth-context";
+import {
+  TRAVEL_PREFERENCES,
+  togglePreference,
+  subscribePreferences,
+  getPreferencesSnapshot,
+  getServerSnapshot,
+} from "@/lib/travel-preferences";
 
 
 
@@ -30,6 +37,12 @@ function ProfileContent() {
      The demo account always has an upcoming booking, so ?edit=1 forces the
      editable view — otherwise the unlocked form is unreachable for review. */
   const params = useSearchParams();
+
+  /* Preferences drive the recommendations on the dashboard and the saved
+     page, so they have to persist — these were plain buttons that did
+     nothing. Same store shape as saved trips. */
+  const prefsRaw = useSyncExternalStore(subscribePreferences, getPreferencesSnapshot, getServerSnapshot);
+  const prefs: string[] = JSON.parse(prefsRaw);
   const liveBooking = mockBookings.find((b) => b.status === "upcoming");
   const locked = Boolean(liveBooking) && params.get("edit") !== "1";
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -101,28 +114,32 @@ function ProfileContent() {
       <div className="bg-white/5 rounded-2xl p-8 border border-white/10 mb-8">
         <h3 className="text-lg font-bold text-white mb-4">Travel Preferences</h3>
         <p className="text-gray-400 text-sm mb-4">
-          Help us personalise your experience. Select the types of travel you love.
+          These shape what we recommend you — on your dashboard and on your saved trips.
         </p>
         <div className="flex flex-wrap gap-2">
-          {[
-            "Beach & Islands",
-            "Culture & History",
-            "Adventure & Outdoors",
-            "Food & Cooking",
-            "Nightlife & Parties",
-            "Wellness & Yoga",
-            "Wildlife & Safari",
-            "City Breaks",
-            "Off the Beaten Track",
-          ].map((pref) => (
-            <button
-              key={pref}
-              className="rounded-full border border-white/20 px-4 py-2 text-sm text-gray-300 hover:border-tru-pink hover:text-tru-pink transition"
-            >
-              {pref}
-            </button>
-          ))}
+          {TRAVEL_PREFERENCES.map((pref) => {
+            const on = prefs.includes(pref);
+            return (
+              <button
+                key={pref}
+                onClick={() => togglePreference(pref)}
+                aria-pressed={on}
+                className={`rounded-full border px-4 py-2 text-sm transition ${
+                  on
+                    ? "border-tru-pink bg-tru-pink/10 text-tru-pink"
+                    : "border-white/20 text-gray-300 hover:border-tru-pink hover:text-tru-pink"
+                }`}
+              >
+                {pref}
+              </button>
+            );
+          })}
         </div>
+        <p className="mt-4 text-xs text-gray-500">
+          {prefs.length > 0
+            ? `${prefs.length} selected — saved as you pick them.`
+            : "Pick a few and your recommendations will update straight away."}
+        </p>
       </div>
 
       {/* Stats */}

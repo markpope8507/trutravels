@@ -207,11 +207,20 @@ export default function Navbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </button>
-              <button className="h-8 w-8 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition">
+              {/* The heart was a button with no handler. It's the obvious way
+                  to reach your shortlist from anywhere, and the only inbound
+                  link to /my-account/saved now that the dashboard removes
+                  trips in place. */}
+              <Link
+                href="/my-account/saved"
+                onClick={closeAll}
+                aria-label="Saved trips"
+                className="h-8 w-8 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition"
+              >
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                 </svg>
-              </button>
+              </Link>
               <button
                 onClick={() => { openCart(); closeAll(); }}
                 className="relative h-8 w-8 rounded-full flex items-center justify-center text-gray-300 hover:text-white hover:bg-white/10 transition"

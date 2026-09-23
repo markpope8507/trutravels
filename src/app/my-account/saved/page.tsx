@@ -15,6 +15,12 @@ import {
   toggleSavedTrip,
 } from "@/lib/saved-trips";
 import TripCard from "@/components/trip-card";
+import {
+  recommendTrips,
+  subscribePreferences,
+  getPreferencesSnapshot,
+  getServerSnapshot as getPrefsServerSnapshot,
+} from "@/lib/travel-preferences";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -31,17 +37,13 @@ function SavedContent() {
 
   const handleRemove = (id: string) => toggleSavedTrip(id);
 
-  // Generate recommendations based on saved trips
-  const savedRegions = [...new Set(savedTrips.map((t) => t.region))];
-  const savedStyles = [...new Set(savedTrips.map((t) => t.travelStyle))];
-  const recommendations = trips
-    .filter((t) => !savedIds.includes(t.id))
-    .filter((t) => savedRegions.includes(t.region) || savedStyles.includes(t.travelStyle))
-    .slice(0, 8);
-
-  // Fallback recommendations if no saved trips
-  const fallbackRecs = trips.filter((t) => !savedIds.includes(t.id)).slice(0, 6);
-  const recsToShow = recommendations.length > 0 ? recommendations : fallbackRecs;
+  /* Recommendations come from stated preferences, NOT from what's saved.
+     Recommending off saves means the first save decides everything shown
+     afterwards, and it says nothing at all before the first save. The
+     shortlist and the suggestions are two different jobs. */
+  const prefsRaw = useSyncExternalStore(subscribePreferences, getPreferencesSnapshot, getPrefsServerSnapshot);
+  const prefs: string[] = JSON.parse(prefsRaw);
+  const recsToShow = recommendTrips(prefs, savedIds, 8).map((m) => m.trip);
 
   return (
     <div className="pt-28 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -84,16 +86,23 @@ function SavedContent() {
       {/* Recommendations */}
       <section>
         <p className="text-tru-green text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">
-          {savedTrips.length > 0 ? "Based on Your Saves" : "Popular Right Now"}
+          {prefs.length > 0 ? "Based On Your Preferences" : "Popular Right Now"}
         </p>
         <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-2">
-          {savedTrips.length > 0 ? "You Might Also Like" : "Recommended For You"}
+          You Might Also Like
         </h2>
-        {savedTrips.length > 0 && savedRegions.length > 0 && (
-          <p className="text-gray-400 text-sm mb-6">
-            Because you saved trips in {savedRegions.join(" and ")}, we think you&apos;ll love these too.
-          </p>
-        )}
+        <p className="text-gray-400 text-sm mb-6">
+          {prefs.length > 0 ? (
+            <>Matched to how you said you like to travel: {prefs.join(", ").toLowerCase()}.</>
+          ) : (
+            <>
+              <Link href="/my-account/profile" className="text-tru-pink underline transition hover:text-tru-pink-light">
+                Tell us how you like to travel
+              </Link>{" "}
+              and these become yours.
+            </>
+          )}
+        </p>
         <div className="recs-carousel relative mt-6">
           <Swiper
             modules={[Navigation, FreeMode]}
