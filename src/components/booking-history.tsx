@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useScrollLock } from "@/lib/use-scroll-lock";
 import Link from "next/link";
 import BookingAddons from "@/components/booking-addons";
+import BookingRequestModal, { type RequestKind } from "@/components/booking-request-modal";
+import { useAuth } from "@/lib/auth-context";
 
 const gbp = (n: number) => n.toLocaleString("en-GB");
 
@@ -229,6 +231,10 @@ function BookingTimeline({ booking }: { booking: typeof mockBookings[0] }) {
 }
 
 function BookingHistory() {
+  const { user } = useAuth();
+  /* Which booking has a date-change / cancellation request open. Neither is
+     self-service — see booking-request-modal for why. */
+  const [request, setRequest] = useState<{ kind: RequestKind; bookingId: string } | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [manageTab, setManageTab] = useState("overview");
   const [editing, setEditing] = useState(false);
@@ -650,7 +656,10 @@ function BookingHistory() {
                       {/* Booking actions */}
                       {isUpcoming && (
                         <div className="rounded-[10px] border border-white/10 bg-white/5 divide-y divide-white/5 overflow-hidden">
-                          <button className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-white/5 transition text-left group">
+                          <button
+                            onClick={() => setRequest({ kind: "date-change", bookingId: booking.id })}
+                            className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-white/5 transition text-left group"
+                          >
                             <div className="h-9 w-9 rounded-full bg-tru-blue/20 flex items-center justify-center flex-shrink-0">
                               <svg className="h-4 w-4 text-tru-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                             </div>
@@ -660,7 +669,10 @@ function BookingHistory() {
                             </div>
                             <svg className="h-4 w-4 text-gray-500 group-hover:text-white transition flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
                           </button>
-                          <button className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-red-500/5 transition text-left group">
+                          <button
+                            onClick={() => setRequest({ kind: "cancellation", bookingId: booking.id })}
+                            className="w-full flex items-center gap-3 px-4 py-3.5 hover:bg-red-500/5 transition text-left group"
+                          >
                             <div className="h-9 w-9 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
                               <svg className="h-4 w-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                             </div>
@@ -1014,6 +1026,29 @@ function BookingHistory() {
               </div>
             </div>
           </div>
+        );
+      })()}
+
+      {/* Date change / cancellation request. One modal for both — they're the
+          same shape: say what you want, see what gets sent, send it. */}
+      {request && (() => {
+        const b = mockBookings.find((x) => x.id === request.bookingId);
+        if (!b) return null;
+        return (
+          <BookingRequestModal
+            kind={request.kind}
+            booking={{
+              bookingRef: b.bookingRef,
+              tripId: b.tripId,
+              tripTitle: b.tripTitle,
+              departureDate: b.departureDate,
+              travellers: b.travellers,
+              balanceDue: b.balanceDue,
+              depositPaid: b.depositPaid,
+            }}
+            customer={{ name: user?.name ?? "", email: user?.email ?? "" }}
+            onClose={() => setRequest(null)}
+          />
         );
       })()}
     </section>
