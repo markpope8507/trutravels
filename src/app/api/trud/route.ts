@@ -21,7 +21,7 @@ import { cleanPath, describePage } from "@/lib/trud/context";
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-const MODEL = "claude-opus-5";
+const MODEL = "claude-sonnet-5";
 const MAX_HISTORY = 20; // user+assistant turns kept per request
 const MAX_TOOL_ROUNDS = 4;
 
@@ -74,10 +74,18 @@ export async function POST(request: Request) {
   const client = new Anthropic();
   const messages: Anthropic.Beta.BetaMessageParam[] = incoming.map((m) => ({ role: m.role, content: m.content }));
 
-  // Page context goes in the messages array (not the system prompt) so the
-  // cached knowledge-base prefix stays byte-identical across pages.
+  // Page context rides inside the last user turn (not the system prompt) so
+  // the cached knowledge-base prefix stays byte-identical across pages.
+  // Sonnet 5 does not accept mid-conversation system messages, hence a
+  // labelled text block rather than role: "system".
   const pageNote = describePage(cleanPath(body.page));
-  if (pageNote) messages.push({ role: "system", content: pageNote });
+  if (pageNote) {
+    const last = messages[messages.length - 1];
+    last.content = [
+      { type: "text", text: `[Context from the website, not written by the visitor: ${pageNote}]` },
+      { type: "text", text: last.content as string },
+    ];
+  }
 
   const encoder = new TextEncoder();
   const stream = new ReadableStream<Uint8Array>({
@@ -88,8 +96,6 @@ export async function POST(request: Request) {
           const msgStream = client.beta.messages.stream({
             model: MODEL,
             max_tokens: 2048,
-            betas: ["server-side-fallback-2026-07-01"],
-            fallbacks: "default",
             output_config: { effort: "low" },
             system: [
               { type: "text", text: TRUD_INSTRUCTIONS },
