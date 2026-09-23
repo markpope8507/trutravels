@@ -15,6 +15,9 @@ import {
   type Match,
   type Question,
 } from "@/lib/inspire-me-quiz";
+import QuestionBlock, { toggleAnswer } from "@/components/preference-questions";
+import { setPreferences } from "@/lib/travel-preferences";
+import { useAuth } from "@/lib/auth-context";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -53,67 +56,6 @@ function InspireMeButton({ onClick }: { onClick: () => void }) {
       </svg>
       Inspire Me
     </button>
-  );
-}
-
-function Tick() {
-  return (
-    <svg className="ml-auto h-4 w-4 flex-shrink-0 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-    </svg>
-  );
-}
-
-function QuestionBlock({
-  q,
-  picked,
-  onToggle,
-}: {
-  q: Question;
-  picked: string[];
-  onToggle: (value: string) => void;
-}) {
-  const atMax = q.max !== undefined && picked.length >= q.max;
-  return (
-    <fieldset className="mx-0 border-0 p-0">
-      <legend className="mb-1 font-heading text-xl font-black uppercase leading-tight text-white sm:text-2xl">
-        {q.question}
-      </legend>
-      <p className="mb-5 text-sm text-gray-400">
-        {q.hint}
-        {atMax && q.type === "multi" && (
-          <span className="text-tru-pink"> That&rsquo;s your {q.max} — unpick one to swap.</span>
-        )}
-      </p>
-
-      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-        {q.options.map((o) => {
-          const on = picked.includes(o.value);
-          // At the cap, everything unpicked goes quiet rather than silently
-          // doing nothing when clicked.
-          const blocked = !on && atMax && !o.wildcard;
-          return (
-            <button
-              key={o.value}
-              type="button"
-              onClick={() => !blocked && onToggle(o.value)}
-              aria-pressed={on}
-              disabled={blocked}
-              className={`flex items-center gap-3 rounded-[10px] border px-4 py-3.5 text-left transition-all duration-200 ${
-                on
-                  ? "border-tru-pink bg-tru-pink/10 text-white"
-                  : blocked
-                    ? "cursor-not-allowed border-white/5 bg-white/[0.02] text-gray-600"
-                    : "border-white/10 bg-white/5 text-gray-300 hover:border-white/20 hover:bg-white/10"
-              }`}
-            >
-              <span className="text-sm font-medium">{o.label}</span>
-              {on && <Tick />}
-            </button>
-          );
-        })}
-      </div>
-    </fieldset>
   );
 }
 
@@ -223,6 +165,7 @@ function Results({
 }
 
 function InspireMeModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const { user } = useAuth();
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [matches, setMatches] = useState<Match[] | null>(null);
@@ -251,25 +194,7 @@ function InspireMeModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
      read the same stale object and the first one vanishes. Easy to miss by
      hand and trivial to hit on a phone. */
   const toggle = (q: Question, value: string) => {
-    const option = q.options.find((o) => o.value === value)!;
-    setAnswers((prev) => {
-      const picked = prev[q.id] ?? [];
-      let next: string[];
-
-      if (q.type === "single") {
-        next = picked[0] === value ? [] : [value];
-      } else if (option.wildcard) {
-        next = picked.includes(value) ? [] : [value];
-      } else {
-        const noWildcards = picked.filter((v) => !q.options.find((o) => o.value === v)?.wildcard);
-        next = noWildcards.includes(value)
-          ? noWildcards.filter((v) => v !== value)
-          : [...noWildcards, value];
-        // At the cap, the newest pick pushes the oldest out.
-        if (q.max !== undefined) next = next.slice(-q.max);
-      }
-      return { ...prev, [q.id]: next };
-    });
+    setAnswers((prev) => ({ ...prev, [q.id]: toggleAnswer(q, value, prev[q.id] ?? []) }));
   };
 
   /* Every question is answerable, so nothing is required — but moving on
@@ -278,8 +203,15 @@ function InspireMeModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
   const isLast = step === STEPS.length - 1;
 
   const next = () => {
-    if (isLast) setMatches(getMatches(answers));
-    else setStep(step + 1);
+    if (!isLast) {
+      setStep(step + 1);
+      return;
+    }
+    /* Finishing the quiz while logged in fills in Travel Preferences — the
+       questions are the same ones the profile shows, so there's nothing to
+       translate. Logged out, the answers just power this result. */
+    if (user) setPreferences(answers);
+    setMatches(getMatches(answers));
   };
 
   const back = () => {

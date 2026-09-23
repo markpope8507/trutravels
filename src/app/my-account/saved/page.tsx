@@ -17,10 +17,14 @@ import {
 import TripCard from "@/components/trip-card";
 import {
   recommendTrips,
+  parsePreferences,
+  preferenceLabels,
   subscribePreferences,
   getPreferencesSnapshot,
   getServerSnapshot as getPrefsServerSnapshot,
 } from "@/lib/travel-preferences";
+import { STEPS } from "@/lib/inspire-me-quiz";
+import { hasAnswers } from "@/components/preference-questions";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -42,7 +46,9 @@ function SavedContent() {
      afterwards, and it says nothing at all before the first save. The
      shortlist and the suggestions are two different jobs. */
   const prefsRaw = useSyncExternalStore(subscribePreferences, getPreferencesSnapshot, getPrefsServerSnapshot);
-  const prefs: string[] = JSON.parse(prefsRaw);
+  const prefs = parsePreferences(prefsRaw);
+  const answered = hasAnswers(prefs);
+  const prefLabels = preferenceLabels(prefs, STEPS);
   const recsToShow = recommendTrips(prefs, savedIds, 8).map((m) => m.trip);
 
   return (
@@ -86,14 +92,14 @@ function SavedContent() {
       {/* Recommendations */}
       <section>
         <p className="text-tru-green text-[10px] font-bold uppercase tracking-[0.2em] font-heading mb-1">
-          {prefs.length > 0 ? "Based On Your Preferences" : "Popular Right Now"}
+          {answered ? "Based On Your Preferences" : "Popular Right Now"}
         </p>
         <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-2">
           You Might Also Like
         </h2>
         <p className="text-gray-400 text-sm mb-6">
-          {prefs.length > 0 ? (
-            <>Matched to how you said you like to travel: {prefs.join(", ").toLowerCase()}.</>
+          {answered && prefLabels.length > 0 ? (
+            <>Matched to how you said you like to travel: {prefLabels.join(", ").toLowerCase()}.</>
           ) : (
             <>
               <Link href="/my-account/profile" className="text-tru-pink underline transition hover:text-tru-pink-light">

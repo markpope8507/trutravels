@@ -11,12 +11,14 @@ import ProfileLockedNotice from "@/components/profile-locked-notice";
 import { mockBookings } from "@/components/booking-history";
 import { useAuth } from "@/lib/auth-context";
 import {
-  TRAVEL_PREFERENCES,
-  togglePreference,
+  setPreferences,
+  parsePreferences,
   subscribePreferences,
   getPreferencesSnapshot,
   getServerSnapshot,
 } from "@/lib/travel-preferences";
+import { STEPS } from "@/lib/inspire-me-quiz";
+import QuestionBlock, { toggleAnswer, hasAnswers } from "@/components/preference-questions";
 
 
 
@@ -38,11 +40,12 @@ function ProfileContent() {
      editable view — otherwise the unlocked form is unreachable for review. */
   const params = useSearchParams();
 
-  /* Preferences drive the recommendations on the dashboard and the saved
-     page, so they have to persist — these were plain buttons that did
-     nothing. Same store shape as saved trips. */
+  /* These ARE the Inspire Me questions — same STEPS, same answers, same
+     store. Finishing the quiz while logged in fills this in, and editing here
+     changes what the quiz would have told you. */
   const prefsRaw = useSyncExternalStore(subscribePreferences, getPreferencesSnapshot, getServerSnapshot);
-  const prefs: string[] = JSON.parse(prefsRaw);
+  const prefs = parsePreferences(prefsRaw);
+  const answered = hasAnswers(prefs);
   const liveBooking = mockBookings.find((b) => b.status === "upcoming");
   const locked = Boolean(liveBooking) && params.get("edit") !== "1";
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -113,32 +116,25 @@ function ProfileContent() {
       {/* Travel preferences */}
       <div className="bg-white/5 rounded-2xl p-8 border border-white/10 mb-8">
         <h3 className="text-lg font-bold text-white mb-4">Travel Preferences</h3>
-        <p className="text-gray-400 text-sm mb-4">
-          These shape what we recommend you — on your dashboard and on your saved trips.
+        <p className="text-gray-400 text-sm mb-6">
+          The same questions Inspire Me asks. Answer them here or in there — it&rsquo;s the same answers either way,
+          and they shape what we recommend you.
         </p>
-        <div className="flex flex-wrap gap-2">
-          {TRAVEL_PREFERENCES.map((pref) => {
-            const on = prefs.includes(pref);
-            return (
-              <button
-                key={pref}
-                onClick={() => togglePreference(pref)}
-                aria-pressed={on}
-                className={`rounded-full border px-4 py-2 text-sm transition ${
-                  on
-                    ? "border-tru-pink bg-tru-pink/10 text-tru-pink"
-                    : "border-white/20 text-gray-300 hover:border-tru-pink hover:text-tru-pink"
-                }`}
-              >
-                {pref}
-              </button>
-            );
-          })}
+        <div className="space-y-7">
+          {STEPS.flatMap((step) => step.questions).map((q) => (
+            <QuestionBlock
+              key={q.id}
+              q={q}
+              compact
+              picked={prefs[q.id] ?? []}
+              onToggle={(value) =>
+                setPreferences({ ...prefs, [q.id]: toggleAnswer(q, value, prefs[q.id] ?? []) })
+              }
+            />
+          ))}
         </div>
-        <p className="mt-4 text-xs text-gray-500">
-          {prefs.length > 0
-            ? `${prefs.length} selected — saved as you pick them.`
-            : "Pick a few and your recommendations will update straight away."}
+        <p className="mt-5 text-xs text-gray-500">
+          {answered ? "Saved as you pick them." : "Nothing picked yet — your recommendations are the best-rated trips until you do."}
         </p>
       </div>
 

@@ -1,62 +1,52 @@
-import { Trip, trips } from "@/lib/data";
+import { getMatches, type Answers } from "@/lib/inspire-me-quiz";
 
 /**
- * Travel preferences — the pills on the profile page, and the thing
- * recommendations are built from.
+ * Travel preferences — and they ARE the Inspire Me answers.
+ *
+ * ONE SET OF QUESTIONS, TWO PLACES TO ANSWER THEM. The quiz asks them one at a
+ * time in a modal; the profile page shows all five at once under "Travel
+ * Preferences". Finishing the quiz while logged in fills the profile in, and
+ * editing the profile changes what the quiz would have told you — because
+ * they're the same stored answers, not two lists that mean roughly the same
+ * thing.
  *
  * WHY NOT OFF SAVED TRIPS. Recommending from saves means the first save
- * decides everything you're shown afterwards, and it tells you nothing before
- * you've saved anything. Preferences are the traveller saying outright what
- * they want, which is both stable and available from day one — so saves and
- * recommendations stay separate: one is the shortlist you built, the other is
- * what we think you've missed.
+ * decides everything shown afterwards, and it says nothing before the first
+ * save. Preferences are the traveller stating what they want: stable, and
+ * there from day one. The shortlist and the suggestions are different jobs.
  *
- * Same store shape as saved-trips.ts: localStorage plus an event, for
+ * Same store shape as saved-trips.ts — localStorage plus an event, for
  * useSyncExternalStore. The server snapshot is empty, so it hydrates cleanly.
  */
 
 const KEY = "trutravels-travel-preferences";
 const EVENT = "trutravels-travel-preferences-change";
 
-/** The options offered on the profile page, in the order they appear there. */
-export const TRAVEL_PREFERENCES = [
-  "Beach & Islands",
-  "Culture & History",
-  "Adventure & Outdoors",
-  "Food & Cooking",
-  "Nightlife & Parties",
-  "Wellness & Yoga",
-  "Wildlife & Safari",
-  "City Breaks",
-  "Off the Beaten Track",
-] as const;
-
-export type TravelPreference = (typeof TRAVEL_PREFERENCES)[number];
-
-export function getPreferences(): string[] {
-  if (typeof window === "undefined") return [];
+export function getPreferences(): Answers {
+  if (typeof window === "undefined") return {};
   try {
-    return JSON.parse(localStorage.getItem(KEY) || "[]");
+    const parsed = JSON.parse(localStorage.getItem(KEY) || "{}");
+    /* An earlier version stored a flat array of labels. Anything that isn't
+       the current shape is dropped rather than migrated — it held nine
+       made-up categories that no longer map onto a question. */
+    return parsed && !Array.isArray(parsed) && typeof parsed === "object" ? parsed : {};
   } catch {
-    return [];
+    return {};
   }
 }
 
-export function togglePreference(pref: string): boolean {
-  const current = getPreferences();
-  const next = current.includes(pref) ? current.filter((p) => p !== pref) : [...current, pref];
-  localStorage.setItem(KEY, JSON.stringify(next));
+export function setPreferences(a: Answers) {
+  localStorage.setItem(KEY, JSON.stringify(a));
   window.dispatchEvent(new Event(EVENT));
-  return next.includes(pref);
 }
 
 export function getPreferencesSnapshot(): string {
-  if (typeof window === "undefined") return "[]";
-  return localStorage.getItem(KEY) || "[]";
+  if (typeof window === "undefined") return "{}";
+  return localStorage.getItem(KEY) || "{}";
 }
 
 export function getServerSnapshot(): string {
-  return "[]";
+  return "{}";
 }
 
 export function subscribePreferences(callback: () => void): () => void {
@@ -68,67 +58,44 @@ export function subscribePreferences(callback: () => void): () => void {
   };
 }
 
-// ------------------------------------------------------------ matching
-
-/**
- * What each preference looks like in a trip's own words.
- *
- * Keyword matching over title, tagline, description, highlights and
- * destination — the fields every trip actually has. Only one trip in lib/data
- * carries `inclusions.activities`, so there's no structured activity data to
- * match on; don't write a rule here that needs a field the trips don't have.
- */
-const PREFERENCE_WORDS: Record<string, string[]> = {
-  "Beach & Islands": ["beach", "island", "snorkel", "coast", "bay", "lagoon", "sail", "dive", "sand", "hopper"],
-  "Culture & History": ["temple", "ancient", "history", "culture", "tradition", "heritage", "palace", "ruins", "angkor"],
-  "Adventure & Outdoors": ["trek", "hike", "climb", "surf", "raft", "kayak", "zip", "volcano", "summit", "adventure"],
-  "Food & Cooking": ["food", "cook", "street food", "market", "cuisine", "eat", "pad thai", "pho"],
-  "Nightlife & Parties": ["party", "full moon", "nightlife", "rooftop", "bar", "buzz", "boat party"],
-  "Wellness & Yoga": ["yoga", "wellness", "retreat", "spa", "sunrise", "unwind", "relax"],
-  "Wildlife & Safari": ["wildlife", "elephant", "orangutan", "sanctuary", "jungle", "rainforest", "safari", "turtle"],
-  "City Breaks": ["city", "bangkok", "hanoi", "saigon", "urban", "seoul", "tokyo", "capital"],
-  "Off the Beaten Track": ["hidden", "off the beaten", "remote", "secret", "uncovered", "lesser-known", "local"],
-};
-
-function haystack(trip: Trip) {
-  return `${trip.title} ${trip.tagline} ${trip.description} ${trip.highlights.join(" ")} ${trip.destination}`.toLowerCase();
+/** Parse a snapshot, tolerating the old array shape. */
+export function parsePreferences(snapshot: string): Answers {
+  try {
+    const parsed = JSON.parse(snapshot);
+    return parsed && !Array.isArray(parsed) && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
 }
 
-export type PreferenceMatch = { trip: Trip; matched: string[] };
-
 /**
- * Trips for the recommendations rail, best match first.
+ * Trips for a recommendations rail, best match first.
  *
- * With no preferences set this returns the highest-rated trips rather than
- * nothing — an empty rail is a worse answer than a sensible default, and the
- * caller can tell the two apart by checking `prefs.length`.
+ * The quiz's own scorer does the work — one matcher, so the trips the quiz
+ * recommends and the trips the dashboard recommends are ranked the same way.
  *
- * `exclude` drops trips already on the shortlist: recommending something
+ * `exclude` drops what's already on the shortlist: recommending something
  * someone has already saved is the one thing a recommendation must not do.
+ * With nothing answered, `getMatches` still returns its best-rated ordering,
+ * so the rail is never empty — the caller can tell the two apart with
+ * `hasAnswers`.
  */
-export function recommendTrips(prefs: string[], exclude: string[] = [], count = 8): PreferenceMatch[] {
-  const pool = trips.filter((t) => !exclude.includes(t.id));
-
-  if (prefs.length === 0) {
-    return pool
-      .slice()
-      .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0) || (b.reviewCount ?? 0) - (a.reviewCount ?? 0))
-      .slice(0, count)
-      .map((trip) => ({ trip, matched: [] }));
-  }
-
-  return pool
-    .map((trip) => {
-      const text = haystack(trip);
-      const matched = prefs.filter((p) => (PREFERENCE_WORDS[p] ?? []).some((w) => text.includes(w)));
-      return { trip, matched };
-    })
-    .filter((m) => m.matched.length > 0)
-    .sort(
-      (a, b) =>
-        b.matched.length - a.matched.length ||
-        (b.trip.rating ?? 0) - (a.trip.rating ?? 0) ||
-        (b.trip.reviewCount ?? 0) - (a.trip.reviewCount ?? 0),
-    )
+export function recommendTrips(prefs: Answers, exclude: string[] = [], count = 8) {
+  return getMatches(prefs, count + exclude.length)
+    .filter((m) => !exclude.includes(m.trip.id))
     .slice(0, count);
+}
+
+/** Human-readable answers, for "matched to: beaches, bucket list". */
+export function preferenceLabels(prefs: Answers, steps: { questions: { id: string; options: { value: string; label: string }[] }[] }[]): string[] {
+  const out: string[] = [];
+  for (const step of steps) {
+    for (const q of step.questions) {
+      for (const v of prefs[q.id] ?? []) {
+        const label = q.options.find((o) => o.value === v)?.label;
+        if (label && v !== "any") out.push(label);
+      }
+    }
+  }
+  return out;
 }

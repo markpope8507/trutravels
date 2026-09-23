@@ -21,10 +21,12 @@ import {
 } from "@/lib/saved-trips";
 import {
   recommendTrips,
+  parsePreferences,
   subscribePreferences,
   getPreferencesSnapshot,
   getServerSnapshot as getPrefsServerSnapshot,
 } from "@/lib/travel-preferences";
+import { hasAnswers } from "@/components/preference-questions";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
 import "swiper/css";
@@ -57,7 +59,8 @@ function DashboardContent() {
      what they've saved. Saves are the shortlist they built; this is what they
      might have missed — two different jobs, so they stay separate. */
   const prefsRaw = useSyncExternalStore(subscribePreferences, getPreferencesSnapshot, getPrefsServerSnapshot);
-  const prefs: string[] = JSON.parse(prefsRaw);
+  const prefs = parsePreferences(prefsRaw);
+  const answered = hasAnswers(prefs);
   const recommended = recommendTrips(prefs, savedIds, 8);
 
   return (
@@ -258,6 +261,40 @@ function DashboardContent() {
                 <TripCard trip={trip} onRemove={toggleSavedTrip} />
               </SwiperSlide>
             ))}
+            {/* Last card in the rail: what to do once you've been through the
+                shortlist. The recommendations below are passive — here's what
+                we picked; this is the active one — go and look yourself. */}
+            {/* Inline, not classes. Swiper's own stylesheet sets
+                height:100% on .swiper-slide and loads after Tailwind, so
+                `h-auto` lost on stylesheet order — height:100% against an
+                auto-height wrapper resolves to the content height. Clearing
+                it to auto lets align-self:stretch take the flex line's full
+                height, which is what puts this card's centred content on the
+                trip card's midline instead of 118px above it. */}
+            <SwiperSlide style={{ height: "auto", alignSelf: "stretch" }}>
+              <Link
+                href="/explore"
+                className="group flex h-full min-h-[280px] flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/15 bg-white/[0.03] p-8 text-center transition hover:border-tru-pink/50 hover:bg-tru-pink/5"
+              >
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-tru-pink/15 transition group-hover:bg-tru-pink/25">
+                  <svg className="h-5 w-5 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </span>
+                <p className="font-heading text-sm font-black uppercase tracking-wide text-white transition group-hover:text-tru-pink">
+                  Save More Trips
+                </p>
+                <p className="max-w-[16rem] text-xs leading-relaxed text-gray-400">
+                  Tap the heart on any trip and it lands here.
+                </p>
+                <span className="mt-1 inline-flex items-center gap-2 rounded-[10px] border border-tru-pink/40 px-5 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-tru-pink transition group-hover:bg-tru-pink group-hover:text-white">
+                  Explore Trips
+                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </Link>
+            </SwiperSlide>
           </Swiper>
         ) : (
           <div className="rounded-xl border border-dashed border-white/10 bg-white/5 p-8 text-center">
@@ -277,11 +314,11 @@ function DashboardContent() {
       <section className="relative mb-12">
         <div className="relative">
         <SectionHeading
-          eyebrow={prefs.length > 0 ? "Based On Your Preferences" : "For You"}
+          eyebrow={answered ? "Based On Your Preferences" : "For You"}
           title="Recommended Trips"
           href="/explore"
         />
-        {prefs.length === 0 && (
+        {!answered && (
           <p className="-mt-2 mb-5 text-sm text-gray-400">
             <Link href="/my-account/profile" className="text-tru-pink underline transition hover:text-tru-pink-light">
               Tell us how you like to travel
