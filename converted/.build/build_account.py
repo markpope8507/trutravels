@@ -584,7 +584,7 @@ def profile_page():
 
         <div class="acct-field2">
           <div class="acct-field">{lbl("acct-first", "First Name", REQ, HELP)}<input id="acct-first" type="text" required value="Alex" autocomplete="given-name" /></div>
-          <div class="acct-field">{lbl("acct-middle", "Middle Name", REQ, HELP)}<input id="acct-middle" type="text" required value="" placeholder="As shown on passport" autocomplete="additional-name" /></div>
+          <div class="acct-field">{lbl("acct-middle", "Middle Name", OPT, HELP)}<input id="acct-middle" type="text" value="" placeholder="As shown on passport" autocomplete="additional-name" /></div>
         </div>
 
         <div class="acct-field2">
@@ -598,7 +598,7 @@ def profile_page():
         </div>
 
         <div class="acct-field2">
-          <div class="acct-field">{lbl("acct-phone", "Contact Number", REQ)}<input id="acct-phone" type="tel" required value="+44 7700 900000" autocomplete="tel" /></div>
+          <div class="acct-field">{lbl("acct-phone", "Contact Number")}<input id="acct-phone" type="tel" value="+44 7700 900000" autocomplete="tel" /></div>
           <div class="acct-field">{lbl("acct-dob-day", "Date Of Birth")}
             <!-- Day / month / year. A single date input opens a calendar you
                  have to page back through decades of: right for a departure

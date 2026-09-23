@@ -8,10 +8,14 @@ import { FIELD_HINT, FIELD_INPUT, FIELD_LABEL, FORM_SUBMIT } from "@/lib/form-cl
 /**
  * "Notify me when this goes on sale" — the CTA on a trip that hasn't launched.
  *
- * WHAT IT ASKS FOR. Email, and nothing else that isn't needed. The one
- * optional extra is which month they'd travel: it's the single thing that
- * makes the list worth having, because it tells the team which departures to
- * open first rather than just how many people are waiting.
+ * WHAT IT ASKS FOR. Name, email and contact number — all required, because
+ * this list is a sales list: someone will pick up the phone on launch day,
+ * and a row with an email and nothing else can't be called.
+ *
+ * The one optional field is which months they'd travel. It's what makes the
+ * list worth having, since it tells the team which departures to open first
+ * rather than just how many people are waiting — but it isn't worth losing a
+ * sign-up over, so it stays optional.
  *
  * SAYS WHAT HAPPENS NEXT. "We'll email you" is where most register-interest
  * forms stop. The confirmation says when (the on-sale date they're already
@@ -112,8 +116,8 @@ export default function RegisterInterestModal({
               }}
             >
               <p className="mb-6 text-sm leading-relaxed text-gray-300">
-                Dates go live on <span className="font-semibold text-white">{onSaleLabel}</span>. Leave your email and
-                we&rsquo;ll tell you the morning they do — before it goes out anywhere else.
+                Dates go live on <span className="font-semibold text-white">{onSaleLabel}</span>. Leave your details
+                and we&rsquo;ll tell you the morning they do — before it goes out anywhere else.
               </p>
 
               <div className="mb-4">
@@ -131,16 +135,48 @@ export default function RegisterInterestModal({
                 />
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-3">
+                <div className="mb-4">
+                  <label htmlFor="ri-first" className={FIELD_LABEL}>
+                    First Name <span className="text-gray-500">*</span>
+                  </label>
+                  <input
+                    id="ri-first"
+                    name="firstName"
+                    type="text"
+                    required
+                    placeholder="First name"
+                    autoComplete="given-name"
+                    className={FIELD_INPUT}
+                  />
+                </div>
+                <div className="mb-4">
+                  <label htmlFor="ri-last" className={FIELD_LABEL}>
+                    Surname <span className="text-gray-500">*</span>
+                  </label>
+                  <input
+                    id="ri-last"
+                    name="lastName"
+                    type="text"
+                    required
+                    placeholder="Surname"
+                    autoComplete="family-name"
+                    className={FIELD_INPUT}
+                  />
+                </div>
+              </div>
+
               <div className="mb-4">
-                <label htmlFor="ri-name" className={FIELD_LABEL}>
-                  First Name <span className="text-gray-500">(optional)</span>
+                <label htmlFor="ri-phone" className={FIELD_LABEL}>
+                  Contact Number <span className="text-gray-500">*</span>
                 </label>
                 <input
-                  id="ri-name"
-                  name="firstName"
-                  type="text"
-                  placeholder="First name"
-                  autoComplete="given-name"
+                  id="ri-phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  placeholder="+44 7700 900000"
+                  autoComplete="tel"
                   className={FIELD_INPUT}
                 />
               </div>

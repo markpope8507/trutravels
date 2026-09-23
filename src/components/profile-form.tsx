@@ -9,19 +9,10 @@ import { useState } from "react";
  * four rows of two — first/middle name, surname/gender, nationality/country,
  * contact number/date of birth.
  *
- * REQUIRED: email, all three name fields, nationality and contact number.
- * The names and date of birth go on the booking and have to match a passport,
- * so a partial answer is worse than none — and the contact number is how the
- * trip leader reaches someone on the day.
- *
- * MIDDLE NAME IS REQUIRED TOO, matching the live form. Anyone without one has
- * nothing to type, so if that turns into support tickets the fix is a "no
- * middle name" tick rather than making the field optional again — an empty
- * optional field and a deliberate "none" look identical to whoever checks the
- * manifest.
- *
- * The fields that stay optional say "(optional)" rather than leaving the
- * absence of an asterisk to carry the meaning.
+ * MIDDLE NAME IS NOT REQUIRED here, though the live form marks it with an
+ * asterisk. Plenty of people don't have one, and a required field you can't
+ * satisfy is a dead end. The optional fields say "(optional)" rather than
+ * leaving the absence of an asterisk to carry the meaning.
  *
  * THE HELP ICONS are on the four fields that go on a booking and have to match
  * a passport — that's what they're there to say, and it's the one thing people
@@ -239,13 +230,12 @@ export default function ProfileForm({
           />
         </div>
         <div className="mb-4">
-          <FieldLabel htmlFor="pf-middle" required help={PASSPORT_HELP}>
+          <FieldLabel htmlFor="pf-middle" optional help={PASSPORT_HELP}>
             Middle Name
           </FieldLabel>
           <input
             id="pf-middle"
             type="text"
-            required
             disabled={locked}
             placeholder="As shown on passport"
             autoComplete="additional-name"
@@ -300,13 +290,10 @@ export default function ProfileForm({
         />
 
         <div className="mb-4">
-          <FieldLabel htmlFor="pf-phone" required>
-            Contact Number
-          </FieldLabel>
+          <FieldLabel htmlFor="pf-phone">Contact Number</FieldLabel>
           <input
             id="pf-phone"
             type="tel"
-            required
             disabled={locked}
             defaultValue="+44 7700 900000"
             autoComplete="tel"
