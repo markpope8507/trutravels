@@ -155,6 +155,10 @@ export type Trip = {
   reviewCount?: number;
   /** Override link target for the trip card (e.g. an external product page). */
   bookingUrl?: string;
+  /** Route map for the Map section. Every trip page used to hardcode the
+   *  Thailand Island Hopper map regardless of where the trip goes; the
+   *  section is hidden for a trip that hasn't got one of its own. */
+  mapImage?: string;
   /** Set on a trip whose page is live but whose dates aren't on sale yet.
    *  Swaps the pricing card for a countdown and a notify-me CTA — see
    *  components/trip-launch-card.tsx. */
@@ -758,11 +762,99 @@ export const trips: Trip[] = [
       firstDeparture: "2027-03-06",
       interestCount: 412,
     },
+    inclusions: {
+      accommodation: "14 nights in hotels, safari lodges and a beach guesthouse",
+      transport: "All transport included — private vehicle, one internal flight, 4x4 game drives",
+      meals: "10 breakfasts, 3 lunches, 4 dinners",
+      leader: "A Local Legend who knows which waterhole to sit at and when",
+      activities: [
+        {
+          name: "Table Mountain at sunrise",
+          experienceType: "rise-up",
+          day: 2,
+          image: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800&q=80",
+          description: "Up the front face before the cable car opens, with the whole Cape waking up underneath you.",
+        },
+        {
+          name: "Cape Peninsula drive",
+          experienceType: "bucket-list",
+          day: 3,
+          image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800&q=80",
+          description: "Chapman's Peak, Boulders Beach penguins and the Cape of Good Hope in one very long, very good day.",
+        },
+        {
+          name: "Township food walk with a local host",
+          experienceType: "local-lens",
+          day: 4,
+          image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80",
+          description: "Langa, on foot, eating as you go — with someone who grew up on the street you're walking down.",
+        },
+        {
+          name: "Garden Route road trip",
+          experienceType: "unplugged",
+          day: 6,
+          image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&q=80",
+          description: "Coast road east with the windows down. Knysna, Wilderness, and whichever viewpoint the leader rates that week.",
+        },
+        {
+          name: "Big Five game drives in the Kruger",
+          experienceType: "bucket-list",
+          day: 11,
+          image: "https://images.unsplash.com/photo-1547970810-dc1eac37d174?w=800&q=80",
+          description: "Three days, sunrise and sunset drives, and a very real chance of all five.",
+        },
+        {
+          name: "Shark cage diving",
+          experienceType: "rise-up",
+          day: 5,
+          image: "https://images.unsplash.com/photo-1560275619-4662e36fa65c?w=800&q=80",
+          description: "Optional, and nobody will think less of you either way.",
+        },
+      ],
+      truExclusive: {
+        name: "Sundowners On The Escarpment",
+        description:
+          "A private spot on the Blyde River Canyon rim that we have to ourselves, with drinks and the whole valley going orange. Not on any other operator's itinerary.",
+      },
+    },
+    accommodation: [
+      {
+        title: "Cape Town City Hotel",
+        description:
+          "Four nights on the doorstep of Kloof Street, walkable to the waterfront and the best coffee in the city. Twin-share rooms, rooftop pool, Table Mountain out of the window.",
+        image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
+      },
+      {
+        title: "Garden Route Guesthouses",
+        description:
+          "Small family-run places along the coast — the kind with six rooms, a dog, and a host who tells you where to eat. A different one most nights.",
+        image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80",
+      },
+      {
+        title: "Kruger Safari Lodge",
+        description:
+          "Three nights inside the reserve. Thatched chalets, an outdoor firepit, and game wandering past the fence while you eat breakfast.",
+        image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80",
+      },
+      {
+        title: "Blyde Canyon Cabins",
+        description:
+          "Wooden cabins on the escarpment rim, miles from a street light. This is the one everyone photographs.",
+        image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&q=80",
+      },
+    ],
     itinerary: [
-      { day: 1, title: "Cape Town", description: "Land, meet the crew, and get straight up Signal Hill for sunset." },
-      { day: 4, title: "The Garden Route", description: "Coast road south, stopping wherever the view says so." },
-      { day: 9, title: "Kruger", description: "Three days of game drives, sunrise starts and very early nights." },
-      { day: 15, title: "Johannesburg", description: "Last breakfast, long goodbyes." },
+      { day: 1, title: "Cape Town", description: "Land, meet the crew, and get straight up Signal Hill for sunset.", location: "Cape Town" },
+      { day: 2, title: "Table Mountain", description: "Up the front face at sunrise, down by cable car, afternoon free in the city.", location: "Cape Town" },
+      { day: 3, title: "Cape Peninsula", description: "Chapman's Peak, the penguins at Boulders, and the Cape of Good Hope.", location: "Cape Peninsula" },
+      { day: 4, title: "Langa & the winelands", description: "Township food walk in the morning, Stellenbosch in the afternoon.", location: "Cape Town" },
+      { day: 5, title: "Gansbaai", description: "Shark cage diving for anyone who fancies it, coast walk for everyone who doesn't.", location: "Gansbaai" },
+      { day: 6, title: "The Garden Route begins", description: "East along the coast. Windows down, nowhere to be.", location: "Hermanus" },
+      { day: 8, title: "Knysna & Wilderness", description: "Lagoons, forest walks, and the best oysters of the trip.", location: "Knysna" },
+      { day: 10, title: "Fly north", description: "Internal flight to Johannesburg, then the road to the escarpment.", location: "Johannesburg" },
+      { day: 11, title: "Kruger", description: "First game drive at sunrise. Coffee in the dark, lions by seven.", location: "Kruger National Park" },
+      { day: 13, title: "Blyde River Canyon", description: "Sundowners on the rim, at our own spot.", location: "Blyde River Canyon" },
+      { day: 15, title: "Johannesburg", description: "Last breakfast, long goodbyes.", location: "Johannesburg" },
     ],
   }
 ];
