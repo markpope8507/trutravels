@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Trip, TravelStyle, travelStyleConfig } from "@/lib/data";
 import { LIFE_MOMENTS } from "@/lib/life-moments";
 import TripCard from "@/components/trip-card";
+import RangeSlider from "@/components/range-slider";
 import PillButton from "@/components/pill-button";
 
 const PAGE_SIZE = 9;
@@ -416,32 +417,14 @@ export default function AllTripsBrowser({
               : `${dayRange[0]} – ${dayRange[1]} days`}
           </p>
         </div>
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <span className="w-8 text-xs text-gray-500">Min</span>
-            <input
-              type="range"
-              min={minDays}
-              max={maxDays}
-              value={dayRange[0]}
-              aria-label="Minimum trip length in days"
-              onChange={(e) => setDayRange([Math.min(Number(e.target.value), dayRange[1]), dayRange[1]])}
-              className="h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-white/10 accent-tru-pink"
-            />
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="w-8 text-xs text-gray-500">Max</span>
-            <input
-              type="range"
-              min={minDays}
-              max={maxDays}
-              value={dayRange[1]}
-              aria-label="Maximum trip length in days"
-              onChange={(e) => setDayRange([dayRange[0], Math.max(Number(e.target.value), dayRange[0])])}
-              className="h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-white/10 accent-tru-pink"
-            />
-          </div>
-        </div>
+        <RangeSlider
+          min={minDays}
+          max={maxDays}
+          value={dayRange}
+          onChange={setDayRange}
+          label="trip length"
+          format={(n) => `${n} days`}
+        />
       </FilterSection>
 
       {/* Price Range — always visible */}
@@ -450,30 +433,15 @@ export default function AllTripsBrowser({
           <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading">Price Range</p>
           <p className="text-white text-sm font-bold font-heading">&pound;{priceRange[0]} – &pound;{priceRange[1]}</p>
         </div>
-        <div className="space-y-3">
-          <div className="flex items-center gap-3">
-            <span className="text-gray-500 text-xs w-8">Min</span>
-            <input
-              type="range"
-              min={minPrice}
-              max={maxPrice}
-              value={priceRange[0]}
-              onChange={(e) => setPriceRange([Math.min(Number(e.target.value), priceRange[1]), priceRange[1]])}
-              className="flex-1 h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer accent-tru-pink"
-            />
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-gray-500 text-xs w-8">Max</span>
-            <input
-              type="range"
-              min={minPrice}
-              max={maxPrice}
-              value={priceRange[1]}
-              onChange={(e) => setPriceRange([priceRange[0], Math.max(Number(e.target.value), priceRange[0])])}
-              className="flex-1 h-1.5 bg-white/10 rounded-full appearance-none cursor-pointer accent-tru-pink"
-            />
-          </div>
-        </div>
+        {/* Same control as Duration above — two handles on one track. */}
+        <RangeSlider
+          min={minPrice}
+          max={maxPrice}
+          value={priceRange}
+          onChange={setPriceRange}
+          label="price"
+          format={(n) => `£${n}`}
+        />
       </div>
 
       {activeFilterCount > 0 && (
