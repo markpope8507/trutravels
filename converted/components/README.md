@@ -24,6 +24,8 @@ page at the site root, drop the `../`.
 |------|-----------|:---:|
 | `trip-carousel.html` | Horizontally-scrollable carousel of trip cards (style badge, save %, pricing, per-day, route, rating, facts, expandable TRU Experience Types). Used on the homepage + blog articles. | yes |
 | `deal-card.html` | Deal card — trip summary, the next on-sale departure (start / end / save / price + Go), and an expandable list of further dates. Bump the `deal-exp-*` / `dm-N` ids per card so each toggle works alone. | no |
+| `stay-card.html` | Where You'll Stay card — 4:3 media, the travel-style logo in the corner, title and caption. Used on country and travel-style pages. | no |
+| `activity-card.html` | Things To Do card — experience-type mark, title, description, and a collapsed "Featured on N trips" list. Give each card its own checkbox id. | yes |
 | `blog-card.html` | Story / blog card — read-time pill, category, title, excerpt, author · date, "Read story". Includes a members-only variant. Used on the stories hub, Keep Reading, and author pages. | no |
 | `blog-image-slider.html` | Swipeable image gallery inside a blog image box (arrows, dots, 1/N counter). Drop-in replacement for a single blog image; box size unchanged. | yes |
 | `blog-image-strip.html` | Multi-up image strip for article bodies — three 4:3 images at a time, arrows sitting outside the track, optional captions. Mirrors the gallery on the live blog articles. Use `blog-image-slider.html` instead for a single framed image. | yes |

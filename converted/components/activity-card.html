@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Activity card (component) &mdash; TruTravels</title>
+  <meta name="description" content="The Things To Do card used on country pages: experience-type mark, title, description, and a collapsed &ldquo;Featured on N trips&rdquo; list." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Note the ../ — this component lives in components/, styles.css is one level up -->
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <div style="padding:2.5rem 1.5rem 0;max-width:80rem;margin:0 auto;"><p style="color:#9ca3af;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.2em;font-size:0.72rem;margin:0;">Activity card component &mdash; demo (Things To Do row)</p></div>
+
+  <!-- ===================================================================
+       ACTIVITY CARD COMPONENT — copy an <article class="act-card"> into a
+       .carousel. Requires styles.css (.act-card*, .carousel*, .rev-*) and the
+       disclosure script below.
+
+       Structure:
+         .act-card[data-exp]
+           .act-card__media       4:3 box
+             img / .act-card__grad / .act-card__glow
+             .act-card__type      experience icon + name + "Experiences"
+           .act-card__body
+             h3.act-card__title
+             p.act-card__description
+             .act-card__tours     the disclosure (see below)
+
+       THE TOUR LIST IS A DISCLOSURE, not an open list. Five tour names under
+       every card doubles the row height and buries the description. It uses
+       the same hidden-checkbox mechanic as .tripcard__exp-* so both
+       disclosures on a page share one toggle script — opening one opens all,
+       which is what the prototype does.
+
+       GIVE EACH CARD ITS OWN CHECKBOX id (act-tours-0, -1, …) or the labels
+       all drive the first card.
+       =================================================================== -->
+  <section class="container section">
+    <p class="eyebrow eyebrow--pink">The Experiences</p>
+    <h2 class="section-heading">Things To Do In <span class="tx-pink">Thailand</span></h2>
+    <div class="rev-carousel" data-arrows>
+      <div class="carousel carousel--bucket carousel--3up">
+<article class="act-card" data-exp="bucket-list">
+              <div class="act-card__media">
+                <img src="https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg" alt="Full Moon Party" />
+                <div class="act-card__grad"></div>
+                <div class="act-card__glow" style="background: radial-gradient(80% 70% at 0% 0%, #FCA5011a 0%, transparent 55%);"></div>
+                <div class="act-card__type">
+                  <img src="../assets/experience-icons/bucket-list.png" alt="" />
+                  <div class="act-card__type-copy">
+                    <p class="act-card__type-name">Bucket List</p>
+                    <p class="act-card__type-label">Experiences</p>
+                  </div>
+                </div>
+              </div>
+              <div class="act-card__body">
+                <h3 class="act-card__title">Full Moon Party</h3>
+                <p class="act-card__description">Held on Haad Rin beach the night of every full moon, this is the original beach rave &mdash; neon body paint, fire skipping ropes, buckets of Sang Som, and tens of thousands of travellers dancing barefoot until sunrise. A rite of passage you&rsquo;ll be telling stories about for years.</p>
+                <div class="act-card__tours">
+                  <input type="checkbox" id="act-tours-0" class="act-card__tours-cb" />
+                  <label class="act-card__tours-sum" for="act-tours-0"><span>Featured on <span class="act-card__tours-count">5 trips</span></span><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></label>
+                  <div class="act-card__tours-wrap"><div class="act-card__tours-inner">
+                    <ul class="act-card__tours-list">
+                      <li><a href="../all-trips.html"><span class="t">Full Moon Party Pack</span><span class="m"><span class="d">5 Days</span> from <span class="p">&pound;473</span></span></a></li>
+                      <li><a href="../all-trips.html"><span class="t">Full Moon Experience</span><span class="m"><span class="d">10 Days</span> from <span class="p">&pound;1,134</span></span></a></li>
+                      <li><a href="../all-trips.html"><span class="t">Full Moon Island Hopper</span><span class="m"><span class="d">16 Days</span> from <span class="p">&pound;1,328</span></span></a></li>
+                      <li><a href="../all-trips.html"><span class="t">Total Thailand</span><span class="m"><span class="d">27 Days</span> from <span class="p">&pound;1,505</span></span></a></li>
+                      <li><a href="../all-trips.html"><span class="t">Discover Asia</span><span class="m"><span class="d">37 Days</span> from <span class="p">&pound;2,485</span></span></a></li>
+                    </ul>
+                  </div></div>
+                </div>
+              </div>
+            </article>
+        <button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+        <button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+  </section>
+
+<script>/* carousel nav arrows — the same block the pages carry */
+  (function () {
+    document.querySelectorAll('[data-arrows]').forEach(function (wrap) {
+      var track = wrap.querySelector('.carousel');
+      var prev = wrap.querySelector('[data-rev="prev"]');
+      var next = wrap.querySelector('[data-rev="next"]');
+      if (!track || !prev || !next) return;
+      function step() {
+        var card = track.firstElementChild;
+        var gap = parseFloat(getComputedStyle(track).columnGap) || 20;
+        return card ? card.getBoundingClientRect().width + gap : track.clientWidth;
+      }
+      function sync() {
+        var max = track.scrollWidth - track.clientWidth;
+        prev.disabled = track.scrollLeft <= 1;
+        next.disabled = track.scrollLeft >= max - 1;
+      }
+      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+      track.addEventListener('scroll', sync, { passive: true });
+      window.addEventListener('resize', sync);
+      sync();
+    });
+  })();
+  </script>
+<script>/* card disclosures — opening one opens all, as on the pages */
+  (function () {
+    ['.tripcard__exp-cb', '.act-card__tours-cb'].forEach(function (sel) {
+      var boxes = document.querySelectorAll(sel);
+      if (!boxes.length) return;
+      boxes.forEach(function (cb) {
+        cb.addEventListener('change', function () {
+          boxes.forEach(function (other) { if (other !== cb) other.checked = cb.checked; });
+        });
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

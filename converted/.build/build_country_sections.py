@@ -309,7 +309,7 @@ TRIPS_SECTION = """    <section class="container section" id="trips">
       </div>
 
       <div class="rev-carousel" data-arrows>
-        <div class="carousel carousel--trips">
+        <div class="carousel carousel--trips carousel--3up">
 {cards}
         </div>
         <button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous">{left}</button>
@@ -539,6 +539,47 @@ def rebuild_activity_tours(html):
     return TOURS_RE.sub(one, html)
 
 
+def size_rows(html):
+    """Put the country page's rows on one card width (see .carousel--3up)."""
+    for old, new in (
+        ('<div class="carousel carousel--bucket">', '<div class="carousel carousel--bucket carousel--3up">'),
+        ('<div class="carousel carousel--trips" data-dots>', '<div class="carousel carousel--trips carousel--3up" data-dots>'),
+    ):
+        if new not in html:
+            html = html.replace(old, new)
+    return html
+
+
+def wrap_activities(html):
+    """Arrows on the Things To Do row, once.
+
+    It was the last row on the page without them — which also meant it was the
+    last one still showing a scrollbar, since .rev-carousel is what hides it."""
+    a = html.index('<div class="exp__cards">')
+    b = html.index("</section>", a)
+    if "rev-arrow" in html[a:b]:
+        return html
+    html = html.replace('          <div class="carousel carousel--bucket carousel--3up">',
+                        '          <div class="rev-carousel" data-arrows>\n          <div class="carousel carousel--bucket carousel--3up">')
+    i = html.index('<div class="carousel carousel--bucket')
+    end = html.index("          </div>\n        </div>", i)
+    return html[:end] + "          </div>\n" + ARROWS + html[end + len("          </div>\n"):]
+
+
+def wrap_also(html):
+    """Arrows on the You Might Also Like row, once — the prototype's
+    DestinationsCarousel has them, and it was the last scrollbar on the page."""
+    a = html.index("YOU MIGHT ALSO LIKE")
+    b = html.index("</section>", a)
+    if "rev-arrow" in html[a:b]:
+        return html
+    head = '      <div class="carousel carousel--also">'
+    html = html.replace(head, '      <div class="rev-carousel" data-arrows>\n' + head.replace("      <", "        <"))
+    i = html.index('<div class="carousel carousel--also">')
+    end = html.index("        </a>\n      </div>\n", i) + len("        </a>\n")
+    return html[:end] + "      </div>\n" + ARROWS + html[end:]
+
+
 def wrap_stories(html):
     """Put the stories row in a rev-carousel with arrows, once."""
     a = html.index('<section class="container section" id="stories">')
@@ -670,8 +711,11 @@ if __name__ == "__main__":
     html = ensure_scripts(html)
     html = place_crumbs(html)
 
+    html = size_rows(html)
     html = rebuild_activity_tours(html)
     html = mark_stay_cards(html)
+    html = wrap_activities(html)
+    html = wrap_also(html)
     html = wrap_stays(html)
     html = wrap_diaries(html)
     # Closed on the arrow row, not on "</div>\n    </section>" — that now matches
