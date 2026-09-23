@@ -39,20 +39,57 @@ NAV = NAV_SOLID
 ALL_TRIPS = json.loads(re.search(r"var TRIPS = (\[.*?\]);\n", read("all-trips.html"), re.S).group(1))
 ALL_STORIES = json.loads(re.search(r"var STORIES = (\[.*?\]);\n", read("stories.html"), re.S).group(1))
 
+def js_var(fn, name):
+    """The `var <name> = ...;` line from a page's scripts, wherever it now sits."""
+    for l in lines(fn):
+        if l.strip().startswith(f"var {name} ="):
+            return l
+    raise SystemExit(f"build_account: no `var {name}` in {fn}")
+
+
+def js_fn(fn, name):
+    """A `function <name>(...) {{ ... }}` block, found by name and closed by
+    brace matching."""
+    ls = lines(fn)
+    for i, l in enumerate(ls):
+        if l.strip().startswith(f"function {name}("):
+            depth = 0
+            for j in range(i, len(ls)):
+                depth += ls[j].count("{") - ls[j].count("}")
+                if depth == 0 and j > i or (depth == 0 and "{" in ls[j]):
+                    return "\n".join(ls[i:j + 1])
+    raise SystemExit(f"build_account: no `function {name}` in {fn}")
+
+
 def card_renderers():
-    """Lift the canonical card renderers rather than writing a second copy."""
-    at, st = lines("all-trips.html"), lines("stories.html")
-    months = next(l for l in st if l.strip().startswith("var MONTHS"))
+    """Lift the canonical card renderers rather than writing a second copy.
+
+    BY NAME, NOT BY LINE NUMBER. This used to slice fixed line ranges out of
+    all-trips.html and stories.html, and both had drifted — stories by 14
+    lines, all-trips by 9 — so the dashboard shipped two scripts that were
+    syntactically broken and a saved-trips rail that rendered nothing. Looking
+    each piece up by its own name can't rot the same way, and a missing one is
+    a loud build failure rather than a silently truncated script.
+    """
     return "\n".join([
-        months,
+        js_var("stories.html", "MONTHS"),
         "    var MEMBER_CONTENT_ENABLED = false;   /* phase 2, matches lib/data.ts */",
-        block("all-trips.html", 603, 610),   # PIN / STAR / CAL / STARS5 / esc
-        block("all-trips.html", 612, 625),   # tripcard()
-        block("stories.html", 878, 878),     # ARTICLE_IDS
-        block("stories.html", 911, 911),     # fmtDate
-        block("stories.html", 938, 944),     # hrefFor + LOCK
-        block("stories.html", 946, 965),     # cardHTML()
+        js_var("all-trips.html", "PIN"),
+        js_var("all-trips.html", "STAR"),
+        js_var("all-trips.html", "CAL"),
+        js_var("all-trips.html", "ACT"),
+        js_var("all-trips.html", "CHEV"),
+        js_var("all-trips.html", "STARS5"),
+        js_fn("all-trips.html", "esc"),
+        js_fn("all-trips.html", "href"),
+        js_fn("all-trips.html", "tripcard"),
+        js_var("stories.html", "ARTICLE_IDS"),
+        js_fn("stories.html", "fmtDate"),
+        js_fn("stories.html", "hrefFor"),
+        js_var("stories.html", "LOCK"),
+        js_fn("stories.html", "cardHTML"),
     ])
+
 
 def data_script():
     return (
@@ -124,11 +161,12 @@ def shell(title, description, body, page_script=""):
 # ------------------------------------------------------------ shared pieces --
 CHEV_R = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>'
 
-def section_head(eyebrow, title, href=None, link_label="View all"):
+def section_head(eyebrow, title, href=None, link_label="View all", eyebrow_attr=""):
     """Mirrors <SectionHeading>: eyebrow + Montserrat Black caps + pill button."""
     pill = f'<a class="pill-btn acct-sec__cta" href="{href}">{link_label}{CHEV_R}</a>' if href else ""
+    attr = f" {eyebrow_attr}" if eyebrow_attr else ""
     return ('<div class="acct-sec__head"><div>'
-            f'<p class="acct-sec__eyebrow">{eyebrow}</p>'
+            f'<p class="acct-sec__eyebrow"{attr}>{eyebrow}</p>'
             f'<h2 class="acct-sec__title">{title}</h2></div>{pill}</div>')
 
 def carousel(track_attr, kind="trips", wrap_attr=""):
@@ -219,13 +257,18 @@ def dashboard():
       </div>
 
       <section class="acct-sec">
-        {section_head("Your Shortlist", "Saved Trips", "my-account-saved.html", "Manage saved")}
+        <!-- No "Manage saved" link: the heart on each card removes it right
+             here, so sending someone to another page to do the same thing was
+             a round trip for nothing. The full grid is still at
+             my-account-saved.html, reached from the heart in the nav. -->
+        {section_head("Your Shortlist", "Saved Trips")}
         {carousel("data-saved-trips", "trips", "data-saved-trips-wrap hidden")}
         {empty("You haven&rsquo;t saved any trips yet.", "explore.html", "Explore trips", "data-saved-trips-empty")}
       </section>
 
       <section class="acct-sec">
-        {section_head("For You", "Recommended Trips", "explore.html")}
+        {section_head("For You", "Recommended Trips", "explore.html", eyebrow_attr="data-rec-eyebrow")}
+        <p class="acct-note" data-rec-prompt hidden><a href="my-account-profile.html">Tell us how you like to travel</a> and these become yours. Until then, here&rsquo;s what everyone else rates.</p>
         {carousel("data-recommended", "trips")}
       </section>
 
@@ -258,17 +301,96 @@ def dashboard():
     function fill(sel, html) { var el = document.querySelector(sel); if (el) el.innerHTML = html; }
     function show(sel, on) { var el = document.querySelector(sel); if (el) el.hidden = !on; }
 
+    /* Travel preferences — the same store the profile and Inspire Me write. */
+    function readPrefs() {
+      try {
+        var v = JSON.parse(localStorage.getItem('trutravels-travel-preferences') || '{}');
+        return (v && !Array.isArray(v) && typeof v === 'object') ? v : {};
+      } catch (e) { return {}; }
+    }
+    /* Mirrors score()/getMatches() in src/lib/inspire-me-quiz.ts — same
+       weights, so a trip ranked third there is ranked third here. */
+    var REGION_MAP = { asia: ['Asia', 'South Asia'], latam: ['Central & South America'],
+      africa: ['Africa', 'Africa & Middle East'], oceania: ['Oceania'], europe: ['Europe'] };
+    var ALIVE_WORDS = {
+      city: ['city','bangkok','hanoi','saigon','urban','rooftop','nightlife','market','street'],
+      beach: ['beach','island','snorkel','coast','bay','lagoon','sail','dive','sand'],
+      mountains: ['mountain','trek','hike','summit','peak','volcano','highland','andes','himalaya'],
+      nature: ['jungle','wildlife','rainforest','national park','elephant','orangutan','sanctuary','lake','waterfall'] };
+    var EXP_WORDS = {
+      'rise-up': ['trek','climb','summit','challenge','hike','raft','surf','zip','kayak'],
+      unplugged: ['sunrise','sunset','peaceful','remote','hammock','stargaz','slow','escape','quiet'],
+      'local-lens': ['local','homestay','family','cook','village','tradition','artisan','culture','temple'],
+      'bucket-list': ['iconic','famous','legendary','must-see','angkor','ha long','machu','taj','wonder'],
+      'tru-ly-unique': ['exclusive','truexclusive','private','secret','hidden','only','unique','full moon'] };
+    var VIBE_WORDS = { full: ['ultimate','everything','packed','action','non-stop','every highlight','epic'],
+      mix: ['balance','mix','culture','adventure','best of'],
+      slow: ['relax','chill','slow','unwind','beach','hammock','downtime','laid-back'] };
+    var VIBE_STYLES = { full: ['multi_country','backpacker'], mix: ['classic'], slow: ['flashpacker','classic'] };
+    function hay(t) {
+      return ((t.title || '') + ' ' + (t.tagline || '') + ' ' + (t.description || '') + ' '
+        + ((t.highlights || []).join(' ')) + ' ' + (t.destination || '')).toLowerCase();
+    }
+    function hits(text, words) {
+      for (var i = 0; i < (words || []).length; i++) if (text.indexOf(words[i]) > -1) return true;
+      return false;
+    }
+    function recommend(prefs, exclude, count) {
+      var regions = prefs.regions || [], alive = prefs.alive || [],
+          exp = prefs.experience || [], vibe = (prefs.vibe || [])[0], dur = (prefs.duration || [])[0];
+      return ALL_TRIPS
+        .filter(function (t) { return exclude.indexOf(t.id) === -1; })
+        .map(function (t) {
+          var text = hay(t), days = parseInt(t.duration, 10) || 0, total = 0;
+          if (regions.indexOf('any') > -1 || !regions.length) total += 10;
+          else if (regions.some(function (r) { return (REGION_MAP[r] || []).indexOf(t.region) > -1; })) total += 40;
+          if (dur === 'short' && days > 0 && days < 10) total += 25;
+          if (dur === 'mid' && days >= 10 && days <= 14) total += 25;
+          if (dur === 'long' && days >= 14) total += 25;
+          if (alive.indexOf('any') > -1 || !alive.length) total += 5;
+          else alive.forEach(function (k) { if (hits(text, ALIVE_WORDS[k])) total += 15; });
+          exp.forEach(function (k) { if (hits(text, EXP_WORDS[k])) total += 12; });
+          if (vibe && vibe !== 'any') {
+            if ((VIBE_STYLES[vibe] || []).indexOf(t.travelStyle) > -1) total += 10;
+            if (hits(text, VIBE_WORDS[vibe])) total += 8;
+          }
+          return { trip: t, score: total };
+        })
+        .sort(function (a, b) {
+          return b.score - a.score || (b.trip.rating || 0) - (a.trip.rating || 0)
+            || (b.trip.reviewCount || 0) - (a.trip.reviewCount || 0) || a.trip.price - b.trip.price;
+        })
+        .slice(0, count)
+        .map(function (m) { return m.trip; });
+    }
+
+
     function render() {
       var savedTripIds = read('trutravels-favourites');
       var savedTrips = savedTripIds.map(function (id) { return TRIPS_BY_ID[id]; }).filter(Boolean);
-      fill('[data-saved-trips]', savedTrips.map(tripcard).join(''));
+      /* Last card in the rail: what to do once you've been through the
+         shortlist. The recommendations below are passive — here's what we
+         picked; this is the active one — go and look yourself. */
+      var CTA = '<div class="swiper-slide acct-cta-slide"><a class="acct-cta" href="explore.html">'
+        + '<span class="acct-cta__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></span>'
+        + '<p class="acct-cta__t">Save More Trips</p>'
+        + '<p class="acct-cta__d">Tap the heart on any trip and it lands here.</p>'
+        + '<span class="acct-cta__btn">Explore Trips <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>'
+        + '</a></div>';
+      fill('[data-saved-trips]', savedTrips.map(tripcard).join('') + CTA);
       show('[data-saved-trips-wrap]', savedTrips.length > 0);
       show('[data-saved-trips-empty]', savedTrips.length === 0);
 
-      /* Don't recommend what's already on the shortlist right above it. */
-      fill('[data-recommended]', ALL_TRIPS
-        .filter(function (t) { return savedTripIds.indexOf(t.id) === -1; })
-        .slice(0, 8).map(tripcard).join(''));
+      /* Recommendations come from stated travel preferences, not from what's
+         been saved — saves are the shortlist you built, this is what you might
+         have missed. Same store the profile and the Inspire Me quiz write.
+         Don't recommend what's already on the shortlist right above it. */
+      var prefs = readPrefs();
+      var answered = Object.keys(prefs).some(function (k) { return (prefs[k] || []).length; });
+      fill('[data-recommended]', recommend(prefs, savedTripIds, 8).map(tripcard).join(''));
+      var eyebrow = document.querySelector('[data-rec-eyebrow]');
+      if (eyebrow) eyebrow.textContent = answered ? 'Based On Your Preferences' : 'For You';
+      show('[data-rec-prompt]', !answered);
 
       var savedReadIds = read('trutravels-saved-stories');
       var savedReads = savedReadIds.map(function (id) { return STORIES_BY_ID[id]; }).filter(Boolean);
@@ -283,6 +405,7 @@ def dashboard():
     }
     render();
     window.addEventListener('trutravels-favourites-change', render);
+    window.addEventListener('trutravels-travel-preferences-change', render);
     window.addEventListener('trutravels-saved-stories-change', render);
     window.addEventListener('storage', render);
   })();
@@ -334,9 +457,71 @@ def saved_page():
     return shell("Saved Trips", "Trips you've saved to your TruTravels account.", body, js)
 
 
+
+# ---------------------------------------------------------------- profile --
+
+def quiz_questions():
+    """The Inspire Me questions, read from src/lib/inspire-me-quiz.ts.
+
+    Travel Preferences and the quiz are the SAME questions in the prototype —
+    answering either fills in the other. Parsing the lib rather than retyping
+    keeps that true here too."""
+    src = open(os.path.join(BASE, "..", "src", "lib", "inspire-me-quiz.ts"), encoding="utf-8").read()
+    seg = src[src.index("export const STEPS"):src.index("export type Answers")]
+    out = []
+    for block in re.findall(r"\{\s*id: \"([^\"]+)\",\s*question: \"([^\"]+)\",\s*hint: \"([^\"]+)\",\s*type: \"(single|multi)\",(.*?)options: \[(.*?)\],\s*\},", seg, re.S):
+        qid, question, hint, qtype, mid, opts = block
+        mx = re.search(r"max: (\d+)", mid)
+        options = re.findall(r'label: "([^"]+)", value: "([^"]+)"(, wildcard: true)?', opts)
+        out.append({
+            "id": qid, "question": question, "hint": hint, "type": qtype,
+            "max": int(mx.group(1)) if mx else None,
+            "options": [{"label": l, "value": v, "wildcard": bool(w)} for l, v, w in options],
+        })
+    return out
+
+
 def profile_page():
-    prefs = "".join(f'<button class="acct-pref" type="button" data-pref>{p}</button>'
-                    for p in ["Adventure", "Beaches", "Culture", "Nightlife", "Wellness", "Food"])
+    HELP = ("Must match your passport exactly &mdash; this is the name that goes on "
+            "your booking and your flights.")
+
+    def help_btn(text):
+        return (f'<button class="acct-help" type="button" data-help="{text}" '
+                f'aria-label="{re.sub("&[a-z]+;", "", text)}">'
+                '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">'
+                '<circle cx="12" cy="12" r="9"/>'
+                '<path stroke-linecap="round" d="M9.5 9.5a2.5 2.5 0 1 1 3 2.45V14"/>'
+                '<path stroke-linecap="round" d="M12 17h.01"/></svg></button>')
+
+    def lbl(for_id, text, mark="", help_text=""):
+        h = help_btn(help_text) if help_text else ""
+        return f'<div class="acct-lbl"><label for="{for_id}">{text}{mark}</label>{h}</div>'
+
+    REQ = ' <span class="acct-req">*</span>'
+    OPT = ' <span class="acct-opt">(optional)</span>'
+
+    months = "".join(f"<option{' selected' if m == 'July' else ''}>{m}</option>" for m in [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"])
+
+    # Travel Preferences ARE the Inspire Me questions — same five, read from
+    # the prototype's lib so the two can't drift.
+    prefs = []
+    for q in quiz_questions():
+        opts = "".join(
+            f'<button class="acct-opt-pill" type="button" data-q="{q["id"]}" data-v="{o["value"]}"'
+            f'{" data-wildcard" if o["wildcard"] else ""}>{o["label"]}</button>'
+            for o in q["options"]
+        )
+        mx = f' data-max="{q["max"]}"' if q["max"] else ""
+        prefs.append(
+            f'<fieldset class="acct-q" data-question="{q["id"]}" data-type="{q["type"]}"{mx}>'
+            f'<legend class="acct-q__h">{q["question"]}</legend>'
+            f'<p class="acct-q__hint">{q["hint"]}</p>'
+            f'<div class="acct-q__opts">{opts}</div></fieldset>'
+        )
+    prefs_html = "".join(prefs)
+
     body = f"""    <div class="container acct__inner acct__inner--narrow">
       {page_head("Your Account", "My Profile")}
 
@@ -349,30 +534,55 @@ def profile_page():
         </div>
       </div>
 
-      <form class="acct-card" onsubmit="return false">
+      <form class="acct-card" onsubmit="return false" data-profile-form>
         <p class="acct-card__h">Modify Profile</p>
-        <p class="acct-note">The name and date of birth here have to match your passport &mdash; they go on your booking.</p>
 
-        <div class="acct-field"><label for="acct-email">Email Address <span class="acct-req">*</span></label><input id="acct-email" type="email" required value="alex@example.com" autocomplete="email" /></div>
+        <!-- Locked once there's a live booking. The fields stay visible and
+             read-only: checking what's on file is what people open this page
+             for. ?edit=1 shows the editable version, as the prototype does —
+             the demo account always has an upcoming booking. -->
+        <div class="acct-locked" data-locked-notice>
+          <span class="acct-locked__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></span>
+          <div>
+            <h3 class="acct-locked__t">Your Details Are <span>Locked</span></h3>
+            <p class="acct-locked__d">You&rsquo;ve got a booking with us (TRU-2026-04871), so your name, date of birth and passport details are now tied to it &mdash; they&rsquo;ve gone to airlines, accommodation and our local teams. To change anything, talk to us and we&rsquo;ll update it everywhere at once.</p>
+            <a class="acct-locked__btn" href="#">Contact The Team <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+          </div>
+        </div>
+        <p class="acct-note" data-unlocked-note hidden>The name and date of birth here have to match your passport &mdash; they go on your booking.</p>
+
+        <div class="acct-field">{lbl("acct-email", "Email Address", REQ)}<input id="acct-email" type="email" required value="alex@example.com" autocomplete="email" /></div>
 
         <div class="acct-field2">
-          <div class="acct-field"><label for="acct-first">First Name <span class="acct-req">*</span></label><input id="acct-first" type="text" required value="Alex" autocomplete="given-name" /></div>
-          <div class="acct-field"><label for="acct-middle">Middle Name <span class="acct-opt">(optional)</span></label><input id="acct-middle" type="text" value="" placeholder="As shown on passport" autocomplete="additional-name" /></div>
+          <div class="acct-field">{lbl("acct-first", "First Name", REQ, HELP)}<input id="acct-first" type="text" required value="Alex" autocomplete="given-name" /></div>
+          <div class="acct-field">{lbl("acct-middle", "Middle Name", OPT, HELP)}<input id="acct-middle" type="text" value="" placeholder="As shown on passport" autocomplete="additional-name" /></div>
         </div>
 
         <div class="acct-field2">
-          <div class="acct-field"><label for="acct-surname">Surname <span class="acct-req">*</span></label><input id="acct-surname" type="text" required value="Traveller" autocomplete="family-name" /></div>
-          <div class="acct-field"><label for="acct-gender">Gender <span class="acct-opt">(optional)</span></label><select id="acct-gender"><option value="">Prefer not to say</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Self-describe</option></select></div>
+          <div class="acct-field">{lbl("acct-surname", "Surname", REQ, HELP)}<input id="acct-surname" type="text" required value="Traveller" autocomplete="family-name" /></div>
+          <div class="acct-field">{lbl("acct-gender", "Gender", OPT, "Used for twin-share rooming only.")}<select id="acct-gender"><option value="">Prefer not to say</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Self-describe</option></select></div>
         </div>
 
         <div class="acct-field2">
-          <div class="acct-field"><label for="acct-nat">Nationality <span class="acct-req">*</span></label><input id="acct-nat" type="text" required list="acct-nationalities" value="British" placeholder="Start typing&hellip;" /></div>
-          <div class="acct-field"><label for="acct-country">Country Of Residence</label><input id="acct-country" type="text" list="acct-countries" value="United Kingdom" placeholder="Start typing&hellip;" autocomplete="country-name" /></div>
+          <div class="acct-field">{lbl("acct-nat", "Nationality", REQ)}<div class="acct-clear"><input id="acct-nat" type="text" required list="acct-nationalities" value="British" placeholder="Start typing&hellip;" data-clearable /><button class="acct-clear__btn" type="button" aria-label="Clear nationality"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button></div></div>
+          <div class="acct-field">{lbl("acct-country", "Country")}<div class="acct-clear"><input id="acct-country" type="text" list="acct-countries" value="United Kingdom" placeholder="Start typing&hellip;" autocomplete="country-name" data-clearable /><button class="acct-clear__btn" type="button" aria-label="Clear country"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button></div></div>
         </div>
 
         <div class="acct-field2">
-          <div class="acct-field"><label for="acct-phone">Contact Number</label><input id="acct-phone" type="tel" value="+44 7700 900000" autocomplete="tel" /></div>
-          <div class="acct-field"><label for="acct-dob">Date Of Birth</label><input id="acct-dob" type="date" value="1998-07-22" autocomplete="bday" /></div>
+          <div class="acct-field">{lbl("acct-phone", "Contact Number")}<input id="acct-phone" type="tel" value="+44 7700 900000" autocomplete="tel" /></div>
+          <div class="acct-field">{lbl("acct-dob-day", "Date Of Birth")}
+            <!-- Day / month / year. A single date input opens a calendar you
+                 have to page back through decades of: right for a departure
+                 date, wrong for a birthday. text + inputmode because number
+                 spinners eat the box on a field this narrow. -->
+            <div class="acct-dob">
+              <input id="acct-dob-day" type="text" inputmode="numeric" maxlength="2" value="22" aria-label="Day of birth" />
+              <span>/</span>
+              <select id="acct-dob-month" aria-label="Month of birth">{months}</select>
+              <span>/</span>
+              <input id="acct-dob-year" type="text" inputmode="numeric" maxlength="4" value="1998" aria-label="Year of birth" />
+            </div>
+          </div>
         </div>
       </form>
 
@@ -381,8 +591,9 @@ def profile_page():
 
       <div class="acct-card">
         <p class="acct-card__h">Travel Preferences</p>
-        <p class="acct-note">Tell us what you&rsquo;re into and we&rsquo;ll tailor what we show you.</p>
-        <div class="acct-prefs">{prefs}</div>
+        <p class="acct-note">The same questions Inspire Me asks. Answer them here or in there &mdash; it&rsquo;s the same answers either way, and they shape what we recommend you.</p>
+        <div class="acct-qs">{prefs_html}</div>
+        <p class="acct-note acct-note--sm" data-pref-count></p>
       </div>
 
       <div class="acct-card">
@@ -394,14 +605,109 @@ def profile_page():
         </div>
       </div>
 
-      <button class="acct-save" type="button">Save Changes</button>
+      <button class="acct-save" type="button" data-save hidden>Save Changes</button>
     </div>"""
 
-    js = """  <script>/* Profile — preference chips + live saved-trips count */
+    js = """  <script>/* Profile — lock state, help popovers, clearable fields, and the
+     Travel Preferences questions (the same store the Inspire Me quiz writes). */
   (function () {
-    document.querySelectorAll('[data-pref]').forEach(function (b) {
-      b.addEventListener('click', function () { b.classList.toggle('is-on'); });
+    var PREF_KEY = 'trutravels-travel-preferences';
+
+    // ---- locked unless ?edit=1, mirroring the prototype -------------------
+    var unlocked = new URLSearchParams(location.search).get('edit') === '1';
+    var form = document.querySelector('[data-profile-form]');
+    if (unlocked) {
+      document.querySelector('[data-locked-notice]').hidden = true;
+      document.querySelector('[data-unlocked-note]').hidden = false;
+      document.querySelector('[data-save]').hidden = false;
+    } else {
+      form.querySelectorAll('input, select').forEach(function (el) { el.disabled = true; });
+      form.querySelectorAll('.acct-clear__btn').forEach(function (b) { b.hidden = true; });
+    }
+
+    // ---- help popovers ---------------------------------------------------
+    document.querySelectorAll('[data-help]').forEach(function (b) {
+      var pop = document.createElement('span');
+      pop.className = 'acct-help__pop';
+      pop.setAttribute('role', 'tooltip');
+      pop.innerHTML = b.getAttribute('data-help');
+      pop.hidden = true;
+      b.parentNode.appendChild(pop);
+      b.addEventListener('click', function () { pop.hidden = !pop.hidden; });
+      b.addEventListener('blur', function () { pop.hidden = true; });
     });
+
+    // ---- clearable nationality / country ---------------------------------
+    document.querySelectorAll('.acct-clear').forEach(function (wrap) {
+      var input = wrap.querySelector('[data-clearable]');
+      var btn = wrap.querySelector('.acct-clear__btn');
+      function sync() { btn.hidden = !input.value || input.disabled; }
+      btn.addEventListener('click', function () { input.value = ''; sync(); input.focus(); });
+      input.addEventListener('input', sync);
+      sync();
+    });
+
+    // ---- travel preferences = the Inspire Me answers ---------------------
+    function readPrefs() {
+      try {
+        var v = JSON.parse(localStorage.getItem(PREF_KEY) || '{}');
+        return (v && !Array.isArray(v) && typeof v === 'object') ? v : {};
+      } catch (e) { return {}; }
+    }
+    function writePrefs(v) {
+      localStorage.setItem(PREF_KEY, JSON.stringify(v));
+      window.dispatchEvent(new Event('trutravels-travel-preferences-change'));
+    }
+    function paint() {
+      var prefs = readPrefs(), total = 0;
+      document.querySelectorAll('.acct-q').forEach(function (fs) {
+        var id = fs.getAttribute('data-question');
+        var picked = prefs[id] || [];
+        var max = parseInt(fs.getAttribute('data-max') || '0', 10);
+        total += picked.length;
+        fs.querySelectorAll('.acct-opt-pill').forEach(function (b) {
+          var on = picked.indexOf(b.getAttribute('data-v')) > -1;
+          b.classList.toggle('is-on', on);
+          b.disabled = !on && max > 0 && picked.length >= max && !b.hasAttribute('data-wildcard');
+        });
+      });
+      var note = document.querySelector('[data-pref-count]');
+      note.textContent = total > 0
+        ? 'Saved as you pick them.'
+        : 'Nothing picked yet \u2014 your recommendations are the best-rated trips until you do.';
+    }
+    document.querySelectorAll('.acct-opt-pill').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var fs = b.closest('.acct-q');
+        var id = fs.getAttribute('data-question');
+        var type = fs.getAttribute('data-type');
+        var max = parseInt(fs.getAttribute('data-max') || '0', 10);
+        var v = b.getAttribute('data-v');
+        var prefs = readPrefs();
+        var picked = prefs[id] || [];
+        var next;
+        if (type === 'single') {
+          next = picked[0] === v ? [] : [v];
+        } else if (b.hasAttribute('data-wildcard')) {
+          // Wildcards are exclusive — "Asia AND surprise me" isn't an answer.
+          next = picked.indexOf(v) > -1 ? [] : [v];
+        } else {
+          var wildcards = [];
+          fs.querySelectorAll('[data-wildcard]').forEach(function (w) { wildcards.push(w.getAttribute('data-v')); });
+          next = picked.filter(function (x) { return wildcards.indexOf(x) === -1; });
+          next = next.indexOf(v) > -1 ? next.filter(function (x) { return x !== v; }) : next.concat([v]);
+          if (max > 0) next = next.slice(-max);
+        }
+        prefs[id] = next;
+        writePrefs(prefs);
+        paint();
+      });
+    });
+    paint();
+    window.addEventListener('trutravels-travel-preferences-change', paint);
+    window.addEventListener('storage', paint);
+
+    // ---- live saved-trips count -----------------------------------------
     function count() {
       var el = document.querySelector('[data-saved-count]');
       if (el) el.textContent = read('trutravels-favourites').length;
