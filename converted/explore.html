@@ -624,14 +624,18 @@
     });
   })();
   </script>
-<script>/* experience-types disclosure — opening one card opens all (shared state, like the prototype) */
+<script>/* card disclosures — opening one card opens all (shared state, like the prototype).
+     Two independent groups: the trip cards' TRU Experience Types drawer, and the
+     activity cards' "Featured on N trips" list on a country page. */
   (function () {
-    var boxes = document.querySelectorAll('.tripcard__exp-cb');
-    if (!boxes.length) return;
-    boxes.forEach(function (cb) {
-      cb.addEventListener('change', function () {
-        boxes.forEach(function (other) {
-          if (other !== cb) other.checked = cb.checked;
+    ['.tripcard__exp-cb', '.act-card__tours-cb'].forEach(function (sel) {
+      var boxes = document.querySelectorAll(sel);
+      if (!boxes.length) return;
+      boxes.forEach(function (cb) {
+        cb.addEventListener('change', function () {
+          boxes.forEach(function (other) {
+            if (other !== cb) other.checked = cb.checked;
+          });
         });
       });
     });

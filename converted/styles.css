@@ -561,11 +561,29 @@ ul { margin: 0; padding: 0; list-style: none; }
 .act-card__title { font-family: 'Montserrat', sans-serif; font-size: 1.125rem; font-weight: 900; color: #fff; text-transform: uppercase; line-height: 1.15; margin: 0 0 0.5rem; }
 .act-card:hover .act-card__title { color: var(--tru-pink); }
 .act-card__description { color: #9ca3af; font-size: 0.875rem; line-height: 1.55; margin: 0; }
-.act-card__tours { margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); }
-.act-card__tours-label { font-family: 'Montserrat', sans-serif; font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: #6b7280; margin: 0 0 0.5rem; }
-.act-card__tours-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.25rem; }
-.act-card__tours-list a { color: #fff; font-size: 0.875rem; font-weight: 600; }
+/* The tour list is a disclosure, not an always-open list: five tour names under
+   every card pushed the row to twice the prototype's height and buried the
+   descriptions. Same mechanic as .tripcard__exp-* — a hidden checkbox, a label
+   as the summary, and a 0fr/1fr grid for the open transition — so both
+   disclosures on the page behave the same and share one toggle script. */
+.act-card__tours { margin-top: auto; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.1); }
+.act-card__tours-cb { position: absolute; width: 0; height: 0; opacity: 0; pointer-events: none; }
+.act-card__tours-sum { display: flex; align-items: center; gap: 0.6rem; cursor: pointer; color: #d1d5db; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; transition: color 0.2s; }
+.act-card__tours-sum:hover { color: #fff; }
+.act-card__tours-count { color: var(--tru-pink); font-weight: 600; text-transform: none; letter-spacing: normal; }
+.act-card__tours-sum svg { height: 1rem; width: 1rem; margin-left: auto; flex-shrink: 0; transition: transform 0.3s ease-out; }
+.act-card__tours-cb:checked ~ .act-card__tours-sum svg { transform: rotate(180deg); }
+.act-card__tours-wrap { display: grid; grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows 0.3s ease-out, opacity 0.3s ease-out; }
+.act-card__tours-inner { overflow: hidden; min-height: 0; }
+.act-card__tours-cb:checked ~ .act-card__tours-wrap { grid-template-rows: 1fr; opacity: 1; margin-top: 0.6rem; }
+.act-card__tours-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.act-card__tours-list a { display: flex; align-items: baseline; gap: 0.5rem; padding: 3px 0; color: #fff; transition: color 0.2s; }
 .act-card__tours-list a:hover { color: var(--tru-pink); }
+.act-card__tours-list .t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.act-card__tours-list .m { flex-shrink: 0; display: flex; align-items: baseline; gap: 0.25rem; font-size: 9px; color: #6b7280; }
+.act-card__tours-list .m .d { font-weight: 600; }
+.act-card__tours-list .m .p { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; color: #fff; }
+.act-card__tours-list a:hover .m .p { color: var(--tru-pink); }
 
 .bucket-card__description {
   color: #d1d5db;
@@ -753,9 +771,51 @@ ul { margin: 0; padding: 0; list-style: none; }
   padding: 0.15rem 0.5rem;
   border-radius: 999px;
 }
+/* One colour per contributor type, the same map the prototype's
+   video-diaries-carousel carries. Traveller was green here and pink there, and
+   Local Legend / Planeterra / Partner / Community had no rule at all — so those
+   pills rendered as bare white text on the photo. */
+.video-card__tag--traveller { background: var(--tru-pink); }
 .video-card__tag--creator { background: var(--tru-pink); }
 .video-card__tag--influencer { background: var(--tru-blue); }
-.video-card__tag--traveller { background: var(--tru-green); }
+.video-card__tag--partner { background: #F5A623; }
+.video-card__tag--local-legend { background: var(--tru-navy); }
+.video-card__tag--community { background: #A855F7; }
+.video-card__tag--planeterra { background: #003B31; }  /* planeterra.org's own green */
+/* Handle sits opposite the tag on the top row; the author's name is kept for
+   the full-screen viewer, as in the prototype. */
+.video-card__handle {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+/* "Share Yours" CTA, the last slide of the row. */
+.video-card--cta {
+  background: transparent;
+  border: 1px dashed rgba(255,63,153,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.video-card--cta .video-card__cta-inner { padding: 0 1.5rem; }
+.video-card--cta .video-card__cta-icon {
+  height: 3rem; width: 3rem; margin: 0 auto 1rem;
+  border-radius: 999px; border: 1px solid rgba(255,63,153,0.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.video-card--cta .video-card__cta-icon svg { height: 1.25rem; width: 1.25rem; color: var(--tru-pink); }
+.video-card--cta h3 {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-size: 0.875rem; font-weight: 700; text-transform: uppercase;
+  color: #fff; margin-bottom: 0.25rem;
+}
+.video-card--cta p { color: #6b7280; font-size: 0.75rem; margin-bottom: 1rem; }
+.video-card--cta a { color: var(--tru-pink); font-size: 0.875rem; font-weight: 600; }
+.video-card--cta a:hover { color: var(--tru-pink-light); }
 .video-card__caption {
   position: absolute;
   bottom: 0;
@@ -768,12 +828,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: #fff;
   font-size: 0.75rem;
   line-height: 1.55;
-  margin-bottom: 0.5rem;
-}
-.video-card__author {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 10px;
-  font-weight: 600;
 }
 
 /* ============================================================
@@ -1328,7 +1382,36 @@ ul { margin: 0; padding: 0; list-style: none; }
 .stay-card__badge { position: absolute; top: 0.75rem; left: 0.75rem; z-index: 2; display: inline-flex; align-items: center; gap: 0.375rem; background: rgba(255,63,153,0.9); color: #fff; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.625rem; border-radius: 999px; font-family: 'Montserrat', sans-serif; }
 .stay-card__badge svg { width: 0.625rem; height: 0.625rem; }
 .stay-card__body { padding: 1rem; }
-.stay-card__title { color: #fff; font-weight: 700; font-size: 1rem; margin: 0 0 0.4rem; }
+.stay-card__title {
+  color: #fff;
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 900;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+}
+/* The style logo in the card corner — on a country page it's the only thing
+   telling one 4:3 photo of a resort from the next. The PNGs are square
+   canvases with the artwork as a band across the middle (~13% padding at the
+   sides, ~32% top and bottom), so the negative offsets pull the visible mark
+   into the corner. */
+.stay-card__glow {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.4;
+  background: radial-gradient(80% 70% at 0% 0%, rgba(255,63,153,0.1) 0%, transparent 55%);
+}
+.stay-card__style {
+  position: absolute; top: -1.5rem; left: -0.25rem;
+  height: 7rem; width: 7rem; object-fit: contain;
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.6));
+  pointer-events: none;
+}
+@media (min-width: 640px) { .stay-card__style { top: -2rem; left: -0.375rem; height: 8rem; width: 8rem; } }
+/* Top-down scrim, so a pale photo doesn't swallow the logo. */
+.stay-card__media::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.2) 50%, transparent);
+}
 .stay-card__text { color: #d1d5db; font-size: 0.85rem; line-height: 1.5; margin: 0; }
 
 /* Map thumbnail */
@@ -1838,7 +1921,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 #real-moments .eyebrow { font-size: 11px; letter-spacing: 0.3em; margin-bottom: 0.75rem; }
 #real-moments .section-heading { margin-bottom: 0.75rem; line-height: 0.95; letter-spacing: -0.025em; }
 #also .section-heading { margin-bottom: 2rem; }
-#itinerary .section-heading, #reviews .section-heading, #faqs .section-heading, #also .section-heading, #accommodation .section-heading, #map .section-heading { font-size: 1.5rem; }
+/* Tour-page headings only: the country page shares these ids and wants the
+   shared .section-heading scale. */
+.tour-page #itinerary .section-heading, .tour-page #reviews .section-heading, .tour-page #faqs .section-heading, .tour-page #also .section-heading, .tour-page #accommodation .section-heading, .tour-page #map .section-heading { font-size: 1.5rem; }
 #stories .eyebrow { font-size: 11px; letter-spacing: 0.3em; margin-bottom: 0.75rem; }
 #stories .section-heading { margin-bottom: 0.75rem; line-height: 0.95; }
 .stories-intro { color: var(--text-mute); font-size: 1rem; line-height: 1.6; max-width: 32rem; margin: 0 0 2rem; }
@@ -2083,7 +2168,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .zoom-modal__text { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; margin: 0; }
 
 /* stays carousel arrows */
-.side-block .rev-arrow, #accommodation .rev-arrow { top: 27%; }
+.side-block .rev-arrow, #accommodation:not(.country-stays) .rev-arrow { top: 27%; }
 
 /* ============================================================
    MAP LIGHTBOX — zoom + pan (mirrors MapViewer)
@@ -2110,9 +2195,13 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 /* Where You'll Stay (mobile) — match AccommodationCarousel slidesPerView (1.1 / 1.2 / 1.6) */
-#accommodation .carousel--trips > * { width: calc(100% / 1.1 - 1.5px); }
-@media (min-width: 480px) { #accommodation .carousel--trips > * { width: calc(100% / 1.2 - 3px); } }
-@media (min-width: 640px) { #accommodation .carousel--trips > * { width: calc(100% / 1.6 - 6px); } }
+/* THE TOUR PAGE'S stays row, which sits in a narrow column beside the
+   itinerary — hence the wide cards. The country page reuses id="accommodation"
+   for its anchor and was inheriting these, showing two enormous cards where the
+   prototype shows three; `.country` scopes them apart. See .country below. */
+#accommodation:not(.country-stays) .carousel--trips > * { width: calc(100% / 1.1 - 1.5px); }
+@media (min-width: 480px) { #accommodation:not(.country-stays) .carousel--trips > * { width: calc(100% / 1.2 - 3px); } }
+@media (min-width: 640px) { #accommodation:not(.country-stays) .carousel--trips > * { width: calc(100% / 1.6 - 6px); } }
 
 /* Save-to-favourites prompt (mirrors FavouriteButton) */
 .share-modal__panel--center { text-align: center; }
@@ -3459,6 +3548,12 @@ ul { margin: 0; padding: 0; list-style: none; }
 .home-section-head .section-heading { font-size: 1.875rem; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 0; }
 @media (min-width: 640px) { .home-section-head .section-heading { font-size: 3rem; } }
 .home-section-head .pill-btn { flex-shrink: 0; white-space: nowrap; }
+/* Section-page variant: the country/region pages pair the same heading-left /
+   pill-right row with the ordinary .section-heading size (text-2xl → text-3xl),
+   not the homepage's text-5xl. */
+.home-section-head--sm { margin-bottom: 2rem; }
+.home-section-head--sm .section-heading { font-size: 1.5rem; letter-spacing: 0.025em; line-height: 1.15; }
+@media (min-width: 640px) { .home-section-head--sm .section-heading { font-size: 1.875rem; } }
 .home-section-head__pill-desktop { display: none; }
 @media (min-width: 640px) { .home-section-head__pill-desktop { display: inline-flex; } }
 .home-section-head__pill-mobile { margin-top: 2rem; text-align: center; }
