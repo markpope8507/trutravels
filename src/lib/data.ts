@@ -155,9 +155,10 @@ export type Trip = {
   reviewCount?: number;
   /** Override link target for the trip card (e.g. an external product page). */
   bookingUrl?: string;
-  /** Route map for the Map section. Every trip page used to hardcode the
-   *  Thailand Island Hopper map regardless of where the trip goes; the
-   *  section is hidden for a trip that hasn't got one of its own. */
+  /** Route map for the Map section. Until real maps are dropped in, every
+   *  trip falls back to the Thailand Island Hopper image — the only map on
+   *  the CDN — so setting this is how a trip stops showing someone else's
+   *  route. */
   mapImage?: string;
   /** Set on a trip whose page is live but whose dates aren't on sale yet.
    *  Swaps the pricing card for a countdown and a notify-me CTA — see

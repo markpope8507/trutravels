@@ -24,6 +24,9 @@ import VideoDiariesCarousel from "@/components/video-diaries-carousel";
 import BackToTop from "@/components/back-to-top";
 import FomoToast from "@/components/fomo-toast";
 
+/** Stands in on every trip until real route maps land — see `mapImage`. */
+const PLACEHOLDER_MAP = "https://cdn.trutravels.com/images/thailand-island-hopper-2023.png";
+
 export async function generateStaticParams() {
   return trips.map((trip) => ({
     region: slugify(trip.region),
@@ -56,20 +59,16 @@ export default async function TripDetailPage({
   );
   const diariesToShow = destinationDiaries.length >= 3 ? destinationDiaries : customerDiaries;
 
-  /* A trip that hasn't run has no travellers, so it has no clips "from the
-     road" and no reviews. Both sections fall back to other trips' content
-     when a trip has none of its own, which reads as borrowed on a normal page
-     and as untrue on a pre-launch one. */
-  const preLaunch = trip.launch ? new Date(trip.launch.onSale).getTime() > Date.now() : false;
+  /* Pre-launch trips keep every section. The video clips, reviews and map are
+     other trips' content standing in until the real thing exists — the same
+     deal as the placeholder map, and the launch card is what tells you the
+     trip hasn't run yet. */
 
-  /* The Map section hardcoded the Thailand Island Hopper route image on every
-     trip page — a South Africa trip showing a map of Bangkok. It uses the
-     trip's own map now, and the section is dropped when there isn't one.
-     THE FALLBACK IS DELIBERATE: the 36 trips that have always shown that
-     image keep it, because removing a map from every page is a bigger change
-     than this fix; give a trip a `mapImage` and it stops being wrong. */
-  const mapImage =
-    trip.mapImage ?? (preLaunch ? undefined : "https://cdn.trutravels.com/images/thailand-island-hopper-2023.png");
+  /* PLACEHOLDER MAP. Every trip page shows the Thailand Island Hopper route
+     image because it's the only map on the CDN — so a South Africa trip shows
+     a map of Bangkok. That's knowingly a stand-in until the real route maps
+     are dropped in; set `mapImage` on a trip and it uses its own. */
+  const mapImage = trip.mapImage ?? PLACEHOLDER_MAP;
 
   return (
     <>
@@ -324,8 +323,10 @@ export default async function TripDetailPage({
               )}
             </section>
 
-            {/* Real customer moments — UGC video carousel */}
-            {!preLaunch && diariesToShow.length > 0 && (
+            {/* Real customer moments — UGC video carousel. On a trip that
+                hasn't run these are other trips' clips, standing in until
+                there are real ones — same as the placeholder map. */}
+            {diariesToShow.length > 0 && (
               <section id="real-moments" className="mb-12">
                 <p className="text-tru-pink text-[11px] font-bold uppercase tracking-[0.3em] font-heading mb-3">
                   Diaries · From The Road
@@ -369,12 +370,10 @@ export default async function TripDetailPage({
             </div>
 
             {/* Reviews */}
-            {!preLaunch && (
-              <section id="reviews" className="mb-12">
-                <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-6">Reviews</h2>
-                <TripReviews />
-              </section>
-            )}
+            <section id="reviews" className="mb-12">
+              <h2 className="text-2xl font-black text-white uppercase font-heading tracking-wide mb-6">Reviews</h2>
+              <TripReviews />
+            </section>
 
             {/* FAQs */}
             <section id="faqs">

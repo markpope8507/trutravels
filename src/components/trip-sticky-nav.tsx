@@ -168,11 +168,9 @@ export default function TripStickyNav({
           </div>
         </div>
 
-        {/* Line 2: Section shortcuts. Reviews is dropped pre-launch — the
-            section isn't on the page, and a shortcut that scrolls nowhere is
-            worse than one fewer shortcut. */}
+        {/* Line 2: Section shortcuts */}
         <div className="flex items-center justify-between h-10">
-          {navSections.filter((s) => !(preLaunch && s.id === "reviews")).map((s) => (
+          {navSections.map((s) => (
             <button
               key={s.id}
               onClick={() => scrollTo(s.id)}
