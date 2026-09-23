@@ -263,7 +263,7 @@
         + '<div class="acct-ov__split is-3">'
         + kvCell('Total Price', money(b.price))
         + kvCell('Paid', money(b.paid), 'is-green')
-        + kvCell('Balance', b.balance > 0 ? money(b.balance) : '£0 ✓', b.balance > 0 ? 'is-pink' : 'is-green')
+        + kvCell('Balance Due', b.balance > 0 ? money(b.balance) : '£0 ✓', b.balance > 0 ? 'is-pink' : 'is-green')
         + '</div>'
         + (b.promo
             ? '<div class="acct-ov__promo">' + ICON.tag

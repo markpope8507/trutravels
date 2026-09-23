@@ -616,7 +616,7 @@ function BookingHistory() {
                             <p className="text-tru-green text-sm font-semibold">&pound;{gbp(booking.paymentsMade || booking.depositPaid)}</p>
                           </div>
                           <div className="px-4 py-3">
-                            <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Balance</p>
+                            <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Balance Due</p>
                             <p className={`text-sm font-semibold ${booking.balanceDue > 0 ? "text-tru-pink" : "text-tru-green"}`}>
                               {booking.balanceDue > 0 ? `£${gbp(booking.balanceDue)}` : "£0 ✓"}
                             </p>
