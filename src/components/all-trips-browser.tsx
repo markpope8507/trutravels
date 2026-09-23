@@ -8,13 +8,6 @@ import PillButton from "@/components/pill-button";
 
 const PAGE_SIZE = 9;
 
-const DURATIONS = [
-  { id: "any", label: "Any length" },
-  { id: "short", label: "Under 10 days" },
-  { id: "medium", label: "10–14 days" },
-  { id: "long", label: "15+ days" },
-] as const;
-
 const SORT_OPTIONS = [
   { id: "recommended", label: "Recommended" },
   { id: "price-low", label: "Price: Low to High" },
@@ -23,14 +16,6 @@ const SORT_OPTIONS = [
   { id: "duration-long", label: "Duration: Longest" },
   { id: "highest-rated", label: "Highest Rated" },
 ];
-
-function durationMatches(durationStr: string, bucket: string) {
-  const d = parseInt(durationStr, 10) || 0;
-  if (bucket === "short") return d < 10;
-  if (bucket === "medium") return d >= 10 && d <= 14;
-  if (bucket === "long") return d >= 15;
-  return true;
-}
 
 /* Collapsible filter group: a header that toggles its body open/closed,
    with an optional count badge showing how many options are selected. */
@@ -92,6 +77,12 @@ export default function AllTripsBrowser({
 }) {
   const minPrice = useMemo(() => Math.min(...trips.map((t) => t.price)), [trips]);
   const maxPrice = useMemo(() => Math.max(...trips.map((t) => t.price)), [trips]);
+  /* Duration bounds come from the trips, not a hardcoded 1–30 — the handles
+     then span only lengths that actually exist, so no part of the track is
+     dead. */
+  const tripDays = (t: { duration: string }) => parseInt(t.duration, 10) || 0;
+  const minDays = useMemo(() => Math.min(...trips.map(tripDays)), [trips]);
+  const maxDays = useMemo(() => Math.max(...trips.map(tripDays)), [trips]);
 
   // Region → countries taxonomy, derived from the trips (in the given region
   // order), each with a trip count. Only regions/countries with trips appear.
@@ -114,7 +105,7 @@ export default function AllTripsBrowser({
 
   const [selectedCountries, setSelectedCountries] = useState<Set<string>>(() => new Set(initialCountries));
   const [selectedStyles, setSelectedStyles] = useState<Set<TravelStyle>>(new Set());
-  const [duration, setDuration] = useState("any");
+  const [dayRange, setDayRange] = useState<[number, number]>([minDays, maxDays]);
   const [priceRange, setPriceRange] = useState<[number, number]>([minPrice, maxPrice]);
   const [sort, setSort] = useState("recommended");
   const [selectedMoments, setSelectedMoments] = useState<Set<string>>(new Set());
@@ -160,11 +151,12 @@ export default function AllTripsBrowser({
   ][];
 
   const priceTouched = priceRange[0] !== minPrice || priceRange[1] !== maxPrice;
+  const daysTouched = dayRange[0] !== minDays || dayRange[1] !== maxDays;
   const activeFilterCount =
     selectedCountries.size +
     selectedStyles.size +
     selectedMoments.size +
-    (duration !== "any" ? 1 : 0) +
+    (daysTouched ? 1 : 0) +
     (priceTouched ? 1 : 0);
 
   const toggleCountry = (name: string) => {
@@ -216,7 +208,7 @@ export default function AllTripsBrowser({
     setSelectedCountries(new Set());
     setSelectedStyles(new Set());
     setSelectedMoments(new Set());
-    setDuration("any");
+    setDayRange([minDays, maxDays]);
     setPriceRange([minPrice, maxPrice]);
   };
 
@@ -224,7 +216,7 @@ export default function AllTripsBrowser({
     let result = [...trips];
     if (selectedCountries.size > 0) result = result.filter((t) => selectedCountries.has(t.destination));
     if (selectedStyles.size > 0) result = result.filter((t) => selectedStyles.has(t.travelStyle));
-    if (duration !== "any") result = result.filter((t) => durationMatches(t.duration, duration));
+    result = result.filter((t) => tripDays(t) >= dayRange[0] && tripDays(t) <= dayRange[1]);
     result = result.filter((t) => t.price >= priceRange[0] && t.price <= priceRange[1]);
 
     if (sort === "price-low") result.sort((a, b) => a.price - b.price);
@@ -233,14 +225,14 @@ export default function AllTripsBrowser({
     else if (sort === "duration-long") result.sort((a, b) => parseInt(b.duration) - parseInt(a.duration));
     else if (sort === "highest-rated") result.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
     return result;
-  }, [trips, selectedCountries, selectedStyles, duration, priceRange, sort]);
+  }, [trips, selectedCountries, selectedStyles, dayRange, priceRange, sort]);
 
   // Reset pagination to the first page whenever the active filters change.
   // Adjusting state during render is the supported alternative to a setState-in-effect.
   const filterKey = JSON.stringify([
     [...selectedCountries].sort(),
     [...selectedStyles].sort(),
-    duration,
+    dayRange,
     priceRange,
     sort,
   ]);
@@ -406,32 +398,49 @@ export default function AllTripsBrowser({
         </p>
       </FilterSection>
 
-      {/* Duration — collapsible */}
+      {/* Duration — a range, not buckets. Fixed buckets ("Under 10 days",
+          "10–14", "15+") force someone with 12 days off into a band that
+          also contains 10- and 14-day trips; two handles let them say the
+          thing they actually know. */}
       <FilterSection
         title="Duration"
-        count={duration !== "any" ? 1 : 0}
+        count={daysTouched ? 1 : 0}
         open={openSections.has("duration")}
         onToggle={() => toggleSection("duration")}
       >
-        <div className="space-y-1.5">
-          {DURATIONS.map((d) => (
-            <label
-              key={d.id}
-              className={`flex items-center gap-3 cursor-pointer rounded-[8px] px-3 py-2 transition ${
-                duration === d.id ? "bg-tru-pink/15 text-white" : "text-gray-300 hover:bg-white/5 hover:text-white"
-              }`}
-            >
-              <input
-                type="radio"
-                name="all-trips-duration"
-                value={d.id}
-                checked={duration === d.id}
-                onChange={() => setDuration(d.id)}
-                className="h-4 w-4 accent-tru-pink"
-              />
-              <span className="text-sm">{d.label}</span>
-            </label>
-          ))}
+        <div className="mb-3 flex items-baseline justify-between">
+          <p className="text-xs text-gray-400">Any length</p>
+          <p className="font-heading text-sm font-bold text-white">
+            {dayRange[0] === dayRange[1]
+              ? `${dayRange[0]} days`
+              : `${dayRange[0]} – ${dayRange[1]} days`}
+          </p>
+        </div>
+        <div className="space-y-3">
+          <div className="flex items-center gap-3">
+            <span className="w-8 text-xs text-gray-500">Min</span>
+            <input
+              type="range"
+              min={minDays}
+              max={maxDays}
+              value={dayRange[0]}
+              aria-label="Minimum trip length in days"
+              onChange={(e) => setDayRange([Math.min(Number(e.target.value), dayRange[1]), dayRange[1]])}
+              className="h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-white/10 accent-tru-pink"
+            />
+          </div>
+          <div className="flex items-center gap-3">
+            <span className="w-8 text-xs text-gray-500">Max</span>
+            <input
+              type="range"
+              min={minDays}
+              max={maxDays}
+              value={dayRange[1]}
+              aria-label="Maximum trip length in days"
+              onChange={(e) => setDayRange([dayRange[0], Math.max(Number(e.target.value), dayRange[0])])}
+              className="h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-white/10 accent-tru-pink"
+            />
+          </div>
         </div>
       </FilterSection>
 
