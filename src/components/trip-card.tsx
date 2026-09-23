@@ -28,6 +28,10 @@ export default function TripCard({
     : 0;
   const days = parseInt(trip.duration, 10) || 1;
   const perDay = Math.round(trip.price / days);
+  /* A trip with a future on-sale date is announced, not sold: it gets a
+     Coming Soon badge instead of a discount sticker, and the price reads as
+     indicative rather than as something you can pay today. */
+  const comingSoon = Boolean(trip.launch) && new Date(trip.launch!.onSale).getTime() > Date.now();
 
   return (
     <div className="relative h-full">
@@ -87,8 +91,20 @@ export default function TripCard({
               <TravelStyleBadge style={trip.travelStyle} />
             </div>
 
+            {/* Coming Soon — same corner as the discount sticker, and it wins:
+                a trip you can't book yet has nothing to discount. */}
+            {comingSoon && !onRemove && (
+              <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full bg-tru-pink px-3 py-1.5 font-heading text-[9px] font-bold uppercase tracking-wider text-white shadow-lg">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+                </span>
+                Coming Soon
+              </div>
+            )}
+
             {/* Discount sticker — top right (skip when onRemove is showing) */}
-            {discountPct > 0 && !onRemove && (
+            {discountPct > 0 && !comingSoon && !onRemove && (
               <div
                 className="absolute top-3 right-3 h-20 w-20 rounded-full bg-red-600 text-white flex flex-col items-center justify-center font-heading shadow-xl ring-2 ring-red-500/40"
                 style={{ transform: "rotate(-10deg)" }}
@@ -136,7 +152,7 @@ export default function TripCard({
               </h3>
               <div className="flex flex-col items-end flex-shrink-0">
                 <div className="flex items-baseline gap-1.5">
-                  {trip.originalPrice && (
+                  {trip.originalPrice && !comingSoon && (
                     <span className="text-gray-500 text-xs line-through">
                       &pound;{trip.originalPrice}
                     </span>
@@ -146,7 +162,7 @@ export default function TripCard({
                   </span>
                 </div>
                 <p className="text-gray-400 text-[10px] font-medium mt-0.5">
-                  <span className="text-white">&pound;{perDay}</span> per day
+                  {comingSoon ? "indicative" : <><span className="text-white">&pound;{perDay}</span> per day</>}
                 </p>
               </div>
             </div>
