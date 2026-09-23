@@ -3,9 +3,12 @@
 import Breadcrumbs from "@/components/breadcrumbs";
 import { ACCOUNT, sectionCrumbs } from "@/lib/breadcrumbs";
 import { useState, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import AccountGate from "@/components/account-gate";
 import ProfileForm from "@/components/profile-form";
+import ProfileLockedNotice from "@/components/profile-locked-notice";
+import { mockBookings } from "@/components/booking-history";
 import { useAuth } from "@/lib/auth-context";
 
 
@@ -21,6 +24,14 @@ export default function ProfilePage() {
 
 function ProfileContent() {
   const { user } = useAuth();
+
+  /* A live booking locks the profile. Completed and cancelled ones don't —
+     there's nothing left downstream for a change to disagree with.
+     The demo account always has an upcoming booking, so ?edit=1 forces the
+     editable view — otherwise the unlocked form is unreachable for review. */
+  const params = useSearchParams();
+  const liveBooking = mockBookings.find((b) => b.status === "upcoming");
+  const locked = Boolean(liveBooking) && params.get("edit") !== "1";
   const [profileImage, setProfileImage] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -82,7 +93,8 @@ function ProfileContent() {
           </div>
         </div>
 
-        <ProfileForm name={user?.name} email={user?.email} />
+        {locked && <ProfileLockedNotice reference={liveBooking?.bookingRef} />}
+        <ProfileForm name={user?.name} email={user?.email} locked={locked} />
       </div>
 
       {/* Travel preferences */}
@@ -132,11 +144,16 @@ function ProfileContent() {
         </div>
       </div>
 
-      <div className="mt-8 flex justify-end">
-        <button className="rounded-[10px] bg-tru-pink px-6 py-3 text-sm font-semibold text-white hover:bg-tru-pink-light transition uppercase tracking-wider font-heading">
-          Save Changes
-        </button>
-      </div>
+      {/* Travel preferences and the photo stay editable while locked — they
+          aren't on the booking. Only Save Changes goes, since the details it
+          would save can't change. */}
+      {!locked && (
+        <div className="mt-8 flex justify-end">
+          <button className="rounded-[10px] bg-tru-pink px-6 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-tru-pink-light font-heading">
+            Save Changes
+          </button>
+        </div>
+      )}
     </div>
   );
 }
