@@ -17,8 +17,6 @@ export default function TripLaunchCardClient({ trip }: { trip: Trip }) {
   return (
     <TripLaunchCard
       launch={trip.launch}
-      price={trip.price}
-      duration={trip.duration}
       tripTitle={trip.title}
       onBookNow={() => window.dispatchEvent(new CustomEvent("open-booking"))}
     />

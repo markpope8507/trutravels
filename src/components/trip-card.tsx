@@ -150,21 +150,25 @@ export default function TripCard({
               <h3 className="text-base font-black text-white uppercase font-heading leading-tight group-hover:text-tru-pink transition-colors">
                 {trip.title}
               </h3>
-              <div className="flex flex-col items-end flex-shrink-0">
-                <div className="flex items-baseline gap-1.5">
-                  {trip.originalPrice && !comingSoon && (
-                    <span className="text-gray-500 text-xs line-through">
-                      &pound;{trip.originalPrice}
+              {/* No price on a trip that isn't on sale — it isn't set yet,
+                  and a figure that later moves costs more than a blank. */}
+              {!comingSoon && (
+                <div className="flex flex-col items-end flex-shrink-0">
+                  <div className="flex items-baseline gap-1.5">
+                    {trip.originalPrice && (
+                      <span className="text-gray-500 text-xs line-through">
+                        &pound;{trip.originalPrice}
+                      </span>
+                    )}
+                    <span className="text-white font-bold text-lg font-heading">
+                      &pound;{trip.price}
                     </span>
-                  )}
-                  <span className="text-white font-bold text-lg font-heading">
-                    &pound;{trip.price}
-                  </span>
+                  </div>
+                  <p className="text-gray-400 text-[10px] font-medium mt-0.5">
+                    <span className="text-white">&pound;{perDay}</span> per day
+                  </p>
                 </div>
-                <p className="text-gray-400 text-[10px] font-medium mt-0.5">
-                  {comingSoon ? "indicative" : <><span className="text-white">&pound;{perDay}</span> per day</>}
-                </p>
-              </div>
+              )}
             </div>
 
             {/* Start → End */}

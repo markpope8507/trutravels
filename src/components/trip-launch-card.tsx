@@ -14,10 +14,10 @@ import type { TripLaunch } from "@/lib/data";
  * place of the price-and-check-dates box: a countdown to the on-sale moment,
  * and one CTA that joins the notify list.
  *
- * WHY THE PRICE IS STILL HERE, MARKED INDICATIVE. Taking it away doesn't stop
- * people needing it — it just sends them to a competitor to find a number. An
- * indicative "from" price with the word indicative on it is more honest than
- * an empty box, and it's what decides whether someone joins the list at all.
+ * NO PRICE. It isn't set until dates go live, so any figure here is one that
+ * can move — and a price that changes between the teaser and the launch costs
+ * more trust than showing nothing. The card says when the real one arrives
+ * instead.
  *
  * WHAT HAPPENS AT ZERO. The countdown reports `done` and the card switches to
  * "Dates are live" with a Check Dates button, so a page left open overnight
@@ -28,14 +28,10 @@ import type { TripLaunch } from "@/lib/data";
 
 export default function TripLaunchCard({
   launch,
-  price,
-  duration,
   tripTitle,
   onBookNow,
 }: {
   launch: TripLaunch;
-  price: number;
-  duration: string;
   tripTitle: string;
   /** Used only after the countdown hits zero. */
   onBookNow: () => void;
@@ -47,8 +43,6 @@ export default function TripLaunchCard({
     month: "long",
     year: "numeric",
   });
-  const days = parseInt(duration, 10) || 1;
-  const perDay = Math.round(price / days);
   const live = left?.done ?? false;
 
   return (
@@ -91,17 +85,12 @@ export default function TripLaunchCard({
 
             <CountdownBoxes iso={launch.onSale} />
 
-            <div className="mt-5 border-t border-white/10 pt-4">
-              <div className="flex items-baseline gap-2">
-                <span className="font-heading text-[10px] uppercase tracking-wider text-gray-400">From</span>
-                <span className="font-heading text-3xl font-black leading-none text-white">&pound;{price}</span>
-                <span className="text-sm text-gray-400">/ person</span>
-              </div>
-              <p className="mt-1.5 text-xs text-gray-400">
-                Indicative &mdash; around <span className="font-bold text-white">&pound;{perDay}</span> a day. Confirmed
-                when dates go live.
-              </p>
-            </div>
+            {/* NO PRICE. It isn't set until dates go live, and an indicative
+                figure that later moves is worse than no figure — the notify
+                email carries the real one. */}
+            <p className="mt-5 border-t border-white/10 pt-4 text-xs leading-relaxed text-gray-400">
+              Prices are confirmed when dates go live. We&rsquo;ll send them with the launch email.
+            </p>
 
             <button
               onClick={() => window.dispatchEvent(new CustomEvent("register-interest"))}
