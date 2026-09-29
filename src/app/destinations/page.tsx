@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Breadcrumbs from "@/components/breadcrumbs";
 import { topCrumbs } from "@/lib/breadcrumbs";
-import { countryHref, destinations, regionHref } from "@/lib/destinations";
+import { countryHref, countryNickname, destinations, regionHref } from "@/lib/destinations";
 import { trips as allTrips } from "@/lib/data";
 import { HubBody, HubHero } from "@/components/section-hub";
 
@@ -112,7 +112,7 @@ export default function DestinationsPage() {
                             {c.name}
                           </p>
                           <p className="mt-0.5 text-[11px] leading-snug text-gray-300">
-                            {trips > 0 ? `${trips} ${trips === 1 ? "trip" : "trips"}` : c.nickname}
+                            {trips > 0 ? `${trips} ${trips === 1 ? "trip" : "trips"}` : countryNickname(c.name)}
                           </p>
                         </div>
                       </Link>

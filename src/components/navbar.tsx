@@ -8,7 +8,7 @@ import { useCart } from "@/lib/cart-context";
 import SearchOverlay, { type SearchAnchor } from "@/components/search-overlay";
 import { LIFE_MOMENTS } from "@/lib/life-moments";
 import { ABOUT_PAGES } from "@/lib/about-pages";
-import { countryHref, destinations, regionHref } from "@/lib/destinations";
+import { countryHref, countryNickname, destinations, regionHref } from "@/lib/destinations";
 import { essentialsNav } from "@/lib/essentials";
 import { slugify } from "@/lib/utils";
 
@@ -310,7 +310,7 @@ export default function Navbar() {
                             onMouseEnter={() =>
                               setHoveredItem({
                                 name: country.name,
-                                description: country.nickname,
+                                description: countryNickname(country.name),
                                 image: country.image,
                                 href: countryHref(country.name) || "/explore",
                                 eyebrow: region.region,
