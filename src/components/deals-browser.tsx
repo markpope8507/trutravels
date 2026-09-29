@@ -8,7 +8,8 @@ import PillButton from "@/components/pill-button";
 
 const PAGE_SIZE = 6;
 
-const REGIONS = ["Asia", "South Asia", "Central & South America", "Europe", "Africa", "Oceania"] as const;
+// Mirrors `regions` in lib/data — the five groups the live nav uses.
+const REGIONS = ["Asia", "Latin & Central America", "Europe", "Africa & Middle East", "Oceania"] as const;
 
 const DURATIONS = [
   { id: "any", label: "Any length" },
