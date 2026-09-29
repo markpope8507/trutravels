@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useScrollLock } from "@/lib/use-scroll-lock";
 import Link from "next/link";
 import BookingAddons from "@/components/booking-addons";
+import BookingTripHubAccess from "@/components/booking-trip-hub-access";
 import BookingRequestModal, { type RequestKind } from "@/components/booking-request-modal";
 import { useAuth } from "@/lib/auth-context";
 
@@ -919,7 +920,14 @@ function BookingHistory() {
                     <BookingAddons booking={booking} />
                   )}
 
-                  {/* ACCESS TAB */}
+                  {/* ACCESS TAB — the Trip Hub panel. Not in the tab list above:
+                      the hub is parked for phase 1 (see app/_phase2/README.md), so
+                      nothing selects "access" yet. Listing it again is all that's
+                      needed to switch the section back on. */}
+                  {manageTab === "access" && isUpcoming && (
+                    <BookingTripHubAccess balanceDue={booking.balanceDue} hubHref={`/my-account/trip-hub/${booking.id}`} />
+                  )}
+
 
                   {/* FEEDBACK TAB */}
                   {manageTab === "feedback" && booking.status === "completed" && (

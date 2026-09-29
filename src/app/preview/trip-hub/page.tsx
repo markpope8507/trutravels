@@ -1,22 +1,27 @@
 import Link from "next/link";
 import PillButton from "@/components/pill-button";
+import BookingTripHubAccess from "@/components/booking-trip-hub-access";
 
 export const metadata = {
   title: "Trip Hub — Preview | TruTravels",
   description:
-    "What a traveller sees once their booking is confirmed: their tour leader, the group they're travelling with, the group chat, and everything they need before they fly.",
+    "The Trip Hub panel on My Bookings — locked until the balance is paid, then the way into the trip's leader, group, chat and prep.",
   robots: { index: false, follow: false },
 };
 
 /**
  * A shareable overview of the Trip Hub.
  *
- * WHY THIS PAGE EXISTS. The hub itself lives behind a login — it's the
- * post-booking area — so a link to it shows a log-in wall to anyone it's sent
- * to. This explains what the hub is and opens it with a real booking loaded, so
- * the link works for someone with no account and no context.
+ * WHY THIS PAGE EXISTS. The hub sits inside My Bookings, behind a login and
+ * behind a paid-in-full booking — so a link to it shows a log-in wall to
+ * whoever it's sent to. This shows the panel in both of its states and opens
+ * the hub itself with an example booking loaded.
  *
- * NOINDEX. It's a working preview under a real domain, not a page of the site.
+ * THE PANELS ARE THE REAL COMPONENT, not screenshots or a rebuild: the same
+ * BookingTripHubAccess that booking-history.tsx renders in a booking's Access
+ * tab, mounted twice with a different balance.
+ *
+ * NOINDEX. A working preview on a real domain, not a page of the site.
  */
 
 const SECTIONS = [
@@ -24,37 +29,36 @@ const SECTIONS = [
     id: "leader",
     name: "Your Leader",
     detail:
-      "The guide who'll actually be on the trip — their name, where they're from, and a piece to camera introducing themselves. Put a face to it before you fly.",
+      "The guide who'll actually be on the trip, with a piece to camera introducing themselves. A face to it before you fly.",
   },
   {
     id: "group",
     name: "Your Group",
     detail:
-      "Who else is on the trip: first name, country, age bracket, how many Tru trips they've done, and who's travelling together. The single most-asked question before a group tour, answered without asking.",
+      "Who else is on the trip: first name, country, age bracket, how many Tru trips they've done, and who's travelling together.",
   },
   {
     id: "chat",
     name: "Group Chat",
     detail:
-      "The group talking to each other weeks before departure, with Tru.D in the thread — tag it and it answers visa, packing and currency questions on the spot.",
+      "The group talking weeks before departure, with Tru.D in the thread answering visa, packing and currency questions.",
   },
   {
     id: "itinerary",
     name: "Day By Day",
     detail:
-      "The itinerary opened up per day: where you sleep, what's included, which meals, and a map link for each stop.",
+      "The itinerary opened up per day — where you sleep, what's included, which meals, and a map link per stop.",
   },
   {
     id: "prep",
     name: "Before You Fly",
     detail:
-      "Meeting point, visa rules, which airport, spending money, vaccinations, the 24/7 emergency number — and a packing list you can tick off.",
+      "Meeting point, visas, airports, spending money, vaccinations, the 24/7 emergency number, and a packing list to tick off.",
   },
   {
     id: "faqs",
     name: "Tipping & FAQs",
-    detail:
-      "The awkward questions people would rather not phone up about, answered in writing.",
+    detail: "The awkward questions people would rather not phone up about.",
   },
 ];
 
@@ -68,68 +72,66 @@ export default function TripHubPreview() {
         The Trip Hub
       </h1>
       <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-300 sm:text-lg">
-        What a traveller gets the moment their booking is confirmed. Today that
-        window — between paying and flying — is a confirmation email and
-        silence. The hub fills it: who&rsquo;s taking them, who they&rsquo;re
-        going with, and everything they need to sort before they go.
+        A traveller finds it on <span className="text-white">My Bookings</span>,
+        inside their booking. It stays locked until the balance is cleared, then
+        opens into everything they need before they fly. Today that window
+        &mdash; between paying and flying &mdash; is a confirmation email and
+        silence.
       </p>
 
-      <div className="mt-8 flex flex-wrap items-center gap-3">
-        <PillButton href="/preview/trip-hub/demo">Open The Trip Hub</PillButton>
-        <Link
-          href="/preview/trip-hub/demo/chat"
-          className="rounded-[10px] border border-white/20 px-6 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-white transition hover:border-white/40 hover:bg-white/5"
-        >
-          Open The Group Chat
-        </Link>
-      </div>
-      <p className="mt-3 text-xs text-gray-500">
-        Loaded with a real example booking — Thailand Island Hopper, 12&ndash;25
-        April 2026. No login needed.
-      </p>
-
-      {/* Where it sits */}
-      <section className="mt-16">
-        <h2 className="mb-5 font-heading text-xl font-black uppercase tracking-wide text-white">
-          Where It Sits
+      {/* The section itself, both states */}
+      <section className="mt-14">
+        <h2 className="font-heading text-xl font-black uppercase tracking-wide text-white">
+          On The Bookings Page
         </h2>
-        <ol className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
-          {[
-            { step: "Book", note: "Checkout, confirmation email" },
-            { step: "Trip Hub", note: "Everything between booking and flying", now: true },
-            { step: "Travel", note: "You're on the trip" },
-          ].map((s) => (
-            <li
-              key={s.step}
-              className={`flex-1 rounded-[10px] border p-5 ${
-                s.now
-                  ? "border-tru-pink/40 bg-tru-pink/5"
-                  : "border-white/10 bg-white/[0.02]"
-              }`}
-            >
-              <p
-                className={`font-heading text-sm font-black uppercase tracking-wide ${
-                  s.now ? "text-tru-pink" : "text-white"
-                }`}
-              >
-                {s.step}
-              </p>
-              <p className="mt-1 text-sm leading-relaxed text-gray-400">{s.note}</p>
-            </li>
-          ))}
-        </ol>
-        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-gray-400">
-          In the product it&rsquo;s reached from a confirmed booking in My
-          Account, so it only ever opens for the person who booked.
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-gray-400">
+          Both of these are the live component, not a mock-up &mdash; the same
+          panel a booking renders, shown with a balance outstanding and with the
+          trip paid off.
+        </p>
+
+        <div className="mt-8 grid gap-8 lg:grid-cols-2">
+          <div>
+            <p className="mb-3 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">
+              Balance outstanding &mdash; locked
+            </p>
+            <BookingTripHubAccess balanceDue={736} hubHref="/preview/trip-hub/demo" />
+          </div>
+          <div>
+            <p className="mb-3 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-tru-green">
+              Paid in full &mdash; unlocked
+            </p>
+            <BookingTripHubAccess balanceDue={0} hubHref="/preview/trip-hub/demo" />
+          </div>
+        </div>
+
+        <p className="mt-6 max-w-2xl text-sm leading-relaxed text-gray-400">
+          The locked state sells what&rsquo;s behind it rather than just saying
+          no &mdash; clearing the balance is the action it exists to prompt, and
+          its four icons are the four tiles the unlocked state opens with.
         </p>
       </section>
 
-      {/* What's in it */}
+      {/* What the CTA opens */}
       <section className="mt-16">
-        <h2 className="mb-5 font-heading text-xl font-black uppercase tracking-wide text-white">
-          What&rsquo;s In It
+        <h2 className="font-heading text-xl font-black uppercase tracking-wide text-white">
+          What &ldquo;Enter Your Trip Hub&rdquo; Opens
         </h2>
-        <div className="grid gap-px overflow-hidden rounded-[10px] border border-white/10 bg-white/10 sm:grid-cols-2">
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <PillButton href="/preview/trip-hub/demo">Open The Trip Hub</PillButton>
+          <Link
+            href="/preview/trip-hub/demo/chat"
+            className="rounded-[10px] border border-white/20 px-6 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-white transition hover:border-white/40 hover:bg-white/5"
+          >
+            Open The Group Chat
+          </Link>
+        </div>
+        <p className="mt-3 text-xs text-gray-500">
+          Loaded with an example booking &mdash; Thailand Island Hopper,
+          12&ndash;25 April 2026. No login needed.
+        </p>
+
+        <div className="mt-8 grid gap-px overflow-hidden rounded-[10px] border border-white/10 bg-white/10 sm:grid-cols-2">
           {SECTIONS.map((s) => (
             <Link
               key={s.id}
@@ -151,23 +153,21 @@ export default function TripHubPreview() {
         </h2>
         <ul className="mt-3 flex flex-col gap-2 text-sm leading-relaxed text-gray-400">
           <li>
-            Everything on the demo is example content for one booking — the
-            leader, the group, the messages and the dates are all made up.
+            The panel is currently switched off in the product &mdash; the
+            account area was trimmed to phase 1 and the Access tab went with it.
+            Listing that tab again turns the section back on.
           </li>
           <li>
-            The chat and Tru.D replies are a working front end with no backend
-            behind them; messages you send won&rsquo;t go anywhere.
+            Everything in the hub is example content for one booking: the
+            leader, the group, the messages and the dates are made up.
           </li>
           <li>
-            Best viewed on a phone as well as a desktop — the section bar sticks
-            and the whole thing is built mobile-first.
+            The chat and Tru.D replies are a working front end with nothing
+            behind them &mdash; messages you send won&rsquo;t go anywhere.
           </li>
+          <li>Worth opening on a phone too; it&rsquo;s built mobile-first.</li>
         </ul>
       </section>
-
-      <div className="mt-12">
-        <PillButton href="/preview/trip-hub/demo">Open The Trip Hub</PillButton>
-      </div>
     </main>
   );
 }
