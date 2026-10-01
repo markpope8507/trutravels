@@ -5,6 +5,8 @@ import { SiteHeader, SiteChromeFooter } from "@/components/site-chrome";
 import { AuthProvider } from "@/lib/auth-context";
 import { CartProvider } from "@/lib/cart-context";
 import { AuthModalProvider } from "@/lib/auth-modal";
+import { CookieConsentProvider } from "@/lib/cookie-consent";
+import CookieBanner from "@/components/cookie-banner";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -52,9 +54,12 @@ export default function RootLayout({
         <AuthProvider>
           <CartProvider>
             <AuthModalProvider>
-              <SiteHeader />
-              <main className="flex-1">{children}</main>
-              <SiteChromeFooter />
+              <CookieConsentProvider>
+                <SiteHeader />
+                <main className="flex-1">{children}</main>
+                <SiteChromeFooter />
+                <CookieBanner />
+              </CookieConsentProvider>
             </AuthModalProvider>
           </CartProvider>
         </AuthProvider>

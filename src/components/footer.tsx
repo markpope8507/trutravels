@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import CookiePreferencesLink from "@/components/cookie-preferences-link";
 import { useState, type FormEvent } from "react";
 import { ABOUT_PAGES } from "@/lib/about-pages";
 import { AGENT_PORTAL_URL, PARTNER_PAGES } from "@/lib/partner-pages";
@@ -398,9 +399,10 @@ export default function Footer() {
             <Link href="/about" className="text-gray-400 hover:text-tru-pink transition">
               Privacy Policy
             </Link>
-            <Link href="/about" className="text-gray-400 hover:text-tru-pink transition">
-              Cookie Preferences
-            </Link>
+            {/* Reopens the preference centre. It linked to /about, which has
+                nothing to do with cookies — the one place a visitor goes to
+                change their mind went nowhere. */}
+            <CookiePreferencesLink />
             <Link href="/sitemap" className="text-gray-400 hover:text-tru-pink transition">
               Sitemap
             </Link>
