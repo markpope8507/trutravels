@@ -21,7 +21,6 @@ const DEAL_SORT = [
   { id: "highest-discount", label: "Saving Amount: High to Low" },
 ];
 
-const PRICE_MIN = 0;
 const PRICE_MAX = 2500;
 
 function tripDays(trip: Trip) {
@@ -40,8 +39,6 @@ function getDealDepartures(trip: Trip) {
 function getNextDeparture(trip: Trip) {
   return getDealDepartures(trip)[0] ?? null;
 }
-
-const SECTION_PILLS = [{ id: "deals", label: "Deals" }];
 
 export default function DealsBrowser() {
   const [regions, setRegions] = useState<Set<string>>(new Set());
@@ -70,7 +67,6 @@ export default function DealsBrowser() {
   const daysTouched = dayRange[0] !== minDays || dayRange[1] !== maxDays;
 
   const [navSticky, setNavSticky] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>("deals");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -83,34 +79,6 @@ export default function DealsBrowser() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    const ids = SECTION_PILLS.map((p) => p.id);
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-            break;
-          }
-        }
-      },
-      { rootMargin: "-30% 0px -55% 0px" },
-    );
-    for (const id of ids) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    }
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const offset = 80;
-    const top = el.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top, behavior: "smooth" });
-  };
 
   const activeFilterCount =
     regions.size + (daysTouched ? 1 : 0) + (maxBudget !== PRICE_MAX ? 1 : 0);
@@ -273,7 +241,7 @@ export default function DealsBrowser() {
 
   return (
     <>
-      {/* Anchor pill bar — mobile only (desktop uses sticky sidebar) */}
+      {/* Anchor pill bar — mobile only */}
       <div id="deals-bar" className="sm:hidden bg-tru-navy/95 backdrop-blur-md border-y border-white/10 mb-8">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center h-12">

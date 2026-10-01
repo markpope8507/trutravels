@@ -1,4 +1,4 @@
-import re, os
+import re, os, sys
 
 BASE = "/Users/markpope/Claude Test/trutravels/converted"
 COMP = os.path.join(BASE, "components")
@@ -24,7 +24,7 @@ HEAD = '''<!DOCTYPE html>
   <meta name="description" content="__DESC__" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
@@ -45,6 +45,27 @@ def page(title, desc, note, body, script=""):
 
 BOOK_SVG = '<svg width="140" height="120" viewBox="0 0 140 120" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="70" y1="24" x2="70" y2="104"/><path d="M70 24 Q 50 18 18 24 L 18 100 Q 50 94 70 100 Z"/><path d="M70 24 Q 90 18 122 24 L 122 100 Q 90 94 70 100 Z"/><line x1="28" y1="40" x2="58" y2="38" opacity="0.6"/><line x1="28" y1="52" x2="58" y2="50" opacity="0.6"/><line x1="82" y1="38" x2="112" y2="40" opacity="0.6"/><line x1="82" y1="50" x2="112" y2="52" opacity="0.6"/><path d="M95 22 L95 56 L102 50 L109 56 L109 22" fill="currentColor" stroke="none" opacity="0.85"/></svg>'
 
+FORCE = "--force" in sys.argv
+SKIPPED = []
+
+
+def write_component(name, html):
+    """Write a demo file, unless the copy on disk was edited by hand.
+
+    WHY THE GUARD. These are generated here, but several have been improved
+    in place afterwards — reviews-section grew a CSS-only collapse variant
+    and a demo note, page-hero grew a country-hero. Re-running this script
+    overwrote that work silently, and the loss only showed up in a diff
+    later. A file whose contents differ from what this builder produces is
+    now left alone and named at the end; pass --force to overwrite anyway.
+    """
+    path = os.path.join(COMP, name)
+    if not FORCE and os.path.exists(path) and open(path, encoding="utf-8").read() != html:
+        SKIPPED.append(name)
+        return
+    open(path, "w", encoding="utf-8").write(html)
+
+
 FILES = []  # (filename, title, one-line desc for index)
 
 # 1. section-header (hand-written, 3 variants)
@@ -56,14 +77,14 @@ sh_body = '''    <div class="container" style="display:flex;flex-direction:colum
       <!-- Variant C: centered stories-style header -->
       <div style="text-align:center;"><p class="stories-sec__eyebrow">Stories</p><h2 class="stories-sec__title">Stories From <span>The Road</span></h2></div>
     </div>'''
-open(os.path.join(COMP, "section-header.html"), "w", encoding="utf-8").write(
+write_component("section-header.html", 
     page("Section header", "Standard section intro: eyebrow + title + description.",
          "SECTION HEADER — eyebrow + title (+ description). Three variants; use the eyebrow/heading classes shown.", sh_body))
 FILES.append(("section-header.html", "Section intro: eyebrow + title + description (3 variants)"))
 
 # 2. page-hero (country-hero from thailand.html)
 hero = fixpaths(block("thailand.html", 33, 55))
-open(os.path.join(COMP, "page-hero.html"), "w", encoding="utf-8").write(
+write_component("page-hero.html", 
     page("Page hero", "Full-bleed image hero with overlay text — for landing / destination pages.",
          "PAGE HERO — full-bleed image + gradient overlay + title block. Swap the image and copy.",
          "    <div style=\"max-width:none;\">" + hero + "</div>"))
@@ -80,7 +101,7 @@ pillar_body = '''    <section class="pillar" style="padding-top:1rem;">
         <div class="pillar__icon tx-pink">''' + BOOK_SVG + '''</div>
       </div>
     </section>'''
-open(os.path.join(COMP, "pillar-header.html"), "w", encoding="utf-8").write(
+write_component("pillar-header.html", 
     page("Pillar header", "Big pillar header: accent rule + eyebrow + title (last word accented) + description + line-art icon.",
          "PILLAR HEADER — accent rule + eyebrow + title + description + big icon on the right (hidden on mobile).", pillar_body))
 FILES.append(("pillar-header.html", "Pillar header: rule + eyebrow + accented title + icon"))
@@ -91,14 +112,14 @@ cta_body = '''    <div class="container"><div class="art-cta__box">
       <p class="art-cta__p">From ancient cities to wild islands, our group adventures are built to get you to the world&rsquo;s most unforgettable places &mdash; with a crew of like-minded travellers by your side.</p>
       <a class="art-cta__btn" href="../all-trips.html">Explore Our Trips &rarr;</a>
     </div></div>'''
-open(os.path.join(COMP, "cta-banner.html"), "w", encoding="utf-8").write(
+write_component("cta-banner.html", 
     page("CTA banner", "Gradient call-to-action box: heading + body + button.",
          "CTA BANNER — gradient box with heading, body and a button. Point the button at your target page.", cta_body))
 FILES.append(("cta-banner.html", "Gradient call-to-action box (heading + body + button)"))
 
 # 5. faq-accordion (native <details>, from thailand-island-hopper.html)
 faq = block("thailand-island-hopper.html", 673, 689)
-open(os.path.join(COMP, "faq-accordion.html"), "w", encoding="utf-8").write(
+write_component("faq-accordion.html", 
     page("FAQ accordion", "Collapsible FAQ list (native <details> — no JS).",
          "FAQ ACCORDION — native <details>/<summary>, no script needed. Add/remove .faq-item entries.",
          "    <div class=\"container\" style=\"max-width:48rem;\">" + re.sub(r'^\s*<section[^>]*>|</section>\s*$', '', faq).strip() + "</div>"))
@@ -106,7 +127,7 @@ FILES.append(("faq-accordion.html", "Collapsible FAQ list (native details, no JS
 
 # 6. reviews-section (from thailand-island-hopper.html) — needs carousel JS
 reviews = block("thailand-island-hopper.html", 616, 670)
-open(os.path.join(COMP, "reviews-section.html"), "w", encoding="utf-8").write(
+write_component("reviews-section.html", 
     page("Reviews section", "Trustpilot rating + swipeable carousel of review cards.",
          "REVIEWS SECTION — Trustpilot header + .rev-carousel of .rev-card items. Copy the carousel arrow + drag scripts (below).",
          "    <div class=\"container\">" + reviews + "</div>\n" + CAROUSEL_JS))
@@ -114,7 +135,7 @@ FILES.append(("reviews-section.html", "Trustpilot rating + review-card carousel"
 
 # 7. destinations-carousel (You Might Also Like, index.html) — needs carousel JS
 dest = fixpaths(chunk("index.html", '<section class="container dest-sec">'))
-open(os.path.join(COMP, "destinations-carousel.html"), "w", encoding="utf-8").write(
+write_component("destinations-carousel.html", 
     page("Destinations carousel", "Swipeable carousel of destination tiles (image + name + tagline).",
          "DESTINATIONS CAROUSEL — .rev-carousel of .country-tile items. Copy the carousel arrow + drag scripts (below).",
          "    " + dest + "\n" + CAROUSEL_JS))
@@ -122,7 +143,7 @@ FILES.append(("destinations-carousel.html", "Destination tiles carousel (image +
 
 # 8. departures-list (from thailand.html)
 dep = fixpaths(block("thailand.html", 677, 820))
-open(os.path.join(COMP, "departures-list.html"), "w", encoding="utf-8").write(
+write_component("departures-list.html", 
     page("Departures list", "Upcoming-departures rows (date, duration, title, status, pricing).",
          "DEPARTURES LIST — .departures-list of .departure-row items. No script needed.",
          "    " + dep))
@@ -180,6 +201,9 @@ INDEX = HEAD.replace("__TITLE__", "Component library").replace("__DESC__", "Stat
 </body>
 </html>
 '''
-open(os.path.join(COMP, "index.html"), "w", encoding="utf-8").write(INDEX)
+write_component("index.html", INDEX)
 
-print("wrote:", ", ".join(f for f, _ in FILES), ", index.html")
+print("wrote:", ", ".join([f for f, _ in FILES if f not in SKIPPED] + ["index.html"]))
+if SKIPPED:
+    print("  LEFT ALONE (edited by hand since they were generated): " + ", ".join(SKIPPED))
+    print("  re-run with --force to overwrite them.")

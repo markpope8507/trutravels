@@ -243,8 +243,11 @@
           </div>
           <div class="at-price">
             <div class="at-price__head"><p class="at-flabel" style="margin:0">Price Range</p><p class="at-price__val" data-price-val>&pound;297 – &pound;4185</p></div>
-            <div class="at-price__row"><span>Min</span><input type="range" min="297" max="4185" value="297" data-price="min" /></div>
-            <div class="at-price__row"><span>Max</span><input type="range" min="297" max="4185" value="4185" data-price="max" /></div>
+            <div class="rs" data-rs data-rs-min="297" data-rs-max="4185">
+              <div class="rs__track"><div class="rs__fill" data-rs-fill></div></div>
+              <input class="rs__in" type="range" min="297" max="4185" step="1" value="297" data-price="min" aria-label="Minimum price" />
+              <input class="rs__in" type="range" min="297" max="4185" step="1" value="4185" data-price="max" aria-label="Maximum price" />
+            </div>
           </div>
           <div class="at-clear-wrap" data-clear-wrap>
             <div class="at-rule"></div>
@@ -701,9 +704,32 @@
       r.addEventListener('change', function () { state.duration = r.value; document.querySelectorAll('[data-dur-row]').forEach(function (row) { row.classList.toggle('is-checked', row.getAttribute('data-dur-row') === r.value); }); state.limit = PAGE; render(); });
     });
     var pmin = document.querySelector('[data-price="min"]'), pmax = document.querySelector('[data-price="max"]'), pval = document.querySelector('[data-price-val]');
-    function priceInput() { var lo = Math.min(+pmin.value, +pmax.value), hi = Math.max(+pmin.value, +pmax.value); state.min = lo; state.max = hi; pval.innerHTML = '£' + lo + ' – £' + hi; state.limit = PAGE; render(); }
+    var prs = document.querySelector('.at-price [data-rs]'), prsFill = prs && prs.querySelector('[data-rs-fill]');
+    /* Two handles over one track: clamp them against each other so they can
+       touch but never cross, and raise the lower input once both sit at the
+       top of the range or the max thumb covers it. Same as range-slider.tsx. */
+    function paintPrice() {
+      if (!prs) return;
+      var lo = +pmin.value, hi = +pmax.value, span = (MAX - MIN) || 1;
+      prsFill.style.left = ((lo - MIN) / span * 100) + '%';
+      prsFill.style.right = ((MAX - hi) / span * 100) + '%';
+      pmin.style.zIndex = lo >= MAX ? 4 : 3;
+      pmax.style.zIndex = 3;
+      pmin.setAttribute('aria-valuetext', '£' + lo);
+      pmax.setAttribute('aria-valuetext', '£' + hi);
+    }
+    function priceInput(e) {
+      if (e && e.target === pmin && +pmin.value > +pmax.value) pmin.value = pmax.value;
+      if (e && e.target === pmax && +pmax.value < +pmin.value) pmax.value = pmin.value;
+      var lo = +pmin.value, hi = +pmax.value;
+      state.min = lo; state.max = hi;
+      pval.innerHTML = '£' + lo + ' – £' + hi;
+      paintPrice();
+      state.limit = PAGE; render();
+    }
     if (pmin) pmin.addEventListener('input', priceInput);
     if (pmax) pmax.addEventListener('input', priceInput);
+    paintPrice();
     document.querySelectorAll('[data-fsec-toggle]').forEach(function (h) { h.addEventListener('click', function () { h.closest('[data-fsec]').classList.toggle('is-open'); }); });
     document.querySelectorAll('[data-clear]').forEach(function (b) { b.addEventListener('click', function () {
       state.countries = {}; state.styles = {}; state.moments = {}; state.duration = 'any'; state.min = MIN; state.max = MAX; state.limit = PAGE;
@@ -712,7 +738,7 @@
       document.querySelectorAll('[data-moment]').forEach(function (m) { m.checked = false; m.closest('[data-moment-row]').classList.remove('is-checked'); });
       var anyR = document.querySelector('[name="at-duration"][value="any"]'); if (anyR) anyR.checked = true;
       document.querySelectorAll('[data-dur-row]').forEach(function (row) { row.classList.toggle('is-checked', row.getAttribute('data-dur-row') === 'any'); });
-      if (pmin) pmin.value = MIN; if (pmax) pmax.value = MAX; pval.innerHTML = '£' + MIN + ' – £' + MAX;
+      if (pmin) pmin.value = MIN; if (pmax) pmax.value = MAX; pval.innerHTML = '£' + MIN + ' – £' + MAX; paintPrice();
       render();
     }); });
     var smBtn = document.querySelector('[data-showmore-btn]'); if (smBtn) smBtn.addEventListener('click', function () { state.limit += PAGE; render(); });
