@@ -36,6 +36,7 @@ page at the site root, drop the `../`.
 | `fomo-toast.html` | Rotating social-proof toast for trip pages (live viewers, added-to-basket w/ nav basket icon, spots-left, saves). Aggregate counts only — no customer names (GDPR). Fixed bottom-left, dismissible for the session. | yes |
 | `reviews-bar.html` | Flip strip under the hero: 22,000+ reviews / 4.9 / platforms ↔ Fully Protected + ABTA & ATOL. CSS-only. Mobile shortens the protection slide. | no |
 | `search-prompt.html` | Homepage search bar (above Pick Your Path) that opens the search overlay. Also wires any `[data-open-search]` control (nav magnifying glass). | yes |
+| `range-slider.html` | **Range slider** — a min/max range on one track, two handles. Used by the Deals filter for trip length. `input[type=range]` has one thumb, so this is two of them stacked over a single track, transparent apart from the thumbs; values clamp so the handles touch but never cross. The deals page reuses this markup and CSS but drives it from its own combined filter script, so the handles, the filled span and the card list update together. | yes |
 
 ### Forms
 

@@ -39,7 +39,7 @@ const SHOW_PHASE_2_SECTIONS = false;
 // site's destination structure). Tagging will populate these against stories.
 const STORY_REGIONS: { region: string; countries: string[] }[] = [
   { region: "Asia", countries: ["Thailand", "Indonesia", "Vietnam", "Philippines", "Cambodia", "Sri Lanka", "India", "Japan", "China", "South Korea", "Kyrgyzstan"] },
-  { region: "Latin & Central America", countries: ["Mexico", "Costa Rica", "Colombia", "Peru", "Brazil", "Belize", "Guatemala", "Argentina", "Uruguay", "Galapagos Islands"] },
+  { region: "Central & South America", countries: ["Mexico", "Costa Rica", "Colombia", "Peru", "Brazil", "Belize", "Guatemala", "Argentina", "Uruguay", "Galapagos Islands"] },
   { region: "Europe", countries: ["Greece", "Italy", "Albania", "Bulgaria"] },
   { region: "Africa & Middle East", countries: ["Morocco", "Jordan", "Egypt", "South Africa"] },
   { region: "Oceania", countries: ["New Zealand"] },

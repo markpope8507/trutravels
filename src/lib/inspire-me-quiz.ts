@@ -54,7 +54,7 @@ export const STEPS: Step[] = [
         type: "multi",
         options: [
           { label: "Asia", value: "asia" },
-          { label: "Latin & Central America", value: "latam" },
+          { label: "Central & South America", value: "latam" },
           { label: "Africa & Middle East", value: "africa" },
           { label: "Oceania", value: "oceania" },
           { label: "Europe", value: "europe" },
@@ -145,7 +145,7 @@ export type Answers = Record<string, string[]>;
 /** Quiz region -> the `region` values in lib/data that belong to it. */
 const REGION_MAP: Record<string, string[]> = {
   asia: ["Asia"],
-  latam: ["Latin & Central America"],
+  latam: ["Central & South America"],
   africa: ["Africa & Middle East"],
   oceania: ["Oceania"],
   europe: ["Europe"],
@@ -155,7 +155,7 @@ const REGION_MAP: Record<string, string[]> = {
 export function regionsWithoutTrips(picked: string[]): string[] {
   const labels: Record<string, string> = {
     asia: "Asia",
-    latam: "Latin & Central America",
+    latam: "Central & South America",
     africa: "Africa & Middle East",
     oceania: "Oceania",
     europe: "Europe",

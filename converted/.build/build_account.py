@@ -311,8 +311,8 @@ def dashboard():
     }
     /* Mirrors score()/getMatches() in src/lib/inspire-me-quiz.ts — same
        weights, so a trip ranked third there is ranked third here. */
-    var REGION_MAP = { asia: ['Asia', 'South Asia'], latam: ['Central & South America'],
-      africa: ['Africa', 'Africa & Middle East'], oceania: ['Oceania'], europe: ['Europe'] };
+    var REGION_MAP = { asia: ['Asia'], latam: ['Central & South America'],
+      africa: ['Africa & Middle East'], oceania: ['Oceania'], europe: ['Europe'] };
     var ALIVE_WORDS = {
       city: ['city','bangkok','hanoi','saigon','urban','rooftop','nightlife','market','street'],
       beach: ['beach','island','snorkel','coast','bay','lagoon','sail','dive','sand'],

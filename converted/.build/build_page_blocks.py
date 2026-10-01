@@ -136,6 +136,7 @@ EXISTING = [
     ("blog-video.html", "Click-to-play inline video inside a blog image box"),
     ("fomo-toast.html", "Rotating social-proof toast (trip pages)"),
     ("auth-modal.html", "Log in / Create account popup"),
+    ("range-slider.html", "Min/max range on one track, two handles (Deals trip length)"),
 ]
 
 # ------- index.html gallery -------

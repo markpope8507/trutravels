@@ -8,7 +8,7 @@ import { HubBody, HubHero } from "@/components/section-hub";
 export const metadata = {
   title: "Destinations — Small Group Tours In 35+ Countries | TruTravels",
   description:
-    "Every country TruTravels runs small group adventures in, by continent — Asia, Latin & Central America, Europe, Africa & the Middle East and Oceania.",
+    "Every country TruTravels runs small group adventures in, by continent — Asia, Central & South America, Europe, Africa & the Middle East and Oceania.",
 };
 
 /**

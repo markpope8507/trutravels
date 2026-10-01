@@ -19,7 +19,7 @@ Styling lives in ../styles.css under .deal-*.
 Run:  python3 converted/.build/build_deals.py
 """
 
-import json, os, re
+import html, json, os, re
 from datetime import date, timedelta
 
 from shell import BASE, read, block, NAV_OVER, FOOTER, SCRIPTS, HEAD
@@ -29,30 +29,151 @@ SRC = os.path.join(BASE, "..", "src")
 TRIPS = json.loads(re.search(r"var TRIPS = (\[.*?\]);\n", read("all-trips.html"), re.S).group(1))
 TRIPS_BY_ID = {t["id"]: t for t in TRIPS}
 
+
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 
-def departures_by_trip():
-    """Pull each trip's departures out of the prototype's data file."""
+def bracket_end(s, i):
+    """Index just past the bracket or brace that opens at `s[i]`.
+
+    WHY NOT ANCHOR ON THE NEXT KEY. departures_by_trip() used to end the
+    departures array by matching `departures: [...] , itinerary`. Most trips
+    do list itinerary next, but thailand-island-hopper lists depositPrice, so
+    the lazy `[.*?]` ran past the real `]` to a later one and the whole trip
+    was dropped on a JSONDecodeError — which is why the static page had no
+    Thailand Island Hopper while the prototype did. Matching the bracket is
+    the only ending that holds whatever follows it.
+    """
+    open_c = s[i]
+    close_c = {"[": "]", "{": "}"}[open_c]
+    depth, quote = 0, None
+    while i < len(s):
+        c = s[i]
+        if quote:
+            if c == "\\":
+                i += 2
+                continue
+            if c == quote:
+                quote = None
+        elif c in "\"'`":
+            quote = c
+        elif c == open_c:
+            depth += 1
+        elif c == close_c:
+            depth -= 1
+            if depth == 0:
+                return i + 1
+        i += 1
+    raise SystemExit(f"build_deals: unbalanced {open_c!r} in lib/data.ts")
+
+
+def trip_objects():
+    """Each top-level object in the prototype's `trips` array, brace-matched.
+
+    WHY NOT A REGEX. This used to scan for every `id: "..."` in the array and
+    look 6000 characters ahead for a `departures:` block. Trips carry nested
+    ids — experience types, itinerary days, bucket-list items — so most of
+    those matches weren't trips at all, and the look-ahead kept running into
+    the NEXT trip's departures. 26 trips came back holding other trips'
+    sale dates; the prototype has 7 with departures. The deals page was
+    advertising dates that don't exist.
+    """
     s = open(os.path.join(SRC, "lib", "data.ts"), encoding="utf-8").read()
-    start = s.index("export const trips: Trip[] = [")
-    body = s[start: s.index("\n];", start)]
-    out = {}
-    for m in re.finditer(r'id:\s*"([^"]+)"', body):
-        seg = body[m.end(): m.end() + 6000]
-        dm = re.search(r"departures:\s*(\[.*?\])\s*,\s*itinerary", seg, re.S)
-        if not dm:
-            continue
-        raw = re.sub(r"(\{|,)\s*([A-Za-z_][A-Za-z0-9_]*)\s*:", r'\1"\2":', dm.group(1))
-        raw = re.sub(r",(\s*[\]}])", r"\1", raw)
-        try:
-            out[m.group(1)] = json.loads(raw)
-        except json.JSONDecodeError:
-            pass
+    seg = s[s.index("export const trips: Trip[] = ["):]
+    # Start on the array's own "[", not the one in the `Trip[]` annotation.
+    # That one is closed by the very next character, so the walk below hit
+    # `]` at depth 0 on its second step and returned an empty list — which
+    # generated a deals page with no cards and an empty sidebar.
+    depth, start, i, quote = 0, None, seg.index("= [") + 2, None
+    out = []
+    while i < len(seg):
+        c = seg[i]
+        if quote:
+            if c == "\\":
+                i += 2
+                continue
+            if c == quote:
+                quote = None
+        elif c in "\"'`":
+            quote = c
+        elif c == "{":
+            if depth == 0:
+                start = i
+            depth += 1
+        elif c == "}":
+            depth -= 1
+            if depth == 0:
+                out.append(seg[start:i + 1])
+        elif c == "]" and depth == 0:
+            break
+        i += 1
+    if not out:
+        raise SystemExit("build_deals: parsed no trips out of lib/data.ts")
     return out
 
 
-DEPARTURES = departures_by_trip()
+def trip_fields(obj):
+    """One trip's own scalar fields — depth 1 only.
+
+    Depth matters: a trip's itinerary days, experience types and departures
+    all carry their own `id` and `price`, and a plain search would return
+    whichever came first in the text rather than the trip's own.
+    """
+    out = {}
+    depth, quote, i = 0, None, 0
+    while i < len(obj):
+        c = obj[i]
+        if quote:
+            if c == "\\":
+                i += 2
+                continue
+            if c == quote:
+                quote = None
+        elif c in "\"'`":
+            quote = c
+        elif c in "{[":
+            depth += 1
+        elif c in "}]":
+            depth -= 1
+        elif depth == 1 and (i == 0 or obj[i - 1] in " \n,{"):
+            m = re.match(r'([A-Za-z_]\w*):\s*(\d+|"(?:[^"\\]|\\.)*")', obj[i:])
+            if m:
+                v = m.group(2)
+                out[m.group(1)] = int(v) if v.isdigit() else v[1:-1]
+                i += m.end()
+                continue
+        i += 1
+    return out
+
+
+def trips_from_data():
+    """trip id -> {"fields", "departures"}, straight off the prototype's data.
+
+    Region has to come from here. all-trips.html's TRIPS literal still
+    carried the names the site used before the groups were redrawn, so
+    reading region from there put retired names in the deals filter. The
+    display fields stay on the literal (see the module docstring) — only the
+    things the literal gets wrong or doesn't have are read from lib/data.ts.
+    """
+    out = {}
+    for obj in trip_objects():
+        f = trip_fields(obj)
+        tid = f.get("id")
+        if not tid:
+            continue
+        deps, k = [], obj.find("departures:")
+        if k > -1:
+            b = obj.index("[", k)
+            raw = obj[b:bracket_end(obj, b)]
+            raw = re.sub(r"(\{|,)\s*([A-Za-z_][A-Za-z0-9_]*)\s*:", r'\1"\2":', raw)
+            raw = re.sub(r",(\s*[\]}])", r"\1", raw)
+            deps = json.loads(raw)
+        out[tid] = {"fields": f, "departures": deps}
+    return out
+
+
+DATA = trips_from_data()
+DEPARTURES = {k: v["departures"] for k, v in DATA.items()}
 
 
 def fmt(d: date):
@@ -110,7 +231,7 @@ def departure_row(d, href, first=False):
           </div>'''
 
 
-def deal_card(trip, deps, idx):
+def deal_card(trip, deps, idx, region):
     """One deal card. `idx` keys the more-dates checkbox so it toggles alone."""
     best = max(deps, key=lambda d: d["save"])
     nxt = deps[0]
@@ -169,7 +290,7 @@ def deal_card(trip, deps, idx):
         </div>
       </div>'''
 
-    return f'''      <article class="deal" data-region="{trip.get("region","")}" data-days="{days}" data-price="{best["price"]}" data-save="{best["save"]}">
+    return f'''      <article class="deal" data-region="{html.escape(region)}" data-days="{days}" data-price="{trip.get("price") or 0}" data-rating="{trip.get("rating") or 0}" data-discount="{trip.get("save") or 0}" data-next="{nxt["start"].isoformat()}">
         <div class="deal__top">
           <div class="deal__media">
             <a class="deal__imglink" href="{href}">
@@ -207,21 +328,45 @@ def deal_card(trip, deps, idx):
 
 def deals():
     """Rendered cards plus the metadata the sidebar needs to build its filters."""
-    cards, meta, n = [], [], 0
+    rows = []
     for trip in TRIPS:
+        fields = DATA.get(trip["id"], {}).get("fields", {})
+        # The same gate as deals-browser.tsx: a trip-level originalPrice AND
+        # at least one departure actually on sale. Every qualifying trip has
+        # an originalPrice today, so this changes nothing now — it is here so
+        # the two implementations can't drift apart quietly.
+        if not fields.get("originalPrice"):
+            continue
         deps = deal_departures(trip["id"], trip.get("days") or 1)
         if not deps:
             continue
-        n += 1
-        cards.append(deal_card(trip, deps, n))
-        meta.append({"region": trip.get("region", ""), "days": trip.get("days") or 1})
+        rows.append((trip, deps, fields.get("region", "")))
+
+    # Emit in the default sort order ("Earliest Departure"), so the page isn't
+    # written in one order and then reshuffled by the filter script on load.
+    rows.sort(key=lambda r: r[1][0]["start"])
+
+    cards, meta = [], []
+    for n, (trip, deps, region) in enumerate(rows, 1):
+        cards.append(deal_card(trip, deps, n, region))
+        meta.append({"region": region, "days": trip.get("days") or 1})
     return cards, meta
 
 
 # --------------------------------------------------------------- the page --
+# The five groups the live nav uses, in the prototype's order. Mirrors REGIONS
+# in src/components/deals-browser.tsx, which mirrors `regions` in lib/data.
+# Deliberately fixed rather than derived: two of them (Africa & Middle East,
+# Oceania) have no deals and show the empty state, exactly as the prototype
+# does. Deriving the list instead hid controls the prototype shows.
+REGIONS = ["Asia", "Central & South America", "Europe", "Africa & Middle East", "Oceania"]
+
+PRICE_MIN, PRICE_MAX = 300, 2500
+PAGE_SIZE = 6
+
+
 def region_counts(cards_meta):
-    """Only regions that actually have deals — a hardcoded list left empty
-    entries in the filter that could never match anything."""
+    """Deals per region — for the build log, not the page."""
     counts = {}
     for m in cards_meta:
         counts[m["region"]] = counts.get(m["region"], 0) + 1
@@ -230,40 +375,63 @@ def region_counts(cards_meta):
 
 def sidebar(cards_meta):
     count = len(cards_meta)
-    longest = max((m["days"] for m in cards_meta), default=28)
-    cap = min(28, max(7, longest))
-    regions = "\n".join(
-        f'          <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="{r}" />'
-        f'<span>{r}</span><span class="deal-opt__n">{n}</span></label>'
-        for r, n in region_counts(cards_meta)
+    days = [m["days"] for m in cards_meta] or [0]
+    lo, hi = min(days), max(days)
+
+    sorts = "\n".join(
+        f'              <option value="{v}">{l}</option>'
+        for v, l in [
+            ("earliest", "Earliest Departure"),
+            ("latest", "Latest Departure"),
+            ("price-high", "Price: High to Low"),
+            ("price-low", "Price: Low to High"),
+            ("highest-rated", "Highest Rated"),
+            ("highest-discount", "Saving Amount: High to Low"),
+        ]
     )
-    lengths = f'''          <div class="deal-range">
-            <div class="deal-range__head">
-              <span class="deal-range__lbl">Up to</span>
-              <span class="deal-range__val" data-deal-len-out>{cap}+ days</span>
-            </div>
-            <input type="range" min="3" max="{cap}" step="1" value="{cap}" data-deal-len aria-label="Maximum trip length in days" />
-            <div class="deal-range__scale"><span>3 days</span><span>{cap}+ days</span></div>
-          </div>'''
+    regions = "\n".join(
+        f'          <label class="deal-opt deal-opt--check">'
+        f'<input type="checkbox" name="deal-region" value="{html.escape(r, quote=True)}" />'
+        f'<span>{html.escape(r)}</span></label>'
+        for r in REGIONS
+    )
     return f'''      <aside class="deal-side">
-        <p class="deal-side__h">Filter Results</p>
-        <p class="deal-side__count">Found <b data-deal-count>{count}</b> results</p>
+        <div class="deal-side__top">
+          <p class="deal-side__h">Filter Results</p>
+          <button class="deal-side__clear" type="button" data-deal-reset data-deal-reset-auto hidden>Clear</button>
+        </div>
+        <p class="deal-side__count">Found <b data-deal-count>{count}</b> <span data-deal-noun>results</span></p>
 
         <div class="deal-side__grp">
-          <p class="deal-side__label">Sort by</p>
+          <p class="deal-side__label">Sort By</p>
           <div class="deal-select">
             <select data-deal-sort aria-label="Sort deals">
-              <option value="soonest">Earliest Departure</option>
-              <option value="save">Biggest Saving</option>
-              <option value="low">Price: Low to High</option>
-              <option value="high">Price: High to Low</option>
+{sorts}
             </select>{CHEV_D}
           </div>
         </div>
 
         <div class="deal-side__grp">
-          <p class="deal-side__label">Trip length</p>
-{lengths}
+          <div class="deal-range">
+            <div class="deal-range__head">
+              <span class="deal-side__label" style="margin:0">Your Budget</span>
+              <span class="deal-range__val" data-deal-budget-out>up to &pound;{PRICE_MAX}+</span>
+            </div>
+            <input type="range" min="{PRICE_MIN}" max="{PRICE_MAX}" step="50" value="{PRICE_MAX}" data-deal-budget aria-label="Maximum price" />
+            <div class="deal-range__scale"><span>&pound;{PRICE_MIN}</span><span>&pound;{PRICE_MAX}+</span></div>
+          </div>
+        </div>
+
+        <div class="deal-side__grp">
+          <div class="deal-range__head">
+            <span class="deal-side__label" style="margin:0">Length</span>
+            <span class="deal-range__val" data-deal-len-out>{lo} &ndash; {hi} days</span>
+          </div>
+          <div class="rs" data-rs data-rs-min="{lo}" data-rs-max="{hi}">
+            <div class="rs__track"><div class="rs__fill" data-rs-fill></div></div>
+            <input class="rs__in" type="range" min="{lo}" max="{hi}" step="1" value="{lo}" data-rs-lo aria-label="Minimum trip length" />
+            <input class="rs__in" type="range" min="{lo}" max="{hi}" step="1" value="{hi}" data-rs-hi aria-label="Maximum trip length" />
+          </div>
         </div>
 
         <div class="deal-side__grp">
@@ -271,72 +439,164 @@ def sidebar(cards_meta):
 {regions}
         </div>
 
-        <button class="deal-reset" type="button" data-deal-reset>Reset filters</button>
+        <button class="deal-clear" type="button" data-deal-reset data-deal-reset-auto hidden>Clear Filters (<span data-deal-active>0</span>)</button>
       </aside>'''
 
 
 FILTER_JS = """
-  <script>/* Deals filtering + sorting. No framework — the cards carry their own
-     region / length / price in data attributes and are shown or hidden in place. */
+  <script>/* Deals filtering, sorting and paging. No framework — each card
+     carries its region / length / price / rating / discount / next departure
+     in data attributes and is shown or hidden in place. Mirrors
+     src/components/deals-browser.tsx: same filters, same six sorts, same
+     page size, same clamping on the two-handle length slider. */
   (function () {
     var list = document.querySelector('[data-deal-list]');
     if (!list) return;
+
+    var PAGE_SIZE = 6;
     var cards = [].slice.call(list.querySelectorAll('.deal'));
     var countEl = document.querySelector('[data-deal-count]');
+    var nounEl = document.querySelector('[data-deal-noun]');
     var empty = document.querySelector('[data-deal-empty]');
+    var activeEl = document.querySelector('[data-deal-active]');
+    var resets = [].slice.call(document.querySelectorAll('[data-deal-reset-auto]'));
 
-    var lenInput = document.querySelector('[data-deal-len]');
+    var budget = document.querySelector('[data-deal-budget]');
+    var budgetOut = document.querySelector('[data-deal-budget-out]');
+    var PRICE_MAX = budget ? +budget.max : 2500;
+
+    var rs = document.querySelector('[data-rs]');
+    var rsLo = rs && rs.querySelector('[data-rs-lo]');
+    var rsHi = rs && rs.querySelector('[data-rs-hi]');
+    var rsFill = rs && rs.querySelector('[data-rs-fill]');
     var lenOut = document.querySelector('[data-deal-len-out]');
-    var lenMax = lenInput ? +lenInput.max : 99;
+    var DAY_MIN = rs ? +rs.dataset.rsMin : 0;
+    var DAY_MAX = rs ? +rs.dataset.rsMax : 0;
+
+    var shown = PAGE_SIZE;   /* how many of the matching cards are visible */
+
+    function dayRange() {
+      if (!rs) return [DAY_MIN, DAY_MAX];
+      return [Math.min(+rsLo.value, +rsHi.value), Math.max(+rsLo.value, +rsHi.value)];
+    }
+
+    /* The handles can touch but never cross. Once both sit at the top of the
+       range the max thumb covers the min one, so the min input is raised to
+       stay draggable — the same fix range-slider.tsx makes. */
+    function paintSlider() {
+      if (!rs) return;
+      var r = dayRange(), span = (DAY_MAX - DAY_MIN) || 1;
+      rsFill.style.left = ((r[0] - DAY_MIN) / span * 100) + '%';
+      rsFill.style.right = ((DAY_MAX - r[1]) / span * 100) + '%';
+      rsLo.style.zIndex = +rsLo.value >= DAY_MAX ? 4 : 3;
+      rsLo.setAttribute('aria-valuetext', r[0] + ' days');
+      rsHi.setAttribute('aria-valuetext', r[1] + ' days');
+      if (lenOut) lenOut.innerHTML = r[0] === r[1] ? (r[0] + ' days') : (r[0] + ' &ndash; ' + r[1] + ' days');
+    }
+
+    function activeCount() {
+      var r = dayRange();
+      var n = document.querySelectorAll('input[name="deal-region"]:checked').length;
+      if (r[0] !== DAY_MIN || r[1] !== DAY_MAX) n++;
+      if (budget && +budget.value !== PRICE_MAX) n++;
+      return n;
+    }
+
+    function matches() {
+      var r = dayRange();
+      var touched = r[0] !== DAY_MIN || r[1] !== DAY_MAX;
+      var cap = budget ? +budget.value : PRICE_MAX;
+      var regions = [].slice.call(document.querySelectorAll('input[name="deal-region"]:checked'))
+        .map(function (i) { return i.value; });
+      return cards.filter(function (c) {
+        var d = +c.dataset.days;
+        return (regions.length === 0 || regions.indexOf(c.dataset.region) > -1) &&
+               (!touched || (d >= r[0] && d <= r[1])) &&
+               (cap >= PRICE_MAX || +c.dataset.price <= cap);
+      });
+    }
 
     function apply() {
-      var maxDays = lenInput ? +lenInput.value : 99;
-      var atCap = maxDays >= lenMax;   /* at the top of the range, don't filter */
-      var regions = [].slice.call(document.querySelectorAll('input[name="deal-region"]:checked')).map(function (i) { return i.value; });
-      var shown = 0;
-      cards.forEach(function (c) {
-        var ok = (atCap || +c.dataset.days <= maxDays) &&
-                 (regions.length === 0 || regions.indexOf(c.dataset.region) > -1);
-        c.hidden = !ok;
-        if (ok) shown++;
-      });
-      if (lenOut) lenOut.textContent = atCap ? (lenMax + '+ days') : (maxDays + ' days');
-      if (countEl) countEl.textContent = shown;
-      if (empty) empty.hidden = shown > 0;
+      var ok = matches();
+      cards.forEach(function (c) { c.hidden = true; });
+      ok.slice(0, shown).forEach(function (c) { c.hidden = false; });
+
+      if (countEl) countEl.textContent = ok.length;
+      if (nounEl) nounEl.textContent = ok.length === 1 ? 'result' : 'results';
+      if (empty) empty.hidden = ok.length > 0;
+
+      var n = activeCount();
+      if (activeEl) activeEl.textContent = n;
+      resets.forEach(function (b) { b.hidden = n === 0; });
+
+      var more = document.querySelector('[data-deal-more]');
+      if (more) {
+        more.hidden = shown >= ok.length;
+        var at = document.querySelector('[data-deal-showing]');
+        if (at) at.textContent = 'Showing ' + Math.min(shown, ok.length) + ' of ' + ok.length;
+      }
+      if (budgetOut) budgetOut.innerHTML = 'up to &pound;' + (budget ? budget.value : '') + (budget && +budget.value >= PRICE_MAX ? '+' : '');
+      paintSlider();
     }
 
     function sort() {
-      var how = (document.querySelector('[data-deal-sort]') || {}).value || 'soonest';
+      var how = (document.querySelector('[data-deal-sort]') || {}).value || 'earliest';
       var order = cards.slice();
-      if (how === 'low') order.sort(function (a, b) { return a.dataset.price - b.dataset.price; });
-      else if (how === 'high') order.sort(function (a, b) { return b.dataset.price - a.dataset.price; });
-      else if (how === 'save') order.sort(function (a, b) { return b.dataset.save - a.dataset.save; });
+      if (how === 'price-low') order.sort(function (a, b) { return a.dataset.price - b.dataset.price; });
+      else if (how === 'price-high') order.sort(function (a, b) { return b.dataset.price - a.dataset.price; });
+      else if (how === 'highest-rated') order.sort(function (a, b) { return b.dataset.rating - a.dataset.rating; });
+      else if (how === 'highest-discount') order.sort(function (a, b) { return b.dataset.discount - a.dataset.discount; });
+      else if (how === 'latest') order.sort(function (a, b) { return b.dataset.next.localeCompare(a.dataset.next); });
+      else order.sort(function (a, b) { return a.dataset.next.localeCompare(b.dataset.next); });
       order.forEach(function (c) { list.appendChild(c); });
+      cards = order;
     }
 
     document.addEventListener('change', function (e) {
-      if (e.target.closest('[data-deal-sort]')) { sort(); return; }
-      if (e.target.closest('[data-deal-len]') || e.target.name === 'deal-region') apply();
+      if (e.target.closest('[data-deal-sort]')) { sort(); apply(); return; }
+      if (e.target.name === 'deal-region') apply();
     });
-    /* live update while dragging, not just on release */
+
+    /* live while dragging, not just on release */
     document.addEventListener('input', function (e) {
-      if (e.target.closest('[data-deal-len]')) apply();
-    });
-    document.addEventListener('click', function (e) {
-      if (!e.target.closest('[data-deal-reset]')) return;
-      document.querySelectorAll('input[name="deal-region"]').forEach(function (i) { i.checked = false; });
-      if (lenInput) lenInput.value = lenInput.max;
+      if (!e.target.closest('[data-rs]') && !e.target.closest('[data-deal-budget]')) return;
+      if (rs && e.target === rsLo && +rsLo.value > +rsHi.value) rsLo.value = rsHi.value;
+      if (rs && e.target === rsHi && +rsHi.value < +rsLo.value) rsHi.value = rsLo.value;
       apply();
     });
+
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-deal-more]')) {
+        shown += PAGE_SIZE;
+        apply();
+        return;
+      }
+      if (!e.target.closest('[data-deal-reset]')) return;
+      document.querySelectorAll('input[name="deal-region"]').forEach(function (i) { i.checked = false; });
+      if (budget) budget.value = PRICE_MAX;
+      if (rs) { rsLo.value = DAY_MIN; rsHi.value = DAY_MAX; }
+      apply();
+    });
+
+    sort();
+    apply();
   })();
   </script>"""
 
 
 def deals_page():
     cards, meta = deals()
+    # A silent empty page is how the parser bugs above went unnoticed: the
+    # script "succeeded" and published a deals page with nothing on it.
+    # Fail instead, the way build_prelaunch.py does for a missing onSale.
+    if not cards:
+        raise SystemExit(
+            "build_deals: no deals qualified — check lib/data.ts departures "
+            "parsing before publishing an empty page"
+        )
     body = f"""    <section class="ess-hero" id="top">
       <img class="ess-hero__img" src="assets/deals-hero.jpg" alt="TruTravels deals &mdash; pack and go" />
-      <div class="ess-hero__grad"></div>
+      <div class="ess-hero__grad ess-hero__grad--light"></div>
       <div class="container ess-hero__inner">
         <div class="ess-hero__text">
           <p class="ess-hero__eyebrow">Deals</p>
@@ -348,12 +608,23 @@ def deals_page():
     </section>
 
     <section class="deal-sec" id="deals">
+      <img class="deal-sec__mark deal-sec__mark--l" src="assets/bg-assets/lantern.svg" alt="" aria-hidden="true" />
+      <img class="deal-sec__mark deal-sec__mark--r" src="assets/bg-assets/good-vibes.svg" alt="" aria-hidden="true" />
       <div class="container deal-layout">
 {sidebar(meta)}
-        <div class="deal-list" data-deal-list>
+        <div class="deal-col">
+          <div class="deal-list" data-deal-list>
 {chr(10).join(cards)}
+          </div>
+          <div class="deal-page" data-deal-more hidden>
+            <button class="pill-btn" type="button">Show More Deals{CHEV_D}</button>
+            <p class="deal-page__n" data-deal-showing></p>
+          </div>
+          <div class="deal-empty" data-deal-empty hidden>
+            <p class="deal-empty__p">No deals match those filters.</p>
+            <button class="deal-empty__reset" type="button" data-deal-reset>Reset filters</button>
+          </div>
         </div>
-        <p class="deal-empty" data-deal-empty hidden>No deals match those filters.</p>
       </div>
     </section>"""
 
@@ -431,6 +702,7 @@ if __name__ == "__main__":
     out = deals_page()
     open(os.path.join(BASE, "deals.html"), "w", encoding="utf-8").write(out)
     print(f"  wrote deals.html  ({len(out.splitlines())} lines, {len(deals()[0])} deals)")
+    print("  regions: " + ", ".join(f"{r} {n}" for r, n in region_counts(deals()[1])))
     out = component()
     open(os.path.join(BASE, "components", "deal-card.html"), "w", encoding="utf-8").write(out)
     print(f"  wrote components/deal-card.html  ({len(out.splitlines())} lines)")

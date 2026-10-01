@@ -19,7 +19,7 @@
  * They are gone; don't add them back.
 
  * REGIONS MATCH THE LIVE SITE: Asia (Sri Lanka and India included),
- * Africa & Middle East, Europe, Latin & Central America, Oceania. lib/data
+ * Africa & Middle East, Europe, Central & South America, Oceania. lib/data
  * uses the same five.
  *
  * Region pages are rarer still — only the ones in `regionPages` exist, so use
@@ -91,7 +91,7 @@ export const destinations: DestinationRegion[] = [
     ],
   },
   {
-    region: "Latin & Central America",
+    region: "Central & South America",
     countries: [
       { name: "Mexico", flag: "🇲🇽", tag: "Popular", image: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80" },
       { name: "Costa Rica", flag: "🇨🇷", tag: "", image: "https://cdn.trutravels.com/images/costarica.jpg" },

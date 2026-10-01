@@ -7,6 +7,7 @@
   --foreground: #ededed;
   --tru-pink: #FF3F99;
   --tru-pink-dark: #e6357f;
+  --tru-pink-light: #ff6db3;
   --tru-green: #6BD495;
   --tru-navy: #09213E;
   --tru-blue: #2172D5;
@@ -5246,6 +5247,11 @@ ul { margin: 0; padding: 0; list-style: none; }
 .ess-hero { position: relative; height: 75vh; min-height: 540px; display: flex; align-items: center; overflow: hidden; }
 .ess-hero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ess-hero__grad { position: absolute; inset: 0; background: linear-gradient(to right, rgba(9,33,62,0.4), rgba(9,33,62,0.6) 50%, rgba(9,33,62,0.95)); }
+/* The prototype runs two hero scrims: 40/60/95 on the form-ish pages
+   (agent registration, email sign-up, visas, travel insurance, 404) and a
+   lighter 30/50/95 where the photo is the point — deals, travel styles, the
+   life-moments pages. Default stays the darker one; this is the lighter. */
+.ess-hero__grad--light { background: linear-gradient(to right, rgba(9,33,62,0.3), rgba(9,33,62,0.5) 50%, rgba(9,33,62,0.95)); }
 .ess-hero__inner { position: relative; z-index: 1; width: 100%; display: flex; justify-content: flex-end; }
 .ess-hero__text { max-width: 36rem; text-align: right; }
 .ess-hero__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; line-height: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; margin: 0 0 1.25rem; }
@@ -5672,30 +5678,43 @@ ul { margin: 0; padding: 0; list-style: none; }
    reuses .tripcard__exp-* from the trip cards.
    ============================================================ */
 
-.deal-sec { padding: 4rem 0 5rem; }
+.deal-sec { position: relative; padding: 4rem 0 7rem; overflow: clip; }
+/* Two faint marks bleeding off either edge, same as the prototype's section.
+   brightness(0) invert turns the coloured source art white before it's
+   dropped to 7% — tinting it any other way leaves the original hue showing. */
+.deal-sec__mark { position: absolute; pointer-events: none; user-select: none; width: 240px; opacity: 0.07; filter: brightness(0) invert(1); }
+.deal-sec__mark--l { left: -4rem; top: 1.5rem; }
+.deal-sec__mark--r { right: -4rem; bottom: -2.5rem; }
+@media (min-width: 640px) { .deal-sec__mark { width: 380px; } .deal-sec__mark--l { left: -6rem; } .deal-sec__mark--r { right: -6rem; } }
+@media (min-width: 1024px) { .deal-sec__mark { width: 520px; } .deal-sec__mark--l { left: -7rem; } .deal-sec__mark--r { right: -8rem; } }
 .deal-layout { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; }
-@media (min-width: 1024px) { .deal-layout { grid-template-columns: 17rem 1fr; gap: 2.5rem; } }
+@media (min-width: 1024px) { .deal-layout { grid-template-columns: 280px 1fr; gap: 2rem; } }
 
 /* Sidebar */
-.deal-side { border: 1px solid var(--border-soft); background: rgba(255,255,255,0.04); border-radius: 12px; padding: 1.5rem; }
-@media (min-width: 1024px) { .deal-side { position: sticky; top: 6rem; } }
-.deal-side__h { font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; color: #fff; margin: 0 0 0.5rem; }
-.deal-side__count { color: #9ca3af; font-size: 0.875rem; margin: 0 0 1.5rem; }
+.deal-side { border: 1px solid rgba(255,255,255,0.1); background: rgba(9,33,62,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); border-radius: 12px; padding: 1.25rem; }
+.deal-side__h { font-family: 'Montserrat', sans-serif; font-size: 0.875rem; line-height: 1.25rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; color: #fff; margin: 0; }
+.deal-side__count { color: #9ca3af; font-size: 0.75rem; line-height: 1rem; margin: 0 0 1.25rem; }
 .deal-side__count b { color: #fff; }
-.deal-side__grp { padding-top: 1.25rem; margin-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.06); }
-.deal-side__grp:first-of-type { padding-top: 0; margin-top: 0; border-top: 0; }
-.deal-side__label { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; line-height: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin: 0 0 0.75rem; }
+.deal-side__grp { padding-top: 1rem; margin-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1); }
+/* Not :first-of-type — the header row above is also a div, so the first
+   group is the second div and kept picking up a divider it shouldn't. */
+.deal-side__count + .deal-side__grp { padding-top: 0; margin-top: 0; border-top: 0; }
+.deal-side__label { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; line-height: 1.5; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin: 0 0 0.5rem; }
 
 .deal-select { position: relative; }
 .deal-select select {
   width: 100%; appearance: none; -webkit-appearance: none;
-  border: 1px solid var(--border-soft); background: rgba(255,255,255,0.05); border-radius: 10px;
-  padding: 0.75rem 2.5rem 0.75rem 1rem; color: #fff; font-family: inherit; font-size: 0.9rem; cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.15); background: var(--tru-navy); border-radius: 10px;
+  /* py-2.5 px-3 as the prototype; the right side keeps clearance for the
+     chevron, which overlays the text there rather than reserving space. */
+  padding: 0.625rem 2.25rem 0.625rem 0.75rem; color: #fff; font-family: inherit; font-size: 0.875rem; font-weight: 600; cursor: pointer;
 }
 .deal-select select:focus-visible { outline: 2px solid var(--tru-pink); outline-offset: 2px; }
-.deal-select svg { position: absolute; right: 0.875rem; top: 50%; transform: translateY(-50%); width: 1rem; height: 1rem; color: #9ca3af; pointer-events: none; }
+.deal-select svg { position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); width: 1rem; height: 1rem; color: #9ca3af; pointer-events: none; }
 
-.deal-opt { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 10px; cursor: pointer; color: #d1d5db; font-size: 0.9rem; transition: background 0.2s, color 0.2s; }
+.deal-opt { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.75rem; border-radius: 8px; cursor: pointer; color: #d1d5db; font-size: 0.875rem; line-height: 1.25rem; transition: background 0.2s, color 0.2s; }
+/* The prototype stacks these on space-y-1.5. */
+.deal-opt + .deal-opt { margin-top: 0.375rem; }
 .deal-opt:hover { background: rgba(255,255,255,0.04); color: #fff; }
 .deal-opt input { accent-color: var(--tru-pink); width: 1rem; height: 1rem; flex-shrink: 0; cursor: pointer; }
 .deal-opt:has(input:checked) { background: rgba(255,63,153,0.12); color: #fff; }
@@ -5708,17 +5727,44 @@ ul { margin: 0; padding: 0; list-style: none; }
 .deal-range input[type=range]:focus-visible { outline: 2px solid var(--tru-pink); outline-offset: 4px; }
 .deal-range__scale { display: flex; justify-content: space-between; margin-top: 0.5rem; color: #6b7280; font-family: 'Montserrat', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
 
-/* Region rows carry their deal count, so an entry that looks like a duplicate
-   (Asia / South Asia) at least shows what sits behind it. */
-.deal-opt__n { margin-left: auto; color: #6b7280; font-size: 0.75rem; font-variant-numeric: tabular-nums; }
-.deal-opt:has(input:checked) .deal-opt__n { color: var(--tru-pink); }
+/* Two handles on one track — the vanilla twin of
+   src/components/range-slider.tsx, and the same reasoning: `input[type=range]`
+   has exactly one thumb, so a min/max range needs two of them over a single
+   track. Both inputs are transparent and only their thumbs take pointer
+   events, so a click on bare track reaches the input underneath instead of
+   being swallowed by the one on top. */
+.rs { position: relative; height: 1.25rem; }
+.rs__track { position: absolute; top: 50%; left: 0; right: 0; height: 6px; margin-top: -3px; border-radius: 999px; background: rgba(255,255,255,0.1); }
+.rs__fill { position: absolute; top: 0; bottom: 0; border-radius: 999px; background: var(--tru-pink); }
+.rs__in { position: absolute; left: 0; top: 0; width: 100%; height: 100%; margin: 0; appearance: none; -webkit-appearance: none; background: transparent; pointer-events: none; }
+.rs__in:focus-visible { outline: 2px solid var(--tru-pink); outline-offset: 4px; }
+.rs__in::-webkit-slider-thumb { pointer-events: auto; appearance: none; -webkit-appearance: none; width: 1rem; height: 1rem; border-radius: 999px; background: var(--tru-pink); border: 2px solid var(--tru-navy); box-shadow: 0 1px 4px rgba(0,0,0,0.5); cursor: grab; }
+.rs__in::-webkit-slider-thumb:active { cursor: grabbing; }
+.rs__in::-moz-range-thumb { pointer-events: auto; width: 1rem; height: 1rem; border: 2px solid var(--tru-navy); border-radius: 999px; background: var(--tru-pink); box-shadow: 0 1px 4px rgba(0,0,0,0.5); cursor: grab; }
+.rs__in::-moz-range-track { background: transparent; }
+
+/* Sidebar header: "Filter Results" with a Clear link that only appears once
+   something is actually filtered. */
+.deal-side__top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
+.deal-side__clear { border: 0; background: none; padding: 0; color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: color 0.2s; }
+.deal-side__clear:hover { color: var(--tru-pink-light); }
+.deal-clear { margin-top: 1.5rem; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 0.625rem; background: none; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+.deal-clear:hover { border-color: var(--tru-pink); color: var(--tru-pink); }
+
+/* "Show More Deals" under the card list */
+.deal-page { padding-top: 2rem; text-align: center; }
+.deal-page__n { margin-top: 0.5rem; color: #6b7280; font-family: 'Montserrat', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
 
 .deal-reset { margin-top: 1.5rem; width: 100%; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 0.625rem; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
 .deal-reset:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.05); }
 
 /* Card list */
 .deal-list { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
-.deal-empty { color: #9ca3af; text-align: center; padding: 3rem 0; }
+.deal-col { min-width: 0; }
+.deal-empty { border: 1px dashed var(--border-soft); border-radius: 10px; padding: 4rem 0; text-align: center; }
+.deal-empty__p { color: #9ca3af; margin-bottom: 1rem; }
+.deal-empty__reset { border: 0; background: none; color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: color 0.2s; }
+.deal-empty__reset:hover { color: var(--tru-pink-light); }
 
 .deal { overflow: hidden; border: 1px solid var(--border-soft); background: var(--tru-navy); border-radius: 10px; box-shadow: 0 5px 25px -5px rgba(0,0,0,0.3); transition: border-color 0.3s; }
 .deal:hover { border-color: rgba(255,63,153,0.3); }

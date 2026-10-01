@@ -5,19 +5,12 @@ import { useScrollLock } from "@/lib/use-scroll-lock";
 import { trips, type Trip } from "@/lib/data";
 import DealCard, { getUpcomingDepartures } from "@/components/deal-card";
 import PillButton from "@/components/pill-button";
+import RangeSlider from "@/components/range-slider";
 
 const PAGE_SIZE = 6;
 
 // Mirrors `regions` in lib/data — the five groups the live nav uses.
-const REGIONS = ["Asia", "Latin & Central America", "Europe", "Africa & Middle East", "Oceania"] as const;
-
-const DURATIONS = [
-  { id: "any", label: "Any length" },
-  { id: "short", label: "Under 1 week" },
-  { id: "medium", label: "1–2 weeks" },
-  { id: "long", label: "2–4 weeks" },
-  { id: "longest", label: "4 weeks+" },
-] as const;
+const REGIONS = ["Asia", "Central & South America", "Europe", "Africa & Middle East", "Oceania"] as const;
 
 const DEAL_SORT = [
   { id: "earliest", label: "Earliest Departure" },
@@ -31,13 +24,8 @@ const DEAL_SORT = [
 const PRICE_MIN = 0;
 const PRICE_MAX = 2500;
 
-function durationMatches(durationStr: string, bucket: string) {
-  const d = parseInt(durationStr, 10) || 0;
-  if (bucket === "short") return d < 7;
-  if (bucket === "medium") return d >= 7 && d <= 14;
-  if (bucket === "long") return d > 14 && d <= 28;
-  if (bucket === "longest") return d > 28;
-  return true;
+function tripDays(trip: Trip) {
+  return parseInt(trip.duration, 10) || 0;
 }
 
 function discountPct(trip: Trip) {
@@ -57,13 +45,29 @@ const SECTION_PILLS = [{ id: "deals", label: "Deals" }];
 
 export default function DealsBrowser() {
   const [regions, setRegions] = useState<Set<string>>(new Set());
-  const [duration, setDuration] = useState<string>("any");
   const [maxBudget, setMaxBudget] = useState<number>(PRICE_MAX);
   const [dealsSort, setDealsSort] = useState("earliest");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   useScrollLock(mobileFilterOpen);
 
   const [dealsLimit, setDealsLimit] = useState(PAGE_SIZE);
+
+  // Bounds come from the deal set, not from every trip — a track running to
+  // 27 days when the longest deal is 14 is mostly dead travel.
+  const dealTrips = useMemo(
+    () => trips.filter((t) => t.originalPrice && getDealDepartures(t).length > 0),
+    [],
+  );
+  const minDays = useMemo(
+    () => (dealTrips.length ? Math.min(...dealTrips.map(tripDays)) : 0),
+    [dealTrips],
+  );
+  const maxDays = useMemo(
+    () => (dealTrips.length ? Math.max(...dealTrips.map(tripDays)) : 0),
+    [dealTrips],
+  );
+  const [dayRange, setDayRange] = useState<[number, number]>([minDays, maxDays]);
+  const daysTouched = dayRange[0] !== minDays || dayRange[1] !== maxDays;
 
   const [navSticky, setNavSticky] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("deals");
@@ -109,9 +113,7 @@ export default function DealsBrowser() {
   };
 
   const activeFilterCount =
-    regions.size +
-    (duration !== "any" ? 1 : 0) +
-    (maxBudget !== PRICE_MAX ? 1 : 0);
+    regions.size + (daysTouched ? 1 : 0) + (maxBudget !== PRICE_MAX ? 1 : 0);
 
   const toggleRegion = (r: string) => {
     setRegions((prev) => {
@@ -124,15 +126,19 @@ export default function DealsBrowser() {
 
   const clearFilters = () => {
     setRegions(new Set());
-    setDuration("any");
+    setDayRange([minDays, maxDays]);
     setMaxBudget(PRICE_MAX);
   };
 
   const sortedDeals = useMemo(() => {
-    let list = trips.filter((t) => t.originalPrice && getDealDepartures(t).length > 0);
+    let list = dealTrips;
 
     if (regions.size > 0) list = list.filter((t) => regions.has(t.region));
-    if (duration !== "any") list = list.filter((t) => durationMatches(t.duration, duration));
+    if (daysTouched)
+      list = list.filter((t) => {
+        const d = tripDays(t);
+        return d >= dayRange[0] && d <= dayRange[1];
+      });
     if (maxBudget < PRICE_MAX) list = list.filter((t) => t.price <= maxBudget);
 
     return [...list].sort((a, b) => {
@@ -145,7 +151,7 @@ export default function DealsBrowser() {
       if (dealsSort === "latest") return new Date(bNext).getTime() - new Date(aNext).getTime();
       return new Date(aNext).getTime() - new Date(bNext).getTime();
     });
-  }, [regions, duration, maxBudget, dealsSort]);
+  }, [dealTrips, regions, dayRange, daysTouched, maxBudget, dealsSort]);
 
   const FilterPanel = (
     <div className="space-y-4">
@@ -199,31 +205,26 @@ export default function DealsBrowser() {
 
       <div className="h-px bg-white/10" />
 
-      {/* Length */}
+      {/* Length — same control as All Trips: two handles on one track. */}
       <div>
-        <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading mb-2">
-          Length
-        </p>
-        <div className="space-y-1.5">
-          {DURATIONS.map((d) => (
-            <label
-              key={d.id}
-              className={`flex items-center gap-3 cursor-pointer rounded-[8px] px-3 py-2 transition ${
-                duration === d.id ? "bg-tru-pink/15 text-white" : "text-gray-300 hover:bg-white/5 hover:text-white"
-              }`}
-            >
-              <input
-                type="radio"
-                name="duration"
-                value={d.id}
-                checked={duration === d.id}
-                onChange={() => setDuration(d.id)}
-                className="h-4 w-4 accent-tru-pink"
-              />
-              <span className="text-sm">{d.label}</span>
-            </label>
-          ))}
+        <div className="flex items-baseline justify-between mb-3">
+          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading">
+            Length
+          </p>
+          <p className="text-white text-sm font-bold font-heading">
+            {dayRange[0] === dayRange[1]
+              ? `${dayRange[0]} days`
+              : `${dayRange[0]} – ${dayRange[1]} days`}
+          </p>
         </div>
+        <RangeSlider
+          min={minDays}
+          max={maxDays}
+          value={dayRange}
+          onChange={setDayRange}
+          label="trip length"
+          format={(n) => `${n} days`}
+        />
       </div>
 
       <div className="h-px bg-white/10" />

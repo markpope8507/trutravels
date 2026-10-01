@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Range slider &mdash; TruTravels components</title>
+  <!-- One level below the site root, so ../styles.css. Drop the ../ when you
+       paste this into a page at the root. -->
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body { background: #060d18; padding: 3rem 1.5rem; }
+    .demo { max-width: 17rem; margin: 0 auto 3rem; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); border-radius: 12px; padding: 1.5rem; }
+    .demo__label { color: #9ca3af; font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+
+  <p class="demo__label">Range slider &mdash; two handles, one track</p>
+
+  <div class="demo">
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- COPY FROM HERE                                                     -->
+  <!--
+    A min/max range on a single track, the vanilla twin of the prototype's
+    src/components/range-slider.tsx.
+
+    WHY IT'S HAND-BUILT. `<input type="range">` has exactly one thumb, so a
+    range needs two of them. Stacking them as a "Min" row above a "Max" row is
+    the easy version and the wrong one: it reads as two unrelated controls and
+    you can't see the span you've picked. Here both inputs sit over one track,
+    transparent apart from their thumbs, so a click on bare track falls
+    through to whichever input is underneath rather than being swallowed.
+
+    PER INSTANCE: give the wrapper its own `data-rs-*` bounds and set each
+    input's min/max/value to match. The two aria-labels should name the thing
+    being ranged ("trip length", "price"), since the handles have no visible
+    text of their own.
+
+    The readout above the track is the caller's: this component owns the track
+    and the handles, nothing else.
+  -->
+  <div class="deal-range__head">
+    <span class="deal-side__label" style="margin:0">Length</span>
+    <span class="deal-range__val" data-rs-out>8 &ndash; 14 days</span>
+  </div>
+  <div class="rs" data-rs data-rs-min="8" data-rs-max="14">
+    <div class="rs__track"><div class="rs__fill" data-rs-fill></div></div>
+    <input class="rs__in" type="range" min="8" max="14" step="1" value="8" data-rs-lo aria-label="Minimum trip length" />
+    <input class="rs__in" type="range" min="8" max="14" step="1" value="14" data-rs-hi aria-label="Maximum trip length" />
+  </div>
+
+  <script>/* Range slider — clamping, the filled span, and the readout.
+     Handles every [data-rs] on the page, so several can coexist.
+
+     Values clamp against each other on input, so the handles touch but never
+     cross. The lower input is raised once both handles meet at the top of the
+     range — otherwise the max thumb sits on top of the min one and the min
+     handle can never be dragged back down.
+
+     Listen for `rs:change` on the wrapper to filter something with it. */
+  (function () {
+    [].slice.call(document.querySelectorAll('[data-rs]')).forEach(function (rs) {
+      var lo = rs.querySelector('[data-rs-lo]');
+      var hi = rs.querySelector('[data-rs-hi]');
+      var fill = rs.querySelector('[data-rs-fill]');
+      /* Scoped to this slider's own group, so two on one page don't both
+         write into the first readout. */
+      var out = (rs.parentElement || document).querySelector('[data-rs-out]');
+      var MIN = +rs.dataset.rsMin, MAX = +rs.dataset.rsMax;
+      var unit = rs.dataset.rsUnit || 'days';
+
+      function paint() {
+        var a = Math.min(+lo.value, +hi.value), b = Math.max(+lo.value, +hi.value);
+        var span = (MAX - MIN) || 1;
+        fill.style.left = ((a - MIN) / span * 100) + '%';
+        fill.style.right = ((MAX - b) / span * 100) + '%';
+        lo.style.zIndex = +lo.value >= MAX ? 4 : 3;
+        hi.style.zIndex = 3;
+        lo.setAttribute('aria-valuetext', a + ' ' + unit);
+        hi.setAttribute('aria-valuetext', b + ' ' + unit);
+        if (out) out.innerHTML = a === b ? (a + ' ' + unit) : (a + ' &ndash; ' + b + ' ' + unit);
+        rs.dispatchEvent(new CustomEvent('rs:change', { bubbles: true, detail: { min: a, max: b } }));
+      }
+
+      rs.addEventListener('input', function (e) {
+        if (e.target === lo && +lo.value > +hi.value) lo.value = hi.value;
+        if (e.target === hi && +hi.value < +lo.value) hi.value = lo.value;
+        paint();
+      });
+      paint();
+    });
+  })();
+  </script>
+  <!-- COPY TO HERE                                                        -->
+  <!-- ------------------------------------------------------------------ -->
+  </div>
+
+</body>
+</html>
