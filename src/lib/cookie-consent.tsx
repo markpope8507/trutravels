@@ -46,7 +46,7 @@ export const CATEGORIES: {
     name: "Strictly Necessary",
     locked: true,
     summary:
-      "Needed for the site to work — signing in, holding your cart, remembering this very choice. Can't be switched off.",
+      "Needed for the site to work, like signing in, holding your cart and remembering this very choice. Can't be switched off.",
     examples: "Session, cart, security, consent record",
   },
   {

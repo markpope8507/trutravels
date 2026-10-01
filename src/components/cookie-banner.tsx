@@ -108,13 +108,10 @@ export default function CookieBanner() {
               <p className="font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-tru-pink">
                 Cookies
               </p>
-              <p className="mt-1 font-handwriting text-xl leading-none text-white sm:text-2xl">
-                Mind if we keep a few?
-              </p>
-              <p className="mt-2.5 text-sm leading-relaxed text-gray-300">
-                Some are needed to make the site work &mdash; signing in, holding your
+              <p className="mt-2 text-sm leading-relaxed text-gray-300">
+                Some are needed to make the site work, like signing in and holding your
                 cart. The rest help us see which trips people actually look at, and show
-                you ours elsewhere. Your call, and you can change it any time.{" "}
+                you ours elsewhere. Your call, you can change it any time.{" "}
                 <Link
                   href="/terms-conditions"
                   className="text-white underline decoration-white/30 underline-offset-2 transition hover:text-tru-pink hover:decoration-tru-pink"
