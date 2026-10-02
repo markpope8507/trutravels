@@ -645,9 +645,12 @@
       var wrap = document.querySelector('[data-bookings]');
       if (wrap) wrap.innerHTML = groupByRef(BOOKINGS).map(function (group) {
         if (group.length === 1) return bookingCard(group[0]);
+        /* The schedule rides with Manage Booking on either trip rather than
+           sitting open under every pair. */
+        var managing = group.some(function (b) { return state[b.id] && state[b.id].open; });
         return '<div class="acct-group">'
           + group.map(function (b, i) { return groupBand(b, i, group.length) + bookingCard(b); }).join('')
-          + groupPayments(group)
+          + (managing ? groupPayments(group) : '')
           + '</div>';
       }).join('');
       var modal = document.querySelector('[data-video-root]');

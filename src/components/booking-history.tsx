@@ -1022,8 +1022,9 @@ const statusStyles = {
 
         {/* One payment schedule for the whole booking. The payments were taken
             together, so showing them on each trip card would count them twice
-            and imply two separate transactions. */}
-        {multi && (
+            and imply two separate transactions. Revealed by Manage Booking on
+            either trip, rather than sitting open under every pair. */}
+        {multi && group.some((b) => expandedId === b.id) && (
           <div className="rounded-b-[10px] border border-t-0 border-tru-pink/30 bg-tru-pink/[0.04] px-4 py-4">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
               <p className="text-white font-bold text-sm font-heading uppercase tracking-wider">
