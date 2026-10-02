@@ -66,6 +66,20 @@ export default function DealsBrowser() {
   const [dayRange, setDayRange] = useState<[number, number]>([minDays, maxDays]);
   const daysTouched = dayRange[0] !== minDays || dayRange[1] !== maxDays;
 
+  // WHEN — a departure-date window, the same filter the live site runs as
+  // "Departure Date From / To". Bounded to the dates deals actually exist on,
+  // so the picker can't wander into months with nothing in them.
+  const dealDates = useMemo(
+    () => dealTrips.flatMap((t) => getDealDepartures(t).map((d) => d.date)).sort(),
+    [dealTrips],
+  );
+  const minDate = dealDates[0] ?? "";
+  const maxDate = dealDates[dealDates.length - 1] ?? "";
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
+  const datesTouched = dateFrom !== "" || dateTo !== "";
+
+
   const [navSticky, setNavSticky] = useState(false);
 
   useEffect(() => {
@@ -81,7 +95,10 @@ export default function DealsBrowser() {
   }, []);
 
   const activeFilterCount =
-    regions.size + (daysTouched ? 1 : 0) + (maxBudget !== PRICE_MAX ? 1 : 0);
+    regions.size +
+    (daysTouched ? 1 : 0) +
+    (datesTouched ? 1 : 0) +
+    (maxBudget !== PRICE_MAX ? 1 : 0);
 
   const toggleRegion = (r: string) => {
     setRegions((prev) => {
@@ -95,6 +112,8 @@ export default function DealsBrowser() {
   const clearFilters = () => {
     setRegions(new Set());
     setDayRange([minDays, maxDays]);
+    setDateFrom("");
+    setDateTo("");
     setMaxBudget(PRICE_MAX);
   };
 
@@ -107,6 +126,13 @@ export default function DealsBrowser() {
         const d = tripDays(t);
         return d >= dayRange[0] && d <= dayRange[1];
       });
+    // A deal survives if any of its on-sale departures falls in the window.
+    if (datesTouched)
+      list = list.filter((t) =>
+        getDealDepartures(t).some(
+          (d) => (!dateFrom || d.date >= dateFrom) && (!dateTo || d.date <= dateTo),
+        ),
+      );
     if (maxBudget < PRICE_MAX) list = list.filter((t) => t.price <= maxBudget);
 
     return [...list].sort((a, b) => {
@@ -119,7 +145,7 @@ export default function DealsBrowser() {
       if (dealsSort === "latest") return new Date(bNext).getTime() - new Date(aNext).getTime();
       return new Date(aNext).getTime() - new Date(bNext).getTime();
     });
-  }, [dealTrips, regions, dayRange, daysTouched, maxBudget, dealsSort]);
+  }, [dealTrips, regions, dayRange, daysTouched, dateFrom, dateTo, datesTouched, maxBudget, dealsSort]);
 
   const FilterPanel = (
     <div className="space-y-4">
@@ -222,6 +248,56 @@ export default function DealsBrowser() {
               </label>
             );
           })}
+        </div>
+      </div>
+
+      <div className="h-px bg-white/10" />
+
+      {/* When — departure-date window, mirroring the live site's
+          "Departure Date From / To". Native date inputs: a picker widget
+          would be the only one of its kind in this sidebar. */}
+      <div>
+        <div className="flex items-baseline justify-between mb-3">
+          <p className="text-[10px] text-tru-pink font-bold uppercase tracking-[0.2em] font-heading">
+            When
+          </p>
+          {datesTouched && (
+            <button
+              onClick={() => {
+                setDateFrom("");
+                setDateTo("");
+              }}
+              className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading hover:text-tru-pink-light transition"
+            >
+              Any date
+            </button>
+          )}
+        </div>
+        <div className="space-y-2">
+          <label className="flex items-center gap-3">
+            <span className="w-10 shrink-0 text-[10px] text-gray-500 uppercase tracking-wider font-heading">From</span>
+            <input
+              type="date"
+              value={dateFrom}
+              min={minDate}
+              max={dateTo || maxDate}
+              onChange={(e) => setDateFrom(e.target.value)}
+              aria-label="Departure date from"
+              className="w-full bg-tru-navy border border-white/15 rounded-[10px] px-3 py-2 text-sm text-white focus:outline-none focus:border-tru-pink/50 [color-scheme:dark]"
+            />
+          </label>
+          <label className="flex items-center gap-3">
+            <span className="w-10 shrink-0 text-[10px] text-gray-500 uppercase tracking-wider font-heading">To</span>
+            <input
+              type="date"
+              value={dateTo}
+              min={dateFrom || minDate}
+              max={maxDate}
+              onChange={(e) => setDateTo(e.target.value)}
+              aria-label="Departure date to"
+              className="w-full bg-tru-navy border border-white/15 rounded-[10px] px-3 py-2 text-sm text-white focus:outline-none focus:border-tru-pink/50 [color-scheme:dark]"
+            />
+          </label>
         </div>
       </div>
 

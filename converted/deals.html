@@ -190,11 +190,22 @@
           <label class="deal-opt deal-opt--check"><input type="checkbox" name="deal-region" value="Oceania" /><span>Oceania</span></label>
         </div>
 
+        <div class="deal-side__grp">
+          <div class="deal-range__head">
+            <span class="deal-side__label" style="margin:0">When</span>
+            <button class="deal-side__clear" type="button" data-deal-dates-clear hidden>Any date</button>
+          </div>
+          <div class="deal-when">
+            <label class="deal-when__row"><span>From</span><input type="date" min="2026-10-03" max="2026-11-19" data-deal-from aria-label="Departure date from" /></label>
+            <label class="deal-when__row"><span>To</span><input type="date" min="2026-10-03" max="2026-11-19" data-deal-to aria-label="Departure date to" /></label>
+          </div>
+        </div>
+
         <button class="deal-clear" type="button" data-deal-reset data-deal-reset-auto hidden>Clear Filters (<span data-deal-active>0</span>)</button>
       </aside>
         <div class="deal-col">
           <div class="deal-list" data-deal-list>
-      <article class="deal" data-region="Asia" data-days="13" data-price="875" data-rating="4.8" data-discount="30" data-next="2026-10-03">
+      <article class="deal" data-region="Asia" data-days="13" data-price="875" data-rating="4.8" data-discount="30" data-next="2026-10-03" data-dates="2026-10-03 2026-10-24 2026-11-14">
         <div class="deal__top">
           <div class="deal__media">
             <a class="deal__imglink" href="explore.html">
@@ -263,7 +274,7 @@
         </div>
       </div>
       </article>
-      <article class="deal" data-region="Central &amp; South America" data-days="10" data-price="945" data-rating="4.9" data-discount="30" data-next="2026-10-04">
+      <article class="deal" data-region="Central &amp; South America" data-days="10" data-price="945" data-rating="4.9" data-discount="30" data-next="2026-10-04" data-dates="2026-10-04 2026-11-01">
         <div class="deal__top">
           <div class="deal__media">
             <a class="deal__imglink" href="explore.html">
@@ -323,7 +334,7 @@
         </div>
       </div>
       </article>
-      <article class="deal" data-region="Europe" data-days="9" data-price="1327" data-rating="4.9" data-discount="30" data-next="2026-10-05">
+      <article class="deal" data-region="Europe" data-days="9" data-price="1327" data-rating="4.9" data-discount="30" data-next="2026-10-05" data-dates="2026-10-05">
         <div class="deal__top">
           <div class="deal__media">
             <a class="deal__imglink" href="explore.html">
@@ -365,7 +376,7 @@
           </div>
         </div>
       </article>
-      <article class="deal" data-region="Asia" data-days="10" data-price="697" data-rating="4.8" data-discount="30" data-next="2026-10-08">
+      <article class="deal" data-region="Asia" data-days="10" data-price="697" data-rating="4.8" data-discount="30" data-next="2026-10-08" data-dates="2026-10-08 2026-11-19">
         <div class="deal__top">
           <div class="deal__media">
             <a class="deal__imglink" href="explore.html">
@@ -425,7 +436,7 @@
         </div>
       </div>
       </article>
-      <article class="deal" data-region="Asia" data-days="10" data-price="487" data-rating="4.8" data-discount="30" data-next="2026-10-10">
+      <article class="deal" data-region="Asia" data-days="10" data-price="487" data-rating="4.8" data-discount="30" data-next="2026-10-10" data-dates="2026-10-10 2026-11-07">
         <div class="deal__top">
           <div class="deal__media">
             <a class="deal__imglink" href="explore.html">
@@ -485,7 +496,7 @@
         </div>
       </div>
       </article>
-      <article class="deal" data-region="Asia" data-days="14" data-price="736" data-rating="4.9" data-discount="18" data-next="2026-10-11">
+      <article class="deal" data-region="Asia" data-days="14" data-price="736" data-rating="4.9" data-discount="18" data-next="2026-10-11" data-dates="2026-10-11 2026-10-25">
         <div class="deal__top">
           <div class="deal__media">
             <a class="deal__imglink" href="thailand-island-hopper.html">
@@ -545,7 +556,7 @@
         </div>
       </div>
       </article>
-      <article class="deal" data-region="Asia" data-days="8" data-price="665" data-rating="4.8" data-discount="30" data-next="2026-10-22">
+      <article class="deal" data-region="Asia" data-days="8" data-price="665" data-rating="4.8" data-discount="30" data-next="2026-10-22" data-dates="2026-10-22">
         <div class="deal__top">
           <div class="deal__media">
             <a class="deal__imglink" href="explore.html">
@@ -982,6 +993,10 @@
     var budgetOut = document.querySelector('[data-deal-budget-out]');
     var PRICE_MAX = budget ? +budget.max : 2500;
 
+    var dFrom = document.querySelector('[data-deal-from]');
+    var dTo = document.querySelector('[data-deal-to]');
+    var dClear = document.querySelector('[data-deal-dates-clear]');
+
     var rs = document.querySelector('[data-rs]');
     var rsLo = rs && rs.querySelector('[data-rs-lo]');
     var rsHi = rs && rs.querySelector('[data-rs-hi]');
@@ -1016,6 +1031,7 @@
       var n = document.querySelectorAll('input[name="deal-region"]:checked').length;
       if (r[0] !== DAY_MIN || r[1] !== DAY_MAX) n++;
       if (budget && +budget.value !== PRICE_MAX) n++;
+      if ((dFrom && dFrom.value) || (dTo && dTo.value)) n++;
       return n;
     }
 
@@ -1025,10 +1041,17 @@
       var cap = budget ? +budget.value : PRICE_MAX;
       var regions = [].slice.call(document.querySelectorAll('input[name="deal-region"]:checked'))
         .map(function (i) { return i.value; });
+      var from = dFrom ? dFrom.value : '', to = dTo ? dTo.value : '';
       return cards.filter(function (c) {
         var d = +c.dataset.days;
+        /* ISO dates compare correctly as strings, so no Date parsing needed. */
+        var dates = (c.dataset.dates || '').split(' ');
+        var whenOk = (!from && !to) || dates.some(function (x) {
+          return x && (!from || x >= from) && (!to || x <= to);
+        });
         return (regions.length === 0 || regions.indexOf(c.dataset.region) > -1) &&
                (!touched || (d >= r[0] && d <= r[1])) &&
+               whenOk &&
                (cap >= PRICE_MAX || +c.dataset.price <= cap);
       });
     }
@@ -1052,6 +1075,12 @@
         var at = document.querySelector('[data-deal-showing]');
         if (at) at.textContent = 'Showing ' + Math.min(shown, ok.length) + ' of ' + ok.length;
       }
+      if (dFrom && dTo) {
+        /* Each end bounds the other, so the window can never invert. */
+        dTo.min = dFrom.value || dTo.getAttribute('data-min0') || dTo.min;
+        dFrom.max = dTo.value || dFrom.getAttribute('data-max0') || dFrom.max;
+        if (dClear) dClear.hidden = !(dFrom.value || dTo.value);
+      }
       if (budgetOut) budgetOut.innerHTML = 'up to &pound;' + (budget ? budget.value : '') + (budget && +budget.value >= PRICE_MAX ? '+' : '');
       paintSlider();
     }
@@ -1072,6 +1101,7 @@
     document.addEventListener('change', function (e) {
       if (e.target.closest('[data-deal-sort]')) { sort(); apply(); return; }
       if (e.target.name === 'deal-region') apply();
+      if (e.target === dFrom || e.target === dTo) { shown = PAGE_SIZE; apply(); }
     });
 
     /* live while dragging, not just on release */
@@ -1083,6 +1113,11 @@
     });
 
     document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-deal-dates-clear]')) {
+        if (dFrom) dFrom.value = ''; if (dTo) dTo.value = '';
+        shown = PAGE_SIZE; apply();
+        return;
+      }
       if (e.target.closest('[data-deal-more]')) {
         shown += PAGE_SIZE;
         apply();
@@ -1092,9 +1127,12 @@
       document.querySelectorAll('input[name="deal-region"]').forEach(function (i) { i.checked = false; });
       if (budget) budget.value = PRICE_MAX;
       if (rs) { rsLo.value = DAY_MIN; rsHi.value = DAY_MAX; }
+      if (dFrom) dFrom.value = ''; if (dTo) dTo.value = '';
       apply();
     });
 
+    if (dFrom) dFrom.setAttribute('data-max0', dFrom.max);
+    if (dTo) dTo.setAttribute('data-min0', dTo.min);
     sort();
     apply();
   })();

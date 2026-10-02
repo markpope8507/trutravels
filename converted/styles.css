@@ -5760,6 +5760,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 .deal-side__top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
 .deal-side__clear { border: 0; background: none; padding: 0; color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: color 0.2s; }
 .deal-side__clear:hover { color: var(--tru-pink-light); }
+/* When — the departure-date window. Native date inputs rather than a picker
+   widget: it is the only control of its kind in this sidebar, and the static
+   site has no date-picker component to reuse. color-scheme:dark makes the
+   browser's own calendar and its icon legible on navy. */
+.deal-when { display: flex; flex-direction: column; gap: 0.5rem; }
+.deal-when__row { display: flex; align-items: center; gap: 0.75rem; }
+.deal-when__row > span { width: 2.5rem; flex-shrink: 0; color: #6b7280; font-family: 'Montserrat', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+.deal-when__row input[type=date] { width: 100%; min-width: 0; border: 1px solid rgba(255,255,255,0.15); background: var(--tru-navy); border-radius: 10px; padding: 0.5rem 0.75rem; color: #fff; font-family: inherit; font-size: 0.875rem; line-height: 1.25rem; color-scheme: dark; cursor: pointer; }
+.deal-when__row input[type=date]:focus-visible { outline: none; border-color: rgba(255,63,153,0.5); }
+
 .deal-clear { margin-top: 1.5rem; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 0.625rem; background: none; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
 .deal-clear:hover { border-color: var(--tru-pink); color: var(--tru-pink); }
 

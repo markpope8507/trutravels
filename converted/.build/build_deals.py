@@ -290,7 +290,7 @@ def deal_card(trip, deps, idx, region):
         </div>
       </div>'''
 
-    return f'''      <article class="deal" data-region="{html.escape(region)}" data-days="{days}" data-price="{trip.get("price") or 0}" data-rating="{trip.get("rating") or 0}" data-discount="{trip.get("save") or 0}" data-next="{nxt["start"].isoformat()}">
+    return f'''      <article class="deal" data-region="{html.escape(region)}" data-days="{days}" data-price="{trip.get("price") or 0}" data-rating="{trip.get("rating") or 0}" data-discount="{trip.get("save") or 0}" data-next="{nxt["start"].isoformat()}" data-dates="{" ".join(d["start"].isoformat() for d in deps)}">
         <div class="deal__top">
           <div class="deal__media">
             <a class="deal__imglink" href="{href}">
@@ -349,7 +349,8 @@ def deals():
     cards, meta = [], []
     for n, (trip, deps, region) in enumerate(rows, 1):
         cards.append(deal_card(trip, deps, n, region))
-        meta.append({"region": region, "days": trip.get("days") or 1})
+        meta.append({"region": region, "days": trip.get("days") or 1,
+                     "dates": [d["start"].isoformat() for d in deps]})
     return cards, meta
 
 
@@ -373,7 +374,7 @@ def region_counts(cards_meta):
     return sorted(counts.items(), key=lambda kv: (-kv[1], kv[0]))
 
 
-def sidebar(cards_meta):
+def sidebar(cards_meta, date_min="", date_max=""):
     count = len(cards_meta)
     days = [m["days"] for m in cards_meta] or [0]
     lo, hi = min(days), max(days)
@@ -439,6 +440,17 @@ def sidebar(cards_meta):
 {regions}
         </div>
 
+        <div class="deal-side__grp">
+          <div class="deal-range__head">
+            <span class="deal-side__label" style="margin:0">When</span>
+            <button class="deal-side__clear" type="button" data-deal-dates-clear hidden>Any date</button>
+          </div>
+          <div class="deal-when">
+            <label class="deal-when__row"><span>From</span><input type="date" min="{date_min}" max="{date_max}" data-deal-from aria-label="Departure date from" /></label>
+            <label class="deal-when__row"><span>To</span><input type="date" min="{date_min}" max="{date_max}" data-deal-to aria-label="Departure date to" /></label>
+          </div>
+        </div>
+
         <button class="deal-clear" type="button" data-deal-reset data-deal-reset-auto hidden>Clear Filters (<span data-deal-active>0</span>)</button>
       </aside>'''
 
@@ -464,6 +476,10 @@ FILTER_JS = """
     var budget = document.querySelector('[data-deal-budget]');
     var budgetOut = document.querySelector('[data-deal-budget-out]');
     var PRICE_MAX = budget ? +budget.max : 2500;
+
+    var dFrom = document.querySelector('[data-deal-from]');
+    var dTo = document.querySelector('[data-deal-to]');
+    var dClear = document.querySelector('[data-deal-dates-clear]');
 
     var rs = document.querySelector('[data-rs]');
     var rsLo = rs && rs.querySelector('[data-rs-lo]');
@@ -499,6 +515,7 @@ FILTER_JS = """
       var n = document.querySelectorAll('input[name="deal-region"]:checked').length;
       if (r[0] !== DAY_MIN || r[1] !== DAY_MAX) n++;
       if (budget && +budget.value !== PRICE_MAX) n++;
+      if ((dFrom && dFrom.value) || (dTo && dTo.value)) n++;
       return n;
     }
 
@@ -508,10 +525,17 @@ FILTER_JS = """
       var cap = budget ? +budget.value : PRICE_MAX;
       var regions = [].slice.call(document.querySelectorAll('input[name="deal-region"]:checked'))
         .map(function (i) { return i.value; });
+      var from = dFrom ? dFrom.value : '', to = dTo ? dTo.value : '';
       return cards.filter(function (c) {
         var d = +c.dataset.days;
+        /* ISO dates compare correctly as strings, so no Date parsing needed. */
+        var dates = (c.dataset.dates || '').split(' ');
+        var whenOk = (!from && !to) || dates.some(function (x) {
+          return x && (!from || x >= from) && (!to || x <= to);
+        });
         return (regions.length === 0 || regions.indexOf(c.dataset.region) > -1) &&
                (!touched || (d >= r[0] && d <= r[1])) &&
+               whenOk &&
                (cap >= PRICE_MAX || +c.dataset.price <= cap);
       });
     }
@@ -535,6 +559,12 @@ FILTER_JS = """
         var at = document.querySelector('[data-deal-showing]');
         if (at) at.textContent = 'Showing ' + Math.min(shown, ok.length) + ' of ' + ok.length;
       }
+      if (dFrom && dTo) {
+        /* Each end bounds the other, so the window can never invert. */
+        dTo.min = dFrom.value || dTo.getAttribute('data-min0') || dTo.min;
+        dFrom.max = dTo.value || dFrom.getAttribute('data-max0') || dFrom.max;
+        if (dClear) dClear.hidden = !(dFrom.value || dTo.value);
+      }
       if (budgetOut) budgetOut.innerHTML = 'up to &pound;' + (budget ? budget.value : '') + (budget && +budget.value >= PRICE_MAX ? '+' : '');
       paintSlider();
     }
@@ -555,6 +585,7 @@ FILTER_JS = """
     document.addEventListener('change', function (e) {
       if (e.target.closest('[data-deal-sort]')) { sort(); apply(); return; }
       if (e.target.name === 'deal-region') apply();
+      if (e.target === dFrom || e.target === dTo) { shown = PAGE_SIZE; apply(); }
     });
 
     /* live while dragging, not just on release */
@@ -566,6 +597,11 @@ FILTER_JS = """
     });
 
     document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-deal-dates-clear]')) {
+        if (dFrom) dFrom.value = ''; if (dTo) dTo.value = '';
+        shown = PAGE_SIZE; apply();
+        return;
+      }
       if (e.target.closest('[data-deal-more]')) {
         shown += PAGE_SIZE;
         apply();
@@ -575,9 +611,12 @@ FILTER_JS = """
       document.querySelectorAll('input[name="deal-region"]').forEach(function (i) { i.checked = false; });
       if (budget) budget.value = PRICE_MAX;
       if (rs) { rsLo.value = DAY_MIN; rsHi.value = DAY_MAX; }
+      if (dFrom) dFrom.value = ''; if (dTo) dTo.value = '';
       apply();
     });
 
+    if (dFrom) dFrom.setAttribute('data-max0', dFrom.max);
+    if (dTo) dTo.setAttribute('data-min0', dTo.min);
     sort();
     apply();
   })();
@@ -586,6 +625,8 @@ FILTER_JS = """
 
 def deals_page():
     cards, meta = deals()
+    all_dates = sorted(d for m in meta for d in m["dates"])
+    date_min, date_max = (all_dates[0], all_dates[-1]) if all_dates else ("", "")
     # A silent empty page is how the parser bugs above went unnoticed: the
     # script "succeeded" and published a deals page with nothing on it.
     # Fail instead, the way build_prelaunch.py does for a missing onSale.
@@ -611,7 +652,7 @@ def deals_page():
       <img class="deal-sec__mark deal-sec__mark--l" src="assets/bg-assets/lantern.svg" alt="" aria-hidden="true" />
       <img class="deal-sec__mark deal-sec__mark--r" src="assets/bg-assets/good-vibes.svg" alt="" aria-hidden="true" />
       <div class="container deal-layout">
-{sidebar(meta)}
+{sidebar(meta, date_min, date_max)}
         <div class="deal-col">
           <div class="deal-list" data-deal-list>
 {chr(10).join(cards)}
