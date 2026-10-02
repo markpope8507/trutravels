@@ -1527,6 +1527,15 @@ ul { margin: 0; padding: 0; list-style: none; }
 #exp-tru-ly-unique:checked~ .exp__list > [data-exp]:not([data-exp="tru-ly-unique"]),
 #exp-unplugged:checked    ~ .exp__list > [data-exp]:not([data-exp="unplugged"]) { display: none; }
 
+/* Some activities carry no experience type at all (Phuket nightlife, for one).
+   The prototype shows those under "All" and nowhere else; without this they'd
+   survive every tab, because the rule above only matches [data-exp]. */
+#exp-local-lens:checked   ~ .exp__list > :not([data-exp]),
+#exp-rise-up:checked      ~ .exp__list > :not([data-exp]),
+#exp-bucket-list:checked  ~ .exp__list > :not([data-exp]),
+#exp-tru-ly-unique:checked~ .exp__list > :not([data-exp]),
+#exp-unplugged:checked    ~ .exp__list > :not([data-exp]) { display: none; }
+
 /* Destination Things To Do — same tabs, slider of cards instead of a list */
 #dest-exp-all:checked          ~ .exp__tabs label[for="dest-exp-all"],
 #dest-exp-local-lens:checked   ~ .exp__tabs label[for="dest-exp-local-lens"],
@@ -5633,6 +5642,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Cross-links */
 .ab-more { border-top: 1px solid rgba(255,255,255,0.06); }
+/* Lead paragraph under a cross-links heading. Only Our Values carries one;
+   the other About pages go straight from the heading to the grid. */
+.ab-xintro { color: #d1d5db; margin: 1.25rem 0 0; font-size: 1rem; line-height: 1.625; max-width: 44rem; }
+@media (min-width: 640px) { .ab-xintro { font-size: 1.125rem; } }
 .ab-xgrid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2.5rem; }
 @media (min-width: 640px) { .ab-xgrid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .ab-xgrid { grid-template-columns: repeat(3, 1fr); } }

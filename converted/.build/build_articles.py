@@ -183,7 +183,10 @@ def build_article(sid):
           '<section class="art-tours"><div class="container">'
           + '<div class="art-tours__eyebrow-row"><span class="art-tours__rule"></span><p class="art-tours__eyebrow">Tick Them Off</p></div>'
           + '<h2 class="art-tours__title">Tours With These <span class="tx-pink">Sites</span> In</h2>'
-          + '<p class="art-tours__intro">Every one of these group adventures takes you to spots from this story. Find your crew and go see them for real.</p>'
+          # Hardcoded in the prototype's story template (src/app/stories/[slug]/page.tsx),
+          # so every story with tours carries the UNESCO wording whether or not it is a
+          # UNESCO list. Kept verbatim so the two sides match; fix it upstream first.
+          + '<p class="art-tours__intro">Every one of these group adventures takes you right to a UNESCO World Heritage Site on this list. Find your crew and go see them for real.</p>'
           + '<div class="rev-carousel" data-arrows><div class="carousel carousel--related">%s</div>' % cards
           + '<button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous">%s</button>' % ICON_BACK
           + '<button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>'
