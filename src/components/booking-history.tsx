@@ -101,7 +101,9 @@ const mockBookings = [
     balanceDue: 0,
     balanceDueDate: "",
     travellers: 1,
-    bookingRef: "TRU-2026-05912",
+    // Booked in the same transaction as b1 — one booking, two trips, so it
+    // carries that booking's reference rather than one of its own.
+    bookingRef: "TRU-2026-04871",
     tourLeader: "TBC",
   },
   {
@@ -300,7 +302,36 @@ function BookingHistory() {
     setFormData((prev) => ({ ...prev, [key]: value }));
   };
 
-  const statusStyles = {
+  /**
+ * A booking can hold more than one trip — two tours bought in one transaction,
+ * paid for together. Trips in the same booking share a bookingRef, and the
+ * money lives here rather than on either trip: one payment covering both would
+ * otherwise have to appear on both cards, and the totals would double.
+ *
+ * Per-trip detail (dates, leader, Good to Go, add-ons, passengers) stays on
+ * the trip, because that genuinely differs between them.
+ */
+const bookingPayments: Record<string, { date: string; desc: string; ref: string; amount: number; balance: number }[]> = {
+  "TRU-2026-04871": [
+    { date: "12 Jan 2026", desc: "Deposit \u00b7 both trips", ref: "PAY-04871-001", amount: 600, balance: 2002 },
+    { date: "28 Jan 2026", desc: "Pre-Night Hotel \u00b7 Thailand Island Hopper", ref: "PAY-04871-002", amount: 45, balance: 1957 },
+    { date: "3 Feb 2026", desc: "Airport Transfer \u00b7 Thailand Island Hopper", ref: "PAY-04871-003", amount: 60, balance: 1897 },
+    { date: "15 Feb 2026", desc: "Final balance \u00b7 both trips", ref: "PAY-04871-004", amount: 1897, balance: 0 },
+  ],
+};
+
+/** Trips sharing a bookingRef are one booking, in the order they were added. */
+function groupByBooking<T extends { bookingRef: string }>(rows: T[]): T[][] {
+  const by = new Map<string, T[]>();
+  for (const r of rows) {
+    const list = by.get(r.bookingRef);
+    if (list) list.push(r);
+    else by.set(r.bookingRef, [r]);
+  }
+  return [...by.values()];
+}
+
+const statusStyles = {
     upcoming: { label: "CONFIRMED", color: "text-tru-green" },
     completed: { label: "Completed", color: "bg-gray-500 text-white" },
     cancelled: { label: "Cancelled", color: "bg-red-500 text-white" },
@@ -319,12 +350,37 @@ function BookingHistory() {
   return (
     <section className="mb-12">
       <div className="space-y-6">
-        {mockBookings.map((booking) => {
+        {groupByBooking(mockBookings).map((group) => {
+          const multi = group.length > 1;
+          const payments = bookingPayments[group[0].bookingRef];
+          const groupTotal = group.reduce((n, b) => n + b.pricePaid, 0);
+          const groupPaid = group.reduce((n, b) => n + (b.paymentsMade || b.depositPaid), 0);
+          const groupDue = group.reduce((n, b) => n + b.balanceDue, 0);
+
+          return (
+        <div key={group[0].bookingRef} className={multi ? "space-y-2" : ""}>
+        {group.map((booking, gi) => {
           const status = statusStyles[booking.status];
           const isExpanded = expandedId === booking.id;
           const isUpcoming = booking.status === "upcoming";
 
           return (
+            <div key={booking.id}>
+            {/* Booked together \u2014 the band that says these cards are one
+                booking. No status on it: the trips can be in different states
+                and a single badge would misreport one of them. */}
+            {multi && (
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-t-[10px] border border-b-0 border-tru-pink/30 bg-tru-pink/10 px-4 py-2">
+                <svg className="h-3.5 w-3.5 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m8.156-5.828a4 4 0 015.656 5.656l-1.5 1.5m-8.156-1.328a4 4 0 005.656 0" />
+                </svg>
+                <span className="text-tru-pink text-[10px] font-bold uppercase tracking-wider font-heading">Booked together</span>
+                <span className="text-gray-500 text-[10px]">&middot;</span>
+                <span className="text-white text-[10px] font-semibold tracking-wider font-heading">{booking.bookingRef}</span>
+                <span className="text-gray-500 text-[10px]">&middot;</span>
+                <span className="text-gray-400 text-[10px] font-heading">Trip {gi + 1} of {group.length}</span>
+              </div>
+            )}
             <div key={booking.id} className={`rounded-[10px] border overflow-hidden ${booking.status === "cancelled" ? "border-red-500/30 bg-white/[0.02]" : "border-white/10 bg-white/5"}`}>
               {/* Card header — tour card style */}
               <div className="flex flex-col sm:flex-row">
@@ -613,6 +669,7 @@ function BookingHistory() {
                           );
                         })}
 
+                        {!multi && (
                         <div className="grid grid-cols-3 divide-x divide-white/5">
                           <div className="px-4 py-3">
                             <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Total Price</p>
@@ -629,8 +686,9 @@ function BookingHistory() {
                             </p>
                           </div>
                         </div>
+                        )}
 
-                        {(booking as any).promo && (
+                        {!multi && (booking as any).promo && (
                           <div className="px-4 py-3 bg-tru-green/5 flex items-center gap-2">
                             <svg className="h-4 w-4 text-tru-green flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" /></svg>
                             <p className="text-tru-green text-xs font-semibold">{(booking as any).promo.code} &middot; -&pound;{gbp((booking as any).promo.discount)} off <span className="text-gray-500 font-normal line-through">&pound;{gbp((booking as any).promo.originalPrice)}</span></p>
@@ -727,7 +785,10 @@ function BookingHistory() {
                         </div>
                       )}
 
-                      {/* Payment History */}
+                      {/* Payment History \u2014 only when this trip IS the booking.
+                          Multi-trip bookings show one schedule beneath the group,
+                          because the payments covered both trips at once. */}
+                      {!multi && (
                       <div className="mt-6">
                         <p className="text-white font-bold text-sm font-heading uppercase tracking-wider mb-3">Payment History</p>
                         <div className="rounded-[10px] border border-white/10 bg-white/5 overflow-hidden">
@@ -779,6 +840,7 @@ function BookingHistory() {
                           </div>
                         </div>
                       </div>
+                      )}
                     </div>
                   )}
 
@@ -954,6 +1016,88 @@ function BookingHistory() {
               </div>
               )}
             </div>
+            </div>
+          );
+        })}
+
+        {/* One payment schedule for the whole booking. The payments were taken
+            together, so showing them on each trip card would count them twice
+            and imply two separate transactions. */}
+        {multi && (
+          <div className="rounded-b-[10px] border border-t-0 border-tru-pink/30 bg-tru-pink/[0.04] px-4 py-4">
+            <div className="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+              <p className="text-white font-bold text-sm font-heading uppercase tracking-wider">
+                Payments for this booking
+              </p>
+              <p className="text-gray-400 text-[11px]">
+                {group.length} trips &middot; {group[0].bookingRef}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-3 divide-x divide-white/5 rounded-[10px] border border-white/10 bg-white/5 mb-3">
+              <div className="px-4 py-3">
+                <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Total Price</p>
+                <p className="text-white text-sm font-semibold">&pound;{gbp(groupTotal)}</p>
+              </div>
+              <div className="px-4 py-3">
+                <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Paid</p>
+                <p className="text-tru-green text-sm font-semibold">&pound;{gbp(groupPaid)}</p>
+              </div>
+              <div className="px-4 py-3">
+                <p className="text-gray-500 text-[10px] uppercase tracking-wider mb-0.5">Balance Due</p>
+                <p className={`text-sm font-semibold ${groupDue > 0 ? "text-tru-pink" : "text-tru-green"}`}>
+                  {groupDue > 0 ? `£${gbp(groupDue)}` : "£0 ✓"}
+                </p>
+              </div>
+            </div>
+
+            {payments && (
+              <div className="rounded-[10px] border border-white/10 bg-white/5 overflow-hidden">
+                <div className="hidden sm:grid sm:grid-cols-5 gap-2 px-4 py-2 border-b border-white/5 text-[9px] text-gray-500 uppercase tracking-wider font-heading">
+                  <span>Date</span>
+                  <span>Description</span>
+                  <span>Amount</span>
+                  <span>Reference</span>
+                  <span className="text-right">Balance After</span>
+                </div>
+                {payments.map((pay) => (
+                  <div key={pay.ref} className="grid grid-cols-2 sm:grid-cols-5 gap-2 px-4 py-3 border-b border-white/5 last:border-0">
+                    <div>
+                      <p className="text-gray-500 text-[9px] uppercase tracking-wider sm:hidden">Date</p>
+                      <p className="text-white text-xs">{pay.date}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-[9px] uppercase tracking-wider sm:hidden">Description</p>
+                      <p className="text-gray-300 text-xs">{pay.desc}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-[9px] uppercase tracking-wider sm:hidden">Amount</p>
+                      <p className="text-tru-green text-xs font-semibold">&pound;{gbp(pay.amount)}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-500 text-[9px] uppercase tracking-wider sm:hidden">Reference</p>
+                      <p className="text-gray-300 text-xs">{pay.ref}</p>
+                    </div>
+                    <div className="sm:text-right">
+                      <p className="text-gray-500 text-[9px] uppercase tracking-wider sm:hidden">Balance After</p>
+                      <p className={`text-xs font-semibold ${pay.balance > 0 ? "text-tru-pink" : "text-tru-green"}`}>&pound;{gbp(pay.balance)}</p>
+                    </div>
+                  </div>
+                ))}
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 px-4 py-3 bg-white/5">
+                  <p className="text-white text-xs font-bold">Total Paid</p>
+                  <p className="hidden sm:block" />
+                  <p className="text-tru-green text-xs font-bold">&pound;{gbp(groupPaid)}</p>
+                  <p className="hidden sm:block" />
+                  <p className={`text-xs font-bold sm:text-right ${groupDue > 0 ? "text-tru-pink" : "text-tru-green"}`}>
+                    {groupDue > 0 ? `£${gbp(groupDue)} remaining` : "Paid in full ✓"}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        </div>
           );
         })}
       </div>

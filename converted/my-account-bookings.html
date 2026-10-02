@@ -8,7 +8,7 @@
   <meta name="description" content="Your TruTravels bookings, trip details and optional extras." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -567,7 +567,8 @@
     function read(key) { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch (e) { return []; } }
   </script>
   <script>
-    var BOOKINGS = [{"id": "b1", "tripId": "thailand-island-hopper", "ref": "TRU-2026-04871", "title": "Thailand Island Hopper", "image": "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg", "duration": "14 Days", "start": "Bangkok", "end": "Phuket", "departsIn": 24, "lasts": 13, "bookedIn": -95, "status": "upcoming", "price": 1727, "deposit": 300, "paid": 1727, "balance": 0, "balanceDue": "", "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "Tommy", "goodToGo": {"flightDetails": true, "travelInsurance": true, "dietaryRequirements": true, "emergencyContact": true, "passportDetails": true, "visaCheck": true}, "extras": {"prenight": true, "arrival": true}, "flight": {"airline": "Thai Airways", "flightNo": "TG917", "departs": "London Heathrow (LHR) Sat 11 Apr at 21:30", "arrives": "Bangkok Suvarnabhumi (BKK) Sun 12 Apr at 15:30"}, "insurance": {"provider": "World Nomads", "type": "Explorer Plan", "policyNo": "TRV-2026-88421"}, "promo": {"code": "BLACKFRIDAY", "discount": 150, "originalPrice": 1877}}, {"id": "b2", "tripId": "vietnam-explorer", "ref": "TRU-2026-05912", "title": "Vietnam Explorer", "image": "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", "duration": "13 Days", "start": "Ho Chi Minh City", "end": "Hanoi", "departsIn": 118, "lasts": 12, "bookedIn": -40, "status": "upcoming", "price": 875, "deposit": 875, "paid": 875, "balance": 0, "balanceDue": "", "travellers": 1, "passengers": ["Alex Traveller"], "emails": ["alex@trutravels.com"], "leader": "TBC", "goodToGo": {"flightDetails": false, "travelInsurance": false, "dietaryRequirements": false, "emergencyContact": false, "passportDetails": false, "visaCheck": false}, "extras": {}}, {"id": "b3", "tripId": "costa-rica-adventure", "ref": "TRU-2026-07341", "title": "Costa Rica Adventure", "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", "duration": "10 Days", "start": "San José", "end": "Santa Teresa", "departsIn": 180, "lasts": 9, "bookedIn": -12, "status": "upcoming", "price": 945, "deposit": 150, "paid": 150, "balance": 795, "balanceDueIn": 120, "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "TBC", "goodToGo": {"flightDetails": false, "travelInsurance": false, "dietaryRequirements": false, "emergencyContact": false, "passportDetails": false, "visaCheck": false}, "extras": {}}, {"id": "b4", "tripId": "bali-experience", "ref": "TRU-2025-03214", "title": "Bali Experience", "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", "duration": "10 Days", "start": "Canggu", "end": "Gili Trawangan", "departsIn": -364, "lasts": 9, "bookedIn": -500, "status": "completed", "price": 487, "deposit": 487, "paid": 487, "balance": 0, "balanceDue": "", "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "Milin", "goodToGo": null, "extras": {}, "feedbackCompleted": false, "reviewLeft": false}, {"id": "b5", "tripId": "jordan-explorer", "ref": "TRU-2026-06183", "title": "Jordan Explorer", "image": "https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=800&q=80", "duration": "8 Days", "start": "Amman", "end": "Aqaba", "departsOn": "2026-06-20", "endsOn": "2026-06-27", "status": "cancelled", "price": 695, "deposit": 200, "paid": 695, "balance": 0, "balanceDue": "", "travellers": 1, "passengers": ["Alex Traveller"], "emails": ["alex@trutravels.com"], "leader": "TBC", "goodToGo": null, "extras": {}, "cancellation": {"dateBooked": "3 Jan 2026", "dateCancelled": "18 Mar 2026", "reason": "Change of personal circumstances", "refundAmount": 495, "nonRefundableDeposit": 200, "refundStatus": "Refunded", "refundDate": "25 Mar 2026"}}];
+    var BOOKINGS = [{"id": "b1", "tripId": "thailand-island-hopper", "ref": "TRU-2026-04871", "title": "Thailand Island Hopper", "image": "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg", "duration": "14 Days", "start": "Bangkok", "end": "Phuket", "departsIn": 24, "lasts": 13, "bookedIn": -95, "status": "upcoming", "price": 1727, "deposit": 300, "paid": 1727, "balance": 0, "balanceDue": "", "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "Tommy", "goodToGo": {"flightDetails": true, "travelInsurance": true, "dietaryRequirements": true, "emergencyContact": true, "passportDetails": true, "visaCheck": true}, "extras": {"prenight": true, "arrival": true}, "flight": {"airline": "Thai Airways", "flightNo": "TG917", "departs": "London Heathrow (LHR) Sat 11 Apr at 21:30", "arrives": "Bangkok Suvarnabhumi (BKK) Sun 12 Apr at 15:30"}, "insurance": {"provider": "World Nomads", "type": "Explorer Plan", "policyNo": "TRV-2026-88421"}, "promo": {"code": "BLACKFRIDAY", "discount": 150, "originalPrice": 1877}}, {"id": "b2", "tripId": "vietnam-explorer", "ref": "TRU-2026-04871", "title": "Vietnam Explorer", "image": "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80", "duration": "13 Days", "start": "Ho Chi Minh City", "end": "Hanoi", "departsIn": 118, "lasts": 12, "bookedIn": -40, "status": "upcoming", "price": 875, "deposit": 875, "paid": 875, "balance": 0, "balanceDue": "", "travellers": 1, "passengers": ["Alex Traveller"], "emails": ["alex@trutravels.com"], "leader": "TBC", "goodToGo": {"flightDetails": false, "travelInsurance": false, "dietaryRequirements": false, "emergencyContact": false, "passportDetails": false, "visaCheck": false}, "extras": {}}, {"id": "b3", "tripId": "costa-rica-adventure", "ref": "TRU-2026-07341", "title": "Costa Rica Adventure", "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=80", "duration": "10 Days", "start": "San José", "end": "Santa Teresa", "departsIn": 180, "lasts": 9, "bookedIn": -12, "status": "upcoming", "price": 945, "deposit": 150, "paid": 150, "balance": 795, "balanceDueIn": 120, "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "TBC", "goodToGo": {"flightDetails": false, "travelInsurance": false, "dietaryRequirements": false, "emergencyContact": false, "passportDetails": false, "visaCheck": false}, "extras": {}}, {"id": "b4", "tripId": "bali-experience", "ref": "TRU-2025-03214", "title": "Bali Experience", "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80", "duration": "10 Days", "start": "Canggu", "end": "Gili Trawangan", "departsIn": -364, "lasts": 9, "bookedIn": -500, "status": "completed", "price": 487, "deposit": 487, "paid": 487, "balance": 0, "balanceDue": "", "travellers": 2, "passengers": ["Alex Traveller", "Sarah Traveller"], "emails": ["alex@trutravels.com", "sarah@trutravels.com"], "leader": "Milin", "goodToGo": null, "extras": {}, "feedbackCompleted": false, "reviewLeft": false}, {"id": "b5", "tripId": "jordan-explorer", "ref": "TRU-2026-06183", "title": "Jordan Explorer", "image": "https://images.unsplash.com/photo-1548786811-dd6e453ccca7?w=800&q=80", "duration": "8 Days", "start": "Amman", "end": "Aqaba", "departsOn": "2026-06-20", "endsOn": "2026-06-27", "status": "cancelled", "price": 695, "deposit": 200, "paid": 695, "balance": 0, "balanceDue": "", "travellers": 1, "passengers": ["Alex Traveller"], "emails": ["alex@trutravels.com"], "leader": "TBC", "goodToGo": null, "extras": {}, "cancellation": {"dateBooked": "3 Jan 2026", "dateCancelled": "18 Mar 2026", "reason": "Change of personal circumstances", "refundAmount": 495, "nonRefundableDeposit": 200, "refundStatus": "Refunded", "refundDate": "25 Mar 2026"}}];
+    var BOOKING_PAYMENTS = {"TRU-2026-04871": [{"date": "12 Jan 2026", "desc": "Deposit · both trips", "ref": "PAY-04871-001", "amount": 600, "balance": 2002}, {"date": "28 Jan 2026", "desc": "Pre-Night Hotel · Thailand Island Hopper", "ref": "PAY-04871-002", "amount": 45, "balance": 1957}, {"date": "3 Feb 2026", "desc": "Airport Transfer · Thailand Island Hopper", "ref": "PAY-04871-003", "amount": 60, "balance": 1897}, {"date": "15 Feb 2026", "desc": "Final balance · both trips", "ref": "PAY-04871-004", "amount": 1897, "balance": 0}]};
     var DEPARTURES = {"thailand-island-hopper": [{"date": "2026-10-11", "spots": 4}, {"date": "2026-10-25", "spots": 2}, {"date": "2026-11-08", "spots": 12}, {"date": "2026-11-22", "spots": 6}, {"date": "2026-12-20", "spots": 14}], "thailand-experience": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "full-moon-party-pack": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "full-moon-experience": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "northern-thailand-adventure": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "full-moon-island-hopper": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "total-thailand": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "thailand-backpacker": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "songkran-festival": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "bali-experience": [{"date": "2026-10-10", "spots": 0}, {"date": "2026-11-07", "spots": 0}], "bali-backpacker": [{"date": "2026-10-22", "spots": 0}], "komodo-island-hopper": [{"date": "2026-10-22", "spots": 0}], "bali-and-beyond": [{"date": "2026-10-22", "spots": 0}], "bali-sumatra-adventure": [{"date": "2026-10-22", "spots": 0}], "sumatra-uncovered": [{"date": "2026-10-22", "spots": 0}], "total-indonesia": [{"date": "2026-10-22", "spots": 0}], "philippines-east": [{"date": "2026-10-22", "spots": 0}], "philippines-west": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "philippines-island-hopper": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "philippines-backpacker": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "philippines-siargao": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "total-philippines": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "vietnam-backpacker": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "vietnam-explorer": [{"date": "2026-10-03", "spots": 0}, {"date": "2026-10-24", "spots": 0}, {"date": "2026-11-14", "spots": 0}], "cambodia-explorer": [{"date": "2026-10-08", "spots": 0}, {"date": "2026-11-19", "spots": 0}], "sri-lanka-uncovered": [{"date": "2026-10-08", "spots": 0}, {"date": "2026-11-19", "spots": 0}], "mexico-yucatan-experience": [{"date": "2026-10-04", "spots": 0}, {"date": "2026-11-01", "spots": 0}], "mexico-yucatan-loop": [{"date": "2026-10-04", "spots": 0}, {"date": "2026-11-01", "spots": 0}], "day-of-the-dead": [{"date": "2026-10-04", "spots": 0}, {"date": "2026-11-01", "spots": 0}], "costa-rica-adventure": [{"date": "2026-10-04", "spots": 0}, {"date": "2026-11-01", "spots": 0}], "greece-island-hopper": [{"date": "2026-10-05", "spots": 0}]};
     var ROOM_TYPES = [{"id": "twin", "name": "Twin share", "price": 45, "sleeps": 1, "rate": "pp / night", "note": "A bed in a shared twin room"}, {"id": "double", "name": "Double", "price": 90, "sleeps": 2, "rate": "/ night", "note": "One double bed for two", "min2": true}, {"id": "single", "name": "Single", "price": 75, "sleeps": 1, "rate": "/ night", "note": "A room to yourself"}, {"id": "dorm", "name": "Dorm bed", "price": 25, "sleeps": 1, "rate": "pp / night", "note": "A bed in a shared dorm"}];
     var ADDONS = [{"id": "prenight", "cat": "Accommodation", "name": "Pre-Night Hotel", "price": 45, "hotel": true, "on": "start"}, {"id": "postnight", "cat": "Accommodation", "name": "Post-Night Hotel", "price": 45, "hotel": true, "on": "end"}, {"id": "arrival", "cat": "Transfers", "name": "Arrival Transfer", "price": 60, "hotel": false, "on": "start", "info": "If you are arriving before your tour start date you can still be picked up from {start} Airport, however you will need to book a pre-night(s) accommodation with us so we have somewhere to take you. If you are arriving on your tour start date, please skip this."}, {"id": "departure", "cat": "Transfers", "name": "Departure Transfer", "price": 60, "hotel": false, "on": "end", "info": "If you are leaving after your tour end date you can still be transferred to {end} Airport, however you will need to book a post-night(s) accommodation with us. If you are leaving on your tour end date, please skip this."}];
@@ -616,6 +617,7 @@
     }
     var ICON = {
       tick: svg('<path d="M5 13l4 4L19 7"/>', 3),
+      link: svg('<path d="M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m8.156-5.828a4 4 0 015.656 5.656l-1.5 1.5m-8.156-1.328a4 4 0 005.656 0"/>'),
       plus: svg('<path d="M12 4v16m8-8H4"/>'),
       pin: svg('<path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>'),
       chevron: svg('<path d="M19 9l-7 7-7-7"/>'),
@@ -774,6 +776,72 @@
       }).join('') + '</div>';
     }
 
+    /* --------------------------------------------- bookings with 2 trips -- */
+    /* Trips sharing a ref are one booking: bought together, paid together.
+       They stay as separate cards — the trip detail genuinely differs — joined
+       by a band, with one payment schedule beneath for the pair. */
+    function groupByRef(rows) {
+      var order = [], by = {};
+      rows.forEach(function (b) {
+        if (!by[b.ref]) { by[b.ref] = []; order.push(b.ref); }
+        by[b.ref].push(b);
+      });
+      return order.map(function (r) { return by[r]; });
+    }
+
+    function isMulti(b) {
+      var n = 0;
+      BOOKINGS.forEach(function (x) { if (x.ref === b.ref) n++; });
+      return n > 1;
+    }
+
+    function groupBand(b, i, total) {
+      return '<div class="acct-band">' + ICON.link
+        + '<span class="acct-band__t">Booked together</span>'
+        + '<span class="acct-band__dot">\u00b7</span>'
+        + '<span class="acct-band__ref">' + esc(b.ref) + '</span>'
+        + '<span class="acct-band__dot">\u00b7</span>'
+        + '<span class="acct-band__n">Trip ' + (i + 1) + ' of ' + total + '</span>'
+        + '</div>';
+    }
+
+    function groupPayments(group) {
+      var ref = group[0].ref;
+      var rows = (typeof BOOKING_PAYMENTS !== 'undefined' && BOOKING_PAYMENTS[ref]) || [];
+      var total = 0, paid = 0, due = 0;
+      group.forEach(function (b) { total += b.price; paid += b.paid; due += b.balance; });
+      return '<div class="acct-shared">'
+        + '<div class="acct-shared__head">'
+        +   '<p class="acct-h" style="margin:0">Payments for this booking</p>'
+        +   '<p class="acct-shared__meta">' + group.length + ' trips \u00b7 ' + esc(ref) + '</p>'
+        + '</div>'
+        + '<div class="acct-ov__split is-3 acct-shared__tot">'
+        +   kvCell('Total Price', money(total))
+        +   kvCell('Paid', money(paid), 'is-green')
+        +   kvCell('Balance Due', due > 0 ? money(due) : '\u00a30 \u2713', due > 0 ? 'is-pink' : 'is-green')
+        + '</div>'
+        + (rows.length
+          ? '<div class="acct-tbl">'
+            + '<div class="acct-tbl__head"><span>Date</span><span>Description</span><span>Amount</span><span>Reference</span><span class="is-right">Balance After</span></div>'
+            + rows.map(function (r) {
+                return '<div class="acct-tbl__row">'
+                  + '<div><span class="acct-tbl__m">Date</span><p>' + r.date + '</p></div>'
+                  + '<div><span class="acct-tbl__m">Description</span><p class="is-dim">' + r.desc + '</p></div>'
+                  + '<div><span class="acct-tbl__m">Amount</span><p class="is-green">' + money(r.amount) + '</p></div>'
+                  + '<div><span class="acct-tbl__m">Reference</span><p class="is-dim">' + r.ref + '</p></div>'
+                  + '<div class="is-right"><span class="acct-tbl__m">Balance</span><p class="' + (r.balance > 0 ? 'is-pink' : 'is-green') + '">' + money(r.balance) + '</p></div>'
+                  + '</div>';
+              }).join('')
+            + '<div class="acct-tbl__row is-total">'
+            + '<p class="is-bold">Total Paid</p><p class="acct-tbl__sp"></p>'
+            + '<p class="is-green is-bold">' + money(paid) + '</p><p class="acct-tbl__sp"></p>'
+            + '<p class="is-right is-bold ' + (due > 0 ? 'is-pink' : 'is-green') + '">'
+            + (due > 0 ? money(due) + ' remaining' : 'Paid in full \u2713') + '</p>'
+            + '</div></div>'
+          : '')
+        + '</div>';
+    }
+
     /* ------------------------------------------------------ overview tab -- */
     function kvCell(label, value, cls) {
       return '<div class="acct-ov__cell"><p class="acct-ov__k">' + label + '</p>'
@@ -835,12 +903,12 @@
         + '<div class="acct-ov__cell"><p class="acct-ov__k">End</p><p class="acct-ov__v">' + b.endsShort + '</p><p class="acct-ov__s">' + b.end + '</p></div>'
         + '</div>'
         + pax
-        + '<div class="acct-ov__split is-3">'
-        + kvCell('Total Price', money(b.price))
-        + kvCell('Paid', money(b.paid), 'is-green')
-        + kvCell('Balance Due', b.balance > 0 ? money(b.balance) : '£0 ✓', b.balance > 0 ? 'is-pink' : 'is-green')
-        + '</div>'
-        + (b.promo
+        + (isMulti(b) ? '' : '<div class="acct-ov__split is-3">'
+          + kvCell('Total Price', money(b.price))
+          + kvCell('Paid', money(b.paid), 'is-green')
+          + kvCell('Balance Due', b.balance > 0 ? money(b.balance) : '£0 ✓', b.balance > 0 ? 'is-pink' : 'is-green')
+          + '</div>')
+        + (isMulti(b) ? '' : b.promo
             ? '<div class="acct-ov__promo">' + ICON.tag
               + '<p>' + b.promo.code + ' · -' + money(b.promo.discount) + ' off <s>' + money(b.promo.originalPrice) + '</s></p></div>'
             : '')
@@ -884,7 +952,7 @@
         extras = '<p class="acct-h">Booked Extras</p><div class="acct-exts">' + items + '</div>';
       }
 
-      return overview + credit + actions + extras + paymentHistory(b);
+      return overview + credit + actions + extras + (isMulti(b) ? '' : paymentHistory(b));
     }
 
     /* ---------------------------------------------------- good to go tab -- */
@@ -1151,7 +1219,13 @@
     /* ------------------------------------------------------------ render -- */
     function render() {
       var wrap = document.querySelector('[data-bookings]');
-      if (wrap) wrap.innerHTML = BOOKINGS.map(bookingCard).join('');
+      if (wrap) wrap.innerHTML = groupByRef(BOOKINGS).map(function (group) {
+        if (group.length === 1) return bookingCard(group[0]);
+        return '<div class="acct-group">'
+          + group.map(function (b, i) { return groupBand(b, i, group.length) + bookingCard(b); }).join('')
+          + groupPayments(group)
+          + '</div>';
+      }).join('');
       var modal = document.querySelector('[data-video-root]');
       if (modal) modal.innerHTML = videoModal();
       document.body.style.overflow = videoFor ? 'hidden' : '';

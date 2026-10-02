@@ -755,6 +755,18 @@ def profile_page():
 # bookings, same statuses, same money. Departure dates are held as offsets from
 # today (`departsIn`) so the demo never goes stale; the cancelled booking keeps
 # its literal narrative dates instead, since its story is fixed in the past.
+# A booking can hold more than one trip, bought together and paid for
+# together. Keyed by booking ref, because that is the booking now. One payment
+# covering two trips has to appear once, or the totals double.
+BOOKING_PAYMENTS = {
+    "TRU-2026-04871": [
+        {"date": "12 Jan 2026", "desc": "Deposit \u00b7 both trips", "ref": "PAY-04871-001", "amount": 600, "balance": 2002},
+        {"date": "28 Jan 2026", "desc": "Pre-Night Hotel \u00b7 Thailand Island Hopper", "ref": "PAY-04871-002", "amount": 45, "balance": 1957},
+        {"date": "3 Feb 2026", "desc": "Airport Transfer \u00b7 Thailand Island Hopper", "ref": "PAY-04871-003", "amount": 60, "balance": 1897},
+        {"date": "15 Feb 2026", "desc": "Final balance \u00b7 both trips", "ref": "PAY-04871-004", "amount": 1897, "balance": 0},
+    ],
+}
+
 BOOKINGS = [
     {"id": "b1", "tripId": "thailand-island-hopper", "ref": "TRU-2026-04871", "title": "Thailand Island Hopper",
      "image": "https://cdn.trutravels.com/thailand/groupshot-in-the-sea-thailand.jpg",
@@ -773,7 +785,9 @@ BOOKINGS = [
      "insurance": {"provider": "World Nomads", "type": "Explorer Plan", "policyNo": "TRV-2026-88421"},
      "promo": {"code": "BLACKFRIDAY", "discount": 150, "originalPrice": 1877}},
 
-    {"id": "b2", "tripId": "vietnam-explorer", "ref": "TRU-2026-05912", "title": "Vietnam Explorer",
+    # Booked in the same transaction as b1 — one booking, two trips, so it
+    # carries that booking's reference rather than one of its own.
+    {"id": "b2", "tripId": "vietnam-explorer", "ref": "TRU-2026-04871", "title": "Vietnam Explorer",
      "image": "https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80",
      "duration": "13 Days", "start": "Ho Chi Minh City", "end": "Hanoi",
      "departsIn": 118, "lasts": 12, "bookedIn": -40,
@@ -849,6 +863,7 @@ def bookings_page():
 
     data = ("  <script>\n"
             "    var BOOKINGS = " + json.dumps(BOOKINGS, ensure_ascii=False) + ";\n"
+            + "    var BOOKING_PAYMENTS = " + json.dumps(BOOKING_PAYMENTS, ensure_ascii=False) + ";\n"
             "    var DEPARTURES = " + json.dumps(trip_departures(), ensure_ascii=False) + ";\n"
             "    var ROOM_TYPES = " + json.dumps(ROOM_TYPES, ensure_ascii=False) + ";\n"
             "    var ADDONS = " + json.dumps(ADDONS, ensure_ascii=False) + ";\n"

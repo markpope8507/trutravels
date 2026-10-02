@@ -5087,6 +5087,23 @@ ul { margin: 0; padding: 0; list-style: none; }
 .acct-tbl__row p { color: #fff; font-size: 0.75rem; margin: 0; }
 .acct-tbl__m { display: block; color: #6b7280; font-size: 9px; text-transform: uppercase; }
 /* spacer cells only exist to hold a column open in the desktop 5-up grid */
+/* A booking holding more than one trip. The cards stay as they are — the trip
+   detail genuinely differs — and a band joins them, with one payment schedule
+   underneath for the pair. No status on the band: the trips can be in
+   different states and a single badge would misreport one of them. */
+.acct-group { border: 1px solid rgba(255,63,153,0.3); border-radius: 12px; overflow: hidden; }
+.acct-band { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,63,153,0.1); border-bottom: 1px solid rgba(255,63,153,0.2); }
+.acct-band svg { width: 0.875rem; height: 0.875rem; color: var(--tru-pink); flex-shrink: 0; }
+.acct-band__t { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+.acct-band__ref { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; }
+.acct-band__n { color: #9ca3af; font-family: 'Montserrat', sans-serif; font-size: 10px; }
+.acct-band__dot { color: #6b7280; font-size: 10px; }
+.acct-group > .acct-bk { border-radius: 0; border-left: 0; border-right: 0; margin-bottom: 0; }
+.acct-shared { padding: 1rem; background: rgba(255,63,153,0.04); border-top: 1px solid rgba(255,63,153,0.2); }
+.acct-shared__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.75rem; }
+.acct-shared__meta { color: #9ca3af; font-size: 11px; }
+.acct-shared__tot { margin-bottom: 0.75rem; }
+
 .acct-tbl__sp { display: none; }
 @media (min-width: 640px) { .acct-tbl__m { display: none; } .acct-tbl__sp { display: block; } }
 .acct-tbl .is-dim { color: #d1d5db; }

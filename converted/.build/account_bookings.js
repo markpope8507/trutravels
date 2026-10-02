@@ -41,6 +41,7 @@
     }
     var ICON = {
       tick: svg('<path d="M5 13l4 4L19 7"/>', 3),
+      link: svg('<path d="M13.828 10.172a4 4 0 010 5.656l-3 3a4 4 0 01-5.656-5.656l1.5-1.5m8.156-5.828a4 4 0 015.656 5.656l-1.5 1.5m-8.156-1.328a4 4 0 005.656 0"/>'),
       plus: svg('<path d="M12 4v16m8-8H4"/>'),
       pin: svg('<path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>'),
       chevron: svg('<path d="M19 9l-7 7-7-7"/>'),
@@ -199,6 +200,72 @@
       }).join('') + '</div>';
     }
 
+    /* --------------------------------------------- bookings with 2 trips -- */
+    /* Trips sharing a ref are one booking: bought together, paid together.
+       They stay as separate cards — the trip detail genuinely differs — joined
+       by a band, with one payment schedule beneath for the pair. */
+    function groupByRef(rows) {
+      var order = [], by = {};
+      rows.forEach(function (b) {
+        if (!by[b.ref]) { by[b.ref] = []; order.push(b.ref); }
+        by[b.ref].push(b);
+      });
+      return order.map(function (r) { return by[r]; });
+    }
+
+    function isMulti(b) {
+      var n = 0;
+      BOOKINGS.forEach(function (x) { if (x.ref === b.ref) n++; });
+      return n > 1;
+    }
+
+    function groupBand(b, i, total) {
+      return '<div class="acct-band">' + ICON.link
+        + '<span class="acct-band__t">Booked together</span>'
+        + '<span class="acct-band__dot">\u00b7</span>'
+        + '<span class="acct-band__ref">' + esc(b.ref) + '</span>'
+        + '<span class="acct-band__dot">\u00b7</span>'
+        + '<span class="acct-band__n">Trip ' + (i + 1) + ' of ' + total + '</span>'
+        + '</div>';
+    }
+
+    function groupPayments(group) {
+      var ref = group[0].ref;
+      var rows = (typeof BOOKING_PAYMENTS !== 'undefined' && BOOKING_PAYMENTS[ref]) || [];
+      var total = 0, paid = 0, due = 0;
+      group.forEach(function (b) { total += b.price; paid += b.paid; due += b.balance; });
+      return '<div class="acct-shared">'
+        + '<div class="acct-shared__head">'
+        +   '<p class="acct-h" style="margin:0">Payments for this booking</p>'
+        +   '<p class="acct-shared__meta">' + group.length + ' trips \u00b7 ' + esc(ref) + '</p>'
+        + '</div>'
+        + '<div class="acct-ov__split is-3 acct-shared__tot">'
+        +   kvCell('Total Price', money(total))
+        +   kvCell('Paid', money(paid), 'is-green')
+        +   kvCell('Balance Due', due > 0 ? money(due) : '\u00a30 \u2713', due > 0 ? 'is-pink' : 'is-green')
+        + '</div>'
+        + (rows.length
+          ? '<div class="acct-tbl">'
+            + '<div class="acct-tbl__head"><span>Date</span><span>Description</span><span>Amount</span><span>Reference</span><span class="is-right">Balance After</span></div>'
+            + rows.map(function (r) {
+                return '<div class="acct-tbl__row">'
+                  + '<div><span class="acct-tbl__m">Date</span><p>' + r.date + '</p></div>'
+                  + '<div><span class="acct-tbl__m">Description</span><p class="is-dim">' + r.desc + '</p></div>'
+                  + '<div><span class="acct-tbl__m">Amount</span><p class="is-green">' + money(r.amount) + '</p></div>'
+                  + '<div><span class="acct-tbl__m">Reference</span><p class="is-dim">' + r.ref + '</p></div>'
+                  + '<div class="is-right"><span class="acct-tbl__m">Balance</span><p class="' + (r.balance > 0 ? 'is-pink' : 'is-green') + '">' + money(r.balance) + '</p></div>'
+                  + '</div>';
+              }).join('')
+            + '<div class="acct-tbl__row is-total">'
+            + '<p class="is-bold">Total Paid</p><p class="acct-tbl__sp"></p>'
+            + '<p class="is-green is-bold">' + money(paid) + '</p><p class="acct-tbl__sp"></p>'
+            + '<p class="is-right is-bold ' + (due > 0 ? 'is-pink' : 'is-green') + '">'
+            + (due > 0 ? money(due) + ' remaining' : 'Paid in full \u2713') + '</p>'
+            + '</div></div>'
+          : '')
+        + '</div>';
+    }
+
     /* ------------------------------------------------------ overview tab -- */
     function kvCell(label, value, cls) {
       return '<div class="acct-ov__cell"><p class="acct-ov__k">' + label + '</p>'
@@ -260,12 +327,12 @@
         + '<div class="acct-ov__cell"><p class="acct-ov__k">End</p><p class="acct-ov__v">' + b.endsShort + '</p><p class="acct-ov__s">' + b.end + '</p></div>'
         + '</div>'
         + pax
-        + '<div class="acct-ov__split is-3">'
-        + kvCell('Total Price', money(b.price))
-        + kvCell('Paid', money(b.paid), 'is-green')
-        + kvCell('Balance Due', b.balance > 0 ? money(b.balance) : '£0 ✓', b.balance > 0 ? 'is-pink' : 'is-green')
-        + '</div>'
-        + (b.promo
+        + (isMulti(b) ? '' : '<div class="acct-ov__split is-3">'
+          + kvCell('Total Price', money(b.price))
+          + kvCell('Paid', money(b.paid), 'is-green')
+          + kvCell('Balance Due', b.balance > 0 ? money(b.balance) : '£0 ✓', b.balance > 0 ? 'is-pink' : 'is-green')
+          + '</div>')
+        + (isMulti(b) ? '' : b.promo
             ? '<div class="acct-ov__promo">' + ICON.tag
               + '<p>' + b.promo.code + ' · -' + money(b.promo.discount) + ' off <s>' + money(b.promo.originalPrice) + '</s></p></div>'
             : '')
@@ -309,7 +376,7 @@
         extras = '<p class="acct-h">Booked Extras</p><div class="acct-exts">' + items + '</div>';
       }
 
-      return overview + credit + actions + extras + paymentHistory(b);
+      return overview + credit + actions + extras + (isMulti(b) ? '' : paymentHistory(b));
     }
 
     /* ---------------------------------------------------- good to go tab -- */
@@ -576,7 +643,13 @@
     /* ------------------------------------------------------------ render -- */
     function render() {
       var wrap = document.querySelector('[data-bookings]');
-      if (wrap) wrap.innerHTML = BOOKINGS.map(bookingCard).join('');
+      if (wrap) wrap.innerHTML = groupByRef(BOOKINGS).map(function (group) {
+        if (group.length === 1) return bookingCard(group[0]);
+        return '<div class="acct-group">'
+          + group.map(function (b, i) { return groupBand(b, i, group.length) + bookingCard(b); }).join('')
+          + groupPayments(group)
+          + '</div>';
+      }).join('');
       var modal = document.querySelector('[data-video-root]');
       if (modal) modal.innerHTML = videoModal();
       document.body.style.overflow = videoFor ? 'hidden' : '';
