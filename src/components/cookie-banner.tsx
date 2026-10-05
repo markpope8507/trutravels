@@ -20,9 +20,12 @@ import {
  * changed later. A visitor has seen this shape a hundred times; the brand is
  * what should feel different, not the mechanics.
  *
- * REJECT SITS NEXT TO ACCEPT, same size, same weight. Burying it behind
- * "Settings" is the dark pattern the ICO and the EDPB both call out, and it's
- * the thing people notice. Optional categories all start OFF in the panel.
+ * THE BAR OFFERS "CHOOSE" AND "ACCEPT ALL". Rejecting is done through Choose,
+ * which opens the preference centre with every optional category already OFF,
+ * so closing it there accepts nothing; Reject All also sits in that panel.
+ * Worth knowing that a reject control alongside accept, same size and weight,
+ * is what the ICO and the EDPB ask for — one click further is the thing they
+ * single out — so this is a deliberate call to revisit if guidance bites.
  *
  * NOT A BLOCKER. No backdrop, no scroll lock — the bar sits above the page and
  * the page keeps working. Tru.D's launcher is bottom-right, so the bar lifts
@@ -121,29 +124,20 @@ export default function CookieBanner() {
               </p>
             </div>
 
-            <div className="flex flex-shrink-0 flex-col gap-2.5 sm:flex-row sm:items-center lg:flex-col xl:flex-row">
-              <div className="flex gap-2.5">
-                <button
-                  type="button"
-                  onClick={() => save(ALL_ON)}
-                  className={`${BTN} flex-1 bg-tru-pink text-white hover:bg-tru-pink-light`}
-                >
-                  Accept All
-                </button>
-                <button
-                  type="button"
-                  onClick={() => save(ALL_OFF)}
-                  className={`${BTN} flex-1 border border-white/25 text-white hover:border-white/50 hover:bg-white/5`}
-                >
-                  Reject All
-                </button>
-              </div>
+            <div className="flex flex-shrink-0 items-center justify-between gap-4 sm:gap-6">
               <button
                 type="button"
                 onClick={openPanel}
                 className="font-heading text-xs font-bold uppercase tracking-wider text-gray-400 underline decoration-gray-600 underline-offset-4 transition hover:text-white hover:decoration-white"
               >
                 Choose
+              </button>
+              <button
+                type="button"
+                onClick={() => save(ALL_ON)}
+                className={`${BTN} bg-tru-pink text-white hover:bg-tru-pink-light`}
+              >
+                Accept All
               </button>
             </div>
           </div>
