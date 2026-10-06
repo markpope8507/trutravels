@@ -35,7 +35,7 @@ COLUMNS = [
         ("All Trips", "all-trips.html"),
         ("Travel Styles", "#"),
         ("Life Moments", "#"),
-        ("How It Works", "#"),
+        ("How It Works", "the-tru-way.html"),
         ("Deals", "deals.html"),
         ("Stories", "stories.html"),
         ("VIP Club", "#"),

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Feature rows &mdash; TruTravels components</title>
+  <!-- One level below the site root, so ../styles.css. Drop the ../ when you
+       paste this into a page at the root. -->
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body { background: #060d18; padding: 3rem 1.5rem; }
+    .demo { max-width: 80rem; margin: 0 auto; display: grid; gap: 4rem; }
+    .demo__label { color: #9ca3af; font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 auto 2rem; max-width: 80rem; }
+  </style>
+</head>
+<body>
+
+  <p class="demo__label">Feature rows &mdash; alternating gallery + text, plain and tinted</p>
+
+  <div class="demo">
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- COPY FROM HERE                                                     -->
+  <!--
+    The alternating gallery/text row, the vanilla twin of the prototype's
+    src/components/feature-row.tsx. Used down the whole of the-tru-way.html
+    ("How It Works"), which .build/build_tru_way.py generates.
+
+    THE LAYOUT. Below 1024px it is one column in source order: title, gallery,
+    body. From 1024px it becomes a 2x2 grid where the gallery takes one column
+    across BOTH text rows, so the title sits above the body on the other side.
+    `.tw-row--alt` flips which side the gallery is on — put it on every odd
+    row and the page zig-zags.
+
+    WHY THE MARKUP IS TITLE-FIRST. On a phone you want the heading before the
+    photograph, not after it; on desktop the grid puts things where it likes
+    regardless. Writing it title-first and letting CSS place it keeps the
+    reading and tab order right at both sizes — don't reorder the three divs.
+
+    THE ACCENT. A row tints its icon ring, eyebrow and bullet ticks from one
+    colour. Set `--a` plus the three alpha steps on the row; the tinted
+    variant also needs `background` and `border-color`. They are written out
+    in full (rather than computed) so the stylesheet stays plain rgba() —
+    build_tru_way.py's rgba() does the hex maths when generating.
+
+    THE GALLERY. One flex track translated by whole slides, so there is
+    nothing to measure and nothing to resync on resize. Give each `.tw-gal`
+    its own id and `data-gal`; the script builds the dots from the slide
+    count. A single-image gallery should OMIT `data-gal` and the controls —
+    arrows that do nothing are worse than no arrows.
+  -->
+
+  <!-- Plain row (gallery left) ---------------------------------------- -->
+  <div class="tw-row">
+    <div class="tw-row__title">
+      <div class="tw-row__icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg></div>
+      <p class="tw-row__eyebrow">Roof Over Your Head</p>
+      <h3 class="tw-row__h3">Accommodation</h3>
+    </div>
+    <div class="tw-row__gal">
+      <div class="tw-gal" data-gal id="demo-gal-1">
+        <div class="tw-gal__track" data-gal-track>
+          <div class="tw-gal__slide"><img src="https://cdn.trutravels.com/blog/khao-sok-southern-thailand-blog.jpg" alt="Accommodation &mdash; Floating bungalows &middot; Khao Sok" loading="lazy" /><span class="tw-gal__grad"></span><p class="tw-gal__cap">Floating bungalows &middot; Khao Sok</p></div>
+          <div class="tw-gal__slide"><img src="https://cdn.trutravels.com/images/sumatra-homestay-2.jpg" alt="Accommodation &mdash; Jungle homestays &middot; Sumatra" loading="lazy" /><span class="tw-gal__grad"></span><p class="tw-gal__cap">Jungle homestays &middot; Sumatra</p></div>
+          <div class="tw-gal__slide"><img src="https://cdn.trutravels.com/images/thailandbeachbarkohphangan.jpg" alt="Accommodation &mdash; Beach huts &middot; Koh Phangan" loading="lazy" /><span class="tw-gal__grad"></span><p class="tw-gal__cap">Beach huts &middot; Koh Phangan</p></div>
+        </div>
+        <button class="tw-gal__arrow tw-gal__arrow--prev" type="button" data-gal-go="prev" aria-label="Previous image"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+        <button class="tw-gal__arrow tw-gal__arrow--next" type="button" data-gal-go="next" aria-label="Next image"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+        <div class="tw-gal__dots" data-gal-dots></div>
+      </div>
+    </div>
+    <div class="tw-row__body">
+      <p class="tw-row__p">Hotels, hostels, beach huts, homestays, even boats. We mix things up to fit the destination &mdash; high-end where it counts, local and characterful everywhere else.</p>
+      <ul class="tw-row__list">
+        <li><span class="tw-row__tick"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>All nights covered &mdash; no gaps to book yourself</li>
+        <li><span class="tw-row__tick"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>Hand-picked properties we&rsquo;d stay in ourselves</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Tinted row, own accent, bare icon, gallery right ----------------- -->
+  <div class="tw-row tw-row--alt tw-row--tint" style="--a:#2172D5;--a-soft:rgba(33,114,213,0.13);--a-line:rgba(33,114,213,0.4);--a-tick:rgba(33,114,213,0.15);background:rgba(33,114,213,0.05);border-color:rgba(33,114,213,0.2)">
+    <div class="tw-row__title">
+      <!-- Bare, not ringed: the experience icons are white line art already
+           inside a ring, so a tinted circle would be a circle on a circle. -->
+      <div class="tw-row__icon-bare"><img src="../assets/experience-icons/local-lens.png" alt="" aria-hidden="true" width="546" height="549" /></div>
+      <p class="tw-row__eyebrow tw-row__eyebrow--exp"><span class="tw-exp-name">Local Lens</span><span class="tw-exp-sub">Experiences</span></p>
+      <h3 class="tw-row__h3 tw-row__h3--exp">See the destination through local eyes</h3>
+    </div>
+    <div class="tw-row__gal">
+      <div class="tw-gal" data-gal id="demo-gal-2">
+        <div class="tw-gal__track" data-gal-track>
+          <div class="tw-gal__slide"><img src="https://cdn.trutravels.com/images/bali-ubud-cookingclass6.jpg" alt="Local Lens &mdash; Cook with a local family" loading="lazy" /><span class="tw-gal__grad"></span><p class="tw-gal__cap">Cook with a local family</p></div>
+          <div class="tw-gal__slide"><img src="https://cdn.trutravels.com/images/cusco-markets.jpg" alt="Local Lens &mdash; Local market tours" loading="lazy" /><span class="tw-gal__grad"></span><p class="tw-gal__cap">Local market tours</p></div>
+        </div>
+        <button class="tw-gal__arrow tw-gal__arrow--prev" type="button" data-gal-go="prev" aria-label="Previous image"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>
+        <button class="tw-gal__arrow tw-gal__arrow--next" type="button" data-gal-go="next" aria-label="Next image"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+        <div class="tw-gal__dots" data-gal-dots></div>
+      </div>
+    </div>
+    <div class="tw-row__body">
+      <p class="tw-row__p">Direct connections with local culture, traditions, and communities. Cooking with families, exploring neighbourhoods with locals, and participating in generational cultural practices.</p>
+      <ul class="tw-row__list">
+        <li><span class="tw-row__tick"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>Cook pad thai with a Bangkok family</li>
+        <li><span class="tw-row__tick"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>Explore Hoi An with a local artisan</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>/* Feature-row galleries — one translateX track per row, dots built from
+     the slide count. Scoped to [data-gal] so every row runs independently and
+     a single-image gallery (no [data-gal]) simply has no controls. */
+  (function () {
+    document.querySelectorAll('[data-gal]').forEach(function (g) {
+      var track = g.querySelector('[data-gal-track]');
+      var dots = g.querySelector('[data-gal-dots]');
+      var n = track.children.length, i = 0;
+      for (var k = 0; k < n; k++) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'tw-gal__dot';
+        b.setAttribute('data-gal-dot', k);
+        b.setAttribute('aria-label', 'Image ' + (k + 1) + ' of ' + n);
+        dots.appendChild(b);
+      }
+      function go(x) {
+        i = (x + n) % n;
+        track.style.transform = 'translateX(-' + (i * 100) + '%)';
+        for (var k = 0; k < n; k++) {
+          dots.children[k].classList.toggle('is-on', k === i);
+          track.children[k].setAttribute('aria-hidden', k === i ? 'false' : 'true');
+        }
+      }
+      g.querySelector('[data-gal-go="prev"]').addEventListener('click', function () { go(i - 1); });
+      g.querySelector('[data-gal-go="next"]').addEventListener('click', function () { go(i + 1); });
+      dots.addEventListener('click', function (e) {
+        var t = e.target.closest('[data-gal-dot]');
+        if (t) go(+t.getAttribute('data-gal-dot'));
+      });
+      go(0);
+    });
+  })();
+  </script>
+  <!-- COPY TO HERE                                                        -->
+  <!-- ------------------------------------------------------------------ -->
+
+  </div>
+
+</body>
+</html>

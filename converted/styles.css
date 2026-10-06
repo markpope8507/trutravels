@@ -7130,3 +7130,126 @@ a.hub-card:hover .hub-card__t { color: var(--tru-pink); }
 
 /* The diary cards became links so a clip can open. */
 .video-card__hit { display: block; position: absolute; inset: 0; }
+
+/* ===================================================================
+   THE TRU WAY  (the-tru-way.html — the footer's "How It Works")
+   Built by .build/build_tru_way.py. The row and gallery are also saved
+   as a copy-in block at components/feature-rows.html.
+   =================================================================== */
+.tw-sec { position: relative; overflow: hidden; }
+.tw-sec--first { padding: 4rem 0 5rem; }
+.tw-sec--next { padding: 0 0 5rem; }
+.tw-sec--last { padding: 0 0 6rem; }
+
+.tw-head { margin-bottom: 3rem; }
+@media (min-width: 640px) { .tw-head { margin-bottom: 4rem; } }
+/* .ess-h2's own 640px step is 2.25rem; this page goes to 3rem. The compound
+   selector outranks it, so source order doesn't matter here. */
+.tw-head .ess-h2 { font-size: 1.875rem; line-height: 1.05; letter-spacing: -0.025em; margin: 0; }
+@media (min-width: 640px) { .tw-head .ess-h2 { font-size: 3rem; } }
+.tw-intro { color: #9ca3af; max-width: 42rem; margin: 1rem 0 0; font-size: 1rem; line-height: 1.625; }
+@media (min-width: 640px) { .tw-intro { font-size: 1.125rem; } }
+
+.tw-rows { display: grid; gap: 4rem; }
+@media (min-width: 640px) { .tw-rows { gap: 6rem; } }
+
+/* One row: title, gallery, body. Mobile stacks them in that order; from
+   1024px the gallery takes one column across both text rows and alternate
+   rows (--alt) swap the sides. --a is the row's accent; the three alphas are
+   written out by the builder so this file keeps plain rgba() throughout. */
+.tw-row { --a: #FF3F99; --a-soft: rgba(255,63,153,0.13); --a-line: rgba(255,63,153,0.4); --a-tick: rgba(255,63,153,0.15);
+  display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+.tw-row--tint { border: 1px solid; border-radius: 16px; padding: 1.25rem; }
+@media (min-width: 640px) { .tw-row--tint { padding: 2rem; } }
+@media (min-width: 1024px) {
+  .tw-row { grid-template-columns: repeat(2, 1fr); column-gap: 3rem; row-gap: 1rem; align-items: center; }
+  .tw-row--tint { padding: 2.5rem; }
+  .tw-row__title { grid-column: 2; grid-row: 1; align-self: end; }
+  .tw-row__gal { grid-column: 1; grid-row: 1 / span 2; }
+  .tw-row__body { grid-column: 2; grid-row: 2; align-self: start; }
+  .tw-row--alt .tw-row__title { grid-column: 1; }
+  .tw-row--alt .tw-row__gal { grid-column: 2; }
+  .tw-row--alt .tw-row__body { grid-column: 1; }
+}
+
+.tw-row__icon { margin-bottom: 1rem; height: 3.5rem; width: 3.5rem; border-radius: 999px; display: flex; align-items: center; justify-content: center; background: var(--a-soft); border: 1px solid var(--a-line); }
+.tw-row__icon svg { height: 1.75rem; width: 1.75rem; color: var(--a); }
+/* The experience icons are white line art already sitting inside their own
+   ring, so a tinted circle behind one is a circle drawn on a circle. */
+.tw-row__icon-bare { margin-bottom: 1rem; }
+.tw-row__icon-bare img { height: 4rem; width: 4rem; object-fit: contain; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.6)); }
+
+.tw-row__eyebrow { color: var(--a); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; margin: 0 0 0.75rem; }
+.tw-row__eyebrow--exp { color: inherit; font-size: inherit; letter-spacing: normal; margin: 0 0 0.5rem; }
+.tw-exp-name { display: block; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.025em; line-height: 1; color: #fff; }
+@media (min-width: 640px) { .tw-exp-name { font-size: 1.875rem; } }
+.tw-exp-sub { display: block; margin-top: 0.375rem; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.25em; color: var(--tru-pink); }
+
+.tw-row__h3 { font-family: 'Montserrat', sans-serif; font-size: 1.875rem; font-weight: 900; color: #fff; text-transform: uppercase; line-height: 1.05; margin: 0; }
+@media (min-width: 640px) { .tw-row__h3 { font-size: 2.25rem; } }
+.tw-row__h3--exp { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.025em; }
+@media (min-width: 640px) { .tw-row__h3--exp { font-size: 1rem; } }
+
+.tw-row__p { color: #d1d5db; font-size: 0.875rem; line-height: 1.625; margin: 0 0 1.5rem; }
+@media (min-width: 640px) { .tw-row__p { font-size: 1rem; } }
+.tw-row__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.625rem; }
+.tw-row__list li { display: flex; align-items: flex-start; gap: 0.75rem; color: #d1d5db; font-size: 0.875rem; }
+.tw-row__tick { margin-top: 0.25rem; height: 1rem; width: 1rem; border-radius: 999px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: var(--a-tick); }
+.tw-row__tick svg { height: 0.625rem; width: 0.625rem; color: var(--a); }
+
+/* Gallery — one track translated by whole slides, so no measurement and
+   nothing to resync on resize. */
+.tw-gal { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-soft); }
+.tw-gal__track { display: flex; transition: transform 0.5s ease; }
+.tw-gal__slide { position: relative; flex: 0 0 100%; aspect-ratio: 4 / 3; }
+.tw-gal__slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tw-gal__grad { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0.1) 50%, transparent); }
+.tw-gal__cap { position: absolute; bottom: 2.25rem; left: 1.25rem; right: 1.25rem; margin: 0; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.025em; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+@media (min-width: 640px) { .tw-gal__cap { font-size: 1rem; } }
+.tw-gal__arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; display: flex; align-items: center; justify-content: center; width: 27px; height: 44px; padding: 0; border: 0; background: none; color: #fff; cursor: pointer; }
+.tw-gal__arrow svg { width: 26px; height: 26px; }
+.tw-gal__arrow--prev { left: 10px; }
+.tw-gal__arrow--next { right: 10px; }
+.tw-gal__dots { position: absolute; bottom: 0.75rem; left: 0; right: 0; z-index: 2; display: flex; justify-content: center; gap: 0.5rem; }
+.tw-gal__dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; background: #fff; opacity: 0.4; cursor: pointer; }
+.tw-gal__dot.is-on { background: var(--tru-pink); opacity: 1; }
+
+/* All five experience types at a glance. Without it the set is only legible
+   by scrolling five full-height rows, and the point is that there are five. */
+.tw-ico-grid { list-style: none; margin: 0 0 3.5rem; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+@media (min-width: 640px) { .tw-ico-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; } }
+@media (min-width: 1024px) { .tw-ico-grid { grid-template-columns: repeat(5, 1fr); } }
+.tw-ico { display: flex; flex-direction: column; align-items: center; text-align: center; border-radius: 12px; border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03); padding: 1.25rem 0.75rem; }
+.tw-ico img { height: 3rem; width: 3rem; object-fit: contain; margin-bottom: 0.75rem; }
+.tw-ico p { margin: 0; font-family: 'Montserrat', sans-serif; font-size: 0.8125rem; font-weight: 900; text-transform: uppercase; line-height: 1.2; color: #fff; }
+
+.tw-promise { border-radius: 16px; border: 1px solid var(--border-soft); overflow: hidden; background: linear-gradient(to bottom right, var(--tru-navy), var(--tru-navy) 50%, rgba(255,63,153,0.04)); }
+.tw-promise__in { padding: 1.5rem; }
+@media (min-width: 640px) { .tw-promise__in { padding: 2.5rem; } }
+.tw-promise__head { text-align: center; margin-bottom: 2.5rem; }
+.tw-promise__badge { margin: 0 auto 1rem; height: 3.5rem; width: 3.5rem; border-radius: 999px; background: rgba(255,63,153,0.15); border: 1px solid rgba(255,63,153,0.3); display: flex; align-items: center; justify-content: center; }
+.tw-promise__badge svg { height: 1.75rem; width: 1.75rem; color: var(--tru-pink); }
+.tw-promise__h { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: -0.025em; line-height: 1.05; margin: 0; }
+@media (min-width: 640px) { .tw-promise__h { font-size: 2.25rem; } }
+.tw-promise__h span { color: var(--tru-pink); }
+.tw-promise__grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 640px) { .tw-promise__grid { gap: 1.5rem; } }
+@media (min-width: 768px) { .tw-promise__grid { grid-template-columns: repeat(3, 1fr); } }
+.tw-pcard { border-radius: 12px; border: 1px solid var(--border-soft); background: rgba(255,255,255,0.03); padding: 1.5rem; text-align: center; transition: border-color 0.2s, background 0.2s; }
+.tw-pcard:hover { border-color: rgba(255,63,153,0.3); background: rgba(255,255,255,0.05); }
+.tw-pcard__ico { height: 3rem; width: 3rem; border-radius: 999px; background: rgba(255,63,153,0.15); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+.tw-pcard__ico svg { height: 1.5rem; width: 1.5rem; color: var(--tru-pink); }
+.tw-pcard__eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin: 0 0 0.5rem; }
+/* The promise titles carry a deliberate line break in the data. */
+.tw-pcard__t { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1rem; font-weight: 900; text-transform: uppercase; line-height: 1.2; margin: 0 0 0.5rem; white-space: pre-line; }
+@media (min-width: 640px) { .tw-pcard__t { font-size: 1.125rem; } }
+.tw-pcard__p { color: #9ca3af; font-size: 0.75rem; line-height: 1.625; margin: 0; }
+
+.tw-cta { position: relative; max-width: 48rem; margin: 0 auto; padding: 0 1rem 6rem; text-align: center; }
+@media (min-width: 640px) { .tw-cta { padding-left: 1.5rem; padding-right: 1.5rem; } }
+.tw-cta__h { font-family: 'Montserrat', sans-serif; font-size: 1.5rem; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: -0.025em; line-height: 1.05; margin: 0 0 1.5rem; }
+@media (min-width: 640px) { .tw-cta__h { font-size: 2.25rem; } }
+.tw-cta__h span { color: var(--tru-pink); }
+.tw-cta__btn { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 10px; background: var(--tru-pink); color: #fff; padding: 0.75rem 1.5rem; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: background 0.2s; }
+.tw-cta__btn:hover { background: var(--tru-pink-light); }
+.tw-cta__btn svg { height: 1rem; width: 1rem; }

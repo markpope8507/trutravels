@@ -77,6 +77,7 @@ TRAILS = {
     # same trail. Built by build_prelaunch.py from the page above.
     "tour-coming-soon.html": trip("Asia", "Thailand", "thailand.html", "Thailand Island Hopper"),
 
+    "the-tru-way.html": essentials("The Tru Way"),
     "travel-insurance.html": essentials("Travel Insurance"),
     "visas-and-passports.html": essentials("Visa &amp; Passports"),
     "terms-conditions.html": essentials("Booking Conditions"),
