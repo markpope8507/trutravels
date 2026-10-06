@@ -362,13 +362,12 @@ def index_card(c):
     return ('<a class="lm-card" href="life-moments-%s.html">'
             '<span class="lm-card__media">'
             '<img src="%s" alt="%s" loading="lazy" />'
-            '<span class="lm-card__grad"></span>'
-            '<span class="lm-card__emoji" aria-hidden="true">%s</span></span>'
+            '<span class="lm-card__grad"></span></span>'
             '<span class="lm-card__body">'
             '<span class="lm-card__t">%s</span>'
             '<span class="lm-card__d">%s</span>'
             '<span class="lm-card__go">Explore &rarr;</span></span></a>'
-            % (c["slug"], c["image"], esc(c["name"]), c["emoji"],
+            % (c["slug"], c["image"], esc(c["name"]),
                esc(c["name"]), esc(c["desc"])))
 
 

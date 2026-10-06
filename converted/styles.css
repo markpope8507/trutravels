@@ -4602,7 +4602,6 @@ ul { margin: 0; padding: 0; list-style: none; }
 .lm-card__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
 .lm-card:hover .lm-card__media img { transform: scale(1.05); }
 .lm-card__grad { position: absolute; inset: 0; background: linear-gradient(to top, var(--tru-navy), rgba(9,33,62,0.2) 60%, transparent); }
-.lm-card__emoji { position: absolute; top: 0.75rem; left: 0.75rem; width: 2.25rem; height: 2.25rem; border-radius: 999px; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; font-size: 1.125rem; }
 .lm-card__body { display: flex; flex-direction: column; flex: 1; padding: 1.25rem; }
 .lm-card__t { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.125rem; font-weight: 900; text-transform: uppercase; line-height: 1.2; }
 .lm-card:hover .lm-card__t { color: var(--tru-pink); }

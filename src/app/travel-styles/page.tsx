@@ -179,9 +179,6 @@ export default function TravelStylesPage() {
                     className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-tru-navy via-tru-navy/20 to-transparent" />
-                  <span className="absolute top-3 left-3 h-9 w-9 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-lg">
-                    {moment.emoji}
-                  </span>
                 </div>
                 <div className="p-5 flex flex-col flex-1">
                   <h3 className="text-lg font-black text-white uppercase font-heading leading-tight mb-2 group-hover:text-tru-pink transition-colors">
