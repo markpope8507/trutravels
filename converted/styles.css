@@ -7360,3 +7360,79 @@ a.hub-card:hover .hub-card__t { color: var(--tru-pink); }
 /* A carousel child, so `.carousel--related > *` still sizes it. */
 .iquiz__closest { display: flex; flex-direction: column; flex: none; }
 .iquiz__rank { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin: 0 0 0.5rem; }
+
+/* ===================================================================
+   COOKIE BANNER & PREFERENCE CENTRE
+   Injected into every page by .build/add_cookie_banner.py, which slices
+   components/cookie-banner.html. Mirrors src/components/cookie-banner.tsx.
+   =================================================================== */
+.ck-eyebrow { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; margin: 0; }
+
+/* Shared button. Deliberately the same size and weight for Accept and
+   Reject — a reject control that is smaller or quieter than accept is the
+   thing regulators single out. */
+.ck-btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; padding: 0.625rem 1.25rem; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; cursor: pointer; border: 1px solid transparent; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+.ck-btn--pink { background: var(--tru-pink); color: #fff; }
+.ck-btn--pink:hover { background: var(--tru-pink-light); }
+.ck-btn--ghost { background: transparent; border-color: rgba(255,255,255,0.25); color: #fff; }
+.ck-btn--ghost:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
+
+/* The bar. No backdrop and no scroll lock — the page keeps working. */
+.ck-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 110; padding: 0.75rem; }
+.ck-bar[hidden] { display: none; }
+@media (min-width: 640px) { .ck-bar { padding: 1rem; } }
+.ck-bar__inner { margin: 0 auto; max-width: 64rem; display: flex; flex-direction: column; gap: 1rem; border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(9,33,62,0.95); padding: 1.25rem; box-shadow: 0 10px 40px rgba(0,0,0,0.5); backdrop-filter: blur(12px); }
+@media (min-width: 640px) { .ck-bar__inner { padding: 1.5rem; } }
+@media (min-width: 1024px) { .ck-bar__inner { flex-direction: row; align-items: center; gap: 2rem; } }
+.ck-bar__text { min-width: 0; flex: 1; }
+.ck-bar__p { color: #d1d5db; font-size: 0.875rem; line-height: 1.625; margin: 0.5rem 0 0; }
+.ck-bar__p a { color: #fff; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.3); text-underline-offset: 2px; }
+.ck-bar__p a:hover { color: var(--tru-pink); text-decoration-color: var(--tru-pink); }
+.ck-bar__actions { display: flex; flex: none; align-items: center; justify-content: space-between; gap: 1rem; }
+@media (min-width: 640px) { .ck-bar__actions { gap: 1.5rem; } }
+.ck-choose { background: none; border: 0; padding: 0; cursor: pointer; color: #9ca3af; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: underline; text-decoration-color: #4b5563; text-underline-offset: 4px; transition: color 0.2s; }
+.ck-choose:hover { color: #fff; text-decoration-color: #fff; }
+
+/* The preference centre. A sheet on a phone, a dialog from 640px. */
+.ck-panel { position: fixed; inset: 0; z-index: 120; display: flex; align-items: flex-end; justify-content: center; }
+.ck-panel[hidden] { display: none; }
+@media (min-width: 640px) { .ck-panel { align-items: center; } }
+.ck-panel__scrim { position: absolute; inset: 0; width: 100%; border: 0; padding: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); cursor: default; }
+.ck-panel__box { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 32rem; max-height: 88vh; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: var(--tru-navy); border-radius: 14px 14px 0 0; }
+@media (min-width: 640px) { .ck-panel__box { margin: 0 1rem; border-radius: 10px; } }
+.ck-panel__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 1.25rem 1.5rem; }
+.ck-panel__h { font-family: 'Montserrat', sans-serif; font-size: 1.125rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; color: #fff; margin: 0.25rem 0 0; }
+.ck-panel__x { flex: none; margin: -0.25rem -0.25rem 0 0; background: none; border: 0; padding: 0; cursor: pointer; color: #9ca3af; transition: color 0.2s; }
+.ck-panel__x:hover { color: #fff; }
+.ck-panel__x svg { width: 1.25rem; height: 1.25rem; display: block; }
+.ck-panel__body { flex: 1; overflow-y: auto; padding: 1.25rem 1.5rem; }
+.ck-cats { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+.ck-cat { border-radius: 10px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.02); padding: 1rem; }
+.ck-cat__row { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.ck-cat__n { font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.025em; color: #fff; margin: 0; }
+.ck-cat__lock { margin-left: 0.5rem; vertical-align: middle; font-family: inherit; font-size: 10px; font-weight: 600; letter-spacing: 0.05em; color: #6b7280; }
+.ck-cat__s { color: #9ca3af; font-size: 0.875rem; line-height: 1.625; margin: 0.375rem 0 0; }
+.ck-cat__e { color: #4b5563; font-size: 11px; line-height: 1.625; margin: 0.5rem 0 0; }
+
+/* Locked shows as locked, not as pre-ticked: nobody should think they have
+   been opted into something they can't opt out of. */
+.ck-tog { position: relative; flex: none; height: 1.5rem; width: 2.75rem; border-radius: 999px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); padding: 0; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+.ck-tog:hover:not([disabled]) { border-color: rgba(255,255,255,0.4); }
+.ck-tog.is-on { border-color: var(--tru-pink); background: var(--tru-pink); }
+.ck-tog[disabled] { cursor: not-allowed; border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.1); }
+.ck-tog__dot { position: absolute; top: 50%; left: 0.25rem; height: 1rem; width: 1rem; transform: translateY(-50%); border-radius: 999px; background: #9ca3af; transition: left 0.2s, background 0.2s; }
+.ck-tog.is-on .ck-tog__dot { left: calc(100% - 1.25rem); background: #fff; }
+/* The locked toggle keeps the WHITE knob of an on switch — only its track
+   greys out. The prototype's Tailwind sets both bg-white and bg-gray-500
+   on that span and bg-white wins, so this matches what actually renders,
+   not what the class list reads like. */
+
+.ck-panel__foot { display: flex; flex-direction: column; gap: 0.625rem; border-top: 1px solid rgba(255,255,255,0.1); padding: 1.25rem 1.5rem; }
+@media (min-width: 640px) { .ck-panel__foot { flex-direction: row-reverse; } }
+.ck-panel__foot .ck-btn { flex: 1; }
+
+/* The footer's "Cookie Preferences" is a button, not a link — it opens the
+   panel rather than going anywhere. `font: inherit` is what keeps it looking
+   like the links either side of it. */
+.footer__legal-links .ck-prefs { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; color: #9ca3af; transition: color 0.2s; }
+.footer__legal-links .ck-prefs:hover { color: var(--tru-pink); }

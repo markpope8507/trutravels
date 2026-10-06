@@ -212,7 +212,7 @@
         <div class="footer__legal-links">
           <a href="#">Terms &amp; Conditions</a>
           <a href="#">Privacy Policy</a>
-          <a href="#">Cookie Preferences</a>
+          <button type="button" class="ck-prefs" data-cookie-open>Cookie Preferences</button>
           <a href="#">Sitemap</a>
         </div>
       </div>
@@ -595,5 +595,213 @@
   })();
   </script>
 
+
+  <!--
+    COOKIE BANNER + PREFERENCE CENTRE. The vanilla twin of the prototype's
+    src/components/cookie-banner.tsx and src/lib/cookie-consent.tsx.
+
+    DO NOT PASTE THIS BY HAND. .build/add_cookie_banner.py slices everything
+    between these two markers and injects it before </body> on every page, so
+    this file is the single definition. Edit here, re-run the builder.
+
+    FOUR CATEGORIES, because that is what the competitor set uses and what a
+    visitor is already trained to read: strictly necessary, performance,
+    functional, marketing. Necessary is shown LOCKED rather than pre-ticked,
+    so nobody thinks they have been opted into something. Nothing optional
+    starts on.
+
+    THE BAR OFFERS CHOOSE AND ACCEPT ALL. Rejecting happens through Choose,
+    which opens the panel with every optional category already off, so closing
+    it there accepts nothing; Reject All also sits in that panel. Worth
+    knowing that a reject control alongside accept, same size and weight, is
+    what the ICO and the EDPB ask for — one click further is the thing they
+    single out — so this is a deliberate call to revisit if guidance bites.
+
+    NOT A BLOCKER. The bar has no backdrop and no scroll lock; the page keeps
+    working underneath it.
+
+    VERSIONED. Bump CONSENT_VERSION when the categories or the vendors behind
+    them change, and everyone is asked again — a stored decision about a
+    different set of cookies is not consent to this one. Keep it in step with
+    CONSENT_VERSION in src/lib/cookie-consent.tsx.
+
+    ANY `[data-cookie-open]` ON THE PAGE opens the panel. That is how the
+    footer's "Cookie Preferences" works; add the attribute to anything else
+    that should.
+  -->
+  <div class="ck-bar" role="dialog" aria-live="polite" aria-label="Cookies on TruTravels" data-cookie-bar hidden>
+    <div class="ck-bar__inner">
+      <div class="ck-bar__text">
+        <p class="ck-eyebrow">Cookies</p>
+        <p class="ck-bar__p">Some are needed to make the site work, like signing in and holding your cart. The rest help us see which trips people actually look at, and show you ours elsewhere. Your call, you can change it any time. <a href="terms-conditions.html">Cookie policy</a></p>
+      </div>
+      <div class="ck-bar__actions">
+        <button type="button" class="ck-choose" data-cookie-open>Choose</button>
+        <button type="button" class="ck-btn ck-btn--pink" data-cookie-accept>Accept All</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="ck-panel" data-cookie-panel hidden>
+    <button type="button" class="ck-panel__scrim" data-cookie-close aria-label="Close cookie preferences"></button>
+    <div class="ck-panel__box" role="dialog" aria-modal="true" aria-label="Cookie preferences">
+      <div class="ck-panel__head">
+        <div>
+          <p class="ck-eyebrow">Cookies</p>
+          <h2 class="ck-panel__h">Choose What We Keep</h2>
+        </div>
+        <button type="button" class="ck-panel__x" data-cookie-close aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+      </div>
+
+      <div class="ck-panel__body">
+        <ul class="ck-cats">
+          <li class="ck-cat">
+            <div class="ck-cat__row">
+              <div>
+                <p class="ck-cat__n">Strictly Necessary <span class="ck-cat__lock">Always on</span></p>
+                <p class="ck-cat__s">Needed for the site to work, like signing in, holding your cart and remembering this very choice. Can&rsquo;t be switched off.</p>
+                <p class="ck-cat__e">Session, cart, security, consent record</p>
+              </div>
+              <button type="button" class="ck-tog is-on" role="switch" aria-checked="true" aria-label="Strictly Necessary" disabled><span class="ck-tog__dot"></span></button>
+            </div>
+          </li>
+          <li class="ck-cat">
+            <div class="ck-cat__row">
+              <div>
+                <p class="ck-cat__n">Performance</p>
+                <p class="ck-cat__s">Counts visits and shows us which pages people actually use, so we know what to fix. Never used to identify you.</p>
+                <p class="ck-cat__e">Google Analytics, page timing, error tracking</p>
+              </div>
+              <button type="button" class="ck-tog" role="switch" aria-checked="false" aria-label="Performance" data-cookie-cat="performance"><span class="ck-tog__dot"></span></button>
+            </div>
+          </li>
+          <li class="ck-cat">
+            <div class="ck-cat__row">
+              <div>
+                <p class="ck-cat__n">Functional</p>
+                <p class="ck-cat__s">Remembers your currency, recently viewed trips and saved wishlist between visits. Turn these off and the site still works, it just forgets you.</p>
+                <p class="ck-cat__e">Currency, recently viewed, saved trips, live chat</p>
+              </div>
+              <button type="button" class="ck-tog" role="switch" aria-checked="false" aria-label="Functional" data-cookie-cat="functional"><span class="ck-tog__dot"></span></button>
+            </div>
+          </li>
+          <li class="ck-cat">
+            <div class="ck-cat__row">
+              <div>
+                <p class="ck-cat__n">Marketing</p>
+                <p class="ck-cat__s">Lets us show you our trips on other sites, and tells us which ads actually led somewhere. This is the one most people are here to switch off.</p>
+                <p class="ck-cat__e">Meta, Google Ads, TikTok, affiliate tracking</p>
+              </div>
+              <button type="button" class="ck-tog" role="switch" aria-checked="false" aria-label="Marketing" data-cookie-cat="marketing"><span class="ck-tog__dot"></span></button>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Source order is Save, Accept, Reject; the row reverses from 640px,
+           so on a phone Save is at the top and on a desktop it is on the
+           right. Same arrangement as the prototype. -->
+      <div class="ck-panel__foot">
+        <button type="button" class="ck-btn ck-btn--pink" data-cookie-save>Save My Choices</button>
+        <button type="button" class="ck-btn ck-btn--ghost" data-cookie-accept>Accept All</button>
+        <button type="button" class="ck-btn ck-btn--ghost" data-cookie-reject>Reject All</button>
+      </div>
+    </div>
+  </div>
+
+  <script>/* Cookie consent — the stored decision and the two surfaces.
+     Mirrors src/lib/cookie-consent.tsx; keep VERSION and KEY in step. */
+  (function () {
+    var KEY = 'trutravels-cookie-consent';
+    var VERSION = 1;
+    var OPTIONAL = ['performance', 'functional', 'marketing'];
+
+    var bar = document.querySelector('[data-cookie-bar]');
+    var panel = document.querySelector('[data-cookie-panel]');
+    if (!bar || !panel) return;
+    var togs = [].slice.call(panel.querySelectorAll('[data-cookie-cat]'));
+
+    /* A stored decision about an older set of categories is not a decision
+       about this one, so a version bump asks again. A corrupted value or
+       blocked storage also asks again rather than assuming consent. */
+    function read() {
+      try {
+        var raw = localStorage.getItem(KEY);
+        if (!raw) return null;
+        var parsed = JSON.parse(raw);
+        if (!parsed || parsed.version !== VERSION) return null;
+        return parsed.consent || null;
+      } catch (e) { return null; }
+    }
+
+    function write(consent) {
+      try {
+        localStorage.setItem(KEY, JSON.stringify({
+          version: VERSION, consent: consent, decidedAt: new Date().toISOString()
+        }));
+      } catch (e) { /* storage blocked — the choice holds for this page view */ }
+    }
+
+    function draft() {
+      var c = { necessary: true };
+      togs.forEach(function (t) { c[t.getAttribute('data-cookie-cat')] = t.classList.contains('is-on'); });
+      return c;
+    }
+
+    function seed(consent) {
+      togs.forEach(function (t) {
+        var on = !!(consent && consent[t.getAttribute('data-cookie-cat')]);
+        t.classList.toggle('is-on', on);
+        t.setAttribute('aria-checked', on ? 'true' : 'false');
+      });
+    }
+
+    function all(value) {
+      var c = { necessary: true };
+      OPTIONAL.forEach(function (k) { c[k] = value; });
+      return c;
+    }
+
+    function decide(consent) {
+      write(consent);
+      bar.hidden = true;
+      closePanel();
+    }
+
+    function openPanel() {
+      seed(read());
+      bar.hidden = true;
+      panel.hidden = false;
+    }
+
+    function closePanel() {
+      panel.hidden = true;
+      /* Closing the panel is not a decision — if there still isn't one, the
+         bar comes back rather than letting someone browse un-asked. */
+      if (!read()) bar.hidden = false;
+    }
+
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-cookie-open]')) { e.preventDefault(); openPanel(); return; }
+      if (e.target.closest('[data-cookie-close]')) { closePanel(); return; }
+      if (e.target.closest('[data-cookie-accept]')) { decide(all(true)); return; }
+      if (e.target.closest('[data-cookie-reject]')) { decide(all(false)); return; }
+      if (e.target.closest('[data-cookie-save]')) { decide(draft()); return; }
+      var tog = e.target.closest('[data-cookie-cat]');
+      if (tog) {
+        var on = !tog.classList.contains('is-on');
+        tog.classList.toggle('is-on', on);
+        tog.setAttribute('aria-checked', on ? 'true' : 'false');
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !panel.hidden) closePanel();
+    });
+
+    if (!read()) bar.hidden = false;
+  })();
+  </script>
+  
 </body>
 </html>

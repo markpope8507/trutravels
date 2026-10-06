@@ -13,6 +13,11 @@ whatever else ran, is idempotent, and holds every trail in one list.
 Re-run it after any builder. A page that already carries a bar is skipped, so
 running it twice does nothing.
 
+There are two post-build passes now, and a freshly generated page needs both:
+
+    python3 converted/.build/apply_crumbs.py
+    python3 converted/.build/add_cookie_banner.py
+
 Trails mirror src/lib/breadcrumbs.ts — structure from the MAIN NAV, falling
 back to the FOOTER for pages the nav doesn't carry. Keep the two in step.
 """
