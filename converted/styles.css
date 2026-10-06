@@ -4567,9 +4567,16 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* grid + states */
 /* Life Moments pages. Section shell only — the trip cards, diary carousel,
    story cards and moment tiles are all the site's existing components. */
-.lm-sec { position: relative; overflow: hidden; }
+/* Section rhythm copied off the prototype pages rather than left to .section,
+   which only carries a bottom margin — that is why these sat flush under the
+   breadcrumb. Moment pages run pt-12/pb-16, their first section pt-20, and the
+   index pt-20/pb-24. */
+.lm-sec { position: relative; overflow: hidden; padding: 3rem 0 4rem; margin-bottom: 0; }
+.lm-sec--first { padding-top: 5rem; }
 .lm-sec--tint { border-top: 1px solid rgba(255,255,255,0.05); background: linear-gradient(to bottom, transparent, rgba(255,63,153,0.03), transparent); }
 .lm-head { max-width: 42rem; margin-bottom: 2.5rem; }
+.lm-head .ess-h2 { letter-spacing: -0.025em; }
+@media (min-width: 640px) { .lm-head .ess-h2 { font-size: 3rem; } }
 .lm-head--wide { max-width: none; }
 .lm-intro { color: #d1d5db; margin: 1.25rem 0 0; font-size: 1rem; line-height: 1.625; }
 @media (min-width: 640px) { .lm-intro { font-size: 1.125rem; } }
@@ -4579,6 +4586,13 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* Life Moments index cards — 16:10 image, emoji badge, title, blurb, Explore.
    Shaped after the /travel-styles index, which is where this listing lives
    upstream. */
+.lm-index { padding: 5rem 0 6rem; }
+/* .ess-h2's own 640px rule sits further down this file, so these have to be
+   specific enough to win regardless of order — the index heading is text-5xl
+   where the shared one is smaller. */
+.ess-h2.lm-index__h { margin: 0; font-size: 1.875rem; letter-spacing: -0.025em; }
+@media (min-width: 640px) { .ess-h2.lm-index__h { font-size: 3rem; } }
+.lm-index__intro { color: #9ca3af; max-width: 32rem; margin: 1rem 0 3rem; font-size: 1rem; line-height: 1.625; }
 .lm-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
 @media (min-width: 640px) { .lm-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1024px) { .lm-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -4595,7 +4609,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .lm-card__d { color: #9ca3af; font-size: 0.875rem; line-height: 1.6; margin: 0.5rem 0 1rem; flex: 1; }
 .lm-card__go { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
 
-.lm-cta { border-top: 1px solid rgba(255,255,255,0.05); }
+.lm-cta { border-top: 1px solid rgba(255,255,255,0.05); padding: 3rem 0 6rem; margin-bottom: 0; }
 .lm-cta__inner { max-width: 48rem; text-align: center; }
 .lm-cta__inner .lm-intro { margin: 1.5rem 0 2rem; }
 .lm-cta__btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; background: var(--tru-pink); padding: 0.875rem 2rem; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.3s; }

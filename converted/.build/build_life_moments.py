@@ -249,6 +249,23 @@ def moment_card(m):
             % (m["slug"], m["image"], m.get("emoji", ""), esc(m["name"]), esc(m["description"])))
 
 
+def marks(c, pair):
+    """The two background marks a section floats, right then left.
+
+    The prototype puts a pair behind its first two sections only; the last
+    pair in the extracted list belongs to the shared footer, not to a section.
+    """
+    got = c.get("marks") or []
+    i = pair * 2
+    if i + 1 >= len(got):
+        return ""
+    right, left = got[i][0], got[i + 1][0]
+    f = lambda src, style: ('<img class="ess-wm" style="%s" src="assets/bg-assets/%s" alt="" aria-hidden="true" />'
+                            % (style, src.rsplit("/", 1)[-1]))
+    return (f(right, "right:-8rem;top:-2rem;width:clamp(280px,44vw,640px);opacity:0.06")
+            + f(left, "left:-7rem;bottom:-2.5rem;width:clamp(240px,38vw,520px);opacity:0.06"))
+
+
 def head_block(sec, wide=False):
     """Kicker + two-tone heading + intro — the prototype's section header."""
     pink = ' <span>%s</span>' % esc(sec["h2_pink"]) if sec.get("h2_pink") else ""
@@ -267,34 +284,34 @@ def page(m, c):
     stories = [STORIES[i] for i in c["storyIds"] if i in STORIES]
     others = [x for x in LIFE if x["slug"] != m["slug"]]
 
-    trips_sec = ('    <section class="section lm-sec" id="trips">\n'
+    trips_sec = ('    <section class="lm-sec lm-sec--first" id="trips">%s\n'
                  '      <div class="container">\n%s\n'
                  '        <div class="home-section-head home-section-head--sm"><div>'
                  '<p class="eyebrow eyebrow--pink">%s</p>'
                  '<h2 class="section-heading">%s</h2></div></div>\n        %s\n'
                  '      </div>\n    </section>'
-                 % (head_block(s_trips), esc(c["tripsEyebrow"]), esc(c["tripsHeading"]),
+                 % (marks(c, 0), head_block(s_trips), esc(c["tripsEyebrow"]), esc(c["tripsHeading"]),
                     carousel("".join(tripcard(t) for t in trips))))
 
-    vids_sec = ('    <section class="section lm-sec lm-sec--tint" id="diaries">\n'
+    vids_sec = ('    <section class="lm-sec lm-sec--tint" id="diaries">%s\n'
                 '      <div class="container">\n%s\n        %s\n      </div>\n    </section>'
-                % (head_block(s_vids),
+                % (marks(c, 1), head_block(s_vids),
                    carousel("".join(vdiary(d) for d in vids) + SHARE_TILE,
                              "rev-carousel vdia__carousel", "vdiaries")))
 
     stories_sec = ""
     if stories:
-        stories_sec = ('\n\n    <section class="section lm-sec" id="stories">\n'
+        stories_sec = ('\n\n    <section class="lm-sec" id="stories">\n'
                        '      <div class="container">\n%s\n'
                        '        <div class="st-grid lm-stories">%s</div>\n      </div>\n    </section>'
                        % (head_block(s_stories), "".join(storycard(x) for x in stories)))
 
-    other_sec = ('    <section class="section lm-sec" id="other-moments">\n'
+    other_sec = ('    <section class="lm-sec" id="other-moments">\n'
                  '      <div class="container">\n%s\n'
                  '        <div class="ab-xgrid">%s</div>\n      </div>\n    </section>'
                  % (head_block(s_other), "".join(moment_card(x) for x in others)))
 
-    cta_sec = ('    <section class="section lm-cta">\n      <div class="container lm-cta__inner">\n'
+    cta_sec = ('    <section class="lm-cta">\n      <div class="container lm-cta__inner">\n'
                '        <p class="ess-eyebrow">%s</p>\n'
                '        <h2 class="ess-h2">%s <span>%s</span></h2>\n'
                '        <p class="lm-intro">%s</p>\n'
@@ -365,10 +382,10 @@ def index_page(cards):
             '          <div class="ess-hero__rule"></div>\n'
             '          <p class="ess-hero__quote">%s</p>\n'
             '        </div>\n      </div>\n    </section>\n\n'
-            '    <section class="section lm-sec" id="moments">\n      <div class="container">\n'
-            '        <div class="lm-head"><p class="ess-eyebrow">%s</p>\n'
-            '          <h2 class="ess-h2">%s <span class="text-grad">%s</span></h2>\n'
-            '          <p class="lm-intro">%s</p></div>\n'
+            '    <section class="lm-index" id="moments">\n      <div class="container">\n'
+            '        <p class="ess-eyebrow">%s</p>\n'
+            '        <h2 class="ess-h2 lm-index__h">%s <span class="text-grad">%s</span></h2>\n'
+            '        <p class="lm-index__intro">%s</p>\n'
             '        <div class="lm-grid">%s</div>\n      </div>\n    </section>'
             % (INDEX_HERO, INDEX_QUOTE, INDEX_KICKER, INDEX_H2[0], INDEX_H2[1],
                INDEX_INTRO, "".join(index_card(c) for c in cards)))
