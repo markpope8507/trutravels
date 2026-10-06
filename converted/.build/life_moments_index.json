@@ -1,0 +1,44 @@
+[
+ {
+  "slug": "gap-year",
+  "image": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80",
+  "emoji": "🌍",
+  "name": "Gap Year",
+  "desc": "The University of Life. Long itineraries, multi-country adventures, and the trips that shape who you become."
+ },
+ {
+  "slug": "just-left-uni",
+  "image": "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=800&q=80",
+  "emoji": "🎓",
+  "name": "Just Left Uni",
+  "desc": "First taste of freedom. Big trips, full moons, hostel mates and the best year of your life — engineered."
+ },
+ {
+  "slug": "looking-to-challenge-myself",
+  "image": "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80",
+  "emoji": "🏔️",
+  "name": "Looking To Challenge Myself",
+  "desc": "Treks, summits, jungle climbs and the recovery on the other side. Trips for travellers who want to be tested."
+ },
+ {
+  "slug": "solo-soul-searcher",
+  "image": "/images/solo-soul-searcher-hero.jpg",
+  "emoji": "🚶",
+  "name": "Solo Soul Searcher",
+  "desc": "Trips, stories and voices for travellers heading out on their own. Find your people, find yourself."
+ },
+ {
+  "slug": "turning-30",
+  "image": "https://cdn.trutravels.com/africa/morocco-images/morocco-uncovered-day-3-road-trip-viewpoint.jpg",
+  "emoji": "🎂",
+  "name": "Turning 30",
+  "desc": "Stamps collected, comfort zones outgrown. Off-the-beaten-path adventures for the next decade."
+ },
+ {
+  "slug": "work-break-recharge",
+  "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+  "emoji": "🌴",
+  "name": "Work Break Recharge",
+  "desc": "Two weeks. Out of office. Full reset. Hand-picked trips under 14 days for the 9-to-5 escape."
+ }
+]

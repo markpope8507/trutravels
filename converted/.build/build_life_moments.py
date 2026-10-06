@@ -323,6 +323,60 @@ def page(m, c):
             % (HEAD, esc(c["title"]), esc(c["desc"]), NAV_OVER, body, FOOTER, SCRIPTS))
 
 
+# --------------------------------------------------------------- the index --
+# NOT A CONVERSION. The prototype has no /life-moments route — its listing of
+# the moments is a section on /travel-styles ("Where Are You In Life?"), which
+# is why the breadcrumb trail nests them under it. This page is that section
+# given a home of its own, shaped like the /travel-styles index: hero, one
+# kicker/heading/intro block, then the cards. Every word on it is lifted from
+# that section or that page's hero rather than written fresh.
+INDEX_KICKER = "Travel By Life Moment"
+INDEX_H2 = ("Where Are You", "In Life?")
+INDEX_INTRO = ("Travel isn\u2019t one-size-fits-all. Whatever\u2019s brought you here \u2014 a gap year, "
+               "a quarter-life reset or a much-needed break from the 9-to-5 \u2014 we\u2019ve got the trip for it.")
+INDEX_QUOTE = ("\u201cHowever you like to travel, and wherever you are in life \u2014 there\u2019s a "
+               "TruTravels adventure built for it.\u201d")
+
+
+def index_card(c):
+    return ('<a class="lm-card" href="life-moments-%s.html">'
+            '<span class="lm-card__media">'
+            '<img src="%s" alt="%s" loading="lazy" />'
+            '<span class="lm-card__grad"></span>'
+            '<span class="lm-card__emoji" aria-hidden="true">%s</span></span>'
+            '<span class="lm-card__body">'
+            '<span class="lm-card__t">%s</span>'
+            '<span class="lm-card__d">%s</span>'
+            '<span class="lm-card__go">Explore &rarr;</span></span></a>'
+            % (c["slug"], c["image"], esc(c["name"]), c["emoji"],
+               esc(c["name"]), esc(c["desc"])))
+
+
+def index_page(cards):
+    body = ('    <section class="ess-hero" id="top">\n'
+            '      <img class="ess-hero__img" src="%s" alt="TruTravels life moments \u2014 wherever you are in life" />\n'
+            '      <div class="ess-hero__grad ess-hero__grad--light"></div>\n'
+            '      <div class="container ess-hero__inner">\n        <div class="ess-hero__text">\n'
+            '          <p class="ess-hero__eyebrow">Explore</p>\n'
+            '          <h1 class="ess-hero__title">Find Your<br />Life Moment</h1>\n'
+            '          <div class="ess-hero__rule"></div>\n'
+            '          <p class="ess-hero__quote">%s</p>\n'
+            '        </div>\n      </div>\n    </section>\n\n'
+            '    <section class="section lm-sec" id="moments">\n      <div class="container">\n'
+            '        <div class="lm-head"><p class="ess-eyebrow">%s</p>\n'
+            '          <h2 class="ess-h2">%s <span>%s</span></h2>\n'
+            '          <p class="lm-intro">%s</p></div>\n'
+            '        <div class="lm-grid">%s</div>\n      </div>\n    </section>'
+            % (cards[0]["image"], INDEX_QUOTE, INDEX_KICKER, INDEX_H2[0], INDEX_H2[1],
+               INDEX_INTRO, "".join(index_card(c) for c in cards)))
+    return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n%s\n'
+            '  <title>Life Moments &mdash; TruTravels</title>\n'
+            '  <meta name="description" content="Whatever\u2019s brought you here \u2014 a gap year, a '
+            'quarter-life reset or a break from the 9-to-5 \u2014 find the TruTravels trip built for it." />\n'
+            '</head>\n<body>\n\n%s\n\n  <main class="lm">\n%s\n  </main>\n\n%s\n%s\n</body>\n</html>\n'
+            % (HEAD, NAV_OVER, body, FOOTER, SCRIPTS))
+
+
 def fix_life_moment_links():
     """Point the nav at the files that now exist.
 
@@ -349,4 +403,8 @@ if __name__ == "__main__":
         out = page(by_slug[slug], c)
         open(os.path.join(BASE, "life-moments-%s.html" % slug), "w", encoding="utf-8").write(out)
         print("  wrote life-moments-%s.html  (%d lines)" % (slug, len(out.splitlines())))
+    cards = json.load(open(os.path.join(os.path.dirname(__file__), "life_moments_index.json"), encoding="utf-8"))
+    out = index_page(cards)
+    open(os.path.join(BASE, "life-moments.html"), "w", encoding="utf-8").write(out)
+    print("  wrote life-moments.html  (%d lines, %d moments)" % (len(out.splitlines()), len(cards)))
     print("  relinked the nav on %d pages" % fix_life_moment_links())
