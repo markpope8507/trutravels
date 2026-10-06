@@ -55,7 +55,7 @@ export const EXPLORE: Crumb = { name: "Explore", href: "/explore" };
 export const STORIES: Crumb = { name: "Stories", href: "/stories" };
 export const TRAVEL_STYLES: Crumb = { name: "Travel Styles", href: "/travel-styles" };
 /* A group heading inside the Travel Styles menu, not a page of its own. */
-export const LIFE_MOMENTS: Crumb = { name: "Life Moments" };
+export const LIFE_MOMENTS: Crumb = { name: "Life Moments", href: "/life-moments" };
 
 /* Not in the nav, so these follow the FOOTER's columns instead — same rule,
    same shape: a section node with no page behind it yet.

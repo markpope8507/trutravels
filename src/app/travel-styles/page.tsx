@@ -4,6 +4,7 @@ import Link from "next/link";
 import PillButton from "@/components/pill-button";
 import type { Metadata } from "next";
 import { travelStyleConfig, type TravelStyle } from "@/lib/data";
+import { LIFE_MOMENT_CARDS } from "@/lib/life-moments";
 
 export const metadata: Metadata = {
   title: "Travel Styles & Life Moments — TruTravels",
@@ -29,56 +30,6 @@ const HERO_IMAGES: Record<TravelStyle, string> = {
   limited_edition: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=1200&q=80",
 };
 
-const LIFE_MOMENTS = [
-  {
-    slug: "gap-year",
-    title: "Gap Year",
-    snippet:
-      "The University of Life. Long itineraries, multi-country adventures, and the trips that shape who you become.",
-    image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80",
-    emoji: "🌍",
-  },
-  {
-    slug: "just-left-uni",
-    title: "Just Left Uni",
-    snippet:
-      "First taste of freedom. Big trips, full moons, hostel mates and the best year of your life — engineered.",
-    image: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=800&q=80",
-    emoji: "🎓",
-  },
-  {
-    slug: "looking-to-challenge-myself",
-    title: "Looking To Challenge Myself",
-    snippet:
-      "Treks, summits, jungle climbs and the recovery on the other side. Trips for travellers who want to be tested.",
-    image: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80",
-    emoji: "🏔️",
-  },
-  {
-    slug: "solo-soul-searcher",
-    title: "Solo Soul Searcher",
-    snippet:
-      "Trips, stories and voices for travellers heading out on their own. Find your people, find yourself.",
-    image: "/images/solo-soul-searcher-hero.jpg",
-    emoji: "🚶",
-  },
-  {
-    slug: "turning-30",
-    title: "Turning 30",
-    snippet:
-      "Stamps collected, comfort zones outgrown. Off-the-beaten-path adventures for the next decade.",
-    image: "https://cdn.trutravels.com/africa/morocco-images/morocco-uncovered-day-3-road-trip-viewpoint.jpg",
-    emoji: "🎂",
-  },
-  {
-    slug: "work-break-recharge",
-    title: "Work Break Recharge",
-    snippet:
-      "Two weeks. Out of office. Full reset. Hand-picked trips under 14 days for the 9-to-5 escape.",
-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
-    emoji: "🌴",
-  },
-];
 
 export default function TravelStylesPage() {
   return (
@@ -218,7 +169,7 @@ export default function TravelStylesPage() {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {LIFE_MOMENTS.map((moment) => (
+          {LIFE_MOMENT_CARDS.map((moment) => (
             <Link key={moment.slug} href={`/life-moments/${moment.slug}`} className="group">
               <div className="relative overflow-hidden rounded-[12px] border border-white/10 bg-tru-navy h-full flex flex-col hover:border-tru-pink/30 transition-all duration-300">
                 <div className="relative aspect-[16/10] overflow-hidden">

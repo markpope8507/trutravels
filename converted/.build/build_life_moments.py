@@ -336,6 +336,9 @@ INDEX_INTRO = ("Travel isn\u2019t one-size-fits-all. Whatever\u2019s brought you
                "a quarter-life reset or a much-needed break from the 9-to-5 \u2014 we\u2019ve got the trip for it.")
 INDEX_QUOTE = ("\u201cHowever you like to travel, and wherever you are in life \u2014 there\u2019s a "
                "TruTravels adventure built for it.\u201d")
+# A hero needs a hero-sized source. The card images are w=800 and were being
+# stretched across 75vh, which is what made this page look soft.
+INDEX_HERO = "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1920&q=80"
 
 
 def index_card(c):
@@ -364,10 +367,10 @@ def index_page(cards):
             '        </div>\n      </div>\n    </section>\n\n'
             '    <section class="section lm-sec" id="moments">\n      <div class="container">\n'
             '        <div class="lm-head"><p class="ess-eyebrow">%s</p>\n'
-            '          <h2 class="ess-h2">%s <span>%s</span></h2>\n'
+            '          <h2 class="ess-h2">%s <span class="text-grad">%s</span></h2>\n'
             '          <p class="lm-intro">%s</p></div>\n'
             '        <div class="lm-grid">%s</div>\n      </div>\n    </section>'
-            % (cards[0]["image"], INDEX_QUOTE, INDEX_KICKER, INDEX_H2[0], INDEX_H2[1],
+            % (INDEX_HERO, INDEX_QUOTE, INDEX_KICKER, INDEX_H2[0], INDEX_H2[1],
                INDEX_INTRO, "".join(index_card(c) for c in cards)))
     return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n%s\n'
             '  <title>Life Moments &mdash; TruTravels</title>\n'
@@ -378,10 +381,12 @@ def index_page(cards):
 
 
 def fix_life_moment_links():
-    """Point the nav at the files that now exist.
+    """Point the nav and the footer at the files that now exist.
 
     The mega-menu on 54 pages linked to "/life-moments/gap-year" — root-relative,
-    and to a path this site has no page for. Every one was a 404.
+    and to a path this site has no page for. Every one was a 404. The footer's
+    "Life Moments" was an href="#" placeholder, parked until there was an index
+    to send it to.
     """
     changed = 0
     for fn in sorted(os.listdir(BASE)):
@@ -390,6 +395,7 @@ def fix_life_moment_links():
         p = os.path.join(BASE, fn)
         s = open(p, encoding="utf-8").read()
         new = re.sub(r'href="/life-moments/([a-z0-9-]+)"', r'href="life-moments-\1.html"', s)
+        new = new.replace('<a href="#">Life Moments</a>', '<a href="life-moments.html">Life Moments</a>')
         if new != s:
             open(p, "w", encoding="utf-8").write(new)
             changed += 1

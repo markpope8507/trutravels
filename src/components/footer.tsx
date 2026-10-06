@@ -23,7 +23,7 @@ const FOOTER_COLUMNS: {
     links: [
       { name: "All Trips", href: "/explore" },
       { name: "Travel Styles", href: "/travel-styles" },
-      { name: "Life Moments", href: "/life-moments/solo-soul-searcher" },
+      { name: "Life Moments", href: "/life-moments" },
       { name: "How It Works", href: "/the-tru-way" },
       { name: "Deals", href: "/deals" },
       { name: "Stories", href: "/stories" },

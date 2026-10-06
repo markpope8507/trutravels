@@ -277,7 +277,7 @@
  },
  "solo-soul-searcher": {
   "slug": "solo-soul-searcher",
-  "heroImg": "/images/solo-soul-searcher-hero.jpg",
+  "heroImg": "assets/solo-soul-searcher-hero.jpg",
   "heroAlt": "Lone traveller on a mountain road at sunset",
   "h1": "Solo Soul<br />Searcher",
   "quote": "“You came alone. You won't leave that way.”",

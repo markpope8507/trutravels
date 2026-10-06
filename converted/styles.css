@@ -3469,7 +3469,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (min-width: 1024px) { .home-hero__title { font-size: 6rem; } }
 
 /* Gradient text (pink) for section headings */
-.text-grad { background: linear-gradient(90deg, var(--tru-pink), #ff8ac4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+/* Matches .text-gradient in the prototype's globals.css — same angle, same
+   three stops. -webkit-text-fill-color is what lets it win over a colour
+   set on a more specific selector, such as .ess-h2 span. */
+.text-grad { background: linear-gradient(135deg, #FF3F99, #ff6db3, #FF3F99); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 
 /* ============================================================
    HOMEPAGE — brand ticker strip
