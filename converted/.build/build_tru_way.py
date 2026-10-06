@@ -12,8 +12,16 @@ side lands here on the next run instead of drifting.
 
 THE ROWS. The prototype's <FeatureRow> is a two-column grid with the gallery
 spanning both text rows — title above, body and bullets below — flipping sides
-on alternate rows. That is `.tw-row` / `.tw-row--alt` in styles.css, and it is
-saved as a copy-in block at components/feature-rows.html.
+on alternate rows. That is `.tw-row` / `.tw-row--alt` in styles.css.
+
+THREE COMPONENTS, NOT ONE. The page's three sections use overlapping markup,
+which makes them easy to mix up, so each is saved separately and the generated
+HTML carries a COMPONENT comment naming the file it came from:
+
+    components/included-as-standard.html       plain rows, pink accent
+    components/blueprint-experience-rows.html  the same row TINTED, one colour
+                                               per experience type, bare icon
+    components/tru-promise.html                Book With Confidence panel
 
 ACCENT COLOURS. Each experience type carries its own hex. The prototype builds
 `${accent}0D` / `${accent}33` strings inline; here the row sets four custom
@@ -325,6 +333,7 @@ BODY = """    <section class="ess-hero" id="top">
       </div>
     </section>
 
+    <!-- COMPONENT: Included As Standard  —  components/included-as-standard.html -->
     <section class="tw-sec tw-sec--first" id="included">%s
       <div class="container">
         <div class="tw-head">
@@ -338,6 +347,7 @@ BODY = """    <section class="ess-hero" id="top">
       </div>
     </section>
 
+    <!-- COMPONENT: The Blueprint  —  components/blueprint-experience-rows.html -->
     <section class="tw-sec tw-sec--next" id="experiences">%s
       <div class="container">
         <div class="tw-head">
@@ -352,6 +362,7 @@ BODY = """    <section class="ess-hero" id="top">
       </div>
     </section>
 
+    <!-- COMPONENT: The TRU Promise  —  components/tru-promise.html -->
     <section class="tw-sec tw-sec--last" id="confidence">%s
       <div class="container">
         <div class="tw-promise">

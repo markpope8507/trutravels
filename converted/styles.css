@@ -7133,8 +7133,11 @@ a.hub-card:hover .hub-card__t { color: var(--tru-pink); }
 
 /* ===================================================================
    THE TRU WAY  (the-tru-way.html — the footer's "How It Works")
-   Built by .build/build_tru_way.py. The row and gallery are also saved
-   as a copy-in block at components/feature-rows.html.
+   Built by .build/build_tru_way.py. The three sections are saved as
+   copy-in blocks, named so they can't be confused with each other:
+     components/included-as-standard.html       plain rows, pink accent
+     components/blueprint-experience-rows.html  tinted rows + icon grid
+     components/tru-promise.html                Book With Confidence panel
    =================================================================== */
 .tw-sec { position: relative; overflow: hidden; }
 .tw-sec--first { padding: 4rem 0 5rem; }
