@@ -28,6 +28,9 @@ HOME = ("Home", "index.html")
 # Second level.
 DESTINATIONS = ("Destinations", "destinations.html")
 ESSENTIALS = ("Essentials", "essentials.html")
+# Neither of these has a converted page yet, so they sit in a trail as
+# plain text rather than as links to a 404.
+TRAVEL_STYLES = ("Travel Styles", None)
 LIFE_MOMENTS = ("Life Moments", None)
 PARTNERS = ("Partners", "partners.html")
 

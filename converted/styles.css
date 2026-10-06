@@ -4562,6 +4562,23 @@ ul { margin: 0; padding: 0; list-style: none; }
 .st-count__clear { margin-left: 0.75rem; background: none; border: none; color: var(--tru-pink); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; }
 
 /* grid + states */
+/* Life Moments pages. Section shell only — the trip cards, diary carousel,
+   story cards and moment tiles are all the site's existing components. */
+.lm-sec { position: relative; overflow: hidden; }
+.lm-sec--tint { border-top: 1px solid rgba(255,255,255,0.05); background: linear-gradient(to bottom, transparent, rgba(255,63,153,0.03), transparent); }
+.lm-head { max-width: 42rem; margin-bottom: 2.5rem; }
+.lm-head--wide { max-width: none; }
+.lm-intro { color: #d1d5db; margin: 1.25rem 0 0; font-size: 1rem; line-height: 1.625; }
+@media (min-width: 640px) { .lm-intro { font-size: 1.125rem; } }
+.lm-stories { gap: 1.5rem; }
+@media (min-width: 768px) { .lm-stories { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .lm-stories { grid-template-columns: repeat(3, 1fr); } }
+.lm-cta { border-top: 1px solid rgba(255,255,255,0.05); }
+.lm-cta__inner { max-width: 48rem; text-align: center; }
+.lm-cta__inner .lm-intro { margin: 1.5rem 0 2rem; }
+.lm-cta__btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; background: var(--tru-pink); padding: 0.875rem 2rem; color: #fff; font-family: 'Montserrat', sans-serif; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.3s; }
+.lm-cta__btn:hover { background: var(--tru-pink-light); }
+
 .st-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
 @media (min-width: 640px) { .st-grid { grid-template-columns: repeat(2, 1fr); } }
 .st-loadmore { padding-top: 2.5rem; text-align: center; }

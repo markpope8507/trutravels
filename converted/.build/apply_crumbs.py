@@ -23,7 +23,7 @@ import sys
 
 from shell import BASE
 from crumbs import (
-    bar, top, section, about, essentials, trip,
+    bar, top, section, about, essentials, trip, LIFE_MOMENTS, TRAVEL_STYLES,
     ABOUT, ACCOUNT, EXPLORE, STORIES, PARTNERS, DESTINATIONS,
 )
 
@@ -50,6 +50,13 @@ TRAILS = {
     "about-our-impact-horses-of-gili.html": [("Home", "index.html"), ABOUT, IMPACT, ("Horses Of Gili", None)],
     "about-our-impact-the-art-house-marrakech.html": [("Home", "index.html"), ABOUT, IMPACT, ("The Art House Marrakech", None)],
     "join-the-crew.html": about("Careers"),
+
+    "life-moments-gap-year.html": [("Home", "index.html"), TRAVEL_STYLES, LIFE_MOMENTS, ("Gap Year", None)],
+    "life-moments-just-left-uni.html": [("Home", "index.html"), TRAVEL_STYLES, LIFE_MOMENTS, ("Just Left Uni", None)],
+    "life-moments-looking-to-challenge-myself.html": [("Home", "index.html"), TRAVEL_STYLES, LIFE_MOMENTS, ("Looking To Challenge Myself", None)],
+    "life-moments-solo-soul-searcher.html": [("Home", "index.html"), TRAVEL_STYLES, LIFE_MOMENTS, ("Solo Soul Searcher", None)],
+    "life-moments-turning-30.html": [("Home", "index.html"), TRAVEL_STYLES, LIFE_MOMENTS, ("Turning 30", None)],
+    "life-moments-work-break-recharge.html": [("Home", "index.html"), TRAVEL_STYLES, LIFE_MOMENTS, ("Work Break Recharge", None)],
 
     "deals.html": top("Deals"),
     # These bake their own bar in (build_hubs.py, build_email_signup.py) —

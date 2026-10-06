@@ -1,0 +1,554 @@
+{
+ "gap-year": {
+  "slug": "gap-year",
+  "heroImg": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1920&amp;q=80",
+  "heroAlt": "Backpacker map, camera and passport — the open road",
+  "h1": "Gap<br />Year",
+  "quote": "“The University of Life. No tuition. All transformation.”",
+  "sections": [
+   {
+    "kicker": "The University Of Life",
+    "h2_plain": "Trips That",
+    "h2_pink": "Build You",
+    "intro": "You've got the time. Don't waste it on a long weekend. Multi-country routes, slow days, big moments — the kind of trip that becomes the story you tell forever."
+   },
+   {
+    "kicker": "Diaries · A Year On The Road",
+    "h2_plain": "What A Year",
+    "h2_pink": "Actually Looks Like",
+    "intro": "Train rides, homestays, friends made and re-found years later. Tap to play."
+   },
+   {
+    "kicker": "Read · Field Notes",
+    "h2_plain": "The Stuff You",
+    "h2_pink": "Learn Out There",
+    "intro": "Hostels, packing, what to do when the plan falls apart — the unofficial syllabus."
+   },
+   {
+    "kicker": "You Might Like",
+    "h2_plain": "Other",
+    "h2_pink": "Life Moments",
+    "intro": "Different chapter, same energy. Pick the one that fits where you are."
+   },
+   {
+    "kicker": "Enrol Now",
+    "h2_plain": "The University Of",
+    "h2_pink": "Life",
+    "intro": "No application form. No tuition. Just a year, a backpack, and the bit of yourself you only meet when you're far from home."
+   }
+  ],
+  "tripsEyebrow": "Recommended",
+  "tripsHeading": "Long Roads · Real Stamps",
+  "ctaHref": "/explore",
+  "marks": [
+   [
+    "/bg-assets/komodo-dragon.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/bali-flower.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/peru-bird.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/mask.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/tru-logo.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/mask.svg",
+    "-left-16"
+   ]
+  ],
+  "ctaLabel": "Browse All Trips",
+  "tripIds": [
+   "total-asia",
+   "philippines-island-hopper",
+   "total-thailand",
+   "mexico-belize-guatemala",
+   "bali-and-beyond",
+   "discover-asia",
+   "cambodia-vietnam-explorer",
+   "total-indonesia"
+  ],
+  "videoIds": [
+   "v3",
+   "v5",
+   "v9",
+   "v10",
+   "v7"
+  ],
+  "storyIds": [
+   "best-hostels-in-thailand",
+   "member-packing-guide",
+   "why-i-quit-my-job-to-travel"
+  ],
+  "title": "Gap Year — TruTravels",
+  "desc": "The University of Life. Long itineraries, multi-country adventures, and the trips that shape who you become."
+ },
+ "just-left-uni": {
+  "slug": "just-left-uni",
+  "heroImg": "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=1920&amp;q=80",
+  "heroAlt": "Beach party crowd at sunset",
+  "h1": "Just Left<br />Uni",
+  "quote": "“Three years done. Hat off. Tickets booked.”",
+  "sections": [
+   {
+    "kicker": "Built To Let Loose",
+    "h2_plain": "First Taste Of",
+    "h2_pink": "Freedom",
+    "intro": "Full moons, beach bars, water fights, all-night ferries, and the best mates you'll ever meet. These are the trips you talk about for the rest of your twenties."
+   },
+   {
+    "kicker": "Diaries · Caps Off",
+    "h2_plain": "Real Trips,",
+    "h2_pink": "Real Mates",
+    "intro": "Clips from the road. Hostel rooftops, boat parties, sunrise rides home. Tap to play."
+   },
+   {
+    "kicker": "Read · Cheat Codes",
+    "h2_plain": "Pack Smart,",
+    "h2_pink": "Party Smarter",
+    "intro": "The reads that'll save you money, dignity, and a hostel deposit. Mostly."
+   },
+   {
+    "kicker": "You Might Like",
+    "h2_plain": "Other",
+    "h2_pink": "Life Moments",
+    "intro": "Different chapter, same energy. Pick the one that fits where you are."
+   },
+   {
+    "kicker": "Ready When You Are",
+    "h2_plain": "Skip The Grad Job.",
+    "h2_pink": "Book The Flight.",
+    "intro": "The job market will be there in three months. The boat party at sunrise won't."
+   }
+  ],
+  "tripsEyebrow": "Recommended",
+  "tripsHeading": "Best For The Class Of Yes",
+  "ctaHref": "/explore",
+  "marks": [
+   [
+    "/bg-assets/sun.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/good-vibes.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/lantern.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/komodo-dragon.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/tru-logo.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/mask.svg",
+    "-left-16"
+   ]
+  ],
+  "ctaLabel": "Browse All Trips",
+  "tripIds": [
+   "thailand-backpacker",
+   "full-moon-experience",
+   "full-moon-island-hopper",
+   "greece-island-hopper",
+   "mexico-yucatan-loop",
+   "songkran-festival",
+   "full-moon-party-pack"
+  ],
+  "videoIds": [
+   "v2",
+   "v6",
+   "v4",
+   "v10",
+   "v8"
+  ],
+  "storyIds": [
+   "best-hostels-in-thailand",
+   "member-packing-guide"
+  ],
+  "title": "Just Left Uni — TruTravels",
+  "desc": "First taste of freedom. Big trips, full moons, hostel mates and the best year of your life — engineered."
+ },
+ "looking-to-challenge-myself": {
+  "slug": "looking-to-challenge-myself",
+  "heroImg": "https://images.unsplash.com/photo-1551632811-561732d1e306?w=1920&amp;q=80",
+  "heroAlt": "Hiker on a misty mountain ridge at sunrise",
+  "h1": "Looking To<br />Challenge<br />Myself",
+  "quote": "“Comfort zones don't move. You do.”",
+  "sections": [
+   {
+    "kicker": "Rise Up · Test Yourself",
+    "h2_plain": "Trips That",
+    "h2_pink": "Push Back",
+    "intro": "Pre-dawn volcano summits, orangutan trekking, jungle ziplines, river rafts. The against-the-grain itineraries built around the moments that make you better."
+   },
+   {
+    "kicker": "Diaries · The 3am Start",
+    "h2_plain": "What It Looks Like",
+    "h2_pink": "From The Top",
+    "intro": "Real clips from summit treks, jungle hikes, and the bit after — when everyone in the group is suddenly best mates."
+   },
+   {
+    "kicker": "Read · Effort & Recovery",
+    "h2_plain": "Push, Then",
+    "h2_pink": "Restore",
+    "intro": "Yoga in Ubud, jungle resets, and the honest reads on what travel actually does to your head."
+   },
+   {
+    "kicker": "You Might Like",
+    "h2_plain": "Other",
+    "h2_pink": "Life Moments",
+    "intro": "Different chapter, same energy. Pick the one that fits where you are."
+   },
+   {
+    "kicker": "Earn The View",
+    "h2_plain": "Pick The One That",
+    "h2_pink": "Scares You",
+    "intro": "You don't come home from these trips the same person. The legs ache. The mind clears. The story's yours forever."
+   }
+  ],
+  "tripsEyebrow": "Rise Up",
+  "tripsHeading": "Built To Test You",
+  "ctaHref": "/explore",
+  "marks": [
+   [
+    "/bg-assets/komodo-dragon.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/peru-bird.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/sun.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/lantern.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/tru-logo.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/mask.svg",
+    "-left-16"
+   ]
+  ],
+  "ctaLabel": "Browse All Trips",
+  "tripIds": [
+   "bali-experience",
+   "northern-thailand-adventure",
+   "sumatra-uncovered",
+   "costa-rica-adventure",
+   "bali-sumatra-adventure",
+   "komodo-island-hopper",
+   "bali-and-beyond"
+  ],
+  "videoIds": [
+   "v2",
+   "v3",
+   "v5",
+   "v7",
+   "v9"
+  ],
+  "storyIds": [
+   "wellness-reset-bali",
+   "why-i-quit-my-job-to-travel",
+   "member-secret-itinerary-vietnam"
+  ],
+  "title": "Looking To Challenge Myself — TruTravels",
+  "desc": "Treks, summits, jungle climbs and the recovery on the other side. Trips for travellers who want to be tested."
+ },
+ "solo-soul-searcher": {
+  "slug": "solo-soul-searcher",
+  "heroImg": "/images/solo-soul-searcher-hero.jpg",
+  "heroAlt": "Lone traveller on a mountain road at sunset",
+  "h1": "Solo Soul<br />Searcher",
+  "quote": "“You came alone. You won't leave that way.”",
+  "sections": [
+   {
+    "kicker": "Solo-Friendly Trips",
+    "h2_plain": "Built For",
+    "h2_pink": "Going It Alone",
+    "intro": "Small groups, local leaders, time to do your own thing. The trips below are the ones our solo travellers come home raving about."
+   },
+   {
+    "kicker": "Diaries · In Their Own Words",
+    "h2_plain": "Solo Travellers",
+    "h2_pink": "On The Road",
+    "intro": "Real clips from people who came alone — and what happened next. Tap to play."
+   },
+   {
+    "kicker": "Read · Honest Stories",
+    "h2_plain": "From Other",
+    "h2_pink": "Solo Travellers",
+    "intro": "The stuff that doesn't make the brochure — first-trip nerves, hostel friendships, and the moments that change everything."
+   },
+   {
+    "kicker": "You Might Like",
+    "h2_plain": "Other",
+    "h2_pink": "Life Moments",
+    "intro": "Different chapter, same energy. Pick the one that fits where you are."
+   },
+   {
+    "kicker": "Ready When You Are",
+    "h2_plain": "Book Solo,",
+    "h2_pink": "Travel Together",
+    "intro": "Every trip below has space for one. By the time you land, you'll have a group."
+   }
+  ],
+  "tripsEyebrow": "Recommended",
+  "tripsHeading": "Best For Solo Soul Searchers",
+  "ctaHref": "/explore",
+  "marks": [
+   [
+    "/bg-assets/peru-bird.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/bali-flower.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/good-vibes.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/komodo-dragon.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/tru-logo.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/mask.svg",
+    "-left-16"
+   ]
+  ],
+  "ctaLabel": "Browse All Trips",
+  "tripIds": [
+   "thailand-island-hopper",
+   "bali-experience",
+   "vietnam-explorer",
+   "philippines-island-hopper",
+   "sri-lanka-uncovered",
+   "cambodia-explorer",
+   "thailand-backpacker"
+  ],
+  "videoIds": [
+   "v1",
+   "v3",
+   "v5",
+   "v8",
+   "v10"
+  ],
+  "storyIds": [
+   "is-it-safe-to-visit-south-korea",
+   "why-i-quit-my-job-to-travel",
+   "solo-female-travel-tips"
+  ],
+  "title": "Solo Soul Searcher — TruTravels",
+  "desc": "Trips, stories and voices for travellers heading out on their own. Find your people, find yourself."
+ },
+ "turning-30": {
+  "slug": "turning-30",
+  "heroImg": "https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=1920&amp;q=80",
+  "heroAlt": "Sahara dunes at dusk — the next chapter",
+  "h1": "Turning<br />30",
+  "quote": "“You've got the stamps. Now collect the stories.”",
+  "sections": [
+   {
+    "kicker": "Off The Tourist Track",
+    "h2_plain": "Adventure Over",
+    "h2_pink": "Algorithm",
+    "intro": "You've done the islands. You've seen the temples. Time to go further — Sahara nights, jungle treks, dragons, and the places your friends haven't posted from yet."
+   },
+   {
+    "kicker": "Diaries · Same Wonder, Wiser Eyes",
+    "h2_plain": "The Trips That",
+    "h2_pink": "Hit Different",
+    "intro": "Less rush, more nuance. Cultural moments, slow rides, real connections. Tap to play."
+   },
+   {
+    "kicker": "Read · The Next Chapter",
+    "h2_plain": "Burnt Out,",
+    "h2_pink": "Then Reborn",
+    "intro": "Stories from people who got to 26, 28, 30 and decided to do something about it."
+   },
+   {
+    "kicker": "You Might Like",
+    "h2_plain": "Other",
+    "h2_pink": "Life Moments",
+    "intro": "Different chapter, same energy. Pick the one that fits where you are."
+   },
+   {
+    "kicker": "Next Decade, Bigger Map",
+    "h2_plain": "One More Big One.",
+    "h2_pink": "Or The First Of Many.",
+    "intro": "The good news: thirty is when travel actually gets good. You know what you like. You know what you don't. Pick the one that scares you a little."
+   }
+  ],
+  "tripsEyebrow": "Recommended",
+  "tripsHeading": "Further · Wilder · Realer",
+  "ctaHref": "/explore",
+  "marks": [
+   [
+    "/bg-assets/mask.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/peru-bird.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/lantern.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/sun.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/tru-logo.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/mask.svg",
+    "-left-16"
+   ]
+  ],
+  "ctaLabel": "Browse All Trips",
+  "tripIds": [
+   "costa-rica-adventure",
+   "india-sri-lanka",
+   "mexico-belize-guatemala",
+   "sri-lanka-uncovered",
+   "sumatra-uncovered",
+   "northern-thailand-adventure",
+   "komodo-island-hopper",
+   "mexico-yucatan-experience"
+  ],
+  "videoIds": [
+   "v3",
+   "v5",
+   "v7",
+   "v9",
+   "v1"
+  ],
+  "storyIds": [
+   "why-i-quit-my-job-to-travel",
+   "wellness-reset-bali",
+   "member-secret-itinerary-vietnam"
+  ],
+  "title": "Turning 30 — TruTravels",
+  "desc": "Stamps collected, comfort zones outgrown. Off-the-beaten-path adventures for the next decade."
+ },
+ "work-break-recharge": {
+  "slug": "work-break-recharge",
+  "heroImg": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1920&amp;q=80",
+  "heroAlt": "Empty beach at golden hour — the office is far away",
+  "h1": "Work Break<br />Recharge",
+  "quote": "“Out of office. On the road. Back better.”",
+  "sections": [
+   {
+    "kicker": "Two Weeks · Maximum Impact",
+    "h2_plain": "Escape The",
+    "h2_pink": "9 to 5",
+    "intro": "Trips designed for the annual leave window. Everything sorted, nothing wasted — adventure, food, beaches, real people. Land Monday, feel like a different human."
+   },
+   {
+    "kicker": "Diaries · Out Of Office",
+    "h2_plain": "What Two Weeks",
+    "h2_pink": "Looks Like",
+    "intro": "Beaches, slow mornings, jungle treks, food you can't Google. Tap to play."
+   },
+   {
+    "kicker": "Read · The Permission Slip",
+    "h2_plain": "Reasons To",
+    "h2_pink": "Hand In Leave",
+    "intro": "Honest stories from people who took the time off and came back changed."
+   },
+   {
+    "kicker": "You Might Like",
+    "h2_plain": "Other",
+    "h2_pink": "Life Moments",
+    "intro": "Different chapter, same energy. Pick the one that fits where you are."
+   },
+   {
+    "kicker": "Annual Leave, Maximised",
+    "h2_plain": "Hand In The Holiday.",
+    "h2_pink": "Book The Plane.",
+    "intro": "Two weeks. No emails. Out of office on, brain off. Come back the version of yourself you keep promising you'll be."
+   }
+  ],
+  "tripsEyebrow": "Recommended",
+  "tripsHeading": "Under Two Weeks · Big Reset",
+  "ctaHref": "/explore",
+  "marks": [
+   [
+    "/bg-assets/bali-flower.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/sun.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/peru-bird.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/komodo-dragon.svg",
+    "-left-16"
+   ],
+   [
+    "/bg-assets/tru-logo.svg",
+    "-right-16"
+   ],
+   [
+    "/bg-assets/mask.svg",
+    "-left-16"
+   ]
+  ],
+  "ctaLabel": "Browse All Trips",
+  "tripIds": [
+   "bali-experience",
+   "greece-island-hopper",
+   "sri-lanka-uncovered",
+   "mexico-yucatan-experience",
+   "vietnam-explorer",
+   "komodo-island-hopper",
+   "cambodia-explorer"
+  ],
+  "videoIds": [
+   "v1",
+   "v3",
+   "v5",
+   "v9",
+   "v7"
+  ],
+  "storyIds": [
+   "why-i-quit-my-job-to-travel",
+   "member-secret-itinerary-vietnam"
+  ],
+  "title": "Work Break Recharge — TruTravels",
+  "desc": "Two weeks. Out of office. Full reset. Hand-picked trips under 14 days for the 9-to-5 escape."
+ }
+}
