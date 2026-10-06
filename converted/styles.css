@@ -7344,28 +7344,18 @@ a.hub-card:hover .hub-card__t { color: var(--tru-pink); }
    INSPIRE ME — the no-match state
    recommend() always returns three trips, so the real failure is not an
    empty page: it is three trips presented as something they are not.
-   This panel says what we could not meet and hands the nearest trips
-   over under their own label. Mirrors NoMatch in inspire-me.tsx.
+   The panel itself reuses .iquiz__rmissing, .iquiz__cta-btn and
+   .iquiz__rtitle — the quiz's own note, button and heading. Only these
+   four rules are new, and none of them sets a typeface: the first cut
+   did, and ended up with two fonts and two button styles in one panel.
    =================================================================== */
-.iquiz__nomatch { border: 1px solid rgba(255,63,153,0.25); background: rgba(255,63,153,0.06); border-radius: 12px; padding: 1.25rem; margin-bottom: 2rem; }
-@media (min-width: 640px) { .iquiz__nomatch { padding: 1.5rem; } }
-.iquiz__nomatch-head { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 1rem; }
-.iquiz__nomatch-ico { flex: none; margin-top: 0.125rem; width: 2.25rem; height: 2.25rem; border-radius: 999px; background: rgba(255,63,153,0.15); display: flex; align-items: center; justify-content: center; }
-.iquiz__nomatch-ico svg { width: 1.25rem; height: 1.25rem; color: var(--tru-pink); }
-.iquiz__nomatch-t { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 900; text-transform: uppercase; color: #fff; line-height: 1.15; margin: 0; }
-@media (min-width: 640px) { .iquiz__nomatch-t { font-size: 1.5rem; } }
-.iquiz__nomatch-t span { color: var(--tru-pink); }
-.iquiz__nomatch-p { color: #d1d5db; font-size: 0.875rem; line-height: 1.6; margin: 0.25rem 0 0; }
-.iquiz__nomatch-list { list-style: none; margin: 0 0 1.25rem; padding: 0 0 0 3rem; display: grid; gap: 0.5rem; }
-.iquiz__nomatch-list li { position: relative; color: #d1d5db; font-size: 0.875rem; line-height: 1.5; padding-left: 1.125rem; }
-.iquiz__nomatch-list li::before { content: ""; position: absolute; left: 0; top: 0.5rem; width: 6px; height: 6px; border-radius: 999px; background: var(--tru-pink); }
-.iquiz__nomatch-list span { color: #fff; }
-.iquiz__nomatch-cta { display: flex; flex-direction: column; gap: 0.75rem; padding-left: 3rem; }
-@media (min-width: 640px) { .iquiz__nomatch-cta { flex-direction: row; align-items: center; } }
-.iquiz__loosen { border: 0; cursor: pointer; border-radius: 10px; background: var(--tru-pink); color: #fff; padding: 0.625rem 1.25rem; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; }
-.iquiz__loosen:hover { background: var(--tru-pink-light); }
-.iquiz__nomatch-link { color: var(--tru-pink); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: underline; text-underline-offset: 4px; }
-.iquiz__nomatch-link:hover { color: var(--tru-pink-light); }
+.iquiz__rmissing b { color: #fff; font-weight: 700; }
+.iquiz__rmissing a { color: var(--tru-pink); text-decoration: underline; text-underline-offset: 3px; }
+.iquiz__rmissing a:hover { color: var(--tru-pink-light); }
+/* The button is .iquiz__cta-btn, which is flex:1 inside .iquiz__cta. On its
+   own row it should hug its text instead of stretching the full width. */
+.iquiz__loosen-row { display: flex; margin: -0.75rem 0 1.5rem; }
+.iquiz__loosen-row .iquiz__cta-btn { flex: 0 0 auto; }
 
 /* A carousel child, so `.carousel--related > *` still sizes it. */
 .iquiz__closest { display: flex; flex-direction: column; flex: none; }

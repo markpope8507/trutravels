@@ -31,11 +31,11 @@
     INSPIRE ME — THE NO-RESULTS STATE.
 
     WHY IT EXISTS. The quiz scores every trip and takes the top three, so it
-    can never return an empty list. Without this panel it hands back three
-    trips with the same confidence whether they matched everything the
-    traveller asked for or nothing at all: ask for Oceania and you get
-    Thailand, under the heading "Your Perfect Trips". That is the bug this
-    fixes — not a blank page.
+    can never return an empty list. Without this the traveller gets three
+    trips with the same confidence whether they matched everything they asked
+    for or nothing at all: ask for Oceania and you get Thailand, under the
+    heading "Your Perfect Trips". That is the bug this fixes — not a blank
+    page.
 
     WHEN IT SHOWS. A hard constraint we cannot satisfy: a region we don't run,
     or a trip length nothing runs for. See noMatch() in index.html, and its
@@ -43,37 +43,39 @@
     top three match anything?") would be dead code, because the duration step
     is mandatory and some trip always falls in every bucket.
 
-    THE THREE PARTS, and why each one is there:
-      1. Say what we couldn't meet, by name. "No trips in Oceania" is useful;
-         "no results" is not.
+    NOTHING HERE IS A NEW STYLE, and that is the point. The note is
+    `.iquiz__rmissing`, the quiz's existing "we don't run trips in X" block.
+    The button is `.iquiz__cta-btn--ghost`, the same treatment as Start Again
+    at the foot of the panel. The heading is `.iquiz__rtitle`, the same one
+    "Your Perfect Trips" uses. The first cut of this invented a pink bordered
+    card with its own icon, heading scale and button, and ended up with two
+    typefaces and two button styles in a single modal. If you extend it, reach
+    for an existing quiz class before writing a rule.
+
+    THE THREE JOBS:
+      1. Name what we couldn't meet. "No trips in Oceania" is useful; "no
+         results" is not.
       2. Offer the one change that fixes it. "Search anywhere instead" drops
          the blocking answer and re-scores in place, rather than making
          someone walk back through six questions to change one tap. It only
          appears when a region is the blocker — there is nothing to loosen
          otherwise.
-      3. Hand over the nearest trips under an honest label. The cards are
-         the same `.tripcard` the rest of the site draws; only the rank
-         changes, from "Top Match" to "Closest we have".
+      3. Hand over the nearest trips under an honest label. Same `.tripcard`
+         as everywhere else; only the rank changes, from "Top Match" to
+         "Closest we have".
 
     The email link matters more than it looks: for a region we don't run yet,
     being told when we do is the only real answer.
   -->
-  <div class="iquiz__nomatch">
-    <div class="iquiz__nomatch-head">
-      <span class="iquiz__nomatch-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 110-16 8 8 0 010 16zM8.5 11h5"/></svg></span>
-      <div>
-        <h2 class="iquiz__nomatch-t">No exact match <span>&mdash; yet</span></h2>
-        <p class="iquiz__nomatch-p">We don&rsquo;t run a trip that ticks all of that. Here&rsquo;s what we couldn&rsquo;t meet:</p>
-      </div>
-    </div>
-    <ul class="iquiz__nomatch-list">
-      <li>No trips in <span>Oceania</span> &mdash; we&rsquo;re working on it.</li>
-      <li>Nothing currently runs for <span>13 days or more</span>.</li>
-    </ul>
-    <div class="iquiz__nomatch-cta">
-      <button type="button" class="iquiz__loosen" data-iquiz-loosen>Search anywhere instead</button>
-      <a class="iquiz__nomatch-link" href="../email-sign-up.html">Tell us where to go next</a>
-    </div>
+  <p class="iquiz__rmissing">
+    <b>No exact match &mdash; yet.</b> Right now we don&rsquo;t run trips in <span>Oceania</span> yet
+    and nothing currently runs for <span>13 days or more</span>. These are the closest we have,
+    matched on everything else you told us &mdash; or
+    <a href="../email-sign-up.html">tell us where to go next</a>.
+  </p>
+
+  <div class="iquiz__loosen-row">
+    <button type="button" class="iquiz__cta-btn iquiz__cta-btn--ghost" data-iquiz-loosen>Search anywhere instead</button>
   </div>
 
   <h2 class="iquiz__rtitle">The <span>closest</span> we have</h2>

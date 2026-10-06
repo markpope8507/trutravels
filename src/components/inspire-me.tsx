@@ -67,79 +67,70 @@ function InspireMeButton({ onClick }: { onClick: () => void }) {
  *
  * The quiz can always return three trips, so the honest failure mode is not
  * an empty page: it is three trips presented as something they are not.
- * This says what we could not meet, offers the single change that would fix
- * it, and hands the closest trips over under their real label.
+ *
+ * NO NEW STYLING. The note is the same block the "we don't run trips there"
+ * line already used, and the button is the same treatment as Browse All
+ * Trips and Start Again further down the panel. The first cut of this drew a
+ * pink bordered card with its own icon, heading scale and button, which put
+ * two typefaces and two button styles in one modal.
  */
 function NoMatch({ u, onLoosen }: { u: Unmet; onLoosen: (q: "regions" | "duration") => void }) {
-  const loosenCopy =
-    u.loosen === "regions"
-      ? "Search anywhere instead"
-      : u.loosen === "duration"
-        ? "Drop the trip length"
-        : null;
+  const facts: React.ReactNode[] = [];
+  if (u.regions.length > 0) {
+    facts.push(
+      <>
+        we don&rsquo;t run trips in <span className="text-white">{u.regions.join(" or ")}</span> yet
+      </>,
+    );
+  }
+  if (u.duration) {
+    facts.push(
+      <>
+        nothing currently runs for{" "}
+        <span className="text-white">{DURATION_LABELS[u.duration] ?? u.duration}</span>
+      </>,
+    );
+  }
 
   return (
-    <div className="mb-8 rounded-[12px] border border-tru-pink/25 bg-tru-pink/[0.06] p-5 sm:p-6">
-      <div className="mb-4 flex items-start gap-3">
-        <span className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-tru-pink/15">
-          <svg className="h-5 w-5 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 110-16 8 8 0 010 16zM8.5 11h5" />
-          </svg>
-        </span>
-        <div>
-          <h2 className="font-heading text-xl font-black uppercase leading-tight text-white sm:text-2xl">
-            No exact match <span className="text-tru-pink">&mdash; yet</span>
-          </h2>
-          <p className="mt-1 text-sm leading-relaxed text-gray-300">
-            We don&rsquo;t run a trip that ticks all of that. Here&rsquo;s what we couldn&rsquo;t meet:
-          </p>
-        </div>
-      </div>
-
-      <ul className="mb-5 space-y-2 pl-12">
-        {u.regions.length > 0 && (
-          <li className="flex items-start gap-2.5 text-sm text-gray-300">
-            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-tru-pink" />
-            <span>
-              No trips in <span className="text-white">{u.regions.join(" or ")}</span> &mdash; we&rsquo;re
-              working on it.
-            </span>
-          </li>
+    <>
+      <p className="mb-6 rounded-[10px] border border-white/10 bg-white/5 px-4 py-3 text-sm leading-relaxed text-gray-300">
+        <span className="font-semibold text-white">No exact match &mdash; yet.</span>{" "}
+        {facts.length > 0 ? (
+          <>
+            Right now{" "}
+            {facts.map((f, i) => (
+              <span key={i}>
+                {i > 0 ? " and " : ""}
+                {f}
+              </span>
+            ))}
+            .{" "}
+          </>
+        ) : (
+          <>That combination doesn&rsquo;t line up on one trip. </>
         )}
-        {u.duration && (
-          <li className="flex items-start gap-2.5 text-sm text-gray-300">
-            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-tru-pink" />
-            <span>
-              Nothing currently runs for{" "}
-              <span className="text-white">{DURATION_LABELS[u.duration] ?? u.duration}</span>.
-            </span>
-          </li>
-        )}
-        {u.regions.length === 0 && !u.duration && (
-          <li className="flex items-start gap-2.5 text-sm text-gray-300">
-            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-tru-pink" />
-            <span>That combination of places, pace and experiences doesn&rsquo;t line up on one trip.</span>
-          </li>
-        )}
-      </ul>
-
-      <div className="flex flex-col gap-3 pl-12 sm:flex-row sm:items-center">
-        {loosenCopy && u.loosen && (
-          <button
-            onClick={() => onLoosen(u.loosen as "regions" | "duration")}
-            className="rounded-[10px] bg-tru-pink px-5 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-tru-pink-light"
-          >
-            {loosenCopy}
-          </button>
-        )}
+        These are the closest we have, matched on everything else you told us &mdash; or{" "}
         <Link
           href="/email-sign-up"
-          className="font-heading text-xs font-bold uppercase tracking-wider text-tru-pink underline underline-offset-4 transition-colors hover:text-tru-pink-light"
+          className="text-tru-pink underline underline-offset-[3px] transition-colors hover:text-tru-pink-light"
         >
-          Tell us where to go next
+          tell us where to go next
         </Link>
-      </div>
-    </div>
+        .
+      </p>
+
+      {u.loosen && (
+        <div className="mb-8 flex">
+          <button
+            onClick={() => onLoosen(u.loosen as "regions" | "duration")}
+            className="rounded-[10px] border border-tru-pink px-6 py-3 text-sm font-semibold uppercase tracking-wider text-tru-pink transition-all duration-300 hover:bg-tru-pink hover:text-white"
+          >
+            {u.loosen === "regions" ? "Search anywhere instead" : "Drop the trip length"}
+          </button>
+        </div>
+      )}
+    </>
   );
 }
 

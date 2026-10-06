@@ -2027,23 +2027,21 @@
             }).join('')
           : results.map(tripcard).join('');
 
-        var gaps = '';
-        if (gap.region) gaps += '<li>No trips in <span>' + esc(gap.region) + '</span> \u2014 we\u2019re working on it.</li>';
-        if (gap.duration) gaps += '<li>Nothing currently runs for <span>' + esc(DURATION_LABEL[gap.duration] || gap.duration) + '</span>.</li>';
+        /* The note, the button and the heading are the quiz's OWN classes —
+           .iquiz__rmissing, .iquiz__cta-btn, .iquiz__rtitle. The first cut of
+           this drew a pink bordered card with its own icon, heading scale and
+           button, which put two typefaces and two button treatments in one
+           panel. Nothing here is new: it is the existing "we don't run trips
+           in X" note doing the job it was written for. */
+        var facts = [];
+        if (gap.region) facts.push('We don\u2019t run trips in <span>' + esc(gap.region) + '</span> yet');
+        if (gap.duration) facts.push('nothing currently runs for <span>' + esc(DURATION_LABEL[gap.duration] || gap.duration) + '</span>');
 
         var panel = gap.blank
-          ? '<div class="iquiz__nomatch">' +
-              '<div class="iquiz__nomatch-head">' +
-                '<span class="iquiz__nomatch-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 110-16 8 8 0 010 16zM8.5 11h5"/></svg></span>' +
-                '<div><h2 class="iquiz__nomatch-t">No exact match <span>&mdash; yet</span></h2>' +
-                '<p class="iquiz__nomatch-p">We don\u2019t run a trip that ticks all of that. Here\u2019s what we couldn\u2019t meet:</p></div>' +
-              '</div>' +
-              '<ul class="iquiz__nomatch-list">' + gaps + '</ul>' +
-              '<div class="iquiz__nomatch-cta">' +
-                (gap.region ? '<button type="button" class="iquiz__loosen" data-iquiz-loosen>Search anywhere instead</button>' : '') +
-                '<a class="iquiz__nomatch-link" href="email-sign-up.html" data-close-modal>Tell us where to go next</a>' +
-              '</div>' +
-            '</div>'
+          ? '<p class="iquiz__rmissing"><b>No exact match \u2014 yet.</b> ' +
+              facts.join(' and ') + '. These are the closest we have, matched on everything else ' +
+              'you told us \u2014 or <a href="email-sign-up.html" data-close-modal>tell us where to go next</a>.</p>' +
+            (gap.region ? '<div class="iquiz__loosen-row"><button type="button" class="iquiz__cta-btn iquiz__cta-btn--ghost" data-iquiz-loosen>Search anywhere instead</button></div>' : '')
           : '';
         content.innerHTML =
           panel +
