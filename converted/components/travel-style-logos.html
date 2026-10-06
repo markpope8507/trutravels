@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Travel style logos &mdash; TruTravels components</title>
+  <!-- One level below the site root, so ../styles.css. Drop the ../ when you
+       paste this into a page at the root. -->
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body { background: #060d18; padding: 3rem 1.5rem; }
+    .demo { max-width: 80rem; margin: 0 auto; }
+    .demo__label { color: #9ca3af; font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 auto 0.5rem; max-width: 80rem; }
+    .demo__sub { color: #6b7280; font-size: 13px; margin: 0 auto 2.5rem; max-width: 80rem; line-height: 1.6; }
+    .demo__sub b { color: #9ca3af; font-weight: 600; }
+    .demo__h { color: #9ca3af; font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin: 2.5rem 0 1rem; }
+  </style>
+</head>
+<body>
+
+  <p class="demo__label">Travel style logos &mdash; the five marks, on a photo and on flat navy</p>
+  <p class="demo__sub">Used as the corner badge on <b>trip-carousel.html</b>, <b>deal-card.html</b> and
+    <b>stay-card.html</b>, and at full size on <b>travel-style-classic.html</b>.
+    <br><b>Missing:</b> Essentials and Ski &amp; Apr&egrave;s &mdash; see the note in the markup below.</p>
+
+  <div class="demo">
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- COPY FROM HERE                                                     -->
+  <!--
+    TRAVEL STYLE LOGOS — the brand mark for each travel style.
+
+    WHAT IS HERE: classic, backpacker, flashpacker, multi-country and
+    limited-edition, as `assets/<style>-logo.png`. These are the WHITE
+    artwork; they are only ever placed over a photograph or over navy, never
+    over a light background.
+
+    WHAT IS NOT HERE YET: `essentials-logo.png` and `ski-and-apres-logo.png`.
+    The Essentials artwork exists in the brand Drive folder (filed under the
+    misspelling "Esseintails travel style navy/white 2.png") and needs
+    dropping into converted/assets as essentials-logo.png. No Ski & Après
+    mark exists in that folder at all — it has to be supplied before this
+    component can carry it. When they arrive, add two more .ts-logo tiles
+    below and nothing else changes.
+
+    THE PNGs ARE SQUARE CANVASES with the artwork as a band across the middle
+    — roughly 13% transparent padding at the sides but 32% top and bottom.
+    That is why the badge on a card is positioned with negative offsets
+    (see `.tripcard__badge`): the offsets cancel the padding so the visible
+    mark sits in the corner rather than floating away from it. Don't "fix"
+    those offsets by cropping the artwork; other places rely on the canvas.
+
+    SIZING: give the <img> a width and height, or a lazy-loaded logo lays out
+    at zero and reflows whatever grid it sits in.
+  -->
+  <ul class="ts-logos">
+    <li class="ts-logo"><img src="../assets/classic-logo.png" alt="Classic travel style" width="546" height="549" /><span>Classic</span></li>
+    <li class="ts-logo"><img src="../assets/backpacker-logo.png" alt="Backpacker travel style" width="546" height="549" /><span>Backpacker</span></li>
+    <li class="ts-logo"><img src="../assets/flashpacker-logo.png" alt="Flashpacker travel style" width="546" height="549" /><span>Flashpacker</span></li>
+    <li class="ts-logo"><img src="../assets/multi-country-logo.png" alt="Multi Country travel style" width="546" height="549" /><span>Multi Country</span></li>
+    <li class="ts-logo"><img src="../assets/limited-edition-logo.png" alt="Limited Edition travel style" width="546" height="549" /><span>Limited Edition</span></li>
+  </ul>
+  <!-- COPY TO HERE                                                        -->
+  <!-- ------------------------------------------------------------------ -->
+
+  <p class="demo__h">On a photograph &mdash; the corner badge, as a card uses it</p>
+  <div style="position:relative;max-width:22rem;aspect-ratio:4/3;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.1)">
+    <img src="https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
+    <img class="tripcard__badge" src="../assets/classic-logo.png" alt="Classic travel style" />
+  </div>
+
+  </div>
+
+</body>
+</html>

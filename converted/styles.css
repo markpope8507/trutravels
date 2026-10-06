@@ -7121,12 +7121,17 @@ a.hub-card:hover .hub-card__t { color: var(--tru-pink); }
 @media (min-width: 640px) { .dep__price { text-align: right; } }
 .dep__was { display: block; color: #6b7280; font-size: 0.75rem; text-decoration: line-through; line-height: 1; margin-bottom: 0.125rem; }
 .dep__now { color: #fff; font-family: 'Montserrat', sans-serif; font-size: 1.125rem; font-weight: 900; line-height: 1; }
+/* The departure CTA is the one yellow button on the site. That is on
+   purpose and it comes from the prototype (country-page.tsx sets
+   #FFD814 / #FCD200 / #0F1111 inline): this is the buy button, and it is
+   meant to stand apart from the pink that marks every other link. It had
+   been drawn in pink here, which merged it back into the page. */
 .dep__cta {
-  flex: none; border-radius: 10px; background: var(--tru-pink); color: #fff;
+  flex: none; border-radius: 10px; background: #FFD814; border: 1px solid #FCD200; color: #0F1111;
   padding: 0.625rem 1rem; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; transition: background 0.2s;
 }
-.dep__cta:hover { background: #ff5bab; }
+.dep__cta:hover { background: #F7CA00; }
 
 /* The diary cards became links so a clip can open. */
 .video-card__hit { display: block; position: absolute; inset: 0; }
@@ -7256,3 +7261,81 @@ a.hub-card:hover .hub-card__t { color: var(--tru-pink); }
 .tw-cta__btn { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 10px; background: var(--tru-pink); color: #fff; padding: 0.75rem 1.5rem; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: background 0.2s; }
 .tw-cta__btn:hover { background: var(--tru-pink-light); }
 .tw-cta__btn svg { height: 1rem; width: 1rem; }
+
+/* ===================================================================
+   TRAVEL STYLE PAGES  (travel-style-classic.html and friends)
+   Built by .build/build_travel_styles.py. The page is the country
+   page's shape, so almost everything here is already defined above —
+   .country-hero, .tripcard, .stay-card, .dep, .faq-item, .hub-card.
+   These are the few parts the country page never needed.
+   =================================================================== */
+
+/* The lead under a section heading. thailand.html has carried
+   `.section-lead` since it was built and it was never defined, so that
+   paragraph has been rendering at body defaults — this styles both. */
+.section-lead { color: #d1d5db; max-width: 42rem; margin: 0 0 2rem; font-size: 1rem; line-height: 1.625; }
+@media (min-width: 640px) { .section-lead { font-size: 1.125rem; } }
+
+/* The hero line where a country page puts its Trustpilot rating. */
+.country-hero__count { color: #fff; font-size: 0.875rem; font-weight: 600; margin: 0 0 1rem; }
+
+/* "What Is Classic?" — a reading measure, centred. The sections below
+   are full-width because they hold carousels and rows; this one is
+   prose, so it gets a prose column. */
+.tstyle-what { max-width: 48rem; margin: 4rem auto 5rem; padding-left: 1rem; padding-right: 1rem; }
+@media (min-width: 640px) { .tstyle-what { padding-left: 1.5rem; padding-right: 1.5rem; } }
+.tstyle-what__h { font-family: 'Montserrat', sans-serif; font-size: 1.875rem; font-weight: 900; text-transform: uppercase; color: #fff; letter-spacing: -0.025em; line-height: 1.05; margin: 0 0 1.5rem; }
+@media (min-width: 640px) { .tstyle-what__h { font-size: 2.25rem; } }
+.tstyle-what p { color: #d1d5db; font-size: 1rem; line-height: 1.625; margin: 0 0 1.25rem; }
+@media (min-width: 640px) { .tstyle-what p { font-size: 1.125rem; } }
+.tstyle-what p:last-child { margin-bottom: 0; }
+
+/* Show More Departures. Hidden outright when every row is already on
+   screen, so it can't sit there doing nothing. */
+.dep-more { padding-top: 2rem; text-align: center; }
+.dep-more[hidden] { display: none; }
+
+/* A stay card's media is a <video> on this page, not a poster image —
+   the prototype plays it muted and looping in the card. */
+/* Absolutely positioned, not just sized. A <video> in normal flow brings
+   its own intrinsic size — the beachfront clip is 1080x1920 portrait — and
+   that wins over the box's aspect-ratio, so the card grew to three times
+   the height of its neighbours. Taking it out of flow lets the 4:3 box
+   govern, the way it already does for the <img>. */
+.stay-card__media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* The page clips its own watermarks. They are positioned with negative
+   offsets, which otherwise widen the document and give the whole site a
+   horizontal scrollbar on this page. */
+/* `position: relative` is load-bearing, not decoration: without a
+   positioned ancestor the absolutely-positioned marks resolve against the
+   initial containing block, and a clip here then doesn't apply to them. */
+.tstyle { position: relative; overflow-x: clip; }
+
+/* `.dep` sets `display: flex`, which beats the user agent's rule for
+   [hidden] — so hiding a row from script did nothing until this existed. */
+.dep[hidden] { display: none; }
+
+/* Stay cards: the prototype clamps the title to two lines and the caption to
+   three, and reserves that height whether or not the text fills it, so a row
+   of cards lines up. The static cards had neither, so each card was as tall
+   as its own text. Shared with the country page, which renders the same
+   component in the prototype. */
+.stay-card__title {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; min-height: 2lh;
+}
+.stay-card__text {
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  overflow: hidden; min-height: 3lh;
+}
+
+/* Travel style logo wall — components/travel-style-logos.html. The marks are
+   white artwork on a square canvas with transparent padding; they sit on navy
+   tiles here so the shape is legible without a photograph behind it. */
+.ts-logos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+@media (min-width: 640px) { .ts-logos { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1024px) { .ts-logos { grid-template-columns: repeat(5, 1fr); } }
+.ts-logo { display: flex; flex-direction: column; align-items: center; text-align: center; border-radius: 12px; border: 1px solid var(--border-soft); background: var(--tru-navy); padding: 0.5rem 0.75rem 1.25rem; }
+.ts-logo img { width: 100%; max-width: 8rem; height: auto; object-fit: contain; }
+.ts-logo span { margin-top: -0.75rem; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #9ca3af; }

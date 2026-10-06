@@ -52,6 +52,7 @@ TRAILS = {
     "join-the-crew.html": about("Careers"),
 
     "life-moments.html": [("Home", "index.html"), TRAVEL_STYLES, ("Life Moments", None)],
+    "travel-style-classic.html": [("Home", "index.html"), TRAVEL_STYLES, ("Classic", None)],
     "life-moments-gap-year.html": [("Home", "index.html"), TRAVEL_STYLES, LIFE_MOMENTS, ("Gap Year", None)],
     "life-moments-just-left-uni.html": [("Home", "index.html"), TRAVEL_STYLES, LIFE_MOMENTS, ("Just Left Uni", None)],
     "life-moments-looking-to-challenge-myself.html": [("Home", "index.html"), TRAVEL_STYLES, LIFE_MOMENTS, ("Looking To Challenge Myself", None)],
@@ -106,7 +107,8 @@ def _derive(pages):
 # Every hero this site opens on. The bar goes directly below whichever one the
 # page uses; a page with none gets the --nohero variant, which pads past the
 # floating nav.
-HEROES = ("ess-hero", "art-hero", "exp-hero", "author-hero", "ab-chero", "deals-hero", "acct-hero")
+HEROES = ("ess-hero", "art-hero", "exp-hero", "author-hero", "ab-chero", "deals-hero",
+          "acct-hero", "country-hero")
 
 
 def title_of(html):
