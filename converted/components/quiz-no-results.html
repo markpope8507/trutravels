@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Inspire Me &mdash; no results &mdash; TruTravels components</title>
+  <!-- One level below the site root, so ../styles.css. Drop the ../ when you
+       paste this into a page at the root. -->
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body { background: #060d18; padding: 3rem 1.5rem; }
+    .demo { max-width: 46rem; margin: 0 auto; background: var(--tru-navy); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 1.5rem; }
+    .demo__label { color: #9ca3af; font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 auto 0.5rem; max-width: 46rem; }
+    .demo__sub { color: #6b7280; font-size: 13px; margin: 0 auto 2.5rem; max-width: 46rem; line-height: 1.6; }
+    .demo__sub b { color: #9ca3af; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <p class="demo__label">Inspire Me &mdash; no results</p>
+  <p class="demo__sub">What the quiz shows when it can&rsquo;t honour an answer. Live on the homepage:
+    open <b>Inspire Me</b> and pick <b>Oceania</b> (or <b>Africa &amp; Middle East</b>) &mdash; we run no
+    trips in either, so the panel appears. Built by the quiz script in <b>index.html</b>.</p>
+
+  <div class="demo">
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- COPY FROM HERE                                                     -->
+  <!--
+    INSPIRE ME — THE NO-RESULTS STATE.
+
+    WHY IT EXISTS. The quiz scores every trip and takes the top three, so it
+    can never return an empty list. Without this panel it hands back three
+    trips with the same confidence whether they matched everything the
+    traveller asked for or nothing at all: ask for Oceania and you get
+    Thailand, under the heading "Your Perfect Trips". That is the bug this
+    fixes — not a blank page.
+
+    WHEN IT SHOWS. A hard constraint we cannot satisfy: a region we don't run,
+    or a trip length nothing runs for. See noMatch() in index.html, and its
+    twin unmet() in src/lib/inspire-me-quiz.ts. A reasons-only test ("did the
+    top three match anything?") would be dead code, because the duration step
+    is mandatory and some trip always falls in every bucket.
+
+    THE THREE PARTS, and why each one is there:
+      1. Say what we couldn't meet, by name. "No trips in Oceania" is useful;
+         "no results" is not.
+      2. Offer the one change that fixes it. "Search anywhere instead" drops
+         the blocking answer and re-scores in place, rather than making
+         someone walk back through six questions to change one tap. It only
+         appears when a region is the blocker — there is nothing to loosen
+         otherwise.
+      3. Hand over the nearest trips under an honest label. The cards are
+         the same `.tripcard` the rest of the site draws; only the rank
+         changes, from "Top Match" to "Closest we have".
+
+    The email link matters more than it looks: for a region we don't run yet,
+    being told when we do is the only real answer.
+  -->
+  <div class="iquiz__nomatch">
+    <div class="iquiz__nomatch-head">
+      <span class="iquiz__nomatch-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 110-16 8 8 0 010 16zM8.5 11h5"/></svg></span>
+      <div>
+        <h2 class="iquiz__nomatch-t">No exact match <span>&mdash; yet</span></h2>
+        <p class="iquiz__nomatch-p">We don&rsquo;t run a trip that ticks all of that. Here&rsquo;s what we couldn&rsquo;t meet:</p>
+      </div>
+    </div>
+    <ul class="iquiz__nomatch-list">
+      <li>No trips in <span>Oceania</span> &mdash; we&rsquo;re working on it.</li>
+      <li>Nothing currently runs for <span>13 days or more</span>.</li>
+    </ul>
+    <div class="iquiz__nomatch-cta">
+      <button type="button" class="iquiz__loosen" data-iquiz-loosen>Search anywhere instead</button>
+      <a class="iquiz__nomatch-link" href="../email-sign-up.html">Tell us where to go next</a>
+    </div>
+  </div>
+
+  <h2 class="iquiz__rtitle">The <span>closest</span> we have</h2>
+  <p class="iquiz__rintro">Ranked by how near they get to what you asked for.</p>
+
+  <!-- Each card goes in a .iquiz__closest wrapper so the rank sits above it.
+       The wrapper is the carousel's direct child, which is what
+       `.carousel--related > *` sizes — don't put the label inside the card. -->
+  <div class="rev-carousel iquiz__carousel" data-arrows>
+    <div class="carousel carousel--related">
+      <div class="iquiz__closest">
+        <p class="iquiz__rank">Closest we have</p>
+        <!-- .tripcard goes here, unchanged -->
+      </div>
+      <div class="iquiz__closest">
+        <p class="iquiz__rank">Also close</p>
+        <!-- .tripcard goes here, unchanged -->
+      </div>
+    </div>
+  </div>
+  <!-- COPY TO HERE                                                        -->
+  <!-- ------------------------------------------------------------------ -->
+
+  </div>
+
+</body>
+</html>

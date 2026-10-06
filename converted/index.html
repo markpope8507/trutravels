@@ -1934,6 +1934,30 @@
         .sort(function (a, b) { return b.s - a.s; }).slice(0, 3).map(function (x) { return x.t; });
     }
 
+    var DURATION_LABEL = { short: 'under 10 days', medium: '10\u201312 days', long: '13 days or more' };
+    function durationFits(days, pick) {
+      if (pick === 'short') return days <= 10;
+      if (pick === 'medium') return days >= 10 && days <= 12;
+      if (pick === 'long') return days >= 13;
+      return true;
+    }
+
+    /* WHAT WE COULD NOT HONOUR.
+       recommend() can never come back empty — it scores every trip and takes
+       the top three — so without this the quiz hands back three trips with
+       equal confidence whether they matched everything or nothing. Someone
+       who asks for Oceania gets Thailand, framed as their "Perfect Trips".
+       A hard constraint we cannot satisfy is the honest definition of no
+       results: a region we do not run, or a trip length nothing runs for.
+       Mirrors unmet() in src/lib/inspire-me-quiz.ts. */
+    function noMatch(answers) {
+      var region = (answers.region && answers.region !== 'any' &&
+        !TRIPS.some(function (t) { return t.region === answers.region; })) ? answers.region : '';
+      var duration = (answers.duration &&
+        !TRIPS.some(function (t) { return durationFits(t.days, answers.duration); })) ? answers.duration : '';
+      return { region: region, duration: duration, blank: !!(region || duration) };
+    }
+
     var content = document.querySelector('[data-iquiz-content]');
     var progress = document.querySelector('[data-iquiz-progress]');
     var substep = document.querySelector('[data-iquiz-substep]');
@@ -1992,17 +2016,42 @@
       backBtn.hidden = !(step > 0 || showResults);
 
       if (showResults) {
-        var cards = results.map(tripcard).join('');
-        /* The region list offers every group the nav does, and we don't run
-           trips in all of them yet. Say so rather than quietly handing back
-           three trips from somewhere else. Mirrors regionsWithoutTrips() in
-           src/lib/inspire-me-quiz.ts. */
-        var picked = answers.region;
-        var missing = (picked && picked !== 'any' && !TRIPS.some(function (t) { return t.region === picked; })) ? picked : '';
+        var gap = noMatch(answers);
+        /* Under the empty state the cards are explicitly the nearest thing we
+           have, not a ranking \u2014 calling the first one a perfect trip is
+           the lie worth avoiding. */
+        var RANK = ['Closest we have', 'Also close', 'Also close'];
+        var cards = gap.blank
+          ? results.map(function (t, i) {
+              return '<div class="iquiz__closest"><p class="iquiz__rank">' + (RANK[i] || 'Also close') + '</p>' + tripcard(t) + '</div>';
+            }).join('')
+          : results.map(tripcard).join('');
+
+        var gaps = '';
+        if (gap.region) gaps += '<li>No trips in <span>' + esc(gap.region) + '</span> \u2014 we\u2019re working on it.</li>';
+        if (gap.duration) gaps += '<li>Nothing currently runs for <span>' + esc(DURATION_LABEL[gap.duration] || gap.duration) + '</span>.</li>';
+
+        var panel = gap.blank
+          ? '<div class="iquiz__nomatch">' +
+              '<div class="iquiz__nomatch-head">' +
+                '<span class="iquiz__nomatch-ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 110-16 8 8 0 010 16zM8.5 11h5"/></svg></span>' +
+                '<div><h2 class="iquiz__nomatch-t">No exact match <span>&mdash; yet</span></h2>' +
+                '<p class="iquiz__nomatch-p">We don\u2019t run a trip that ticks all of that. Here\u2019s what we couldn\u2019t meet:</p></div>' +
+              '</div>' +
+              '<ul class="iquiz__nomatch-list">' + gaps + '</ul>' +
+              '<div class="iquiz__nomatch-cta">' +
+                (gap.region ? '<button type="button" class="iquiz__loosen" data-iquiz-loosen>Search anywhere instead</button>' : '') +
+                '<a class="iquiz__nomatch-link" href="email-sign-up.html" data-close-modal>Tell us where to go next</a>' +
+              '</div>' +
+            '</div>'
+          : '';
         content.innerHTML =
-          '<h2 class="iquiz__rtitle">Your <span>Perfect</span> Trips</h2>' +
-          (missing ? '<p class="iquiz__rmissing">We don\u2019t run trips in <span>' + esc(missing) + '</span> yet \u2014 so these are matched on everything else you told us.</p>' : '') +
-          "<p class=\"iquiz__rintro\">Based on your answers, here's what we'd recommend. These aren't just trips — they're your kind of extraordinary.</p>" +
+          panel +
+          (gap.blank ? '<h2 class="iquiz__rtitle">The <span>closest</span> we have</h2>'
+                     : '<h2 class="iquiz__rtitle">Your <span>Perfect</span> Trips</h2>') +
+          (gap.blank
+            ? '<p class="iquiz__rintro">Ranked by how near they get to what you asked for.</p>'
+            : "<p class=\"iquiz__rintro\">Based on your answers, here's what we'd recommend. These aren't just trips — they're your kind of extraordinary.</p>") +
           '<div class="rev-carousel iquiz__carousel" data-arrows><div class="carousel carousel--related">' + cards + '</div>' +
             '<button class="rev-arrow rev-arrow--prev" data-rev="prev" aria-label="Previous"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg></button>' +
             '<button class="rev-arrow rev-arrow--next" data-rev="next" aria-label="Next"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button></div>' +
@@ -2068,6 +2117,14 @@
       wireCarousel();
       var rs = content.querySelector('[data-iquiz-restart]');
       if (rs) rs.addEventListener('click', function () { reset(); });
+      /* Drop the one answer that excluded everything and score again, rather
+         than sending someone back through six questions to change one tap. */
+      var lo = content.querySelector('[data-iquiz-loosen]');
+      if (lo) lo.addEventListener('click', function () {
+        answers.region = 'any';
+        results = recommend(answers);
+        render();
+      });
     }
     function reset() { step = 0; answers = {}; showResults = false; results = []; render(); }
 

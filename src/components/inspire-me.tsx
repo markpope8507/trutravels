@@ -11,9 +11,12 @@ import {
   STEPS,
   getMatches,
   regionsWithoutTrips,
+  unmet,
+  DURATION_LABELS,
   type Answers,
   type Match,
   type Question,
+  type Unmet,
 } from "@/lib/inspire-me-quiz";
 import QuestionBlock, { toggleAnswer } from "@/components/preference-questions";
 import { setPreferences } from "@/lib/travel-preferences";
@@ -59,30 +62,128 @@ function InspireMeButton({ onClick }: { onClick: () => void }) {
   );
 }
 
+/**
+ * Nothing matched — what we could not do, and the one answer to loosen.
+ *
+ * The quiz can always return three trips, so the honest failure mode is not
+ * an empty page: it is three trips presented as something they are not.
+ * This says what we could not meet, offers the single change that would fix
+ * it, and hands the closest trips over under their real label.
+ */
+function NoMatch({ u, onLoosen }: { u: Unmet; onLoosen: (q: "regions" | "duration") => void }) {
+  const loosenCopy =
+    u.loosen === "regions"
+      ? "Search anywhere instead"
+      : u.loosen === "duration"
+        ? "Drop the trip length"
+        : null;
+
+  return (
+    <div className="mb-8 rounded-[12px] border border-tru-pink/25 bg-tru-pink/[0.06] p-5 sm:p-6">
+      <div className="mb-4 flex items-start gap-3">
+        <span className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-tru-pink/15">
+          <svg className="h-5 w-5 text-tru-pink" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 19a8 8 0 110-16 8 8 0 010 16zM8.5 11h5" />
+          </svg>
+        </span>
+        <div>
+          <h2 className="font-heading text-xl font-black uppercase leading-tight text-white sm:text-2xl">
+            No exact match <span className="text-tru-pink">&mdash; yet</span>
+          </h2>
+          <p className="mt-1 text-sm leading-relaxed text-gray-300">
+            We don&rsquo;t run a trip that ticks all of that. Here&rsquo;s what we couldn&rsquo;t meet:
+          </p>
+        </div>
+      </div>
+
+      <ul className="mb-5 space-y-2 pl-12">
+        {u.regions.length > 0 && (
+          <li className="flex items-start gap-2.5 text-sm text-gray-300">
+            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-tru-pink" />
+            <span>
+              No trips in <span className="text-white">{u.regions.join(" or ")}</span> &mdash; we&rsquo;re
+              working on it.
+            </span>
+          </li>
+        )}
+        {u.duration && (
+          <li className="flex items-start gap-2.5 text-sm text-gray-300">
+            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-tru-pink" />
+            <span>
+              Nothing currently runs for{" "}
+              <span className="text-white">{DURATION_LABELS[u.duration] ?? u.duration}</span>.
+            </span>
+          </li>
+        )}
+        {u.regions.length === 0 && !u.duration && (
+          <li className="flex items-start gap-2.5 text-sm text-gray-300">
+            <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-tru-pink" />
+            <span>That combination of places, pace and experiences doesn&rsquo;t line up on one trip.</span>
+          </li>
+        )}
+      </ul>
+
+      <div className="flex flex-col gap-3 pl-12 sm:flex-row sm:items-center">
+        {loosenCopy && u.loosen && (
+          <button
+            onClick={() => onLoosen(u.loosen as "regions" | "duration")}
+            className="rounded-[10px] bg-tru-pink px-5 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-tru-pink-light"
+          >
+            {loosenCopy}
+          </button>
+        )}
+        <Link
+          href="/email-sign-up"
+          className="font-heading text-xs font-bold uppercase tracking-wider text-tru-pink underline underline-offset-4 transition-colors hover:text-tru-pink-light"
+        >
+          Tell us where to go next
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 function Results({
   matches,
   missingRegions,
+  unmetAnswers,
   onClose,
   onRestart,
+  onLoosen,
 }: {
   matches: Match[];
   missingRegions: string[];
+  unmetAnswers: Unmet;
   onClose: () => void;
   onRestart: () => void;
+  onLoosen: (q: "regions" | "duration") => void;
 }) {
-  const RANK = ["Top Match", "Great Fit", "You'd Love"];
+  const blank = unmetAnswers.none;
+  // Under the empty state these are explicitly the nearest thing we have, not
+  // a ranking — calling the first one "Top Match" is the lie worth avoiding.
+  const RANK = blank
+    ? ["Closest we have", "Also close", "Also close"]
+    : ["Top Match", "Great Fit", "You'd Love"];
   return (
     <div>
+      {blank && <NoMatch u={unmetAnswers} onLoosen={onLoosen} />}
+
       <h2 className="mb-2 font-heading text-2xl font-black uppercase text-white sm:text-3xl">
-        Your <span className="text-tru-pink">Perfect</span> Trips
+        {blank ? (
+          <>The <span className="text-tru-pink">closest</span> we have</>
+        ) : (
+          <>Your <span className="text-tru-pink">Perfect</span> Trips</>
+        )}
       </h2>
       <p className="mb-6 text-sm text-gray-400">
-        Based on your answers. Each one shows what it matched on.
+        {blank
+          ? "Ranked by how near they get to what you asked for."
+          : "Based on your answers. Each one shows what it matched on."}
       </p>
 
       {/* Africa and Oceania are on the list because people look for them —
           saying we don't run them yet beats quietly showing Thailand. */}
-      {missingRegions.length > 0 && (
+      {!blank && missingRegions.length > 0 && (
         <p className="mb-6 rounded-[10px] border border-white/10 bg-white/5 px-4 py-3 text-sm leading-relaxed text-gray-300">
           We don&rsquo;t run trips in{" "}
           <span className="text-white">{missingRegions.join(" or ")}</span> yet — so these are matched
@@ -110,7 +211,7 @@ function Results({
             <SwiperSlide key={trip.id} className="h-auto">
               <div className="flex h-full flex-col">
                 <p className="mb-2 font-heading text-[10px] font-bold uppercase tracking-[0.2em] text-tru-pink">
-                  {RANK[i] ?? "Also Worth A Look"}
+                  {RANK[i] ?? (blank ? "Also close" : "Also Worth A Look")}
                 </p>
                 <TripCard trip={trip} />
                 {/* Why this trip — the quiz should show its working, not just
@@ -219,6 +320,18 @@ function InspireMeModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
     else if (step > 0) setStep(step - 1);
   };
 
+  /**
+   * Drop the one answer that excluded everything and score again, without
+   * sending the traveller back through five questions to change a single
+   * tap. `regions` becomes the wildcard; `duration` has no wildcard option,
+   * so it is cleared.
+   */
+  const loosen = (q: "regions" | "duration") => {
+    const relaxed: Answers = { ...answers, [q]: q === "regions" ? ["any"] : [] };
+    setAnswers(relaxed);
+    setMatches(getMatches(relaxed));
+  };
+
   const restart = () => {
     setStep(0);
     setAnswers({});
@@ -268,8 +381,10 @@ function InspireMeModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => v
             <Results
               matches={matches}
               missingRegions={regionsWithoutTrips(answers.regions ?? [])}
+              unmetAnswers={unmet(answers, matches)}
               onClose={onClose}
               onRestart={restart}
+              onLoosen={loosen}
             />
           ) : (
             <div className="space-y-8">

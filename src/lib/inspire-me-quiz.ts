@@ -268,6 +268,81 @@ function score(trip: Trip, a: Answers): Match {
   return { trip, score: total, reasons: [...new Set(reasons)] };
 }
 
+/** Buckets for the duration question, so one definition drives both the
+ *  scoring and the "nothing is that long" check. */
+const DURATION_FITS: Record<string, (days: number) => boolean> = {
+  short: (d) => d > 0 && d < 10,
+  mid: (d) => d >= 10 && d <= 14,
+  long: (d) => d >= 14,
+};
+
+export const DURATION_LABELS: Record<string, string> = {
+  short: "under 10 days",
+  mid: "10\u201314 days",
+  long: "2 weeks or more",
+};
+
+export type Unmet = {
+  /** Nothing the traveller actually asked for could be matched. */
+  none: boolean;
+  /** Regions they picked that we do not run at all. */
+  regions: string[];
+  /** Their trip-length pick, when no trip falls in that bucket. */
+  duration: string | null;
+  /** The single answer worth loosening first, or null if neither helps. */
+  loosen: "regions" | "duration" | null;
+};
+
+/**
+ * What the quiz could not honour.
+ *
+ * WHY THIS EXISTS. getMatches() can never return an empty array — it scores
+ * every trip and takes the top three — so without this the quiz hands back
+ * three trips with equal confidence whether they matched everything or
+ * nothing. Someone who asks for a fortnight in Oceania gets Thailand, framed
+ * as their "Perfect Trips". This is how the UI knows to say so instead.
+ *
+ * `none` deliberately ignores the pace question: it is a soft preference
+ * worth a few points and it awards no reason chip, so letting it count would
+ * suppress the empty state on a technicality.
+ */
+export function unmet(a: Answers, matches: Match[]): Unmet {
+  const regions = (a.regions ?? []).filter((r) => r !== "any");
+  const alive = (a.alive ?? []).filter((r) => r !== "any");
+  const experience = a.experience ?? [];
+  const duration = a.duration?.[0];
+
+  const asked = regions.length + alive.length + experience.length + (duration ? 1 : 0);
+
+  const fits = duration ? DURATION_FITS[duration] : undefined;
+  const durationUnmet =
+    duration && fits && !trips.some((t) => fits(parseInt(t.duration, 10) || 0)) ? duration : null;
+
+  const missingRegions = regionsWithoutTrips(a.regions ?? []);
+
+  /* A HARD CONSTRAINT WE CANNOT SATISFY, not "the top three scored zero".
+     The duration step is single-select and mandatory, and some trip always
+     falls in every bucket, so a reasons-only test can never fire: everyone
+     would match on trip length alone and the empty state would be dead code.
+     What actually fails is asking for a place we do not go, or a length
+     nothing runs for. The reasons test stays as a third case, for a
+     combination of softer answers that lines up on nothing. */
+  const none =
+    (regions.length > 0 && missingRegions.length === regions.length) ||
+    Boolean(durationUnmet) ||
+    (asked > 0 && matches.every((m) => m.reasons.length === 0));
+  // Loosen whichever constraint rules out everything on its own. Region first:
+  // it is the heaviest weight and the one people are most willing to trade.
+  const loosen =
+    regions.length > 0 && missingRegions.length === regions.length
+      ? ("regions" as const)
+      : durationUnmet
+        ? ("duration" as const)
+        : null;
+
+  return { none, regions: missingRegions, duration: durationUnmet, loosen };
+}
+
 /**
  * Top matches, best first.
  *
