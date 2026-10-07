@@ -7436,3 +7436,9 @@ a.hub-card:hover .hub-card__t { color: var(--tru-pink); }
    like the links either side of it. */
 .footer__legal-links .ck-prefs { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; color: #9ca3af; transition: color 0.2s; }
 .footer__legal-links .ck-prefs:hover { color: var(--tru-pink); }
+
+/* A mark with no travel style behind it yet — shown in the library so the
+   artwork has a home, flagged so nobody wires it to a filter that has
+   nothing to filter. */
+.ts-logo--unused { opacity: 0.75; border-style: dashed; }
+.ts-logo--unused span em { display: block; margin-top: 0.25rem; font-style: normal; font-size: 9px; letter-spacing: 0.15em; color: #6b7280; }

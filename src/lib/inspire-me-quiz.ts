@@ -189,7 +189,7 @@ const VIBE_WORDS: Record<string, string[]> = {
 
 /** Travel styles that suit each pace, since activity counts aren't in the data. */
 const VIBE_STYLES: Record<string, string[]> = {
-  full: ["multi_country", "backpacker"],
+  full: ["multi_country", "essentials"],
   mix: ["classic"],
   slow: ["flashpacker", "classic"],
 };

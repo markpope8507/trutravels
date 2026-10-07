@@ -22,7 +22,8 @@
   <p class="demo__label">Travel style logos &mdash; the five marks, on a photo and on flat navy</p>
   <p class="demo__sub">Used as the corner badge on <b>trip-carousel.html</b>, <b>deal-card.html</b> and
     <b>stay-card.html</b>, and at full size on <b>travel-style-classic.html</b>.
-    <br><b>Missing:</b> Essentials and Ski &amp; Apr&egrave;s &mdash; see the note in the markup below.</p>
+    <br><b>Ski &amp; Apr&egrave;s is artwork only</b> &mdash; there is no such travel style in the data yet,
+    so no trip carries it.</p>
 
   <div class="demo">
 
@@ -31,35 +32,36 @@
   <!--
     TRAVEL STYLE LOGOS — the brand mark for each travel style.
 
-    WHAT IS HERE: classic, backpacker, flashpacker, multi-country and
-    limited-edition, as `assets/<style>-logo.png`. These are the WHITE
-    artwork; they are only ever placed over a photograph or over navy, never
-    over a light background.
+    WHAT IS HERE: classic, essentials, flashpacker, multi-country and
+    limited-edition, as `assets/<style>-logo.png`, plus ski-and-apres. These
+    are the WHITE artwork; they are only ever placed over a photograph or over
+    navy, never over a light background.
 
-    WHAT IS NOT HERE YET: `essentials-logo.png` and `ski-and-apres-logo.png`.
-    The Essentials artwork exists in the brand Drive folder (filed under the
-    misspelling "Esseintails travel style navy/white 2.png") and needs
-    dropping into converted/assets as essentials-logo.png. No Ski & Après
-    mark exists in that folder at all — it has to be supplied before this
-    component can carry it. When they arrive, add two more .ts-logo tiles
-    below and nothing else changes.
+    SKI & APRÈS IS ARTWORK ONLY. There is no such travel style in src/lib/
+    data.ts, so no trip carries it and nothing renders it yet. It sits here so
+    the mark has a home; adding the style means a TravelStyle key, a
+    travelStyleConfig entry, a hero image and styleContent, on both sides.
 
-    THE PNGs ARE SQUARE CANVASES with the artwork as a band across the middle
-    — roughly 13% transparent padding at the sides but 32% top and bottom.
-    That is why the badge on a card is positioned with negative offsets
-    (see `.tripcard__badge`): the offsets cancel the padding so the visible
-    mark sits in the corner rather than floating away from it. Don't "fix"
-    those offsets by cropping the artwork; other places rely on the canvas.
+    EVERY MARK IS AN 864x864 TRANSPARENT CANVAS with the artwork as a band
+    across the middle at ~70% of the canvas width. That convention is load
+    bearing: the badge on a card is positioned with negative offsets (see
+    `.tripcard__badge`) that exist to cancel exactly that padding, so a mark
+    exported tight to its artwork renders far too large and in the wrong
+    place. Both new files were rebuilt onto this canvas rather than dropped in
+    as exported — Essentials came 864x864 but with a much wider, flatter band,
+    and Ski & Après came 1081x566 with no padding at all. Don't "fix" the
+    offsets by cropping the artwork; normalise the artwork instead.
 
     SIZING: give the <img> a width and height, or a lazy-loaded logo lays out
     at zero and reflows whatever grid it sits in.
   -->
   <ul class="ts-logos">
-    <li class="ts-logo"><img src="../assets/classic-logo.png" alt="Classic travel style" width="546" height="549" /><span>Classic</span></li>
-    <li class="ts-logo"><img src="../assets/backpacker-logo.png" alt="Backpacker travel style" width="546" height="549" /><span>Backpacker</span></li>
-    <li class="ts-logo"><img src="../assets/flashpacker-logo.png" alt="Flashpacker travel style" width="546" height="549" /><span>Flashpacker</span></li>
-    <li class="ts-logo"><img src="../assets/multi-country-logo.png" alt="Multi Country travel style" width="546" height="549" /><span>Multi Country</span></li>
-    <li class="ts-logo"><img src="../assets/limited-edition-logo.png" alt="Limited Edition travel style" width="546" height="549" /><span>Limited Edition</span></li>
+    <li class="ts-logo"><img src="../assets/classic-logo.png" alt="Classic travel style" width="864" height="864" /><span>Classic</span></li>
+    <li class="ts-logo"><img src="../assets/essentials-logo.png" alt="Essentials travel style" width="864" height="864" /><span>Essentials</span></li>
+    <li class="ts-logo"><img src="../assets/flashpacker-logo.png" alt="Flashpacker travel style" width="864" height="864" /><span>Flashpacker</span></li>
+    <li class="ts-logo"><img src="../assets/multi-country-logo.png" alt="Multi Country travel style" width="864" height="864" /><span>Multi Country</span></li>
+    <li class="ts-logo"><img src="../assets/limited-edition-logo.png" alt="Limited Edition travel style" width="864" height="864" /><span>Limited Edition</span></li>
+    <li class="ts-logo ts-logo--unused"><img src="../assets/ski-and-apres-logo.png" alt="Ski &amp; Apr&egrave;s travel style" width="864" height="864" /><span>Ski &amp; Apr&egrave;s <em>artwork only</em></span></li>
   </ul>
   <!-- COPY TO HERE                                                        -->
   <!-- ------------------------------------------------------------------ -->

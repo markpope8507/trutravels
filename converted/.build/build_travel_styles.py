@@ -56,7 +56,7 @@ DATA = lib("data.ts")
 # slug -> the TravelStyle key used in the data
 SLUGS = {
     "classic": "classic",
-    "backpacker": "backpacker",
+    "essentials": "essentials",
     "flashpacker": "flashpacker",
     "multi-country": "multi_country",
     "limited-edition": "limited_edition",

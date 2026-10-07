@@ -41,7 +41,7 @@ import "swiper/css/free-mode";
 
 const heroImages: Record<TravelStyle, string> = {
   classic: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1920&q=80",
-  backpacker: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920&q=80",
+  essentials: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1920&q=80",
   flashpacker: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1920&q=80",
   multi_country: "https://images.unsplash.com/photo-1528127269322-539801943592?w=1920&q=80",
   limited_edition: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=1920&q=80",
@@ -140,9 +140,9 @@ const styleContent: Record<TravelStyle, StyleContent> = {
       },
     ],
   },
-  backpacker: {
+  essentials: {
     tagline: "Maximum adventure, minimum spend",
-    intro: [travelStyleConfig.backpacker.description],
+    intro: [travelStyleConfig.essentials.description],
   },
   flashpacker: {
     tagline: "Adventure with an upgrade",

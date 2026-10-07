@@ -66,7 +66,7 @@ function LifeMomentsModal({
 }
 
 const travelStyles = [
-  { label: "Backpacker", logo: "/backpacker-logo.png", description: "Hostels, night buses, street food — maximum adventure, minimum spend.", color: "#6BD495", href: "/travel-styles/backpacker" },
+  { label: "Essentials", logo: "/essentials-logo.png", description: "Hostels, night buses, street food — maximum adventure, minimum spend.", color: "#6BD495", href: "/travel-styles/essentials" },
   { label: "Classic", logo: "/classic-logo.png", description: "The perfect balance of comfort and adventure. Our most popular style.", color: "#2172D5", href: "/travel-styles/classic" },
   { label: "Flashpacker", logo: "/flashpacker-logo.png", description: "Boutique stays, premium experiences — all the adventure, none of the roughing it.", color: "#FF3F99", href: "/travel-styles/flashpacker" },
   { label: "Multi Country", logo: "/multi-country-logo.png", description: "Cross borders, collect stamps, and see how the world changes.", color: "#FCA501", href: "/travel-styles/multi-country" },

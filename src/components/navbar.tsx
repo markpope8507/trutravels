@@ -65,7 +65,7 @@ const menuPromos: Record<string, MenuPromo> = {
 };
 
 const travelStylesNav = [
-  { name: "Backpacker", description: "Maximum adventure, minimum spend.", logo: "/backpacker-logo.png", href: "/travel-styles/backpacker", image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&q=80" },
+  { name: "Essentials", description: "Maximum adventure, minimum spend.", logo: "/essentials-logo.png", href: "/travel-styles/essentials", image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&q=80" },
   { name: "Classic", description: "The perfect balance of comfort and adventure.", logo: "/classic-logo.png", href: "/travel-styles/classic", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80" },
   { name: "Flashpacker", description: "Adventure with an upgrade.", logo: "/flashpacker-logo.png", href: "/travel-styles/flashpacker", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" },
   { name: "Multi Country", description: "Cross borders, collect stamps.", logo: "/multi-country-logo.png", href: "/travel-styles/multi-country", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80" },

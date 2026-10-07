@@ -104,7 +104,7 @@ export default function TripsBrowser({ trips }: { trips: Trip[] }) {
   // Curated sections
   const trendingTrips = trips.filter((t) => t.originalPrice); // on sale = trending
   const budgetTrips = [...trips].sort((a, b) => a.price - b.price).slice(0, 3);
-  const firstTimerTrips = trips.filter((t) => t.travelStyle === "classic" || t.travelStyle === "backpacker");
+  const firstTimerTrips = trips.filter((t) => t.travelStyle === "classic" || t.travelStyle === "essentials");
 
   const sectionPills = [
     { id: "trending", label: "Most Popular" },

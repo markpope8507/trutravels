@@ -21,7 +21,7 @@ type SearchItem = {
 
 const TRAVEL_STYLE_SLUGS: Record<string, string> = {
   classic: "classic",
-  backpacker: "backpacker",
+  essentials: "essentials",
   flashpacker: "flashpacker",
   multi_country: "multi-country",
   limited_edition: "limited-edition",

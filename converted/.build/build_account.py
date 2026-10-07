@@ -327,7 +327,7 @@ def dashboard():
     var VIBE_WORDS = { full: ['ultimate','everything','packed','action','non-stop','every highlight','epic'],
       mix: ['balance','mix','culture','adventure','best of'],
       slow: ['relax','chill','slow','unwind','beach','hammock','downtime','laid-back'] };
-    var VIBE_STYLES = { full: ['multi_country','backpacker'], mix: ['classic'], slow: ['flashpacker','classic'] };
+    var VIBE_STYLES = { full: ['multi_country','essentials'], mix: ['classic'], slow: ['flashpacker','classic'] };
     function hay(t) {
       return ((t.title || '') + ' ' + (t.tagline || '') + ' ' + (t.description || '') + ' '
         + ((t.highlights || []).join(' ')) + ' ' + (t.destination || '')).toLowerCase();

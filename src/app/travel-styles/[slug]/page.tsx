@@ -5,7 +5,7 @@ import TravelStylePage from "@/components/travel-style-page";
 
 const slugToStyle: Record<string, TravelStyle> = {
   classic: "classic",
-  backpacker: "backpacker",
+  essentials: "essentials",
   flashpacker: "flashpacker",
   "multi-country": "multi_country",
   "limited-edition": "limited_edition",

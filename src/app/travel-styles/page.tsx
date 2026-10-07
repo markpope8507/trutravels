@@ -9,13 +9,13 @@ import { LIFE_MOMENT_CARDS } from "@/lib/life-moments";
 export const metadata: Metadata = {
   title: "Travel Styles & Life Moments — TruTravels",
   description:
-    "Every traveller is different. Find the trip that fits how you travel — from Classic to Backpacker — and where you are in life, from a gap year to a work-break reset.",
+    "Every traveller is different. Find the trip that fits how you travel — from Classic to Essentials — and where you are in life, from a gap year to a work-break reset.",
 };
 
 // Maps each travel style to the slug used by /travel-styles/[slug].
 const TRAVEL_STYLES: { slug: string; style: TravelStyle }[] = [
   { slug: "classic", style: "classic" },
-  { slug: "backpacker", style: "backpacker" },
+  { slug: "essentials", style: "essentials" },
   { slug: "flashpacker", style: "flashpacker" },
   { slug: "multi-country", style: "multi_country" },
   { slug: "limited-edition", style: "limited_edition" },
@@ -24,7 +24,7 @@ const TRAVEL_STYLES: { slug: string; style: TravelStyle }[] = [
 // Hero image per style — matches the imagery used on each style's landing page.
 const HERO_IMAGES: Record<TravelStyle, string> = {
   classic: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=1200&q=80",
-  backpacker: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&q=80",
+  essentials: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200&q=80",
   flashpacker: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=1200&q=80",
   multi_country: "https://images.unsplash.com/photo-1528127269322-539801943592?w=1200&q=80",
   limited_edition: "https://images.unsplash.com/photo-1469521669194-babb45599def?w=1200&q=80",
@@ -84,7 +84,7 @@ export default function TravelStylesPage() {
             Travel <span className="text-gradient">Styles</span>
           </h2>
           <p className="text-gray-400 mt-4 max-w-lg mb-12">
-            From all-in Classic adventures to budget-savvy Backpacker routes, every TruTravels trip
+            From all-in Classic adventures to budget-savvy Essentials routes, every TruTravels trip
             comes in a style built around how you want to travel.
           </p>
 
