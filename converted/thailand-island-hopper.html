@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-trip-id="thailand-island-hopper">
 
   <!-- ================= NAVBAR ================= -->
   <header class="site-nav site-nav--over" data-nav>
@@ -2174,7 +2174,40 @@
     src/components/cookie-banner.tsx and src/lib/cookie-consent.tsx.
 
     DO NOT PASTE THIS BY HAND. .build/add_cookie_banner.py slices everything
-    between these two markers and injects it before </body> on every page, so
+    between these two markers and injects it before 
+  <!--
+    Goes on every TRIP DETAIL page. Needs one attribute on that page naming
+    the trip:
+
+        <body data-trip-id="thailand-island-hopper">
+
+    .build/add_recent_tracker.py puts both on the trip pages that exist. A
+    page built by the backend needs to carry the same attribute and this
+    script, or set the key server-side — the rail does not care which.
+
+    Most recent first, de-duplicated, capped at six. Identical to
+    src/components/track-trip-view.tsx, so a traveller moving between the
+    Next app and a static page sees one history rather than two.
+  -->
+  <script>/* recently viewed — record this trip */
+  (function () {
+    var el = document.querySelector('[data-trip-id]');
+    if (!el) return;
+    var id = el.getAttribute('data-trip-id');
+    if (!id) return;
+    var KEY = 'trutravels-recent';
+    try {
+      var recent = JSON.parse(localStorage.getItem(KEY) || '[]');
+      if (!Array.isArray(recent)) recent = [];
+      var next = [id].concat(recent.filter(function (x) { return x !== id; })).slice(0, 6);
+      localStorage.setItem(KEY, JSON.stringify(next));
+    } catch (e) {
+      /* storage blocked — no history, and the rail simply stays hidden */
+    }
+  })();
+  </script>
+  
+</body> on every page, so
     this file is the single definition. Edit here, re-run the builder.
 
     FOUR CATEGORIES, because that is what the competitor set uses and what a

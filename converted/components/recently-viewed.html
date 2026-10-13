@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Recently Viewed &mdash; TruTravels components</title>
+  <!-- One level below the site root, so ../styles.css. Drop the ../ when you
+       paste this into a page at the root. -->
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body { background: #060d18; padding: 3rem 1.5rem; }
+    .demo { max-width: 80rem; margin: 0 auto; }
+    .demo__label { color: #9ca3af; font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 auto 0.5rem; max-width: 80rem; }
+    .demo__sub { color: #6b7280; font-size: 13px; margin: 0 auto 1.5rem; max-width: 80rem; line-height: 1.7; }
+    .demo__sub b { color: #9ca3af; font-weight: 600; }
+    .demo__sub code { color: #d1d5db; background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+    .demo__row { max-width: 80rem; margin: 0 auto 2.5rem; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    /* The rail is `hidden` until it has data; the demo forces it visible. */
+    .demo .exp-recent[hidden] { display: block; }
+  </style>
+</head>
+<body>
+
+  <p class="demo__label">Recently Viewed &mdash; &ldquo;Pick Up Where You Left Off&rdquo;</p>
+  <p class="demo__sub">The rail at the top of <b>explore.html</b>, between the hero and the section pill bar.
+    It is <b>already built</b> &mdash; markup, CSS and the hydration script all ship in that page. It renders
+    nothing today because it reads <code>localStorage['trutravels-recent']</code> and <b>nothing on the site
+    writes that key</b>. The missing half is the tracker below, which the backend needs to fire on a trip page.</p>
+  <div class="demo__row">
+    <button type="button" class="ck-btn ck-btn--pink" onclick="localStorage.setItem('trutravels-recent',JSON.stringify(['thailand-island-hopper','bali-experience','greece-island-hopper','vietnam-explorer']));location.reload()">Seed four recents</button>
+    <button type="button" class="ck-btn ck-btn--ghost" onclick="localStorage.removeItem('trutravels-recent');location.reload()">Clear</button>
+    <a class="ck-btn ck-btn--ghost" href="../explore.html">Open explore.html &rarr;</a>
+  </div>
+
+  <div class="demo">
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- COPY FROM HERE                                                     -->
+  <!--
+    RECENTLY VIEWED — the vanilla twin of the rail in the prototype's
+    src/components/trips-browser.tsx, plus the tracker from
+    src/components/track-trip-view.tsx.
+
+    WHERE IT LIVES. The rail is already in explore.html — this file is the
+    reference, not a second copy to paste there. What is NOT anywhere yet is
+    the tracker at the bottom of this file.
+
+    THE CONTRACT, which is the whole thing a backend dev needs:
+
+      key    localStorage['trutravels-recent']
+      value  a JSON array of trip ids, most recent FIRST
+      cap    6
+      write  on a trip detail page, every view
+      read   explore.html, on load
+
+    e.g.  ["thailand-island-hopper","bali-experience","greece-island-hopper"]
+
+    The ids are the same ones used everywhere else — `id` on each entry of
+    `trips` in src/lib/data.ts, and of the TRIPS literal in all-trips.html.
+
+    WHY IT IS HIDDEN BY DEFAULT. `hidden` sits on the wrapper in the HTML and
+    the script removes it only once it has at least one card. A first-time
+    visitor has no history, and a heading over an empty rail is worse than no
+    rail — so the empty state here is deliberately nothing at all.
+
+    WHY THE SCRIPT CARRIES ITS OWN TRIP LOOKUP. The rail needs a title, image,
+    route, duration and price for an id, and explore.html has no other copy of
+    that. The RECENT map in explore.html is generated from the same TRIPS
+    literal as every other card, so it cannot drift from them. When the real
+    backend lands, that map is what to replace with an API call — the render
+    below does not care where the objects come from.
+
+    THE CARD IS ITS OWN SHAPE, not a .tripcard. It is a wide, short summary
+    built for a horizontal rail — thumbnail, title, route, duration, price —
+    because a full trip card at this size would be unreadable and the rail is
+    a shortcut back, not a place to compare trips.
+  -->
+  <div class="exp-recent" id="exp-recent" hidden>
+    <p class="exp-recent__eyebrow">Pick Up Where You Left Off</p>
+    <h2 class="exp-recent__title">Recently <span>Viewed</span></h2>
+    <div class="exp-recent__track" id="exp-recent-track"></div>
+  </div>
+
+  <script>/* THE RAIL — reads the ids, draws a card for each. This copy is
+     already in explore.html; it is here so the markup and the behaviour sit
+     in one place. RECENT is trimmed to four trips for the demo; the real one
+     is generated with every trip in it. */
+  (function () {
+    var RECENT = {
+      "thailand-island-hopper": {"title":"Thailand Island Hopper","image":"https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=800&q=80","start":"Bangkok","end":"Phuket","duration":"14 Days","price":736,"originalPrice":899},
+      "bali-experience": {"title":"Bali Experience","image":"https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80","start":"Canggu","end":"Gili Trawangan","duration":"10 Days","price":487,"originalPrice":695},
+      "greece-island-hopper": {"title":"Greece Island Hopper","image":"https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80","start":"Athens","end":"Santorini","duration":"9 Days","price":1327,"originalPrice":1895},
+      "vietnam-explorer": {"title":"Vietnam Explorer","image":"https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80","start":"Ho Chi Minh City","end":"Hanoi","duration":"13 Days","price":875,"originalPrice":1250}
+    };
+    var wrap = document.getElementById('exp-recent');
+    var track = document.getElementById('exp-recent-track');
+    if (!wrap || !track) return;
+    var ids = []; try { ids = JSON.parse(localStorage.getItem('trutravels-recent') || '[]'); } catch (e) {}
+    var PIN = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>';
+    var CLK = '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/></svg>';
+    var cards = ids.map(function (id) { return RECENT[id]; }).filter(Boolean);
+    if (!cards.length) return;
+    track.innerHTML = cards.map(function (t) {
+      var save = t.originalPrice ? (t.originalPrice - t.price) : 0;
+      var route = (t.start && t.end) ? '<p class="exp-recent-card__meta">' + PIN + t.start + ' — ' + t.end + '</p>' : '';
+      var strike = t.originalPrice ? '<span class="exp-recent-card__strike">£' + t.originalPrice + '</span>' : '';
+      var savetag = save > 0 ? '<span class="exp-recent-card__save">Save £' + save + '</span>' : '';
+      return '<a class="exp-recent-card" href="#">' +
+        '<div class="exp-recent-card__row"><div class="exp-recent-card__thumb"><img src="' + t.image + '" alt="' + t.title + '" /></div>' +
+        '<div style="min-width:0;flex:1"><p class="exp-recent-card__title">' + t.title + '</p>' + route +
+        '<p class="exp-recent-card__meta">' + CLK + t.duration + '</p></div></div>' +
+        '<div class="exp-recent-card__price">' + strike + '<span class="exp-recent-card__now">£' + t.price + '</span>' + savetag + '</div></a>';
+    }).join('');
+    wrap.hidden = false;
+  })();
+  </script>
+
+  <!-- ================================================================== -->
+  <!-- THE TRACKER — THIS IS THE PIECE THAT IS MISSING                     -->
+  <!--
+    Goes on every TRIP DETAIL page. Needs one attribute on that page naming
+    the trip:
+
+        <body data-trip-id="thailand-island-hopper">
+
+    .build/add_recent_tracker.py puts both on the trip pages that exist. A
+    page built by the backend needs to carry the same attribute and this
+    script, or set the key server-side — the rail does not care which.
+
+    Most recent first, de-duplicated, capped at six. Identical to
+    src/components/track-trip-view.tsx, so a traveller moving between the
+    Next app and a static page sees one history rather than two.
+  -->
+  <script>/* recently viewed — record this trip */
+  (function () {
+    var el = document.querySelector('[data-trip-id]');
+    if (!el) return;
+    var id = el.getAttribute('data-trip-id');
+    if (!id) return;
+    var KEY = 'trutravels-recent';
+    try {
+      var recent = JSON.parse(localStorage.getItem(KEY) || '[]');
+      if (!Array.isArray(recent)) recent = [];
+      var next = [id].concat(recent.filter(function (x) { return x !== id; })).slice(0, 6);
+      localStorage.setItem(KEY, JSON.stringify(next));
+    } catch (e) {
+      /* storage blocked — no history, and the rail simply stays hidden */
+    }
+  })();
+  </script>
+  <!-- COPY TO HERE                                                        -->
+  <!-- ------------------------------------------------------------------ -->
+
+  </div>
+
+</body>
+</html>
