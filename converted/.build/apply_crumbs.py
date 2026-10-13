@@ -56,6 +56,7 @@ TRAILS = {
     "about-our-impact-the-art-house-marrakech.html": [("Home", "index.html"), ABOUT, IMPACT, ("The Art House Marrakech", None)],
     "join-the-crew.html": about("Careers"),
 
+    "travel-styles.html": top("Travel Styles"),
     "life-moments.html": [("Home", "index.html"), TRAVEL_STYLES, ("Life Moments", None)],
     "travel-style-classic.html": [("Home", "index.html"), TRAVEL_STYLES, ("Classic", None)],
     "life-moments-gap-year.html": [("Home", "index.html"), TRAVEL_STYLES, LIFE_MOMENTS, ("Gap Year", None)],

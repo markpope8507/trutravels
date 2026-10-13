@@ -4,10 +4,18 @@ Build a travel style page.
     travel-style-classic.html   mirrors src/app/travel-styles/classic
 
     python3 converted/.build/build_travel_styles.py [slug ...]   # default: classic
+    python3 converted/.build/build_travel_styles.py index        # travel-styles.html
     python3 converted/.build/apply_crumbs.py                     # breadcrumb bar
+    python3 converted/.build/add_cookie_banner.py                # consent bar
 
 FLAT NAMES, as everywhere else in converted/ — the prototype's route is
 /travel-styles/<slug>, a directory that does not exist here.
+
+THE INDEX (travel-styles.html) IS A DIFFERENT PAGE and is built by the same
+script because it reads the same travelStyleConfig. It is five alternating
+image/copy rows plus the Life Moments grid, and it mirrors
+src/app/travel-styles/page.tsx — including that page's OWN hero images, which
+are a 1200px-wide set distinct from the 1920px ones the detail pages use.
 
 IT IS THE COUNTRY PAGE, NOT A NEW PAGE. The prototype's travel-style-page.tsx
 says so in its own docstring: hero, breadcrumb, trips carousel, where you'll
@@ -460,8 +468,154 @@ def page(slug):
                "\n".join(modals), SCRIPTS, dep_js)), len(trips), len(deps), len(stays), len(faqs)
 
 
+# ----------------------------------------------------------------- index --
+
+PAGE_SRC = os.path.join(SRC, "app", "travel-styles", "page.tsx")
+INDEX_TSX = open(PAGE_SRC, encoding="utf-8").read()
+
+# The index has its OWN hero images at w=1200 — the detail pages use a w=1920
+# set. Same photographs, different renditions; don't collapse them.
+INDEX_HERO = dict(re.findall(r'(\w+): "(https://[^"]+)"',
+                             INDEX_TSX[INDEX_TSX.index("const HERO_IMAGES"):
+                                       INDEX_TSX.index("export default function")]))
+
+LIFE_CARDS = []
+_LM = open(os.path.join(SRC, "lib", "life-moments.ts"), encoding="utf-8").read()
+for o in objects(_LM[_LM.index("export const LIFE_MOMENT_CARDS"):]):
+    LIFE_CARDS.append({k: field(o, k) for k in ("slug", "title", "snippet", "image")})
+
+if len(INDEX_HERO) != 5 or len(LIFE_CARDS) != 6:
+    raise SystemExit("build_travel_styles: index parsed %d hero images and %d life cards, expected 5 and 6"
+                     % (len(INDEX_HERO), len(LIFE_CARDS)))
+
+
+def style_href(slug):
+    """The built detail page when it exists, else the index itself — landing on
+    the page that describes the style beats a 404."""
+    return ("travel-style-%s.html" % slug
+            if os.path.exists(os.path.join(BASE, "travel-style-%s.html" % slug))
+            else "travel-styles.html")
+
+
+def index_row(i, slug, style):
+    cfg = CONFIG[style]
+    label = field(cfg, "label")
+    logo = field(cfg, "logo").lstrip("/")
+    return ('        <div class="tsx-row%s">\n'
+            '          <div class="tsx-row__media">\n'
+            '            <img class="tsx-row__bg" src="%s" alt="%s" loading="lazy" />\n'
+            '            <span class="tsx-row__grad"></span>\n'
+            '            <span class="tsx-row__rule"></span>\n'
+            '            <span class="tsx-row__logo-wrap"><img class="tsx-row__logo" src="assets/%s" alt="%s" /></span>\n'
+            '          </div>\n'
+            '          <div class="tsx-row__copy">\n'
+            '            <p class="ess-eyebrow">Travel Style</p>\n'
+            '            <h3 class="tsx-row__h">%s</h3>\n'
+            '            <p class="tsx-row__p">%s</p>\n'
+            '            <a class="pill-btn" href="%s">View %s Trips%s</a>\n'
+            '          </div>\n        </div>'
+            % (" tsx-row--alt" if i % 2 else "", asset_url(INDEX_HERO[style]), esc(label),
+               logo, esc(label), esc(label), esc(field(cfg, "description")),
+               style_href(slug), esc(label), CHEV_R))
+
+
+def asset_url(src):
+    """Next serves public/images/x at /images/x; converted/ keeps those files
+    under assets/. An absolute URL is left alone. Without this the Solo Soul
+    Searcher card 404s — its image is the one in the set that is ours rather
+    than an Unsplash link."""
+    return "assets/" + src[len("/images/"):] if src.startswith("/images/") else src
+
+
+def life_card(c):
+    """The same .lm-card the Life Moments index draws — see
+    components/life-moment-cards.html. Not a second kind of card."""
+    return ('<a class="lm-card" href="life-moments-%s.html">'
+            '<span class="lm-card__media"><img src="%s" alt="%s" loading="lazy" />'
+            '<span class="lm-card__grad"></span></span>'
+            '<span class="lm-card__body"><span class="lm-card__t">%s</span>'
+            '<span class="lm-card__d">%s</span>'
+            '<span class="lm-card__go">Explore &rarr;</span></span></a>'
+            % (c["slug"], asset_url(c["image"]), esc(c["title"]), esc(c["title"]), esc(c["snippet"])))
+
+
+def wm(f, css):
+    return ('        <img class="ess-wm" style="%s" src="assets/bg-assets/%s.svg" alt="" aria-hidden="true" />\n'
+            % (css, f))
+
+
+def index_page():
+    rows = "\n".join(index_row(i, s_, st) for i, (s_, st) in enumerate(SLUGS.items()))
+    cards = "".join(life_card(c) for c in LIFE_CARDS)
+    body = ('    <section class="ess-hero ess-hero--sm" id="top">\n'
+            '      <img class="ess-hero__img" src="assets/explore-hero.jpg" alt="TruTravels group adventure" />\n'
+            '      <div class="ess-hero__grad ess-hero__grad--light"></div>\n'
+            '      <div class="container ess-hero__inner">\n        <div class="ess-hero__text">\n'
+            '          <p class="ess-hero__eyebrow">Explore</p>\n'
+            '          <h1 class="ess-hero__title">Find Your<br />Travel Style</h1>\n'
+            '          <div class="ess-hero__rule"></div>\n'
+            '          <p class="ess-hero__quote">&ldquo;However you like to travel, and wherever you are '
+            'in life &mdash; there&rsquo;s a TruTravels adventure built for it.&rdquo;</p>\n'
+            '        </div>\n      </div>\n    </section>\n\n'
+            '    <section class="tsx-sec tsx-sec--styles" id="styles">\n'
+            + wm("sun", "right:calc(-4rem - 4vw);top:2rem;width:clamp(260px,50vw,680px);opacity:0.08")
+            + wm("komodo-dragon", "left:calc(-5rem - 5vw);bottom:2.5rem;width:clamp(300px,56vw,760px);opacity:0.07")
+            + '      <div class="container">\n'
+            '        <p class="ess-eyebrow">Five Ways To Travel</p>\n'
+            '        <h2 class="ess-h2 sec-index__h">Travel <span class="text-grad">Styles</span></h2>\n'
+            '        <p class="sec-index__intro">From all-in Classic adventures to budget-savvy Essentials '
+            'routes, every TruTravels trip comes in a style built around how you want to travel.</p>\n'
+            '        <div class="tsx-rows">\n%s\n        </div>\n'
+            '      </div>\n    </section>\n\n'
+            '    <section class="tsx-sec tsx-sec--moments" id="life-moments">\n'
+            + wm("community", "left:calc(-4rem - 3.4vw);top:1.5rem;width:clamp(240px,44vw,600px);opacity:0.08")
+            + wm("good-vibes", "right:calc(-4rem - 4vw);bottom:-3rem;width:clamp(260px,50vw,680px);opacity:0.07")
+            + '      <div class="container">\n'
+            '        <p class="ess-eyebrow">Travel By Life Moment</p>\n'
+            '        <h2 class="ess-h2 sec-index__h">Where Are You <span class="text-grad">In Life?</span></h2>\n'
+            '        <p class="sec-index__intro">Travel isn&rsquo;t one-size-fits-all. Whatever&rsquo;s brought '
+            'you here &mdash; a gap year, a quarter-life reset or a much-needed break from the 9-to-5 '
+            '&mdash; we&rsquo;ve got the trip for it.</p>\n'
+            '        <div class="lm-grid">%s</div>\n'
+            '      </div>\n    </section>') % (rows, cards)
+
+    return ('<!DOCTYPE html>\n<html lang="en">\n<head>\n%s\n'
+            '  <title>Travel Styles &amp; Life Moments &mdash; TruTravels</title>\n'
+            '  <meta name="description" content="Every traveller is different. Find the trip that fits how '
+            'you travel \u2014 from Classic to Essentials \u2014 and where you are in life, from a gap year '
+            'to a work-break reset." />\n'
+            '</head>\n<body>\n\n%s\n\n  <main class="tsx">\n%s\n  </main>\n\n%s\n%s\n</body>\n</html>\n'
+            % (HEAD, NAV_OVER, body, FOOTER, SCRIPTS))
+
+
+def relink_travel_styles():
+    """Point the footer's "Travel Styles" at the index, and the nav's per-style
+    links at the pages that exist. A slug with no page yet lands on the index,
+    which describes it, rather than on a root path this host has no route for."""
+    n = 0
+    for fn in sorted(os.listdir(BASE)):
+        if not fn.endswith(".html"):
+            continue
+        p = os.path.join(BASE, fn)
+        s = open(p, encoding="utf-8").read()
+        t = s.replace('<a href="#">Travel Styles</a>', '<a href="travel-styles.html">Travel Styles</a>')
+        for slug in SLUGS:
+            t = t.replace('href="/travel-styles/%s"' % slug, 'href="%s"' % style_href(slug))
+        if t != s:
+            open(p, "w", encoding="utf-8").write(t)
+            n += 1
+    print("  relinked Travel Styles on %d pages" % n)
+
+
 if __name__ == "__main__":
-    slugs = sys.argv[1:] or ["classic"]
+    args = sys.argv[1:] or ["classic"]
+    if "index" in args or "all" in args:
+        open(os.path.join(BASE, "travel-styles.html"), "w", encoding="utf-8").write(index_page())
+        print("  wrote travel-styles.html  (%d styles, %d life moments)" % (len(SLUGS), len(LIFE_CARDS)))
+        relink_travel_styles()
+    slugs = [a for a in args if a not in ("index", "all")]
+    if "all" in args:
+        slugs = list(SLUGS)
     for slug in slugs:
         if slug not in SLUGS:
             raise SystemExit("unknown style %r — one of %s" % (slug, ", ".join(SLUGS)))

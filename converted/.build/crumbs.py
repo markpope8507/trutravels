@@ -30,7 +30,7 @@ DESTINATIONS = ("Destinations", "destinations.html")
 ESSENTIALS = ("Essentials", "essentials.html")
 # Neither of these has a converted page yet, so they sit in a trail as
 # plain text rather than as links to a 404.
-TRAVEL_STYLES = ("Travel Styles", None)
+TRAVEL_STYLES = ("Travel Styles", "travel-styles.html")
 LIFE_MOMENTS = ("Life Moments", "life-moments.html")
 PARTNERS = ("Partners", "partners.html")
 
