@@ -29,7 +29,7 @@ const FACTS: { n: string; suffix?: string; label: string; icon: React.ReactNode 
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M17 20h5v-1a4 4 0 0 0-4-4h-1m-4 5H2v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1Zm-2-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6-1a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+        d="M9 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm-6.5 9v-1.5a6.5 6.5 0 0 1 13 0V20M17.5 9a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Zm.5 3.5a5 5 0 0 1 4 4.9V20"
       />
     ),
   },

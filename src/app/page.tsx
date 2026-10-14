@@ -121,7 +121,7 @@ export default function HomePage() {
             <div>
               <div className="flex flex-col items-center gap-2 mb-3 text-center">
                 <svg className="h-9 w-9 text-tru-pink flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-1a4 4 0 0 0-4-4h-1m-4 5H2v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1Zm-2-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6-1a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm-6.5 9v-1.5a6.5 6.5 0 0 1 13 0V20M17.5 9a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Zm.5 3.5a5 5 0 0 1 4 4.9V20" />
                 </svg>
                 <h3 className="text-white font-black uppercase font-heading text-lg sm:text-xl leading-tight">Find Your People</h3>
               </div>

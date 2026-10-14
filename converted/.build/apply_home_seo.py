@@ -40,7 +40,7 @@ BODY = [
 ]
 
 ICONS = {
-    "group": '<path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-1a4 4 0 0 0-4-4h-1m-4 5H2v-1a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v1Zm-2-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6-1a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/>',
+    "group": '<path stroke-linecap="round" stroke-linejoin="round" d="M9 11a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm-6.5 9v-1.5a6.5 6.5 0 0 1 13 0V20M17.5 9a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Zm.5 3.5a5 5 0 0 1 4 4.9V20"/>',
     "age": '<path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0ZM12 14a7 7 0 0 0-7 7h14a7 7 0 0 0-7-7Z"/>',
     "globe": '<circle cx="12" cy="12" r="9"/><path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z"/>',
     "trips": '<path stroke-linecap="round" stroke-linejoin="round" d="m9 4-6 2.5v13L9 17l6 3 6-2.5v-13L15 7 9 4Zm0 0v13m6-10v13"/>',
