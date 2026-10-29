@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import CookiePreferencesLink from "@/components/cookie-preferences-link";
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import MailingListModal from "@/components/mailing-list-modal";
 import { ABOUT_PAGES } from "@/lib/about-pages";
 import { AGENT_PORTAL_URL, PARTNER_PAGES } from "@/lib/partner-pages";
 
@@ -151,16 +152,12 @@ const SOCIAL_LINKS = [
 
 export default function Footer() {
   const [openMobile, setOpenMobile] = useState<string | null>(null);
-  const [email, setEmail] = useState("");
+  const [mailOpen, setMailOpen] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e: FormEvent) => {
-    e.preventDefault();
-    setSubscribed(true);
-  };
 
   return (
     <footer className="relative bg-tru-navy text-gray-400 border-t border-white/10 overflow-clip">
+      {mailOpen && <MailingListModal onClose={() => setMailOpen(false)} onSubscribed={() => setSubscribed(true)} />}
       {/* Subtle pink glow */}
       <div className="pointer-events-none absolute -top-32 -right-32 w-[420px] h-[420px] rounded-full bg-tru-pink/[0.06] blur-3xl" />
       <div className="pointer-events-none absolute -bottom-32 -left-32 w-[420px] h-[420px] rounded-full bg-tru-pink/[0.04] blur-3xl" />
@@ -309,23 +306,27 @@ export default function Footer() {
                   You&apos;re on the list!
                 </p>
               ) : (
-                <form onSubmit={handleSubscribe} className="flex gap-2">
-                  <input
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
-                    aria-label="Email address"
-                    className="flex-1 rounded-full bg-white/5 border border-white/15 px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-tru-pink/50 transition"
-                  />
+                /* Looks like the email field, but opens the full form — the list
+                   asks for name and nationality too, and four fields would
+                   crowd the strip. */
+                <div className="flex gap-2">
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={() => setMailOpen(true)}
+                    aria-haspopup="dialog"
+                    className="flex-1 min-w-0 text-left rounded-full bg-white/5 border border-white/15 px-4 py-2.5 text-sm text-gray-500 hover:border-tru-pink/50 focus:outline-none focus:border-tru-pink/50 transition"
+                  >
+                    your@email.com
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setMailOpen(true)}
+                    aria-haspopup="dialog"
                     className="rounded-full bg-tru-pink hover:bg-tru-pink-light text-white px-5 py-2.5 text-xs font-bold uppercase tracking-wider font-heading transition-all duration-200 whitespace-nowrap"
                   >
                     Sign Up
                   </button>
-                </form>
+                </div>
               )}
               <p className="text-gray-500 text-xs leading-relaxed mt-3">
                 Want the full experience? <Link href="/signup" className="text-gray-300 hover:text-tru-pink underline transition">Create an account</Link> for saved trips, member deals and more.

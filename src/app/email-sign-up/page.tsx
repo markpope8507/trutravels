@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Breadcrumbs from "@/components/breadcrumbs";
 import { topCrumbs } from "@/lib/breadcrumbs";
-import { FIELD_INPUT, FIELD_LABEL, FORM_SUBMIT } from "@/lib/form-classes";
+import NewsletterFields from "@/components/newsletter-fields";
 
 /**
  * Email sign-up, as a page rather than a popup.
@@ -14,12 +13,11 @@ import { FIELD_INPUT, FIELD_LABEL, FORM_SUBMIT } from "@/lib/form-classes";
  * than only being reachable by triggering the popup. The copy is theirs.
  *
  * The FIELDS are the live page's four: email, nationality, first name, last
- * name. The footer strip on this site only takes an email, which is right for
- * a strip; a dedicated page can reasonably ask for a little more.
+ * name. The footer strip opens the same four in a popup rather than cramming
+ * them into the strip.
  *
- * Built on the shared field system (.field labels, the pink submit, the
- * success panel), so it looks like every other form here rather than a
- * one-off.
+ * The fields themselves are NewsletterFields, shared with the footer's
+ * sign-up popup, so the page and the popup can't ask for different things.
  *
  * Mirrored by converted/email-sign-up.html.
  */
@@ -121,56 +119,7 @@ export default function EmailSignUpPage() {
                   Four fields. Takes about ten seconds.
                 </p>
 
-                <div className="mb-4">
-                  <label htmlFor="es-email" className={FIELD_LABEL}>
-                    Email <span className="text-gray-500">*</span>
-                  </label>
-                  <input id="es-email" name="email" type="email" required placeholder="you@email.com" autoComplete="email" className={FIELD_INPUT} />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-x-3">
-                  <div className="mb-4">
-                    <label htmlFor="es-first" className={FIELD_LABEL}>
-                      First Name <span className="text-gray-500">*</span>
-                    </label>
-                    <input id="es-first" name="firstName" type="text" required placeholder="First name" autoComplete="given-name" className={FIELD_INPUT} />
-                  </div>
-                  <div className="mb-4">
-                    <label htmlFor="es-last" className={FIELD_LABEL}>
-                      Last Name <span className="text-gray-500">*</span>
-                    </label>
-                    <input id="es-last" name="lastName" type="text" required placeholder="Last name" autoComplete="family-name" className={FIELD_INPUT} />
-                  </div>
-                </div>
-
-                <div className="mb-6">
-                  <label htmlFor="es-nationality" className={FIELD_LABEL}>
-                    Nationality <span className="text-gray-500">(optional)</span>
-                  </label>
-                  <input id="es-nationality" name="nationality" type="text" placeholder="e.g. British" autoComplete="country-name" className={FIELD_INPUT} />
-                  <p className="mt-1.5 text-xs leading-relaxed text-gray-500">
-                    So we can send you departures and prices that actually apply to you.
-                  </p>
-                </div>
-
-                <button
-                  type="submit"
-                  className={FORM_SUBMIT}
-                >
-                  Sign Me Up
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-
-                <p className="mt-4 text-xs leading-relaxed text-gray-500">
-                  By subscribing you agree to receive marketing emails from TruTravels. Unsubscribe in one click, any
-                  time — see our{" "}
-                  <Link href="/terms-conditions" className="text-gray-300 underline hover:text-tru-pink">
-                    privacy policy
-                  </Link>
-                  .
-                </p>
+                <NewsletterFields idPrefix="es" />
               </form>
             )}
           </div>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Mailing list popup &mdash; TruTravels components</title>
+  <!-- One level below the site root, so ../styles.css. -->
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body { background: #060d18; padding: 3rem 1.5rem; }
+    .demo__label { color: #9ca3af; font-family: 'Montserrat', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 auto 0.5rem; max-width: 40rem; }
+    .demo__sub { color: #6b7280; font-size: 13px; margin: 0 auto 2rem; max-width: 40rem; line-height: 1.6; }
+    .demo__sub b { color: #9ca3af; font-weight: 600; }
+    .demo__row { max-width: 40rem; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+  <p class="demo__label">Mailing list popup</p>
+  <p class="demo__sub">The footer strip keeps one email-shaped field; clicking it (or Sign Up) opens
+    the full four-field form here. Any element with <b>data-ml-open</b> opens it.
+    Injected into every page by <b>.build/add_mailing_modal.py</b>, which slices the block below.</p>
+  <div class="demo__row">
+    <div class="footer__mailing-form">
+      <div class="footer__form" data-ml-strip>
+        <button type="button" class="footer__form-field" data-ml-open aria-haspopup="dialog">your@email.com</button>
+        <button type="button" data-ml-open aria-haspopup="dialog">Sign Up</button>
+      </div>
+      <p class="footer__form-done" data-maildone hidden><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> You&rsquo;re on the list!</p>
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- COPY FROM HERE                                                     -->
+  <!--
+    MAILING LIST POPUP. The vanilla twin of src/components/mailing-list-modal.tsx.
+
+    DO NOT PASTE THIS BY HAND. .build/add_mailing_modal.py slices everything
+    between these two markers and injects it before </body> on every page,
+    replacing any older copy. Edit here, re-run the builder.
+
+    The fields match email-sign-up.html: email, first and last name, and an
+    optional nationality. On submit the footer strip swaps to "You're on the
+    list!". NO BACKEND — the submit handler is where the POST goes.
+  -->
+  <div class="ml-modal" data-ml-modal hidden>
+    <div class="ml-modal__backdrop" data-ml-close></div>
+    <div class="ml-modal__panel" role="dialog" aria-modal="true" aria-label="Join the mailing list">
+      <div class="ml-modal__head">
+        <div>
+          <p class="ml-modal__eyebrow">Newsletter</p>
+          <p class="ml-modal__title">Join The TruCrew</p>
+        </div>
+        <button type="button" class="ml-modal__close" data-ml-close aria-label="Close"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+      </div>
+      <div class="ml-modal__body">
+        <form data-ml-form novalidate>
+          <p class="ml-modal__intro">Be the first to hear about new tours, deals and destinations. No account needed.</p>
+
+          <div class="field">
+            <label for="ml-email">Email <span>*</span></label>
+            <input id="ml-email" name="email" type="email" required placeholder="you@email.com" autocomplete="email" />
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="ml-first">First Name <span>*</span></label>
+              <input id="ml-first" name="firstName" type="text" required placeholder="First name" autocomplete="given-name" />
+            </div>
+            <div class="field">
+              <label for="ml-last">Last Name <span>*</span></label>
+              <input id="ml-last" name="lastName" type="text" required placeholder="Last name" autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ml-nationality">Nationality <span>(optional)</span></label>
+            <input id="ml-nationality" name="nationality" type="text" placeholder="e.g. British" autocomplete="country-name" />
+            <p class="field__hint">So we can send you departures and prices that actually apply to you.</p>
+          </div>
+
+          <button type="submit" class="form-submit" style="margin-top:0.5rem">Sign Me Up <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></button>
+          <p class="field__hint" style="margin-top:1rem">By subscribing you agree to receive marketing emails from TruTravels. Unsubscribe in one click, any time &mdash; see our <a href="../terms-conditions.html">privacy policy</a>.</p>
+        </form>
+
+        <div class="form-done" data-ml-done hidden>
+          <span class="form-done__ico"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+          <h3 class="form-done__t">You&rsquo;re In The <span>TruCrew</span></h3>
+          <p class="form-done__s">Check your inbox &mdash; there&rsquo;s a welcome email on its way, and the next drop lands there first.</p>
+          <button type="button" class="form-submit form-submit--auto" style="margin-top:1.5rem" data-ml-close>Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>/* mailing list popup — opened by any [data-ml-open] */
+  (function () {
+    var modal = document.querySelector('[data-ml-modal]');
+    if (!modal) return;
+    var form = modal.querySelector('[data-ml-form]');
+    var done = modal.querySelector('[data-ml-done]');
+    var opener = null;
+
+    function open(e) {
+      opener = e.currentTarget;
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      var first = form.hidden ? done.querySelector('button') : modal.querySelector('#ml-email');
+      if (first) first.focus();
+    }
+    function close() {
+      modal.hidden = true;
+      document.body.style.overflow = '';
+      if (opener && document.contains(opener)) opener.focus();
+    }
+
+    document.querySelectorAll('[data-ml-open]').forEach(function (b) { b.addEventListener('click', open); });
+    modal.querySelectorAll('[data-ml-close]').forEach(function (b) { b.addEventListener('click', close); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) close(); });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      form.hidden = true;
+      done.hidden = false;
+      done.querySelector('button').focus();
+      /* The footer strip says so too, once the popup is closed. */
+      document.querySelectorAll('[data-ml-strip]').forEach(function (s) { s.hidden = true; });
+      document.querySelectorAll('[data-maildone]').forEach(function (d) { d.hidden = false; });
+      opener = null;
+    });
+  })();
+  </script>
+  <!-- COPY TO HERE                                                       -->
+  <!-- ------------------------------------------------------------------ -->
+
+</body>
+</html>

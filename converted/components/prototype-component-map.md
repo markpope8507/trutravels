@@ -25,6 +25,7 @@ what's available to assemble into backend page templates.
 | `site-chrome` | Exports `SiteHeader` + `SiteChromeFooter`; conditionally renders navbar / footer / cart drawer | Global |
 | `navbar` | Main nav — mega menus, mobile drawer, search, cart, auth state | Global |
 | `footer` | Full footer — link columns (mobile accordion / desktop grid), newsletter, trust badges, socials | Global |
+| `mailing-list-modal` | Footer newsletter popup — email, first/last name, nationality; fields shared with `/email-sign-up` via `newsletter-fields` | Global (footer) |
 | `cart-drawer` | Right-side cart drawer — items, traveller controls, totals, checkout link | Global |
 | `search-overlay` | Full-screen search modal across trips / stories / pages | Global |
 | `theme-toggle` | Fixed dark/light mode toggle | Global |
