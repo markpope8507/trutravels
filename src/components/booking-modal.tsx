@@ -308,7 +308,13 @@ export default function BookingModal({
                               <div>
                                 <p className={`text-sm font-medium ${isFull ? "text-gray-300" : "text-white"}`}>{formatDate(dep.date)}</p>
                                 <p className="text-gray-400 text-[11px]">
-                                  {isOnRequest ? DEPARTURE_MODES["on-request"].label : config.label}
+                                  {modeCopy ? (
+                                    <span className={`font-bold uppercase tracking-wider font-heading ${isFull ? "text-tru-pink" : "text-tru-blue"}`}>
+                                      {modeCopy.action}
+                                    </span>
+                                  ) : (
+                                    config.label
+                                  )}
                                   {isFull && <span className="text-tru-pink ml-1.5">&middot; no spots left</span>}
                                   {isOnRequest && (
                                     <span className="text-tru-blue ml-1.5">
@@ -327,26 +333,15 @@ export default function BookingModal({
                               </div>
                             </div>
                             <div className="text-right">
-                              {modeCopy ? (
-                                <span className={`inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider font-heading ${isFull ? "text-tru-pink" : "text-tru-blue"}`}>
-                                  {modeCopy.action}
-                                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                                  </svg>
+                              <div className="flex items-center gap-2 justify-end">
+                                {dep.originalPrice && dep.originalPrice !== dep.price && (
+                                  <span className="text-gray-500 text-xs line-through">&pound;{dep.originalPrice}</span>
+                                )}
+                                <span className="font-bold text-sm text-white">
+                                  &pound;{dep.price}
                                 </span>
-                              ) : (
-                                <>
-                                  <div className="flex items-center gap-2 justify-end">
-                                    {dep.originalPrice && dep.originalPrice !== dep.price && (
-                                      <span className="text-gray-500 text-xs line-through">&pound;{dep.originalPrice}</span>
-                                    )}
-                                    <span className="font-bold text-sm text-white">
-                                      &pound;{dep.price}
-                                    </span>
-                                  </div>
-                                  <p className="text-gray-500 text-[10px]">per person</p>
-                                </>
-                              )}
+                              </div>
+                              <p className="text-gray-500 text-[10px]">per person</p>
                             </div>
                           </button>
                         );

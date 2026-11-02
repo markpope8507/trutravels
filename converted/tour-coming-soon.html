@@ -1735,6 +1735,12 @@
       var today = new Date(); today.setHours(0, 0, 0, 0);
       return Math.round((d - today) / 86400000);
     }
+    /* waitlist and on-request rows still show the price, same as an instant row */
+    function depPrice(dep) {
+      var p = dep.dataset.price, o = dep.dataset.orig;
+      return '<span class="bkg-dep__prices">' + (o && o !== p ? '<span class="strike">&pound;' + o + '</span>' : '') +
+        '<span class="now">&pound;' + p + '</span></span><span class="bkg-dep__pp">per person</span>';
+    }
     function depMode(dep) {
       if (dep.dataset.status === 'full') return 'full';
       var n = depDays(dep.dataset.datefmt);
@@ -1749,14 +1755,14 @@
       var right = dep.querySelector('.bkg-dep__r');
       if (mode === 'full') {
         if (dot) { dot.className = 'bkg-dot bkg-dot--full'; }
-        if (status) status.innerHTML = 'Fully booked <span class="bkg-dep__pink">\u00b7 no spots left</span>';
-        if (right) right.innerHTML = '<span class="bkg-dep__req">Join waitlist<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>';
+        if (status) status.innerHTML = '<span class="bkg-dep__req">Join waitlist</span> <span class="bkg-dep__pink">\u00b7 no spots left</span>';
+        if (right) right.innerHTML = depPrice(dep);
       } else {
         var n = depDays(dep.dataset.datefmt);
         dep.classList.add('bkg-dep--request');
         if (dot) { dot.className = 'bkg-dot bkg-dot--request'; }
-        if (status) status.innerHTML = 'On request <span class="bkg-dep__blue">\u00b7 leaves in ' + (n === 0 ? 'today' : n + ' day' + (n === 1 ? '' : 's')) + '</span>';
-        if (right) right.innerHTML = '<span class="bkg-dep__req bkg-dep__req--blue">Check availability<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>';
+        if (status) status.innerHTML = '<span class="bkg-dep__req bkg-dep__req--blue">Check availability</span> <span class="bkg-dep__blue">\u00b7 leaves in ' + (n === 0 ? 'today' : n + ' day' + (n === 1 ? '' : 's')) + '</span>';
+        if (right) right.innerHTML = depPrice(dep);
       }
     });
 
